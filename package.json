@@ -13,7 +13,6 @@
   "dependencies": {
     "cookie-store": "github:waspyro/node-cookie-store",
     "node-bignumber": "^1.2.2",
-    "node-fetch": "^3.3.0",
     "protobufjs": "^7.1.2"
   }
 }
