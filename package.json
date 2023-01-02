@@ -11,8 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cookie-store": "github:waspyro/node-cookie-store",
     "node-bignumber": "^1.2.2",
     "protobufjs": "^7.1.2"
+  },
+  "devDependencies": {
+    "cookie-store": "github:waspyro/node-cookie-store",
+    "cryptowrap": "github:waspyro/cryptowrap"
   }
 }
