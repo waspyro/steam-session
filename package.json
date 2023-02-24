@@ -1,12 +1,16 @@
 {
-  "type": "module",
   "name": "steam-session",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "description": "",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,6 +20,7 @@
     "protobufjs": "^7.1.2"
   },
   "devDependencies": {
-    "cryptowrap": "github:waspyro/cryptowrap"
+    "cryptowrap": "github:waspyro/cryptowrap",
+    "ts-proto": "^1.140.0"
   }
 }
