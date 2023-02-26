@@ -5,7 +5,7 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CMsgSteamNetworkingIdentityLegacyBinary {
-  steamId: number;
+  steamId: string;
   xboxPairwiseId: string;
   genericBytes: Buffer;
   genericString: string;
@@ -15,7 +15,7 @@ export interface CMsgSteamNetworkingIdentityLegacyBinary {
 export interface CMsgSteamDatagramCertificate {
   keyType: CMsgSteamDatagramCertificate_EKeyType;
   keyData: Buffer;
-  legacySteamId: number;
+  legacySteamId: string;
   legacyIdentityBinary: CMsgSteamNetworkingIdentityLegacyBinary | undefined;
   identityString: string;
   gameserverDatacenterIds: number[];
@@ -60,7 +60,7 @@ export function cMsgSteamDatagramCertificate_EKeyTypeToJSON(object: CMsgSteamDat
 
 export interface CMsgSteamDatagramCertificateSigned {
   cert: Buffer;
-  caKeyId: number;
+  caKeyId: string;
   caSignature: Buffer;
   privateKeyData: Buffer;
 }
@@ -71,7 +71,7 @@ export interface CMsgSteamDatagramCertificateRequest {
 
 function createBaseCMsgSteamNetworkingIdentityLegacyBinary(): CMsgSteamNetworkingIdentityLegacyBinary {
   return {
-    steamId: 0,
+    steamId: "0",
     xboxPairwiseId: "",
     genericBytes: Buffer.alloc(0),
     genericString: "",
@@ -81,7 +81,7 @@ function createBaseCMsgSteamNetworkingIdentityLegacyBinary(): CMsgSteamNetworkin
 
 export const CMsgSteamNetworkingIdentityLegacyBinary = {
   encode(message: CMsgSteamNetworkingIdentityLegacyBinary, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(129).fixed64(message.steamId);
     }
     if (message.xboxPairwiseId !== "") {
@@ -107,7 +107,7 @@ export const CMsgSteamNetworkingIdentityLegacyBinary = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 16:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 17:
           message.xboxPairwiseId = reader.string();
@@ -131,7 +131,7 @@ export const CMsgSteamNetworkingIdentityLegacyBinary = {
 
   fromJSON(object: any): CMsgSteamNetworkingIdentityLegacyBinary {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       xboxPairwiseId: isSet(object.xboxPairwiseId) ? String(object.xboxPairwiseId) : "",
       genericBytes: isSet(object.genericBytes) ? Buffer.from(bytesFromBase64(object.genericBytes)) : Buffer.alloc(0),
       genericString: isSet(object.genericString) ? String(object.genericString) : "",
@@ -141,7 +141,7 @@ export const CMsgSteamNetworkingIdentityLegacyBinary = {
 
   toJSON(message: CMsgSteamNetworkingIdentityLegacyBinary): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.xboxPairwiseId !== undefined && (obj.xboxPairwiseId = message.xboxPairwiseId);
     message.genericBytes !== undefined &&
       (obj.genericBytes = base64FromBytes(message.genericBytes !== undefined ? message.genericBytes : Buffer.alloc(0)));
@@ -161,7 +161,7 @@ export const CMsgSteamNetworkingIdentityLegacyBinary = {
     object: I,
   ): CMsgSteamNetworkingIdentityLegacyBinary {
     const message = createBaseCMsgSteamNetworkingIdentityLegacyBinary();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.xboxPairwiseId = object.xboxPairwiseId ?? "";
     message.genericBytes = object.genericBytes ?? Buffer.alloc(0);
     message.genericString = object.genericString ?? "";
@@ -174,7 +174,7 @@ function createBaseCMsgSteamDatagramCertificate(): CMsgSteamDatagramCertificate 
   return {
     keyType: 0,
     keyData: Buffer.alloc(0),
-    legacySteamId: 0,
+    legacySteamId: "0",
     legacyIdentityBinary: undefined,
     identityString: "",
     gameserverDatacenterIds: [],
@@ -193,7 +193,7 @@ export const CMsgSteamDatagramCertificate = {
     if (message.keyData.length !== 0) {
       writer.uint32(18).bytes(message.keyData);
     }
-    if (message.legacySteamId !== 0) {
+    if (message.legacySteamId !== "0") {
       writer.uint32(33).fixed64(message.legacySteamId);
     }
     if (message.legacyIdentityBinary !== undefined) {
@@ -238,7 +238,7 @@ export const CMsgSteamDatagramCertificate = {
           message.keyData = reader.bytes() as Buffer;
           break;
         case 4:
-          message.legacySteamId = longToNumber(reader.fixed64() as Long);
+          message.legacySteamId = longToString(reader.fixed64() as Long);
           break;
         case 11:
           message.legacyIdentityBinary = CMsgSteamNetworkingIdentityLegacyBinary.decode(reader, reader.uint32());
@@ -287,7 +287,7 @@ export const CMsgSteamDatagramCertificate = {
     return {
       keyType: isSet(object.keyType) ? cMsgSteamDatagramCertificate_EKeyTypeFromJSON(object.keyType) : 0,
       keyData: isSet(object.keyData) ? Buffer.from(bytesFromBase64(object.keyData)) : Buffer.alloc(0),
-      legacySteamId: isSet(object.legacySteamId) ? Number(object.legacySteamId) : 0,
+      legacySteamId: isSet(object.legacySteamId) ? String(object.legacySteamId) : "0",
       legacyIdentityBinary: isSet(object.legacyIdentityBinary)
         ? CMsgSteamNetworkingIdentityLegacyBinary.fromJSON(object.legacyIdentityBinary)
         : undefined,
@@ -307,7 +307,7 @@ export const CMsgSteamDatagramCertificate = {
     message.keyType !== undefined && (obj.keyType = cMsgSteamDatagramCertificate_EKeyTypeToJSON(message.keyType));
     message.keyData !== undefined &&
       (obj.keyData = base64FromBytes(message.keyData !== undefined ? message.keyData : Buffer.alloc(0)));
-    message.legacySteamId !== undefined && (obj.legacySteamId = Math.round(message.legacySteamId));
+    message.legacySteamId !== undefined && (obj.legacySteamId = message.legacySteamId);
     message.legacyIdentityBinary !== undefined && (obj.legacyIdentityBinary = message.legacyIdentityBinary
       ? CMsgSteamNetworkingIdentityLegacyBinary.toJSON(message.legacyIdentityBinary)
       : undefined);
@@ -340,7 +340,7 @@ export const CMsgSteamDatagramCertificate = {
     const message = createBaseCMsgSteamDatagramCertificate();
     message.keyType = object.keyType ?? 0;
     message.keyData = object.keyData ?? Buffer.alloc(0);
-    message.legacySteamId = object.legacySteamId ?? 0;
+    message.legacySteamId = object.legacySteamId ?? "0";
     message.legacyIdentityBinary = (object.legacyIdentityBinary !== undefined && object.legacyIdentityBinary !== null)
       ? CMsgSteamNetworkingIdentityLegacyBinary.fromPartial(object.legacyIdentityBinary)
       : undefined;
@@ -355,7 +355,7 @@ export const CMsgSteamDatagramCertificate = {
 };
 
 function createBaseCMsgSteamDatagramCertificateSigned(): CMsgSteamDatagramCertificateSigned {
-  return { cert: Buffer.alloc(0), caKeyId: 0, caSignature: Buffer.alloc(0), privateKeyData: Buffer.alloc(0) };
+  return { cert: Buffer.alloc(0), caKeyId: "0", caSignature: Buffer.alloc(0), privateKeyData: Buffer.alloc(0) };
 }
 
 export const CMsgSteamDatagramCertificateSigned = {
@@ -363,7 +363,7 @@ export const CMsgSteamDatagramCertificateSigned = {
     if (message.cert.length !== 0) {
       writer.uint32(34).bytes(message.cert);
     }
-    if (message.caKeyId !== 0) {
+    if (message.caKeyId !== "0") {
       writer.uint32(41).fixed64(message.caKeyId);
     }
     if (message.caSignature.length !== 0) {
@@ -386,7 +386,7 @@ export const CMsgSteamDatagramCertificateSigned = {
           message.cert = reader.bytes() as Buffer;
           break;
         case 5:
-          message.caKeyId = longToNumber(reader.fixed64() as Long);
+          message.caKeyId = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.caSignature = reader.bytes() as Buffer;
@@ -405,7 +405,7 @@ export const CMsgSteamDatagramCertificateSigned = {
   fromJSON(object: any): CMsgSteamDatagramCertificateSigned {
     return {
       cert: isSet(object.cert) ? Buffer.from(bytesFromBase64(object.cert)) : Buffer.alloc(0),
-      caKeyId: isSet(object.caKeyId) ? Number(object.caKeyId) : 0,
+      caKeyId: isSet(object.caKeyId) ? String(object.caKeyId) : "0",
       caSignature: isSet(object.caSignature) ? Buffer.from(bytesFromBase64(object.caSignature)) : Buffer.alloc(0),
       privateKeyData: isSet(object.privateKeyData)
         ? Buffer.from(bytesFromBase64(object.privateKeyData))
@@ -417,7 +417,7 @@ export const CMsgSteamDatagramCertificateSigned = {
     const obj: any = {};
     message.cert !== undefined &&
       (obj.cert = base64FromBytes(message.cert !== undefined ? message.cert : Buffer.alloc(0)));
-    message.caKeyId !== undefined && (obj.caKeyId = Math.round(message.caKeyId));
+    message.caKeyId !== undefined && (obj.caKeyId = message.caKeyId);
     message.caSignature !== undefined &&
       (obj.caSignature = base64FromBytes(message.caSignature !== undefined ? message.caSignature : Buffer.alloc(0)));
     message.privateKeyData !== undefined &&
@@ -438,7 +438,7 @@ export const CMsgSteamDatagramCertificateSigned = {
   ): CMsgSteamDatagramCertificateSigned {
     const message = createBaseCMsgSteamDatagramCertificateSigned();
     message.cert = object.cert ?? Buffer.alloc(0);
-    message.caKeyId = object.caKeyId ?? 0;
+    message.caKeyId = object.caKeyId ?? "0";
     message.caSignature = object.caSignature ?? Buffer.alloc(0);
     message.privateKeyData = object.privateKeyData ?? Buffer.alloc(0);
     return message;
@@ -558,11 +558,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

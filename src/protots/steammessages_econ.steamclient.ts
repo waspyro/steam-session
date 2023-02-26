@@ -5,19 +5,19 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CEconGetInventoryItemsWithDescriptionsRequest {
-  steamid: number;
+  steamid: string;
   appid: number;
-  contextid: number;
+  contextid: string;
   getDescriptions: boolean;
   forTradeOfferVerification: boolean;
   language: string;
   filters: CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions | undefined;
-  startAssetid: number;
+  startAssetid: string;
   count: number;
 }
 
 export interface CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions {
-  assetids: number[];
+  assetids: string[];
   currencyids: number[];
   tradableOnly: boolean;
   marketableOnly: boolean;
@@ -25,14 +25,14 @@ export interface CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions {
 
 export interface CEconAsset {
   appid: number;
-  contextid: number;
-  assetid: number;
-  classid: number;
-  instanceid: number;
+  contextid: string;
+  assetid: string;
+  classid: string;
+  instanceid: string;
   currencyid: number;
-  amount: number;
+  amount: string;
   missing: boolean;
-  estUsd: number;
+  estUsd: string;
 }
 
 export interface CEconItemDescriptionLine {
@@ -49,8 +49,8 @@ export interface CEconItemAction {
 
 export interface CEconItemDescription {
   appid: number;
-  classid: number;
-  instanceid: number;
+  classid: string;
+  instanceid: string;
   currency: boolean;
   backgroundColor: string;
   iconUrl: string;
@@ -94,7 +94,7 @@ export interface CEconGetInventoryItemsWithDescriptionsResponse {
   descriptions: CEconItemDescription[];
   missingAssets: CEconAsset[];
   moreItems: boolean;
-  lastAssetid: number;
+  lastAssetid: string;
   totalInventoryCount: number;
 }
 
@@ -121,8 +121,8 @@ export interface CEconGetAssetClassInfoRequest {
 }
 
 export interface CEconGetAssetClassInfoRequest_Class {
-  classid: number;
-  instanceid: number;
+  classid: string;
+  instanceid: string;
 }
 
 export interface CEconGetAssetClassInfoResponse {
@@ -131,27 +131,27 @@ export interface CEconGetAssetClassInfoResponse {
 
 function createBaseCEconGetInventoryItemsWithDescriptionsRequest(): CEconGetInventoryItemsWithDescriptionsRequest {
   return {
-    steamid: 0,
+    steamid: "0",
     appid: 0,
-    contextid: 0,
+    contextid: "0",
     getDescriptions: false,
     forTradeOfferVerification: false,
     language: "",
     filters: undefined,
-    startAssetid: 0,
+    startAssetid: "0",
     count: 0,
   };
 }
 
 export const CEconGetInventoryItemsWithDescriptionsRequest = {
   encode(message: CEconGetInventoryItemsWithDescriptionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.contextid !== 0) {
+    if (message.contextid !== "0") {
       writer.uint32(24).uint64(message.contextid);
     }
     if (message.getDescriptions === true) {
@@ -167,7 +167,7 @@ export const CEconGetInventoryItemsWithDescriptionsRequest = {
       CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions.encode(message.filters, writer.uint32(50).fork())
         .ldelim();
     }
-    if (message.startAssetid !== 0) {
+    if (message.startAssetid !== "0") {
       writer.uint32(64).uint64(message.startAssetid);
     }
     if (message.count !== 0) {
@@ -184,13 +184,13 @@ export const CEconGetInventoryItemsWithDescriptionsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
           break;
         case 3:
-          message.contextid = longToNumber(reader.uint64() as Long);
+          message.contextid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.getDescriptions = reader.bool();
@@ -205,7 +205,7 @@ export const CEconGetInventoryItemsWithDescriptionsRequest = {
           message.filters = CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions.decode(reader, reader.uint32());
           break;
         case 8:
-          message.startAssetid = longToNumber(reader.uint64() as Long);
+          message.startAssetid = longToString(reader.uint64() as Long);
           break;
         case 9:
           message.count = reader.int32();
@@ -220,9 +220,9 @@ export const CEconGetInventoryItemsWithDescriptionsRequest = {
 
   fromJSON(object: any): CEconGetInventoryItemsWithDescriptionsRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      contextid: isSet(object.contextid) ? Number(object.contextid) : 0,
+      contextid: isSet(object.contextid) ? String(object.contextid) : "0",
       getDescriptions: isSet(object.getDescriptions) ? Boolean(object.getDescriptions) : false,
       forTradeOfferVerification: isSet(object.forTradeOfferVerification)
         ? Boolean(object.forTradeOfferVerification)
@@ -231,16 +231,16 @@ export const CEconGetInventoryItemsWithDescriptionsRequest = {
       filters: isSet(object.filters)
         ? CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions.fromJSON(object.filters)
         : undefined,
-      startAssetid: isSet(object.startAssetid) ? Number(object.startAssetid) : 0,
+      startAssetid: isSet(object.startAssetid) ? String(object.startAssetid) : "0",
       count: isSet(object.count) ? Number(object.count) : 0,
     };
   },
 
   toJSON(message: CEconGetInventoryItemsWithDescriptionsRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.contextid !== undefined && (obj.contextid = Math.round(message.contextid));
+    message.contextid !== undefined && (obj.contextid = message.contextid);
     message.getDescriptions !== undefined && (obj.getDescriptions = message.getDescriptions);
     message.forTradeOfferVerification !== undefined &&
       (obj.forTradeOfferVerification = message.forTradeOfferVerification);
@@ -248,7 +248,7 @@ export const CEconGetInventoryItemsWithDescriptionsRequest = {
     message.filters !== undefined && (obj.filters = message.filters
       ? CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions.toJSON(message.filters)
       : undefined);
-    message.startAssetid !== undefined && (obj.startAssetid = Math.round(message.startAssetid));
+    message.startAssetid !== undefined && (obj.startAssetid = message.startAssetid);
     message.count !== undefined && (obj.count = Math.round(message.count));
     return obj;
   },
@@ -263,16 +263,16 @@ export const CEconGetInventoryItemsWithDescriptionsRequest = {
     object: I,
   ): CEconGetInventoryItemsWithDescriptionsRequest {
     const message = createBaseCEconGetInventoryItemsWithDescriptionsRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.appid = object.appid ?? 0;
-    message.contextid = object.contextid ?? 0;
+    message.contextid = object.contextid ?? "0";
     message.getDescriptions = object.getDescriptions ?? false;
     message.forTradeOfferVerification = object.forTradeOfferVerification ?? false;
     message.language = object.language ?? "";
     message.filters = (object.filters !== undefined && object.filters !== null)
       ? CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions.fromPartial(object.filters)
       : undefined;
-    message.startAssetid = object.startAssetid ?? 0;
+    message.startAssetid = object.startAssetid ?? "0";
     message.count = object.count ?? 0;
     return message;
   },
@@ -317,10 +317,10 @@ export const CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.assetids.push(longToNumber(reader.uint64() as Long));
+              message.assetids.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.assetids.push(longToNumber(reader.uint64() as Long));
+            message.assetids.push(longToString(reader.uint64() as Long));
           }
           break;
         case 2:
@@ -349,7 +349,7 @@ export const CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions = {
 
   fromJSON(object: any): CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions {
     return {
-      assetids: Array.isArray(object?.assetids) ? object.assetids.map((e: any) => Number(e)) : [],
+      assetids: Array.isArray(object?.assetids) ? object.assetids.map((e: any) => String(e)) : [],
       currencyids: Array.isArray(object?.currencyids) ? object.currencyids.map((e: any) => Number(e)) : [],
       tradableOnly: isSet(object.tradableOnly) ? Boolean(object.tradableOnly) : false,
       marketableOnly: isSet(object.marketableOnly) ? Boolean(object.marketableOnly) : false,
@@ -359,7 +359,7 @@ export const CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions = {
   toJSON(message: CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions): unknown {
     const obj: any = {};
     if (message.assetids) {
-      obj.assetids = message.assetids.map((e) => Math.round(e));
+      obj.assetids = message.assetids.map((e) => e);
     } else {
       obj.assetids = [];
     }
@@ -394,14 +394,14 @@ export const CEconGetInventoryItemsWithDescriptionsRequest_FilterOptions = {
 function createBaseCEconAsset(): CEconAsset {
   return {
     appid: 0,
-    contextid: 0,
-    assetid: 0,
-    classid: 0,
-    instanceid: 0,
+    contextid: "0",
+    assetid: "0",
+    classid: "0",
+    instanceid: "0",
     currencyid: 0,
-    amount: 0,
+    amount: "0",
     missing: false,
-    estUsd: 0,
+    estUsd: "0",
   };
 }
 
@@ -410,28 +410,28 @@ export const CEconAsset = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.contextid !== 0) {
+    if (message.contextid !== "0") {
       writer.uint32(16).uint64(message.contextid);
     }
-    if (message.assetid !== 0) {
+    if (message.assetid !== "0") {
       writer.uint32(24).uint64(message.assetid);
     }
-    if (message.classid !== 0) {
+    if (message.classid !== "0") {
       writer.uint32(32).uint64(message.classid);
     }
-    if (message.instanceid !== 0) {
+    if (message.instanceid !== "0") {
       writer.uint32(40).uint64(message.instanceid);
     }
     if (message.currencyid !== 0) {
       writer.uint32(48).uint32(message.currencyid);
     }
-    if (message.amount !== 0) {
+    if (message.amount !== "0") {
       writer.uint32(56).int64(message.amount);
     }
     if (message.missing === true) {
       writer.uint32(64).bool(message.missing);
     }
-    if (message.estUsd !== 0) {
+    if (message.estUsd !== "0") {
       writer.uint32(72).int64(message.estUsd);
     }
     return writer;
@@ -448,28 +448,28 @@ export const CEconAsset = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.contextid = longToNumber(reader.uint64() as Long);
+          message.contextid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.assetid = longToNumber(reader.uint64() as Long);
+          message.assetid = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.classid = longToNumber(reader.uint64() as Long);
+          message.classid = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.instanceid = longToNumber(reader.uint64() as Long);
+          message.instanceid = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.currencyid = reader.uint32();
           break;
         case 7:
-          message.amount = longToNumber(reader.int64() as Long);
+          message.amount = longToString(reader.int64() as Long);
           break;
         case 8:
           message.missing = reader.bool();
           break;
         case 9:
-          message.estUsd = longToNumber(reader.int64() as Long);
+          message.estUsd = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -482,28 +482,28 @@ export const CEconAsset = {
   fromJSON(object: any): CEconAsset {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      contextid: isSet(object.contextid) ? Number(object.contextid) : 0,
-      assetid: isSet(object.assetid) ? Number(object.assetid) : 0,
-      classid: isSet(object.classid) ? Number(object.classid) : 0,
-      instanceid: isSet(object.instanceid) ? Number(object.instanceid) : 0,
+      contextid: isSet(object.contextid) ? String(object.contextid) : "0",
+      assetid: isSet(object.assetid) ? String(object.assetid) : "0",
+      classid: isSet(object.classid) ? String(object.classid) : "0",
+      instanceid: isSet(object.instanceid) ? String(object.instanceid) : "0",
       currencyid: isSet(object.currencyid) ? Number(object.currencyid) : 0,
-      amount: isSet(object.amount) ? Number(object.amount) : 0,
+      amount: isSet(object.amount) ? String(object.amount) : "0",
       missing: isSet(object.missing) ? Boolean(object.missing) : false,
-      estUsd: isSet(object.estUsd) ? Number(object.estUsd) : 0,
+      estUsd: isSet(object.estUsd) ? String(object.estUsd) : "0",
     };
   },
 
   toJSON(message: CEconAsset): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.contextid !== undefined && (obj.contextid = Math.round(message.contextid));
-    message.assetid !== undefined && (obj.assetid = Math.round(message.assetid));
-    message.classid !== undefined && (obj.classid = Math.round(message.classid));
-    message.instanceid !== undefined && (obj.instanceid = Math.round(message.instanceid));
+    message.contextid !== undefined && (obj.contextid = message.contextid);
+    message.assetid !== undefined && (obj.assetid = message.assetid);
+    message.classid !== undefined && (obj.classid = message.classid);
+    message.instanceid !== undefined && (obj.instanceid = message.instanceid);
     message.currencyid !== undefined && (obj.currencyid = Math.round(message.currencyid));
-    message.amount !== undefined && (obj.amount = Math.round(message.amount));
+    message.amount !== undefined && (obj.amount = message.amount);
     message.missing !== undefined && (obj.missing = message.missing);
-    message.estUsd !== undefined && (obj.estUsd = Math.round(message.estUsd));
+    message.estUsd !== undefined && (obj.estUsd = message.estUsd);
     return obj;
   },
 
@@ -514,14 +514,14 @@ export const CEconAsset = {
   fromPartial<I extends Exact<DeepPartial<CEconAsset>, I>>(object: I): CEconAsset {
     const message = createBaseCEconAsset();
     message.appid = object.appid ?? 0;
-    message.contextid = object.contextid ?? 0;
-    message.assetid = object.assetid ?? 0;
-    message.classid = object.classid ?? 0;
-    message.instanceid = object.instanceid ?? 0;
+    message.contextid = object.contextid ?? "0";
+    message.assetid = object.assetid ?? "0";
+    message.classid = object.classid ?? "0";
+    message.instanceid = object.instanceid ?? "0";
     message.currencyid = object.currencyid ?? 0;
-    message.amount = object.amount ?? 0;
+    message.amount = object.amount ?? "0";
     message.missing = object.missing ?? false;
-    message.estUsd = object.estUsd ?? 0;
+    message.estUsd = object.estUsd ?? "0";
     return message;
   },
 };
@@ -668,8 +668,8 @@ export const CEconItemAction = {
 function createBaseCEconItemDescription(): CEconItemDescription {
   return {
     appid: 0,
-    classid: 0,
-    instanceid: 0,
+    classid: "0",
+    instanceid: "0",
     currency: false,
     backgroundColor: "",
     iconUrl: "",
@@ -705,10 +705,10 @@ export const CEconItemDescription = {
     if (message.appid !== 0) {
       writer.uint32(8).int32(message.appid);
     }
-    if (message.classid !== 0) {
+    if (message.classid !== "0") {
       writer.uint32(16).uint64(message.classid);
     }
-    if (message.instanceid !== 0) {
+    if (message.instanceid !== "0") {
       writer.uint32(24).uint64(message.instanceid);
     }
     if (message.currency === true) {
@@ -806,10 +806,10 @@ export const CEconItemDescription = {
           message.appid = reader.int32();
           break;
         case 2:
-          message.classid = longToNumber(reader.uint64() as Long);
+          message.classid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.instanceid = longToNumber(reader.uint64() as Long);
+          message.instanceid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.currency = reader.bool();
@@ -903,8 +903,8 @@ export const CEconItemDescription = {
   fromJSON(object: any): CEconItemDescription {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      classid: isSet(object.classid) ? Number(object.classid) : 0,
-      instanceid: isSet(object.instanceid) ? Number(object.instanceid) : 0,
+      classid: isSet(object.classid) ? String(object.classid) : "0",
+      instanceid: isSet(object.instanceid) ? String(object.instanceid) : "0",
       currency: isSet(object.currency) ? Boolean(object.currency) : false,
       backgroundColor: isSet(object.backgroundColor) ? String(object.backgroundColor) : "",
       iconUrl: isSet(object.iconUrl) ? String(object.iconUrl) : "",
@@ -954,8 +954,8 @@ export const CEconItemDescription = {
   toJSON(message: CEconItemDescription): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.classid !== undefined && (obj.classid = Math.round(message.classid));
-    message.instanceid !== undefined && (obj.instanceid = Math.round(message.instanceid));
+    message.classid !== undefined && (obj.classid = message.classid);
+    message.instanceid !== undefined && (obj.instanceid = message.instanceid);
     message.currency !== undefined && (obj.currency = message.currency);
     message.backgroundColor !== undefined && (obj.backgroundColor = message.backgroundColor);
     message.iconUrl !== undefined && (obj.iconUrl = message.iconUrl);
@@ -1026,8 +1026,8 @@ export const CEconItemDescription = {
   fromPartial<I extends Exact<DeepPartial<CEconItemDescription>, I>>(object: I): CEconItemDescription {
     const message = createBaseCEconItemDescription();
     message.appid = object.appid ?? 0;
-    message.classid = object.classid ?? 0;
-    message.instanceid = object.instanceid ?? 0;
+    message.classid = object.classid ?? "0";
+    message.instanceid = object.instanceid ?? "0";
     message.currency = object.currency ?? false;
     message.backgroundColor = object.backgroundColor ?? "";
     message.iconUrl = object.iconUrl ?? "";
@@ -1160,7 +1160,14 @@ export const CEconItemTag = {
 };
 
 function createBaseCEconGetInventoryItemsWithDescriptionsResponse(): CEconGetInventoryItemsWithDescriptionsResponse {
-  return { assets: [], descriptions: [], missingAssets: [], moreItems: false, lastAssetid: 0, totalInventoryCount: 0 };
+  return {
+    assets: [],
+    descriptions: [],
+    missingAssets: [],
+    moreItems: false,
+    lastAssetid: "0",
+    totalInventoryCount: 0,
+  };
 }
 
 export const CEconGetInventoryItemsWithDescriptionsResponse = {
@@ -1180,7 +1187,7 @@ export const CEconGetInventoryItemsWithDescriptionsResponse = {
     if (message.moreItems === true) {
       writer.uint32(32).bool(message.moreItems);
     }
-    if (message.lastAssetid !== 0) {
+    if (message.lastAssetid !== "0") {
       writer.uint32(40).uint64(message.lastAssetid);
     }
     if (message.totalInventoryCount !== 0) {
@@ -1209,7 +1216,7 @@ export const CEconGetInventoryItemsWithDescriptionsResponse = {
           message.moreItems = reader.bool();
           break;
         case 5:
-          message.lastAssetid = longToNumber(reader.uint64() as Long);
+          message.lastAssetid = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.totalInventoryCount = reader.uint32();
@@ -1232,7 +1239,7 @@ export const CEconGetInventoryItemsWithDescriptionsResponse = {
         ? object.missingAssets.map((e: any) => CEconAsset.fromJSON(e))
         : [],
       moreItems: isSet(object.moreItems) ? Boolean(object.moreItems) : false,
-      lastAssetid: isSet(object.lastAssetid) ? Number(object.lastAssetid) : 0,
+      lastAssetid: isSet(object.lastAssetid) ? String(object.lastAssetid) : "0",
       totalInventoryCount: isSet(object.totalInventoryCount) ? Number(object.totalInventoryCount) : 0,
     };
   },
@@ -1255,7 +1262,7 @@ export const CEconGetInventoryItemsWithDescriptionsResponse = {
       obj.missingAssets = [];
     }
     message.moreItems !== undefined && (obj.moreItems = message.moreItems);
-    message.lastAssetid !== undefined && (obj.lastAssetid = Math.round(message.lastAssetid));
+    message.lastAssetid !== undefined && (obj.lastAssetid = message.lastAssetid);
     message.totalInventoryCount !== undefined && (obj.totalInventoryCount = Math.round(message.totalInventoryCount));
     return obj;
   },
@@ -1274,7 +1281,7 @@ export const CEconGetInventoryItemsWithDescriptionsResponse = {
     message.descriptions = object.descriptions?.map((e) => CEconItemDescription.fromPartial(e)) || [];
     message.missingAssets = object.missingAssets?.map((e) => CEconAsset.fromPartial(e)) || [];
     message.moreItems = object.moreItems ?? false;
-    message.lastAssetid = object.lastAssetid ?? 0;
+    message.lastAssetid = object.lastAssetid ?? "0";
     message.totalInventoryCount = object.totalInventoryCount ?? 0;
     return message;
   },
@@ -1580,15 +1587,15 @@ export const CEconGetAssetClassInfoRequest = {
 };
 
 function createBaseCEconGetAssetClassInfoRequest_Class(): CEconGetAssetClassInfoRequest_Class {
-  return { classid: 0, instanceid: 0 };
+  return { classid: "0", instanceid: "0" };
 }
 
 export const CEconGetAssetClassInfoRequest_Class = {
   encode(message: CEconGetAssetClassInfoRequest_Class, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.classid !== 0) {
+    if (message.classid !== "0") {
       writer.uint32(8).uint64(message.classid);
     }
-    if (message.instanceid !== 0) {
+    if (message.instanceid !== "0") {
       writer.uint32(16).uint64(message.instanceid);
     }
     return writer;
@@ -1602,10 +1609,10 @@ export const CEconGetAssetClassInfoRequest_Class = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.classid = longToNumber(reader.uint64() as Long);
+          message.classid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.instanceid = longToNumber(reader.uint64() as Long);
+          message.instanceid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1617,15 +1624,15 @@ export const CEconGetAssetClassInfoRequest_Class = {
 
   fromJSON(object: any): CEconGetAssetClassInfoRequest_Class {
     return {
-      classid: isSet(object.classid) ? Number(object.classid) : 0,
-      instanceid: isSet(object.instanceid) ? Number(object.instanceid) : 0,
+      classid: isSet(object.classid) ? String(object.classid) : "0",
+      instanceid: isSet(object.instanceid) ? String(object.instanceid) : "0",
     };
   },
 
   toJSON(message: CEconGetAssetClassInfoRequest_Class): unknown {
     const obj: any = {};
-    message.classid !== undefined && (obj.classid = Math.round(message.classid));
-    message.instanceid !== undefined && (obj.instanceid = Math.round(message.instanceid));
+    message.classid !== undefined && (obj.classid = message.classid);
+    message.instanceid !== undefined && (obj.instanceid = message.instanceid);
     return obj;
   },
 
@@ -1639,8 +1646,8 @@ export const CEconGetAssetClassInfoRequest_Class = {
     object: I,
   ): CEconGetAssetClassInfoRequest_Class {
     const message = createBaseCEconGetAssetClassInfoRequest_Class();
-    message.classid = object.classid ?? 0;
-    message.instanceid = object.instanceid ?? 0;
+    message.classid = object.classid ?? "0";
+    message.instanceid = object.instanceid ?? "0";
     return message;
   },
 };
@@ -1765,25 +1772,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1795,11 +1783,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

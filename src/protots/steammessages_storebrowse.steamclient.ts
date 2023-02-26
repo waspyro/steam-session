@@ -498,9 +498,9 @@ export interface StoreItem_PurchaseOption {
   packageid: number;
   bundleid: number;
   purchaseOptionName: string;
-  finalPriceInCents: number;
-  originalPriceInCents: number;
-  userFinalPriceInCents: number;
+  finalPriceInCents: string;
+  originalPriceInCents: string;
+  userFinalPriceInCents: string;
   formattedFinalPrice: string;
   formattedOriginalPrice: string;
   discountPct: number;
@@ -516,7 +516,7 @@ export interface StoreItem_PurchaseOption {
 }
 
 export interface StoreItem_PurchaseOption_Discount {
-  discountAmount: number;
+  discountAmount: string;
   discountDescription: string;
   discountEndDate: number;
 }
@@ -591,7 +591,7 @@ export interface CStoreBrowseGetDLCForAppsRequest {
   context: StoreBrowseContext | undefined;
   storePageFilter: CStorePageFilter | undefined;
   appids: StoreItemID[];
-  steamid: number;
+  steamid: string;
 }
 
 export interface CStoreBrowseGetDLCForAppsResponse {
@@ -604,7 +604,7 @@ export interface CStoreBrowseGetDLCForAppsResponse_DLCData {
   parentappid: number;
   releaseDate: number;
   comingSoon: boolean;
-  price: number;
+  price: string;
   discount: number;
   free: boolean;
 }
@@ -2780,9 +2780,9 @@ function createBaseStoreItem_PurchaseOption(): StoreItem_PurchaseOption {
     packageid: 0,
     bundleid: 0,
     purchaseOptionName: "",
-    finalPriceInCents: 0,
-    originalPriceInCents: 0,
-    userFinalPriceInCents: 0,
+    finalPriceInCents: "0",
+    originalPriceInCents: "0",
+    userFinalPriceInCents: "0",
     formattedFinalPrice: "",
     formattedOriginalPrice: "",
     discountPct: 0,
@@ -2809,13 +2809,13 @@ export const StoreItem_PurchaseOption = {
     if (message.purchaseOptionName !== "") {
       writer.uint32(26).string(message.purchaseOptionName);
     }
-    if (message.finalPriceInCents !== 0) {
+    if (message.finalPriceInCents !== "0") {
       writer.uint32(40).int64(message.finalPriceInCents);
     }
-    if (message.originalPriceInCents !== 0) {
+    if (message.originalPriceInCents !== "0") {
       writer.uint32(48).int64(message.originalPriceInCents);
     }
-    if (message.userFinalPriceInCents !== 0) {
+    if (message.userFinalPriceInCents !== "0") {
       writer.uint32(56).int64(message.userFinalPriceInCents);
     }
     if (message.formattedFinalPrice !== "") {
@@ -2874,13 +2874,13 @@ export const StoreItem_PurchaseOption = {
           message.purchaseOptionName = reader.string();
           break;
         case 5:
-          message.finalPriceInCents = longToNumber(reader.int64() as Long);
+          message.finalPriceInCents = longToString(reader.int64() as Long);
           break;
         case 6:
-          message.originalPriceInCents = longToNumber(reader.int64() as Long);
+          message.originalPriceInCents = longToString(reader.int64() as Long);
           break;
         case 7:
-          message.userFinalPriceInCents = longToNumber(reader.int64() as Long);
+          message.userFinalPriceInCents = longToString(reader.int64() as Long);
           break;
         case 8:
           message.formattedFinalPrice = reader.string();
@@ -2931,9 +2931,9 @@ export const StoreItem_PurchaseOption = {
       packageid: isSet(object.packageid) ? Number(object.packageid) : 0,
       bundleid: isSet(object.bundleid) ? Number(object.bundleid) : 0,
       purchaseOptionName: isSet(object.purchaseOptionName) ? String(object.purchaseOptionName) : "",
-      finalPriceInCents: isSet(object.finalPriceInCents) ? Number(object.finalPriceInCents) : 0,
-      originalPriceInCents: isSet(object.originalPriceInCents) ? Number(object.originalPriceInCents) : 0,
-      userFinalPriceInCents: isSet(object.userFinalPriceInCents) ? Number(object.userFinalPriceInCents) : 0,
+      finalPriceInCents: isSet(object.finalPriceInCents) ? String(object.finalPriceInCents) : "0",
+      originalPriceInCents: isSet(object.originalPriceInCents) ? String(object.originalPriceInCents) : "0",
+      userFinalPriceInCents: isSet(object.userFinalPriceInCents) ? String(object.userFinalPriceInCents) : "0",
       formattedFinalPrice: isSet(object.formattedFinalPrice) ? String(object.formattedFinalPrice) : "",
       formattedOriginalPrice: isSet(object.formattedOriginalPrice) ? String(object.formattedOriginalPrice) : "",
       discountPct: isSet(object.discountPct) ? Number(object.discountPct) : 0,
@@ -2962,10 +2962,9 @@ export const StoreItem_PurchaseOption = {
     message.packageid !== undefined && (obj.packageid = Math.round(message.packageid));
     message.bundleid !== undefined && (obj.bundleid = Math.round(message.bundleid));
     message.purchaseOptionName !== undefined && (obj.purchaseOptionName = message.purchaseOptionName);
-    message.finalPriceInCents !== undefined && (obj.finalPriceInCents = Math.round(message.finalPriceInCents));
-    message.originalPriceInCents !== undefined && (obj.originalPriceInCents = Math.round(message.originalPriceInCents));
-    message.userFinalPriceInCents !== undefined &&
-      (obj.userFinalPriceInCents = Math.round(message.userFinalPriceInCents));
+    message.finalPriceInCents !== undefined && (obj.finalPriceInCents = message.finalPriceInCents);
+    message.originalPriceInCents !== undefined && (obj.originalPriceInCents = message.originalPriceInCents);
+    message.userFinalPriceInCents !== undefined && (obj.userFinalPriceInCents = message.userFinalPriceInCents);
     message.formattedFinalPrice !== undefined && (obj.formattedFinalPrice = message.formattedFinalPrice);
     message.formattedOriginalPrice !== undefined && (obj.formattedOriginalPrice = message.formattedOriginalPrice);
     message.discountPct !== undefined && (obj.discountPct = Math.round(message.discountPct));
@@ -3009,9 +3008,9 @@ export const StoreItem_PurchaseOption = {
     message.packageid = object.packageid ?? 0;
     message.bundleid = object.bundleid ?? 0;
     message.purchaseOptionName = object.purchaseOptionName ?? "";
-    message.finalPriceInCents = object.finalPriceInCents ?? 0;
-    message.originalPriceInCents = object.originalPriceInCents ?? 0;
-    message.userFinalPriceInCents = object.userFinalPriceInCents ?? 0;
+    message.finalPriceInCents = object.finalPriceInCents ?? "0";
+    message.originalPriceInCents = object.originalPriceInCents ?? "0";
+    message.userFinalPriceInCents = object.userFinalPriceInCents ?? "0";
     message.formattedFinalPrice = object.formattedFinalPrice ?? "";
     message.formattedOriginalPrice = object.formattedOriginalPrice ?? "";
     message.discountPct = object.discountPct ?? 0;
@@ -3032,12 +3031,12 @@ export const StoreItem_PurchaseOption = {
 };
 
 function createBaseStoreItem_PurchaseOption_Discount(): StoreItem_PurchaseOption_Discount {
-  return { discountAmount: 0, discountDescription: "", discountEndDate: 0 };
+  return { discountAmount: "0", discountDescription: "", discountEndDate: 0 };
 }
 
 export const StoreItem_PurchaseOption_Discount = {
   encode(message: StoreItem_PurchaseOption_Discount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.discountAmount !== 0) {
+    if (message.discountAmount !== "0") {
       writer.uint32(8).int64(message.discountAmount);
     }
     if (message.discountDescription !== "") {
@@ -3057,7 +3056,7 @@ export const StoreItem_PurchaseOption_Discount = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.discountAmount = longToNumber(reader.int64() as Long);
+          message.discountAmount = longToString(reader.int64() as Long);
           break;
         case 2:
           message.discountDescription = reader.string();
@@ -3075,7 +3074,7 @@ export const StoreItem_PurchaseOption_Discount = {
 
   fromJSON(object: any): StoreItem_PurchaseOption_Discount {
     return {
-      discountAmount: isSet(object.discountAmount) ? Number(object.discountAmount) : 0,
+      discountAmount: isSet(object.discountAmount) ? String(object.discountAmount) : "0",
       discountDescription: isSet(object.discountDescription) ? String(object.discountDescription) : "",
       discountEndDate: isSet(object.discountEndDate) ? Number(object.discountEndDate) : 0,
     };
@@ -3083,7 +3082,7 @@ export const StoreItem_PurchaseOption_Discount = {
 
   toJSON(message: StoreItem_PurchaseOption_Discount): unknown {
     const obj: any = {};
-    message.discountAmount !== undefined && (obj.discountAmount = Math.round(message.discountAmount));
+    message.discountAmount !== undefined && (obj.discountAmount = message.discountAmount);
     message.discountDescription !== undefined && (obj.discountDescription = message.discountDescription);
     message.discountEndDate !== undefined && (obj.discountEndDate = Math.round(message.discountEndDate));
     return obj;
@@ -3099,7 +3098,7 @@ export const StoreItem_PurchaseOption_Discount = {
     object: I,
   ): StoreItem_PurchaseOption_Discount {
     const message = createBaseStoreItem_PurchaseOption_Discount();
-    message.discountAmount = object.discountAmount ?? 0;
+    message.discountAmount = object.discountAmount ?? "0";
     message.discountDescription = object.discountDescription ?? "";
     message.discountEndDate = object.discountEndDate ?? 0;
     return message;
@@ -3979,7 +3978,7 @@ export const CStoreBrowseGetStoreCategoriesResponse_Category = {
 };
 
 function createBaseCStoreBrowseGetDLCForAppsRequest(): CStoreBrowseGetDLCForAppsRequest {
-  return { context: undefined, storePageFilter: undefined, appids: [], steamid: 0 };
+  return { context: undefined, storePageFilter: undefined, appids: [], steamid: "0" };
 }
 
 export const CStoreBrowseGetDLCForAppsRequest = {
@@ -3993,7 +3992,7 @@ export const CStoreBrowseGetDLCForAppsRequest = {
     for (const v of message.appids) {
       StoreItemID.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(32).uint64(message.steamid);
     }
     return writer;
@@ -4016,7 +4015,7 @@ export const CStoreBrowseGetDLCForAppsRequest = {
           message.appids.push(StoreItemID.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4031,7 +4030,7 @@ export const CStoreBrowseGetDLCForAppsRequest = {
       context: isSet(object.context) ? StoreBrowseContext.fromJSON(object.context) : undefined,
       storePageFilter: isSet(object.storePageFilter) ? CStorePageFilter.fromJSON(object.storePageFilter) : undefined,
       appids: Array.isArray(object?.appids) ? object.appids.map((e: any) => StoreItemID.fromJSON(e)) : [],
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
@@ -4046,7 +4045,7 @@ export const CStoreBrowseGetDLCForAppsRequest = {
     } else {
       obj.appids = [];
     }
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -4067,7 +4066,7 @@ export const CStoreBrowseGetDLCForAppsRequest = {
       ? CStorePageFilter.fromPartial(object.storePageFilter)
       : undefined;
     message.appids = object.appids?.map((e) => StoreItemID.fromPartial(e)) || [];
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -4154,7 +4153,7 @@ export const CStoreBrowseGetDLCForAppsResponse = {
 };
 
 function createBaseCStoreBrowseGetDLCForAppsResponse_DLCData(): CStoreBrowseGetDLCForAppsResponse_DLCData {
-  return { appid: 0, parentappid: 0, releaseDate: 0, comingSoon: false, price: 0, discount: 0, free: false };
+  return { appid: 0, parentappid: 0, releaseDate: 0, comingSoon: false, price: "0", discount: 0, free: false };
 }
 
 export const CStoreBrowseGetDLCForAppsResponse_DLCData = {
@@ -4171,7 +4170,7 @@ export const CStoreBrowseGetDLCForAppsResponse_DLCData = {
     if (message.comingSoon === true) {
       writer.uint32(32).bool(message.comingSoon);
     }
-    if (message.price !== 0) {
+    if (message.price !== "0") {
       writer.uint32(40).int64(message.price);
     }
     if (message.discount !== 0) {
@@ -4203,7 +4202,7 @@ export const CStoreBrowseGetDLCForAppsResponse_DLCData = {
           message.comingSoon = reader.bool();
           break;
         case 5:
-          message.price = longToNumber(reader.int64() as Long);
+          message.price = longToString(reader.int64() as Long);
           break;
         case 6:
           message.discount = reader.uint32();
@@ -4225,7 +4224,7 @@ export const CStoreBrowseGetDLCForAppsResponse_DLCData = {
       parentappid: isSet(object.parentappid) ? Number(object.parentappid) : 0,
       releaseDate: isSet(object.releaseDate) ? Number(object.releaseDate) : 0,
       comingSoon: isSet(object.comingSoon) ? Boolean(object.comingSoon) : false,
-      price: isSet(object.price) ? Number(object.price) : 0,
+      price: isSet(object.price) ? String(object.price) : "0",
       discount: isSet(object.discount) ? Number(object.discount) : 0,
       free: isSet(object.free) ? Boolean(object.free) : false,
     };
@@ -4237,7 +4236,7 @@ export const CStoreBrowseGetDLCForAppsResponse_DLCData = {
     message.parentappid !== undefined && (obj.parentappid = Math.round(message.parentappid));
     message.releaseDate !== undefined && (obj.releaseDate = Math.round(message.releaseDate));
     message.comingSoon !== undefined && (obj.comingSoon = message.comingSoon);
-    message.price !== undefined && (obj.price = Math.round(message.price));
+    message.price !== undefined && (obj.price = message.price);
     message.discount !== undefined && (obj.discount = Math.round(message.discount));
     message.free !== undefined && (obj.free = message.free);
     return obj;
@@ -4257,7 +4256,7 @@ export const CStoreBrowseGetDLCForAppsResponse_DLCData = {
     message.parentappid = object.parentappid ?? 0;
     message.releaseDate = object.releaseDate ?? 0;
     message.comingSoon = object.comingSoon ?? false;
-    message.price = object.price ?? 0;
+    message.price = object.price ?? "0";
     message.discount = object.discount ?? 0;
     message.free = object.free ?? false;
     return message;
@@ -4645,25 +4644,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -4675,11 +4655,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

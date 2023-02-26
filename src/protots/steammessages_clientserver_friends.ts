@@ -5,7 +5,7 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CMsgClientFriendMsg {
-  steamid: number;
+  steamid: string;
   chatEntryType: number;
   message: Buffer;
   rtime32ServerTimestamp: number;
@@ -13,7 +13,7 @@ export interface CMsgClientFriendMsg {
 }
 
 export interface CMsgClientFriendMsgIncoming {
-  steamidFrom: number;
+  steamidFrom: string;
   chatEntryType: number;
   fromLimitedAccount: boolean;
   message: Buffer;
@@ -21,22 +21,22 @@ export interface CMsgClientFriendMsgIncoming {
 }
 
 export interface CMsgClientAddFriend {
-  steamidToAdd: number;
+  steamidToAdd: string;
   accountnameOrEmailToAdd: string;
 }
 
 export interface CMsgClientAddFriendResponse {
   eresult: number;
-  steamIdAdded: number;
+  steamIdAdded: string;
   personaNameAdded: string;
 }
 
 export interface CMsgClientRemoveFriend {
-  friendid: number;
+  friendid: string;
 }
 
 export interface CMsgClientHideFriend {
-  friendid: number;
+  friendid: string;
   hide: boolean;
 }
 
@@ -49,7 +49,7 @@ export interface CMsgClientFriendsList {
 }
 
 export interface CMsgClientFriendsList_Friend {
-  ulfriendid: number;
+  ulfriendid: string;
   efriendrelationship: number;
 }
 
@@ -66,7 +66,7 @@ export interface CMsgClientFriendsGroupsList_FriendGroup {
 }
 
 export interface CMsgClientFriendsGroupsList_FriendGroupsMembership {
-  ulSteamID: number;
+  ulSteamID: string;
   nGroupID: number;
 }
 
@@ -77,12 +77,12 @@ export interface CMsgClientPlayerNicknameList {
 }
 
 export interface CMsgClientPlayerNicknameList_PlayerNickname {
-  steamid: number;
+  steamid: string;
   nickname: string;
 }
 
 export interface CMsgClientSetPlayerNickname {
-  steamid: number;
+  steamid: string;
   nickname: string;
 }
 
@@ -92,7 +92,7 @@ export interface CMsgClientSetPlayerNicknameResponse {
 
 export interface CMsgClientRequestFriendData {
   personaStateRequested: number;
-  friends: number[];
+  friends: string[];
 }
 
 export interface CMsgClientChangeStatus {
@@ -117,7 +117,7 @@ export interface CMsgClientPersonaState {
 }
 
 export interface CMsgClientPersonaState_Friend {
-  friendid: number;
+  friendid: string;
   personaState: number;
   gamePlayedAppId: number;
   gameServerIp: number;
@@ -127,20 +127,20 @@ export interface CMsgClientPersonaState_Friend {
   personaSetByUser: boolean;
   playerName: string;
   queryPort: number;
-  steamidSource: number;
+  steamidSource: string;
   avatarHash: Buffer;
   lastLogoff: number;
   lastLogon: number;
   lastSeenOnline: number;
   clanRank: number;
   gameName: string;
-  gameid: number;
+  gameid: string;
   gameDataBlob: Buffer;
   clanData: CMsgClientPersonaState_Friend_ClanData | undefined;
   clanTag: string;
   richPresence: CMsgClientPersonaState_Friend_KV[];
-  broadcastId: number;
-  gameLobbyId: number;
+  broadcastId: string;
+  gameLobbyId: string;
   watchingBroadcastAccountid: number;
   watchingBroadcastAppid: number;
   watchingBroadcastViewers: number;
@@ -152,7 +152,7 @@ export interface CMsgClientPersonaState_Friend {
 
 export interface CMsgClientPersonaState_Friend_ClanData {
   oggAppId: number;
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CMsgClientPersonaState_Friend_KV {
@@ -161,12 +161,12 @@ export interface CMsgClientPersonaState_Friend_KV {
 }
 
 export interface CMsgClientFriendProfileInfo {
-  steamidFriend: number;
+  steamidFriend: string;
 }
 
 export interface CMsgClientFriendProfileInfoResponse {
   eresult: number;
-  steamidFriend: number;
+  steamidFriend: string;
   timeCreated: number;
   realName: string;
   cityName: string;
@@ -177,9 +177,9 @@ export interface CMsgClientFriendProfileInfoResponse {
 }
 
 export interface CMsgClientCreateFriendsGroup {
-  steamid: number;
+  steamid: string;
   groupname: string;
-  steamidFriends: number[];
+  steamidFriends: string[];
 }
 
 export interface CMsgClientCreateFriendsGroupResponse {
@@ -188,7 +188,7 @@ export interface CMsgClientCreateFriendsGroupResponse {
 }
 
 export interface CMsgClientDeleteFriendsGroup {
-  steamid: number;
+  steamid: string;
   groupid: number;
 }
 
@@ -199,8 +199,8 @@ export interface CMsgClientDeleteFriendsGroupResponse {
 export interface CMsgClientManageFriendsGroup {
   groupid: number;
   groupname: string;
-  steamidFriendsAdded: number[];
-  steamidFriendsRemoved: number[];
+  steamidFriendsAdded: string[];
+  steamidFriendsRemoved: string[];
 }
 
 export interface CMsgClientManageFriendsGroupResponse {
@@ -209,7 +209,7 @@ export interface CMsgClientManageFriendsGroupResponse {
 
 export interface CMsgClientAddFriendToGroup {
   groupid: number;
-  steamiduser: number;
+  steamiduser: string;
 }
 
 export interface CMsgClientAddFriendToGroupResponse {
@@ -218,7 +218,7 @@ export interface CMsgClientAddFriendToGroupResponse {
 
 export interface CMsgClientRemoveFriendFromGroup {
   groupid: number;
-  steamiduser: number;
+  steamiduser: string;
 }
 
 export interface CMsgClientRemoveFriendFromGroupResponse {
@@ -261,12 +261,12 @@ export interface CMsgClientEmoticonList_Effect {
 }
 
 function createBaseCMsgClientFriendMsg(): CMsgClientFriendMsg {
-  return { steamid: 0, chatEntryType: 0, message: Buffer.alloc(0), rtime32ServerTimestamp: 0, echoToSender: false };
+  return { steamid: "0", chatEntryType: 0, message: Buffer.alloc(0), rtime32ServerTimestamp: 0, echoToSender: false };
 }
 
 export const CMsgClientFriendMsg = {
   encode(message: CMsgClientFriendMsg, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.chatEntryType !== 0) {
@@ -292,7 +292,7 @@ export const CMsgClientFriendMsg = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.chatEntryType = reader.int32();
@@ -316,7 +316,7 @@ export const CMsgClientFriendMsg = {
 
   fromJSON(object: any): CMsgClientFriendMsg {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       chatEntryType: isSet(object.chatEntryType) ? Number(object.chatEntryType) : 0,
       message: isSet(object.message) ? Buffer.from(bytesFromBase64(object.message)) : Buffer.alloc(0),
       rtime32ServerTimestamp: isSet(object.rtime32ServerTimestamp) ? Number(object.rtime32ServerTimestamp) : 0,
@@ -326,7 +326,7 @@ export const CMsgClientFriendMsg = {
 
   toJSON(message: CMsgClientFriendMsg): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.chatEntryType !== undefined && (obj.chatEntryType = Math.round(message.chatEntryType));
     message.message !== undefined &&
       (obj.message = base64FromBytes(message.message !== undefined ? message.message : Buffer.alloc(0)));
@@ -342,7 +342,7 @@ export const CMsgClientFriendMsg = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientFriendMsg>, I>>(object: I): CMsgClientFriendMsg {
     const message = createBaseCMsgClientFriendMsg();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.chatEntryType = object.chatEntryType ?? 0;
     message.message = object.message ?? Buffer.alloc(0);
     message.rtime32ServerTimestamp = object.rtime32ServerTimestamp ?? 0;
@@ -353,7 +353,7 @@ export const CMsgClientFriendMsg = {
 
 function createBaseCMsgClientFriendMsgIncoming(): CMsgClientFriendMsgIncoming {
   return {
-    steamidFrom: 0,
+    steamidFrom: "0",
     chatEntryType: 0,
     fromLimitedAccount: false,
     message: Buffer.alloc(0),
@@ -363,7 +363,7 @@ function createBaseCMsgClientFriendMsgIncoming(): CMsgClientFriendMsgIncoming {
 
 export const CMsgClientFriendMsgIncoming = {
   encode(message: CMsgClientFriendMsgIncoming, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidFrom !== 0) {
+    if (message.steamidFrom !== "0") {
       writer.uint32(9).fixed64(message.steamidFrom);
     }
     if (message.chatEntryType !== 0) {
@@ -389,7 +389,7 @@ export const CMsgClientFriendMsgIncoming = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidFrom = longToNumber(reader.fixed64() as Long);
+          message.steamidFrom = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.chatEntryType = reader.int32();
@@ -413,7 +413,7 @@ export const CMsgClientFriendMsgIncoming = {
 
   fromJSON(object: any): CMsgClientFriendMsgIncoming {
     return {
-      steamidFrom: isSet(object.steamidFrom) ? Number(object.steamidFrom) : 0,
+      steamidFrom: isSet(object.steamidFrom) ? String(object.steamidFrom) : "0",
       chatEntryType: isSet(object.chatEntryType) ? Number(object.chatEntryType) : 0,
       fromLimitedAccount: isSet(object.fromLimitedAccount) ? Boolean(object.fromLimitedAccount) : false,
       message: isSet(object.message) ? Buffer.from(bytesFromBase64(object.message)) : Buffer.alloc(0),
@@ -423,7 +423,7 @@ export const CMsgClientFriendMsgIncoming = {
 
   toJSON(message: CMsgClientFriendMsgIncoming): unknown {
     const obj: any = {};
-    message.steamidFrom !== undefined && (obj.steamidFrom = Math.round(message.steamidFrom));
+    message.steamidFrom !== undefined && (obj.steamidFrom = message.steamidFrom);
     message.chatEntryType !== undefined && (obj.chatEntryType = Math.round(message.chatEntryType));
     message.fromLimitedAccount !== undefined && (obj.fromLimitedAccount = message.fromLimitedAccount);
     message.message !== undefined &&
@@ -439,7 +439,7 @@ export const CMsgClientFriendMsgIncoming = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientFriendMsgIncoming>, I>>(object: I): CMsgClientFriendMsgIncoming {
     const message = createBaseCMsgClientFriendMsgIncoming();
-    message.steamidFrom = object.steamidFrom ?? 0;
+    message.steamidFrom = object.steamidFrom ?? "0";
     message.chatEntryType = object.chatEntryType ?? 0;
     message.fromLimitedAccount = object.fromLimitedAccount ?? false;
     message.message = object.message ?? Buffer.alloc(0);
@@ -449,12 +449,12 @@ export const CMsgClientFriendMsgIncoming = {
 };
 
 function createBaseCMsgClientAddFriend(): CMsgClientAddFriend {
-  return { steamidToAdd: 0, accountnameOrEmailToAdd: "" };
+  return { steamidToAdd: "0", accountnameOrEmailToAdd: "" };
 }
 
 export const CMsgClientAddFriend = {
   encode(message: CMsgClientAddFriend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidToAdd !== 0) {
+    if (message.steamidToAdd !== "0") {
       writer.uint32(9).fixed64(message.steamidToAdd);
     }
     if (message.accountnameOrEmailToAdd !== "") {
@@ -471,7 +471,7 @@ export const CMsgClientAddFriend = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidToAdd = longToNumber(reader.fixed64() as Long);
+          message.steamidToAdd = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.accountnameOrEmailToAdd = reader.string();
@@ -486,14 +486,14 @@ export const CMsgClientAddFriend = {
 
   fromJSON(object: any): CMsgClientAddFriend {
     return {
-      steamidToAdd: isSet(object.steamidToAdd) ? Number(object.steamidToAdd) : 0,
+      steamidToAdd: isSet(object.steamidToAdd) ? String(object.steamidToAdd) : "0",
       accountnameOrEmailToAdd: isSet(object.accountnameOrEmailToAdd) ? String(object.accountnameOrEmailToAdd) : "",
     };
   },
 
   toJSON(message: CMsgClientAddFriend): unknown {
     const obj: any = {};
-    message.steamidToAdd !== undefined && (obj.steamidToAdd = Math.round(message.steamidToAdd));
+    message.steamidToAdd !== undefined && (obj.steamidToAdd = message.steamidToAdd);
     message.accountnameOrEmailToAdd !== undefined && (obj.accountnameOrEmailToAdd = message.accountnameOrEmailToAdd);
     return obj;
   },
@@ -504,14 +504,14 @@ export const CMsgClientAddFriend = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientAddFriend>, I>>(object: I): CMsgClientAddFriend {
     const message = createBaseCMsgClientAddFriend();
-    message.steamidToAdd = object.steamidToAdd ?? 0;
+    message.steamidToAdd = object.steamidToAdd ?? "0";
     message.accountnameOrEmailToAdd = object.accountnameOrEmailToAdd ?? "";
     return message;
   },
 };
 
 function createBaseCMsgClientAddFriendResponse(): CMsgClientAddFriendResponse {
-  return { eresult: 0, steamIdAdded: 0, personaNameAdded: "" };
+  return { eresult: 0, steamIdAdded: "0", personaNameAdded: "" };
 }
 
 export const CMsgClientAddFriendResponse = {
@@ -519,7 +519,7 @@ export const CMsgClientAddFriendResponse = {
     if (message.eresult !== 0) {
       writer.uint32(8).int32(message.eresult);
     }
-    if (message.steamIdAdded !== 0) {
+    if (message.steamIdAdded !== "0") {
       writer.uint32(17).fixed64(message.steamIdAdded);
     }
     if (message.personaNameAdded !== "") {
@@ -539,7 +539,7 @@ export const CMsgClientAddFriendResponse = {
           message.eresult = reader.int32();
           break;
         case 2:
-          message.steamIdAdded = longToNumber(reader.fixed64() as Long);
+          message.steamIdAdded = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.personaNameAdded = reader.string();
@@ -555,7 +555,7 @@ export const CMsgClientAddFriendResponse = {
   fromJSON(object: any): CMsgClientAddFriendResponse {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
-      steamIdAdded: isSet(object.steamIdAdded) ? Number(object.steamIdAdded) : 0,
+      steamIdAdded: isSet(object.steamIdAdded) ? String(object.steamIdAdded) : "0",
       personaNameAdded: isSet(object.personaNameAdded) ? String(object.personaNameAdded) : "",
     };
   },
@@ -563,7 +563,7 @@ export const CMsgClientAddFriendResponse = {
   toJSON(message: CMsgClientAddFriendResponse): unknown {
     const obj: any = {};
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
-    message.steamIdAdded !== undefined && (obj.steamIdAdded = Math.round(message.steamIdAdded));
+    message.steamIdAdded !== undefined && (obj.steamIdAdded = message.steamIdAdded);
     message.personaNameAdded !== undefined && (obj.personaNameAdded = message.personaNameAdded);
     return obj;
   },
@@ -575,19 +575,19 @@ export const CMsgClientAddFriendResponse = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientAddFriendResponse>, I>>(object: I): CMsgClientAddFriendResponse {
     const message = createBaseCMsgClientAddFriendResponse();
     message.eresult = object.eresult ?? 0;
-    message.steamIdAdded = object.steamIdAdded ?? 0;
+    message.steamIdAdded = object.steamIdAdded ?? "0";
     message.personaNameAdded = object.personaNameAdded ?? "";
     return message;
   },
 };
 
 function createBaseCMsgClientRemoveFriend(): CMsgClientRemoveFriend {
-  return { friendid: 0 };
+  return { friendid: "0" };
 }
 
 export const CMsgClientRemoveFriend = {
   encode(message: CMsgClientRemoveFriend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.friendid !== 0) {
+    if (message.friendid !== "0") {
       writer.uint32(9).fixed64(message.friendid);
     }
     return writer;
@@ -601,7 +601,7 @@ export const CMsgClientRemoveFriend = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.friendid = longToNumber(reader.fixed64() as Long);
+          message.friendid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -612,12 +612,12 @@ export const CMsgClientRemoveFriend = {
   },
 
   fromJSON(object: any): CMsgClientRemoveFriend {
-    return { friendid: isSet(object.friendid) ? Number(object.friendid) : 0 };
+    return { friendid: isSet(object.friendid) ? String(object.friendid) : "0" };
   },
 
   toJSON(message: CMsgClientRemoveFriend): unknown {
     const obj: any = {};
-    message.friendid !== undefined && (obj.friendid = Math.round(message.friendid));
+    message.friendid !== undefined && (obj.friendid = message.friendid);
     return obj;
   },
 
@@ -627,18 +627,18 @@ export const CMsgClientRemoveFriend = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientRemoveFriend>, I>>(object: I): CMsgClientRemoveFriend {
     const message = createBaseCMsgClientRemoveFriend();
-    message.friendid = object.friendid ?? 0;
+    message.friendid = object.friendid ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientHideFriend(): CMsgClientHideFriend {
-  return { friendid: 0, hide: false };
+  return { friendid: "0", hide: false };
 }
 
 export const CMsgClientHideFriend = {
   encode(message: CMsgClientHideFriend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.friendid !== 0) {
+    if (message.friendid !== "0") {
       writer.uint32(9).fixed64(message.friendid);
     }
     if (message.hide === true) {
@@ -655,7 +655,7 @@ export const CMsgClientHideFriend = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.friendid = longToNumber(reader.fixed64() as Long);
+          message.friendid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.hide = reader.bool();
@@ -670,14 +670,14 @@ export const CMsgClientHideFriend = {
 
   fromJSON(object: any): CMsgClientHideFriend {
     return {
-      friendid: isSet(object.friendid) ? Number(object.friendid) : 0,
+      friendid: isSet(object.friendid) ? String(object.friendid) : "0",
       hide: isSet(object.hide) ? Boolean(object.hide) : false,
     };
   },
 
   toJSON(message: CMsgClientHideFriend): unknown {
     const obj: any = {};
-    message.friendid !== undefined && (obj.friendid = Math.round(message.friendid));
+    message.friendid !== undefined && (obj.friendid = message.friendid);
     message.hide !== undefined && (obj.hide = message.hide);
     return obj;
   },
@@ -688,7 +688,7 @@ export const CMsgClientHideFriend = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientHideFriend>, I>>(object: I): CMsgClientHideFriend {
     const message = createBaseCMsgClientHideFriend();
-    message.friendid = object.friendid ?? 0;
+    message.friendid = object.friendid ?? "0";
     message.hide = object.hide ?? false;
     return message;
   },
@@ -790,12 +790,12 @@ export const CMsgClientFriendsList = {
 };
 
 function createBaseCMsgClientFriendsList_Friend(): CMsgClientFriendsList_Friend {
-  return { ulfriendid: 0, efriendrelationship: 0 };
+  return { ulfriendid: "0", efriendrelationship: 0 };
 }
 
 export const CMsgClientFriendsList_Friend = {
   encode(message: CMsgClientFriendsList_Friend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.ulfriendid !== 0) {
+    if (message.ulfriendid !== "0") {
       writer.uint32(9).fixed64(message.ulfriendid);
     }
     if (message.efriendrelationship !== 0) {
@@ -812,7 +812,7 @@ export const CMsgClientFriendsList_Friend = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ulfriendid = longToNumber(reader.fixed64() as Long);
+          message.ulfriendid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.efriendrelationship = reader.uint32();
@@ -827,14 +827,14 @@ export const CMsgClientFriendsList_Friend = {
 
   fromJSON(object: any): CMsgClientFriendsList_Friend {
     return {
-      ulfriendid: isSet(object.ulfriendid) ? Number(object.ulfriendid) : 0,
+      ulfriendid: isSet(object.ulfriendid) ? String(object.ulfriendid) : "0",
       efriendrelationship: isSet(object.efriendrelationship) ? Number(object.efriendrelationship) : 0,
     };
   },
 
   toJSON(message: CMsgClientFriendsList_Friend): unknown {
     const obj: any = {};
-    message.ulfriendid !== undefined && (obj.ulfriendid = Math.round(message.ulfriendid));
+    message.ulfriendid !== undefined && (obj.ulfriendid = message.ulfriendid);
     message.efriendrelationship !== undefined && (obj.efriendrelationship = Math.round(message.efriendrelationship));
     return obj;
   },
@@ -845,7 +845,7 @@ export const CMsgClientFriendsList_Friend = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientFriendsList_Friend>, I>>(object: I): CMsgClientFriendsList_Friend {
     const message = createBaseCMsgClientFriendsList_Friend();
-    message.ulfriendid = object.ulfriendid ?? 0;
+    message.ulfriendid = object.ulfriendid ?? "0";
     message.efriendrelationship = object.efriendrelationship ?? 0;
     return message;
   },
@@ -1016,7 +1016,7 @@ export const CMsgClientFriendsGroupsList_FriendGroup = {
 };
 
 function createBaseCMsgClientFriendsGroupsList_FriendGroupsMembership(): CMsgClientFriendsGroupsList_FriendGroupsMembership {
-  return { ulSteamID: 0, nGroupID: 0 };
+  return { ulSteamID: "0", nGroupID: 0 };
 }
 
 export const CMsgClientFriendsGroupsList_FriendGroupsMembership = {
@@ -1024,7 +1024,7 @@ export const CMsgClientFriendsGroupsList_FriendGroupsMembership = {
     message: CMsgClientFriendsGroupsList_FriendGroupsMembership,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.ulSteamID !== 0) {
+    if (message.ulSteamID !== "0") {
       writer.uint32(9).fixed64(message.ulSteamID);
     }
     if (message.nGroupID !== 0) {
@@ -1041,7 +1041,7 @@ export const CMsgClientFriendsGroupsList_FriendGroupsMembership = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ulSteamID = longToNumber(reader.fixed64() as Long);
+          message.ulSteamID = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.nGroupID = reader.int32();
@@ -1056,14 +1056,14 @@ export const CMsgClientFriendsGroupsList_FriendGroupsMembership = {
 
   fromJSON(object: any): CMsgClientFriendsGroupsList_FriendGroupsMembership {
     return {
-      ulSteamID: isSet(object.ulSteamID) ? Number(object.ulSteamID) : 0,
+      ulSteamID: isSet(object.ulSteamID) ? String(object.ulSteamID) : "0",
       nGroupID: isSet(object.nGroupID) ? Number(object.nGroupID) : 0,
     };
   },
 
   toJSON(message: CMsgClientFriendsGroupsList_FriendGroupsMembership): unknown {
     const obj: any = {};
-    message.ulSteamID !== undefined && (obj.ulSteamID = Math.round(message.ulSteamID));
+    message.ulSteamID !== undefined && (obj.ulSteamID = message.ulSteamID);
     message.nGroupID !== undefined && (obj.nGroupID = Math.round(message.nGroupID));
     return obj;
   },
@@ -1078,7 +1078,7 @@ export const CMsgClientFriendsGroupsList_FriendGroupsMembership = {
     object: I,
   ): CMsgClientFriendsGroupsList_FriendGroupsMembership {
     const message = createBaseCMsgClientFriendsGroupsList_FriendGroupsMembership();
-    message.ulSteamID = object.ulSteamID ?? 0;
+    message.ulSteamID = object.ulSteamID ?? "0";
     message.nGroupID = object.nGroupID ?? 0;
     return message;
   },
@@ -1164,12 +1164,12 @@ export const CMsgClientPlayerNicknameList = {
 };
 
 function createBaseCMsgClientPlayerNicknameList_PlayerNickname(): CMsgClientPlayerNicknameList_PlayerNickname {
-  return { steamid: 0, nickname: "" };
+  return { steamid: "0", nickname: "" };
 }
 
 export const CMsgClientPlayerNicknameList_PlayerNickname = {
   encode(message: CMsgClientPlayerNicknameList_PlayerNickname, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.nickname !== "") {
@@ -1186,7 +1186,7 @@ export const CMsgClientPlayerNicknameList_PlayerNickname = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.nickname = reader.string();
@@ -1201,14 +1201,14 @@ export const CMsgClientPlayerNicknameList_PlayerNickname = {
 
   fromJSON(object: any): CMsgClientPlayerNicknameList_PlayerNickname {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       nickname: isSet(object.nickname) ? String(object.nickname) : "",
     };
   },
 
   toJSON(message: CMsgClientPlayerNicknameList_PlayerNickname): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.nickname !== undefined && (obj.nickname = message.nickname);
     return obj;
   },
@@ -1223,19 +1223,19 @@ export const CMsgClientPlayerNicknameList_PlayerNickname = {
     object: I,
   ): CMsgClientPlayerNicknameList_PlayerNickname {
     const message = createBaseCMsgClientPlayerNicknameList_PlayerNickname();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.nickname = object.nickname ?? "";
     return message;
   },
 };
 
 function createBaseCMsgClientSetPlayerNickname(): CMsgClientSetPlayerNickname {
-  return { steamid: 0, nickname: "" };
+  return { steamid: "0", nickname: "" };
 }
 
 export const CMsgClientSetPlayerNickname = {
   encode(message: CMsgClientSetPlayerNickname, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.nickname !== "") {
@@ -1252,7 +1252,7 @@ export const CMsgClientSetPlayerNickname = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.nickname = reader.string();
@@ -1267,14 +1267,14 @@ export const CMsgClientSetPlayerNickname = {
 
   fromJSON(object: any): CMsgClientSetPlayerNickname {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       nickname: isSet(object.nickname) ? String(object.nickname) : "",
     };
   },
 
   toJSON(message: CMsgClientSetPlayerNickname): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.nickname !== undefined && (obj.nickname = message.nickname);
     return obj;
   },
@@ -1285,7 +1285,7 @@ export const CMsgClientSetPlayerNickname = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientSetPlayerNickname>, I>>(object: I): CMsgClientSetPlayerNickname {
     const message = createBaseCMsgClientSetPlayerNickname();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.nickname = object.nickname ?? "";
     return message;
   },
@@ -1377,10 +1377,10 @@ export const CMsgClientRequestFriendData = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.friends.push(longToNumber(reader.fixed64() as Long));
+              message.friends.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.friends.push(longToNumber(reader.fixed64() as Long));
+            message.friends.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -1394,7 +1394,7 @@ export const CMsgClientRequestFriendData = {
   fromJSON(object: any): CMsgClientRequestFriendData {
     return {
       personaStateRequested: isSet(object.personaStateRequested) ? Number(object.personaStateRequested) : 0,
-      friends: Array.isArray(object?.friends) ? object.friends.map((e: any) => Number(e)) : [],
+      friends: Array.isArray(object?.friends) ? object.friends.map((e: any) => String(e)) : [],
     };
   },
 
@@ -1403,7 +1403,7 @@ export const CMsgClientRequestFriendData = {
     message.personaStateRequested !== undefined &&
       (obj.personaStateRequested = Math.round(message.personaStateRequested));
     if (message.friends) {
-      obj.friends = message.friends.map((e) => Math.round(e));
+      obj.friends = message.friends.map((e) => e);
     } else {
       obj.friends = [];
     }
@@ -1679,7 +1679,7 @@ export const CMsgClientPersonaState = {
 
 function createBaseCMsgClientPersonaState_Friend(): CMsgClientPersonaState_Friend {
   return {
-    friendid: 0,
+    friendid: "0",
     personaState: 0,
     gamePlayedAppId: 0,
     gameServerIp: 0,
@@ -1689,20 +1689,20 @@ function createBaseCMsgClientPersonaState_Friend(): CMsgClientPersonaState_Frien
     personaSetByUser: false,
     playerName: "",
     queryPort: 0,
-    steamidSource: 0,
+    steamidSource: "0",
     avatarHash: Buffer.alloc(0),
     lastLogoff: 0,
     lastLogon: 0,
     lastSeenOnline: 0,
     clanRank: 0,
     gameName: "",
-    gameid: 0,
+    gameid: "0",
     gameDataBlob: Buffer.alloc(0),
     clanData: undefined,
     clanTag: "",
     richPresence: [],
-    broadcastId: 0,
-    gameLobbyId: 0,
+    broadcastId: "0",
+    gameLobbyId: "0",
     watchingBroadcastAccountid: 0,
     watchingBroadcastAppid: 0,
     watchingBroadcastViewers: 0,
@@ -1715,7 +1715,7 @@ function createBaseCMsgClientPersonaState_Friend(): CMsgClientPersonaState_Frien
 
 export const CMsgClientPersonaState_Friend = {
   encode(message: CMsgClientPersonaState_Friend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.friendid !== 0) {
+    if (message.friendid !== "0") {
       writer.uint32(9).fixed64(message.friendid);
     }
     if (message.personaState !== 0) {
@@ -1745,7 +1745,7 @@ export const CMsgClientPersonaState_Friend = {
     if (message.queryPort !== 0) {
       writer.uint32(160).uint32(message.queryPort);
     }
-    if (message.steamidSource !== 0) {
+    if (message.steamidSource !== "0") {
       writer.uint32(201).fixed64(message.steamidSource);
     }
     if (message.avatarHash.length !== 0) {
@@ -1766,7 +1766,7 @@ export const CMsgClientPersonaState_Friend = {
     if (message.gameName !== "") {
       writer.uint32(442).string(message.gameName);
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(449).fixed64(message.gameid);
     }
     if (message.gameDataBlob.length !== 0) {
@@ -1781,10 +1781,10 @@ export const CMsgClientPersonaState_Friend = {
     for (const v of message.richPresence) {
       CMsgClientPersonaState_Friend_KV.encode(v!, writer.uint32(570).fork()).ldelim();
     }
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(577).fixed64(message.broadcastId);
     }
-    if (message.gameLobbyId !== 0) {
+    if (message.gameLobbyId !== "0") {
       writer.uint32(585).fixed64(message.gameLobbyId);
     }
     if (message.watchingBroadcastAccountid !== 0) {
@@ -1819,7 +1819,7 @@ export const CMsgClientPersonaState_Friend = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.friendid = longToNumber(reader.fixed64() as Long);
+          message.friendid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.personaState = reader.uint32();
@@ -1849,7 +1849,7 @@ export const CMsgClientPersonaState_Friend = {
           message.queryPort = reader.uint32();
           break;
         case 25:
-          message.steamidSource = longToNumber(reader.fixed64() as Long);
+          message.steamidSource = longToString(reader.fixed64() as Long);
           break;
         case 31:
           message.avatarHash = reader.bytes() as Buffer;
@@ -1870,7 +1870,7 @@ export const CMsgClientPersonaState_Friend = {
           message.gameName = reader.string();
           break;
         case 56:
-          message.gameid = longToNumber(reader.fixed64() as Long);
+          message.gameid = longToString(reader.fixed64() as Long);
           break;
         case 60:
           message.gameDataBlob = reader.bytes() as Buffer;
@@ -1885,10 +1885,10 @@ export const CMsgClientPersonaState_Friend = {
           message.richPresence.push(CMsgClientPersonaState_Friend_KV.decode(reader, reader.uint32()));
           break;
         case 72:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 73:
-          message.gameLobbyId = longToNumber(reader.fixed64() as Long);
+          message.gameLobbyId = longToString(reader.fixed64() as Long);
           break;
         case 74:
           message.watchingBroadcastAccountid = reader.uint32();
@@ -1921,7 +1921,7 @@ export const CMsgClientPersonaState_Friend = {
 
   fromJSON(object: any): CMsgClientPersonaState_Friend {
     return {
-      friendid: isSet(object.friendid) ? Number(object.friendid) : 0,
+      friendid: isSet(object.friendid) ? String(object.friendid) : "0",
       personaState: isSet(object.personaState) ? Number(object.personaState) : 0,
       gamePlayedAppId: isSet(object.gamePlayedAppId) ? Number(object.gamePlayedAppId) : 0,
       gameServerIp: isSet(object.gameServerIp) ? Number(object.gameServerIp) : 0,
@@ -1931,22 +1931,22 @@ export const CMsgClientPersonaState_Friend = {
       personaSetByUser: isSet(object.personaSetByUser) ? Boolean(object.personaSetByUser) : false,
       playerName: isSet(object.playerName) ? String(object.playerName) : "",
       queryPort: isSet(object.queryPort) ? Number(object.queryPort) : 0,
-      steamidSource: isSet(object.steamidSource) ? Number(object.steamidSource) : 0,
+      steamidSource: isSet(object.steamidSource) ? String(object.steamidSource) : "0",
       avatarHash: isSet(object.avatarHash) ? Buffer.from(bytesFromBase64(object.avatarHash)) : Buffer.alloc(0),
       lastLogoff: isSet(object.lastLogoff) ? Number(object.lastLogoff) : 0,
       lastLogon: isSet(object.lastLogon) ? Number(object.lastLogon) : 0,
       lastSeenOnline: isSet(object.lastSeenOnline) ? Number(object.lastSeenOnline) : 0,
       clanRank: isSet(object.clanRank) ? Number(object.clanRank) : 0,
       gameName: isSet(object.gameName) ? String(object.gameName) : "",
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       gameDataBlob: isSet(object.gameDataBlob) ? Buffer.from(bytesFromBase64(object.gameDataBlob)) : Buffer.alloc(0),
       clanData: isSet(object.clanData) ? CMsgClientPersonaState_Friend_ClanData.fromJSON(object.clanData) : undefined,
       clanTag: isSet(object.clanTag) ? String(object.clanTag) : "",
       richPresence: Array.isArray(object?.richPresence)
         ? object.richPresence.map((e: any) => CMsgClientPersonaState_Friend_KV.fromJSON(e))
         : [],
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
-      gameLobbyId: isSet(object.gameLobbyId) ? Number(object.gameLobbyId) : 0,
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
+      gameLobbyId: isSet(object.gameLobbyId) ? String(object.gameLobbyId) : "0",
       watchingBroadcastAccountid: isSet(object.watchingBroadcastAccountid)
         ? Number(object.watchingBroadcastAccountid)
         : 0,
@@ -1961,7 +1961,7 @@ export const CMsgClientPersonaState_Friend = {
 
   toJSON(message: CMsgClientPersonaState_Friend): unknown {
     const obj: any = {};
-    message.friendid !== undefined && (obj.friendid = Math.round(message.friendid));
+    message.friendid !== undefined && (obj.friendid = message.friendid);
     message.personaState !== undefined && (obj.personaState = Math.round(message.personaState));
     message.gamePlayedAppId !== undefined && (obj.gamePlayedAppId = Math.round(message.gamePlayedAppId));
     message.gameServerIp !== undefined && (obj.gameServerIp = Math.round(message.gameServerIp));
@@ -1972,7 +1972,7 @@ export const CMsgClientPersonaState_Friend = {
     message.personaSetByUser !== undefined && (obj.personaSetByUser = message.personaSetByUser);
     message.playerName !== undefined && (obj.playerName = message.playerName);
     message.queryPort !== undefined && (obj.queryPort = Math.round(message.queryPort));
-    message.steamidSource !== undefined && (obj.steamidSource = Math.round(message.steamidSource));
+    message.steamidSource !== undefined && (obj.steamidSource = message.steamidSource);
     message.avatarHash !== undefined &&
       (obj.avatarHash = base64FromBytes(message.avatarHash !== undefined ? message.avatarHash : Buffer.alloc(0)));
     message.lastLogoff !== undefined && (obj.lastLogoff = Math.round(message.lastLogoff));
@@ -1980,7 +1980,7 @@ export const CMsgClientPersonaState_Friend = {
     message.lastSeenOnline !== undefined && (obj.lastSeenOnline = Math.round(message.lastSeenOnline));
     message.clanRank !== undefined && (obj.clanRank = Math.round(message.clanRank));
     message.gameName !== undefined && (obj.gameName = message.gameName);
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.gameDataBlob !== undefined &&
       (obj.gameDataBlob = base64FromBytes(message.gameDataBlob !== undefined ? message.gameDataBlob : Buffer.alloc(0)));
     message.clanData !== undefined &&
@@ -1991,8 +1991,8 @@ export const CMsgClientPersonaState_Friend = {
     } else {
       obj.richPresence = [];
     }
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
-    message.gameLobbyId !== undefined && (obj.gameLobbyId = Math.round(message.gameLobbyId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
+    message.gameLobbyId !== undefined && (obj.gameLobbyId = message.gameLobbyId);
     message.watchingBroadcastAccountid !== undefined &&
       (obj.watchingBroadcastAccountid = Math.round(message.watchingBroadcastAccountid));
     message.watchingBroadcastAppid !== undefined &&
@@ -2014,7 +2014,7 @@ export const CMsgClientPersonaState_Friend = {
     object: I,
   ): CMsgClientPersonaState_Friend {
     const message = createBaseCMsgClientPersonaState_Friend();
-    message.friendid = object.friendid ?? 0;
+    message.friendid = object.friendid ?? "0";
     message.personaState = object.personaState ?? 0;
     message.gamePlayedAppId = object.gamePlayedAppId ?? 0;
     message.gameServerIp = object.gameServerIp ?? 0;
@@ -2024,22 +2024,22 @@ export const CMsgClientPersonaState_Friend = {
     message.personaSetByUser = object.personaSetByUser ?? false;
     message.playerName = object.playerName ?? "";
     message.queryPort = object.queryPort ?? 0;
-    message.steamidSource = object.steamidSource ?? 0;
+    message.steamidSource = object.steamidSource ?? "0";
     message.avatarHash = object.avatarHash ?? Buffer.alloc(0);
     message.lastLogoff = object.lastLogoff ?? 0;
     message.lastLogon = object.lastLogon ?? 0;
     message.lastSeenOnline = object.lastSeenOnline ?? 0;
     message.clanRank = object.clanRank ?? 0;
     message.gameName = object.gameName ?? "";
-    message.gameid = object.gameid ?? 0;
+    message.gameid = object.gameid ?? "0";
     message.gameDataBlob = object.gameDataBlob ?? Buffer.alloc(0);
     message.clanData = (object.clanData !== undefined && object.clanData !== null)
       ? CMsgClientPersonaState_Friend_ClanData.fromPartial(object.clanData)
       : undefined;
     message.clanTag = object.clanTag ?? "";
     message.richPresence = object.richPresence?.map((e) => CMsgClientPersonaState_Friend_KV.fromPartial(e)) || [];
-    message.broadcastId = object.broadcastId ?? 0;
-    message.gameLobbyId = object.gameLobbyId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
+    message.gameLobbyId = object.gameLobbyId ?? "0";
     message.watchingBroadcastAccountid = object.watchingBroadcastAccountid ?? 0;
     message.watchingBroadcastAppid = object.watchingBroadcastAppid ?? 0;
     message.watchingBroadcastViewers = object.watchingBroadcastViewers ?? 0;
@@ -2052,7 +2052,7 @@ export const CMsgClientPersonaState_Friend = {
 };
 
 function createBaseCMsgClientPersonaState_Friend_ClanData(): CMsgClientPersonaState_Friend_ClanData {
-  return { oggAppId: 0, chatGroupId: 0 };
+  return { oggAppId: 0, chatGroupId: "0" };
 }
 
 export const CMsgClientPersonaState_Friend_ClanData = {
@@ -2060,7 +2060,7 @@ export const CMsgClientPersonaState_Friend_ClanData = {
     if (message.oggAppId !== 0) {
       writer.uint32(8).uint32(message.oggAppId);
     }
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(16).uint64(message.chatGroupId);
     }
     return writer;
@@ -2077,7 +2077,7 @@ export const CMsgClientPersonaState_Friend_ClanData = {
           message.oggAppId = reader.uint32();
           break;
         case 2:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2090,14 +2090,14 @@ export const CMsgClientPersonaState_Friend_ClanData = {
   fromJSON(object: any): CMsgClientPersonaState_Friend_ClanData {
     return {
       oggAppId: isSet(object.oggAppId) ? Number(object.oggAppId) : 0,
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
     };
   },
 
   toJSON(message: CMsgClientPersonaState_Friend_ClanData): unknown {
     const obj: any = {};
     message.oggAppId !== undefined && (obj.oggAppId = Math.round(message.oggAppId));
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -2112,7 +2112,7 @@ export const CMsgClientPersonaState_Friend_ClanData = {
   ): CMsgClientPersonaState_Friend_ClanData {
     const message = createBaseCMsgClientPersonaState_Friend_ClanData();
     message.oggAppId = object.oggAppId ?? 0;
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -2181,12 +2181,12 @@ export const CMsgClientPersonaState_Friend_KV = {
 };
 
 function createBaseCMsgClientFriendProfileInfo(): CMsgClientFriendProfileInfo {
-  return { steamidFriend: 0 };
+  return { steamidFriend: "0" };
 }
 
 export const CMsgClientFriendProfileInfo = {
   encode(message: CMsgClientFriendProfileInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidFriend !== 0) {
+    if (message.steamidFriend !== "0") {
       writer.uint32(9).fixed64(message.steamidFriend);
     }
     return writer;
@@ -2200,7 +2200,7 @@ export const CMsgClientFriendProfileInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidFriend = longToNumber(reader.fixed64() as Long);
+          message.steamidFriend = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2211,12 +2211,12 @@ export const CMsgClientFriendProfileInfo = {
   },
 
   fromJSON(object: any): CMsgClientFriendProfileInfo {
-    return { steamidFriend: isSet(object.steamidFriend) ? Number(object.steamidFriend) : 0 };
+    return { steamidFriend: isSet(object.steamidFriend) ? String(object.steamidFriend) : "0" };
   },
 
   toJSON(message: CMsgClientFriendProfileInfo): unknown {
     const obj: any = {};
-    message.steamidFriend !== undefined && (obj.steamidFriend = Math.round(message.steamidFriend));
+    message.steamidFriend !== undefined && (obj.steamidFriend = message.steamidFriend);
     return obj;
   },
 
@@ -2226,7 +2226,7 @@ export const CMsgClientFriendProfileInfo = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientFriendProfileInfo>, I>>(object: I): CMsgClientFriendProfileInfo {
     const message = createBaseCMsgClientFriendProfileInfo();
-    message.steamidFriend = object.steamidFriend ?? 0;
+    message.steamidFriend = object.steamidFriend ?? "0";
     return message;
   },
 };
@@ -2234,7 +2234,7 @@ export const CMsgClientFriendProfileInfo = {
 function createBaseCMsgClientFriendProfileInfoResponse(): CMsgClientFriendProfileInfoResponse {
   return {
     eresult: 0,
-    steamidFriend: 0,
+    steamidFriend: "0",
     timeCreated: 0,
     realName: "",
     cityName: "",
@@ -2250,7 +2250,7 @@ export const CMsgClientFriendProfileInfoResponse = {
     if (message.eresult !== 0) {
       writer.uint32(8).int32(message.eresult);
     }
-    if (message.steamidFriend !== 0) {
+    if (message.steamidFriend !== "0") {
       writer.uint32(17).fixed64(message.steamidFriend);
     }
     if (message.timeCreated !== 0) {
@@ -2288,7 +2288,7 @@ export const CMsgClientFriendProfileInfoResponse = {
           message.eresult = reader.int32();
           break;
         case 2:
-          message.steamidFriend = longToNumber(reader.fixed64() as Long);
+          message.steamidFriend = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.timeCreated = reader.uint32();
@@ -2322,7 +2322,7 @@ export const CMsgClientFriendProfileInfoResponse = {
   fromJSON(object: any): CMsgClientFriendProfileInfoResponse {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
-      steamidFriend: isSet(object.steamidFriend) ? Number(object.steamidFriend) : 0,
+      steamidFriend: isSet(object.steamidFriend) ? String(object.steamidFriend) : "0",
       timeCreated: isSet(object.timeCreated) ? Number(object.timeCreated) : 0,
       realName: isSet(object.realName) ? String(object.realName) : "",
       cityName: isSet(object.cityName) ? String(object.cityName) : "",
@@ -2336,7 +2336,7 @@ export const CMsgClientFriendProfileInfoResponse = {
   toJSON(message: CMsgClientFriendProfileInfoResponse): unknown {
     const obj: any = {};
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
-    message.steamidFriend !== undefined && (obj.steamidFriend = Math.round(message.steamidFriend));
+    message.steamidFriend !== undefined && (obj.steamidFriend = message.steamidFriend);
     message.timeCreated !== undefined && (obj.timeCreated = Math.round(message.timeCreated));
     message.realName !== undefined && (obj.realName = message.realName);
     message.cityName !== undefined && (obj.cityName = message.cityName);
@@ -2358,7 +2358,7 @@ export const CMsgClientFriendProfileInfoResponse = {
   ): CMsgClientFriendProfileInfoResponse {
     const message = createBaseCMsgClientFriendProfileInfoResponse();
     message.eresult = object.eresult ?? 0;
-    message.steamidFriend = object.steamidFriend ?? 0;
+    message.steamidFriend = object.steamidFriend ?? "0";
     message.timeCreated = object.timeCreated ?? 0;
     message.realName = object.realName ?? "";
     message.cityName = object.cityName ?? "";
@@ -2371,12 +2371,12 @@ export const CMsgClientFriendProfileInfoResponse = {
 };
 
 function createBaseCMsgClientCreateFriendsGroup(): CMsgClientCreateFriendsGroup {
-  return { steamid: 0, groupname: "", steamidFriends: [] };
+  return { steamid: "0", groupname: "", steamidFriends: [] };
 }
 
 export const CMsgClientCreateFriendsGroup = {
   encode(message: CMsgClientCreateFriendsGroup, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.groupname !== "") {
@@ -2398,7 +2398,7 @@ export const CMsgClientCreateFriendsGroup = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.groupname = reader.string();
@@ -2407,10 +2407,10 @@ export const CMsgClientCreateFriendsGroup = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidFriends.push(longToNumber(reader.fixed64() as Long));
+              message.steamidFriends.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidFriends.push(longToNumber(reader.fixed64() as Long));
+            message.steamidFriends.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -2423,18 +2423,18 @@ export const CMsgClientCreateFriendsGroup = {
 
   fromJSON(object: any): CMsgClientCreateFriendsGroup {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       groupname: isSet(object.groupname) ? String(object.groupname) : "",
-      steamidFriends: Array.isArray(object?.steamidFriends) ? object.steamidFriends.map((e: any) => Number(e)) : [],
+      steamidFriends: Array.isArray(object?.steamidFriends) ? object.steamidFriends.map((e: any) => String(e)) : [],
     };
   },
 
   toJSON(message: CMsgClientCreateFriendsGroup): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.groupname !== undefined && (obj.groupname = message.groupname);
     if (message.steamidFriends) {
-      obj.steamidFriends = message.steamidFriends.map((e) => Math.round(e));
+      obj.steamidFriends = message.steamidFriends.map((e) => e);
     } else {
       obj.steamidFriends = [];
     }
@@ -2447,7 +2447,7 @@ export const CMsgClientCreateFriendsGroup = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientCreateFriendsGroup>, I>>(object: I): CMsgClientCreateFriendsGroup {
     const message = createBaseCMsgClientCreateFriendsGroup();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.groupname = object.groupname ?? "";
     message.steamidFriends = object.steamidFriends?.map((e) => e) || [];
     return message;
@@ -2521,12 +2521,12 @@ export const CMsgClientCreateFriendsGroupResponse = {
 };
 
 function createBaseCMsgClientDeleteFriendsGroup(): CMsgClientDeleteFriendsGroup {
-  return { steamid: 0, groupid: 0 };
+  return { steamid: "0", groupid: 0 };
 }
 
 export const CMsgClientDeleteFriendsGroup = {
   encode(message: CMsgClientDeleteFriendsGroup, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.groupid !== 0) {
@@ -2543,7 +2543,7 @@ export const CMsgClientDeleteFriendsGroup = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.groupid = reader.int32();
@@ -2558,14 +2558,14 @@ export const CMsgClientDeleteFriendsGroup = {
 
   fromJSON(object: any): CMsgClientDeleteFriendsGroup {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       groupid: isSet(object.groupid) ? Number(object.groupid) : 0,
     };
   },
 
   toJSON(message: CMsgClientDeleteFriendsGroup): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.groupid !== undefined && (obj.groupid = Math.round(message.groupid));
     return obj;
   },
@@ -2576,7 +2576,7 @@ export const CMsgClientDeleteFriendsGroup = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientDeleteFriendsGroup>, I>>(object: I): CMsgClientDeleteFriendsGroup {
     const message = createBaseCMsgClientDeleteFriendsGroup();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.groupid = object.groupid ?? 0;
     return message;
   },
@@ -2679,20 +2679,20 @@ export const CMsgClientManageFriendsGroup = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidFriendsAdded.push(longToNumber(reader.fixed64() as Long));
+              message.steamidFriendsAdded.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidFriendsAdded.push(longToNumber(reader.fixed64() as Long));
+            message.steamidFriendsAdded.push(longToString(reader.fixed64() as Long));
           }
           break;
         case 4:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidFriendsRemoved.push(longToNumber(reader.fixed64() as Long));
+              message.steamidFriendsRemoved.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidFriendsRemoved.push(longToNumber(reader.fixed64() as Long));
+            message.steamidFriendsRemoved.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -2708,10 +2708,10 @@ export const CMsgClientManageFriendsGroup = {
       groupid: isSet(object.groupid) ? Number(object.groupid) : 0,
       groupname: isSet(object.groupname) ? String(object.groupname) : "",
       steamidFriendsAdded: Array.isArray(object?.steamidFriendsAdded)
-        ? object.steamidFriendsAdded.map((e: any) => Number(e))
+        ? object.steamidFriendsAdded.map((e: any) => String(e))
         : [],
       steamidFriendsRemoved: Array.isArray(object?.steamidFriendsRemoved)
-        ? object.steamidFriendsRemoved.map((e: any) => Number(e))
+        ? object.steamidFriendsRemoved.map((e: any) => String(e))
         : [],
     };
   },
@@ -2721,12 +2721,12 @@ export const CMsgClientManageFriendsGroup = {
     message.groupid !== undefined && (obj.groupid = Math.round(message.groupid));
     message.groupname !== undefined && (obj.groupname = message.groupname);
     if (message.steamidFriendsAdded) {
-      obj.steamidFriendsAdded = message.steamidFriendsAdded.map((e) => Math.round(e));
+      obj.steamidFriendsAdded = message.steamidFriendsAdded.map((e) => e);
     } else {
       obj.steamidFriendsAdded = [];
     }
     if (message.steamidFriendsRemoved) {
-      obj.steamidFriendsRemoved = message.steamidFriendsRemoved.map((e) => Math.round(e));
+      obj.steamidFriendsRemoved = message.steamidFriendsRemoved.map((e) => e);
     } else {
       obj.steamidFriendsRemoved = [];
     }
@@ -2803,7 +2803,7 @@ export const CMsgClientManageFriendsGroupResponse = {
 };
 
 function createBaseCMsgClientAddFriendToGroup(): CMsgClientAddFriendToGroup {
-  return { groupid: 0, steamiduser: 0 };
+  return { groupid: 0, steamiduser: "0" };
 }
 
 export const CMsgClientAddFriendToGroup = {
@@ -2811,7 +2811,7 @@ export const CMsgClientAddFriendToGroup = {
     if (message.groupid !== 0) {
       writer.uint32(8).int32(message.groupid);
     }
-    if (message.steamiduser !== 0) {
+    if (message.steamiduser !== "0") {
       writer.uint32(17).fixed64(message.steamiduser);
     }
     return writer;
@@ -2828,7 +2828,7 @@ export const CMsgClientAddFriendToGroup = {
           message.groupid = reader.int32();
           break;
         case 2:
-          message.steamiduser = longToNumber(reader.fixed64() as Long);
+          message.steamiduser = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2841,14 +2841,14 @@ export const CMsgClientAddFriendToGroup = {
   fromJSON(object: any): CMsgClientAddFriendToGroup {
     return {
       groupid: isSet(object.groupid) ? Number(object.groupid) : 0,
-      steamiduser: isSet(object.steamiduser) ? Number(object.steamiduser) : 0,
+      steamiduser: isSet(object.steamiduser) ? String(object.steamiduser) : "0",
     };
   },
 
   toJSON(message: CMsgClientAddFriendToGroup): unknown {
     const obj: any = {};
     message.groupid !== undefined && (obj.groupid = Math.round(message.groupid));
-    message.steamiduser !== undefined && (obj.steamiduser = Math.round(message.steamiduser));
+    message.steamiduser !== undefined && (obj.steamiduser = message.steamiduser);
     return obj;
   },
 
@@ -2859,7 +2859,7 @@ export const CMsgClientAddFriendToGroup = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientAddFriendToGroup>, I>>(object: I): CMsgClientAddFriendToGroup {
     const message = createBaseCMsgClientAddFriendToGroup();
     message.groupid = object.groupid ?? 0;
-    message.steamiduser = object.steamiduser ?? 0;
+    message.steamiduser = object.steamiduser ?? "0";
     return message;
   },
 };
@@ -2920,7 +2920,7 @@ export const CMsgClientAddFriendToGroupResponse = {
 };
 
 function createBaseCMsgClientRemoveFriendFromGroup(): CMsgClientRemoveFriendFromGroup {
-  return { groupid: 0, steamiduser: 0 };
+  return { groupid: 0, steamiduser: "0" };
 }
 
 export const CMsgClientRemoveFriendFromGroup = {
@@ -2928,7 +2928,7 @@ export const CMsgClientRemoveFriendFromGroup = {
     if (message.groupid !== 0) {
       writer.uint32(8).int32(message.groupid);
     }
-    if (message.steamiduser !== 0) {
+    if (message.steamiduser !== "0") {
       writer.uint32(17).fixed64(message.steamiduser);
     }
     return writer;
@@ -2945,7 +2945,7 @@ export const CMsgClientRemoveFriendFromGroup = {
           message.groupid = reader.int32();
           break;
         case 2:
-          message.steamiduser = longToNumber(reader.fixed64() as Long);
+          message.steamiduser = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2958,14 +2958,14 @@ export const CMsgClientRemoveFriendFromGroup = {
   fromJSON(object: any): CMsgClientRemoveFriendFromGroup {
     return {
       groupid: isSet(object.groupid) ? Number(object.groupid) : 0,
-      steamiduser: isSet(object.steamiduser) ? Number(object.steamiduser) : 0,
+      steamiduser: isSet(object.steamiduser) ? String(object.steamiduser) : "0",
     };
   },
 
   toJSON(message: CMsgClientRemoveFriendFromGroup): unknown {
     const obj: any = {};
     message.groupid !== undefined && (obj.groupid = Math.round(message.groupid));
-    message.steamiduser !== undefined && (obj.steamiduser = Math.round(message.steamiduser));
+    message.steamiduser !== undefined && (obj.steamiduser = message.steamiduser);
     return obj;
   },
 
@@ -2978,7 +2978,7 @@ export const CMsgClientRemoveFriendFromGroup = {
   ): CMsgClientRemoveFriendFromGroup {
     const message = createBaseCMsgClientRemoveFriendFromGroup();
     message.groupid = object.groupid ?? 0;
-    message.steamiduser = object.steamiduser ?? 0;
+    message.steamiduser = object.steamiduser ?? "0";
     return message;
   },
 };
@@ -3516,11 +3516,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

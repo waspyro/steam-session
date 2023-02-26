@@ -18,7 +18,7 @@ export interface CGameServersGetServerListResponse_Server {
   addr: string;
   gameport: number;
   specport: number;
-  steamid: number;
+  steamid: string;
   name: string;
   appid: number;
   gamedir: string;
@@ -45,11 +45,11 @@ export interface CGameServersIPsWithSteamIDsResponse {
 
 export interface CGameServersIPsWithSteamIDsResponse_Server {
   addr: string;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CGameServersGetServerIPsBySteamIDRequest {
-  serverSteamids: number[];
+  serverSteamids: string[];
 }
 
 export interface CGameServersQueryByFakeIPRequest {
@@ -115,7 +115,7 @@ export interface CMsgGameServerPingQueryData {
   spectatorPort: number;
   spectatorServerName: string;
   serverName: string;
-  steamid: number;
+  steamid: string;
   appId: number;
   gamedir: string;
   map: string;
@@ -300,7 +300,7 @@ function createBaseCGameServersGetServerListResponse_Server(): CGameServersGetSe
     addr: "",
     gameport: 0,
     specport: 0,
-    steamid: 0,
+    steamid: "0",
     name: "",
     appid: 0,
     gamedir: "",
@@ -329,7 +329,7 @@ export const CGameServersGetServerListResponse_Server = {
     if (message.specport !== 0) {
       writer.uint32(24).uint32(message.specport);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(33).fixed64(message.steamid);
     }
     if (message.name !== "") {
@@ -394,7 +394,7 @@ export const CGameServersGetServerListResponse_Server = {
           message.specport = reader.uint32();
           break;
         case 4:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.name = reader.string();
@@ -451,7 +451,7 @@ export const CGameServersGetServerListResponse_Server = {
       addr: isSet(object.addr) ? String(object.addr) : "",
       gameport: isSet(object.gameport) ? Number(object.gameport) : 0,
       specport: isSet(object.specport) ? Number(object.specport) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       name: isSet(object.name) ? String(object.name) : "",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       gamedir: isSet(object.gamedir) ? String(object.gamedir) : "",
@@ -474,7 +474,7 @@ export const CGameServersGetServerListResponse_Server = {
     message.addr !== undefined && (obj.addr = message.addr);
     message.gameport !== undefined && (obj.gameport = Math.round(message.gameport));
     message.specport !== undefined && (obj.specport = Math.round(message.specport));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.name !== undefined && (obj.name = message.name);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.gamedir !== undefined && (obj.gamedir = message.gamedir);
@@ -505,7 +505,7 @@ export const CGameServersGetServerListResponse_Server = {
     message.addr = object.addr ?? "";
     message.gameport = object.gameport ?? 0;
     message.specport = object.specport ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.name = object.name ?? "";
     message.appid = object.appid ?? 0;
     message.gamedir = object.gamedir ?? "";
@@ -647,7 +647,7 @@ export const CGameServersIPsWithSteamIDsResponse = {
 };
 
 function createBaseCGameServersIPsWithSteamIDsResponse_Server(): CGameServersIPsWithSteamIDsResponse_Server {
-  return { addr: "", steamid: 0 };
+  return { addr: "", steamid: "0" };
 }
 
 export const CGameServersIPsWithSteamIDsResponse_Server = {
@@ -655,7 +655,7 @@ export const CGameServersIPsWithSteamIDsResponse_Server = {
     if (message.addr !== "") {
       writer.uint32(10).string(message.addr);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -672,7 +672,7 @@ export const CGameServersIPsWithSteamIDsResponse_Server = {
           message.addr = reader.string();
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -685,14 +685,14 @@ export const CGameServersIPsWithSteamIDsResponse_Server = {
   fromJSON(object: any): CGameServersIPsWithSteamIDsResponse_Server {
     return {
       addr: isSet(object.addr) ? String(object.addr) : "",
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CGameServersIPsWithSteamIDsResponse_Server): unknown {
     const obj: any = {};
     message.addr !== undefined && (obj.addr = message.addr);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -707,7 +707,7 @@ export const CGameServersIPsWithSteamIDsResponse_Server = {
   ): CGameServersIPsWithSteamIDsResponse_Server {
     const message = createBaseCGameServersIPsWithSteamIDsResponse_Server();
     message.addr = object.addr ?? "";
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -737,10 +737,10 @@ export const CGameServersGetServerIPsBySteamIDRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.serverSteamids.push(longToNumber(reader.fixed64() as Long));
+              message.serverSteamids.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.serverSteamids.push(longToNumber(reader.fixed64() as Long));
+            message.serverSteamids.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -753,14 +753,14 @@ export const CGameServersGetServerIPsBySteamIDRequest = {
 
   fromJSON(object: any): CGameServersGetServerIPsBySteamIDRequest {
     return {
-      serverSteamids: Array.isArray(object?.serverSteamids) ? object.serverSteamids.map((e: any) => Number(e)) : [],
+      serverSteamids: Array.isArray(object?.serverSteamids) ? object.serverSteamids.map((e: any) => String(e)) : [],
     };
   },
 
   toJSON(message: CGameServersGetServerIPsBySteamIDRequest): unknown {
     const obj: any = {};
     if (message.serverSteamids) {
-      obj.serverSteamids = message.serverSteamids.map((e) => Math.round(e));
+      obj.serverSteamids = message.serverSteamids.map((e) => e);
     } else {
       obj.serverSteamids = [];
     }
@@ -875,7 +875,7 @@ function createBaseCMsgGameServerPingQueryData(): CMsgGameServerPingQueryData {
     spectatorPort: 0,
     spectatorServerName: "",
     serverName: "",
-    steamid: 0,
+    steamid: "0",
     appId: 0,
     gamedir: "",
     map: "",
@@ -913,7 +913,7 @@ export const CMsgGameServerPingQueryData = {
     if (message.serverName !== "") {
       writer.uint32(50).string(message.serverName);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(57).fixed64(message.steamid);
     }
     if (message.appId !== 0) {
@@ -987,7 +987,7 @@ export const CMsgGameServerPingQueryData = {
           message.serverName = reader.string();
           break;
         case 7:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 8:
           message.appId = reader.uint32();
@@ -1047,7 +1047,7 @@ export const CMsgGameServerPingQueryData = {
       spectatorPort: isSet(object.spectatorPort) ? Number(object.spectatorPort) : 0,
       spectatorServerName: isSet(object.spectatorServerName) ? String(object.spectatorServerName) : "",
       serverName: isSet(object.serverName) ? String(object.serverName) : "",
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       gamedir: isSet(object.gamedir) ? String(object.gamedir) : "",
       map: isSet(object.map) ? String(object.map) : "",
@@ -1074,7 +1074,7 @@ export const CMsgGameServerPingQueryData = {
     message.spectatorPort !== undefined && (obj.spectatorPort = Math.round(message.spectatorPort));
     message.spectatorServerName !== undefined && (obj.spectatorServerName = message.spectatorServerName);
     message.serverName !== undefined && (obj.serverName = message.serverName);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.gamedir !== undefined && (obj.gamedir = message.gamedir);
     message.map !== undefined && (obj.map = message.map);
@@ -1106,7 +1106,7 @@ export const CMsgGameServerPingQueryData = {
     message.spectatorPort = object.spectatorPort ?? 0;
     message.spectatorServerName = object.spectatorServerName ?? "";
     message.serverName = object.serverName ?? "";
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.appId = object.appId ?? 0;
     message.gamedir = object.gamedir ?? "";
     message.map = object.map ?? "";
@@ -1675,25 +1675,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1705,11 +1686,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

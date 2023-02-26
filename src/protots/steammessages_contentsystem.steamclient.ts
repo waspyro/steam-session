@@ -36,14 +36,14 @@ export interface CContentServerDirectoryGetServersForSteamPipeResponse {
 export interface CContentServerDirectoryGetDepotPatchInfoRequest {
   appid: number;
   depotid: number;
-  sourceManifestid: number;
-  targetManifestid: number;
+  sourceManifestid: string;
+  targetManifestid: string;
 }
 
 export interface CContentServerDirectoryGetDepotPatchInfoResponse {
   isAvailable: boolean;
-  patchSize: number;
-  patchedChunksSize: number;
+  patchSize: string;
+  patchedChunksSize: string;
 }
 
 export interface CContentServerDirectoryGetClientUpdateHostsRequest {
@@ -52,20 +52,20 @@ export interface CContentServerDirectoryGetClientUpdateHostsRequest {
 
 export interface CContentServerDirectoryGetClientUpdateHostsResponse {
   hostsKv: string;
-  validUntilTime: number;
+  validUntilTime: string;
   ipCountry: string;
 }
 
 export interface CContentServerDirectoryGetManifestRequestCodeRequest {
   appId: number;
   depotId: number;
-  manifestId: number;
+  manifestId: string;
   appBranch: string;
   branchPasswordHash: string;
 }
 
 export interface CContentServerDirectoryGetManifestRequestCodeResponse {
-  manifestRequestCode: number;
+  manifestRequestCode: string;
 }
 
 export interface CContentServerDirectoryGetCDNAuthTokenRequest {
@@ -80,9 +80,9 @@ export interface CContentServerDirectoryGetCDNAuthTokenResponse {
 }
 
 export interface CContentServerDirectoryRequestPeerContentServerRequest {
-  remoteClientId: number;
-  steamid: number;
-  serverRemoteClientId: number;
+  remoteClientId: string;
+  steamid: string;
+  serverRemoteClientId: string;
   appId: number;
   currentBuildId: number;
 }
@@ -92,9 +92,9 @@ export interface CContentServerDirectoryRequestPeerContentServerResponse {
 }
 
 export interface CContentServerDirectoryGetPeerContentInfoRequest {
-  remoteClientId: number;
-  steamid: number;
-  serverRemoteClientId: number;
+  remoteClientId: string;
+  steamid: string;
+  serverRemoteClientId: string;
 }
 
 export interface CContentServerDirectoryGetPeerContentInfoResponse {
@@ -467,7 +467,7 @@ export const CContentServerDirectoryGetServersForSteamPipeResponse = {
 };
 
 function createBaseCContentServerDirectoryGetDepotPatchInfoRequest(): CContentServerDirectoryGetDepotPatchInfoRequest {
-  return { appid: 0, depotid: 0, sourceManifestid: 0, targetManifestid: 0 };
+  return { appid: 0, depotid: 0, sourceManifestid: "0", targetManifestid: "0" };
 }
 
 export const CContentServerDirectoryGetDepotPatchInfoRequest = {
@@ -481,10 +481,10 @@ export const CContentServerDirectoryGetDepotPatchInfoRequest = {
     if (message.depotid !== 0) {
       writer.uint32(16).uint32(message.depotid);
     }
-    if (message.sourceManifestid !== 0) {
+    if (message.sourceManifestid !== "0") {
       writer.uint32(24).uint64(message.sourceManifestid);
     }
-    if (message.targetManifestid !== 0) {
+    if (message.targetManifestid !== "0") {
       writer.uint32(32).uint64(message.targetManifestid);
     }
     return writer;
@@ -504,10 +504,10 @@ export const CContentServerDirectoryGetDepotPatchInfoRequest = {
           message.depotid = reader.uint32();
           break;
         case 3:
-          message.sourceManifestid = longToNumber(reader.uint64() as Long);
+          message.sourceManifestid = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.targetManifestid = longToNumber(reader.uint64() as Long);
+          message.targetManifestid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -521,8 +521,8 @@ export const CContentServerDirectoryGetDepotPatchInfoRequest = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       depotid: isSet(object.depotid) ? Number(object.depotid) : 0,
-      sourceManifestid: isSet(object.sourceManifestid) ? Number(object.sourceManifestid) : 0,
-      targetManifestid: isSet(object.targetManifestid) ? Number(object.targetManifestid) : 0,
+      sourceManifestid: isSet(object.sourceManifestid) ? String(object.sourceManifestid) : "0",
+      targetManifestid: isSet(object.targetManifestid) ? String(object.targetManifestid) : "0",
     };
   },
 
@@ -530,8 +530,8 @@ export const CContentServerDirectoryGetDepotPatchInfoRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.depotid !== undefined && (obj.depotid = Math.round(message.depotid));
-    message.sourceManifestid !== undefined && (obj.sourceManifestid = Math.round(message.sourceManifestid));
-    message.targetManifestid !== undefined && (obj.targetManifestid = Math.round(message.targetManifestid));
+    message.sourceManifestid !== undefined && (obj.sourceManifestid = message.sourceManifestid);
+    message.targetManifestid !== undefined && (obj.targetManifestid = message.targetManifestid);
     return obj;
   },
 
@@ -547,14 +547,14 @@ export const CContentServerDirectoryGetDepotPatchInfoRequest = {
     const message = createBaseCContentServerDirectoryGetDepotPatchInfoRequest();
     message.appid = object.appid ?? 0;
     message.depotid = object.depotid ?? 0;
-    message.sourceManifestid = object.sourceManifestid ?? 0;
-    message.targetManifestid = object.targetManifestid ?? 0;
+    message.sourceManifestid = object.sourceManifestid ?? "0";
+    message.targetManifestid = object.targetManifestid ?? "0";
     return message;
   },
 };
 
 function createBaseCContentServerDirectoryGetDepotPatchInfoResponse(): CContentServerDirectoryGetDepotPatchInfoResponse {
-  return { isAvailable: false, patchSize: 0, patchedChunksSize: 0 };
+  return { isAvailable: false, patchSize: "0", patchedChunksSize: "0" };
 }
 
 export const CContentServerDirectoryGetDepotPatchInfoResponse = {
@@ -565,10 +565,10 @@ export const CContentServerDirectoryGetDepotPatchInfoResponse = {
     if (message.isAvailable === true) {
       writer.uint32(8).bool(message.isAvailable);
     }
-    if (message.patchSize !== 0) {
+    if (message.patchSize !== "0") {
       writer.uint32(16).uint64(message.patchSize);
     }
-    if (message.patchedChunksSize !== 0) {
+    if (message.patchedChunksSize !== "0") {
       writer.uint32(24).uint64(message.patchedChunksSize);
     }
     return writer;
@@ -585,10 +585,10 @@ export const CContentServerDirectoryGetDepotPatchInfoResponse = {
           message.isAvailable = reader.bool();
           break;
         case 2:
-          message.patchSize = longToNumber(reader.uint64() as Long);
+          message.patchSize = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.patchedChunksSize = longToNumber(reader.uint64() as Long);
+          message.patchedChunksSize = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -601,16 +601,16 @@ export const CContentServerDirectoryGetDepotPatchInfoResponse = {
   fromJSON(object: any): CContentServerDirectoryGetDepotPatchInfoResponse {
     return {
       isAvailable: isSet(object.isAvailable) ? Boolean(object.isAvailable) : false,
-      patchSize: isSet(object.patchSize) ? Number(object.patchSize) : 0,
-      patchedChunksSize: isSet(object.patchedChunksSize) ? Number(object.patchedChunksSize) : 0,
+      patchSize: isSet(object.patchSize) ? String(object.patchSize) : "0",
+      patchedChunksSize: isSet(object.patchedChunksSize) ? String(object.patchedChunksSize) : "0",
     };
   },
 
   toJSON(message: CContentServerDirectoryGetDepotPatchInfoResponse): unknown {
     const obj: any = {};
     message.isAvailable !== undefined && (obj.isAvailable = message.isAvailable);
-    message.patchSize !== undefined && (obj.patchSize = Math.round(message.patchSize));
-    message.patchedChunksSize !== undefined && (obj.patchedChunksSize = Math.round(message.patchedChunksSize));
+    message.patchSize !== undefined && (obj.patchSize = message.patchSize);
+    message.patchedChunksSize !== undefined && (obj.patchedChunksSize = message.patchedChunksSize);
     return obj;
   },
 
@@ -625,8 +625,8 @@ export const CContentServerDirectoryGetDepotPatchInfoResponse = {
   ): CContentServerDirectoryGetDepotPatchInfoResponse {
     const message = createBaseCContentServerDirectoryGetDepotPatchInfoResponse();
     message.isAvailable = object.isAvailable ?? false;
-    message.patchSize = object.patchSize ?? 0;
-    message.patchedChunksSize = object.patchedChunksSize ?? 0;
+    message.patchSize = object.patchSize ?? "0";
+    message.patchedChunksSize = object.patchedChunksSize ?? "0";
     return message;
   },
 };
@@ -690,7 +690,7 @@ export const CContentServerDirectoryGetClientUpdateHostsRequest = {
 };
 
 function createBaseCContentServerDirectoryGetClientUpdateHostsResponse(): CContentServerDirectoryGetClientUpdateHostsResponse {
-  return { hostsKv: "", validUntilTime: 0, ipCountry: "" };
+  return { hostsKv: "", validUntilTime: "0", ipCountry: "" };
 }
 
 export const CContentServerDirectoryGetClientUpdateHostsResponse = {
@@ -701,7 +701,7 @@ export const CContentServerDirectoryGetClientUpdateHostsResponse = {
     if (message.hostsKv !== "") {
       writer.uint32(10).string(message.hostsKv);
     }
-    if (message.validUntilTime !== 0) {
+    if (message.validUntilTime !== "0") {
       writer.uint32(16).uint64(message.validUntilTime);
     }
     if (message.ipCountry !== "") {
@@ -721,7 +721,7 @@ export const CContentServerDirectoryGetClientUpdateHostsResponse = {
           message.hostsKv = reader.string();
           break;
         case 2:
-          message.validUntilTime = longToNumber(reader.uint64() as Long);
+          message.validUntilTime = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.ipCountry = reader.string();
@@ -737,7 +737,7 @@ export const CContentServerDirectoryGetClientUpdateHostsResponse = {
   fromJSON(object: any): CContentServerDirectoryGetClientUpdateHostsResponse {
     return {
       hostsKv: isSet(object.hostsKv) ? String(object.hostsKv) : "",
-      validUntilTime: isSet(object.validUntilTime) ? Number(object.validUntilTime) : 0,
+      validUntilTime: isSet(object.validUntilTime) ? String(object.validUntilTime) : "0",
       ipCountry: isSet(object.ipCountry) ? String(object.ipCountry) : "",
     };
   },
@@ -745,7 +745,7 @@ export const CContentServerDirectoryGetClientUpdateHostsResponse = {
   toJSON(message: CContentServerDirectoryGetClientUpdateHostsResponse): unknown {
     const obj: any = {};
     message.hostsKv !== undefined && (obj.hostsKv = message.hostsKv);
-    message.validUntilTime !== undefined && (obj.validUntilTime = Math.round(message.validUntilTime));
+    message.validUntilTime !== undefined && (obj.validUntilTime = message.validUntilTime);
     message.ipCountry !== undefined && (obj.ipCountry = message.ipCountry);
     return obj;
   },
@@ -761,14 +761,14 @@ export const CContentServerDirectoryGetClientUpdateHostsResponse = {
   ): CContentServerDirectoryGetClientUpdateHostsResponse {
     const message = createBaseCContentServerDirectoryGetClientUpdateHostsResponse();
     message.hostsKv = object.hostsKv ?? "";
-    message.validUntilTime = object.validUntilTime ?? 0;
+    message.validUntilTime = object.validUntilTime ?? "0";
     message.ipCountry = object.ipCountry ?? "";
     return message;
   },
 };
 
 function createBaseCContentServerDirectoryGetManifestRequestCodeRequest(): CContentServerDirectoryGetManifestRequestCodeRequest {
-  return { appId: 0, depotId: 0, manifestId: 0, appBranch: "", branchPasswordHash: "" };
+  return { appId: 0, depotId: 0, manifestId: "0", appBranch: "", branchPasswordHash: "" };
 }
 
 export const CContentServerDirectoryGetManifestRequestCodeRequest = {
@@ -782,7 +782,7 @@ export const CContentServerDirectoryGetManifestRequestCodeRequest = {
     if (message.depotId !== 0) {
       writer.uint32(16).uint32(message.depotId);
     }
-    if (message.manifestId !== 0) {
+    if (message.manifestId !== "0") {
       writer.uint32(24).uint64(message.manifestId);
     }
     if (message.appBranch !== "") {
@@ -808,7 +808,7 @@ export const CContentServerDirectoryGetManifestRequestCodeRequest = {
           message.depotId = reader.uint32();
           break;
         case 3:
-          message.manifestId = longToNumber(reader.uint64() as Long);
+          message.manifestId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.appBranch = reader.string();
@@ -828,7 +828,7 @@ export const CContentServerDirectoryGetManifestRequestCodeRequest = {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       depotId: isSet(object.depotId) ? Number(object.depotId) : 0,
-      manifestId: isSet(object.manifestId) ? Number(object.manifestId) : 0,
+      manifestId: isSet(object.manifestId) ? String(object.manifestId) : "0",
       appBranch: isSet(object.appBranch) ? String(object.appBranch) : "",
       branchPasswordHash: isSet(object.branchPasswordHash) ? String(object.branchPasswordHash) : "",
     };
@@ -838,7 +838,7 @@ export const CContentServerDirectoryGetManifestRequestCodeRequest = {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.depotId !== undefined && (obj.depotId = Math.round(message.depotId));
-    message.manifestId !== undefined && (obj.manifestId = Math.round(message.manifestId));
+    message.manifestId !== undefined && (obj.manifestId = message.manifestId);
     message.appBranch !== undefined && (obj.appBranch = message.appBranch);
     message.branchPasswordHash !== undefined && (obj.branchPasswordHash = message.branchPasswordHash);
     return obj;
@@ -856,7 +856,7 @@ export const CContentServerDirectoryGetManifestRequestCodeRequest = {
     const message = createBaseCContentServerDirectoryGetManifestRequestCodeRequest();
     message.appId = object.appId ?? 0;
     message.depotId = object.depotId ?? 0;
-    message.manifestId = object.manifestId ?? 0;
+    message.manifestId = object.manifestId ?? "0";
     message.appBranch = object.appBranch ?? "";
     message.branchPasswordHash = object.branchPasswordHash ?? "";
     return message;
@@ -864,7 +864,7 @@ export const CContentServerDirectoryGetManifestRequestCodeRequest = {
 };
 
 function createBaseCContentServerDirectoryGetManifestRequestCodeResponse(): CContentServerDirectoryGetManifestRequestCodeResponse {
-  return { manifestRequestCode: 0 };
+  return { manifestRequestCode: "0" };
 }
 
 export const CContentServerDirectoryGetManifestRequestCodeResponse = {
@@ -872,7 +872,7 @@ export const CContentServerDirectoryGetManifestRequestCodeResponse = {
     message: CContentServerDirectoryGetManifestRequestCodeResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.manifestRequestCode !== 0) {
+    if (message.manifestRequestCode !== "0") {
       writer.uint32(8).uint64(message.manifestRequestCode);
     }
     return writer;
@@ -886,7 +886,7 @@ export const CContentServerDirectoryGetManifestRequestCodeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.manifestRequestCode = longToNumber(reader.uint64() as Long);
+          message.manifestRequestCode = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -897,12 +897,12 @@ export const CContentServerDirectoryGetManifestRequestCodeResponse = {
   },
 
   fromJSON(object: any): CContentServerDirectoryGetManifestRequestCodeResponse {
-    return { manifestRequestCode: isSet(object.manifestRequestCode) ? Number(object.manifestRequestCode) : 0 };
+    return { manifestRequestCode: isSet(object.manifestRequestCode) ? String(object.manifestRequestCode) : "0" };
   },
 
   toJSON(message: CContentServerDirectoryGetManifestRequestCodeResponse): unknown {
     const obj: any = {};
-    message.manifestRequestCode !== undefined && (obj.manifestRequestCode = Math.round(message.manifestRequestCode));
+    message.manifestRequestCode !== undefined && (obj.manifestRequestCode = message.manifestRequestCode);
     return obj;
   },
 
@@ -916,7 +916,7 @@ export const CContentServerDirectoryGetManifestRequestCodeResponse = {
     object: I,
   ): CContentServerDirectoryGetManifestRequestCodeResponse {
     const message = createBaseCContentServerDirectoryGetManifestRequestCodeResponse();
-    message.manifestRequestCode = object.manifestRequestCode ?? 0;
+    message.manifestRequestCode = object.manifestRequestCode ?? "0";
     return message;
   },
 };
@@ -1066,7 +1066,7 @@ export const CContentServerDirectoryGetCDNAuthTokenResponse = {
 };
 
 function createBaseCContentServerDirectoryRequestPeerContentServerRequest(): CContentServerDirectoryRequestPeerContentServerRequest {
-  return { remoteClientId: 0, steamid: 0, serverRemoteClientId: 0, appId: 0, currentBuildId: 0 };
+  return { remoteClientId: "0", steamid: "0", serverRemoteClientId: "0", appId: 0, currentBuildId: 0 };
 }
 
 export const CContentServerDirectoryRequestPeerContentServerRequest = {
@@ -1074,13 +1074,13 @@ export const CContentServerDirectoryRequestPeerContentServerRequest = {
     message: CContentServerDirectoryRequestPeerContentServerRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.remoteClientId !== 0) {
+    if (message.remoteClientId !== "0") {
       writer.uint32(8).uint64(message.remoteClientId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
-    if (message.serverRemoteClientId !== 0) {
+    if (message.serverRemoteClientId !== "0") {
       writer.uint32(24).uint64(message.serverRemoteClientId);
     }
     if (message.appId !== 0) {
@@ -1100,13 +1100,13 @@ export const CContentServerDirectoryRequestPeerContentServerRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.remoteClientId = longToNumber(reader.uint64() as Long);
+          message.remoteClientId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.serverRemoteClientId = longToNumber(reader.uint64() as Long);
+          message.serverRemoteClientId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.appId = reader.uint32();
@@ -1124,9 +1124,9 @@ export const CContentServerDirectoryRequestPeerContentServerRequest = {
 
   fromJSON(object: any): CContentServerDirectoryRequestPeerContentServerRequest {
     return {
-      remoteClientId: isSet(object.remoteClientId) ? Number(object.remoteClientId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      serverRemoteClientId: isSet(object.serverRemoteClientId) ? Number(object.serverRemoteClientId) : 0,
+      remoteClientId: isSet(object.remoteClientId) ? String(object.remoteClientId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      serverRemoteClientId: isSet(object.serverRemoteClientId) ? String(object.serverRemoteClientId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       currentBuildId: isSet(object.currentBuildId) ? Number(object.currentBuildId) : 0,
     };
@@ -1134,9 +1134,9 @@ export const CContentServerDirectoryRequestPeerContentServerRequest = {
 
   toJSON(message: CContentServerDirectoryRequestPeerContentServerRequest): unknown {
     const obj: any = {};
-    message.remoteClientId !== undefined && (obj.remoteClientId = Math.round(message.remoteClientId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.serverRemoteClientId !== undefined && (obj.serverRemoteClientId = Math.round(message.serverRemoteClientId));
+    message.remoteClientId !== undefined && (obj.remoteClientId = message.remoteClientId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.serverRemoteClientId !== undefined && (obj.serverRemoteClientId = message.serverRemoteClientId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.currentBuildId !== undefined && (obj.currentBuildId = Math.round(message.currentBuildId));
     return obj;
@@ -1152,9 +1152,9 @@ export const CContentServerDirectoryRequestPeerContentServerRequest = {
     object: I,
   ): CContentServerDirectoryRequestPeerContentServerRequest {
     const message = createBaseCContentServerDirectoryRequestPeerContentServerRequest();
-    message.remoteClientId = object.remoteClientId ?? 0;
-    message.steamid = object.steamid ?? 0;
-    message.serverRemoteClientId = object.serverRemoteClientId ?? 0;
+    message.remoteClientId = object.remoteClientId ?? "0";
+    message.steamid = object.steamid ?? "0";
+    message.serverRemoteClientId = object.serverRemoteClientId ?? "0";
     message.appId = object.appId ?? 0;
     message.currentBuildId = object.currentBuildId ?? 0;
     return message;
@@ -1220,7 +1220,7 @@ export const CContentServerDirectoryRequestPeerContentServerResponse = {
 };
 
 function createBaseCContentServerDirectoryGetPeerContentInfoRequest(): CContentServerDirectoryGetPeerContentInfoRequest {
-  return { remoteClientId: 0, steamid: 0, serverRemoteClientId: 0 };
+  return { remoteClientId: "0", steamid: "0", serverRemoteClientId: "0" };
 }
 
 export const CContentServerDirectoryGetPeerContentInfoRequest = {
@@ -1228,13 +1228,13 @@ export const CContentServerDirectoryGetPeerContentInfoRequest = {
     message: CContentServerDirectoryGetPeerContentInfoRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.remoteClientId !== 0) {
+    if (message.remoteClientId !== "0") {
       writer.uint32(8).uint64(message.remoteClientId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
-    if (message.serverRemoteClientId !== 0) {
+    if (message.serverRemoteClientId !== "0") {
       writer.uint32(24).uint64(message.serverRemoteClientId);
     }
     return writer;
@@ -1248,13 +1248,13 @@ export const CContentServerDirectoryGetPeerContentInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.remoteClientId = longToNumber(reader.uint64() as Long);
+          message.remoteClientId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.serverRemoteClientId = longToNumber(reader.uint64() as Long);
+          message.serverRemoteClientId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1266,17 +1266,17 @@ export const CContentServerDirectoryGetPeerContentInfoRequest = {
 
   fromJSON(object: any): CContentServerDirectoryGetPeerContentInfoRequest {
     return {
-      remoteClientId: isSet(object.remoteClientId) ? Number(object.remoteClientId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      serverRemoteClientId: isSet(object.serverRemoteClientId) ? Number(object.serverRemoteClientId) : 0,
+      remoteClientId: isSet(object.remoteClientId) ? String(object.remoteClientId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      serverRemoteClientId: isSet(object.serverRemoteClientId) ? String(object.serverRemoteClientId) : "0",
     };
   },
 
   toJSON(message: CContentServerDirectoryGetPeerContentInfoRequest): unknown {
     const obj: any = {};
-    message.remoteClientId !== undefined && (obj.remoteClientId = Math.round(message.remoteClientId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.serverRemoteClientId !== undefined && (obj.serverRemoteClientId = Math.round(message.serverRemoteClientId));
+    message.remoteClientId !== undefined && (obj.remoteClientId = message.remoteClientId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.serverRemoteClientId !== undefined && (obj.serverRemoteClientId = message.serverRemoteClientId);
     return obj;
   },
 
@@ -1290,9 +1290,9 @@ export const CContentServerDirectoryGetPeerContentInfoRequest = {
     object: I,
   ): CContentServerDirectoryGetPeerContentInfoRequest {
     const message = createBaseCContentServerDirectoryGetPeerContentInfoRequest();
-    message.remoteClientId = object.remoteClientId ?? 0;
-    message.steamid = object.steamid ?? 0;
-    message.serverRemoteClientId = object.serverRemoteClientId ?? 0;
+    message.remoteClientId = object.remoteClientId ?? "0";
+    message.steamid = object.steamid ?? "0";
+    message.serverRemoteClientId = object.serverRemoteClientId ?? "0";
     return message;
   },
 };
@@ -1467,25 +1467,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1497,11 +1478,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

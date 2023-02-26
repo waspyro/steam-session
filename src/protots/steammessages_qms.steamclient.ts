@@ -123,23 +123,23 @@ export interface CQueuedMatchmakingSearchForGameRequest {
   params: GameSearchParam[];
   playerMin: number;
   playerMax: number;
-  steamidlobby: number;
-  searchid: number;
+  steamidlobby: string;
+  searchid: string;
 }
 
 export interface CQueuedMatchmakingSearchForGameResponse {
   gamesearchresult: EGameSearchResult;
-  searchid: number;
+  searchid: string;
   secondsTimeEstimate: number;
   pollFrequency: number;
   countSearching: number;
   playersInMatch: number;
   playersAccepted: number;
   connectString: string;
-  steamidhost: number;
+  steamidhost: string;
   rtimeMatchMade: number;
   rtimeNow: number;
-  steamidCanceledSearch: number;
+  steamidCanceledSearch: string;
 }
 
 export interface CQueuedMatchmakingGameHostSearchForPlayersRequest {
@@ -150,11 +150,11 @@ export interface CQueuedMatchmakingGameHostSearchForPlayersRequest {
   playerMax: number;
   playerMaxTeamSize: number;
   connectionString: string;
-  searchid: number;
+  searchid: string;
 }
 
 export interface PlayerFound {
-  steamid: number;
+  steamid: string;
   action: EGameSearchAction;
   params: GameSearchParam[];
   teamNumber: number;
@@ -162,22 +162,22 @@ export interface PlayerFound {
 
 export interface CQueuedMatchmakingGameHostSearchForPlayersResponse {
   gamesearchresult: EGameSearchResult;
-  searchid: number;
+  searchid: string;
   pollFrequency: number;
-  matchid: number;
+  matchid: string;
   players: PlayerFound[];
   rtimeMatchMade: number;
   rtimeNow: number;
 }
 
 export interface PlayerResult {
-  steamid: number;
+  steamid: string;
   value: number;
 }
 
 export interface CQueuedMatchmakingGameHostSubmitPlayerResultRequest {
   appid: number;
-  matchid: number;
+  matchid: string;
   playerResults: PlayerResult[];
 }
 
@@ -186,7 +186,7 @@ export interface CQueuedMatchmakingGameHostSubmitPlayerResultResponse {
 
 export interface CQueuedMatchmakingGameHostEndGameRequest {
   appid: number;
-  matchid: number;
+  matchid: string;
 }
 
 export interface CQueuedMatchmakingGameHostEndGameResponse {
@@ -259,7 +259,7 @@ export const GameSearchParam = {
 };
 
 function createBaseCQueuedMatchmakingSearchForGameRequest(): CQueuedMatchmakingSearchForGameRequest {
-  return { appid: 0, action: 0, params: [], playerMin: 0, playerMax: 0, steamidlobby: 0, searchid: 0 };
+  return { appid: 0, action: 0, params: [], playerMin: 0, playerMax: 0, steamidlobby: "0", searchid: "0" };
 }
 
 export const CQueuedMatchmakingSearchForGameRequest = {
@@ -279,10 +279,10 @@ export const CQueuedMatchmakingSearchForGameRequest = {
     if (message.playerMax !== 0) {
       writer.uint32(40).uint32(message.playerMax);
     }
-    if (message.steamidlobby !== 0) {
+    if (message.steamidlobby !== "0") {
       writer.uint32(49).fixed64(message.steamidlobby);
     }
-    if (message.searchid !== 0) {
+    if (message.searchid !== "0") {
       writer.uint32(56).uint64(message.searchid);
     }
     return writer;
@@ -311,10 +311,10 @@ export const CQueuedMatchmakingSearchForGameRequest = {
           message.playerMax = reader.uint32();
           break;
         case 6:
-          message.steamidlobby = longToNumber(reader.fixed64() as Long);
+          message.steamidlobby = longToString(reader.fixed64() as Long);
           break;
         case 7:
-          message.searchid = longToNumber(reader.uint64() as Long);
+          message.searchid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -331,8 +331,8 @@ export const CQueuedMatchmakingSearchForGameRequest = {
       params: Array.isArray(object?.params) ? object.params.map((e: any) => GameSearchParam.fromJSON(e)) : [],
       playerMin: isSet(object.playerMin) ? Number(object.playerMin) : 0,
       playerMax: isSet(object.playerMax) ? Number(object.playerMax) : 0,
-      steamidlobby: isSet(object.steamidlobby) ? Number(object.steamidlobby) : 0,
-      searchid: isSet(object.searchid) ? Number(object.searchid) : 0,
+      steamidlobby: isSet(object.steamidlobby) ? String(object.steamidlobby) : "0",
+      searchid: isSet(object.searchid) ? String(object.searchid) : "0",
     };
   },
 
@@ -347,8 +347,8 @@ export const CQueuedMatchmakingSearchForGameRequest = {
     }
     message.playerMin !== undefined && (obj.playerMin = Math.round(message.playerMin));
     message.playerMax !== undefined && (obj.playerMax = Math.round(message.playerMax));
-    message.steamidlobby !== undefined && (obj.steamidlobby = Math.round(message.steamidlobby));
-    message.searchid !== undefined && (obj.searchid = Math.round(message.searchid));
+    message.steamidlobby !== undefined && (obj.steamidlobby = message.steamidlobby);
+    message.searchid !== undefined && (obj.searchid = message.searchid);
     return obj;
   },
 
@@ -367,8 +367,8 @@ export const CQueuedMatchmakingSearchForGameRequest = {
     message.params = object.params?.map((e) => GameSearchParam.fromPartial(e)) || [];
     message.playerMin = object.playerMin ?? 0;
     message.playerMax = object.playerMax ?? 0;
-    message.steamidlobby = object.steamidlobby ?? 0;
-    message.searchid = object.searchid ?? 0;
+    message.steamidlobby = object.steamidlobby ?? "0";
+    message.searchid = object.searchid ?? "0";
     return message;
   },
 };
@@ -376,17 +376,17 @@ export const CQueuedMatchmakingSearchForGameRequest = {
 function createBaseCQueuedMatchmakingSearchForGameResponse(): CQueuedMatchmakingSearchForGameResponse {
   return {
     gamesearchresult: 0,
-    searchid: 0,
+    searchid: "0",
     secondsTimeEstimate: 0,
     pollFrequency: 0,
     countSearching: 0,
     playersInMatch: 0,
     playersAccepted: 0,
     connectString: "",
-    steamidhost: 0,
+    steamidhost: "0",
     rtimeMatchMade: 0,
     rtimeNow: 0,
-    steamidCanceledSearch: 0,
+    steamidCanceledSearch: "0",
   };
 }
 
@@ -395,7 +395,7 @@ export const CQueuedMatchmakingSearchForGameResponse = {
     if (message.gamesearchresult !== 0) {
       writer.uint32(8).int32(message.gamesearchresult);
     }
-    if (message.searchid !== 0) {
+    if (message.searchid !== "0") {
       writer.uint32(16).uint64(message.searchid);
     }
     if (message.secondsTimeEstimate !== 0) {
@@ -416,7 +416,7 @@ export const CQueuedMatchmakingSearchForGameResponse = {
     if (message.connectString !== "") {
       writer.uint32(74).string(message.connectString);
     }
-    if (message.steamidhost !== 0) {
+    if (message.steamidhost !== "0") {
       writer.uint32(81).fixed64(message.steamidhost);
     }
     if (message.rtimeMatchMade !== 0) {
@@ -425,7 +425,7 @@ export const CQueuedMatchmakingSearchForGameResponse = {
     if (message.rtimeNow !== 0) {
       writer.uint32(96).uint32(message.rtimeNow);
     }
-    if (message.steamidCanceledSearch !== 0) {
+    if (message.steamidCanceledSearch !== "0") {
       writer.uint32(105).fixed64(message.steamidCanceledSearch);
     }
     return writer;
@@ -442,7 +442,7 @@ export const CQueuedMatchmakingSearchForGameResponse = {
           message.gamesearchresult = reader.int32() as any;
           break;
         case 2:
-          message.searchid = longToNumber(reader.uint64() as Long);
+          message.searchid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.secondsTimeEstimate = reader.uint32();
@@ -463,7 +463,7 @@ export const CQueuedMatchmakingSearchForGameResponse = {
           message.connectString = reader.string();
           break;
         case 10:
-          message.steamidhost = longToNumber(reader.fixed64() as Long);
+          message.steamidhost = longToString(reader.fixed64() as Long);
           break;
         case 11:
           message.rtimeMatchMade = reader.uint32();
@@ -472,7 +472,7 @@ export const CQueuedMatchmakingSearchForGameResponse = {
           message.rtimeNow = reader.uint32();
           break;
         case 13:
-          message.steamidCanceledSearch = longToNumber(reader.fixed64() as Long);
+          message.steamidCanceledSearch = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -485,17 +485,17 @@ export const CQueuedMatchmakingSearchForGameResponse = {
   fromJSON(object: any): CQueuedMatchmakingSearchForGameResponse {
     return {
       gamesearchresult: isSet(object.gamesearchresult) ? eGameSearchResultFromJSON(object.gamesearchresult) : 0,
-      searchid: isSet(object.searchid) ? Number(object.searchid) : 0,
+      searchid: isSet(object.searchid) ? String(object.searchid) : "0",
       secondsTimeEstimate: isSet(object.secondsTimeEstimate) ? Number(object.secondsTimeEstimate) : 0,
       pollFrequency: isSet(object.pollFrequency) ? Number(object.pollFrequency) : 0,
       countSearching: isSet(object.countSearching) ? Number(object.countSearching) : 0,
       playersInMatch: isSet(object.playersInMatch) ? Number(object.playersInMatch) : 0,
       playersAccepted: isSet(object.playersAccepted) ? Number(object.playersAccepted) : 0,
       connectString: isSet(object.connectString) ? String(object.connectString) : "",
-      steamidhost: isSet(object.steamidhost) ? Number(object.steamidhost) : 0,
+      steamidhost: isSet(object.steamidhost) ? String(object.steamidhost) : "0",
       rtimeMatchMade: isSet(object.rtimeMatchMade) ? Number(object.rtimeMatchMade) : 0,
       rtimeNow: isSet(object.rtimeNow) ? Number(object.rtimeNow) : 0,
-      steamidCanceledSearch: isSet(object.steamidCanceledSearch) ? Number(object.steamidCanceledSearch) : 0,
+      steamidCanceledSearch: isSet(object.steamidCanceledSearch) ? String(object.steamidCanceledSearch) : "0",
     };
   },
 
@@ -503,18 +503,17 @@ export const CQueuedMatchmakingSearchForGameResponse = {
     const obj: any = {};
     message.gamesearchresult !== undefined &&
       (obj.gamesearchresult = eGameSearchResultToJSON(message.gamesearchresult));
-    message.searchid !== undefined && (obj.searchid = Math.round(message.searchid));
+    message.searchid !== undefined && (obj.searchid = message.searchid);
     message.secondsTimeEstimate !== undefined && (obj.secondsTimeEstimate = Math.round(message.secondsTimeEstimate));
     message.pollFrequency !== undefined && (obj.pollFrequency = Math.round(message.pollFrequency));
     message.countSearching !== undefined && (obj.countSearching = Math.round(message.countSearching));
     message.playersInMatch !== undefined && (obj.playersInMatch = Math.round(message.playersInMatch));
     message.playersAccepted !== undefined && (obj.playersAccepted = Math.round(message.playersAccepted));
     message.connectString !== undefined && (obj.connectString = message.connectString);
-    message.steamidhost !== undefined && (obj.steamidhost = Math.round(message.steamidhost));
+    message.steamidhost !== undefined && (obj.steamidhost = message.steamidhost);
     message.rtimeMatchMade !== undefined && (obj.rtimeMatchMade = Math.round(message.rtimeMatchMade));
     message.rtimeNow !== undefined && (obj.rtimeNow = Math.round(message.rtimeNow));
-    message.steamidCanceledSearch !== undefined &&
-      (obj.steamidCanceledSearch = Math.round(message.steamidCanceledSearch));
+    message.steamidCanceledSearch !== undefined && (obj.steamidCanceledSearch = message.steamidCanceledSearch);
     return obj;
   },
 
@@ -529,17 +528,17 @@ export const CQueuedMatchmakingSearchForGameResponse = {
   ): CQueuedMatchmakingSearchForGameResponse {
     const message = createBaseCQueuedMatchmakingSearchForGameResponse();
     message.gamesearchresult = object.gamesearchresult ?? 0;
-    message.searchid = object.searchid ?? 0;
+    message.searchid = object.searchid ?? "0";
     message.secondsTimeEstimate = object.secondsTimeEstimate ?? 0;
     message.pollFrequency = object.pollFrequency ?? 0;
     message.countSearching = object.countSearching ?? 0;
     message.playersInMatch = object.playersInMatch ?? 0;
     message.playersAccepted = object.playersAccepted ?? 0;
     message.connectString = object.connectString ?? "";
-    message.steamidhost = object.steamidhost ?? 0;
+    message.steamidhost = object.steamidhost ?? "0";
     message.rtimeMatchMade = object.rtimeMatchMade ?? 0;
     message.rtimeNow = object.rtimeNow ?? 0;
-    message.steamidCanceledSearch = object.steamidCanceledSearch ?? 0;
+    message.steamidCanceledSearch = object.steamidCanceledSearch ?? "0";
     return message;
   },
 };
@@ -553,7 +552,7 @@ function createBaseCQueuedMatchmakingGameHostSearchForPlayersRequest(): CQueuedM
     playerMax: 0,
     playerMaxTeamSize: 0,
     connectionString: "",
-    searchid: 0,
+    searchid: "0",
   };
 }
 
@@ -583,7 +582,7 @@ export const CQueuedMatchmakingGameHostSearchForPlayersRequest = {
     if (message.connectionString !== "") {
       writer.uint32(58).string(message.connectionString);
     }
-    if (message.searchid !== 0) {
+    if (message.searchid !== "0") {
       writer.uint32(64).uint64(message.searchid);
     }
     return writer;
@@ -618,7 +617,7 @@ export const CQueuedMatchmakingGameHostSearchForPlayersRequest = {
           message.connectionString = reader.string();
           break;
         case 8:
-          message.searchid = longToNumber(reader.uint64() as Long);
+          message.searchid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -637,7 +636,7 @@ export const CQueuedMatchmakingGameHostSearchForPlayersRequest = {
       playerMax: isSet(object.playerMax) ? Number(object.playerMax) : 0,
       playerMaxTeamSize: isSet(object.playerMaxTeamSize) ? Number(object.playerMaxTeamSize) : 0,
       connectionString: isSet(object.connectionString) ? String(object.connectionString) : "",
-      searchid: isSet(object.searchid) ? Number(object.searchid) : 0,
+      searchid: isSet(object.searchid) ? String(object.searchid) : "0",
     };
   },
 
@@ -654,7 +653,7 @@ export const CQueuedMatchmakingGameHostSearchForPlayersRequest = {
     message.playerMax !== undefined && (obj.playerMax = Math.round(message.playerMax));
     message.playerMaxTeamSize !== undefined && (obj.playerMaxTeamSize = Math.round(message.playerMaxTeamSize));
     message.connectionString !== undefined && (obj.connectionString = message.connectionString);
-    message.searchid !== undefined && (obj.searchid = Math.round(message.searchid));
+    message.searchid !== undefined && (obj.searchid = message.searchid);
     return obj;
   },
 
@@ -675,18 +674,18 @@ export const CQueuedMatchmakingGameHostSearchForPlayersRequest = {
     message.playerMax = object.playerMax ?? 0;
     message.playerMaxTeamSize = object.playerMaxTeamSize ?? 0;
     message.connectionString = object.connectionString ?? "";
-    message.searchid = object.searchid ?? 0;
+    message.searchid = object.searchid ?? "0";
     return message;
   },
 };
 
 function createBasePlayerFound(): PlayerFound {
-  return { steamid: 0, action: 0, params: [], teamNumber: 0 };
+  return { steamid: "0", action: 0, params: [], teamNumber: 0 };
 }
 
 export const PlayerFound = {
   encode(message: PlayerFound, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.action !== 0) {
@@ -709,7 +708,7 @@ export const PlayerFound = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.action = reader.int32() as any;
@@ -730,7 +729,7 @@ export const PlayerFound = {
 
   fromJSON(object: any): PlayerFound {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       action: isSet(object.action) ? eGameSearchActionFromJSON(object.action) : 0,
       params: Array.isArray(object?.params) ? object.params.map((e: any) => GameSearchParam.fromJSON(e)) : [],
       teamNumber: isSet(object.teamNumber) ? Number(object.teamNumber) : 0,
@@ -739,7 +738,7 @@ export const PlayerFound = {
 
   toJSON(message: PlayerFound): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.action !== undefined && (obj.action = eGameSearchActionToJSON(message.action));
     if (message.params) {
       obj.params = message.params.map((e) => e ? GameSearchParam.toJSON(e) : undefined);
@@ -756,7 +755,7 @@ export const PlayerFound = {
 
   fromPartial<I extends Exact<DeepPartial<PlayerFound>, I>>(object: I): PlayerFound {
     const message = createBasePlayerFound();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.action = object.action ?? 0;
     message.params = object.params?.map((e) => GameSearchParam.fromPartial(e)) || [];
     message.teamNumber = object.teamNumber ?? 0;
@@ -767,9 +766,9 @@ export const PlayerFound = {
 function createBaseCQueuedMatchmakingGameHostSearchForPlayersResponse(): CQueuedMatchmakingGameHostSearchForPlayersResponse {
   return {
     gamesearchresult: 0,
-    searchid: 0,
+    searchid: "0",
     pollFrequency: 0,
-    matchid: 0,
+    matchid: "0",
     players: [],
     rtimeMatchMade: 0,
     rtimeNow: 0,
@@ -784,13 +783,13 @@ export const CQueuedMatchmakingGameHostSearchForPlayersResponse = {
     if (message.gamesearchresult !== 0) {
       writer.uint32(8).int32(message.gamesearchresult);
     }
-    if (message.searchid !== 0) {
+    if (message.searchid !== "0") {
       writer.uint32(16).uint64(message.searchid);
     }
     if (message.pollFrequency !== 0) {
       writer.uint32(24).uint32(message.pollFrequency);
     }
-    if (message.matchid !== 0) {
+    if (message.matchid !== "0") {
       writer.uint32(32).uint64(message.matchid);
     }
     for (const v of message.players) {
@@ -816,13 +815,13 @@ export const CQueuedMatchmakingGameHostSearchForPlayersResponse = {
           message.gamesearchresult = reader.int32() as any;
           break;
         case 2:
-          message.searchid = longToNumber(reader.uint64() as Long);
+          message.searchid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.pollFrequency = reader.uint32();
           break;
         case 4:
-          message.matchid = longToNumber(reader.uint64() as Long);
+          message.matchid = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.players.push(PlayerFound.decode(reader, reader.uint32()));
@@ -844,9 +843,9 @@ export const CQueuedMatchmakingGameHostSearchForPlayersResponse = {
   fromJSON(object: any): CQueuedMatchmakingGameHostSearchForPlayersResponse {
     return {
       gamesearchresult: isSet(object.gamesearchresult) ? eGameSearchResultFromJSON(object.gamesearchresult) : 0,
-      searchid: isSet(object.searchid) ? Number(object.searchid) : 0,
+      searchid: isSet(object.searchid) ? String(object.searchid) : "0",
       pollFrequency: isSet(object.pollFrequency) ? Number(object.pollFrequency) : 0,
-      matchid: isSet(object.matchid) ? Number(object.matchid) : 0,
+      matchid: isSet(object.matchid) ? String(object.matchid) : "0",
       players: Array.isArray(object?.players) ? object.players.map((e: any) => PlayerFound.fromJSON(e)) : [],
       rtimeMatchMade: isSet(object.rtimeMatchMade) ? Number(object.rtimeMatchMade) : 0,
       rtimeNow: isSet(object.rtimeNow) ? Number(object.rtimeNow) : 0,
@@ -857,9 +856,9 @@ export const CQueuedMatchmakingGameHostSearchForPlayersResponse = {
     const obj: any = {};
     message.gamesearchresult !== undefined &&
       (obj.gamesearchresult = eGameSearchResultToJSON(message.gamesearchresult));
-    message.searchid !== undefined && (obj.searchid = Math.round(message.searchid));
+    message.searchid !== undefined && (obj.searchid = message.searchid);
     message.pollFrequency !== undefined && (obj.pollFrequency = Math.round(message.pollFrequency));
-    message.matchid !== undefined && (obj.matchid = Math.round(message.matchid));
+    message.matchid !== undefined && (obj.matchid = message.matchid);
     if (message.players) {
       obj.players = message.players.map((e) => e ? PlayerFound.toJSON(e) : undefined);
     } else {
@@ -881,9 +880,9 @@ export const CQueuedMatchmakingGameHostSearchForPlayersResponse = {
   ): CQueuedMatchmakingGameHostSearchForPlayersResponse {
     const message = createBaseCQueuedMatchmakingGameHostSearchForPlayersResponse();
     message.gamesearchresult = object.gamesearchresult ?? 0;
-    message.searchid = object.searchid ?? 0;
+    message.searchid = object.searchid ?? "0";
     message.pollFrequency = object.pollFrequency ?? 0;
-    message.matchid = object.matchid ?? 0;
+    message.matchid = object.matchid ?? "0";
     message.players = object.players?.map((e) => PlayerFound.fromPartial(e)) || [];
     message.rtimeMatchMade = object.rtimeMatchMade ?? 0;
     message.rtimeNow = object.rtimeNow ?? 0;
@@ -892,12 +891,12 @@ export const CQueuedMatchmakingGameHostSearchForPlayersResponse = {
 };
 
 function createBasePlayerResult(): PlayerResult {
-  return { steamid: 0, value: 0 };
+  return { steamid: "0", value: 0 };
 }
 
 export const PlayerResult = {
   encode(message: PlayerResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.value !== 0) {
@@ -914,7 +913,7 @@ export const PlayerResult = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.value = reader.uint32();
@@ -929,14 +928,14 @@ export const PlayerResult = {
 
   fromJSON(object: any): PlayerResult {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       value: isSet(object.value) ? Number(object.value) : 0,
     };
   },
 
   toJSON(message: PlayerResult): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.value !== undefined && (obj.value = Math.round(message.value));
     return obj;
   },
@@ -947,14 +946,14 @@ export const PlayerResult = {
 
   fromPartial<I extends Exact<DeepPartial<PlayerResult>, I>>(object: I): PlayerResult {
     const message = createBasePlayerResult();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.value = object.value ?? 0;
     return message;
   },
 };
 
 function createBaseCQueuedMatchmakingGameHostSubmitPlayerResultRequest(): CQueuedMatchmakingGameHostSubmitPlayerResultRequest {
-  return { appid: 0, matchid: 0, playerResults: [] };
+  return { appid: 0, matchid: "0", playerResults: [] };
 }
 
 export const CQueuedMatchmakingGameHostSubmitPlayerResultRequest = {
@@ -965,7 +964,7 @@ export const CQueuedMatchmakingGameHostSubmitPlayerResultRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.matchid !== 0) {
+    if (message.matchid !== "0") {
       writer.uint32(16).uint64(message.matchid);
     }
     for (const v of message.playerResults) {
@@ -985,7 +984,7 @@ export const CQueuedMatchmakingGameHostSubmitPlayerResultRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.matchid = longToNumber(reader.uint64() as Long);
+          message.matchid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.playerResults.push(PlayerResult.decode(reader, reader.uint32()));
@@ -1001,7 +1000,7 @@ export const CQueuedMatchmakingGameHostSubmitPlayerResultRequest = {
   fromJSON(object: any): CQueuedMatchmakingGameHostSubmitPlayerResultRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      matchid: isSet(object.matchid) ? Number(object.matchid) : 0,
+      matchid: isSet(object.matchid) ? String(object.matchid) : "0",
       playerResults: Array.isArray(object?.playerResults)
         ? object.playerResults.map((e: any) => PlayerResult.fromJSON(e))
         : [],
@@ -1011,7 +1010,7 @@ export const CQueuedMatchmakingGameHostSubmitPlayerResultRequest = {
   toJSON(message: CQueuedMatchmakingGameHostSubmitPlayerResultRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.matchid !== undefined && (obj.matchid = Math.round(message.matchid));
+    message.matchid !== undefined && (obj.matchid = message.matchid);
     if (message.playerResults) {
       obj.playerResults = message.playerResults.map((e) => e ? PlayerResult.toJSON(e) : undefined);
     } else {
@@ -1031,7 +1030,7 @@ export const CQueuedMatchmakingGameHostSubmitPlayerResultRequest = {
   ): CQueuedMatchmakingGameHostSubmitPlayerResultRequest {
     const message = createBaseCQueuedMatchmakingGameHostSubmitPlayerResultRequest();
     message.appid = object.appid ?? 0;
-    message.matchid = object.matchid ?? 0;
+    message.matchid = object.matchid ?? "0";
     message.playerResults = object.playerResults?.map((e) => PlayerResult.fromPartial(e)) || [];
     return message;
   },
@@ -1088,7 +1087,7 @@ export const CQueuedMatchmakingGameHostSubmitPlayerResultResponse = {
 };
 
 function createBaseCQueuedMatchmakingGameHostEndGameRequest(): CQueuedMatchmakingGameHostEndGameRequest {
-  return { appid: 0, matchid: 0 };
+  return { appid: 0, matchid: "0" };
 }
 
 export const CQueuedMatchmakingGameHostEndGameRequest = {
@@ -1096,7 +1095,7 @@ export const CQueuedMatchmakingGameHostEndGameRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.matchid !== 0) {
+    if (message.matchid !== "0") {
       writer.uint32(16).uint64(message.matchid);
     }
     return writer;
@@ -1113,7 +1112,7 @@ export const CQueuedMatchmakingGameHostEndGameRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.matchid = longToNumber(reader.uint64() as Long);
+          message.matchid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1126,14 +1125,14 @@ export const CQueuedMatchmakingGameHostEndGameRequest = {
   fromJSON(object: any): CQueuedMatchmakingGameHostEndGameRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      matchid: isSet(object.matchid) ? Number(object.matchid) : 0,
+      matchid: isSet(object.matchid) ? String(object.matchid) : "0",
     };
   },
 
   toJSON(message: CQueuedMatchmakingGameHostEndGameRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.matchid !== undefined && (obj.matchid = Math.round(message.matchid));
+    message.matchid !== undefined && (obj.matchid = message.matchid);
     return obj;
   },
 
@@ -1148,7 +1147,7 @@ export const CQueuedMatchmakingGameHostEndGameRequest = {
   ): CQueuedMatchmakingGameHostEndGameRequest {
     const message = createBaseCQueuedMatchmakingGameHostEndGameRequest();
     message.appid = object.appid ?? 0;
-    message.matchid = object.matchid ?? 0;
+    message.matchid = object.matchid ?? "0";
     return message;
   },
 };
@@ -1266,25 +1265,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1296,11 +1276,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

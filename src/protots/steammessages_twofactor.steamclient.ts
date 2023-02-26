@@ -5,7 +5,7 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CTwoFactorStatusRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CTwoFactorStatusResponse {
@@ -26,9 +26,9 @@ export interface CTwoFactorStatusResponse {
 }
 
 export interface CTwoFactorAddAuthenticatorRequest {
-  steamid: number;
-  authenticatorTime: number;
-  serialNumber: number;
+  steamid: string;
+  authenticatorTime: string;
+  serialNumber: string;
   authenticatorType: number;
   deviceIdentifier: string;
   smsPhoneId: string;
@@ -38,10 +38,10 @@ export interface CTwoFactorAddAuthenticatorRequest {
 
 export interface CTwoFactorAddAuthenticatorResponse {
   sharedSecret: Buffer;
-  serialNumber: number;
+  serialNumber: string;
   revocationCode: string;
   uri: string;
-  serverTime: number;
+  serverTime: string;
   accountName: string;
   tokenGid: string;
   identitySecret: Buffer;
@@ -51,7 +51,7 @@ export interface CTwoFactorAddAuthenticatorResponse {
 }
 
 export interface CTwoFactorSendEmailRequest {
-  steamid: number;
+  steamid: string;
   emailType: number;
   includeActivationCode: boolean;
 }
@@ -60,9 +60,9 @@ export interface CTwoFactorSendEmailResponse {
 }
 
 export interface CTwoFactorFinalizeAddAuthenticatorRequest {
-  steamid: number;
+  steamid: string;
   authenticatorCode: string;
-  authenticatorTime: number;
+  authenticatorTime: string;
   activationCode: string;
   httpHeaders: string[];
   validateSmsCode: boolean;
@@ -71,12 +71,12 @@ export interface CTwoFactorFinalizeAddAuthenticatorRequest {
 export interface CTwoFactorFinalizeAddAuthenticatorResponse {
   success: boolean;
   wantMore: boolean;
-  serverTime: number;
+  serverTime: string;
   status: number;
 }
 
 export interface CTwoFactorUpdateTokenVersionRequest {
-  steamid: number;
+  steamid: string;
   version: number;
   signature: Buffer;
 }
@@ -93,7 +93,7 @@ export interface CTwoFactorRemoveAuthenticatorRequest {
 
 export interface CTwoFactorRemoveAuthenticatorResponse {
   success: boolean;
-  serverTime: number;
+  serverTime: string;
   revocationAttemptsRemaining: number;
 }
 
@@ -106,7 +106,7 @@ export interface CTwoFactorCreateEmergencyCodesResponse {
 }
 
 export interface CTwoFactorDestroyEmergencyCodesRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CTwoFactorDestroyEmergencyCodesResponse {
@@ -135,17 +135,17 @@ export interface CTwoFactorRemoveAuthenticatorViaChallengeContinueRequest {
 
 export interface CRemoveAuthenticatorViaChallengeContinueReplacementToken {
   sharedSecret: Buffer;
-  serialNumber: number;
+  serialNumber: string;
   revocationCode: string;
   uri: string;
-  serverTime: number;
+  serverTime: string;
   accountName: string;
   tokenGid: string;
   identitySecret: Buffer;
   secret1: Buffer;
   status: number;
   steamguardScheme: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CTwoFactorRemoveAuthenticatorViaChallengeContinueResponse {
@@ -154,12 +154,12 @@ export interface CTwoFactorRemoveAuthenticatorViaChallengeContinueResponse {
 }
 
 function createBaseCTwoFactorStatusRequest(): CTwoFactorStatusRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CTwoFactorStatusRequest = {
   encode(message: CTwoFactorStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -173,7 +173,7 @@ export const CTwoFactorStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -184,12 +184,12 @@ export const CTwoFactorStatusRequest = {
   },
 
   fromJSON(object: any): CTwoFactorStatusRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CTwoFactorStatusRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -199,7 +199,7 @@ export const CTwoFactorStatusRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CTwoFactorStatusRequest>, I>>(object: I): CTwoFactorStatusRequest {
     const message = createBaseCTwoFactorStatusRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -397,9 +397,9 @@ export const CTwoFactorStatusResponse = {
 
 function createBaseCTwoFactorAddAuthenticatorRequest(): CTwoFactorAddAuthenticatorRequest {
   return {
-    steamid: 0,
-    authenticatorTime: 0,
-    serialNumber: 0,
+    steamid: "0",
+    authenticatorTime: "0",
+    serialNumber: "0",
     authenticatorType: 0,
     deviceIdentifier: "",
     smsPhoneId: "",
@@ -410,13 +410,13 @@ function createBaseCTwoFactorAddAuthenticatorRequest(): CTwoFactorAddAuthenticat
 
 export const CTwoFactorAddAuthenticatorRequest = {
   encode(message: CTwoFactorAddAuthenticatorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.authenticatorTime !== 0) {
+    if (message.authenticatorTime !== "0") {
       writer.uint32(16).uint64(message.authenticatorTime);
     }
-    if (message.serialNumber !== 0) {
+    if (message.serialNumber !== "0") {
       writer.uint32(25).fixed64(message.serialNumber);
     }
     if (message.authenticatorType !== 0) {
@@ -445,13 +445,13 @@ export const CTwoFactorAddAuthenticatorRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.authenticatorTime = longToNumber(reader.uint64() as Long);
+          message.authenticatorTime = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.serialNumber = longToNumber(reader.fixed64() as Long);
+          message.serialNumber = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.authenticatorType = reader.uint32();
@@ -478,9 +478,9 @@ export const CTwoFactorAddAuthenticatorRequest = {
 
   fromJSON(object: any): CTwoFactorAddAuthenticatorRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      authenticatorTime: isSet(object.authenticatorTime) ? Number(object.authenticatorTime) : 0,
-      serialNumber: isSet(object.serialNumber) ? Number(object.serialNumber) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      authenticatorTime: isSet(object.authenticatorTime) ? String(object.authenticatorTime) : "0",
+      serialNumber: isSet(object.serialNumber) ? String(object.serialNumber) : "0",
       authenticatorType: isSet(object.authenticatorType) ? Number(object.authenticatorType) : 0,
       deviceIdentifier: isSet(object.deviceIdentifier) ? String(object.deviceIdentifier) : "",
       smsPhoneId: isSet(object.smsPhoneId) ? String(object.smsPhoneId) : "",
@@ -491,9 +491,9 @@ export const CTwoFactorAddAuthenticatorRequest = {
 
   toJSON(message: CTwoFactorAddAuthenticatorRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.authenticatorTime !== undefined && (obj.authenticatorTime = Math.round(message.authenticatorTime));
-    message.serialNumber !== undefined && (obj.serialNumber = Math.round(message.serialNumber));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.authenticatorTime !== undefined && (obj.authenticatorTime = message.authenticatorTime);
+    message.serialNumber !== undefined && (obj.serialNumber = message.serialNumber);
     message.authenticatorType !== undefined && (obj.authenticatorType = Math.round(message.authenticatorType));
     message.deviceIdentifier !== undefined && (obj.deviceIdentifier = message.deviceIdentifier);
     message.smsPhoneId !== undefined && (obj.smsPhoneId = message.smsPhoneId);
@@ -516,9 +516,9 @@ export const CTwoFactorAddAuthenticatorRequest = {
     object: I,
   ): CTwoFactorAddAuthenticatorRequest {
     const message = createBaseCTwoFactorAddAuthenticatorRequest();
-    message.steamid = object.steamid ?? 0;
-    message.authenticatorTime = object.authenticatorTime ?? 0;
-    message.serialNumber = object.serialNumber ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.authenticatorTime = object.authenticatorTime ?? "0";
+    message.serialNumber = object.serialNumber ?? "0";
     message.authenticatorType = object.authenticatorType ?? 0;
     message.deviceIdentifier = object.deviceIdentifier ?? "";
     message.smsPhoneId = object.smsPhoneId ?? "";
@@ -531,10 +531,10 @@ export const CTwoFactorAddAuthenticatorRequest = {
 function createBaseCTwoFactorAddAuthenticatorResponse(): CTwoFactorAddAuthenticatorResponse {
   return {
     sharedSecret: Buffer.alloc(0),
-    serialNumber: 0,
+    serialNumber: "0",
     revocationCode: "",
     uri: "",
-    serverTime: 0,
+    serverTime: "0",
     accountName: "",
     tokenGid: "",
     identitySecret: Buffer.alloc(0),
@@ -549,7 +549,7 @@ export const CTwoFactorAddAuthenticatorResponse = {
     if (message.sharedSecret.length !== 0) {
       writer.uint32(10).bytes(message.sharedSecret);
     }
-    if (message.serialNumber !== 0) {
+    if (message.serialNumber !== "0") {
       writer.uint32(17).fixed64(message.serialNumber);
     }
     if (message.revocationCode !== "") {
@@ -558,7 +558,7 @@ export const CTwoFactorAddAuthenticatorResponse = {
     if (message.uri !== "") {
       writer.uint32(34).string(message.uri);
     }
-    if (message.serverTime !== 0) {
+    if (message.serverTime !== "0") {
       writer.uint32(40).uint64(message.serverTime);
     }
     if (message.accountName !== "") {
@@ -593,7 +593,7 @@ export const CTwoFactorAddAuthenticatorResponse = {
           message.sharedSecret = reader.bytes() as Buffer;
           break;
         case 2:
-          message.serialNumber = longToNumber(reader.fixed64() as Long);
+          message.serialNumber = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.revocationCode = reader.string();
@@ -602,7 +602,7 @@ export const CTwoFactorAddAuthenticatorResponse = {
           message.uri = reader.string();
           break;
         case 5:
-          message.serverTime = longToNumber(reader.uint64() as Long);
+          message.serverTime = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.accountName = reader.string();
@@ -633,10 +633,10 @@ export const CTwoFactorAddAuthenticatorResponse = {
   fromJSON(object: any): CTwoFactorAddAuthenticatorResponse {
     return {
       sharedSecret: isSet(object.sharedSecret) ? Buffer.from(bytesFromBase64(object.sharedSecret)) : Buffer.alloc(0),
-      serialNumber: isSet(object.serialNumber) ? Number(object.serialNumber) : 0,
+      serialNumber: isSet(object.serialNumber) ? String(object.serialNumber) : "0",
       revocationCode: isSet(object.revocationCode) ? String(object.revocationCode) : "",
       uri: isSet(object.uri) ? String(object.uri) : "",
-      serverTime: isSet(object.serverTime) ? Number(object.serverTime) : 0,
+      serverTime: isSet(object.serverTime) ? String(object.serverTime) : "0",
       accountName: isSet(object.accountName) ? String(object.accountName) : "",
       tokenGid: isSet(object.tokenGid) ? String(object.tokenGid) : "",
       identitySecret: isSet(object.identitySecret)
@@ -652,10 +652,10 @@ export const CTwoFactorAddAuthenticatorResponse = {
     const obj: any = {};
     message.sharedSecret !== undefined &&
       (obj.sharedSecret = base64FromBytes(message.sharedSecret !== undefined ? message.sharedSecret : Buffer.alloc(0)));
-    message.serialNumber !== undefined && (obj.serialNumber = Math.round(message.serialNumber));
+    message.serialNumber !== undefined && (obj.serialNumber = message.serialNumber);
     message.revocationCode !== undefined && (obj.revocationCode = message.revocationCode);
     message.uri !== undefined && (obj.uri = message.uri);
-    message.serverTime !== undefined && (obj.serverTime = Math.round(message.serverTime));
+    message.serverTime !== undefined && (obj.serverTime = message.serverTime);
     message.accountName !== undefined && (obj.accountName = message.accountName);
     message.tokenGid !== undefined && (obj.tokenGid = message.tokenGid);
     message.identitySecret !== undefined &&
@@ -680,10 +680,10 @@ export const CTwoFactorAddAuthenticatorResponse = {
   ): CTwoFactorAddAuthenticatorResponse {
     const message = createBaseCTwoFactorAddAuthenticatorResponse();
     message.sharedSecret = object.sharedSecret ?? Buffer.alloc(0);
-    message.serialNumber = object.serialNumber ?? 0;
+    message.serialNumber = object.serialNumber ?? "0";
     message.revocationCode = object.revocationCode ?? "";
     message.uri = object.uri ?? "";
-    message.serverTime = object.serverTime ?? 0;
+    message.serverTime = object.serverTime ?? "0";
     message.accountName = object.accountName ?? "";
     message.tokenGid = object.tokenGid ?? "";
     message.identitySecret = object.identitySecret ?? Buffer.alloc(0);
@@ -695,12 +695,12 @@ export const CTwoFactorAddAuthenticatorResponse = {
 };
 
 function createBaseCTwoFactorSendEmailRequest(): CTwoFactorSendEmailRequest {
-  return { steamid: 0, emailType: 0, includeActivationCode: false };
+  return { steamid: "0", emailType: 0, includeActivationCode: false };
 }
 
 export const CTwoFactorSendEmailRequest = {
   encode(message: CTwoFactorSendEmailRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.emailType !== 0) {
@@ -720,7 +720,7 @@ export const CTwoFactorSendEmailRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.emailType = reader.uint32();
@@ -738,7 +738,7 @@ export const CTwoFactorSendEmailRequest = {
 
   fromJSON(object: any): CTwoFactorSendEmailRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       emailType: isSet(object.emailType) ? Number(object.emailType) : 0,
       includeActivationCode: isSet(object.includeActivationCode) ? Boolean(object.includeActivationCode) : false,
     };
@@ -746,7 +746,7 @@ export const CTwoFactorSendEmailRequest = {
 
   toJSON(message: CTwoFactorSendEmailRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.emailType !== undefined && (obj.emailType = Math.round(message.emailType));
     message.includeActivationCode !== undefined && (obj.includeActivationCode = message.includeActivationCode);
     return obj;
@@ -758,7 +758,7 @@ export const CTwoFactorSendEmailRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CTwoFactorSendEmailRequest>, I>>(object: I): CTwoFactorSendEmailRequest {
     const message = createBaseCTwoFactorSendEmailRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.emailType = object.emailType ?? 0;
     message.includeActivationCode = object.includeActivationCode ?? false;
     return message;
@@ -810,9 +810,9 @@ export const CTwoFactorSendEmailResponse = {
 
 function createBaseCTwoFactorFinalizeAddAuthenticatorRequest(): CTwoFactorFinalizeAddAuthenticatorRequest {
   return {
-    steamid: 0,
+    steamid: "0",
     authenticatorCode: "",
-    authenticatorTime: 0,
+    authenticatorTime: "0",
     activationCode: "",
     httpHeaders: [],
     validateSmsCode: false,
@@ -821,13 +821,13 @@ function createBaseCTwoFactorFinalizeAddAuthenticatorRequest(): CTwoFactorFinali
 
 export const CTwoFactorFinalizeAddAuthenticatorRequest = {
   encode(message: CTwoFactorFinalizeAddAuthenticatorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.authenticatorCode !== "") {
       writer.uint32(18).string(message.authenticatorCode);
     }
-    if (message.authenticatorTime !== 0) {
+    if (message.authenticatorTime !== "0") {
       writer.uint32(24).uint64(message.authenticatorTime);
     }
     if (message.activationCode !== "") {
@@ -850,13 +850,13 @@ export const CTwoFactorFinalizeAddAuthenticatorRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.authenticatorCode = reader.string();
           break;
         case 3:
-          message.authenticatorTime = longToNumber(reader.uint64() as Long);
+          message.authenticatorTime = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.activationCode = reader.string();
@@ -877,9 +877,9 @@ export const CTwoFactorFinalizeAddAuthenticatorRequest = {
 
   fromJSON(object: any): CTwoFactorFinalizeAddAuthenticatorRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       authenticatorCode: isSet(object.authenticatorCode) ? String(object.authenticatorCode) : "",
-      authenticatorTime: isSet(object.authenticatorTime) ? Number(object.authenticatorTime) : 0,
+      authenticatorTime: isSet(object.authenticatorTime) ? String(object.authenticatorTime) : "0",
       activationCode: isSet(object.activationCode) ? String(object.activationCode) : "",
       httpHeaders: Array.isArray(object?.httpHeaders) ? object.httpHeaders.map((e: any) => String(e)) : [],
       validateSmsCode: isSet(object.validateSmsCode) ? Boolean(object.validateSmsCode) : false,
@@ -888,9 +888,9 @@ export const CTwoFactorFinalizeAddAuthenticatorRequest = {
 
   toJSON(message: CTwoFactorFinalizeAddAuthenticatorRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.authenticatorCode !== undefined && (obj.authenticatorCode = message.authenticatorCode);
-    message.authenticatorTime !== undefined && (obj.authenticatorTime = Math.round(message.authenticatorTime));
+    message.authenticatorTime !== undefined && (obj.authenticatorTime = message.authenticatorTime);
     message.activationCode !== undefined && (obj.activationCode = message.activationCode);
     if (message.httpHeaders) {
       obj.httpHeaders = message.httpHeaders.map((e) => e);
@@ -911,9 +911,9 @@ export const CTwoFactorFinalizeAddAuthenticatorRequest = {
     object: I,
   ): CTwoFactorFinalizeAddAuthenticatorRequest {
     const message = createBaseCTwoFactorFinalizeAddAuthenticatorRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.authenticatorCode = object.authenticatorCode ?? "";
-    message.authenticatorTime = object.authenticatorTime ?? 0;
+    message.authenticatorTime = object.authenticatorTime ?? "0";
     message.activationCode = object.activationCode ?? "";
     message.httpHeaders = object.httpHeaders?.map((e) => e) || [];
     message.validateSmsCode = object.validateSmsCode ?? false;
@@ -922,7 +922,7 @@ export const CTwoFactorFinalizeAddAuthenticatorRequest = {
 };
 
 function createBaseCTwoFactorFinalizeAddAuthenticatorResponse(): CTwoFactorFinalizeAddAuthenticatorResponse {
-  return { success: false, wantMore: false, serverTime: 0, status: 0 };
+  return { success: false, wantMore: false, serverTime: "0", status: 0 };
 }
 
 export const CTwoFactorFinalizeAddAuthenticatorResponse = {
@@ -933,7 +933,7 @@ export const CTwoFactorFinalizeAddAuthenticatorResponse = {
     if (message.wantMore === true) {
       writer.uint32(16).bool(message.wantMore);
     }
-    if (message.serverTime !== 0) {
+    if (message.serverTime !== "0") {
       writer.uint32(24).uint64(message.serverTime);
     }
     if (message.status !== 0) {
@@ -956,7 +956,7 @@ export const CTwoFactorFinalizeAddAuthenticatorResponse = {
           message.wantMore = reader.bool();
           break;
         case 3:
-          message.serverTime = longToNumber(reader.uint64() as Long);
+          message.serverTime = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.status = reader.int32();
@@ -973,7 +973,7 @@ export const CTwoFactorFinalizeAddAuthenticatorResponse = {
     return {
       success: isSet(object.success) ? Boolean(object.success) : false,
       wantMore: isSet(object.wantMore) ? Boolean(object.wantMore) : false,
-      serverTime: isSet(object.serverTime) ? Number(object.serverTime) : 0,
+      serverTime: isSet(object.serverTime) ? String(object.serverTime) : "0",
       status: isSet(object.status) ? Number(object.status) : 0,
     };
   },
@@ -982,7 +982,7 @@ export const CTwoFactorFinalizeAddAuthenticatorResponse = {
     const obj: any = {};
     message.success !== undefined && (obj.success = message.success);
     message.wantMore !== undefined && (obj.wantMore = message.wantMore);
-    message.serverTime !== undefined && (obj.serverTime = Math.round(message.serverTime));
+    message.serverTime !== undefined && (obj.serverTime = message.serverTime);
     message.status !== undefined && (obj.status = Math.round(message.status));
     return obj;
   },
@@ -999,19 +999,19 @@ export const CTwoFactorFinalizeAddAuthenticatorResponse = {
     const message = createBaseCTwoFactorFinalizeAddAuthenticatorResponse();
     message.success = object.success ?? false;
     message.wantMore = object.wantMore ?? false;
-    message.serverTime = object.serverTime ?? 0;
+    message.serverTime = object.serverTime ?? "0";
     message.status = object.status ?? 0;
     return message;
   },
 };
 
 function createBaseCTwoFactorUpdateTokenVersionRequest(): CTwoFactorUpdateTokenVersionRequest {
-  return { steamid: 0, version: 0, signature: Buffer.alloc(0) };
+  return { steamid: "0", version: 0, signature: Buffer.alloc(0) };
 }
 
 export const CTwoFactorUpdateTokenVersionRequest = {
   encode(message: CTwoFactorUpdateTokenVersionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.version !== 0) {
@@ -1031,7 +1031,7 @@ export const CTwoFactorUpdateTokenVersionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.version = reader.uint32();
@@ -1049,7 +1049,7 @@ export const CTwoFactorUpdateTokenVersionRequest = {
 
   fromJSON(object: any): CTwoFactorUpdateTokenVersionRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       version: isSet(object.version) ? Number(object.version) : 0,
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
     };
@@ -1057,7 +1057,7 @@ export const CTwoFactorUpdateTokenVersionRequest = {
 
   toJSON(message: CTwoFactorUpdateTokenVersionRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.version !== undefined && (obj.version = Math.round(message.version));
     message.signature !== undefined &&
       (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : Buffer.alloc(0)));
@@ -1074,7 +1074,7 @@ export const CTwoFactorUpdateTokenVersionRequest = {
     object: I,
   ): CTwoFactorUpdateTokenVersionRequest {
     const message = createBaseCTwoFactorUpdateTokenVersionRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.version = object.version ?? 0;
     message.signature = object.signature ?? Buffer.alloc(0);
     return message;
@@ -1216,7 +1216,7 @@ export const CTwoFactorRemoveAuthenticatorRequest = {
 };
 
 function createBaseCTwoFactorRemoveAuthenticatorResponse(): CTwoFactorRemoveAuthenticatorResponse {
-  return { success: false, serverTime: 0, revocationAttemptsRemaining: 0 };
+  return { success: false, serverTime: "0", revocationAttemptsRemaining: 0 };
 }
 
 export const CTwoFactorRemoveAuthenticatorResponse = {
@@ -1224,7 +1224,7 @@ export const CTwoFactorRemoveAuthenticatorResponse = {
     if (message.success === true) {
       writer.uint32(8).bool(message.success);
     }
-    if (message.serverTime !== 0) {
+    if (message.serverTime !== "0") {
       writer.uint32(24).uint64(message.serverTime);
     }
     if (message.revocationAttemptsRemaining !== 0) {
@@ -1244,7 +1244,7 @@ export const CTwoFactorRemoveAuthenticatorResponse = {
           message.success = reader.bool();
           break;
         case 3:
-          message.serverTime = longToNumber(reader.uint64() as Long);
+          message.serverTime = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.revocationAttemptsRemaining = reader.uint32();
@@ -1260,7 +1260,7 @@ export const CTwoFactorRemoveAuthenticatorResponse = {
   fromJSON(object: any): CTwoFactorRemoveAuthenticatorResponse {
     return {
       success: isSet(object.success) ? Boolean(object.success) : false,
-      serverTime: isSet(object.serverTime) ? Number(object.serverTime) : 0,
+      serverTime: isSet(object.serverTime) ? String(object.serverTime) : "0",
       revocationAttemptsRemaining: isSet(object.revocationAttemptsRemaining)
         ? Number(object.revocationAttemptsRemaining)
         : 0,
@@ -1270,7 +1270,7 @@ export const CTwoFactorRemoveAuthenticatorResponse = {
   toJSON(message: CTwoFactorRemoveAuthenticatorResponse): unknown {
     const obj: any = {};
     message.success !== undefined && (obj.success = message.success);
-    message.serverTime !== undefined && (obj.serverTime = Math.round(message.serverTime));
+    message.serverTime !== undefined && (obj.serverTime = message.serverTime);
     message.revocationAttemptsRemaining !== undefined &&
       (obj.revocationAttemptsRemaining = Math.round(message.revocationAttemptsRemaining));
     return obj;
@@ -1287,7 +1287,7 @@ export const CTwoFactorRemoveAuthenticatorResponse = {
   ): CTwoFactorRemoveAuthenticatorResponse {
     const message = createBaseCTwoFactorRemoveAuthenticatorResponse();
     message.success = object.success ?? false;
-    message.serverTime = object.serverTime ?? 0;
+    message.serverTime = object.serverTime ?? "0";
     message.revocationAttemptsRemaining = object.revocationAttemptsRemaining ?? 0;
     return message;
   },
@@ -1408,12 +1408,12 @@ export const CTwoFactorCreateEmergencyCodesResponse = {
 };
 
 function createBaseCTwoFactorDestroyEmergencyCodesRequest(): CTwoFactorDestroyEmergencyCodesRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CTwoFactorDestroyEmergencyCodesRequest = {
   encode(message: CTwoFactorDestroyEmergencyCodesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -1427,7 +1427,7 @@ export const CTwoFactorDestroyEmergencyCodesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1438,12 +1438,12 @@ export const CTwoFactorDestroyEmergencyCodesRequest = {
   },
 
   fromJSON(object: any): CTwoFactorDestroyEmergencyCodesRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CTwoFactorDestroyEmergencyCodesRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1457,7 +1457,7 @@ export const CTwoFactorDestroyEmergencyCodesRequest = {
     object: I,
   ): CTwoFactorDestroyEmergencyCodesRequest {
     const message = createBaseCTwoFactorDestroyEmergencyCodesRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1804,17 +1804,17 @@ export const CTwoFactorRemoveAuthenticatorViaChallengeContinueRequest = {
 function createBaseCRemoveAuthenticatorViaChallengeContinueReplacementToken(): CRemoveAuthenticatorViaChallengeContinueReplacementToken {
   return {
     sharedSecret: Buffer.alloc(0),
-    serialNumber: 0,
+    serialNumber: "0",
     revocationCode: "",
     uri: "",
-    serverTime: 0,
+    serverTime: "0",
     accountName: "",
     tokenGid: "",
     identitySecret: Buffer.alloc(0),
     secret1: Buffer.alloc(0),
     status: 0,
     steamguardScheme: 0,
-    steamid: 0,
+    steamid: "0",
   };
 }
 
@@ -1826,7 +1826,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
     if (message.sharedSecret.length !== 0) {
       writer.uint32(10).bytes(message.sharedSecret);
     }
-    if (message.serialNumber !== 0) {
+    if (message.serialNumber !== "0") {
       writer.uint32(17).fixed64(message.serialNumber);
     }
     if (message.revocationCode !== "") {
@@ -1835,7 +1835,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
     if (message.uri !== "") {
       writer.uint32(34).string(message.uri);
     }
-    if (message.serverTime !== 0) {
+    if (message.serverTime !== "0") {
       writer.uint32(40).uint64(message.serverTime);
     }
     if (message.accountName !== "") {
@@ -1856,7 +1856,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
     if (message.steamguardScheme !== 0) {
       writer.uint32(88).uint32(message.steamguardScheme);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(97).fixed64(message.steamid);
     }
     return writer;
@@ -1873,7 +1873,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
           message.sharedSecret = reader.bytes() as Buffer;
           break;
         case 2:
-          message.serialNumber = longToNumber(reader.fixed64() as Long);
+          message.serialNumber = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.revocationCode = reader.string();
@@ -1882,7 +1882,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
           message.uri = reader.string();
           break;
         case 5:
-          message.serverTime = longToNumber(reader.uint64() as Long);
+          message.serverTime = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.accountName = reader.string();
@@ -1903,7 +1903,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
           message.steamguardScheme = reader.uint32();
           break;
         case 12:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1916,10 +1916,10 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
   fromJSON(object: any): CRemoveAuthenticatorViaChallengeContinueReplacementToken {
     return {
       sharedSecret: isSet(object.sharedSecret) ? Buffer.from(bytesFromBase64(object.sharedSecret)) : Buffer.alloc(0),
-      serialNumber: isSet(object.serialNumber) ? Number(object.serialNumber) : 0,
+      serialNumber: isSet(object.serialNumber) ? String(object.serialNumber) : "0",
       revocationCode: isSet(object.revocationCode) ? String(object.revocationCode) : "",
       uri: isSet(object.uri) ? String(object.uri) : "",
-      serverTime: isSet(object.serverTime) ? Number(object.serverTime) : 0,
+      serverTime: isSet(object.serverTime) ? String(object.serverTime) : "0",
       accountName: isSet(object.accountName) ? String(object.accountName) : "",
       tokenGid: isSet(object.tokenGid) ? String(object.tokenGid) : "",
       identitySecret: isSet(object.identitySecret)
@@ -1928,7 +1928,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
       secret1: isSet(object.secret1) ? Buffer.from(bytesFromBase64(object.secret1)) : Buffer.alloc(0),
       status: isSet(object.status) ? Number(object.status) : 0,
       steamguardScheme: isSet(object.steamguardScheme) ? Number(object.steamguardScheme) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
@@ -1936,10 +1936,10 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
     const obj: any = {};
     message.sharedSecret !== undefined &&
       (obj.sharedSecret = base64FromBytes(message.sharedSecret !== undefined ? message.sharedSecret : Buffer.alloc(0)));
-    message.serialNumber !== undefined && (obj.serialNumber = Math.round(message.serialNumber));
+    message.serialNumber !== undefined && (obj.serialNumber = message.serialNumber);
     message.revocationCode !== undefined && (obj.revocationCode = message.revocationCode);
     message.uri !== undefined && (obj.uri = message.uri);
-    message.serverTime !== undefined && (obj.serverTime = Math.round(message.serverTime));
+    message.serverTime !== undefined && (obj.serverTime = message.serverTime);
     message.accountName !== undefined && (obj.accountName = message.accountName);
     message.tokenGid !== undefined && (obj.tokenGid = message.tokenGid);
     message.identitySecret !== undefined &&
@@ -1950,7 +1950,7 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
       (obj.secret1 = base64FromBytes(message.secret1 !== undefined ? message.secret1 : Buffer.alloc(0)));
     message.status !== undefined && (obj.status = Math.round(message.status));
     message.steamguardScheme !== undefined && (obj.steamguardScheme = Math.round(message.steamguardScheme));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1965,17 +1965,17 @@ export const CRemoveAuthenticatorViaChallengeContinueReplacementToken = {
   ): CRemoveAuthenticatorViaChallengeContinueReplacementToken {
     const message = createBaseCRemoveAuthenticatorViaChallengeContinueReplacementToken();
     message.sharedSecret = object.sharedSecret ?? Buffer.alloc(0);
-    message.serialNumber = object.serialNumber ?? 0;
+    message.serialNumber = object.serialNumber ?? "0";
     message.revocationCode = object.revocationCode ?? "";
     message.uri = object.uri ?? "";
-    message.serverTime = object.serverTime ?? 0;
+    message.serverTime = object.serverTime ?? "0";
     message.accountName = object.accountName ?? "";
     message.tokenGid = object.tokenGid ?? "";
     message.identitySecret = object.identitySecret ?? Buffer.alloc(0);
     message.secret1 = object.secret1 ?? Buffer.alloc(0);
     message.status = object.status ?? 0;
     message.steamguardScheme = object.steamguardScheme ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -2239,11 +2239,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

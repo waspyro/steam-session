@@ -145,11 +145,11 @@ export function eBroadcastChatPermissionToJSON(object: EBroadcastChatPermission)
 
 export interface CBroadcastBeginBroadcastSessionRequest {
   permission: number;
-  gameid: number;
-  clientInstanceId: number;
+  gameid: string;
+  clientInstanceId: string;
   title: string;
   cellid: number;
-  rtmpToken: number;
+  rtmpToken: string;
   thumbnailUpload: boolean;
   clientBeta: string;
   sysid: number;
@@ -157,7 +157,7 @@ export interface CBroadcastBeginBroadcastSessionRequest {
 }
 
 export interface CBroadcastBeginBroadcastSessionResponse {
-  broadcastId: number;
+  broadcastId: string;
   thumbnailUploadAddress: string;
   thumbnailUploadToken: string;
   thumbnailIntervalSeconds: number;
@@ -165,18 +165,18 @@ export interface CBroadcastBeginBroadcastSessionResponse {
 }
 
 export interface CBroadcastEndBroadcastSessionRequest {
-  broadcastId: number;
+  broadcastId: string;
 }
 
 export interface CBroadcastEndBroadcastSessionResponse {
 }
 
 export interface CBroadcastStartBroadcastUploadRequest {
-  broadcastId: number;
+  broadcastId: string;
   cellid: number;
   asRtmp: boolean;
   delaySeconds: number;
-  rtmpToken: number;
+  rtmpToken: string;
   uploadIpAddress: number;
   isReplay: boolean;
   sysid: number;
@@ -185,20 +185,20 @@ export interface CBroadcastStartBroadcastUploadRequest {
 export interface CBroadcastStartBroadcastUploadResponse {
   uploadToken: string;
   uploadAddress: string;
-  broadcastUploadId: number;
+  broadcastUploadId: string;
   enableReplay: boolean;
   httpAddress: string;
 }
 
 export interface CBroadcastNotifyBroadcastUploadStopNotification {
-  broadcastUploadId: number;
+  broadcastUploadId: string;
   uploadResult: number;
 }
 
 export interface CBroadcastWatchBroadcastRequest {
-  steamid: number;
-  existingBroadcastId: number;
-  viewerToken: number;
+  steamid: string;
+  existingBroadcastId: string;
+  viewerToken: string;
   clientCell: number;
   watchLocation: EBroadcastWatchLocation;
   isWebrtc: boolean;
@@ -207,19 +207,19 @@ export interface CBroadcastWatchBroadcastRequest {
 export interface CBroadcastWatchBroadcastResponse {
   response: CBroadcastWatchBroadcastResponse_EWatchResponse;
   mpdUrl: string;
-  broadcastId: number;
-  gameid: number;
+  broadcastId: string;
+  gameid: string;
   title: string;
   numViewers: number;
   permission: number;
   isRtmp: boolean;
   secondsDelay: number;
-  viewerToken: number;
+  viewerToken: string;
   hlsM3u8MasterUrl: string;
   heartbeatInterval: number;
   thumbnailUrl: string;
   isWebrtc: boolean;
-  webrtcSessionId: number;
+  webrtcSessionId: string;
   webrtcOfferSdp: string;
   webrtcTurnServer: string;
   isReplay: boolean;
@@ -325,25 +325,25 @@ export function cBroadcastWatchBroadcastResponse_EWatchResponseToJSON(
 }
 
 export interface CBroadcastHeartbeatBroadcastNotification {
-  steamid: number;
-  broadcastId: number;
-  viewerToken: number;
+  steamid: string;
+  broadcastId: string;
+  viewerToken: string;
   representation: number;
 }
 
 export interface CBroadcastStopWatchingBroadcastNotification {
-  steamid: number;
-  broadcastId: number;
-  viewerToken: number;
+  steamid: string;
+  broadcastId: string;
+  viewerToken: string;
 }
 
 export interface CBroadcastGetBroadcastStatusRequest {
-  steamid: number;
-  broadcastId: number;
+  steamid: string;
+  broadcastId: string;
 }
 
 export interface CBroadcastGetBroadcastStatusResponse {
-  gameid: number;
+  gameid: string;
   title: string;
   numViewers: number;
   permission: number;
@@ -360,8 +360,8 @@ export interface CBroadcastGetBroadcastStatusResponse {
 }
 
 export interface CBroadcastGetBroadcastThumbnailRequest {
-  steamid: number;
-  broadcastId: number;
+  steamid: string;
+  broadcastId: string;
 }
 
 export interface CBroadcastGetBroadcastThumbnailResponse {
@@ -372,7 +372,7 @@ export interface CBroadcastGetBroadcastThumbnailResponse {
 }
 
 export interface CBroadcastInviteToBroadcastRequest {
-  steamid: number;
+  steamid: string;
   approvalResponse: boolean;
 }
 
@@ -382,7 +382,7 @@ export interface CBroadcastInviteToBroadcastResponse {
 
 export interface CBroadcastSendBroadcastStateToServerRequest {
   permission: number;
-  gameid: number;
+  gameid: string;
   title: string;
   gameDataConfig: string;
 }
@@ -391,24 +391,24 @@ export interface CBroadcastSendBroadcastStateToServerResponse {
 }
 
 export interface CBroadcastNotifyBroadcastSessionHeartbeatNotification {
-  broadcastId: number;
+  broadcastId: string;
 }
 
 export interface CBroadcastGetBroadcastChatInfoRequest {
-  steamid: number;
-  broadcastId: number;
+  steamid: string;
+  broadcastId: string;
   clientIp: number;
   clientCell: number;
 }
 
 export interface CBroadcastGetBroadcastChatInfoResponse {
-  chatId: number;
+  chatId: string;
   viewUrlTemplate: string;
   flairGroupIds: number[];
 }
 
 export interface CBroadcastPostChatMessageRequest {
-  chatId: number;
+  chatId: string;
   message: string;
   instanceId: number;
   language: number;
@@ -423,19 +423,19 @@ export interface CBroadcastPostChatMessageResponse {
 }
 
 export interface CBroadcastUpdateChatMessageFlairRequest {
-  chatId: number;
+  chatId: string;
   flair: string;
 }
 
 export interface CBroadcastUpdateChatMessageFlairResponse {
   result: number;
-  chatId: number;
+  chatId: string;
   flair: string;
 }
 
 export interface CBroadcastMuteBroadcastChatUserRequest {
-  chatId: number;
-  userSteamid: number;
+  chatId: string;
+  userSteamid: string;
   muted: boolean;
 }
 
@@ -443,16 +443,16 @@ export interface CBroadcastMuteBroadcastChatUserResponse {
 }
 
 export interface CBroadcastRemoveUserChatTextRequest {
-  chatId: number;
-  userSteamid: number;
+  chatId: string;
+  userSteamid: string;
 }
 
 export interface CBroadcastRemoveUserChatTextResponse {
 }
 
 export interface CBroadcastGetBroadcastChatUserNamesRequest {
-  chatId: number;
-  userSteamid: number[];
+  chatId: string;
+  userSteamid: string[];
 }
 
 export interface CBroadcastGetBroadcastChatUserNamesResponse {
@@ -460,31 +460,31 @@ export interface CBroadcastGetBroadcastChatUserNamesResponse {
 }
 
 export interface CBroadcastGetBroadcastChatUserNamesResponse_PersonaName {
-  steamId: number;
+  steamId: string;
   persona: string;
 }
 
 export interface CBroadcastStartBuildClipRequest {
-  steamid: number;
-  broadcastSessionId: number;
+  steamid: string;
+  broadcastSessionId: string;
   firstSegment: number;
   numSegments: number;
   clipDescription: string;
 }
 
 export interface CBroadcastStartBuildClipResponse {
-  broadcastClipId: number;
+  broadcastClipId: string;
 }
 
 export interface CBroadcastGetBuildClipStatusRequest {
-  broadcastClipId: number;
+  broadcastClipId: string;
 }
 
 export interface CBroadcastGetBuildClipStatusResponse {
 }
 
 export interface CBroadcastSetClipDetailsRequest {
-  broadcastClipId: number;
+  broadcastClipId: string;
   startTime: number;
   endTime: number;
   videoDescription: string;
@@ -494,13 +494,13 @@ export interface CBroadcastSetClipDetailsResponse {
 }
 
 export interface CBroadcastGetClipDetailsRequest {
-  broadcastClipId: number;
+  broadcastClipId: string;
 }
 
 export interface CBroadcastGetClipDetailsResponse {
-  broadcastClipId: number;
-  videoId: number;
-  channelId: number;
+  broadcastClipId: string;
+  videoId: string;
+  channelId: string;
   appId: number;
   accountidBroadcaster: number;
   accountidClipmaker: number;
@@ -518,7 +518,7 @@ export interface CBroadcastSetRTMPInfoRequest {
   requiredAppId: number;
   broadcastChatPermission: EBroadcastChatPermission;
   broadcastBuffer: number;
-  steamid: number;
+  steamid: string;
   chatRateLimit: number;
   enableReplay: boolean;
   isPartnerChatOnly: boolean;
@@ -530,7 +530,7 @@ export interface CBroadcastSetRTMPInfoResponse {
 
 export interface CBroadcastGetRTMPInfoRequest {
   ip: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CBroadcastGetRTMPInfoResponse {
@@ -542,7 +542,7 @@ export interface CBroadcastGetRTMPInfoResponse {
   requiredAppId: number;
   broadcastChatPermission: EBroadcastChatPermission;
   broadcastBuffer: number;
-  steamid: number;
+  steamid: string;
   chatRateLimit: number;
   enableReplay: boolean;
   isPartnerChatOnly: boolean;
@@ -550,12 +550,12 @@ export interface CBroadcastGetRTMPInfoResponse {
 }
 
 export interface CBroadcastWebRTCHaveTURNServerNotification {
-  broadcastSessionId: number;
+  broadcastSessionId: string;
   turnServer: string;
 }
 
 export interface CBroadcastWebRTCStartResultRequest {
-  webrtcSessionId: number;
+  webrtcSessionId: string;
   started: boolean;
   offer: string;
   resolutionX: number;
@@ -567,15 +567,15 @@ export interface CBroadcastWebRTCStartResultResponse {
 }
 
 export interface CBroadcastWebRTCStoppedRequest {
-  webrtcSessionId: number;
+  webrtcSessionId: string;
 }
 
 export interface CBroadcastWebRTCStoppedResponse {
 }
 
 export interface CBroadcastWebRTCSetAnswerRequest {
-  broadcasterSteamid: number;
-  webrtcSessionId: number;
+  broadcasterSteamid: string;
+  webrtcSessionId: string;
   answer: string;
 }
 
@@ -597,7 +597,7 @@ export interface CBroadcastWebRTCCandidate {
 }
 
 export interface CBroadcastWebRTCAddHostCandidateRequest {
-  webrtcSessionId: number;
+  webrtcSessionId: string;
   candidate: CBroadcastWebRTCCandidate | undefined;
 }
 
@@ -605,8 +605,8 @@ export interface CBroadcastWebRTCAddHostCandidateResponse {
 }
 
 export interface CBroadcastWebRTCAddViewerCandidateRequest {
-  broadcasterSteamid: number;
-  webrtcSessionId: number;
+  broadcasterSteamid: string;
+  webrtcSessionId: string;
   candidate: CBroadcastWebRTCCandidate | undefined;
 }
 
@@ -614,8 +614,8 @@ export interface CBroadcastWebRTCAddViewerCandidateResponse {
 }
 
 export interface CBroadcastWebRTCGetHostCandidatesRequest {
-  broadcasterSteamid: number;
-  webrtcSessionId: number;
+  broadcasterSteamid: string;
+  webrtcSessionId: string;
   candidateGeneration: number;
 }
 
@@ -627,9 +627,9 @@ export interface CBroadcastWebRTCGetHostCandidatesResponse {
 export interface CBroadcastGetBroadcastUploadStatsRequest {
   rowLimit: number;
   startTime: number;
-  uploadId: number;
-  steamid: number;
-  sessionId: number;
+  uploadId: string;
+  steamid: string;
+  sessionId: string;
 }
 
 export interface CBroadcastGetBroadcastUploadStatsResponse {
@@ -644,24 +644,24 @@ export interface CBroadcastGetBroadcastUploadStatsResponse_UploadStats {
   resolutionX: number;
   resolutionY: number;
   avgBandwidth: number;
-  totalBytes: number;
+  totalBytes: string;
   appId: number;
   totalUniqueViewers: number;
-  totalSecondsWatched: number;
+  totalSecondsWatched: string;
   timeStarted: number;
-  uploadId: number;
+  uploadId: string;
   localAddress: string;
   remoteAddress: string;
   framesPerSecond: number;
   numRepresentations: number;
   appName: string;
   isReplay: boolean;
-  sessionId: number;
+  sessionId: string;
 }
 
 export interface CBroadcastGetBroadcastViewerStatsRequest {
-  uploadId: number;
-  steamid: number;
+  uploadId: string;
+  steamid: string;
 }
 
 export interface CBroadcastGetBroadcastViewerStatsResponse {
@@ -680,7 +680,7 @@ export interface CBroadcastGetBroadcastViewerStatsResponse_CountryStats {
 }
 
 export interface CBroadcastBroadcastViewerStateNotification {
-  steamid: number;
+  steamid: string;
   state: CBroadcastBroadcastViewerStateNotification_EViewerState;
 }
 
@@ -728,84 +728,84 @@ export function cBroadcastBroadcastViewerStateNotification_EViewerStateToJSON(
 }
 
 export interface CBroadcastWaitingBroadcastViewerNotification {
-  broadcastId: number;
+  broadcastId: string;
 }
 
 export interface CBroadcastBroadcastUploadStartedNotification {
-  broadcastId: number;
+  broadcastId: string;
   uploadToken: string;
   uploadAddress: string;
   httpAddress: string;
-  broadcastUploadId: number;
+  broadcastUploadId: string;
   heartbeatIntervalSeconds: number;
   isRtmp: boolean;
 }
 
 export interface CBroadcastStopBroadcastUploadNotification {
-  broadcastId: number;
-  broadcastRelayId: number;
+  broadcastId: string;
+  broadcastRelayId: string;
   uploadResult: number;
   tooManyPoorUploads: boolean;
 }
 
 export interface CBroadcastSessionClosedNotification {
-  broadcastId: number;
+  broadcastId: string;
 }
 
 export interface CBroadcastViewerBroadcastInviteNotification {
-  broadcasterSteamid: number;
+  broadcasterSteamid: string;
 }
 
 export interface CBroadcastBroadcastStatusNotification {
-  broadcastId: number;
+  broadcastId: string;
   numViewers: number;
 }
 
 export interface CBroadcastBroadcastChannelLiveNotification {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   broadcastChannelName: string;
   broadcastChannelAvatar: string;
 }
 
 export interface CBroadcastSendThumbnailToRelayNotification {
   thumbnailUploadToken: string;
-  thumbnailBroadcastSessionId: number;
+  thumbnailBroadcastSessionId: string;
   thumbnailData: Buffer;
   thumbnailWidth: number;
   thumbnailHeight: number;
 }
 
 export interface CBroadcastWebRTCNeedTURNServerNotification {
-  broadcastSessionId: number;
+  broadcastSessionId: string;
 }
 
 export interface CBroadcastWebRTCStartNotification {
-  broadcastSessionId: number;
-  webrtcSessionId: number;
-  viewerSteamid: number;
-  viewerToken: number;
+  broadcastSessionId: string;
+  webrtcSessionId: string;
+  viewerSteamid: string;
+  viewerToken: string;
 }
 
 export interface CBroadcastWebRTCSetAnswerNotification {
-  broadcastSessionId: number;
-  webrtcSessionId: number;
+  broadcastSessionId: string;
+  webrtcSessionId: string;
   answer: string;
 }
 
 export interface CBroadcastWebRTCAddViewerCandidateNotification {
-  broadcastSessionId: number;
-  webrtcSessionId: number;
+  broadcastSessionId: string;
+  webrtcSessionId: string;
   candidate: CBroadcastWebRTCCandidate | undefined;
 }
 
 function createBaseCBroadcastBeginBroadcastSessionRequest(): CBroadcastBeginBroadcastSessionRequest {
   return {
     permission: 0,
-    gameid: 0,
-    clientInstanceId: 0,
+    gameid: "0",
+    clientInstanceId: "0",
     title: "",
     cellid: 0,
-    rtmpToken: 0,
+    rtmpToken: "0",
     thumbnailUpload: false,
     clientBeta: "",
     sysid: 0,
@@ -818,10 +818,10 @@ export const CBroadcastBeginBroadcastSessionRequest = {
     if (message.permission !== 0) {
       writer.uint32(8).int32(message.permission);
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(16).uint64(message.gameid);
     }
-    if (message.clientInstanceId !== 0) {
+    if (message.clientInstanceId !== "0") {
       writer.uint32(24).uint64(message.clientInstanceId);
     }
     if (message.title !== "") {
@@ -830,7 +830,7 @@ export const CBroadcastBeginBroadcastSessionRequest = {
     if (message.cellid !== 0) {
       writer.uint32(40).uint32(message.cellid);
     }
-    if (message.rtmpToken !== 0) {
+    if (message.rtmpToken !== "0") {
       writer.uint32(48).uint64(message.rtmpToken);
     }
     if (message.thumbnailUpload === true) {
@@ -859,10 +859,10 @@ export const CBroadcastBeginBroadcastSessionRequest = {
           message.permission = reader.int32();
           break;
         case 2:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.clientInstanceId = longToNumber(reader.uint64() as Long);
+          message.clientInstanceId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.title = reader.string();
@@ -871,7 +871,7 @@ export const CBroadcastBeginBroadcastSessionRequest = {
           message.cellid = reader.uint32();
           break;
         case 6:
-          message.rtmpToken = longToNumber(reader.uint64() as Long);
+          message.rtmpToken = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.thumbnailUpload = reader.bool();
@@ -896,11 +896,11 @@ export const CBroadcastBeginBroadcastSessionRequest = {
   fromJSON(object: any): CBroadcastBeginBroadcastSessionRequest {
     return {
       permission: isSet(object.permission) ? Number(object.permission) : 0,
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
-      clientInstanceId: isSet(object.clientInstanceId) ? Number(object.clientInstanceId) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
+      clientInstanceId: isSet(object.clientInstanceId) ? String(object.clientInstanceId) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       cellid: isSet(object.cellid) ? Number(object.cellid) : 0,
-      rtmpToken: isSet(object.rtmpToken) ? Number(object.rtmpToken) : 0,
+      rtmpToken: isSet(object.rtmpToken) ? String(object.rtmpToken) : "0",
       thumbnailUpload: isSet(object.thumbnailUpload) ? Boolean(object.thumbnailUpload) : false,
       clientBeta: isSet(object.clientBeta) ? String(object.clientBeta) : "",
       sysid: isSet(object.sysid) ? Number(object.sysid) : 0,
@@ -911,11 +911,11 @@ export const CBroadcastBeginBroadcastSessionRequest = {
   toJSON(message: CBroadcastBeginBroadcastSessionRequest): unknown {
     const obj: any = {};
     message.permission !== undefined && (obj.permission = Math.round(message.permission));
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
-    message.clientInstanceId !== undefined && (obj.clientInstanceId = Math.round(message.clientInstanceId));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
+    message.clientInstanceId !== undefined && (obj.clientInstanceId = message.clientInstanceId);
     message.title !== undefined && (obj.title = message.title);
     message.cellid !== undefined && (obj.cellid = Math.round(message.cellid));
-    message.rtmpToken !== undefined && (obj.rtmpToken = Math.round(message.rtmpToken));
+    message.rtmpToken !== undefined && (obj.rtmpToken = message.rtmpToken);
     message.thumbnailUpload !== undefined && (obj.thumbnailUpload = message.thumbnailUpload);
     message.clientBeta !== undefined && (obj.clientBeta = message.clientBeta);
     message.sysid !== undefined && (obj.sysid = Math.round(message.sysid));
@@ -934,11 +934,11 @@ export const CBroadcastBeginBroadcastSessionRequest = {
   ): CBroadcastBeginBroadcastSessionRequest {
     const message = createBaseCBroadcastBeginBroadcastSessionRequest();
     message.permission = object.permission ?? 0;
-    message.gameid = object.gameid ?? 0;
-    message.clientInstanceId = object.clientInstanceId ?? 0;
+    message.gameid = object.gameid ?? "0";
+    message.clientInstanceId = object.clientInstanceId ?? "0";
     message.title = object.title ?? "";
     message.cellid = object.cellid ?? 0;
-    message.rtmpToken = object.rtmpToken ?? 0;
+    message.rtmpToken = object.rtmpToken ?? "0";
     message.thumbnailUpload = object.thumbnailUpload ?? false;
     message.clientBeta = object.clientBeta ?? "";
     message.sysid = object.sysid ?? 0;
@@ -949,7 +949,7 @@ export const CBroadcastBeginBroadcastSessionRequest = {
 
 function createBaseCBroadcastBeginBroadcastSessionResponse(): CBroadcastBeginBroadcastSessionResponse {
   return {
-    broadcastId: 0,
+    broadcastId: "0",
     thumbnailUploadAddress: "",
     thumbnailUploadToken: "",
     thumbnailIntervalSeconds: 0,
@@ -959,7 +959,7 @@ function createBaseCBroadcastBeginBroadcastSessionResponse(): CBroadcastBeginBro
 
 export const CBroadcastBeginBroadcastSessionResponse = {
   encode(message: CBroadcastBeginBroadcastSessionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     if (message.thumbnailUploadAddress !== "") {
@@ -985,7 +985,7 @@ export const CBroadcastBeginBroadcastSessionResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.thumbnailUploadAddress = reader.string();
@@ -1009,7 +1009,7 @@ export const CBroadcastBeginBroadcastSessionResponse = {
 
   fromJSON(object: any): CBroadcastBeginBroadcastSessionResponse {
     return {
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
       thumbnailUploadAddress: isSet(object.thumbnailUploadAddress) ? String(object.thumbnailUploadAddress) : "",
       thumbnailUploadToken: isSet(object.thumbnailUploadToken) ? String(object.thumbnailUploadToken) : "",
       thumbnailIntervalSeconds: isSet(object.thumbnailIntervalSeconds) ? Number(object.thumbnailIntervalSeconds) : 0,
@@ -1019,7 +1019,7 @@ export const CBroadcastBeginBroadcastSessionResponse = {
 
   toJSON(message: CBroadcastBeginBroadcastSessionResponse): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     message.thumbnailUploadAddress !== undefined && (obj.thumbnailUploadAddress = message.thumbnailUploadAddress);
     message.thumbnailUploadToken !== undefined && (obj.thumbnailUploadToken = message.thumbnailUploadToken);
     message.thumbnailIntervalSeconds !== undefined &&
@@ -1039,7 +1039,7 @@ export const CBroadcastBeginBroadcastSessionResponse = {
     object: I,
   ): CBroadcastBeginBroadcastSessionResponse {
     const message = createBaseCBroadcastBeginBroadcastSessionResponse();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     message.thumbnailUploadAddress = object.thumbnailUploadAddress ?? "";
     message.thumbnailUploadToken = object.thumbnailUploadToken ?? "";
     message.thumbnailIntervalSeconds = object.thumbnailIntervalSeconds ?? 0;
@@ -1049,12 +1049,12 @@ export const CBroadcastBeginBroadcastSessionResponse = {
 };
 
 function createBaseCBroadcastEndBroadcastSessionRequest(): CBroadcastEndBroadcastSessionRequest {
-  return { broadcastId: 0 };
+  return { broadcastId: "0" };
 }
 
 export const CBroadcastEndBroadcastSessionRequest = {
   encode(message: CBroadcastEndBroadcastSessionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     return writer;
@@ -1068,7 +1068,7 @@ export const CBroadcastEndBroadcastSessionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1079,12 +1079,12 @@ export const CBroadcastEndBroadcastSessionRequest = {
   },
 
   fromJSON(object: any): CBroadcastEndBroadcastSessionRequest {
-    return { broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0 };
+    return { broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0" };
   },
 
   toJSON(message: CBroadcastEndBroadcastSessionRequest): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     return obj;
   },
 
@@ -1098,7 +1098,7 @@ export const CBroadcastEndBroadcastSessionRequest = {
     object: I,
   ): CBroadcastEndBroadcastSessionRequest {
     const message = createBaseCBroadcastEndBroadcastSessionRequest();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     return message;
   },
 };
@@ -1152,11 +1152,11 @@ export const CBroadcastEndBroadcastSessionResponse = {
 
 function createBaseCBroadcastStartBroadcastUploadRequest(): CBroadcastStartBroadcastUploadRequest {
   return {
-    broadcastId: 0,
+    broadcastId: "0",
     cellid: 0,
     asRtmp: false,
     delaySeconds: 0,
-    rtmpToken: 0,
+    rtmpToken: "0",
     uploadIpAddress: 0,
     isReplay: false,
     sysid: 0,
@@ -1165,7 +1165,7 @@ function createBaseCBroadcastStartBroadcastUploadRequest(): CBroadcastStartBroad
 
 export const CBroadcastStartBroadcastUploadRequest = {
   encode(message: CBroadcastStartBroadcastUploadRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     if (message.cellid !== 0) {
@@ -1177,7 +1177,7 @@ export const CBroadcastStartBroadcastUploadRequest = {
     if (message.delaySeconds !== 0) {
       writer.uint32(32).uint32(message.delaySeconds);
     }
-    if (message.rtmpToken !== 0) {
+    if (message.rtmpToken !== "0") {
       writer.uint32(40).uint64(message.rtmpToken);
     }
     if (message.uploadIpAddress !== 0) {
@@ -1200,7 +1200,7 @@ export const CBroadcastStartBroadcastUploadRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.cellid = reader.uint32();
@@ -1212,7 +1212,7 @@ export const CBroadcastStartBroadcastUploadRequest = {
           message.delaySeconds = reader.uint32();
           break;
         case 5:
-          message.rtmpToken = longToNumber(reader.uint64() as Long);
+          message.rtmpToken = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.uploadIpAddress = reader.uint32();
@@ -1233,11 +1233,11 @@ export const CBroadcastStartBroadcastUploadRequest = {
 
   fromJSON(object: any): CBroadcastStartBroadcastUploadRequest {
     return {
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
       cellid: isSet(object.cellid) ? Number(object.cellid) : 0,
       asRtmp: isSet(object.asRtmp) ? Boolean(object.asRtmp) : false,
       delaySeconds: isSet(object.delaySeconds) ? Number(object.delaySeconds) : 0,
-      rtmpToken: isSet(object.rtmpToken) ? Number(object.rtmpToken) : 0,
+      rtmpToken: isSet(object.rtmpToken) ? String(object.rtmpToken) : "0",
       uploadIpAddress: isSet(object.uploadIpAddress) ? Number(object.uploadIpAddress) : 0,
       isReplay: isSet(object.isReplay) ? Boolean(object.isReplay) : false,
       sysid: isSet(object.sysid) ? Number(object.sysid) : 0,
@@ -1246,11 +1246,11 @@ export const CBroadcastStartBroadcastUploadRequest = {
 
   toJSON(message: CBroadcastStartBroadcastUploadRequest): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     message.cellid !== undefined && (obj.cellid = Math.round(message.cellid));
     message.asRtmp !== undefined && (obj.asRtmp = message.asRtmp);
     message.delaySeconds !== undefined && (obj.delaySeconds = Math.round(message.delaySeconds));
-    message.rtmpToken !== undefined && (obj.rtmpToken = Math.round(message.rtmpToken));
+    message.rtmpToken !== undefined && (obj.rtmpToken = message.rtmpToken);
     message.uploadIpAddress !== undefined && (obj.uploadIpAddress = Math.round(message.uploadIpAddress));
     message.isReplay !== undefined && (obj.isReplay = message.isReplay);
     message.sysid !== undefined && (obj.sysid = Math.round(message.sysid));
@@ -1267,11 +1267,11 @@ export const CBroadcastStartBroadcastUploadRequest = {
     object: I,
   ): CBroadcastStartBroadcastUploadRequest {
     const message = createBaseCBroadcastStartBroadcastUploadRequest();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     message.cellid = object.cellid ?? 0;
     message.asRtmp = object.asRtmp ?? false;
     message.delaySeconds = object.delaySeconds ?? 0;
-    message.rtmpToken = object.rtmpToken ?? 0;
+    message.rtmpToken = object.rtmpToken ?? "0";
     message.uploadIpAddress = object.uploadIpAddress ?? 0;
     message.isReplay = object.isReplay ?? false;
     message.sysid = object.sysid ?? 0;
@@ -1280,7 +1280,7 @@ export const CBroadcastStartBroadcastUploadRequest = {
 };
 
 function createBaseCBroadcastStartBroadcastUploadResponse(): CBroadcastStartBroadcastUploadResponse {
-  return { uploadToken: "", uploadAddress: "", broadcastUploadId: 0, enableReplay: false, httpAddress: "" };
+  return { uploadToken: "", uploadAddress: "", broadcastUploadId: "0", enableReplay: false, httpAddress: "" };
 }
 
 export const CBroadcastStartBroadcastUploadResponse = {
@@ -1291,7 +1291,7 @@ export const CBroadcastStartBroadcastUploadResponse = {
     if (message.uploadAddress !== "") {
       writer.uint32(18).string(message.uploadAddress);
     }
-    if (message.broadcastUploadId !== 0) {
+    if (message.broadcastUploadId !== "0") {
       writer.uint32(25).fixed64(message.broadcastUploadId);
     }
     if (message.enableReplay === true) {
@@ -1317,7 +1317,7 @@ export const CBroadcastStartBroadcastUploadResponse = {
           message.uploadAddress = reader.string();
           break;
         case 3:
-          message.broadcastUploadId = longToNumber(reader.fixed64() as Long);
+          message.broadcastUploadId = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.enableReplay = reader.bool();
@@ -1337,7 +1337,7 @@ export const CBroadcastStartBroadcastUploadResponse = {
     return {
       uploadToken: isSet(object.uploadToken) ? String(object.uploadToken) : "",
       uploadAddress: isSet(object.uploadAddress) ? String(object.uploadAddress) : "",
-      broadcastUploadId: isSet(object.broadcastUploadId) ? Number(object.broadcastUploadId) : 0,
+      broadcastUploadId: isSet(object.broadcastUploadId) ? String(object.broadcastUploadId) : "0",
       enableReplay: isSet(object.enableReplay) ? Boolean(object.enableReplay) : false,
       httpAddress: isSet(object.httpAddress) ? String(object.httpAddress) : "",
     };
@@ -1347,7 +1347,7 @@ export const CBroadcastStartBroadcastUploadResponse = {
     const obj: any = {};
     message.uploadToken !== undefined && (obj.uploadToken = message.uploadToken);
     message.uploadAddress !== undefined && (obj.uploadAddress = message.uploadAddress);
-    message.broadcastUploadId !== undefined && (obj.broadcastUploadId = Math.round(message.broadcastUploadId));
+    message.broadcastUploadId !== undefined && (obj.broadcastUploadId = message.broadcastUploadId);
     message.enableReplay !== undefined && (obj.enableReplay = message.enableReplay);
     message.httpAddress !== undefined && (obj.httpAddress = message.httpAddress);
     return obj;
@@ -1365,7 +1365,7 @@ export const CBroadcastStartBroadcastUploadResponse = {
     const message = createBaseCBroadcastStartBroadcastUploadResponse();
     message.uploadToken = object.uploadToken ?? "";
     message.uploadAddress = object.uploadAddress ?? "";
-    message.broadcastUploadId = object.broadcastUploadId ?? 0;
+    message.broadcastUploadId = object.broadcastUploadId ?? "0";
     message.enableReplay = object.enableReplay ?? false;
     message.httpAddress = object.httpAddress ?? "";
     return message;
@@ -1373,7 +1373,7 @@ export const CBroadcastStartBroadcastUploadResponse = {
 };
 
 function createBaseCBroadcastNotifyBroadcastUploadStopNotification(): CBroadcastNotifyBroadcastUploadStopNotification {
-  return { broadcastUploadId: 0, uploadResult: 0 };
+  return { broadcastUploadId: "0", uploadResult: 0 };
 }
 
 export const CBroadcastNotifyBroadcastUploadStopNotification = {
@@ -1381,7 +1381,7 @@ export const CBroadcastNotifyBroadcastUploadStopNotification = {
     message: CBroadcastNotifyBroadcastUploadStopNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.broadcastUploadId !== 0) {
+    if (message.broadcastUploadId !== "0") {
       writer.uint32(9).fixed64(message.broadcastUploadId);
     }
     if (message.uploadResult !== 0) {
@@ -1398,7 +1398,7 @@ export const CBroadcastNotifyBroadcastUploadStopNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastUploadId = longToNumber(reader.fixed64() as Long);
+          message.broadcastUploadId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.uploadResult = reader.uint32();
@@ -1413,14 +1413,14 @@ export const CBroadcastNotifyBroadcastUploadStopNotification = {
 
   fromJSON(object: any): CBroadcastNotifyBroadcastUploadStopNotification {
     return {
-      broadcastUploadId: isSet(object.broadcastUploadId) ? Number(object.broadcastUploadId) : 0,
+      broadcastUploadId: isSet(object.broadcastUploadId) ? String(object.broadcastUploadId) : "0",
       uploadResult: isSet(object.uploadResult) ? Number(object.uploadResult) : 0,
     };
   },
 
   toJSON(message: CBroadcastNotifyBroadcastUploadStopNotification): unknown {
     const obj: any = {};
-    message.broadcastUploadId !== undefined && (obj.broadcastUploadId = Math.round(message.broadcastUploadId));
+    message.broadcastUploadId !== undefined && (obj.broadcastUploadId = message.broadcastUploadId);
     message.uploadResult !== undefined && (obj.uploadResult = Math.round(message.uploadResult));
     return obj;
   },
@@ -1435,25 +1435,25 @@ export const CBroadcastNotifyBroadcastUploadStopNotification = {
     object: I,
   ): CBroadcastNotifyBroadcastUploadStopNotification {
     const message = createBaseCBroadcastNotifyBroadcastUploadStopNotification();
-    message.broadcastUploadId = object.broadcastUploadId ?? 0;
+    message.broadcastUploadId = object.broadcastUploadId ?? "0";
     message.uploadResult = object.uploadResult ?? 0;
     return message;
   },
 };
 
 function createBaseCBroadcastWatchBroadcastRequest(): CBroadcastWatchBroadcastRequest {
-  return { steamid: 0, existingBroadcastId: 0, viewerToken: 0, clientCell: 0, watchLocation: 0, isWebrtc: false };
+  return { steamid: "0", existingBroadcastId: "0", viewerToken: "0", clientCell: 0, watchLocation: 0, isWebrtc: false };
 }
 
 export const CBroadcastWatchBroadcastRequest = {
   encode(message: CBroadcastWatchBroadcastRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.existingBroadcastId !== 0) {
+    if (message.existingBroadcastId !== "0") {
       writer.uint32(17).fixed64(message.existingBroadcastId);
     }
-    if (message.viewerToken !== 0) {
+    if (message.viewerToken !== "0") {
       writer.uint32(25).fixed64(message.viewerToken);
     }
     if (message.clientCell !== 0) {
@@ -1476,13 +1476,13 @@ export const CBroadcastWatchBroadcastRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.existingBroadcastId = longToNumber(reader.fixed64() as Long);
+          message.existingBroadcastId = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.viewerToken = longToNumber(reader.fixed64() as Long);
+          message.viewerToken = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.clientCell = reader.uint32();
@@ -1503,9 +1503,9 @@ export const CBroadcastWatchBroadcastRequest = {
 
   fromJSON(object: any): CBroadcastWatchBroadcastRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      existingBroadcastId: isSet(object.existingBroadcastId) ? Number(object.existingBroadcastId) : 0,
-      viewerToken: isSet(object.viewerToken) ? Number(object.viewerToken) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      existingBroadcastId: isSet(object.existingBroadcastId) ? String(object.existingBroadcastId) : "0",
+      viewerToken: isSet(object.viewerToken) ? String(object.viewerToken) : "0",
       clientCell: isSet(object.clientCell) ? Number(object.clientCell) : 0,
       watchLocation: isSet(object.watchLocation) ? eBroadcastWatchLocationFromJSON(object.watchLocation) : 0,
       isWebrtc: isSet(object.isWebrtc) ? Boolean(object.isWebrtc) : false,
@@ -1514,9 +1514,9 @@ export const CBroadcastWatchBroadcastRequest = {
 
   toJSON(message: CBroadcastWatchBroadcastRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.existingBroadcastId !== undefined && (obj.existingBroadcastId = Math.round(message.existingBroadcastId));
-    message.viewerToken !== undefined && (obj.viewerToken = Math.round(message.viewerToken));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.existingBroadcastId !== undefined && (obj.existingBroadcastId = message.existingBroadcastId);
+    message.viewerToken !== undefined && (obj.viewerToken = message.viewerToken);
     message.clientCell !== undefined && (obj.clientCell = Math.round(message.clientCell));
     message.watchLocation !== undefined && (obj.watchLocation = eBroadcastWatchLocationToJSON(message.watchLocation));
     message.isWebrtc !== undefined && (obj.isWebrtc = message.isWebrtc);
@@ -1531,9 +1531,9 @@ export const CBroadcastWatchBroadcastRequest = {
     object: I,
   ): CBroadcastWatchBroadcastRequest {
     const message = createBaseCBroadcastWatchBroadcastRequest();
-    message.steamid = object.steamid ?? 0;
-    message.existingBroadcastId = object.existingBroadcastId ?? 0;
-    message.viewerToken = object.viewerToken ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.existingBroadcastId = object.existingBroadcastId ?? "0";
+    message.viewerToken = object.viewerToken ?? "0";
     message.clientCell = object.clientCell ?? 0;
     message.watchLocation = object.watchLocation ?? 0;
     message.isWebrtc = object.isWebrtc ?? false;
@@ -1545,19 +1545,19 @@ function createBaseCBroadcastWatchBroadcastResponse(): CBroadcastWatchBroadcastR
   return {
     response: 1,
     mpdUrl: "",
-    broadcastId: 0,
-    gameid: 0,
+    broadcastId: "0",
+    gameid: "0",
     title: "",
     numViewers: 0,
     permission: 0,
     isRtmp: false,
     secondsDelay: 0,
-    viewerToken: 0,
+    viewerToken: "0",
     hlsM3u8MasterUrl: "",
     heartbeatInterval: 0,
     thumbnailUrl: "",
     isWebrtc: false,
-    webrtcSessionId: 0,
+    webrtcSessionId: "0",
     webrtcOfferSdp: "",
     webrtcTurnServer: "",
     isReplay: false,
@@ -1574,10 +1574,10 @@ export const CBroadcastWatchBroadcastResponse = {
     if (message.mpdUrl !== "") {
       writer.uint32(18).string(message.mpdUrl);
     }
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(25).fixed64(message.broadcastId);
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(32).uint64(message.gameid);
     }
     if (message.title !== "") {
@@ -1595,7 +1595,7 @@ export const CBroadcastWatchBroadcastResponse = {
     if (message.secondsDelay !== 0) {
       writer.uint32(72).int32(message.secondsDelay);
     }
-    if (message.viewerToken !== 0) {
+    if (message.viewerToken !== "0") {
       writer.uint32(81).fixed64(message.viewerToken);
     }
     if (message.hlsM3u8MasterUrl !== "") {
@@ -1610,7 +1610,7 @@ export const CBroadcastWatchBroadcastResponse = {
     if (message.isWebrtc === true) {
       writer.uint32(112).bool(message.isWebrtc);
     }
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(121).fixed64(message.webrtcSessionId);
     }
     if (message.webrtcOfferSdp !== "") {
@@ -1645,10 +1645,10 @@ export const CBroadcastWatchBroadcastResponse = {
           message.mpdUrl = reader.string();
           break;
         case 3:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 4:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.title = reader.string();
@@ -1666,7 +1666,7 @@ export const CBroadcastWatchBroadcastResponse = {
           message.secondsDelay = reader.int32();
           break;
         case 10:
-          message.viewerToken = longToNumber(reader.fixed64() as Long);
+          message.viewerToken = longToString(reader.fixed64() as Long);
           break;
         case 11:
           message.hlsM3u8MasterUrl = reader.string();
@@ -1681,7 +1681,7 @@ export const CBroadcastWatchBroadcastResponse = {
           message.isWebrtc = reader.bool();
           break;
         case 15:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 16:
           message.webrtcOfferSdp = reader.string();
@@ -1710,19 +1710,19 @@ export const CBroadcastWatchBroadcastResponse = {
     return {
       response: isSet(object.response) ? cBroadcastWatchBroadcastResponse_EWatchResponseFromJSON(object.response) : 1,
       mpdUrl: isSet(object.mpdUrl) ? String(object.mpdUrl) : "",
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       numViewers: isSet(object.numViewers) ? Number(object.numViewers) : 0,
       permission: isSet(object.permission) ? Number(object.permission) : 0,
       isRtmp: isSet(object.isRtmp) ? Boolean(object.isRtmp) : false,
       secondsDelay: isSet(object.secondsDelay) ? Number(object.secondsDelay) : 0,
-      viewerToken: isSet(object.viewerToken) ? Number(object.viewerToken) : 0,
+      viewerToken: isSet(object.viewerToken) ? String(object.viewerToken) : "0",
       hlsM3u8MasterUrl: isSet(object.hlsM3u8MasterUrl) ? String(object.hlsM3u8MasterUrl) : "",
       heartbeatInterval: isSet(object.heartbeatInterval) ? Number(object.heartbeatInterval) : 0,
       thumbnailUrl: isSet(object.thumbnailUrl) ? String(object.thumbnailUrl) : "",
       isWebrtc: isSet(object.isWebrtc) ? Boolean(object.isWebrtc) : false,
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       webrtcOfferSdp: isSet(object.webrtcOfferSdp) ? String(object.webrtcOfferSdp) : "",
       webrtcTurnServer: isSet(object.webrtcTurnServer) ? String(object.webrtcTurnServer) : "",
       isReplay: isSet(object.isReplay) ? Boolean(object.isReplay) : false,
@@ -1736,19 +1736,19 @@ export const CBroadcastWatchBroadcastResponse = {
     message.response !== undefined &&
       (obj.response = cBroadcastWatchBroadcastResponse_EWatchResponseToJSON(message.response));
     message.mpdUrl !== undefined && (obj.mpdUrl = message.mpdUrl);
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.title !== undefined && (obj.title = message.title);
     message.numViewers !== undefined && (obj.numViewers = Math.round(message.numViewers));
     message.permission !== undefined && (obj.permission = Math.round(message.permission));
     message.isRtmp !== undefined && (obj.isRtmp = message.isRtmp);
     message.secondsDelay !== undefined && (obj.secondsDelay = Math.round(message.secondsDelay));
-    message.viewerToken !== undefined && (obj.viewerToken = Math.round(message.viewerToken));
+    message.viewerToken !== undefined && (obj.viewerToken = message.viewerToken);
     message.hlsM3u8MasterUrl !== undefined && (obj.hlsM3u8MasterUrl = message.hlsM3u8MasterUrl);
     message.heartbeatInterval !== undefined && (obj.heartbeatInterval = Math.round(message.heartbeatInterval));
     message.thumbnailUrl !== undefined && (obj.thumbnailUrl = message.thumbnailUrl);
     message.isWebrtc !== undefined && (obj.isWebrtc = message.isWebrtc);
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.webrtcOfferSdp !== undefined && (obj.webrtcOfferSdp = message.webrtcOfferSdp);
     message.webrtcTurnServer !== undefined && (obj.webrtcTurnServer = message.webrtcTurnServer);
     message.isReplay !== undefined && (obj.isReplay = message.isReplay);
@@ -1769,19 +1769,19 @@ export const CBroadcastWatchBroadcastResponse = {
     const message = createBaseCBroadcastWatchBroadcastResponse();
     message.response = object.response ?? 1;
     message.mpdUrl = object.mpdUrl ?? "";
-    message.broadcastId = object.broadcastId ?? 0;
-    message.gameid = object.gameid ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
+    message.gameid = object.gameid ?? "0";
     message.title = object.title ?? "";
     message.numViewers = object.numViewers ?? 0;
     message.permission = object.permission ?? 0;
     message.isRtmp = object.isRtmp ?? false;
     message.secondsDelay = object.secondsDelay ?? 0;
-    message.viewerToken = object.viewerToken ?? 0;
+    message.viewerToken = object.viewerToken ?? "0";
     message.hlsM3u8MasterUrl = object.hlsM3u8MasterUrl ?? "";
     message.heartbeatInterval = object.heartbeatInterval ?? 0;
     message.thumbnailUrl = object.thumbnailUrl ?? "";
     message.isWebrtc = object.isWebrtc ?? false;
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.webrtcOfferSdp = object.webrtcOfferSdp ?? "";
     message.webrtcTurnServer = object.webrtcTurnServer ?? "";
     message.isReplay = object.isReplay ?? false;
@@ -1792,18 +1792,18 @@ export const CBroadcastWatchBroadcastResponse = {
 };
 
 function createBaseCBroadcastHeartbeatBroadcastNotification(): CBroadcastHeartbeatBroadcastNotification {
-  return { steamid: 0, broadcastId: 0, viewerToken: 0, representation: 0 };
+  return { steamid: "0", broadcastId: "0", viewerToken: "0", representation: 0 };
 }
 
 export const CBroadcastHeartbeatBroadcastNotification = {
   encode(message: CBroadcastHeartbeatBroadcastNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(17).fixed64(message.broadcastId);
     }
-    if (message.viewerToken !== 0) {
+    if (message.viewerToken !== "0") {
       writer.uint32(25).fixed64(message.viewerToken);
     }
     if (message.representation !== 0) {
@@ -1820,13 +1820,13 @@ export const CBroadcastHeartbeatBroadcastNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.viewerToken = longToNumber(reader.fixed64() as Long);
+          message.viewerToken = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.representation = reader.uint32();
@@ -1841,18 +1841,18 @@ export const CBroadcastHeartbeatBroadcastNotification = {
 
   fromJSON(object: any): CBroadcastHeartbeatBroadcastNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
-      viewerToken: isSet(object.viewerToken) ? Number(object.viewerToken) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
+      viewerToken: isSet(object.viewerToken) ? String(object.viewerToken) : "0",
       representation: isSet(object.representation) ? Number(object.representation) : 0,
     };
   },
 
   toJSON(message: CBroadcastHeartbeatBroadcastNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
-    message.viewerToken !== undefined && (obj.viewerToken = Math.round(message.viewerToken));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
+    message.viewerToken !== undefined && (obj.viewerToken = message.viewerToken);
     message.representation !== undefined && (obj.representation = Math.round(message.representation));
     return obj;
   },
@@ -1867,27 +1867,27 @@ export const CBroadcastHeartbeatBroadcastNotification = {
     object: I,
   ): CBroadcastHeartbeatBroadcastNotification {
     const message = createBaseCBroadcastHeartbeatBroadcastNotification();
-    message.steamid = object.steamid ?? 0;
-    message.broadcastId = object.broadcastId ?? 0;
-    message.viewerToken = object.viewerToken ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.broadcastId = object.broadcastId ?? "0";
+    message.viewerToken = object.viewerToken ?? "0";
     message.representation = object.representation ?? 0;
     return message;
   },
 };
 
 function createBaseCBroadcastStopWatchingBroadcastNotification(): CBroadcastStopWatchingBroadcastNotification {
-  return { steamid: 0, broadcastId: 0, viewerToken: 0 };
+  return { steamid: "0", broadcastId: "0", viewerToken: "0" };
 }
 
 export const CBroadcastStopWatchingBroadcastNotification = {
   encode(message: CBroadcastStopWatchingBroadcastNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(17).fixed64(message.broadcastId);
     }
-    if (message.viewerToken !== 0) {
+    if (message.viewerToken !== "0") {
       writer.uint32(25).fixed64(message.viewerToken);
     }
     return writer;
@@ -1901,13 +1901,13 @@ export const CBroadcastStopWatchingBroadcastNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.viewerToken = longToNumber(reader.fixed64() as Long);
+          message.viewerToken = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1919,17 +1919,17 @@ export const CBroadcastStopWatchingBroadcastNotification = {
 
   fromJSON(object: any): CBroadcastStopWatchingBroadcastNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
-      viewerToken: isSet(object.viewerToken) ? Number(object.viewerToken) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
+      viewerToken: isSet(object.viewerToken) ? String(object.viewerToken) : "0",
     };
   },
 
   toJSON(message: CBroadcastStopWatchingBroadcastNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
-    message.viewerToken !== undefined && (obj.viewerToken = Math.round(message.viewerToken));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
+    message.viewerToken !== undefined && (obj.viewerToken = message.viewerToken);
     return obj;
   },
 
@@ -1943,23 +1943,23 @@ export const CBroadcastStopWatchingBroadcastNotification = {
     object: I,
   ): CBroadcastStopWatchingBroadcastNotification {
     const message = createBaseCBroadcastStopWatchingBroadcastNotification();
-    message.steamid = object.steamid ?? 0;
-    message.broadcastId = object.broadcastId ?? 0;
-    message.viewerToken = object.viewerToken ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.broadcastId = object.broadcastId ?? "0";
+    message.viewerToken = object.viewerToken ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastGetBroadcastStatusRequest(): CBroadcastGetBroadcastStatusRequest {
-  return { steamid: 0, broadcastId: 0 };
+  return { steamid: "0", broadcastId: "0" };
 }
 
 export const CBroadcastGetBroadcastStatusRequest = {
   encode(message: CBroadcastGetBroadcastStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(17).fixed64(message.broadcastId);
     }
     return writer;
@@ -1973,10 +1973,10 @@ export const CBroadcastGetBroadcastStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1988,15 +1988,15 @@ export const CBroadcastGetBroadcastStatusRequest = {
 
   fromJSON(object: any): CBroadcastGetBroadcastStatusRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
     };
   },
 
   toJSON(message: CBroadcastGetBroadcastStatusRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     return obj;
   },
 
@@ -2010,15 +2010,15 @@ export const CBroadcastGetBroadcastStatusRequest = {
     object: I,
   ): CBroadcastGetBroadcastStatusRequest {
     const message = createBaseCBroadcastGetBroadcastStatusRequest();
-    message.steamid = object.steamid ?? 0;
-    message.broadcastId = object.broadcastId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.broadcastId = object.broadcastId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastGetBroadcastStatusResponse(): CBroadcastGetBroadcastStatusResponse {
   return {
-    gameid: 0,
+    gameid: "0",
     title: "",
     numViewers: 0,
     permission: 0,
@@ -2037,7 +2037,7 @@ function createBaseCBroadcastGetBroadcastStatusResponse(): CBroadcastGetBroadcas
 
 export const CBroadcastGetBroadcastStatusResponse = {
   encode(message: CBroadcastGetBroadcastStatusResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(8).uint64(message.gameid);
     }
     if (message.title !== "") {
@@ -2090,7 +2090,7 @@ export const CBroadcastGetBroadcastStatusResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.title = reader.string();
@@ -2141,7 +2141,7 @@ export const CBroadcastGetBroadcastStatusResponse = {
 
   fromJSON(object: any): CBroadcastGetBroadcastStatusResponse {
     return {
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       numViewers: isSet(object.numViewers) ? Number(object.numViewers) : 0,
       permission: isSet(object.permission) ? Number(object.permission) : 0,
@@ -2160,7 +2160,7 @@ export const CBroadcastGetBroadcastStatusResponse = {
 
   toJSON(message: CBroadcastGetBroadcastStatusResponse): unknown {
     const obj: any = {};
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.title !== undefined && (obj.title = message.title);
     message.numViewers !== undefined && (obj.numViewers = Math.round(message.numViewers));
     message.permission !== undefined && (obj.permission = Math.round(message.permission));
@@ -2187,7 +2187,7 @@ export const CBroadcastGetBroadcastStatusResponse = {
     object: I,
   ): CBroadcastGetBroadcastStatusResponse {
     const message = createBaseCBroadcastGetBroadcastStatusResponse();
-    message.gameid = object.gameid ?? 0;
+    message.gameid = object.gameid ?? "0";
     message.title = object.title ?? "";
     message.numViewers = object.numViewers ?? 0;
     message.permission = object.permission ?? 0;
@@ -2206,15 +2206,15 @@ export const CBroadcastGetBroadcastStatusResponse = {
 };
 
 function createBaseCBroadcastGetBroadcastThumbnailRequest(): CBroadcastGetBroadcastThumbnailRequest {
-  return { steamid: 0, broadcastId: 0 };
+  return { steamid: "0", broadcastId: "0" };
 }
 
 export const CBroadcastGetBroadcastThumbnailRequest = {
   encode(message: CBroadcastGetBroadcastThumbnailRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(17).fixed64(message.broadcastId);
     }
     return writer;
@@ -2228,10 +2228,10 @@ export const CBroadcastGetBroadcastThumbnailRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2243,15 +2243,15 @@ export const CBroadcastGetBroadcastThumbnailRequest = {
 
   fromJSON(object: any): CBroadcastGetBroadcastThumbnailRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
     };
   },
 
   toJSON(message: CBroadcastGetBroadcastThumbnailRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     return obj;
   },
 
@@ -2265,8 +2265,8 @@ export const CBroadcastGetBroadcastThumbnailRequest = {
     object: I,
   ): CBroadcastGetBroadcastThumbnailRequest {
     const message = createBaseCBroadcastGetBroadcastThumbnailRequest();
-    message.steamid = object.steamid ?? 0;
-    message.broadcastId = object.broadcastId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.broadcastId = object.broadcastId ?? "0";
     return message;
   },
 };
@@ -2356,12 +2356,12 @@ export const CBroadcastGetBroadcastThumbnailResponse = {
 };
 
 function createBaseCBroadcastInviteToBroadcastRequest(): CBroadcastInviteToBroadcastRequest {
-  return { steamid: 0, approvalResponse: false };
+  return { steamid: "0", approvalResponse: false };
 }
 
 export const CBroadcastInviteToBroadcastRequest = {
   encode(message: CBroadcastInviteToBroadcastRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.approvalResponse === true) {
@@ -2378,7 +2378,7 @@ export const CBroadcastInviteToBroadcastRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.approvalResponse = reader.bool();
@@ -2393,14 +2393,14 @@ export const CBroadcastInviteToBroadcastRequest = {
 
   fromJSON(object: any): CBroadcastInviteToBroadcastRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       approvalResponse: isSet(object.approvalResponse) ? Boolean(object.approvalResponse) : false,
     };
   },
 
   toJSON(message: CBroadcastInviteToBroadcastRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.approvalResponse !== undefined && (obj.approvalResponse = message.approvalResponse);
     return obj;
   },
@@ -2415,7 +2415,7 @@ export const CBroadcastInviteToBroadcastRequest = {
     object: I,
   ): CBroadcastInviteToBroadcastRequest {
     const message = createBaseCBroadcastInviteToBroadcastRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.approvalResponse = object.approvalResponse ?? false;
     return message;
   },
@@ -2477,7 +2477,7 @@ export const CBroadcastInviteToBroadcastResponse = {
 };
 
 function createBaseCBroadcastSendBroadcastStateToServerRequest(): CBroadcastSendBroadcastStateToServerRequest {
-  return { permission: 0, gameid: 0, title: "", gameDataConfig: "" };
+  return { permission: 0, gameid: "0", title: "", gameDataConfig: "" };
 }
 
 export const CBroadcastSendBroadcastStateToServerRequest = {
@@ -2485,7 +2485,7 @@ export const CBroadcastSendBroadcastStateToServerRequest = {
     if (message.permission !== 0) {
       writer.uint32(8).int32(message.permission);
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(16).uint64(message.gameid);
     }
     if (message.title !== "") {
@@ -2508,7 +2508,7 @@ export const CBroadcastSendBroadcastStateToServerRequest = {
           message.permission = reader.int32();
           break;
         case 2:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.title = reader.string();
@@ -2527,7 +2527,7 @@ export const CBroadcastSendBroadcastStateToServerRequest = {
   fromJSON(object: any): CBroadcastSendBroadcastStateToServerRequest {
     return {
       permission: isSet(object.permission) ? Number(object.permission) : 0,
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       gameDataConfig: isSet(object.gameDataConfig) ? String(object.gameDataConfig) : "",
     };
@@ -2536,7 +2536,7 @@ export const CBroadcastSendBroadcastStateToServerRequest = {
   toJSON(message: CBroadcastSendBroadcastStateToServerRequest): unknown {
     const obj: any = {};
     message.permission !== undefined && (obj.permission = Math.round(message.permission));
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.title !== undefined && (obj.title = message.title);
     message.gameDataConfig !== undefined && (obj.gameDataConfig = message.gameDataConfig);
     return obj;
@@ -2553,7 +2553,7 @@ export const CBroadcastSendBroadcastStateToServerRequest = {
   ): CBroadcastSendBroadcastStateToServerRequest {
     const message = createBaseCBroadcastSendBroadcastStateToServerRequest();
     message.permission = object.permission ?? 0;
-    message.gameid = object.gameid ?? 0;
+    message.gameid = object.gameid ?? "0";
     message.title = object.title ?? "";
     message.gameDataConfig = object.gameDataConfig ?? "";
     return message;
@@ -2608,7 +2608,7 @@ export const CBroadcastSendBroadcastStateToServerResponse = {
 };
 
 function createBaseCBroadcastNotifyBroadcastSessionHeartbeatNotification(): CBroadcastNotifyBroadcastSessionHeartbeatNotification {
-  return { broadcastId: 0 };
+  return { broadcastId: "0" };
 }
 
 export const CBroadcastNotifyBroadcastSessionHeartbeatNotification = {
@@ -2616,7 +2616,7 @@ export const CBroadcastNotifyBroadcastSessionHeartbeatNotification = {
     message: CBroadcastNotifyBroadcastSessionHeartbeatNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     return writer;
@@ -2630,7 +2630,7 @@ export const CBroadcastNotifyBroadcastSessionHeartbeatNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2641,12 +2641,12 @@ export const CBroadcastNotifyBroadcastSessionHeartbeatNotification = {
   },
 
   fromJSON(object: any): CBroadcastNotifyBroadcastSessionHeartbeatNotification {
-    return { broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0 };
+    return { broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0" };
   },
 
   toJSON(message: CBroadcastNotifyBroadcastSessionHeartbeatNotification): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     return obj;
   },
 
@@ -2660,21 +2660,21 @@ export const CBroadcastNotifyBroadcastSessionHeartbeatNotification = {
     object: I,
   ): CBroadcastNotifyBroadcastSessionHeartbeatNotification {
     const message = createBaseCBroadcastNotifyBroadcastSessionHeartbeatNotification();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastGetBroadcastChatInfoRequest(): CBroadcastGetBroadcastChatInfoRequest {
-  return { steamid: 0, broadcastId: 0, clientIp: 0, clientCell: 0 };
+  return { steamid: "0", broadcastId: "0", clientIp: 0, clientCell: 0 };
 }
 
 export const CBroadcastGetBroadcastChatInfoRequest = {
   encode(message: CBroadcastGetBroadcastChatInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(17).fixed64(message.broadcastId);
     }
     if (message.clientIp !== 0) {
@@ -2694,10 +2694,10 @@ export const CBroadcastGetBroadcastChatInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.clientIp = reader.uint32();
@@ -2715,8 +2715,8 @@ export const CBroadcastGetBroadcastChatInfoRequest = {
 
   fromJSON(object: any): CBroadcastGetBroadcastChatInfoRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
       clientIp: isSet(object.clientIp) ? Number(object.clientIp) : 0,
       clientCell: isSet(object.clientCell) ? Number(object.clientCell) : 0,
     };
@@ -2724,8 +2724,8 @@ export const CBroadcastGetBroadcastChatInfoRequest = {
 
   toJSON(message: CBroadcastGetBroadcastChatInfoRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     message.clientIp !== undefined && (obj.clientIp = Math.round(message.clientIp));
     message.clientCell !== undefined && (obj.clientCell = Math.round(message.clientCell));
     return obj;
@@ -2741,8 +2741,8 @@ export const CBroadcastGetBroadcastChatInfoRequest = {
     object: I,
   ): CBroadcastGetBroadcastChatInfoRequest {
     const message = createBaseCBroadcastGetBroadcastChatInfoRequest();
-    message.steamid = object.steamid ?? 0;
-    message.broadcastId = object.broadcastId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.broadcastId = object.broadcastId ?? "0";
     message.clientIp = object.clientIp ?? 0;
     message.clientCell = object.clientCell ?? 0;
     return message;
@@ -2750,12 +2750,12 @@ export const CBroadcastGetBroadcastChatInfoRequest = {
 };
 
 function createBaseCBroadcastGetBroadcastChatInfoResponse(): CBroadcastGetBroadcastChatInfoResponse {
-  return { chatId: 0, viewUrlTemplate: "", flairGroupIds: [] };
+  return { chatId: "0", viewUrlTemplate: "", flairGroupIds: [] };
 }
 
 export const CBroadcastGetBroadcastChatInfoResponse = {
   encode(message: CBroadcastGetBroadcastChatInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(9).fixed64(message.chatId);
     }
     if (message.viewUrlTemplate !== "") {
@@ -2777,7 +2777,7 @@ export const CBroadcastGetBroadcastChatInfoResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.viewUrlTemplate = reader.string();
@@ -2802,7 +2802,7 @@ export const CBroadcastGetBroadcastChatInfoResponse = {
 
   fromJSON(object: any): CBroadcastGetBroadcastChatInfoResponse {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       viewUrlTemplate: isSet(object.viewUrlTemplate) ? String(object.viewUrlTemplate) : "",
       flairGroupIds: Array.isArray(object?.flairGroupIds) ? object.flairGroupIds.map((e: any) => Number(e)) : [],
     };
@@ -2810,7 +2810,7 @@ export const CBroadcastGetBroadcastChatInfoResponse = {
 
   toJSON(message: CBroadcastGetBroadcastChatInfoResponse): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.viewUrlTemplate !== undefined && (obj.viewUrlTemplate = message.viewUrlTemplate);
     if (message.flairGroupIds) {
       obj.flairGroupIds = message.flairGroupIds.map((e) => Math.round(e));
@@ -2830,7 +2830,7 @@ export const CBroadcastGetBroadcastChatInfoResponse = {
     object: I,
   ): CBroadcastGetBroadcastChatInfoResponse {
     const message = createBaseCBroadcastGetBroadcastChatInfoResponse();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.viewUrlTemplate = object.viewUrlTemplate ?? "";
     message.flairGroupIds = object.flairGroupIds?.map((e) => e) || [];
     return message;
@@ -2838,12 +2838,12 @@ export const CBroadcastGetBroadcastChatInfoResponse = {
 };
 
 function createBaseCBroadcastPostChatMessageRequest(): CBroadcastPostChatMessageRequest {
-  return { chatId: 0, message: "", instanceId: 0, language: 0, countryCode: "" };
+  return { chatId: "0", message: "", instanceId: 0, language: 0, countryCode: "" };
 }
 
 export const CBroadcastPostChatMessageRequest = {
   encode(message: CBroadcastPostChatMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(9).fixed64(message.chatId);
     }
     if (message.message !== "") {
@@ -2869,7 +2869,7 @@ export const CBroadcastPostChatMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.message = reader.string();
@@ -2893,7 +2893,7 @@ export const CBroadcastPostChatMessageRequest = {
 
   fromJSON(object: any): CBroadcastPostChatMessageRequest {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       message: isSet(object.message) ? String(object.message) : "",
       instanceId: isSet(object.instanceId) ? Number(object.instanceId) : 0,
       language: isSet(object.language) ? Number(object.language) : 0,
@@ -2903,7 +2903,7 @@ export const CBroadcastPostChatMessageRequest = {
 
   toJSON(message: CBroadcastPostChatMessageRequest): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.message !== undefined && (obj.message = message.message);
     message.instanceId !== undefined && (obj.instanceId = Math.round(message.instanceId));
     message.language !== undefined && (obj.language = Math.round(message.language));
@@ -2921,7 +2921,7 @@ export const CBroadcastPostChatMessageRequest = {
     object: I,
   ): CBroadcastPostChatMessageRequest {
     const message = createBaseCBroadcastPostChatMessageRequest();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.message = object.message ?? "";
     message.instanceId = object.instanceId ?? 0;
     message.language = object.language ?? 0;
@@ -3015,12 +3015,12 @@ export const CBroadcastPostChatMessageResponse = {
 };
 
 function createBaseCBroadcastUpdateChatMessageFlairRequest(): CBroadcastUpdateChatMessageFlairRequest {
-  return { chatId: 0, flair: "" };
+  return { chatId: "0", flair: "" };
 }
 
 export const CBroadcastUpdateChatMessageFlairRequest = {
   encode(message: CBroadcastUpdateChatMessageFlairRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(9).fixed64(message.chatId);
     }
     if (message.flair !== "") {
@@ -3037,7 +3037,7 @@ export const CBroadcastUpdateChatMessageFlairRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.flair = reader.string();
@@ -3052,14 +3052,14 @@ export const CBroadcastUpdateChatMessageFlairRequest = {
 
   fromJSON(object: any): CBroadcastUpdateChatMessageFlairRequest {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       flair: isSet(object.flair) ? String(object.flair) : "",
     };
   },
 
   toJSON(message: CBroadcastUpdateChatMessageFlairRequest): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.flair !== undefined && (obj.flair = message.flair);
     return obj;
   },
@@ -3074,14 +3074,14 @@ export const CBroadcastUpdateChatMessageFlairRequest = {
     object: I,
   ): CBroadcastUpdateChatMessageFlairRequest {
     const message = createBaseCBroadcastUpdateChatMessageFlairRequest();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.flair = object.flair ?? "";
     return message;
   },
 };
 
 function createBaseCBroadcastUpdateChatMessageFlairResponse(): CBroadcastUpdateChatMessageFlairResponse {
-  return { result: 0, chatId: 0, flair: "" };
+  return { result: 0, chatId: "0", flair: "" };
 }
 
 export const CBroadcastUpdateChatMessageFlairResponse = {
@@ -3089,7 +3089,7 @@ export const CBroadcastUpdateChatMessageFlairResponse = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(17).fixed64(message.chatId);
     }
     if (message.flair !== "") {
@@ -3109,7 +3109,7 @@ export const CBroadcastUpdateChatMessageFlairResponse = {
           message.result = reader.int32();
           break;
         case 2:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.flair = reader.string();
@@ -3125,7 +3125,7 @@ export const CBroadcastUpdateChatMessageFlairResponse = {
   fromJSON(object: any): CBroadcastUpdateChatMessageFlairResponse {
     return {
       result: isSet(object.result) ? Number(object.result) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       flair: isSet(object.flair) ? String(object.flair) : "",
     };
   },
@@ -3133,7 +3133,7 @@ export const CBroadcastUpdateChatMessageFlairResponse = {
   toJSON(message: CBroadcastUpdateChatMessageFlairResponse): unknown {
     const obj: any = {};
     message.result !== undefined && (obj.result = Math.round(message.result));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.flair !== undefined && (obj.flair = message.flair);
     return obj;
   },
@@ -3149,22 +3149,22 @@ export const CBroadcastUpdateChatMessageFlairResponse = {
   ): CBroadcastUpdateChatMessageFlairResponse {
     const message = createBaseCBroadcastUpdateChatMessageFlairResponse();
     message.result = object.result ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.flair = object.flair ?? "";
     return message;
   },
 };
 
 function createBaseCBroadcastMuteBroadcastChatUserRequest(): CBroadcastMuteBroadcastChatUserRequest {
-  return { chatId: 0, userSteamid: 0, muted: false };
+  return { chatId: "0", userSteamid: "0", muted: false };
 }
 
 export const CBroadcastMuteBroadcastChatUserRequest = {
   encode(message: CBroadcastMuteBroadcastChatUserRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(9).fixed64(message.chatId);
     }
-    if (message.userSteamid !== 0) {
+    if (message.userSteamid !== "0") {
       writer.uint32(17).fixed64(message.userSteamid);
     }
     if (message.muted === true) {
@@ -3181,10 +3181,10 @@ export const CBroadcastMuteBroadcastChatUserRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.userSteamid = longToNumber(reader.fixed64() as Long);
+          message.userSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.muted = reader.bool();
@@ -3199,16 +3199,16 @@ export const CBroadcastMuteBroadcastChatUserRequest = {
 
   fromJSON(object: any): CBroadcastMuteBroadcastChatUserRequest {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
-      userSteamid: isSet(object.userSteamid) ? Number(object.userSteamid) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
+      userSteamid: isSet(object.userSteamid) ? String(object.userSteamid) : "0",
       muted: isSet(object.muted) ? Boolean(object.muted) : false,
     };
   },
 
   toJSON(message: CBroadcastMuteBroadcastChatUserRequest): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
-    message.userSteamid !== undefined && (obj.userSteamid = Math.round(message.userSteamid));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
+    message.userSteamid !== undefined && (obj.userSteamid = message.userSteamid);
     message.muted !== undefined && (obj.muted = message.muted);
     return obj;
   },
@@ -3223,8 +3223,8 @@ export const CBroadcastMuteBroadcastChatUserRequest = {
     object: I,
   ): CBroadcastMuteBroadcastChatUserRequest {
     const message = createBaseCBroadcastMuteBroadcastChatUserRequest();
-    message.chatId = object.chatId ?? 0;
-    message.userSteamid = object.userSteamid ?? 0;
+    message.chatId = object.chatId ?? "0";
+    message.userSteamid = object.userSteamid ?? "0";
     message.muted = object.muted ?? false;
     return message;
   },
@@ -3278,15 +3278,15 @@ export const CBroadcastMuteBroadcastChatUserResponse = {
 };
 
 function createBaseCBroadcastRemoveUserChatTextRequest(): CBroadcastRemoveUserChatTextRequest {
-  return { chatId: 0, userSteamid: 0 };
+  return { chatId: "0", userSteamid: "0" };
 }
 
 export const CBroadcastRemoveUserChatTextRequest = {
   encode(message: CBroadcastRemoveUserChatTextRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(9).fixed64(message.chatId);
     }
-    if (message.userSteamid !== 0) {
+    if (message.userSteamid !== "0") {
       writer.uint32(17).fixed64(message.userSteamid);
     }
     return writer;
@@ -3300,10 +3300,10 @@ export const CBroadcastRemoveUserChatTextRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.userSteamid = longToNumber(reader.fixed64() as Long);
+          message.userSteamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3315,15 +3315,15 @@ export const CBroadcastRemoveUserChatTextRequest = {
 
   fromJSON(object: any): CBroadcastRemoveUserChatTextRequest {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
-      userSteamid: isSet(object.userSteamid) ? Number(object.userSteamid) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
+      userSteamid: isSet(object.userSteamid) ? String(object.userSteamid) : "0",
     };
   },
 
   toJSON(message: CBroadcastRemoveUserChatTextRequest): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
-    message.userSteamid !== undefined && (obj.userSteamid = Math.round(message.userSteamid));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
+    message.userSteamid !== undefined && (obj.userSteamid = message.userSteamid);
     return obj;
   },
 
@@ -3337,8 +3337,8 @@ export const CBroadcastRemoveUserChatTextRequest = {
     object: I,
   ): CBroadcastRemoveUserChatTextRequest {
     const message = createBaseCBroadcastRemoveUserChatTextRequest();
-    message.chatId = object.chatId ?? 0;
-    message.userSteamid = object.userSteamid ?? 0;
+    message.chatId = object.chatId ?? "0";
+    message.userSteamid = object.userSteamid ?? "0";
     return message;
   },
 };
@@ -3391,12 +3391,12 @@ export const CBroadcastRemoveUserChatTextResponse = {
 };
 
 function createBaseCBroadcastGetBroadcastChatUserNamesRequest(): CBroadcastGetBroadcastChatUserNamesRequest {
-  return { chatId: 0, userSteamid: [] };
+  return { chatId: "0", userSteamid: [] };
 }
 
 export const CBroadcastGetBroadcastChatUserNamesRequest = {
   encode(message: CBroadcastGetBroadcastChatUserNamesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(9).fixed64(message.chatId);
     }
     writer.uint32(18).fork();
@@ -3415,16 +3415,16 @@ export const CBroadcastGetBroadcastChatUserNamesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.userSteamid.push(longToNumber(reader.fixed64() as Long));
+              message.userSteamid.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.userSteamid.push(longToNumber(reader.fixed64() as Long));
+            message.userSteamid.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -3437,16 +3437,16 @@ export const CBroadcastGetBroadcastChatUserNamesRequest = {
 
   fromJSON(object: any): CBroadcastGetBroadcastChatUserNamesRequest {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
-      userSteamid: Array.isArray(object?.userSteamid) ? object.userSteamid.map((e: any) => Number(e)) : [],
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
+      userSteamid: Array.isArray(object?.userSteamid) ? object.userSteamid.map((e: any) => String(e)) : [],
     };
   },
 
   toJSON(message: CBroadcastGetBroadcastChatUserNamesRequest): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     if (message.userSteamid) {
-      obj.userSteamid = message.userSteamid.map((e) => Math.round(e));
+      obj.userSteamid = message.userSteamid.map((e) => e);
     } else {
       obj.userSteamid = [];
     }
@@ -3463,7 +3463,7 @@ export const CBroadcastGetBroadcastChatUserNamesRequest = {
     object: I,
   ): CBroadcastGetBroadcastChatUserNamesRequest {
     const message = createBaseCBroadcastGetBroadcastChatUserNamesRequest();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.userSteamid = object.userSteamid?.map((e) => e) || [];
     return message;
   },
@@ -3538,7 +3538,7 @@ export const CBroadcastGetBroadcastChatUserNamesResponse = {
 };
 
 function createBaseCBroadcastGetBroadcastChatUserNamesResponse_PersonaName(): CBroadcastGetBroadcastChatUserNamesResponse_PersonaName {
-  return { steamId: 0, persona: "" };
+  return { steamId: "0", persona: "" };
 }
 
 export const CBroadcastGetBroadcastChatUserNamesResponse_PersonaName = {
@@ -3546,7 +3546,7 @@ export const CBroadcastGetBroadcastChatUserNamesResponse_PersonaName = {
     message: CBroadcastGetBroadcastChatUserNamesResponse_PersonaName,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     if (message.persona !== "") {
@@ -3563,7 +3563,7 @@ export const CBroadcastGetBroadcastChatUserNamesResponse_PersonaName = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.persona = reader.string();
@@ -3578,14 +3578,14 @@ export const CBroadcastGetBroadcastChatUserNamesResponse_PersonaName = {
 
   fromJSON(object: any): CBroadcastGetBroadcastChatUserNamesResponse_PersonaName {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       persona: isSet(object.persona) ? String(object.persona) : "",
     };
   },
 
   toJSON(message: CBroadcastGetBroadcastChatUserNamesResponse_PersonaName): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.persona !== undefined && (obj.persona = message.persona);
     return obj;
   },
@@ -3600,22 +3600,22 @@ export const CBroadcastGetBroadcastChatUserNamesResponse_PersonaName = {
     object: I,
   ): CBroadcastGetBroadcastChatUserNamesResponse_PersonaName {
     const message = createBaseCBroadcastGetBroadcastChatUserNamesResponse_PersonaName();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.persona = object.persona ?? "";
     return message;
   },
 };
 
 function createBaseCBroadcastStartBuildClipRequest(): CBroadcastStartBuildClipRequest {
-  return { steamid: 0, broadcastSessionId: 0, firstSegment: 0, numSegments: 0, clipDescription: "" };
+  return { steamid: "0", broadcastSessionId: "0", firstSegment: 0, numSegments: 0, clipDescription: "" };
 }
 
 export const CBroadcastStartBuildClipRequest = {
   encode(message: CBroadcastStartBuildClipRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.broadcastSessionId !== 0) {
+    if (message.broadcastSessionId !== "0") {
       writer.uint32(17).fixed64(message.broadcastSessionId);
     }
     if (message.firstSegment !== 0) {
@@ -3638,10 +3638,10 @@ export const CBroadcastStartBuildClipRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.broadcastSessionId = longToNumber(reader.fixed64() as Long);
+          message.broadcastSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.firstSegment = reader.int32();
@@ -3662,8 +3662,8 @@ export const CBroadcastStartBuildClipRequest = {
 
   fromJSON(object: any): CBroadcastStartBuildClipRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      broadcastSessionId: isSet(object.broadcastSessionId) ? Number(object.broadcastSessionId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      broadcastSessionId: isSet(object.broadcastSessionId) ? String(object.broadcastSessionId) : "0",
       firstSegment: isSet(object.firstSegment) ? Number(object.firstSegment) : 0,
       numSegments: isSet(object.numSegments) ? Number(object.numSegments) : 0,
       clipDescription: isSet(object.clipDescription) ? String(object.clipDescription) : "",
@@ -3672,8 +3672,8 @@ export const CBroadcastStartBuildClipRequest = {
 
   toJSON(message: CBroadcastStartBuildClipRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = Math.round(message.broadcastSessionId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = message.broadcastSessionId);
     message.firstSegment !== undefined && (obj.firstSegment = Math.round(message.firstSegment));
     message.numSegments !== undefined && (obj.numSegments = Math.round(message.numSegments));
     message.clipDescription !== undefined && (obj.clipDescription = message.clipDescription);
@@ -3688,8 +3688,8 @@ export const CBroadcastStartBuildClipRequest = {
     object: I,
   ): CBroadcastStartBuildClipRequest {
     const message = createBaseCBroadcastStartBuildClipRequest();
-    message.steamid = object.steamid ?? 0;
-    message.broadcastSessionId = object.broadcastSessionId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.broadcastSessionId = object.broadcastSessionId ?? "0";
     message.firstSegment = object.firstSegment ?? 0;
     message.numSegments = object.numSegments ?? 0;
     message.clipDescription = object.clipDescription ?? "";
@@ -3698,12 +3698,12 @@ export const CBroadcastStartBuildClipRequest = {
 };
 
 function createBaseCBroadcastStartBuildClipResponse(): CBroadcastStartBuildClipResponse {
-  return { broadcastClipId: 0 };
+  return { broadcastClipId: "0" };
 }
 
 export const CBroadcastStartBuildClipResponse = {
   encode(message: CBroadcastStartBuildClipResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastClipId !== 0) {
+    if (message.broadcastClipId !== "0") {
       writer.uint32(9).fixed64(message.broadcastClipId);
     }
     return writer;
@@ -3717,7 +3717,7 @@ export const CBroadcastStartBuildClipResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastClipId = longToNumber(reader.fixed64() as Long);
+          message.broadcastClipId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3728,12 +3728,12 @@ export const CBroadcastStartBuildClipResponse = {
   },
 
   fromJSON(object: any): CBroadcastStartBuildClipResponse {
-    return { broadcastClipId: isSet(object.broadcastClipId) ? Number(object.broadcastClipId) : 0 };
+    return { broadcastClipId: isSet(object.broadcastClipId) ? String(object.broadcastClipId) : "0" };
   },
 
   toJSON(message: CBroadcastStartBuildClipResponse): unknown {
     const obj: any = {};
-    message.broadcastClipId !== undefined && (obj.broadcastClipId = Math.round(message.broadcastClipId));
+    message.broadcastClipId !== undefined && (obj.broadcastClipId = message.broadcastClipId);
     return obj;
   },
 
@@ -3747,18 +3747,18 @@ export const CBroadcastStartBuildClipResponse = {
     object: I,
   ): CBroadcastStartBuildClipResponse {
     const message = createBaseCBroadcastStartBuildClipResponse();
-    message.broadcastClipId = object.broadcastClipId ?? 0;
+    message.broadcastClipId = object.broadcastClipId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastGetBuildClipStatusRequest(): CBroadcastGetBuildClipStatusRequest {
-  return { broadcastClipId: 0 };
+  return { broadcastClipId: "0" };
 }
 
 export const CBroadcastGetBuildClipStatusRequest = {
   encode(message: CBroadcastGetBuildClipStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastClipId !== 0) {
+    if (message.broadcastClipId !== "0") {
       writer.uint32(9).fixed64(message.broadcastClipId);
     }
     return writer;
@@ -3772,7 +3772,7 @@ export const CBroadcastGetBuildClipStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastClipId = longToNumber(reader.fixed64() as Long);
+          message.broadcastClipId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3783,12 +3783,12 @@ export const CBroadcastGetBuildClipStatusRequest = {
   },
 
   fromJSON(object: any): CBroadcastGetBuildClipStatusRequest {
-    return { broadcastClipId: isSet(object.broadcastClipId) ? Number(object.broadcastClipId) : 0 };
+    return { broadcastClipId: isSet(object.broadcastClipId) ? String(object.broadcastClipId) : "0" };
   },
 
   toJSON(message: CBroadcastGetBuildClipStatusRequest): unknown {
     const obj: any = {};
-    message.broadcastClipId !== undefined && (obj.broadcastClipId = Math.round(message.broadcastClipId));
+    message.broadcastClipId !== undefined && (obj.broadcastClipId = message.broadcastClipId);
     return obj;
   },
 
@@ -3802,7 +3802,7 @@ export const CBroadcastGetBuildClipStatusRequest = {
     object: I,
   ): CBroadcastGetBuildClipStatusRequest {
     const message = createBaseCBroadcastGetBuildClipStatusRequest();
-    message.broadcastClipId = object.broadcastClipId ?? 0;
+    message.broadcastClipId = object.broadcastClipId ?? "0";
     return message;
   },
 };
@@ -3855,12 +3855,12 @@ export const CBroadcastGetBuildClipStatusResponse = {
 };
 
 function createBaseCBroadcastSetClipDetailsRequest(): CBroadcastSetClipDetailsRequest {
-  return { broadcastClipId: 0, startTime: 0, endTime: 0, videoDescription: "" };
+  return { broadcastClipId: "0", startTime: 0, endTime: 0, videoDescription: "" };
 }
 
 export const CBroadcastSetClipDetailsRequest = {
   encode(message: CBroadcastSetClipDetailsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastClipId !== 0) {
+    if (message.broadcastClipId !== "0") {
       writer.uint32(8).uint64(message.broadcastClipId);
     }
     if (message.startTime !== 0) {
@@ -3883,7 +3883,7 @@ export const CBroadcastSetClipDetailsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastClipId = longToNumber(reader.uint64() as Long);
+          message.broadcastClipId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.startTime = reader.uint32();
@@ -3904,7 +3904,7 @@ export const CBroadcastSetClipDetailsRequest = {
 
   fromJSON(object: any): CBroadcastSetClipDetailsRequest {
     return {
-      broadcastClipId: isSet(object.broadcastClipId) ? Number(object.broadcastClipId) : 0,
+      broadcastClipId: isSet(object.broadcastClipId) ? String(object.broadcastClipId) : "0",
       startTime: isSet(object.startTime) ? Number(object.startTime) : 0,
       endTime: isSet(object.endTime) ? Number(object.endTime) : 0,
       videoDescription: isSet(object.videoDescription) ? String(object.videoDescription) : "",
@@ -3913,7 +3913,7 @@ export const CBroadcastSetClipDetailsRequest = {
 
   toJSON(message: CBroadcastSetClipDetailsRequest): unknown {
     const obj: any = {};
-    message.broadcastClipId !== undefined && (obj.broadcastClipId = Math.round(message.broadcastClipId));
+    message.broadcastClipId !== undefined && (obj.broadcastClipId = message.broadcastClipId);
     message.startTime !== undefined && (obj.startTime = Math.round(message.startTime));
     message.endTime !== undefined && (obj.endTime = Math.round(message.endTime));
     message.videoDescription !== undefined && (obj.videoDescription = message.videoDescription);
@@ -3928,7 +3928,7 @@ export const CBroadcastSetClipDetailsRequest = {
     object: I,
   ): CBroadcastSetClipDetailsRequest {
     const message = createBaseCBroadcastSetClipDetailsRequest();
-    message.broadcastClipId = object.broadcastClipId ?? 0;
+    message.broadcastClipId = object.broadcastClipId ?? "0";
     message.startTime = object.startTime ?? 0;
     message.endTime = object.endTime ?? 0;
     message.videoDescription = object.videoDescription ?? "";
@@ -3984,12 +3984,12 @@ export const CBroadcastSetClipDetailsResponse = {
 };
 
 function createBaseCBroadcastGetClipDetailsRequest(): CBroadcastGetClipDetailsRequest {
-  return { broadcastClipId: 0 };
+  return { broadcastClipId: "0" };
 }
 
 export const CBroadcastGetClipDetailsRequest = {
   encode(message: CBroadcastGetClipDetailsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastClipId !== 0) {
+    if (message.broadcastClipId !== "0") {
       writer.uint32(8).uint64(message.broadcastClipId);
     }
     return writer;
@@ -4003,7 +4003,7 @@ export const CBroadcastGetClipDetailsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastClipId = longToNumber(reader.uint64() as Long);
+          message.broadcastClipId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4014,12 +4014,12 @@ export const CBroadcastGetClipDetailsRequest = {
   },
 
   fromJSON(object: any): CBroadcastGetClipDetailsRequest {
-    return { broadcastClipId: isSet(object.broadcastClipId) ? Number(object.broadcastClipId) : 0 };
+    return { broadcastClipId: isSet(object.broadcastClipId) ? String(object.broadcastClipId) : "0" };
   },
 
   toJSON(message: CBroadcastGetClipDetailsRequest): unknown {
     const obj: any = {};
-    message.broadcastClipId !== undefined && (obj.broadcastClipId = Math.round(message.broadcastClipId));
+    message.broadcastClipId !== undefined && (obj.broadcastClipId = message.broadcastClipId);
     return obj;
   },
 
@@ -4031,16 +4031,16 @@ export const CBroadcastGetClipDetailsRequest = {
     object: I,
   ): CBroadcastGetClipDetailsRequest {
     const message = createBaseCBroadcastGetClipDetailsRequest();
-    message.broadcastClipId = object.broadcastClipId ?? 0;
+    message.broadcastClipId = object.broadcastClipId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastGetClipDetailsResponse(): CBroadcastGetClipDetailsResponse {
   return {
-    broadcastClipId: 0,
-    videoId: 0,
-    channelId: 0,
+    broadcastClipId: "0",
+    videoId: "0",
+    channelId: "0",
     appId: 0,
     accountidBroadcaster: 0,
     accountidClipmaker: 0,
@@ -4053,13 +4053,13 @@ function createBaseCBroadcastGetClipDetailsResponse(): CBroadcastGetClipDetailsR
 
 export const CBroadcastGetClipDetailsResponse = {
   encode(message: CBroadcastGetClipDetailsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastClipId !== 0) {
+    if (message.broadcastClipId !== "0") {
       writer.uint32(8).uint64(message.broadcastClipId);
     }
-    if (message.videoId !== 0) {
+    if (message.videoId !== "0") {
       writer.uint32(16).uint64(message.videoId);
     }
-    if (message.channelId !== 0) {
+    if (message.channelId !== "0") {
       writer.uint32(24).uint64(message.channelId);
     }
     if (message.appId !== 0) {
@@ -4094,13 +4094,13 @@ export const CBroadcastGetClipDetailsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastClipId = longToNumber(reader.uint64() as Long);
+          message.broadcastClipId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.videoId = longToNumber(reader.uint64() as Long);
+          message.videoId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.channelId = longToNumber(reader.uint64() as Long);
+          message.channelId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.appId = reader.uint32();
@@ -4133,9 +4133,9 @@ export const CBroadcastGetClipDetailsResponse = {
 
   fromJSON(object: any): CBroadcastGetClipDetailsResponse {
     return {
-      broadcastClipId: isSet(object.broadcastClipId) ? Number(object.broadcastClipId) : 0,
-      videoId: isSet(object.videoId) ? Number(object.videoId) : 0,
-      channelId: isSet(object.channelId) ? Number(object.channelId) : 0,
+      broadcastClipId: isSet(object.broadcastClipId) ? String(object.broadcastClipId) : "0",
+      videoId: isSet(object.videoId) ? String(object.videoId) : "0",
+      channelId: isSet(object.channelId) ? String(object.channelId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       accountidBroadcaster: isSet(object.accountidBroadcaster) ? Number(object.accountidBroadcaster) : 0,
       accountidClipmaker: isSet(object.accountidClipmaker) ? Number(object.accountidClipmaker) : 0,
@@ -4148,9 +4148,9 @@ export const CBroadcastGetClipDetailsResponse = {
 
   toJSON(message: CBroadcastGetClipDetailsResponse): unknown {
     const obj: any = {};
-    message.broadcastClipId !== undefined && (obj.broadcastClipId = Math.round(message.broadcastClipId));
-    message.videoId !== undefined && (obj.videoId = Math.round(message.videoId));
-    message.channelId !== undefined && (obj.channelId = Math.round(message.channelId));
+    message.broadcastClipId !== undefined && (obj.broadcastClipId = message.broadcastClipId);
+    message.videoId !== undefined && (obj.videoId = message.videoId);
+    message.channelId !== undefined && (obj.channelId = message.channelId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.accountidBroadcaster !== undefined && (obj.accountidBroadcaster = Math.round(message.accountidBroadcaster));
     message.accountidClipmaker !== undefined && (obj.accountidClipmaker = Math.round(message.accountidClipmaker));
@@ -4171,9 +4171,9 @@ export const CBroadcastGetClipDetailsResponse = {
     object: I,
   ): CBroadcastGetClipDetailsResponse {
     const message = createBaseCBroadcastGetClipDetailsResponse();
-    message.broadcastClipId = object.broadcastClipId ?? 0;
-    message.videoId = object.videoId ?? 0;
-    message.channelId = object.channelId ?? 0;
+    message.broadcastClipId = object.broadcastClipId ?? "0";
+    message.videoId = object.videoId ?? "0";
+    message.channelId = object.channelId ?? "0";
     message.appId = object.appId ?? 0;
     message.accountidBroadcaster = object.accountidBroadcaster ?? 0;
     message.accountidClipmaker = object.accountidClipmaker ?? 0;
@@ -4194,7 +4194,7 @@ function createBaseCBroadcastSetRTMPInfoRequest(): CBroadcastSetRTMPInfoRequest 
     requiredAppId: 0,
     broadcastChatPermission: 0,
     broadcastBuffer: 0,
-    steamid: 0,
+    steamid: "0",
     chatRateLimit: 0,
     enableReplay: false,
     isPartnerChatOnly: false,
@@ -4225,7 +4225,7 @@ export const CBroadcastSetRTMPInfoRequest = {
     if (message.broadcastBuffer !== 0) {
       writer.uint32(56).int32(message.broadcastBuffer);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(65).fixed64(message.steamid);
     }
     if (message.chatRateLimit !== 0) {
@@ -4272,7 +4272,7 @@ export const CBroadcastSetRTMPInfoRequest = {
           message.broadcastBuffer = reader.int32();
           break;
         case 8:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 9:
           message.chatRateLimit = reader.uint32();
@@ -4305,7 +4305,7 @@ export const CBroadcastSetRTMPInfoRequest = {
         ? eBroadcastChatPermissionFromJSON(object.broadcastChatPermission)
         : 0,
       broadcastBuffer: isSet(object.broadcastBuffer) ? Number(object.broadcastBuffer) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       chatRateLimit: isSet(object.chatRateLimit) ? Number(object.chatRateLimit) : 0,
       enableReplay: isSet(object.enableReplay) ? Boolean(object.enableReplay) : false,
       isPartnerChatOnly: isSet(object.isPartnerChatOnly) ? Boolean(object.isPartnerChatOnly) : false,
@@ -4323,7 +4323,7 @@ export const CBroadcastSetRTMPInfoRequest = {
     message.broadcastChatPermission !== undefined &&
       (obj.broadcastChatPermission = eBroadcastChatPermissionToJSON(message.broadcastChatPermission));
     message.broadcastBuffer !== undefined && (obj.broadcastBuffer = Math.round(message.broadcastBuffer));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.chatRateLimit !== undefined && (obj.chatRateLimit = Math.round(message.chatRateLimit));
     message.enableReplay !== undefined && (obj.enableReplay = message.enableReplay);
     message.isPartnerChatOnly !== undefined && (obj.isPartnerChatOnly = message.isPartnerChatOnly);
@@ -4344,7 +4344,7 @@ export const CBroadcastSetRTMPInfoRequest = {
     message.requiredAppId = object.requiredAppId ?? 0;
     message.broadcastChatPermission = object.broadcastChatPermission ?? 0;
     message.broadcastBuffer = object.broadcastBuffer ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.chatRateLimit = object.chatRateLimit ?? 0;
     message.enableReplay = object.enableReplay ?? false;
     message.isPartnerChatOnly = object.isPartnerChatOnly ?? false;
@@ -4397,7 +4397,7 @@ export const CBroadcastSetRTMPInfoResponse = {
 };
 
 function createBaseCBroadcastGetRTMPInfoRequest(): CBroadcastGetRTMPInfoRequest {
-  return { ip: 0, steamid: 0 };
+  return { ip: 0, steamid: "0" };
 }
 
 export const CBroadcastGetRTMPInfoRequest = {
@@ -4405,7 +4405,7 @@ export const CBroadcastGetRTMPInfoRequest = {
     if (message.ip !== 0) {
       writer.uint32(8).uint32(message.ip);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -4422,7 +4422,7 @@ export const CBroadcastGetRTMPInfoRequest = {
           message.ip = reader.uint32();
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4435,14 +4435,14 @@ export const CBroadcastGetRTMPInfoRequest = {
   fromJSON(object: any): CBroadcastGetRTMPInfoRequest {
     return {
       ip: isSet(object.ip) ? Number(object.ip) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CBroadcastGetRTMPInfoRequest): unknown {
     const obj: any = {};
     message.ip !== undefined && (obj.ip = Math.round(message.ip));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -4453,7 +4453,7 @@ export const CBroadcastGetRTMPInfoRequest = {
   fromPartial<I extends Exact<DeepPartial<CBroadcastGetRTMPInfoRequest>, I>>(object: I): CBroadcastGetRTMPInfoRequest {
     const message = createBaseCBroadcastGetRTMPInfoRequest();
     message.ip = object.ip ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -4468,7 +4468,7 @@ function createBaseCBroadcastGetRTMPInfoResponse(): CBroadcastGetRTMPInfoRespons
     requiredAppId: 0,
     broadcastChatPermission: 0,
     broadcastBuffer: 0,
-    steamid: 0,
+    steamid: "0",
     chatRateLimit: 0,
     enableReplay: false,
     isPartnerChatOnly: false,
@@ -4502,7 +4502,7 @@ export const CBroadcastGetRTMPInfoResponse = {
     if (message.broadcastBuffer !== 0) {
       writer.uint32(64).int32(message.broadcastBuffer);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(73).fixed64(message.steamid);
     }
     if (message.chatRateLimit !== 0) {
@@ -4552,7 +4552,7 @@ export const CBroadcastGetRTMPInfoResponse = {
           message.broadcastBuffer = reader.int32();
           break;
         case 9:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 10:
           message.chatRateLimit = reader.uint32();
@@ -4586,7 +4586,7 @@ export const CBroadcastGetRTMPInfoResponse = {
         ? eBroadcastChatPermissionFromJSON(object.broadcastChatPermission)
         : 0,
       broadcastBuffer: isSet(object.broadcastBuffer) ? Number(object.broadcastBuffer) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       chatRateLimit: isSet(object.chatRateLimit) ? Number(object.chatRateLimit) : 0,
       enableReplay: isSet(object.enableReplay) ? Boolean(object.enableReplay) : false,
       isPartnerChatOnly: isSet(object.isPartnerChatOnly) ? Boolean(object.isPartnerChatOnly) : false,
@@ -4605,7 +4605,7 @@ export const CBroadcastGetRTMPInfoResponse = {
     message.broadcastChatPermission !== undefined &&
       (obj.broadcastChatPermission = eBroadcastChatPermissionToJSON(message.broadcastChatPermission));
     message.broadcastBuffer !== undefined && (obj.broadcastBuffer = Math.round(message.broadcastBuffer));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.chatRateLimit !== undefined && (obj.chatRateLimit = Math.round(message.chatRateLimit));
     message.enableReplay !== undefined && (obj.enableReplay = message.enableReplay);
     message.isPartnerChatOnly !== undefined && (obj.isPartnerChatOnly = message.isPartnerChatOnly);
@@ -4629,7 +4629,7 @@ export const CBroadcastGetRTMPInfoResponse = {
     message.requiredAppId = object.requiredAppId ?? 0;
     message.broadcastChatPermission = object.broadcastChatPermission ?? 0;
     message.broadcastBuffer = object.broadcastBuffer ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.chatRateLimit = object.chatRateLimit ?? 0;
     message.enableReplay = object.enableReplay ?? false;
     message.isPartnerChatOnly = object.isPartnerChatOnly ?? false;
@@ -4639,12 +4639,12 @@ export const CBroadcastGetRTMPInfoResponse = {
 };
 
 function createBaseCBroadcastWebRTCHaveTURNServerNotification(): CBroadcastWebRTCHaveTURNServerNotification {
-  return { broadcastSessionId: 0, turnServer: "" };
+  return { broadcastSessionId: "0", turnServer: "" };
 }
 
 export const CBroadcastWebRTCHaveTURNServerNotification = {
   encode(message: CBroadcastWebRTCHaveTURNServerNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastSessionId !== 0) {
+    if (message.broadcastSessionId !== "0") {
       writer.uint32(9).fixed64(message.broadcastSessionId);
     }
     if (message.turnServer !== "") {
@@ -4661,7 +4661,7 @@ export const CBroadcastWebRTCHaveTURNServerNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastSessionId = longToNumber(reader.fixed64() as Long);
+          message.broadcastSessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.turnServer = reader.string();
@@ -4676,14 +4676,14 @@ export const CBroadcastWebRTCHaveTURNServerNotification = {
 
   fromJSON(object: any): CBroadcastWebRTCHaveTURNServerNotification {
     return {
-      broadcastSessionId: isSet(object.broadcastSessionId) ? Number(object.broadcastSessionId) : 0,
+      broadcastSessionId: isSet(object.broadcastSessionId) ? String(object.broadcastSessionId) : "0",
       turnServer: isSet(object.turnServer) ? String(object.turnServer) : "",
     };
   },
 
   toJSON(message: CBroadcastWebRTCHaveTURNServerNotification): unknown {
     const obj: any = {};
-    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = Math.round(message.broadcastSessionId));
+    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = message.broadcastSessionId);
     message.turnServer !== undefined && (obj.turnServer = message.turnServer);
     return obj;
   },
@@ -4698,19 +4698,19 @@ export const CBroadcastWebRTCHaveTURNServerNotification = {
     object: I,
   ): CBroadcastWebRTCHaveTURNServerNotification {
     const message = createBaseCBroadcastWebRTCHaveTURNServerNotification();
-    message.broadcastSessionId = object.broadcastSessionId ?? 0;
+    message.broadcastSessionId = object.broadcastSessionId ?? "0";
     message.turnServer = object.turnServer ?? "";
     return message;
   },
 };
 
 function createBaseCBroadcastWebRTCStartResultRequest(): CBroadcastWebRTCStartResultRequest {
-  return { webrtcSessionId: 0, started: false, offer: "", resolutionX: 0, resolutionY: 0, fps: 0 };
+  return { webrtcSessionId: "0", started: false, offer: "", resolutionX: 0, resolutionY: 0, fps: 0 };
 }
 
 export const CBroadcastWebRTCStartResultRequest = {
   encode(message: CBroadcastWebRTCStartResultRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(9).fixed64(message.webrtcSessionId);
     }
     if (message.started === true) {
@@ -4739,7 +4739,7 @@ export const CBroadcastWebRTCStartResultRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.started = reader.bool();
@@ -4766,7 +4766,7 @@ export const CBroadcastWebRTCStartResultRequest = {
 
   fromJSON(object: any): CBroadcastWebRTCStartResultRequest {
     return {
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       started: isSet(object.started) ? Boolean(object.started) : false,
       offer: isSet(object.offer) ? String(object.offer) : "",
       resolutionX: isSet(object.resolutionX) ? Number(object.resolutionX) : 0,
@@ -4777,7 +4777,7 @@ export const CBroadcastWebRTCStartResultRequest = {
 
   toJSON(message: CBroadcastWebRTCStartResultRequest): unknown {
     const obj: any = {};
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.started !== undefined && (obj.started = message.started);
     message.offer !== undefined && (obj.offer = message.offer);
     message.resolutionX !== undefined && (obj.resolutionX = Math.round(message.resolutionX));
@@ -4796,7 +4796,7 @@ export const CBroadcastWebRTCStartResultRequest = {
     object: I,
   ): CBroadcastWebRTCStartResultRequest {
     const message = createBaseCBroadcastWebRTCStartResultRequest();
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.started = object.started ?? false;
     message.offer = object.offer ?? "";
     message.resolutionX = object.resolutionX ?? 0;
@@ -4854,12 +4854,12 @@ export const CBroadcastWebRTCStartResultResponse = {
 };
 
 function createBaseCBroadcastWebRTCStoppedRequest(): CBroadcastWebRTCStoppedRequest {
-  return { webrtcSessionId: 0 };
+  return { webrtcSessionId: "0" };
 }
 
 export const CBroadcastWebRTCStoppedRequest = {
   encode(message: CBroadcastWebRTCStoppedRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(9).fixed64(message.webrtcSessionId);
     }
     return writer;
@@ -4873,7 +4873,7 @@ export const CBroadcastWebRTCStoppedRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4884,12 +4884,12 @@ export const CBroadcastWebRTCStoppedRequest = {
   },
 
   fromJSON(object: any): CBroadcastWebRTCStoppedRequest {
-    return { webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0 };
+    return { webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0" };
   },
 
   toJSON(message: CBroadcastWebRTCStoppedRequest): unknown {
     const obj: any = {};
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     return obj;
   },
 
@@ -4901,7 +4901,7 @@ export const CBroadcastWebRTCStoppedRequest = {
     object: I,
   ): CBroadcastWebRTCStoppedRequest {
     const message = createBaseCBroadcastWebRTCStoppedRequest();
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     return message;
   },
 };
@@ -4950,15 +4950,15 @@ export const CBroadcastWebRTCStoppedResponse = {
 };
 
 function createBaseCBroadcastWebRTCSetAnswerRequest(): CBroadcastWebRTCSetAnswerRequest {
-  return { broadcasterSteamid: 0, webrtcSessionId: 0, answer: "" };
+  return { broadcasterSteamid: "0", webrtcSessionId: "0", answer: "" };
 }
 
 export const CBroadcastWebRTCSetAnswerRequest = {
   encode(message: CBroadcastWebRTCSetAnswerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcasterSteamid !== 0) {
+    if (message.broadcasterSteamid !== "0") {
       writer.uint32(9).fixed64(message.broadcasterSteamid);
     }
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(17).fixed64(message.webrtcSessionId);
     }
     if (message.answer !== "") {
@@ -4975,10 +4975,10 @@ export const CBroadcastWebRTCSetAnswerRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcasterSteamid = longToNumber(reader.fixed64() as Long);
+          message.broadcasterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.answer = reader.string();
@@ -4993,16 +4993,16 @@ export const CBroadcastWebRTCSetAnswerRequest = {
 
   fromJSON(object: any): CBroadcastWebRTCSetAnswerRequest {
     return {
-      broadcasterSteamid: isSet(object.broadcasterSteamid) ? Number(object.broadcasterSteamid) : 0,
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      broadcasterSteamid: isSet(object.broadcasterSteamid) ? String(object.broadcasterSteamid) : "0",
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       answer: isSet(object.answer) ? String(object.answer) : "",
     };
   },
 
   toJSON(message: CBroadcastWebRTCSetAnswerRequest): unknown {
     const obj: any = {};
-    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = Math.round(message.broadcasterSteamid));
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = message.broadcasterSteamid);
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.answer !== undefined && (obj.answer = message.answer);
     return obj;
   },
@@ -5017,8 +5017,8 @@ export const CBroadcastWebRTCSetAnswerRequest = {
     object: I,
   ): CBroadcastWebRTCSetAnswerRequest {
     const message = createBaseCBroadcastWebRTCSetAnswerRequest();
-    message.broadcasterSteamid = object.broadcasterSteamid ?? 0;
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.broadcasterSteamid = object.broadcasterSteamid ?? "0";
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.answer = object.answer ?? "";
     return message;
   },
@@ -5253,12 +5253,12 @@ export const CBroadcastWebRTCCandidate = {
 };
 
 function createBaseCBroadcastWebRTCAddHostCandidateRequest(): CBroadcastWebRTCAddHostCandidateRequest {
-  return { webrtcSessionId: 0, candidate: undefined };
+  return { webrtcSessionId: "0", candidate: undefined };
 }
 
 export const CBroadcastWebRTCAddHostCandidateRequest = {
   encode(message: CBroadcastWebRTCAddHostCandidateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(9).fixed64(message.webrtcSessionId);
     }
     if (message.candidate !== undefined) {
@@ -5275,7 +5275,7 @@ export const CBroadcastWebRTCAddHostCandidateRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.candidate = CBroadcastWebRTCCandidate.decode(reader, reader.uint32());
@@ -5290,14 +5290,14 @@ export const CBroadcastWebRTCAddHostCandidateRequest = {
 
   fromJSON(object: any): CBroadcastWebRTCAddHostCandidateRequest {
     return {
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       candidate: isSet(object.candidate) ? CBroadcastWebRTCCandidate.fromJSON(object.candidate) : undefined,
     };
   },
 
   toJSON(message: CBroadcastWebRTCAddHostCandidateRequest): unknown {
     const obj: any = {};
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.candidate !== undefined &&
       (obj.candidate = message.candidate ? CBroadcastWebRTCCandidate.toJSON(message.candidate) : undefined);
     return obj;
@@ -5313,7 +5313,7 @@ export const CBroadcastWebRTCAddHostCandidateRequest = {
     object: I,
   ): CBroadcastWebRTCAddHostCandidateRequest {
     const message = createBaseCBroadcastWebRTCAddHostCandidateRequest();
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.candidate = (object.candidate !== undefined && object.candidate !== null)
       ? CBroadcastWebRTCCandidate.fromPartial(object.candidate)
       : undefined;
@@ -5369,15 +5369,15 @@ export const CBroadcastWebRTCAddHostCandidateResponse = {
 };
 
 function createBaseCBroadcastWebRTCAddViewerCandidateRequest(): CBroadcastWebRTCAddViewerCandidateRequest {
-  return { broadcasterSteamid: 0, webrtcSessionId: 0, candidate: undefined };
+  return { broadcasterSteamid: "0", webrtcSessionId: "0", candidate: undefined };
 }
 
 export const CBroadcastWebRTCAddViewerCandidateRequest = {
   encode(message: CBroadcastWebRTCAddViewerCandidateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcasterSteamid !== 0) {
+    if (message.broadcasterSteamid !== "0") {
       writer.uint32(9).fixed64(message.broadcasterSteamid);
     }
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(17).fixed64(message.webrtcSessionId);
     }
     if (message.candidate !== undefined) {
@@ -5394,10 +5394,10 @@ export const CBroadcastWebRTCAddViewerCandidateRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcasterSteamid = longToNumber(reader.fixed64() as Long);
+          message.broadcasterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.candidate = CBroadcastWebRTCCandidate.decode(reader, reader.uint32());
@@ -5412,16 +5412,16 @@ export const CBroadcastWebRTCAddViewerCandidateRequest = {
 
   fromJSON(object: any): CBroadcastWebRTCAddViewerCandidateRequest {
     return {
-      broadcasterSteamid: isSet(object.broadcasterSteamid) ? Number(object.broadcasterSteamid) : 0,
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      broadcasterSteamid: isSet(object.broadcasterSteamid) ? String(object.broadcasterSteamid) : "0",
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       candidate: isSet(object.candidate) ? CBroadcastWebRTCCandidate.fromJSON(object.candidate) : undefined,
     };
   },
 
   toJSON(message: CBroadcastWebRTCAddViewerCandidateRequest): unknown {
     const obj: any = {};
-    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = Math.round(message.broadcasterSteamid));
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = message.broadcasterSteamid);
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.candidate !== undefined &&
       (obj.candidate = message.candidate ? CBroadcastWebRTCCandidate.toJSON(message.candidate) : undefined);
     return obj;
@@ -5437,8 +5437,8 @@ export const CBroadcastWebRTCAddViewerCandidateRequest = {
     object: I,
   ): CBroadcastWebRTCAddViewerCandidateRequest {
     const message = createBaseCBroadcastWebRTCAddViewerCandidateRequest();
-    message.broadcasterSteamid = object.broadcasterSteamid ?? 0;
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.broadcasterSteamid = object.broadcasterSteamid ?? "0";
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.candidate = (object.candidate !== undefined && object.candidate !== null)
       ? CBroadcastWebRTCCandidate.fromPartial(object.candidate)
       : undefined;
@@ -5494,15 +5494,15 @@ export const CBroadcastWebRTCAddViewerCandidateResponse = {
 };
 
 function createBaseCBroadcastWebRTCGetHostCandidatesRequest(): CBroadcastWebRTCGetHostCandidatesRequest {
-  return { broadcasterSteamid: 0, webrtcSessionId: 0, candidateGeneration: 0 };
+  return { broadcasterSteamid: "0", webrtcSessionId: "0", candidateGeneration: 0 };
 }
 
 export const CBroadcastWebRTCGetHostCandidatesRequest = {
   encode(message: CBroadcastWebRTCGetHostCandidatesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcasterSteamid !== 0) {
+    if (message.broadcasterSteamid !== "0") {
       writer.uint32(9).fixed64(message.broadcasterSteamid);
     }
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(17).fixed64(message.webrtcSessionId);
     }
     if (message.candidateGeneration !== 0) {
@@ -5519,10 +5519,10 @@ export const CBroadcastWebRTCGetHostCandidatesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcasterSteamid = longToNumber(reader.fixed64() as Long);
+          message.broadcasterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.candidateGeneration = reader.uint32();
@@ -5537,16 +5537,16 @@ export const CBroadcastWebRTCGetHostCandidatesRequest = {
 
   fromJSON(object: any): CBroadcastWebRTCGetHostCandidatesRequest {
     return {
-      broadcasterSteamid: isSet(object.broadcasterSteamid) ? Number(object.broadcasterSteamid) : 0,
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      broadcasterSteamid: isSet(object.broadcasterSteamid) ? String(object.broadcasterSteamid) : "0",
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       candidateGeneration: isSet(object.candidateGeneration) ? Number(object.candidateGeneration) : 0,
     };
   },
 
   toJSON(message: CBroadcastWebRTCGetHostCandidatesRequest): unknown {
     const obj: any = {};
-    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = Math.round(message.broadcasterSteamid));
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = message.broadcasterSteamid);
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.candidateGeneration !== undefined && (obj.candidateGeneration = Math.round(message.candidateGeneration));
     return obj;
   },
@@ -5561,8 +5561,8 @@ export const CBroadcastWebRTCGetHostCandidatesRequest = {
     object: I,
   ): CBroadcastWebRTCGetHostCandidatesRequest {
     const message = createBaseCBroadcastWebRTCGetHostCandidatesRequest();
-    message.broadcasterSteamid = object.broadcasterSteamid ?? 0;
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.broadcasterSteamid = object.broadcasterSteamid ?? "0";
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.candidateGeneration = object.candidateGeneration ?? 0;
     return message;
   },
@@ -5641,7 +5641,7 @@ export const CBroadcastWebRTCGetHostCandidatesResponse = {
 };
 
 function createBaseCBroadcastGetBroadcastUploadStatsRequest(): CBroadcastGetBroadcastUploadStatsRequest {
-  return { rowLimit: 0, startTime: 0, uploadId: 0, steamid: 0, sessionId: 0 };
+  return { rowLimit: 0, startTime: 0, uploadId: "0", steamid: "0", sessionId: "0" };
 }
 
 export const CBroadcastGetBroadcastUploadStatsRequest = {
@@ -5652,13 +5652,13 @@ export const CBroadcastGetBroadcastUploadStatsRequest = {
     if (message.startTime !== 0) {
       writer.uint32(16).uint32(message.startTime);
     }
-    if (message.uploadId !== 0) {
+    if (message.uploadId !== "0") {
       writer.uint32(24).uint64(message.uploadId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(33).fixed64(message.steamid);
     }
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(40).uint64(message.sessionId);
     }
     return writer;
@@ -5678,13 +5678,13 @@ export const CBroadcastGetBroadcastUploadStatsRequest = {
           message.startTime = reader.uint32();
           break;
         case 3:
-          message.uploadId = longToNumber(reader.uint64() as Long);
+          message.uploadId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 5:
-          message.sessionId = longToNumber(reader.uint64() as Long);
+          message.sessionId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5698,9 +5698,9 @@ export const CBroadcastGetBroadcastUploadStatsRequest = {
     return {
       rowLimit: isSet(object.rowLimit) ? Number(object.rowLimit) : 0,
       startTime: isSet(object.startTime) ? Number(object.startTime) : 0,
-      uploadId: isSet(object.uploadId) ? Number(object.uploadId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
+      uploadId: isSet(object.uploadId) ? String(object.uploadId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
     };
   },
 
@@ -5708,9 +5708,9 @@ export const CBroadcastGetBroadcastUploadStatsRequest = {
     const obj: any = {};
     message.rowLimit !== undefined && (obj.rowLimit = Math.round(message.rowLimit));
     message.startTime !== undefined && (obj.startTime = Math.round(message.startTime));
-    message.uploadId !== undefined && (obj.uploadId = Math.round(message.uploadId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
+    message.uploadId !== undefined && (obj.uploadId = message.uploadId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     return obj;
   },
 
@@ -5726,9 +5726,9 @@ export const CBroadcastGetBroadcastUploadStatsRequest = {
     const message = createBaseCBroadcastGetBroadcastUploadStatsRequest();
     message.rowLimit = object.rowLimit ?? 0;
     message.startTime = object.startTime ?? 0;
-    message.uploadId = object.uploadId ?? 0;
-    message.steamid = object.steamid ?? 0;
-    message.sessionId = object.sessionId ?? 0;
+    message.uploadId = object.uploadId ?? "0";
+    message.steamid = object.steamid ?? "0";
+    message.sessionId = object.sessionId ?? "0";
     return message;
   },
 };
@@ -5810,19 +5810,19 @@ function createBaseCBroadcastGetBroadcastUploadStatsResponse_UploadStats(): CBro
     resolutionX: 0,
     resolutionY: 0,
     avgBandwidth: 0,
-    totalBytes: 0,
+    totalBytes: "0",
     appId: 0,
     totalUniqueViewers: 0,
-    totalSecondsWatched: 0,
+    totalSecondsWatched: "0",
     timeStarted: 0,
-    uploadId: 0,
+    uploadId: "0",
     localAddress: "",
     remoteAddress: "",
     framesPerSecond: 0,
     numRepresentations: 0,
     appName: "",
     isReplay: false,
-    sessionId: 0,
+    sessionId: "0",
   };
 }
 
@@ -5852,7 +5852,7 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
     if (message.avgBandwidth !== 0) {
       writer.uint32(56).uint32(message.avgBandwidth);
     }
-    if (message.totalBytes !== 0) {
+    if (message.totalBytes !== "0") {
       writer.uint32(64).uint64(message.totalBytes);
     }
     if (message.appId !== 0) {
@@ -5861,13 +5861,13 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
     if (message.totalUniqueViewers !== 0) {
       writer.uint32(80).uint32(message.totalUniqueViewers);
     }
-    if (message.totalSecondsWatched !== 0) {
+    if (message.totalSecondsWatched !== "0") {
       writer.uint32(88).uint64(message.totalSecondsWatched);
     }
     if (message.timeStarted !== 0) {
       writer.uint32(96).uint32(message.timeStarted);
     }
-    if (message.uploadId !== 0) {
+    if (message.uploadId !== "0") {
       writer.uint32(104).uint64(message.uploadId);
     }
     if (message.localAddress !== "") {
@@ -5888,7 +5888,7 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
     if (message.isReplay === true) {
       writer.uint32(152).bool(message.isReplay);
     }
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(160).uint64(message.sessionId);
     }
     return writer;
@@ -5923,7 +5923,7 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
           message.avgBandwidth = reader.uint32();
           break;
         case 8:
-          message.totalBytes = longToNumber(reader.uint64() as Long);
+          message.totalBytes = longToString(reader.uint64() as Long);
           break;
         case 9:
           message.appId = reader.uint32();
@@ -5932,13 +5932,13 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
           message.totalUniqueViewers = reader.uint32();
           break;
         case 11:
-          message.totalSecondsWatched = longToNumber(reader.uint64() as Long);
+          message.totalSecondsWatched = longToString(reader.uint64() as Long);
           break;
         case 12:
           message.timeStarted = reader.uint32();
           break;
         case 13:
-          message.uploadId = longToNumber(reader.uint64() as Long);
+          message.uploadId = longToString(reader.uint64() as Long);
           break;
         case 14:
           message.localAddress = reader.string();
@@ -5959,7 +5959,7 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
           message.isReplay = reader.bool();
           break;
         case 20:
-          message.sessionId = longToNumber(reader.uint64() as Long);
+          message.sessionId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5978,19 +5978,19 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
       resolutionX: isSet(object.resolutionX) ? Number(object.resolutionX) : 0,
       resolutionY: isSet(object.resolutionY) ? Number(object.resolutionY) : 0,
       avgBandwidth: isSet(object.avgBandwidth) ? Number(object.avgBandwidth) : 0,
-      totalBytes: isSet(object.totalBytes) ? Number(object.totalBytes) : 0,
+      totalBytes: isSet(object.totalBytes) ? String(object.totalBytes) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       totalUniqueViewers: isSet(object.totalUniqueViewers) ? Number(object.totalUniqueViewers) : 0,
-      totalSecondsWatched: isSet(object.totalSecondsWatched) ? Number(object.totalSecondsWatched) : 0,
+      totalSecondsWatched: isSet(object.totalSecondsWatched) ? String(object.totalSecondsWatched) : "0",
       timeStarted: isSet(object.timeStarted) ? Number(object.timeStarted) : 0,
-      uploadId: isSet(object.uploadId) ? Number(object.uploadId) : 0,
+      uploadId: isSet(object.uploadId) ? String(object.uploadId) : "0",
       localAddress: isSet(object.localAddress) ? String(object.localAddress) : "",
       remoteAddress: isSet(object.remoteAddress) ? String(object.remoteAddress) : "",
       framesPerSecond: isSet(object.framesPerSecond) ? Number(object.framesPerSecond) : 0,
       numRepresentations: isSet(object.numRepresentations) ? Number(object.numRepresentations) : 0,
       appName: isSet(object.appName) ? String(object.appName) : "",
       isReplay: isSet(object.isReplay) ? Boolean(object.isReplay) : false,
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
     };
   },
 
@@ -6003,19 +6003,19 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
     message.resolutionX !== undefined && (obj.resolutionX = Math.round(message.resolutionX));
     message.resolutionY !== undefined && (obj.resolutionY = Math.round(message.resolutionY));
     message.avgBandwidth !== undefined && (obj.avgBandwidth = Math.round(message.avgBandwidth));
-    message.totalBytes !== undefined && (obj.totalBytes = Math.round(message.totalBytes));
+    message.totalBytes !== undefined && (obj.totalBytes = message.totalBytes);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.totalUniqueViewers !== undefined && (obj.totalUniqueViewers = Math.round(message.totalUniqueViewers));
-    message.totalSecondsWatched !== undefined && (obj.totalSecondsWatched = Math.round(message.totalSecondsWatched));
+    message.totalSecondsWatched !== undefined && (obj.totalSecondsWatched = message.totalSecondsWatched);
     message.timeStarted !== undefined && (obj.timeStarted = Math.round(message.timeStarted));
-    message.uploadId !== undefined && (obj.uploadId = Math.round(message.uploadId));
+    message.uploadId !== undefined && (obj.uploadId = message.uploadId);
     message.localAddress !== undefined && (obj.localAddress = message.localAddress);
     message.remoteAddress !== undefined && (obj.remoteAddress = message.remoteAddress);
     message.framesPerSecond !== undefined && (obj.framesPerSecond = Math.round(message.framesPerSecond));
     message.numRepresentations !== undefined && (obj.numRepresentations = Math.round(message.numRepresentations));
     message.appName !== undefined && (obj.appName = message.appName);
     message.isReplay !== undefined && (obj.isReplay = message.isReplay);
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     return obj;
   },
 
@@ -6036,33 +6036,33 @@ export const CBroadcastGetBroadcastUploadStatsResponse_UploadStats = {
     message.resolutionX = object.resolutionX ?? 0;
     message.resolutionY = object.resolutionY ?? 0;
     message.avgBandwidth = object.avgBandwidth ?? 0;
-    message.totalBytes = object.totalBytes ?? 0;
+    message.totalBytes = object.totalBytes ?? "0";
     message.appId = object.appId ?? 0;
     message.totalUniqueViewers = object.totalUniqueViewers ?? 0;
-    message.totalSecondsWatched = object.totalSecondsWatched ?? 0;
+    message.totalSecondsWatched = object.totalSecondsWatched ?? "0";
     message.timeStarted = object.timeStarted ?? 0;
-    message.uploadId = object.uploadId ?? 0;
+    message.uploadId = object.uploadId ?? "0";
     message.localAddress = object.localAddress ?? "";
     message.remoteAddress = object.remoteAddress ?? "";
     message.framesPerSecond = object.framesPerSecond ?? 0;
     message.numRepresentations = object.numRepresentations ?? 0;
     message.appName = object.appName ?? "";
     message.isReplay = object.isReplay ?? false;
-    message.sessionId = object.sessionId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastGetBroadcastViewerStatsRequest(): CBroadcastGetBroadcastViewerStatsRequest {
-  return { uploadId: 0, steamid: 0 };
+  return { uploadId: "0", steamid: "0" };
 }
 
 export const CBroadcastGetBroadcastViewerStatsRequest = {
   encode(message: CBroadcastGetBroadcastViewerStatsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.uploadId !== 0) {
+    if (message.uploadId !== "0") {
       writer.uint32(8).uint64(message.uploadId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -6076,10 +6076,10 @@ export const CBroadcastGetBroadcastViewerStatsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.uploadId = longToNumber(reader.uint64() as Long);
+          message.uploadId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6091,15 +6091,15 @@ export const CBroadcastGetBroadcastViewerStatsRequest = {
 
   fromJSON(object: any): CBroadcastGetBroadcastViewerStatsRequest {
     return {
-      uploadId: isSet(object.uploadId) ? Number(object.uploadId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      uploadId: isSet(object.uploadId) ? String(object.uploadId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CBroadcastGetBroadcastViewerStatsRequest): unknown {
     const obj: any = {};
-    message.uploadId !== undefined && (obj.uploadId = Math.round(message.uploadId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.uploadId !== undefined && (obj.uploadId = message.uploadId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -6113,8 +6113,8 @@ export const CBroadcastGetBroadcastViewerStatsRequest = {
     object: I,
   ): CBroadcastGetBroadcastViewerStatsRequest {
     const message = createBaseCBroadcastGetBroadcastViewerStatsRequest();
-    message.uploadId = object.uploadId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.uploadId = object.uploadId ?? "0";
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -6346,12 +6346,12 @@ export const CBroadcastGetBroadcastViewerStatsResponse_CountryStats = {
 };
 
 function createBaseCBroadcastBroadcastViewerStateNotification(): CBroadcastBroadcastViewerStateNotification {
-  return { steamid: 0, state: 1 };
+  return { steamid: "0", state: 1 };
 }
 
 export const CBroadcastBroadcastViewerStateNotification = {
   encode(message: CBroadcastBroadcastViewerStateNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.state !== 1) {
@@ -6368,7 +6368,7 @@ export const CBroadcastBroadcastViewerStateNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.state = reader.int32() as any;
@@ -6383,14 +6383,14 @@ export const CBroadcastBroadcastViewerStateNotification = {
 
   fromJSON(object: any): CBroadcastBroadcastViewerStateNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       state: isSet(object.state) ? cBroadcastBroadcastViewerStateNotification_EViewerStateFromJSON(object.state) : 1,
     };
   },
 
   toJSON(message: CBroadcastBroadcastViewerStateNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.state !== undefined &&
       (obj.state = cBroadcastBroadcastViewerStateNotification_EViewerStateToJSON(message.state));
     return obj;
@@ -6406,19 +6406,19 @@ export const CBroadcastBroadcastViewerStateNotification = {
     object: I,
   ): CBroadcastBroadcastViewerStateNotification {
     const message = createBaseCBroadcastBroadcastViewerStateNotification();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.state = object.state ?? 1;
     return message;
   },
 };
 
 function createBaseCBroadcastWaitingBroadcastViewerNotification(): CBroadcastWaitingBroadcastViewerNotification {
-  return { broadcastId: 0 };
+  return { broadcastId: "0" };
 }
 
 export const CBroadcastWaitingBroadcastViewerNotification = {
   encode(message: CBroadcastWaitingBroadcastViewerNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     return writer;
@@ -6432,7 +6432,7 @@ export const CBroadcastWaitingBroadcastViewerNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6443,12 +6443,12 @@ export const CBroadcastWaitingBroadcastViewerNotification = {
   },
 
   fromJSON(object: any): CBroadcastWaitingBroadcastViewerNotification {
-    return { broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0 };
+    return { broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0" };
   },
 
   toJSON(message: CBroadcastWaitingBroadcastViewerNotification): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     return obj;
   },
 
@@ -6462,18 +6462,18 @@ export const CBroadcastWaitingBroadcastViewerNotification = {
     object: I,
   ): CBroadcastWaitingBroadcastViewerNotification {
     const message = createBaseCBroadcastWaitingBroadcastViewerNotification();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastBroadcastUploadStartedNotification(): CBroadcastBroadcastUploadStartedNotification {
   return {
-    broadcastId: 0,
+    broadcastId: "0",
     uploadToken: "",
     uploadAddress: "",
     httpAddress: "",
-    broadcastUploadId: 0,
+    broadcastUploadId: "0",
     heartbeatIntervalSeconds: 0,
     isRtmp: false,
   };
@@ -6481,7 +6481,7 @@ function createBaseCBroadcastBroadcastUploadStartedNotification(): CBroadcastBro
 
 export const CBroadcastBroadcastUploadStartedNotification = {
   encode(message: CBroadcastBroadcastUploadStartedNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     if (message.uploadToken !== "") {
@@ -6493,7 +6493,7 @@ export const CBroadcastBroadcastUploadStartedNotification = {
     if (message.httpAddress !== "") {
       writer.uint32(34).string(message.httpAddress);
     }
-    if (message.broadcastUploadId !== 0) {
+    if (message.broadcastUploadId !== "0") {
       writer.uint32(41).fixed64(message.broadcastUploadId);
     }
     if (message.heartbeatIntervalSeconds !== 0) {
@@ -6513,7 +6513,7 @@ export const CBroadcastBroadcastUploadStartedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.uploadToken = reader.string();
@@ -6525,7 +6525,7 @@ export const CBroadcastBroadcastUploadStartedNotification = {
           message.httpAddress = reader.string();
           break;
         case 5:
-          message.broadcastUploadId = longToNumber(reader.fixed64() as Long);
+          message.broadcastUploadId = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.heartbeatIntervalSeconds = reader.uint32();
@@ -6543,11 +6543,11 @@ export const CBroadcastBroadcastUploadStartedNotification = {
 
   fromJSON(object: any): CBroadcastBroadcastUploadStartedNotification {
     return {
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
       uploadToken: isSet(object.uploadToken) ? String(object.uploadToken) : "",
       uploadAddress: isSet(object.uploadAddress) ? String(object.uploadAddress) : "",
       httpAddress: isSet(object.httpAddress) ? String(object.httpAddress) : "",
-      broadcastUploadId: isSet(object.broadcastUploadId) ? Number(object.broadcastUploadId) : 0,
+      broadcastUploadId: isSet(object.broadcastUploadId) ? String(object.broadcastUploadId) : "0",
       heartbeatIntervalSeconds: isSet(object.heartbeatIntervalSeconds) ? Number(object.heartbeatIntervalSeconds) : 0,
       isRtmp: isSet(object.isRtmp) ? Boolean(object.isRtmp) : false,
     };
@@ -6555,11 +6555,11 @@ export const CBroadcastBroadcastUploadStartedNotification = {
 
   toJSON(message: CBroadcastBroadcastUploadStartedNotification): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     message.uploadToken !== undefined && (obj.uploadToken = message.uploadToken);
     message.uploadAddress !== undefined && (obj.uploadAddress = message.uploadAddress);
     message.httpAddress !== undefined && (obj.httpAddress = message.httpAddress);
-    message.broadcastUploadId !== undefined && (obj.broadcastUploadId = Math.round(message.broadcastUploadId));
+    message.broadcastUploadId !== undefined && (obj.broadcastUploadId = message.broadcastUploadId);
     message.heartbeatIntervalSeconds !== undefined &&
       (obj.heartbeatIntervalSeconds = Math.round(message.heartbeatIntervalSeconds));
     message.isRtmp !== undefined && (obj.isRtmp = message.isRtmp);
@@ -6576,11 +6576,11 @@ export const CBroadcastBroadcastUploadStartedNotification = {
     object: I,
   ): CBroadcastBroadcastUploadStartedNotification {
     const message = createBaseCBroadcastBroadcastUploadStartedNotification();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     message.uploadToken = object.uploadToken ?? "";
     message.uploadAddress = object.uploadAddress ?? "";
     message.httpAddress = object.httpAddress ?? "";
-    message.broadcastUploadId = object.broadcastUploadId ?? 0;
+    message.broadcastUploadId = object.broadcastUploadId ?? "0";
     message.heartbeatIntervalSeconds = object.heartbeatIntervalSeconds ?? 0;
     message.isRtmp = object.isRtmp ?? false;
     return message;
@@ -6588,15 +6588,15 @@ export const CBroadcastBroadcastUploadStartedNotification = {
 };
 
 function createBaseCBroadcastStopBroadcastUploadNotification(): CBroadcastStopBroadcastUploadNotification {
-  return { broadcastId: 0, broadcastRelayId: 0, uploadResult: 0, tooManyPoorUploads: false };
+  return { broadcastId: "0", broadcastRelayId: "0", uploadResult: 0, tooManyPoorUploads: false };
 }
 
 export const CBroadcastStopBroadcastUploadNotification = {
   encode(message: CBroadcastStopBroadcastUploadNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
-    if (message.broadcastRelayId !== 0) {
+    if (message.broadcastRelayId !== "0") {
       writer.uint32(17).fixed64(message.broadcastRelayId);
     }
     if (message.uploadResult !== 0) {
@@ -6616,10 +6616,10 @@ export const CBroadcastStopBroadcastUploadNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.broadcastRelayId = longToNumber(reader.fixed64() as Long);
+          message.broadcastRelayId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.uploadResult = reader.uint32();
@@ -6637,8 +6637,8 @@ export const CBroadcastStopBroadcastUploadNotification = {
 
   fromJSON(object: any): CBroadcastStopBroadcastUploadNotification {
     return {
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
-      broadcastRelayId: isSet(object.broadcastRelayId) ? Number(object.broadcastRelayId) : 0,
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
+      broadcastRelayId: isSet(object.broadcastRelayId) ? String(object.broadcastRelayId) : "0",
       uploadResult: isSet(object.uploadResult) ? Number(object.uploadResult) : 0,
       tooManyPoorUploads: isSet(object.tooManyPoorUploads) ? Boolean(object.tooManyPoorUploads) : false,
     };
@@ -6646,8 +6646,8 @@ export const CBroadcastStopBroadcastUploadNotification = {
 
   toJSON(message: CBroadcastStopBroadcastUploadNotification): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
-    message.broadcastRelayId !== undefined && (obj.broadcastRelayId = Math.round(message.broadcastRelayId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
+    message.broadcastRelayId !== undefined && (obj.broadcastRelayId = message.broadcastRelayId);
     message.uploadResult !== undefined && (obj.uploadResult = Math.round(message.uploadResult));
     message.tooManyPoorUploads !== undefined && (obj.tooManyPoorUploads = message.tooManyPoorUploads);
     return obj;
@@ -6663,8 +6663,8 @@ export const CBroadcastStopBroadcastUploadNotification = {
     object: I,
   ): CBroadcastStopBroadcastUploadNotification {
     const message = createBaseCBroadcastStopBroadcastUploadNotification();
-    message.broadcastId = object.broadcastId ?? 0;
-    message.broadcastRelayId = object.broadcastRelayId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
+    message.broadcastRelayId = object.broadcastRelayId ?? "0";
     message.uploadResult = object.uploadResult ?? 0;
     message.tooManyPoorUploads = object.tooManyPoorUploads ?? false;
     return message;
@@ -6672,12 +6672,12 @@ export const CBroadcastStopBroadcastUploadNotification = {
 };
 
 function createBaseCBroadcastSessionClosedNotification(): CBroadcastSessionClosedNotification {
-  return { broadcastId: 0 };
+  return { broadcastId: "0" };
 }
 
 export const CBroadcastSessionClosedNotification = {
   encode(message: CBroadcastSessionClosedNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     return writer;
@@ -6691,7 +6691,7 @@ export const CBroadcastSessionClosedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6702,12 +6702,12 @@ export const CBroadcastSessionClosedNotification = {
   },
 
   fromJSON(object: any): CBroadcastSessionClosedNotification {
-    return { broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0 };
+    return { broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0" };
   },
 
   toJSON(message: CBroadcastSessionClosedNotification): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     return obj;
   },
 
@@ -6721,18 +6721,18 @@ export const CBroadcastSessionClosedNotification = {
     object: I,
   ): CBroadcastSessionClosedNotification {
     const message = createBaseCBroadcastSessionClosedNotification();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastViewerBroadcastInviteNotification(): CBroadcastViewerBroadcastInviteNotification {
-  return { broadcasterSteamid: 0 };
+  return { broadcasterSteamid: "0" };
 }
 
 export const CBroadcastViewerBroadcastInviteNotification = {
   encode(message: CBroadcastViewerBroadcastInviteNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcasterSteamid !== 0) {
+    if (message.broadcasterSteamid !== "0") {
       writer.uint32(9).fixed64(message.broadcasterSteamid);
     }
     return writer;
@@ -6746,7 +6746,7 @@ export const CBroadcastViewerBroadcastInviteNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcasterSteamid = longToNumber(reader.fixed64() as Long);
+          message.broadcasterSteamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6757,12 +6757,12 @@ export const CBroadcastViewerBroadcastInviteNotification = {
   },
 
   fromJSON(object: any): CBroadcastViewerBroadcastInviteNotification {
-    return { broadcasterSteamid: isSet(object.broadcasterSteamid) ? Number(object.broadcasterSteamid) : 0 };
+    return { broadcasterSteamid: isSet(object.broadcasterSteamid) ? String(object.broadcasterSteamid) : "0" };
   },
 
   toJSON(message: CBroadcastViewerBroadcastInviteNotification): unknown {
     const obj: any = {};
-    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = Math.round(message.broadcasterSteamid));
+    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = message.broadcasterSteamid);
     return obj;
   },
 
@@ -6776,18 +6776,18 @@ export const CBroadcastViewerBroadcastInviteNotification = {
     object: I,
   ): CBroadcastViewerBroadcastInviteNotification {
     const message = createBaseCBroadcastViewerBroadcastInviteNotification();
-    message.broadcasterSteamid = object.broadcasterSteamid ?? 0;
+    message.broadcasterSteamid = object.broadcasterSteamid ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastBroadcastStatusNotification(): CBroadcastBroadcastStatusNotification {
-  return { broadcastId: 0, numViewers: 0 };
+  return { broadcastId: "0", numViewers: 0 };
 }
 
 export const CBroadcastBroadcastStatusNotification = {
   encode(message: CBroadcastBroadcastStatusNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastId !== 0) {
+    if (message.broadcastId !== "0") {
       writer.uint32(9).fixed64(message.broadcastId);
     }
     if (message.numViewers !== 0) {
@@ -6804,7 +6804,7 @@ export const CBroadcastBroadcastStatusNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastId = longToNumber(reader.fixed64() as Long);
+          message.broadcastId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.numViewers = reader.int32();
@@ -6819,14 +6819,14 @@ export const CBroadcastBroadcastStatusNotification = {
 
   fromJSON(object: any): CBroadcastBroadcastStatusNotification {
     return {
-      broadcastId: isSet(object.broadcastId) ? Number(object.broadcastId) : 0,
+      broadcastId: isSet(object.broadcastId) ? String(object.broadcastId) : "0",
       numViewers: isSet(object.numViewers) ? Number(object.numViewers) : 0,
     };
   },
 
   toJSON(message: CBroadcastBroadcastStatusNotification): unknown {
     const obj: any = {};
-    message.broadcastId !== undefined && (obj.broadcastId = Math.round(message.broadcastId));
+    message.broadcastId !== undefined && (obj.broadcastId = message.broadcastId);
     message.numViewers !== undefined && (obj.numViewers = Math.round(message.numViewers));
     return obj;
   },
@@ -6841,19 +6841,19 @@ export const CBroadcastBroadcastStatusNotification = {
     object: I,
   ): CBroadcastBroadcastStatusNotification {
     const message = createBaseCBroadcastBroadcastStatusNotification();
-    message.broadcastId = object.broadcastId ?? 0;
+    message.broadcastId = object.broadcastId ?? "0";
     message.numViewers = object.numViewers ?? 0;
     return message;
   },
 };
 
 function createBaseCBroadcastBroadcastChannelLiveNotification(): CBroadcastBroadcastChannelLiveNotification {
-  return { broadcastChannelId: 0, broadcastChannelName: "", broadcastChannelAvatar: "" };
+  return { broadcastChannelId: "0", broadcastChannelName: "", broadcastChannelAvatar: "" };
 }
 
 export const CBroadcastBroadcastChannelLiveNotification = {
   encode(message: CBroadcastBroadcastChannelLiveNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.broadcastChannelName !== "") {
@@ -6873,7 +6873,7 @@ export const CBroadcastBroadcastChannelLiveNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.broadcastChannelName = reader.string();
@@ -6891,7 +6891,7 @@ export const CBroadcastBroadcastChannelLiveNotification = {
 
   fromJSON(object: any): CBroadcastBroadcastChannelLiveNotification {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       broadcastChannelName: isSet(object.broadcastChannelName) ? String(object.broadcastChannelName) : "",
       broadcastChannelAvatar: isSet(object.broadcastChannelAvatar) ? String(object.broadcastChannelAvatar) : "",
     };
@@ -6899,7 +6899,7 @@ export const CBroadcastBroadcastChannelLiveNotification = {
 
   toJSON(message: CBroadcastBroadcastChannelLiveNotification): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.broadcastChannelName !== undefined && (obj.broadcastChannelName = message.broadcastChannelName);
     message.broadcastChannelAvatar !== undefined && (obj.broadcastChannelAvatar = message.broadcastChannelAvatar);
     return obj;
@@ -6915,7 +6915,7 @@ export const CBroadcastBroadcastChannelLiveNotification = {
     object: I,
   ): CBroadcastBroadcastChannelLiveNotification {
     const message = createBaseCBroadcastBroadcastChannelLiveNotification();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.broadcastChannelName = object.broadcastChannelName ?? "";
     message.broadcastChannelAvatar = object.broadcastChannelAvatar ?? "";
     return message;
@@ -6925,7 +6925,7 @@ export const CBroadcastBroadcastChannelLiveNotification = {
 function createBaseCBroadcastSendThumbnailToRelayNotification(): CBroadcastSendThumbnailToRelayNotification {
   return {
     thumbnailUploadToken: "",
-    thumbnailBroadcastSessionId: 0,
+    thumbnailBroadcastSessionId: "0",
     thumbnailData: Buffer.alloc(0),
     thumbnailWidth: 0,
     thumbnailHeight: 0,
@@ -6937,7 +6937,7 @@ export const CBroadcastSendThumbnailToRelayNotification = {
     if (message.thumbnailUploadToken !== "") {
       writer.uint32(10).string(message.thumbnailUploadToken);
     }
-    if (message.thumbnailBroadcastSessionId !== 0) {
+    if (message.thumbnailBroadcastSessionId !== "0") {
       writer.uint32(17).fixed64(message.thumbnailBroadcastSessionId);
     }
     if (message.thumbnailData.length !== 0) {
@@ -6963,7 +6963,7 @@ export const CBroadcastSendThumbnailToRelayNotification = {
           message.thumbnailUploadToken = reader.string();
           break;
         case 2:
-          message.thumbnailBroadcastSessionId = longToNumber(reader.fixed64() as Long);
+          message.thumbnailBroadcastSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.thumbnailData = reader.bytes() as Buffer;
@@ -6986,8 +6986,8 @@ export const CBroadcastSendThumbnailToRelayNotification = {
     return {
       thumbnailUploadToken: isSet(object.thumbnailUploadToken) ? String(object.thumbnailUploadToken) : "",
       thumbnailBroadcastSessionId: isSet(object.thumbnailBroadcastSessionId)
-        ? Number(object.thumbnailBroadcastSessionId)
-        : 0,
+        ? String(object.thumbnailBroadcastSessionId)
+        : "0",
       thumbnailData: isSet(object.thumbnailData) ? Buffer.from(bytesFromBase64(object.thumbnailData)) : Buffer.alloc(0),
       thumbnailWidth: isSet(object.thumbnailWidth) ? Number(object.thumbnailWidth) : 0,
       thumbnailHeight: isSet(object.thumbnailHeight) ? Number(object.thumbnailHeight) : 0,
@@ -6998,7 +6998,7 @@ export const CBroadcastSendThumbnailToRelayNotification = {
     const obj: any = {};
     message.thumbnailUploadToken !== undefined && (obj.thumbnailUploadToken = message.thumbnailUploadToken);
     message.thumbnailBroadcastSessionId !== undefined &&
-      (obj.thumbnailBroadcastSessionId = Math.round(message.thumbnailBroadcastSessionId));
+      (obj.thumbnailBroadcastSessionId = message.thumbnailBroadcastSessionId);
     message.thumbnailData !== undefined &&
       (obj.thumbnailData = base64FromBytes(
         message.thumbnailData !== undefined ? message.thumbnailData : Buffer.alloc(0),
@@ -7019,7 +7019,7 @@ export const CBroadcastSendThumbnailToRelayNotification = {
   ): CBroadcastSendThumbnailToRelayNotification {
     const message = createBaseCBroadcastSendThumbnailToRelayNotification();
     message.thumbnailUploadToken = object.thumbnailUploadToken ?? "";
-    message.thumbnailBroadcastSessionId = object.thumbnailBroadcastSessionId ?? 0;
+    message.thumbnailBroadcastSessionId = object.thumbnailBroadcastSessionId ?? "0";
     message.thumbnailData = object.thumbnailData ?? Buffer.alloc(0);
     message.thumbnailWidth = object.thumbnailWidth ?? 0;
     message.thumbnailHeight = object.thumbnailHeight ?? 0;
@@ -7028,12 +7028,12 @@ export const CBroadcastSendThumbnailToRelayNotification = {
 };
 
 function createBaseCBroadcastWebRTCNeedTURNServerNotification(): CBroadcastWebRTCNeedTURNServerNotification {
-  return { broadcastSessionId: 0 };
+  return { broadcastSessionId: "0" };
 }
 
 export const CBroadcastWebRTCNeedTURNServerNotification = {
   encode(message: CBroadcastWebRTCNeedTURNServerNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastSessionId !== 0) {
+    if (message.broadcastSessionId !== "0") {
       writer.uint32(9).fixed64(message.broadcastSessionId);
     }
     return writer;
@@ -7047,7 +7047,7 @@ export const CBroadcastWebRTCNeedTURNServerNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastSessionId = longToNumber(reader.fixed64() as Long);
+          message.broadcastSessionId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7058,12 +7058,12 @@ export const CBroadcastWebRTCNeedTURNServerNotification = {
   },
 
   fromJSON(object: any): CBroadcastWebRTCNeedTURNServerNotification {
-    return { broadcastSessionId: isSet(object.broadcastSessionId) ? Number(object.broadcastSessionId) : 0 };
+    return { broadcastSessionId: isSet(object.broadcastSessionId) ? String(object.broadcastSessionId) : "0" };
   },
 
   toJSON(message: CBroadcastWebRTCNeedTURNServerNotification): unknown {
     const obj: any = {};
-    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = Math.round(message.broadcastSessionId));
+    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = message.broadcastSessionId);
     return obj;
   },
 
@@ -7077,27 +7077,27 @@ export const CBroadcastWebRTCNeedTURNServerNotification = {
     object: I,
   ): CBroadcastWebRTCNeedTURNServerNotification {
     const message = createBaseCBroadcastWebRTCNeedTURNServerNotification();
-    message.broadcastSessionId = object.broadcastSessionId ?? 0;
+    message.broadcastSessionId = object.broadcastSessionId ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastWebRTCStartNotification(): CBroadcastWebRTCStartNotification {
-  return { broadcastSessionId: 0, webrtcSessionId: 0, viewerSteamid: 0, viewerToken: 0 };
+  return { broadcastSessionId: "0", webrtcSessionId: "0", viewerSteamid: "0", viewerToken: "0" };
 }
 
 export const CBroadcastWebRTCStartNotification = {
   encode(message: CBroadcastWebRTCStartNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastSessionId !== 0) {
+    if (message.broadcastSessionId !== "0") {
       writer.uint32(9).fixed64(message.broadcastSessionId);
     }
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(17).fixed64(message.webrtcSessionId);
     }
-    if (message.viewerSteamid !== 0) {
+    if (message.viewerSteamid !== "0") {
       writer.uint32(25).fixed64(message.viewerSteamid);
     }
-    if (message.viewerToken !== 0) {
+    if (message.viewerToken !== "0") {
       writer.uint32(33).fixed64(message.viewerToken);
     }
     return writer;
@@ -7111,16 +7111,16 @@ export const CBroadcastWebRTCStartNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastSessionId = longToNumber(reader.fixed64() as Long);
+          message.broadcastSessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.viewerSteamid = longToNumber(reader.fixed64() as Long);
+          message.viewerSteamid = longToString(reader.fixed64() as Long);
           break;
         case 4:
-          message.viewerToken = longToNumber(reader.fixed64() as Long);
+          message.viewerToken = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7132,19 +7132,19 @@ export const CBroadcastWebRTCStartNotification = {
 
   fromJSON(object: any): CBroadcastWebRTCStartNotification {
     return {
-      broadcastSessionId: isSet(object.broadcastSessionId) ? Number(object.broadcastSessionId) : 0,
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
-      viewerSteamid: isSet(object.viewerSteamid) ? Number(object.viewerSteamid) : 0,
-      viewerToken: isSet(object.viewerToken) ? Number(object.viewerToken) : 0,
+      broadcastSessionId: isSet(object.broadcastSessionId) ? String(object.broadcastSessionId) : "0",
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
+      viewerSteamid: isSet(object.viewerSteamid) ? String(object.viewerSteamid) : "0",
+      viewerToken: isSet(object.viewerToken) ? String(object.viewerToken) : "0",
     };
   },
 
   toJSON(message: CBroadcastWebRTCStartNotification): unknown {
     const obj: any = {};
-    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = Math.round(message.broadcastSessionId));
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
-    message.viewerSteamid !== undefined && (obj.viewerSteamid = Math.round(message.viewerSteamid));
-    message.viewerToken !== undefined && (obj.viewerToken = Math.round(message.viewerToken));
+    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = message.broadcastSessionId);
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
+    message.viewerSteamid !== undefined && (obj.viewerSteamid = message.viewerSteamid);
+    message.viewerToken !== undefined && (obj.viewerToken = message.viewerToken);
     return obj;
   },
 
@@ -7158,24 +7158,24 @@ export const CBroadcastWebRTCStartNotification = {
     object: I,
   ): CBroadcastWebRTCStartNotification {
     const message = createBaseCBroadcastWebRTCStartNotification();
-    message.broadcastSessionId = object.broadcastSessionId ?? 0;
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
-    message.viewerSteamid = object.viewerSteamid ?? 0;
-    message.viewerToken = object.viewerToken ?? 0;
+    message.broadcastSessionId = object.broadcastSessionId ?? "0";
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
+    message.viewerSteamid = object.viewerSteamid ?? "0";
+    message.viewerToken = object.viewerToken ?? "0";
     return message;
   },
 };
 
 function createBaseCBroadcastWebRTCSetAnswerNotification(): CBroadcastWebRTCSetAnswerNotification {
-  return { broadcastSessionId: 0, webrtcSessionId: 0, answer: "" };
+  return { broadcastSessionId: "0", webrtcSessionId: "0", answer: "" };
 }
 
 export const CBroadcastWebRTCSetAnswerNotification = {
   encode(message: CBroadcastWebRTCSetAnswerNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastSessionId !== 0) {
+    if (message.broadcastSessionId !== "0") {
       writer.uint32(9).fixed64(message.broadcastSessionId);
     }
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(17).fixed64(message.webrtcSessionId);
     }
     if (message.answer !== "") {
@@ -7192,10 +7192,10 @@ export const CBroadcastWebRTCSetAnswerNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastSessionId = longToNumber(reader.fixed64() as Long);
+          message.broadcastSessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.answer = reader.string();
@@ -7210,16 +7210,16 @@ export const CBroadcastWebRTCSetAnswerNotification = {
 
   fromJSON(object: any): CBroadcastWebRTCSetAnswerNotification {
     return {
-      broadcastSessionId: isSet(object.broadcastSessionId) ? Number(object.broadcastSessionId) : 0,
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      broadcastSessionId: isSet(object.broadcastSessionId) ? String(object.broadcastSessionId) : "0",
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       answer: isSet(object.answer) ? String(object.answer) : "",
     };
   },
 
   toJSON(message: CBroadcastWebRTCSetAnswerNotification): unknown {
     const obj: any = {};
-    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = Math.round(message.broadcastSessionId));
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = message.broadcastSessionId);
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.answer !== undefined && (obj.answer = message.answer);
     return obj;
   },
@@ -7234,15 +7234,15 @@ export const CBroadcastWebRTCSetAnswerNotification = {
     object: I,
   ): CBroadcastWebRTCSetAnswerNotification {
     const message = createBaseCBroadcastWebRTCSetAnswerNotification();
-    message.broadcastSessionId = object.broadcastSessionId ?? 0;
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.broadcastSessionId = object.broadcastSessionId ?? "0";
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.answer = object.answer ?? "";
     return message;
   },
 };
 
 function createBaseCBroadcastWebRTCAddViewerCandidateNotification(): CBroadcastWebRTCAddViewerCandidateNotification {
-  return { broadcastSessionId: 0, webrtcSessionId: 0, candidate: undefined };
+  return { broadcastSessionId: "0", webrtcSessionId: "0", candidate: undefined };
 }
 
 export const CBroadcastWebRTCAddViewerCandidateNotification = {
@@ -7250,10 +7250,10 @@ export const CBroadcastWebRTCAddViewerCandidateNotification = {
     message: CBroadcastWebRTCAddViewerCandidateNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.broadcastSessionId !== 0) {
+    if (message.broadcastSessionId !== "0") {
       writer.uint32(9).fixed64(message.broadcastSessionId);
     }
-    if (message.webrtcSessionId !== 0) {
+    if (message.webrtcSessionId !== "0") {
       writer.uint32(17).fixed64(message.webrtcSessionId);
     }
     if (message.candidate !== undefined) {
@@ -7270,10 +7270,10 @@ export const CBroadcastWebRTCAddViewerCandidateNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastSessionId = longToNumber(reader.fixed64() as Long);
+          message.broadcastSessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.webrtcSessionId = longToNumber(reader.fixed64() as Long);
+          message.webrtcSessionId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.candidate = CBroadcastWebRTCCandidate.decode(reader, reader.uint32());
@@ -7288,16 +7288,16 @@ export const CBroadcastWebRTCAddViewerCandidateNotification = {
 
   fromJSON(object: any): CBroadcastWebRTCAddViewerCandidateNotification {
     return {
-      broadcastSessionId: isSet(object.broadcastSessionId) ? Number(object.broadcastSessionId) : 0,
-      webrtcSessionId: isSet(object.webrtcSessionId) ? Number(object.webrtcSessionId) : 0,
+      broadcastSessionId: isSet(object.broadcastSessionId) ? String(object.broadcastSessionId) : "0",
+      webrtcSessionId: isSet(object.webrtcSessionId) ? String(object.webrtcSessionId) : "0",
       candidate: isSet(object.candidate) ? CBroadcastWebRTCCandidate.fromJSON(object.candidate) : undefined,
     };
   },
 
   toJSON(message: CBroadcastWebRTCAddViewerCandidateNotification): unknown {
     const obj: any = {};
-    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = Math.round(message.broadcastSessionId));
-    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = Math.round(message.webrtcSessionId));
+    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = message.broadcastSessionId);
+    message.webrtcSessionId !== undefined && (obj.webrtcSessionId = message.webrtcSessionId);
     message.candidate !== undefined &&
       (obj.candidate = message.candidate ? CBroadcastWebRTCCandidate.toJSON(message.candidate) : undefined);
     return obj;
@@ -7313,8 +7313,8 @@ export const CBroadcastWebRTCAddViewerCandidateNotification = {
     object: I,
   ): CBroadcastWebRTCAddViewerCandidateNotification {
     const message = createBaseCBroadcastWebRTCAddViewerCandidateNotification();
-    message.broadcastSessionId = object.broadcastSessionId ?? 0;
-    message.webrtcSessionId = object.webrtcSessionId ?? 0;
+    message.broadcastSessionId = object.broadcastSessionId ?? "0";
+    message.webrtcSessionId = object.webrtcSessionId ?? "0";
     message.candidate = (object.candidate !== undefined && object.candidate !== null)
       ? CBroadcastWebRTCCandidate.fromPartial(object.candidate)
       : undefined;
@@ -7831,11 +7831,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

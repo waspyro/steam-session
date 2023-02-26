@@ -31,12 +31,12 @@ export interface CGameNetworkingUIConnectionState {
   pingDefaultInternetRoute: number;
   e2eQualityLocal: CMsgSteamDatagramConnectionQuality | undefined;
   e2eQualityRemote: CMsgSteamDatagramConnectionQuality | undefined;
-  e2eQualityRemoteInstantaneousTime: number;
-  e2eQualityRemoteLifetimeTime: number;
+  e2eQualityRemoteInstantaneousTime: string;
+  e2eQualityRemoteLifetimeTime: string;
   frontQualityLocal: CMsgSteamDatagramConnectionQuality | undefined;
   frontQualityRemote: CMsgSteamDatagramConnectionQuality | undefined;
-  frontQualityRemoteInstantaneousTime: number;
-  frontQualityRemoteLifetimeTime: number;
+  frontQualityRemoteInstantaneousTime: string;
+  frontQualityRemoteLifetimeTime: string;
 }
 
 export interface CGameNetworkingUIMessage {
@@ -109,12 +109,12 @@ function createBaseCGameNetworkingUIConnectionState(): CGameNetworkingUIConnecti
     pingDefaultInternetRoute: 0,
     e2eQualityLocal: undefined,
     e2eQualityRemote: undefined,
-    e2eQualityRemoteInstantaneousTime: 0,
-    e2eQualityRemoteLifetimeTime: 0,
+    e2eQualityRemoteInstantaneousTime: "0",
+    e2eQualityRemoteLifetimeTime: "0",
     frontQualityLocal: undefined,
     frontQualityRemote: undefined,
-    frontQualityRemoteInstantaneousTime: 0,
-    frontQualityRemoteLifetimeTime: 0,
+    frontQualityRemoteInstantaneousTime: "0",
+    frontQualityRemoteLifetimeTime: "0",
   };
 }
 
@@ -183,10 +183,10 @@ export const CGameNetworkingUIConnectionState = {
     if (message.e2eQualityRemote !== undefined) {
       CMsgSteamDatagramConnectionQuality.encode(message.e2eQualityRemote, writer.uint32(250).fork()).ldelim();
     }
-    if (message.e2eQualityRemoteInstantaneousTime !== 0) {
+    if (message.e2eQualityRemoteInstantaneousTime !== "0") {
       writer.uint32(256).uint64(message.e2eQualityRemoteInstantaneousTime);
     }
-    if (message.e2eQualityRemoteLifetimeTime !== 0) {
+    if (message.e2eQualityRemoteLifetimeTime !== "0") {
       writer.uint32(264).uint64(message.e2eQualityRemoteLifetimeTime);
     }
     if (message.frontQualityLocal !== undefined) {
@@ -195,10 +195,10 @@ export const CGameNetworkingUIConnectionState = {
     if (message.frontQualityRemote !== undefined) {
       CMsgSteamDatagramConnectionQuality.encode(message.frontQualityRemote, writer.uint32(330).fork()).ldelim();
     }
-    if (message.frontQualityRemoteInstantaneousTime !== 0) {
+    if (message.frontQualityRemoteInstantaneousTime !== "0") {
       writer.uint32(336).uint64(message.frontQualityRemoteInstantaneousTime);
     }
-    if (message.frontQualityRemoteLifetimeTime !== 0) {
+    if (message.frontQualityRemoteLifetimeTime !== "0") {
       writer.uint32(344).uint64(message.frontQualityRemoteLifetimeTime);
     }
     return writer;
@@ -275,10 +275,10 @@ export const CGameNetworkingUIConnectionState = {
           message.e2eQualityRemote = CMsgSteamDatagramConnectionQuality.decode(reader, reader.uint32());
           break;
         case 32:
-          message.e2eQualityRemoteInstantaneousTime = longToNumber(reader.uint64() as Long);
+          message.e2eQualityRemoteInstantaneousTime = longToString(reader.uint64() as Long);
           break;
         case 33:
-          message.e2eQualityRemoteLifetimeTime = longToNumber(reader.uint64() as Long);
+          message.e2eQualityRemoteLifetimeTime = longToString(reader.uint64() as Long);
           break;
         case 40:
           message.frontQualityLocal = CMsgSteamDatagramConnectionQuality.decode(reader, reader.uint32());
@@ -287,10 +287,10 @@ export const CGameNetworkingUIConnectionState = {
           message.frontQualityRemote = CMsgSteamDatagramConnectionQuality.decode(reader, reader.uint32());
           break;
         case 42:
-          message.frontQualityRemoteInstantaneousTime = longToNumber(reader.uint64() as Long);
+          message.frontQualityRemoteInstantaneousTime = longToString(reader.uint64() as Long);
           break;
         case 43:
-          message.frontQualityRemoteLifetimeTime = longToNumber(reader.uint64() as Long);
+          message.frontQualityRemoteLifetimeTime = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -328,11 +328,11 @@ export const CGameNetworkingUIConnectionState = {
         ? CMsgSteamDatagramConnectionQuality.fromJSON(object.e2eQualityRemote)
         : undefined,
       e2eQualityRemoteInstantaneousTime: isSet(object.e2eQualityRemoteInstantaneousTime)
-        ? Number(object.e2eQualityRemoteInstantaneousTime)
-        : 0,
+        ? String(object.e2eQualityRemoteInstantaneousTime)
+        : "0",
       e2eQualityRemoteLifetimeTime: isSet(object.e2eQualityRemoteLifetimeTime)
-        ? Number(object.e2eQualityRemoteLifetimeTime)
-        : 0,
+        ? String(object.e2eQualityRemoteLifetimeTime)
+        : "0",
       frontQualityLocal: isSet(object.frontQualityLocal)
         ? CMsgSteamDatagramConnectionQuality.fromJSON(object.frontQualityLocal)
         : undefined,
@@ -340,11 +340,11 @@ export const CGameNetworkingUIConnectionState = {
         ? CMsgSteamDatagramConnectionQuality.fromJSON(object.frontQualityRemote)
         : undefined,
       frontQualityRemoteInstantaneousTime: isSet(object.frontQualityRemoteInstantaneousTime)
-        ? Number(object.frontQualityRemoteInstantaneousTime)
-        : 0,
+        ? String(object.frontQualityRemoteInstantaneousTime)
+        : "0",
       frontQualityRemoteLifetimeTime: isSet(object.frontQualityRemoteLifetimeTime)
-        ? Number(object.frontQualityRemoteLifetimeTime)
-        : 0,
+        ? String(object.frontQualityRemoteLifetimeTime)
+        : "0",
     };
   },
 
@@ -378,9 +378,9 @@ export const CGameNetworkingUIConnectionState = {
       ? CMsgSteamDatagramConnectionQuality.toJSON(message.e2eQualityRemote)
       : undefined);
     message.e2eQualityRemoteInstantaneousTime !== undefined &&
-      (obj.e2eQualityRemoteInstantaneousTime = Math.round(message.e2eQualityRemoteInstantaneousTime));
+      (obj.e2eQualityRemoteInstantaneousTime = message.e2eQualityRemoteInstantaneousTime);
     message.e2eQualityRemoteLifetimeTime !== undefined &&
-      (obj.e2eQualityRemoteLifetimeTime = Math.round(message.e2eQualityRemoteLifetimeTime));
+      (obj.e2eQualityRemoteLifetimeTime = message.e2eQualityRemoteLifetimeTime);
     message.frontQualityLocal !== undefined && (obj.frontQualityLocal = message.frontQualityLocal
       ? CMsgSteamDatagramConnectionQuality.toJSON(message.frontQualityLocal)
       : undefined);
@@ -388,9 +388,9 @@ export const CGameNetworkingUIConnectionState = {
       ? CMsgSteamDatagramConnectionQuality.toJSON(message.frontQualityRemote)
       : undefined);
     message.frontQualityRemoteInstantaneousTime !== undefined &&
-      (obj.frontQualityRemoteInstantaneousTime = Math.round(message.frontQualityRemoteInstantaneousTime));
+      (obj.frontQualityRemoteInstantaneousTime = message.frontQualityRemoteInstantaneousTime);
     message.frontQualityRemoteLifetimeTime !== undefined &&
-      (obj.frontQualityRemoteLifetimeTime = Math.round(message.frontQualityRemoteLifetimeTime));
+      (obj.frontQualityRemoteLifetimeTime = message.frontQualityRemoteLifetimeTime);
     return obj;
   },
 
@@ -431,16 +431,16 @@ export const CGameNetworkingUIConnectionState = {
     message.e2eQualityRemote = (object.e2eQualityRemote !== undefined && object.e2eQualityRemote !== null)
       ? CMsgSteamDatagramConnectionQuality.fromPartial(object.e2eQualityRemote)
       : undefined;
-    message.e2eQualityRemoteInstantaneousTime = object.e2eQualityRemoteInstantaneousTime ?? 0;
-    message.e2eQualityRemoteLifetimeTime = object.e2eQualityRemoteLifetimeTime ?? 0;
+    message.e2eQualityRemoteInstantaneousTime = object.e2eQualityRemoteInstantaneousTime ?? "0";
+    message.e2eQualityRemoteLifetimeTime = object.e2eQualityRemoteLifetimeTime ?? "0";
     message.frontQualityLocal = (object.frontQualityLocal !== undefined && object.frontQualityLocal !== null)
       ? CMsgSteamDatagramConnectionQuality.fromPartial(object.frontQualityLocal)
       : undefined;
     message.frontQualityRemote = (object.frontQualityRemote !== undefined && object.frontQualityRemote !== null)
       ? CMsgSteamDatagramConnectionQuality.fromPartial(object.frontQualityRemote)
       : undefined;
-    message.frontQualityRemoteInstantaneousTime = object.frontQualityRemoteInstantaneousTime ?? 0;
-    message.frontQualityRemoteLifetimeTime = object.frontQualityRemoteLifetimeTime ?? 0;
+    message.frontQualityRemoteInstantaneousTime = object.frontQualityRemoteInstantaneousTime ?? "0";
+    message.frontQualityRemoteLifetimeTime = object.frontQualityRemoteLifetimeTime ?? "0";
     return message;
   },
 };
@@ -506,25 +506,6 @@ export const CGameNetworkingUIMessage = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -536,11 +517,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

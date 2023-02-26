@@ -5,7 +5,7 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CDeviceAuthGetOwnAuthorizedDevicesRequest {
-  steamid: number;
+  steamid: string;
   includeCanceled: boolean;
 }
 
@@ -14,44 +14,44 @@ export interface CDeviceAuthGetOwnAuthorizedDevicesResponse {
 }
 
 export interface CDeviceAuthGetOwnAuthorizedDevicesResponse_Device {
-  authDeviceToken: number;
+  authDeviceToken: string;
   deviceName: string;
   isPending: boolean;
   isCanceled: boolean;
   lastTimeUsed: number;
-  lastBorrowerId: number;
+  lastBorrowerId: string;
   lastAppPlayed: number;
   isLimited: boolean;
 }
 
 export interface CDeviceAuthAcceptAuthorizationRequestRequest {
-  steamid: number;
-  authDeviceToken: number;
-  authCode: number;
-  fromSteamid: number;
+  steamid: string;
+  authDeviceToken: string;
+  authCode: string;
+  fromSteamid: string;
 }
 
 export interface CDeviceAuthAcceptAuthorizationRequestResponse {
 }
 
 export interface CDeviceAuthAuthorizeRemoteDeviceRequest {
-  steamid: number;
-  authDeviceToken: number;
+  steamid: string;
+  authDeviceToken: string;
 }
 
 export interface CDeviceAuthAuthorizeRemoteDeviceResponse {
 }
 
 export interface CDeviceAuthDeauthorizeRemoteDeviceRequest {
-  steamid: number;
-  authDeviceToken: number;
+  steamid: string;
+  authDeviceToken: string;
 }
 
 export interface CDeviceAuthDeauthorizeRemoteDeviceResponse {
 }
 
 export interface CDeviceAuthGetUsedAuthorizedDevicesRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CDeviceAuthGetUsedAuthorizedDevicesResponse {
@@ -59,15 +59,15 @@ export interface CDeviceAuthGetUsedAuthorizedDevicesResponse {
 }
 
 export interface CDeviceAuthGetUsedAuthorizedDevicesResponse_Device {
-  authDeviceToken: number;
+  authDeviceToken: string;
   deviceName: string;
-  ownerSteamid: number;
+  ownerSteamid: string;
   lastTimeUsed: number;
   lastAppPlayed: number;
 }
 
 export interface CDeviceAuthGetAuthorizedBorrowersRequest {
-  steamid: number;
+  steamid: string;
   includeCanceled: boolean;
   includePending: boolean;
 }
@@ -77,15 +77,15 @@ export interface CDeviceAuthGetAuthorizedBorrowersResponse {
 }
 
 export interface CDeviceAuthGetAuthorizedBorrowersResponse_Borrower {
-  steamid: number;
+  steamid: string;
   isPending: boolean;
   isCanceled: boolean;
   timeCreated: number;
 }
 
 export interface CDeviceAuthAddAuthorizedBorrowersRequest {
-  steamid: number;
-  steamidBorrower: number[];
+  steamid: string;
+  steamidBorrower: string[];
 }
 
 export interface CDeviceAuthAddAuthorizedBorrowersResponse {
@@ -93,15 +93,15 @@ export interface CDeviceAuthAddAuthorizedBorrowersResponse {
 }
 
 export interface CDeviceAuthRemoveAuthorizedBorrowersRequest {
-  steamid: number;
-  steamidBorrower: number[];
+  steamid: string;
+  steamidBorrower: string[];
 }
 
 export interface CDeviceAuthRemoveAuthorizedBorrowersResponse {
 }
 
 export interface CDeviceAuthGetAuthorizedAsBorrowerRequest {
-  steamid: number;
+  steamid: string;
   includeCanceled: boolean;
   includePending: boolean;
 }
@@ -111,7 +111,7 @@ export interface CDeviceAuthGetAuthorizedAsBorrowerResponse {
 }
 
 export interface CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender {
-  steamid: number;
+  steamid: string;
   timeCreated: number;
   isPending: boolean;
   isCanceled: boolean;
@@ -121,7 +121,7 @@ export interface CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender {
 }
 
 export interface CDeviceAuthGetExcludedGamesInLibraryRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CDeviceAuthGetExcludedGamesInLibraryResponse {
@@ -136,7 +136,7 @@ export interface CDeviceAuthGetExcludedGamesInLibraryResponse_ExcludedGame {
 }
 
 export interface CDeviceAuthGetBorrowerPlayHistoryRequest {
-  steamid: number;
+  steamid: string;
   appid: number;
 }
 
@@ -151,17 +151,17 @@ export interface CDeviceAuthGetBorrowerPlayHistoryResponse_GameHistory {
 }
 
 export interface CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory {
-  steamid: number;
+  steamid: string;
   gameHistory: CDeviceAuthGetBorrowerPlayHistoryResponse_GameHistory[];
 }
 
 function createBaseCDeviceAuthGetOwnAuthorizedDevicesRequest(): CDeviceAuthGetOwnAuthorizedDevicesRequest {
-  return { steamid: 0, includeCanceled: false };
+  return { steamid: "0", includeCanceled: false };
 }
 
 export const CDeviceAuthGetOwnAuthorizedDevicesRequest = {
   encode(message: CDeviceAuthGetOwnAuthorizedDevicesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.includeCanceled === true) {
@@ -178,7 +178,7 @@ export const CDeviceAuthGetOwnAuthorizedDevicesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.includeCanceled = reader.bool();
@@ -193,14 +193,14 @@ export const CDeviceAuthGetOwnAuthorizedDevicesRequest = {
 
   fromJSON(object: any): CDeviceAuthGetOwnAuthorizedDevicesRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       includeCanceled: isSet(object.includeCanceled) ? Boolean(object.includeCanceled) : false,
     };
   },
 
   toJSON(message: CDeviceAuthGetOwnAuthorizedDevicesRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.includeCanceled !== undefined && (obj.includeCanceled = message.includeCanceled);
     return obj;
   },
@@ -215,7 +215,7 @@ export const CDeviceAuthGetOwnAuthorizedDevicesRequest = {
     object: I,
   ): CDeviceAuthGetOwnAuthorizedDevicesRequest {
     const message = createBaseCDeviceAuthGetOwnAuthorizedDevicesRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.includeCanceled = object.includeCanceled ?? false;
     return message;
   },
@@ -289,12 +289,12 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse = {
 
 function createBaseCDeviceAuthGetOwnAuthorizedDevicesResponse_Device(): CDeviceAuthGetOwnAuthorizedDevicesResponse_Device {
   return {
-    authDeviceToken: 0,
+    authDeviceToken: "0",
     deviceName: "",
     isPending: false,
     isCanceled: false,
     lastTimeUsed: 0,
-    lastBorrowerId: 0,
+    lastBorrowerId: "0",
     lastAppPlayed: 0,
     isLimited: false,
   };
@@ -305,7 +305,7 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
     message: CDeviceAuthGetOwnAuthorizedDevicesResponse_Device,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.authDeviceToken !== 0) {
+    if (message.authDeviceToken !== "0") {
       writer.uint32(9).fixed64(message.authDeviceToken);
     }
     if (message.deviceName !== "") {
@@ -320,7 +320,7 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
     if (message.lastTimeUsed !== 0) {
       writer.uint32(40).uint32(message.lastTimeUsed);
     }
-    if (message.lastBorrowerId !== 0) {
+    if (message.lastBorrowerId !== "0") {
       writer.uint32(49).fixed64(message.lastBorrowerId);
     }
     if (message.lastAppPlayed !== 0) {
@@ -340,7 +340,7 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.authDeviceToken = longToNumber(reader.fixed64() as Long);
+          message.authDeviceToken = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.deviceName = reader.string();
@@ -355,7 +355,7 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
           message.lastTimeUsed = reader.uint32();
           break;
         case 6:
-          message.lastBorrowerId = longToNumber(reader.fixed64() as Long);
+          message.lastBorrowerId = longToString(reader.fixed64() as Long);
           break;
         case 7:
           message.lastAppPlayed = reader.uint32();
@@ -373,12 +373,12 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
 
   fromJSON(object: any): CDeviceAuthGetOwnAuthorizedDevicesResponse_Device {
     return {
-      authDeviceToken: isSet(object.authDeviceToken) ? Number(object.authDeviceToken) : 0,
+      authDeviceToken: isSet(object.authDeviceToken) ? String(object.authDeviceToken) : "0",
       deviceName: isSet(object.deviceName) ? String(object.deviceName) : "",
       isPending: isSet(object.isPending) ? Boolean(object.isPending) : false,
       isCanceled: isSet(object.isCanceled) ? Boolean(object.isCanceled) : false,
       lastTimeUsed: isSet(object.lastTimeUsed) ? Number(object.lastTimeUsed) : 0,
-      lastBorrowerId: isSet(object.lastBorrowerId) ? Number(object.lastBorrowerId) : 0,
+      lastBorrowerId: isSet(object.lastBorrowerId) ? String(object.lastBorrowerId) : "0",
       lastAppPlayed: isSet(object.lastAppPlayed) ? Number(object.lastAppPlayed) : 0,
       isLimited: isSet(object.isLimited) ? Boolean(object.isLimited) : false,
     };
@@ -386,12 +386,12 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
 
   toJSON(message: CDeviceAuthGetOwnAuthorizedDevicesResponse_Device): unknown {
     const obj: any = {};
-    message.authDeviceToken !== undefined && (obj.authDeviceToken = Math.round(message.authDeviceToken));
+    message.authDeviceToken !== undefined && (obj.authDeviceToken = message.authDeviceToken);
     message.deviceName !== undefined && (obj.deviceName = message.deviceName);
     message.isPending !== undefined && (obj.isPending = message.isPending);
     message.isCanceled !== undefined && (obj.isCanceled = message.isCanceled);
     message.lastTimeUsed !== undefined && (obj.lastTimeUsed = Math.round(message.lastTimeUsed));
-    message.lastBorrowerId !== undefined && (obj.lastBorrowerId = Math.round(message.lastBorrowerId));
+    message.lastBorrowerId !== undefined && (obj.lastBorrowerId = message.lastBorrowerId);
     message.lastAppPlayed !== undefined && (obj.lastAppPlayed = Math.round(message.lastAppPlayed));
     message.isLimited !== undefined && (obj.isLimited = message.isLimited);
     return obj;
@@ -407,12 +407,12 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
     object: I,
   ): CDeviceAuthGetOwnAuthorizedDevicesResponse_Device {
     const message = createBaseCDeviceAuthGetOwnAuthorizedDevicesResponse_Device();
-    message.authDeviceToken = object.authDeviceToken ?? 0;
+    message.authDeviceToken = object.authDeviceToken ?? "0";
     message.deviceName = object.deviceName ?? "";
     message.isPending = object.isPending ?? false;
     message.isCanceled = object.isCanceled ?? false;
     message.lastTimeUsed = object.lastTimeUsed ?? 0;
-    message.lastBorrowerId = object.lastBorrowerId ?? 0;
+    message.lastBorrowerId = object.lastBorrowerId ?? "0";
     message.lastAppPlayed = object.lastAppPlayed ?? 0;
     message.isLimited = object.isLimited ?? false;
     return message;
@@ -420,21 +420,21 @@ export const CDeviceAuthGetOwnAuthorizedDevicesResponse_Device = {
 };
 
 function createBaseCDeviceAuthAcceptAuthorizationRequestRequest(): CDeviceAuthAcceptAuthorizationRequestRequest {
-  return { steamid: 0, authDeviceToken: 0, authCode: 0, fromSteamid: 0 };
+  return { steamid: "0", authDeviceToken: "0", authCode: "0", fromSteamid: "0" };
 }
 
 export const CDeviceAuthAcceptAuthorizationRequestRequest = {
   encode(message: CDeviceAuthAcceptAuthorizationRequestRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.authDeviceToken !== 0) {
+    if (message.authDeviceToken !== "0") {
       writer.uint32(17).fixed64(message.authDeviceToken);
     }
-    if (message.authCode !== 0) {
+    if (message.authCode !== "0") {
       writer.uint32(25).fixed64(message.authCode);
     }
-    if (message.fromSteamid !== 0) {
+    if (message.fromSteamid !== "0") {
       writer.uint32(33).fixed64(message.fromSteamid);
     }
     return writer;
@@ -448,16 +448,16 @@ export const CDeviceAuthAcceptAuthorizationRequestRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.authDeviceToken = longToNumber(reader.fixed64() as Long);
+          message.authDeviceToken = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.authCode = longToNumber(reader.fixed64() as Long);
+          message.authCode = longToString(reader.fixed64() as Long);
           break;
         case 4:
-          message.fromSteamid = longToNumber(reader.fixed64() as Long);
+          message.fromSteamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -469,19 +469,19 @@ export const CDeviceAuthAcceptAuthorizationRequestRequest = {
 
   fromJSON(object: any): CDeviceAuthAcceptAuthorizationRequestRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      authDeviceToken: isSet(object.authDeviceToken) ? Number(object.authDeviceToken) : 0,
-      authCode: isSet(object.authCode) ? Number(object.authCode) : 0,
-      fromSteamid: isSet(object.fromSteamid) ? Number(object.fromSteamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      authDeviceToken: isSet(object.authDeviceToken) ? String(object.authDeviceToken) : "0",
+      authCode: isSet(object.authCode) ? String(object.authCode) : "0",
+      fromSteamid: isSet(object.fromSteamid) ? String(object.fromSteamid) : "0",
     };
   },
 
   toJSON(message: CDeviceAuthAcceptAuthorizationRequestRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.authDeviceToken !== undefined && (obj.authDeviceToken = Math.round(message.authDeviceToken));
-    message.authCode !== undefined && (obj.authCode = Math.round(message.authCode));
-    message.fromSteamid !== undefined && (obj.fromSteamid = Math.round(message.fromSteamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.authDeviceToken !== undefined && (obj.authDeviceToken = message.authDeviceToken);
+    message.authCode !== undefined && (obj.authCode = message.authCode);
+    message.fromSteamid !== undefined && (obj.fromSteamid = message.fromSteamid);
     return obj;
   },
 
@@ -495,10 +495,10 @@ export const CDeviceAuthAcceptAuthorizationRequestRequest = {
     object: I,
   ): CDeviceAuthAcceptAuthorizationRequestRequest {
     const message = createBaseCDeviceAuthAcceptAuthorizationRequestRequest();
-    message.steamid = object.steamid ?? 0;
-    message.authDeviceToken = object.authDeviceToken ?? 0;
-    message.authCode = object.authCode ?? 0;
-    message.fromSteamid = object.fromSteamid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.authDeviceToken = object.authDeviceToken ?? "0";
+    message.authCode = object.authCode ?? "0";
+    message.fromSteamid = object.fromSteamid ?? "0";
     return message;
   },
 };
@@ -551,15 +551,15 @@ export const CDeviceAuthAcceptAuthorizationRequestResponse = {
 };
 
 function createBaseCDeviceAuthAuthorizeRemoteDeviceRequest(): CDeviceAuthAuthorizeRemoteDeviceRequest {
-  return { steamid: 0, authDeviceToken: 0 };
+  return { steamid: "0", authDeviceToken: "0" };
 }
 
 export const CDeviceAuthAuthorizeRemoteDeviceRequest = {
   encode(message: CDeviceAuthAuthorizeRemoteDeviceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.authDeviceToken !== 0) {
+    if (message.authDeviceToken !== "0") {
       writer.uint32(17).fixed64(message.authDeviceToken);
     }
     return writer;
@@ -573,10 +573,10 @@ export const CDeviceAuthAuthorizeRemoteDeviceRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.authDeviceToken = longToNumber(reader.fixed64() as Long);
+          message.authDeviceToken = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -588,15 +588,15 @@ export const CDeviceAuthAuthorizeRemoteDeviceRequest = {
 
   fromJSON(object: any): CDeviceAuthAuthorizeRemoteDeviceRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      authDeviceToken: isSet(object.authDeviceToken) ? Number(object.authDeviceToken) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      authDeviceToken: isSet(object.authDeviceToken) ? String(object.authDeviceToken) : "0",
     };
   },
 
   toJSON(message: CDeviceAuthAuthorizeRemoteDeviceRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.authDeviceToken !== undefined && (obj.authDeviceToken = Math.round(message.authDeviceToken));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.authDeviceToken !== undefined && (obj.authDeviceToken = message.authDeviceToken);
     return obj;
   },
 
@@ -610,8 +610,8 @@ export const CDeviceAuthAuthorizeRemoteDeviceRequest = {
     object: I,
   ): CDeviceAuthAuthorizeRemoteDeviceRequest {
     const message = createBaseCDeviceAuthAuthorizeRemoteDeviceRequest();
-    message.steamid = object.steamid ?? 0;
-    message.authDeviceToken = object.authDeviceToken ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.authDeviceToken = object.authDeviceToken ?? "0";
     return message;
   },
 };
@@ -664,15 +664,15 @@ export const CDeviceAuthAuthorizeRemoteDeviceResponse = {
 };
 
 function createBaseCDeviceAuthDeauthorizeRemoteDeviceRequest(): CDeviceAuthDeauthorizeRemoteDeviceRequest {
-  return { steamid: 0, authDeviceToken: 0 };
+  return { steamid: "0", authDeviceToken: "0" };
 }
 
 export const CDeviceAuthDeauthorizeRemoteDeviceRequest = {
   encode(message: CDeviceAuthDeauthorizeRemoteDeviceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.authDeviceToken !== 0) {
+    if (message.authDeviceToken !== "0") {
       writer.uint32(17).fixed64(message.authDeviceToken);
     }
     return writer;
@@ -686,10 +686,10 @@ export const CDeviceAuthDeauthorizeRemoteDeviceRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.authDeviceToken = longToNumber(reader.fixed64() as Long);
+          message.authDeviceToken = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -701,15 +701,15 @@ export const CDeviceAuthDeauthorizeRemoteDeviceRequest = {
 
   fromJSON(object: any): CDeviceAuthDeauthorizeRemoteDeviceRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      authDeviceToken: isSet(object.authDeviceToken) ? Number(object.authDeviceToken) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      authDeviceToken: isSet(object.authDeviceToken) ? String(object.authDeviceToken) : "0",
     };
   },
 
   toJSON(message: CDeviceAuthDeauthorizeRemoteDeviceRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.authDeviceToken !== undefined && (obj.authDeviceToken = Math.round(message.authDeviceToken));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.authDeviceToken !== undefined && (obj.authDeviceToken = message.authDeviceToken);
     return obj;
   },
 
@@ -723,8 +723,8 @@ export const CDeviceAuthDeauthorizeRemoteDeviceRequest = {
     object: I,
   ): CDeviceAuthDeauthorizeRemoteDeviceRequest {
     const message = createBaseCDeviceAuthDeauthorizeRemoteDeviceRequest();
-    message.steamid = object.steamid ?? 0;
-    message.authDeviceToken = object.authDeviceToken ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.authDeviceToken = object.authDeviceToken ?? "0";
     return message;
   },
 };
@@ -777,12 +777,12 @@ export const CDeviceAuthDeauthorizeRemoteDeviceResponse = {
 };
 
 function createBaseCDeviceAuthGetUsedAuthorizedDevicesRequest(): CDeviceAuthGetUsedAuthorizedDevicesRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CDeviceAuthGetUsedAuthorizedDevicesRequest = {
   encode(message: CDeviceAuthGetUsedAuthorizedDevicesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -796,7 +796,7 @@ export const CDeviceAuthGetUsedAuthorizedDevicesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -807,12 +807,12 @@ export const CDeviceAuthGetUsedAuthorizedDevicesRequest = {
   },
 
   fromJSON(object: any): CDeviceAuthGetUsedAuthorizedDevicesRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CDeviceAuthGetUsedAuthorizedDevicesRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -826,7 +826,7 @@ export const CDeviceAuthGetUsedAuthorizedDevicesRequest = {
     object: I,
   ): CDeviceAuthGetUsedAuthorizedDevicesRequest {
     const message = createBaseCDeviceAuthGetUsedAuthorizedDevicesRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -898,7 +898,7 @@ export const CDeviceAuthGetUsedAuthorizedDevicesResponse = {
 };
 
 function createBaseCDeviceAuthGetUsedAuthorizedDevicesResponse_Device(): CDeviceAuthGetUsedAuthorizedDevicesResponse_Device {
-  return { authDeviceToken: 0, deviceName: "", ownerSteamid: 0, lastTimeUsed: 0, lastAppPlayed: 0 };
+  return { authDeviceToken: "0", deviceName: "", ownerSteamid: "0", lastTimeUsed: 0, lastAppPlayed: 0 };
 }
 
 export const CDeviceAuthGetUsedAuthorizedDevicesResponse_Device = {
@@ -906,13 +906,13 @@ export const CDeviceAuthGetUsedAuthorizedDevicesResponse_Device = {
     message: CDeviceAuthGetUsedAuthorizedDevicesResponse_Device,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.authDeviceToken !== 0) {
+    if (message.authDeviceToken !== "0") {
       writer.uint32(9).fixed64(message.authDeviceToken);
     }
     if (message.deviceName !== "") {
       writer.uint32(18).string(message.deviceName);
     }
-    if (message.ownerSteamid !== 0) {
+    if (message.ownerSteamid !== "0") {
       writer.uint32(25).fixed64(message.ownerSteamid);
     }
     if (message.lastTimeUsed !== 0) {
@@ -932,13 +932,13 @@ export const CDeviceAuthGetUsedAuthorizedDevicesResponse_Device = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.authDeviceToken = longToNumber(reader.fixed64() as Long);
+          message.authDeviceToken = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.deviceName = reader.string();
           break;
         case 3:
-          message.ownerSteamid = longToNumber(reader.fixed64() as Long);
+          message.ownerSteamid = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.lastTimeUsed = reader.uint32();
@@ -956,9 +956,9 @@ export const CDeviceAuthGetUsedAuthorizedDevicesResponse_Device = {
 
   fromJSON(object: any): CDeviceAuthGetUsedAuthorizedDevicesResponse_Device {
     return {
-      authDeviceToken: isSet(object.authDeviceToken) ? Number(object.authDeviceToken) : 0,
+      authDeviceToken: isSet(object.authDeviceToken) ? String(object.authDeviceToken) : "0",
       deviceName: isSet(object.deviceName) ? String(object.deviceName) : "",
-      ownerSteamid: isSet(object.ownerSteamid) ? Number(object.ownerSteamid) : 0,
+      ownerSteamid: isSet(object.ownerSteamid) ? String(object.ownerSteamid) : "0",
       lastTimeUsed: isSet(object.lastTimeUsed) ? Number(object.lastTimeUsed) : 0,
       lastAppPlayed: isSet(object.lastAppPlayed) ? Number(object.lastAppPlayed) : 0,
     };
@@ -966,9 +966,9 @@ export const CDeviceAuthGetUsedAuthorizedDevicesResponse_Device = {
 
   toJSON(message: CDeviceAuthGetUsedAuthorizedDevicesResponse_Device): unknown {
     const obj: any = {};
-    message.authDeviceToken !== undefined && (obj.authDeviceToken = Math.round(message.authDeviceToken));
+    message.authDeviceToken !== undefined && (obj.authDeviceToken = message.authDeviceToken);
     message.deviceName !== undefined && (obj.deviceName = message.deviceName);
-    message.ownerSteamid !== undefined && (obj.ownerSteamid = Math.round(message.ownerSteamid));
+    message.ownerSteamid !== undefined && (obj.ownerSteamid = message.ownerSteamid);
     message.lastTimeUsed !== undefined && (obj.lastTimeUsed = Math.round(message.lastTimeUsed));
     message.lastAppPlayed !== undefined && (obj.lastAppPlayed = Math.round(message.lastAppPlayed));
     return obj;
@@ -984,9 +984,9 @@ export const CDeviceAuthGetUsedAuthorizedDevicesResponse_Device = {
     object: I,
   ): CDeviceAuthGetUsedAuthorizedDevicesResponse_Device {
     const message = createBaseCDeviceAuthGetUsedAuthorizedDevicesResponse_Device();
-    message.authDeviceToken = object.authDeviceToken ?? 0;
+    message.authDeviceToken = object.authDeviceToken ?? "0";
     message.deviceName = object.deviceName ?? "";
-    message.ownerSteamid = object.ownerSteamid ?? 0;
+    message.ownerSteamid = object.ownerSteamid ?? "0";
     message.lastTimeUsed = object.lastTimeUsed ?? 0;
     message.lastAppPlayed = object.lastAppPlayed ?? 0;
     return message;
@@ -994,12 +994,12 @@ export const CDeviceAuthGetUsedAuthorizedDevicesResponse_Device = {
 };
 
 function createBaseCDeviceAuthGetAuthorizedBorrowersRequest(): CDeviceAuthGetAuthorizedBorrowersRequest {
-  return { steamid: 0, includeCanceled: false, includePending: false };
+  return { steamid: "0", includeCanceled: false, includePending: false };
 }
 
 export const CDeviceAuthGetAuthorizedBorrowersRequest = {
   encode(message: CDeviceAuthGetAuthorizedBorrowersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.includeCanceled === true) {
@@ -1019,7 +1019,7 @@ export const CDeviceAuthGetAuthorizedBorrowersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.includeCanceled = reader.bool();
@@ -1037,7 +1037,7 @@ export const CDeviceAuthGetAuthorizedBorrowersRequest = {
 
   fromJSON(object: any): CDeviceAuthGetAuthorizedBorrowersRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       includeCanceled: isSet(object.includeCanceled) ? Boolean(object.includeCanceled) : false,
       includePending: isSet(object.includePending) ? Boolean(object.includePending) : false,
     };
@@ -1045,7 +1045,7 @@ export const CDeviceAuthGetAuthorizedBorrowersRequest = {
 
   toJSON(message: CDeviceAuthGetAuthorizedBorrowersRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.includeCanceled !== undefined && (obj.includeCanceled = message.includeCanceled);
     message.includePending !== undefined && (obj.includePending = message.includePending);
     return obj;
@@ -1061,7 +1061,7 @@ export const CDeviceAuthGetAuthorizedBorrowersRequest = {
     object: I,
   ): CDeviceAuthGetAuthorizedBorrowersRequest {
     const message = createBaseCDeviceAuthGetAuthorizedBorrowersRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.includeCanceled = object.includeCanceled ?? false;
     message.includePending = object.includePending ?? false;
     return message;
@@ -1135,7 +1135,7 @@ export const CDeviceAuthGetAuthorizedBorrowersResponse = {
 };
 
 function createBaseCDeviceAuthGetAuthorizedBorrowersResponse_Borrower(): CDeviceAuthGetAuthorizedBorrowersResponse_Borrower {
-  return { steamid: 0, isPending: false, isCanceled: false, timeCreated: 0 };
+  return { steamid: "0", isPending: false, isCanceled: false, timeCreated: 0 };
 }
 
 export const CDeviceAuthGetAuthorizedBorrowersResponse_Borrower = {
@@ -1143,7 +1143,7 @@ export const CDeviceAuthGetAuthorizedBorrowersResponse_Borrower = {
     message: CDeviceAuthGetAuthorizedBorrowersResponse_Borrower,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.isPending === true) {
@@ -1166,7 +1166,7 @@ export const CDeviceAuthGetAuthorizedBorrowersResponse_Borrower = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.isPending = reader.bool();
@@ -1187,7 +1187,7 @@ export const CDeviceAuthGetAuthorizedBorrowersResponse_Borrower = {
 
   fromJSON(object: any): CDeviceAuthGetAuthorizedBorrowersResponse_Borrower {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       isPending: isSet(object.isPending) ? Boolean(object.isPending) : false,
       isCanceled: isSet(object.isCanceled) ? Boolean(object.isCanceled) : false,
       timeCreated: isSet(object.timeCreated) ? Number(object.timeCreated) : 0,
@@ -1196,7 +1196,7 @@ export const CDeviceAuthGetAuthorizedBorrowersResponse_Borrower = {
 
   toJSON(message: CDeviceAuthGetAuthorizedBorrowersResponse_Borrower): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.isPending !== undefined && (obj.isPending = message.isPending);
     message.isCanceled !== undefined && (obj.isCanceled = message.isCanceled);
     message.timeCreated !== undefined && (obj.timeCreated = Math.round(message.timeCreated));
@@ -1213,7 +1213,7 @@ export const CDeviceAuthGetAuthorizedBorrowersResponse_Borrower = {
     object: I,
   ): CDeviceAuthGetAuthorizedBorrowersResponse_Borrower {
     const message = createBaseCDeviceAuthGetAuthorizedBorrowersResponse_Borrower();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.isPending = object.isPending ?? false;
     message.isCanceled = object.isCanceled ?? false;
     message.timeCreated = object.timeCreated ?? 0;
@@ -1222,12 +1222,12 @@ export const CDeviceAuthGetAuthorizedBorrowersResponse_Borrower = {
 };
 
 function createBaseCDeviceAuthAddAuthorizedBorrowersRequest(): CDeviceAuthAddAuthorizedBorrowersRequest {
-  return { steamid: 0, steamidBorrower: [] };
+  return { steamid: "0", steamidBorrower: [] };
 }
 
 export const CDeviceAuthAddAuthorizedBorrowersRequest = {
   encode(message: CDeviceAuthAddAuthorizedBorrowersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     writer.uint32(18).fork();
@@ -1246,16 +1246,16 @@ export const CDeviceAuthAddAuthorizedBorrowersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidBorrower.push(longToNumber(reader.fixed64() as Long));
+              message.steamidBorrower.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidBorrower.push(longToNumber(reader.fixed64() as Long));
+            message.steamidBorrower.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -1268,16 +1268,16 @@ export const CDeviceAuthAddAuthorizedBorrowersRequest = {
 
   fromJSON(object: any): CDeviceAuthAddAuthorizedBorrowersRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      steamidBorrower: Array.isArray(object?.steamidBorrower) ? object.steamidBorrower.map((e: any) => Number(e)) : [],
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      steamidBorrower: Array.isArray(object?.steamidBorrower) ? object.steamidBorrower.map((e: any) => String(e)) : [],
     };
   },
 
   toJSON(message: CDeviceAuthAddAuthorizedBorrowersRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     if (message.steamidBorrower) {
-      obj.steamidBorrower = message.steamidBorrower.map((e) => Math.round(e));
+      obj.steamidBorrower = message.steamidBorrower.map((e) => e);
     } else {
       obj.steamidBorrower = [];
     }
@@ -1294,7 +1294,7 @@ export const CDeviceAuthAddAuthorizedBorrowersRequest = {
     object: I,
   ): CDeviceAuthAddAuthorizedBorrowersRequest {
     const message = createBaseCDeviceAuthAddAuthorizedBorrowersRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.steamidBorrower = object.steamidBorrower?.map((e) => e) || [];
     return message;
   },
@@ -1356,12 +1356,12 @@ export const CDeviceAuthAddAuthorizedBorrowersResponse = {
 };
 
 function createBaseCDeviceAuthRemoveAuthorizedBorrowersRequest(): CDeviceAuthRemoveAuthorizedBorrowersRequest {
-  return { steamid: 0, steamidBorrower: [] };
+  return { steamid: "0", steamidBorrower: [] };
 }
 
 export const CDeviceAuthRemoveAuthorizedBorrowersRequest = {
   encode(message: CDeviceAuthRemoveAuthorizedBorrowersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     writer.uint32(18).fork();
@@ -1380,16 +1380,16 @@ export const CDeviceAuthRemoveAuthorizedBorrowersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidBorrower.push(longToNumber(reader.fixed64() as Long));
+              message.steamidBorrower.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidBorrower.push(longToNumber(reader.fixed64() as Long));
+            message.steamidBorrower.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -1402,16 +1402,16 @@ export const CDeviceAuthRemoveAuthorizedBorrowersRequest = {
 
   fromJSON(object: any): CDeviceAuthRemoveAuthorizedBorrowersRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      steamidBorrower: Array.isArray(object?.steamidBorrower) ? object.steamidBorrower.map((e: any) => Number(e)) : [],
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      steamidBorrower: Array.isArray(object?.steamidBorrower) ? object.steamidBorrower.map((e: any) => String(e)) : [],
     };
   },
 
   toJSON(message: CDeviceAuthRemoveAuthorizedBorrowersRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     if (message.steamidBorrower) {
-      obj.steamidBorrower = message.steamidBorrower.map((e) => Math.round(e));
+      obj.steamidBorrower = message.steamidBorrower.map((e) => e);
     } else {
       obj.steamidBorrower = [];
     }
@@ -1428,7 +1428,7 @@ export const CDeviceAuthRemoveAuthorizedBorrowersRequest = {
     object: I,
   ): CDeviceAuthRemoveAuthorizedBorrowersRequest {
     const message = createBaseCDeviceAuthRemoveAuthorizedBorrowersRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.steamidBorrower = object.steamidBorrower?.map((e) => e) || [];
     return message;
   },
@@ -1482,12 +1482,12 @@ export const CDeviceAuthRemoveAuthorizedBorrowersResponse = {
 };
 
 function createBaseCDeviceAuthGetAuthorizedAsBorrowerRequest(): CDeviceAuthGetAuthorizedAsBorrowerRequest {
-  return { steamid: 0, includeCanceled: false, includePending: false };
+  return { steamid: "0", includeCanceled: false, includePending: false };
 }
 
 export const CDeviceAuthGetAuthorizedAsBorrowerRequest = {
   encode(message: CDeviceAuthGetAuthorizedAsBorrowerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.includeCanceled === true) {
@@ -1507,7 +1507,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.includeCanceled = reader.bool();
@@ -1525,7 +1525,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerRequest = {
 
   fromJSON(object: any): CDeviceAuthGetAuthorizedAsBorrowerRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       includeCanceled: isSet(object.includeCanceled) ? Boolean(object.includeCanceled) : false,
       includePending: isSet(object.includePending) ? Boolean(object.includePending) : false,
     };
@@ -1533,7 +1533,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerRequest = {
 
   toJSON(message: CDeviceAuthGetAuthorizedAsBorrowerRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.includeCanceled !== undefined && (obj.includeCanceled = message.includeCanceled);
     message.includePending !== undefined && (obj.includePending = message.includePending);
     return obj;
@@ -1549,7 +1549,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerRequest = {
     object: I,
   ): CDeviceAuthGetAuthorizedAsBorrowerRequest {
     const message = createBaseCDeviceAuthGetAuthorizedAsBorrowerRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.includeCanceled = object.includeCanceled ?? false;
     message.includePending = object.includePending ?? false;
     return message;
@@ -1624,7 +1624,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerResponse = {
 
 function createBaseCDeviceAuthGetAuthorizedAsBorrowerResponse_Lender(): CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender {
   return {
-    steamid: 0,
+    steamid: "0",
     timeCreated: 0,
     isPending: false,
     isCanceled: false,
@@ -1639,7 +1639,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender = {
     message: CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.timeCreated !== 0) {
@@ -1671,7 +1671,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timeCreated = reader.uint32();
@@ -1701,7 +1701,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender = {
 
   fromJSON(object: any): CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       timeCreated: isSet(object.timeCreated) ? Number(object.timeCreated) : 0,
       isPending: isSet(object.isPending) ? Boolean(object.isPending) : false,
       isCanceled: isSet(object.isCanceled) ? Boolean(object.isCanceled) : false,
@@ -1713,7 +1713,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender = {
 
   toJSON(message: CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.timeCreated !== undefined && (obj.timeCreated = Math.round(message.timeCreated));
     message.isPending !== undefined && (obj.isPending = message.isPending);
     message.isCanceled !== undefined && (obj.isCanceled = message.isCanceled);
@@ -1733,7 +1733,7 @@ export const CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender = {
     object: I,
   ): CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender {
     const message = createBaseCDeviceAuthGetAuthorizedAsBorrowerResponse_Lender();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.timeCreated = object.timeCreated ?? 0;
     message.isPending = object.isPending ?? false;
     message.isCanceled = object.isCanceled ?? false;
@@ -1745,12 +1745,12 @@ export const CDeviceAuthGetAuthorizedAsBorrowerResponse_Lender = {
 };
 
 function createBaseCDeviceAuthGetExcludedGamesInLibraryRequest(): CDeviceAuthGetExcludedGamesInLibraryRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CDeviceAuthGetExcludedGamesInLibraryRequest = {
   encode(message: CDeviceAuthGetExcludedGamesInLibraryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -1764,7 +1764,7 @@ export const CDeviceAuthGetExcludedGamesInLibraryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1775,12 +1775,12 @@ export const CDeviceAuthGetExcludedGamesInLibraryRequest = {
   },
 
   fromJSON(object: any): CDeviceAuthGetExcludedGamesInLibraryRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CDeviceAuthGetExcludedGamesInLibraryRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1794,7 +1794,7 @@ export const CDeviceAuthGetExcludedGamesInLibraryRequest = {
     object: I,
   ): CDeviceAuthGetExcludedGamesInLibraryRequest {
     const message = createBaseCDeviceAuthGetExcludedGamesInLibraryRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1955,12 +1955,12 @@ export const CDeviceAuthGetExcludedGamesInLibraryResponse_ExcludedGame = {
 };
 
 function createBaseCDeviceAuthGetBorrowerPlayHistoryRequest(): CDeviceAuthGetBorrowerPlayHistoryRequest {
-  return { steamid: 0, appid: 0 };
+  return { steamid: "0", appid: 0 };
 }
 
 export const CDeviceAuthGetBorrowerPlayHistoryRequest = {
   encode(message: CDeviceAuthGetBorrowerPlayHistoryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.appid !== 0) {
@@ -1977,7 +1977,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -1992,14 +1992,14 @@ export const CDeviceAuthGetBorrowerPlayHistoryRequest = {
 
   fromJSON(object: any): CDeviceAuthGetBorrowerPlayHistoryRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
     };
   },
 
   toJSON(message: CDeviceAuthGetBorrowerPlayHistoryRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     return obj;
   },
@@ -2014,7 +2014,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryRequest = {
     object: I,
   ): CDeviceAuthGetBorrowerPlayHistoryRequest {
     const message = createBaseCDeviceAuthGetBorrowerPlayHistoryRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.appid = object.appid ?? 0;
     return message;
   },
@@ -2167,7 +2167,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryResponse_GameHistory = {
 };
 
 function createBaseCDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory(): CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory {
-  return { steamid: 0, gameHistory: [] };
+  return { steamid: "0", gameHistory: [] };
 }
 
 export const CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory = {
@@ -2175,7 +2175,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory = {
     message: CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     for (const v of message.gameHistory) {
@@ -2192,7 +2192,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.gameHistory.push(
@@ -2209,7 +2209,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory = {
 
   fromJSON(object: any): CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       gameHistory: Array.isArray(object?.gameHistory)
         ? object.gameHistory.map((e: any) => CDeviceAuthGetBorrowerPlayHistoryResponse_GameHistory.fromJSON(e))
         : [],
@@ -2218,7 +2218,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory = {
 
   toJSON(message: CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     if (message.gameHistory) {
       obj.gameHistory = message.gameHistory.map((e) =>
         e ? CDeviceAuthGetBorrowerPlayHistoryResponse_GameHistory.toJSON(e) : undefined
@@ -2239,7 +2239,7 @@ export const CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory = {
     object: I,
   ): CDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory {
     const message = createBaseCDeviceAuthGetBorrowerPlayHistoryResponse_LenderHistory();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.gameHistory =
       object.gameHistory?.map((e) => CDeviceAuthGetBorrowerPlayHistoryResponse_GameHistory.fromPartial(e)) || [];
     return message;
@@ -2393,25 +2393,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -2423,11 +2404,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

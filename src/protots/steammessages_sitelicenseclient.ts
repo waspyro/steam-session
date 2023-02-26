@@ -5,7 +5,7 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CMsgClientSiteInfo {
-  siteId: number;
+  siteId: string;
   siteName: string;
   allowCachedCredentials: boolean;
 }
@@ -39,12 +39,12 @@ export interface CMsgClientSiteLicenseGetContentCacheInfoResponse {
 }
 
 function createBaseCMsgClientSiteInfo(): CMsgClientSiteInfo {
-  return { siteId: 0, siteName: "", allowCachedCredentials: false };
+  return { siteId: "0", siteName: "", allowCachedCredentials: false };
 }
 
 export const CMsgClientSiteInfo = {
   encode(message: CMsgClientSiteInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.siteId !== 0) {
+    if (message.siteId !== "0") {
       writer.uint32(8).uint64(message.siteId);
     }
     if (message.siteName !== "") {
@@ -64,7 +64,7 @@ export const CMsgClientSiteInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.siteId = longToNumber(reader.uint64() as Long);
+          message.siteId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.siteName = reader.string();
@@ -82,7 +82,7 @@ export const CMsgClientSiteInfo = {
 
   fromJSON(object: any): CMsgClientSiteInfo {
     return {
-      siteId: isSet(object.siteId) ? Number(object.siteId) : 0,
+      siteId: isSet(object.siteId) ? String(object.siteId) : "0",
       siteName: isSet(object.siteName) ? String(object.siteName) : "",
       allowCachedCredentials: isSet(object.allowCachedCredentials) ? Boolean(object.allowCachedCredentials) : false,
     };
@@ -90,7 +90,7 @@ export const CMsgClientSiteInfo = {
 
   toJSON(message: CMsgClientSiteInfo): unknown {
     const obj: any = {};
-    message.siteId !== undefined && (obj.siteId = Math.round(message.siteId));
+    message.siteId !== undefined && (obj.siteId = message.siteId);
     message.siteName !== undefined && (obj.siteName = message.siteName);
     message.allowCachedCredentials !== undefined && (obj.allowCachedCredentials = message.allowCachedCredentials);
     return obj;
@@ -102,7 +102,7 @@ export const CMsgClientSiteInfo = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientSiteInfo>, I>>(object: I): CMsgClientSiteInfo {
     const message = createBaseCMsgClientSiteInfo();
-    message.siteId = object.siteId ?? 0;
+    message.siteId = object.siteId ?? "0";
     message.siteName = object.siteName ?? "";
     message.allowCachedCredentials = object.allowCachedCredentials ?? false;
     return message;
@@ -484,25 +484,6 @@ export const CMsgClientSiteLicenseGetContentCacheInfoResponse = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -514,11 +495,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

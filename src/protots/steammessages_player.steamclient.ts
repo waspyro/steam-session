@@ -205,7 +205,7 @@ export interface CPlayerGetMutualFriendsForIncomingInvitesRequest {
 }
 
 export interface CPlayerIncomingInviteMutualFriendList {
-  steamid: number;
+  steamid: string;
   mutualFriendAccountIds: number[];
 }
 
@@ -214,7 +214,7 @@ export interface CPlayerGetMutualFriendsForIncomingInvitesResponse {
 }
 
 export interface CPlayerGetOwnedGamesRequest {
-  steamid: number;
+  steamid: string;
   includeAppinfo: boolean;
   includePlayedFreeGames: boolean;
   appidsFilter: number[];
@@ -273,13 +273,13 @@ export interface CPlayerGetFriendsGameplayInfoResponse {
 }
 
 export interface CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo {
-  steamid: number;
+  steamid: string;
   minutesPlayed: number;
   minutesPlayedForever: number;
 }
 
 export interface CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo {
-  steamid: number;
+  steamid: string;
   minutesPlayed: number;
   minutesPlayedForever: number;
   inWishlist: boolean;
@@ -302,12 +302,12 @@ export interface CPlayerGetGameBadgeLevelsResponse_Badge {
 }
 
 export interface CPlayerGetProfileBackgroundRequest {
-  steamid: number;
+  steamid: string;
   language: string;
 }
 
 export interface ProfileItem {
-  communityitemid: number;
+  communityitemid: string;
   imageSmall: string;
   imageLarge: string;
   name: string;
@@ -334,14 +334,14 @@ export interface CPlayerGetProfileBackgroundResponse {
 }
 
 export interface CPlayerSetProfileBackgroundRequest {
-  communityitemid: number;
+  communityitemid: string;
 }
 
 export interface CPlayerSetProfileBackgroundResponse {
 }
 
 export interface CPlayerGetMiniProfileBackgroundRequest {
-  steamid: number;
+  steamid: string;
   language: string;
 }
 
@@ -350,14 +350,14 @@ export interface CPlayerGetMiniProfileBackgroundResponse {
 }
 
 export interface CPlayerSetMiniProfileBackgroundRequest {
-  communityitemid: number;
+  communityitemid: string;
 }
 
 export interface CPlayerSetMiniProfileBackgroundResponse {
 }
 
 export interface CPlayerGetAvatarFrameRequest {
-  steamid: number;
+  steamid: string;
   language: string;
 }
 
@@ -366,14 +366,14 @@ export interface CPlayerGetAvatarFrameResponse {
 }
 
 export interface CPlayerSetAvatarFrameRequest {
-  communityitemid: number;
+  communityitemid: string;
 }
 
 export interface CPlayerSetAvatarFrameResponse {
 }
 
 export interface CPlayerGetAnimatedAvatarRequest {
-  steamid: number;
+  steamid: string;
   language: string;
 }
 
@@ -382,14 +382,14 @@ export interface CPlayerGetAnimatedAvatarResponse {
 }
 
 export interface CPlayerSetAnimatedAvatarRequest {
-  communityitemid: number;
+  communityitemid: string;
 }
 
 export interface CPlayerSetAnimatedAvatarResponse {
 }
 
 export interface CPlayerGetSteamDeckKeyboardSkinRequest {
-  steamid: number;
+  steamid: string;
   language: string;
 }
 
@@ -398,7 +398,7 @@ export interface CPlayerGetSteamDeckKeyboardSkinResponse {
 }
 
 export interface CPlayerSetSteamDeckKeyboardSkinRequest {
-  communityitemid: number;
+  communityitemid: string;
 }
 
 export interface CPlayerSetSteamDeckKeyboardSkinResponse {
@@ -420,7 +420,7 @@ export interface CPlayerGetProfileItemsOwnedResponse {
 }
 
 export interface CPlayerGetProfileItemsEquippedRequest {
-  steamid: number;
+  steamid: string;
   language: string;
 }
 
@@ -434,7 +434,7 @@ export interface CPlayerGetProfileItemsEquippedResponse {
 }
 
 export interface CPlayerSetEquippedProfileItemFlagsRequest {
-  communityitemid: number;
+  communityitemid: string;
   flags: number;
 }
 
@@ -458,7 +458,7 @@ export interface CPlayerGetEmoticonListResponse_Emoticon {
 }
 
 export interface CPlayerGetTopAchievementsForGamesRequest {
-  steamid: number;
+  steamid: string;
   language: string;
   maxAchievements: number;
   appids: number[];
@@ -486,7 +486,7 @@ export interface CPlayerGetTopAchievementsForGamesResponse_Game {
 }
 
 export interface CPlayerGetAchievementsProgressRequest {
-  steamid: number;
+  steamid: string;
   language: string;
   appids: number[];
 }
@@ -524,13 +524,13 @@ export interface CPlayerGetGameAchievementsResponse_Achievement {
 }
 
 export interface CPlayerGetFavoriteBadgeRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CPlayerGetFavoriteBadgeResponse {
   hasFavoriteBadge: boolean;
   badgeid: number;
-  communityitemid: number;
+  communityitemid: string;
   itemType: number;
   borderColor: number;
   appid: number;
@@ -538,7 +538,7 @@ export interface CPlayerGetFavoriteBadgeResponse {
 }
 
 export interface CPlayerSetFavoriteBadgeRequest {
-  communityitemid: number;
+  communityitemid: string;
   badgeid: number;
 }
 
@@ -546,7 +546,7 @@ export interface CPlayerSetFavoriteBadgeResponse {
 }
 
 export interface CPlayerGetProfileCustomizationRequest {
-  steamid: number;
+  steamid: string;
   includeInactiveCustomizations: boolean;
   includePurchasedCustomizations: boolean;
 }
@@ -554,16 +554,16 @@ export interface CPlayerGetProfileCustomizationRequest {
 export interface ProfileCustomizationSlot {
   slot: number;
   appid: number;
-  publishedfileid: number;
-  itemAssetid: number;
-  itemContextid: number;
+  publishedfileid: string;
+  itemAssetid: string;
+  itemContextid: string;
   notes: string;
   title: string;
   accountid: number;
   badgeid: number;
   borderColor: number;
-  itemClassid: number;
-  itemInstanceid: number;
+  itemClassid: string;
+  itemInstanceid: string;
   banCheckResult: EBanContentCheckResult;
   replayYear: number;
 }
@@ -574,7 +574,7 @@ export interface ProfileCustomization {
   slots: ProfileCustomizationSlot[];
   active: boolean;
   customizationStyle: EProfileCustomizationStyle;
-  purchaseid: number;
+  purchaseid: string;
   level: number;
 }
 
@@ -596,13 +596,13 @@ export interface CPlayerGetProfileCustomizationResponse {
 }
 
 export interface CPlayerGetProfileCustomizationResponse_PurchasedCustomization {
-  purchaseid: number;
+  purchaseid: string;
   customizationType: EProfileCustomizationType;
   level: number;
 }
 
 export interface CPlayerGetPurchasedProfileCustomizationsRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CPlayerGetPurchasedProfileCustomizationsResponse {
@@ -610,12 +610,12 @@ export interface CPlayerGetPurchasedProfileCustomizationsResponse {
 }
 
 export interface CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization {
-  purchaseid: number;
+  purchaseid: string;
   customizationType: EProfileCustomizationType;
 }
 
 export interface CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CPlayerGetPurchasedAndUpgradedProfileCustomizationsResponse {
@@ -663,20 +663,20 @@ export interface CPlayerPostStatusToFriendsResponse {
 }
 
 export interface CPlayerGetPostedStatusRequest {
-  steamid: number;
-  postid: number;
+  steamid: string;
+  postid: string;
 }
 
 export interface CPlayerGetPostedStatusResponse {
   accountid: number;
-  postid: number;
+  postid: string;
   statusText: string;
   deleted: boolean;
   appid: number;
 }
 
 export interface CPlayerDeletePostedStatusRequest {
-  postid: number;
+  postid: string;
 }
 
 export interface CPlayerDeletePostedStatusResponse {
@@ -763,7 +763,7 @@ export interface CPlayerSetPerFriendPreferencesResponse {
 }
 
 export interface CPlayerAddFriendRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CPlayerAddFriendResponse {
@@ -773,7 +773,7 @@ export interface CPlayerAddFriendResponse {
 }
 
 export interface CPlayerRemoveFriendRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CPlayerRemoveFriendResponse {
@@ -781,7 +781,7 @@ export interface CPlayerRemoveFriendResponse {
 }
 
 export interface CPlayerIgnoreFriendRequest {
-  steamid: number;
+  steamid: string;
   unignore: boolean;
 }
 
@@ -835,11 +835,11 @@ export interface CPlayerGetNewSteamAnnouncementStateResponse {
   announcementHeadline: string;
   announcementUrl: string;
   timePosted: number;
-  announcementGid: number;
+  announcementGid: string;
 }
 
 export interface CPlayerUpdateSteamAnnouncementLastReadRequest {
-  announcementGid: number;
+  announcementGid: string;
   timePosted: number;
 }
 
@@ -910,7 +910,7 @@ export interface CPlayerNewSteamAnnouncementStateNotification {
   announcementHeadline: string;
   announcementUrl: string;
   timePosted: number;
-  announcementGid: number;
+  announcementGid: string;
 }
 
 export interface CPlayerCommunityPreferencesChangedNotification {
@@ -978,12 +978,12 @@ export const CPlayerGetMutualFriendsForIncomingInvitesRequest = {
 };
 
 function createBaseCPlayerIncomingInviteMutualFriendList(): CPlayerIncomingInviteMutualFriendList {
-  return { steamid: 0, mutualFriendAccountIds: [] };
+  return { steamid: "0", mutualFriendAccountIds: [] };
 }
 
 export const CPlayerIncomingInviteMutualFriendList = {
   encode(message: CPlayerIncomingInviteMutualFriendList, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     writer.uint32(18).fork();
@@ -1002,7 +1002,7 @@ export const CPlayerIncomingInviteMutualFriendList = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           if ((tag & 7) === 2) {
@@ -1024,7 +1024,7 @@ export const CPlayerIncomingInviteMutualFriendList = {
 
   fromJSON(object: any): CPlayerIncomingInviteMutualFriendList {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       mutualFriendAccountIds: Array.isArray(object?.mutualFriendAccountIds)
         ? object.mutualFriendAccountIds.map((e: any) => Number(e))
         : [],
@@ -1033,7 +1033,7 @@ export const CPlayerIncomingInviteMutualFriendList = {
 
   toJSON(message: CPlayerIncomingInviteMutualFriendList): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     if (message.mutualFriendAccountIds) {
       obj.mutualFriendAccountIds = message.mutualFriendAccountIds.map((e) => Math.round(e));
     } else {
@@ -1052,7 +1052,7 @@ export const CPlayerIncomingInviteMutualFriendList = {
     object: I,
   ): CPlayerIncomingInviteMutualFriendList {
     const message = createBaseCPlayerIncomingInviteMutualFriendList();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.mutualFriendAccountIds = object.mutualFriendAccountIds?.map((e) => e) || [];
     return message;
   },
@@ -1131,7 +1131,7 @@ export const CPlayerGetMutualFriendsForIncomingInvitesResponse = {
 
 function createBaseCPlayerGetOwnedGamesRequest(): CPlayerGetOwnedGamesRequest {
   return {
-    steamid: 0,
+    steamid: "0",
     includeAppinfo: false,
     includePlayedFreeGames: false,
     appidsFilter: [],
@@ -1144,7 +1144,7 @@ function createBaseCPlayerGetOwnedGamesRequest(): CPlayerGetOwnedGamesRequest {
 
 export const CPlayerGetOwnedGamesRequest = {
   encode(message: CPlayerGetOwnedGamesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(8).uint64(message.steamid);
     }
     if (message.includeAppinfo === true) {
@@ -1181,7 +1181,7 @@ export const CPlayerGetOwnedGamesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.includeAppinfo = reader.bool();
@@ -1221,7 +1221,7 @@ export const CPlayerGetOwnedGamesRequest = {
 
   fromJSON(object: any): CPlayerGetOwnedGamesRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       includeAppinfo: isSet(object.includeAppinfo) ? Boolean(object.includeAppinfo) : false,
       includePlayedFreeGames: isSet(object.includePlayedFreeGames) ? Boolean(object.includePlayedFreeGames) : false,
       appidsFilter: Array.isArray(object?.appidsFilter) ? object.appidsFilter.map((e: any) => Number(e)) : [],
@@ -1234,7 +1234,7 @@ export const CPlayerGetOwnedGamesRequest = {
 
   toJSON(message: CPlayerGetOwnedGamesRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.includeAppinfo !== undefined && (obj.includeAppinfo = message.includeAppinfo);
     message.includePlayedFreeGames !== undefined && (obj.includePlayedFreeGames = message.includePlayedFreeGames);
     if (message.appidsFilter) {
@@ -1255,7 +1255,7 @@ export const CPlayerGetOwnedGamesRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPlayerGetOwnedGamesRequest>, I>>(object: I): CPlayerGetOwnedGamesRequest {
     const message = createBaseCPlayerGetOwnedGamesRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.includeAppinfo = object.includeAppinfo ?? false;
     message.includePlayedFreeGames = object.includePlayedFreeGames ?? false;
     message.appidsFilter = object.appidsFilter?.map((e) => e) || [];
@@ -1939,7 +1939,7 @@ export const CPlayerGetFriendsGameplayInfoResponse = {
 };
 
 function createBaseCPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo(): CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo {
-  return { steamid: 0, minutesPlayed: 0, minutesPlayedForever: 0 };
+  return { steamid: "0", minutesPlayed: 0, minutesPlayedForever: 0 };
 }
 
 export const CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo = {
@@ -1947,7 +1947,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo = {
     message: CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.minutesPlayed !== 0) {
@@ -1967,7 +1967,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.minutesPlayed = reader.uint32();
@@ -1985,7 +1985,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo = {
 
   fromJSON(object: any): CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       minutesPlayed: isSet(object.minutesPlayed) ? Number(object.minutesPlayed) : 0,
       minutesPlayedForever: isSet(object.minutesPlayedForever) ? Number(object.minutesPlayedForever) : 0,
     };
@@ -1993,7 +1993,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo = {
 
   toJSON(message: CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.minutesPlayed !== undefined && (obj.minutesPlayed = Math.round(message.minutesPlayed));
     message.minutesPlayedForever !== undefined && (obj.minutesPlayedForever = Math.round(message.minutesPlayedForever));
     return obj;
@@ -2009,7 +2009,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo = {
     object: I,
   ): CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo {
     const message = createBaseCPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.minutesPlayed = object.minutesPlayed ?? 0;
     message.minutesPlayedForever = object.minutesPlayedForever ?? 0;
     return message;
@@ -2017,7 +2017,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_FriendsGameplayInfo = {
 };
 
 function createBaseCPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo(): CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo {
-  return { steamid: 0, minutesPlayed: 0, minutesPlayedForever: 0, inWishlist: false, owned: false };
+  return { steamid: "0", minutesPlayed: 0, minutesPlayedForever: 0, inWishlist: false, owned: false };
 }
 
 export const CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo = {
@@ -2025,7 +2025,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo = {
     message: CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.minutesPlayed !== 0) {
@@ -2051,7 +2051,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.minutesPlayed = reader.uint32();
@@ -2075,7 +2075,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo = {
 
   fromJSON(object: any): CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       minutesPlayed: isSet(object.minutesPlayed) ? Number(object.minutesPlayed) : 0,
       minutesPlayedForever: isSet(object.minutesPlayedForever) ? Number(object.minutesPlayedForever) : 0,
       inWishlist: isSet(object.inWishlist) ? Boolean(object.inWishlist) : false,
@@ -2085,7 +2085,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo = {
 
   toJSON(message: CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.minutesPlayed !== undefined && (obj.minutesPlayed = Math.round(message.minutesPlayed));
     message.minutesPlayedForever !== undefined && (obj.minutesPlayedForever = Math.round(message.minutesPlayedForever));
     message.inWishlist !== undefined && (obj.inWishlist = message.inWishlist);
@@ -2103,7 +2103,7 @@ export const CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo = {
     object: I,
   ): CPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo {
     const message = createBaseCPlayerGetFriendsGameplayInfoResponse_OwnGameplayInfo();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.minutesPlayed = object.minutesPlayed ?? 0;
     message.minutesPlayedForever = object.minutesPlayedForever ?? 0;
     message.inWishlist = object.inWishlist ?? false;
@@ -2315,12 +2315,12 @@ export const CPlayerGetGameBadgeLevelsResponse_Badge = {
 };
 
 function createBaseCPlayerGetProfileBackgroundRequest(): CPlayerGetProfileBackgroundRequest {
-  return { steamid: 0, language: "" };
+  return { steamid: "0", language: "" };
 }
 
 export const CPlayerGetProfileBackgroundRequest = {
   encode(message: CPlayerGetProfileBackgroundRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.language !== "") {
@@ -2337,7 +2337,7 @@ export const CPlayerGetProfileBackgroundRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -2352,14 +2352,14 @@ export const CPlayerGetProfileBackgroundRequest = {
 
   fromJSON(object: any): CPlayerGetProfileBackgroundRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
     };
   },
 
   toJSON(message: CPlayerGetProfileBackgroundRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     return obj;
   },
@@ -2374,7 +2374,7 @@ export const CPlayerGetProfileBackgroundRequest = {
     object: I,
   ): CPlayerGetProfileBackgroundRequest {
     const message = createBaseCPlayerGetProfileBackgroundRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     return message;
   },
@@ -2382,7 +2382,7 @@ export const CPlayerGetProfileBackgroundRequest = {
 
 function createBaseProfileItem(): ProfileItem {
   return {
-    communityitemid: 0,
+    communityitemid: "0",
     imageSmall: "",
     imageLarge: "",
     name: "",
@@ -2402,7 +2402,7 @@ function createBaseProfileItem(): ProfileItem {
 
 export const ProfileItem = {
   encode(message: ProfileItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     if (message.imageSmall !== "") {
@@ -2458,7 +2458,7 @@ export const ProfileItem = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.imageSmall = reader.string();
@@ -2512,7 +2512,7 @@ export const ProfileItem = {
 
   fromJSON(object: any): ProfileItem {
     return {
-      communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0,
+      communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0",
       imageSmall: isSet(object.imageSmall) ? String(object.imageSmall) : "",
       imageLarge: isSet(object.imageLarge) ? String(object.imageLarge) : "",
       name: isSet(object.name) ? String(object.name) : "",
@@ -2534,7 +2534,7 @@ export const ProfileItem = {
 
   toJSON(message: ProfileItem): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     message.imageSmall !== undefined && (obj.imageSmall = message.imageSmall);
     message.imageLarge !== undefined && (obj.imageLarge = message.imageLarge);
     message.name !== undefined && (obj.name = message.name);
@@ -2562,7 +2562,7 @@ export const ProfileItem = {
 
   fromPartial<I extends Exact<DeepPartial<ProfileItem>, I>>(object: I): ProfileItem {
     const message = createBaseProfileItem();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     message.imageSmall = object.imageSmall ?? "";
     message.imageLarge = object.imageLarge ?? "";
     message.name = object.name ?? "";
@@ -2704,12 +2704,12 @@ export const CPlayerGetProfileBackgroundResponse = {
 };
 
 function createBaseCPlayerSetProfileBackgroundRequest(): CPlayerSetProfileBackgroundRequest {
-  return { communityitemid: 0 };
+  return { communityitemid: "0" };
 }
 
 export const CPlayerSetProfileBackgroundRequest = {
   encode(message: CPlayerSetProfileBackgroundRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     return writer;
@@ -2723,7 +2723,7 @@ export const CPlayerSetProfileBackgroundRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2734,12 +2734,12 @@ export const CPlayerSetProfileBackgroundRequest = {
   },
 
   fromJSON(object: any): CPlayerSetProfileBackgroundRequest {
-    return { communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0 };
+    return { communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0" };
   },
 
   toJSON(message: CPlayerSetProfileBackgroundRequest): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     return obj;
   },
 
@@ -2753,7 +2753,7 @@ export const CPlayerSetProfileBackgroundRequest = {
     object: I,
   ): CPlayerSetProfileBackgroundRequest {
     const message = createBaseCPlayerSetProfileBackgroundRequest();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     return message;
   },
 };
@@ -2806,12 +2806,12 @@ export const CPlayerSetProfileBackgroundResponse = {
 };
 
 function createBaseCPlayerGetMiniProfileBackgroundRequest(): CPlayerGetMiniProfileBackgroundRequest {
-  return { steamid: 0, language: "" };
+  return { steamid: "0", language: "" };
 }
 
 export const CPlayerGetMiniProfileBackgroundRequest = {
   encode(message: CPlayerGetMiniProfileBackgroundRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.language !== "") {
@@ -2828,7 +2828,7 @@ export const CPlayerGetMiniProfileBackgroundRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -2843,14 +2843,14 @@ export const CPlayerGetMiniProfileBackgroundRequest = {
 
   fromJSON(object: any): CPlayerGetMiniProfileBackgroundRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
     };
   },
 
   toJSON(message: CPlayerGetMiniProfileBackgroundRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     return obj;
   },
@@ -2865,7 +2865,7 @@ export const CPlayerGetMiniProfileBackgroundRequest = {
     object: I,
   ): CPlayerGetMiniProfileBackgroundRequest {
     const message = createBaseCPlayerGetMiniProfileBackgroundRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     return message;
   },
@@ -2932,12 +2932,12 @@ export const CPlayerGetMiniProfileBackgroundResponse = {
 };
 
 function createBaseCPlayerSetMiniProfileBackgroundRequest(): CPlayerSetMiniProfileBackgroundRequest {
-  return { communityitemid: 0 };
+  return { communityitemid: "0" };
 }
 
 export const CPlayerSetMiniProfileBackgroundRequest = {
   encode(message: CPlayerSetMiniProfileBackgroundRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     return writer;
@@ -2951,7 +2951,7 @@ export const CPlayerSetMiniProfileBackgroundRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2962,12 +2962,12 @@ export const CPlayerSetMiniProfileBackgroundRequest = {
   },
 
   fromJSON(object: any): CPlayerSetMiniProfileBackgroundRequest {
-    return { communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0 };
+    return { communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0" };
   },
 
   toJSON(message: CPlayerSetMiniProfileBackgroundRequest): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     return obj;
   },
 
@@ -2981,7 +2981,7 @@ export const CPlayerSetMiniProfileBackgroundRequest = {
     object: I,
   ): CPlayerSetMiniProfileBackgroundRequest {
     const message = createBaseCPlayerSetMiniProfileBackgroundRequest();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     return message;
   },
 };
@@ -3034,12 +3034,12 @@ export const CPlayerSetMiniProfileBackgroundResponse = {
 };
 
 function createBaseCPlayerGetAvatarFrameRequest(): CPlayerGetAvatarFrameRequest {
-  return { steamid: 0, language: "" };
+  return { steamid: "0", language: "" };
 }
 
 export const CPlayerGetAvatarFrameRequest = {
   encode(message: CPlayerGetAvatarFrameRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.language !== "") {
@@ -3056,7 +3056,7 @@ export const CPlayerGetAvatarFrameRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -3071,14 +3071,14 @@ export const CPlayerGetAvatarFrameRequest = {
 
   fromJSON(object: any): CPlayerGetAvatarFrameRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
     };
   },
 
   toJSON(message: CPlayerGetAvatarFrameRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     return obj;
   },
@@ -3089,7 +3089,7 @@ export const CPlayerGetAvatarFrameRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPlayerGetAvatarFrameRequest>, I>>(object: I): CPlayerGetAvatarFrameRequest {
     const message = createBaseCPlayerGetAvatarFrameRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     return message;
   },
@@ -3152,12 +3152,12 @@ export const CPlayerGetAvatarFrameResponse = {
 };
 
 function createBaseCPlayerSetAvatarFrameRequest(): CPlayerSetAvatarFrameRequest {
-  return { communityitemid: 0 };
+  return { communityitemid: "0" };
 }
 
 export const CPlayerSetAvatarFrameRequest = {
   encode(message: CPlayerSetAvatarFrameRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     return writer;
@@ -3171,7 +3171,7 @@ export const CPlayerSetAvatarFrameRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3182,12 +3182,12 @@ export const CPlayerSetAvatarFrameRequest = {
   },
 
   fromJSON(object: any): CPlayerSetAvatarFrameRequest {
-    return { communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0 };
+    return { communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0" };
   },
 
   toJSON(message: CPlayerSetAvatarFrameRequest): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     return obj;
   },
 
@@ -3197,7 +3197,7 @@ export const CPlayerSetAvatarFrameRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPlayerSetAvatarFrameRequest>, I>>(object: I): CPlayerSetAvatarFrameRequest {
     const message = createBaseCPlayerSetAvatarFrameRequest();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     return message;
   },
 };
@@ -3246,12 +3246,12 @@ export const CPlayerSetAvatarFrameResponse = {
 };
 
 function createBaseCPlayerGetAnimatedAvatarRequest(): CPlayerGetAnimatedAvatarRequest {
-  return { steamid: 0, language: "" };
+  return { steamid: "0", language: "" };
 }
 
 export const CPlayerGetAnimatedAvatarRequest = {
   encode(message: CPlayerGetAnimatedAvatarRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.language !== "") {
@@ -3268,7 +3268,7 @@ export const CPlayerGetAnimatedAvatarRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -3283,14 +3283,14 @@ export const CPlayerGetAnimatedAvatarRequest = {
 
   fromJSON(object: any): CPlayerGetAnimatedAvatarRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
     };
   },
 
   toJSON(message: CPlayerGetAnimatedAvatarRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     return obj;
   },
@@ -3303,7 +3303,7 @@ export const CPlayerGetAnimatedAvatarRequest = {
     object: I,
   ): CPlayerGetAnimatedAvatarRequest {
     const message = createBaseCPlayerGetAnimatedAvatarRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     return message;
   },
@@ -3367,12 +3367,12 @@ export const CPlayerGetAnimatedAvatarResponse = {
 };
 
 function createBaseCPlayerSetAnimatedAvatarRequest(): CPlayerSetAnimatedAvatarRequest {
-  return { communityitemid: 0 };
+  return { communityitemid: "0" };
 }
 
 export const CPlayerSetAnimatedAvatarRequest = {
   encode(message: CPlayerSetAnimatedAvatarRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     return writer;
@@ -3386,7 +3386,7 @@ export const CPlayerSetAnimatedAvatarRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3397,12 +3397,12 @@ export const CPlayerSetAnimatedAvatarRequest = {
   },
 
   fromJSON(object: any): CPlayerSetAnimatedAvatarRequest {
-    return { communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0 };
+    return { communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0" };
   },
 
   toJSON(message: CPlayerSetAnimatedAvatarRequest): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     return obj;
   },
 
@@ -3414,7 +3414,7 @@ export const CPlayerSetAnimatedAvatarRequest = {
     object: I,
   ): CPlayerSetAnimatedAvatarRequest {
     const message = createBaseCPlayerSetAnimatedAvatarRequest();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     return message;
   },
 };
@@ -3467,12 +3467,12 @@ export const CPlayerSetAnimatedAvatarResponse = {
 };
 
 function createBaseCPlayerGetSteamDeckKeyboardSkinRequest(): CPlayerGetSteamDeckKeyboardSkinRequest {
-  return { steamid: 0, language: "" };
+  return { steamid: "0", language: "" };
 }
 
 export const CPlayerGetSteamDeckKeyboardSkinRequest = {
   encode(message: CPlayerGetSteamDeckKeyboardSkinRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.language !== "") {
@@ -3489,7 +3489,7 @@ export const CPlayerGetSteamDeckKeyboardSkinRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -3504,14 +3504,14 @@ export const CPlayerGetSteamDeckKeyboardSkinRequest = {
 
   fromJSON(object: any): CPlayerGetSteamDeckKeyboardSkinRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
     };
   },
 
   toJSON(message: CPlayerGetSteamDeckKeyboardSkinRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     return obj;
   },
@@ -3526,7 +3526,7 @@ export const CPlayerGetSteamDeckKeyboardSkinRequest = {
     object: I,
   ): CPlayerGetSteamDeckKeyboardSkinRequest {
     const message = createBaseCPlayerGetSteamDeckKeyboardSkinRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     return message;
   },
@@ -3597,12 +3597,12 @@ export const CPlayerGetSteamDeckKeyboardSkinResponse = {
 };
 
 function createBaseCPlayerSetSteamDeckKeyboardSkinRequest(): CPlayerSetSteamDeckKeyboardSkinRequest {
-  return { communityitemid: 0 };
+  return { communityitemid: "0" };
 }
 
 export const CPlayerSetSteamDeckKeyboardSkinRequest = {
   encode(message: CPlayerSetSteamDeckKeyboardSkinRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     return writer;
@@ -3616,7 +3616,7 @@ export const CPlayerSetSteamDeckKeyboardSkinRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3627,12 +3627,12 @@ export const CPlayerSetSteamDeckKeyboardSkinRequest = {
   },
 
   fromJSON(object: any): CPlayerSetSteamDeckKeyboardSkinRequest {
-    return { communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0 };
+    return { communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0" };
   },
 
   toJSON(message: CPlayerSetSteamDeckKeyboardSkinRequest): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     return obj;
   },
 
@@ -3646,7 +3646,7 @@ export const CPlayerSetSteamDeckKeyboardSkinRequest = {
     object: I,
   ): CPlayerSetSteamDeckKeyboardSkinRequest {
     const message = createBaseCPlayerSetSteamDeckKeyboardSkinRequest();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     return message;
   },
 };
@@ -3939,12 +3939,12 @@ export const CPlayerGetProfileItemsOwnedResponse = {
 };
 
 function createBaseCPlayerGetProfileItemsEquippedRequest(): CPlayerGetProfileItemsEquippedRequest {
-  return { steamid: 0, language: "" };
+  return { steamid: "0", language: "" };
 }
 
 export const CPlayerGetProfileItemsEquippedRequest = {
   encode(message: CPlayerGetProfileItemsEquippedRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.language !== "") {
@@ -3961,7 +3961,7 @@ export const CPlayerGetProfileItemsEquippedRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -3976,14 +3976,14 @@ export const CPlayerGetProfileItemsEquippedRequest = {
 
   fromJSON(object: any): CPlayerGetProfileItemsEquippedRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
     };
   },
 
   toJSON(message: CPlayerGetProfileItemsEquippedRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     return obj;
   },
@@ -3998,7 +3998,7 @@ export const CPlayerGetProfileItemsEquippedRequest = {
     object: I,
   ): CPlayerGetProfileItemsEquippedRequest {
     const message = createBaseCPlayerGetProfileItemsEquippedRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     return message;
   },
@@ -4140,12 +4140,12 @@ export const CPlayerGetProfileItemsEquippedResponse = {
 };
 
 function createBaseCPlayerSetEquippedProfileItemFlagsRequest(): CPlayerSetEquippedProfileItemFlagsRequest {
-  return { communityitemid: 0, flags: 0 };
+  return { communityitemid: "0", flags: 0 };
 }
 
 export const CPlayerSetEquippedProfileItemFlagsRequest = {
   encode(message: CPlayerSetEquippedProfileItemFlagsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     if (message.flags !== 0) {
@@ -4162,7 +4162,7 @@ export const CPlayerSetEquippedProfileItemFlagsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.flags = reader.uint32();
@@ -4177,14 +4177,14 @@ export const CPlayerSetEquippedProfileItemFlagsRequest = {
 
   fromJSON(object: any): CPlayerSetEquippedProfileItemFlagsRequest {
     return {
-      communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0,
+      communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0",
       flags: isSet(object.flags) ? Number(object.flags) : 0,
     };
   },
 
   toJSON(message: CPlayerSetEquippedProfileItemFlagsRequest): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     message.flags !== undefined && (obj.flags = Math.round(message.flags));
     return obj;
   },
@@ -4199,7 +4199,7 @@ export const CPlayerSetEquippedProfileItemFlagsRequest = {
     object: I,
   ): CPlayerSetEquippedProfileItemFlagsRequest {
     const message = createBaseCPlayerSetEquippedProfileItemFlagsRequest();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     message.flags = object.flags ?? 0;
     return message;
   },
@@ -4459,12 +4459,12 @@ export const CPlayerGetEmoticonListResponse_Emoticon = {
 };
 
 function createBaseCPlayerGetTopAchievementsForGamesRequest(): CPlayerGetTopAchievementsForGamesRequest {
-  return { steamid: 0, language: "", maxAchievements: 0, appids: [] };
+  return { steamid: "0", language: "", maxAchievements: 0, appids: [] };
 }
 
 export const CPlayerGetTopAchievementsForGamesRequest = {
   encode(message: CPlayerGetTopAchievementsForGamesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(8).uint64(message.steamid);
     }
     if (message.language !== "") {
@@ -4489,7 +4489,7 @@ export const CPlayerGetTopAchievementsForGamesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -4517,7 +4517,7 @@ export const CPlayerGetTopAchievementsForGamesRequest = {
 
   fromJSON(object: any): CPlayerGetTopAchievementsForGamesRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
       maxAchievements: isSet(object.maxAchievements) ? Number(object.maxAchievements) : 0,
       appids: Array.isArray(object?.appids) ? object.appids.map((e: any) => Number(e)) : [],
@@ -4526,7 +4526,7 @@ export const CPlayerGetTopAchievementsForGamesRequest = {
 
   toJSON(message: CPlayerGetTopAchievementsForGamesRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     message.maxAchievements !== undefined && (obj.maxAchievements = Math.round(message.maxAchievements));
     if (message.appids) {
@@ -4547,7 +4547,7 @@ export const CPlayerGetTopAchievementsForGamesRequest = {
     object: I,
   ): CPlayerGetTopAchievementsForGamesRequest {
     const message = createBaseCPlayerGetTopAchievementsForGamesRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     message.maxAchievements = object.maxAchievements ?? 0;
     message.appids = object.appids?.map((e) => e) || [];
@@ -4831,12 +4831,12 @@ export const CPlayerGetTopAchievementsForGamesResponse_Game = {
 };
 
 function createBaseCPlayerGetAchievementsProgressRequest(): CPlayerGetAchievementsProgressRequest {
-  return { steamid: 0, language: "", appids: [] };
+  return { steamid: "0", language: "", appids: [] };
 }
 
 export const CPlayerGetAchievementsProgressRequest = {
   encode(message: CPlayerGetAchievementsProgressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(8).uint64(message.steamid);
     }
     if (message.language !== "") {
@@ -4858,7 +4858,7 @@ export const CPlayerGetAchievementsProgressRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.language = reader.string();
@@ -4883,7 +4883,7 @@ export const CPlayerGetAchievementsProgressRequest = {
 
   fromJSON(object: any): CPlayerGetAchievementsProgressRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       language: isSet(object.language) ? String(object.language) : "",
       appids: Array.isArray(object?.appids) ? object.appids.map((e: any) => Number(e)) : [],
     };
@@ -4891,7 +4891,7 @@ export const CPlayerGetAchievementsProgressRequest = {
 
   toJSON(message: CPlayerGetAchievementsProgressRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.language !== undefined && (obj.language = message.language);
     if (message.appids) {
       obj.appids = message.appids.map((e) => Math.round(e));
@@ -4911,7 +4911,7 @@ export const CPlayerGetAchievementsProgressRequest = {
     object: I,
   ): CPlayerGetAchievementsProgressRequest {
     const message = createBaseCPlayerGetAchievementsProgressRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.language = object.language ?? "";
     message.appids = object.appids?.map((e) => e) || [];
     return message;
@@ -5350,12 +5350,12 @@ export const CPlayerGetGameAchievementsResponse_Achievement = {
 };
 
 function createBaseCPlayerGetFavoriteBadgeRequest(): CPlayerGetFavoriteBadgeRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CPlayerGetFavoriteBadgeRequest = {
   encode(message: CPlayerGetFavoriteBadgeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(8).uint64(message.steamid);
     }
     return writer;
@@ -5369,7 +5369,7 @@ export const CPlayerGetFavoriteBadgeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5380,12 +5380,12 @@ export const CPlayerGetFavoriteBadgeRequest = {
   },
 
   fromJSON(object: any): CPlayerGetFavoriteBadgeRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CPlayerGetFavoriteBadgeRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -5397,13 +5397,13 @@ export const CPlayerGetFavoriteBadgeRequest = {
     object: I,
   ): CPlayerGetFavoriteBadgeRequest {
     const message = createBaseCPlayerGetFavoriteBadgeRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
 
 function createBaseCPlayerGetFavoriteBadgeResponse(): CPlayerGetFavoriteBadgeResponse {
-  return { hasFavoriteBadge: false, badgeid: 0, communityitemid: 0, itemType: 0, borderColor: 0, appid: 0, level: 0 };
+  return { hasFavoriteBadge: false, badgeid: 0, communityitemid: "0", itemType: 0, borderColor: 0, appid: 0, level: 0 };
 }
 
 export const CPlayerGetFavoriteBadgeResponse = {
@@ -5414,7 +5414,7 @@ export const CPlayerGetFavoriteBadgeResponse = {
     if (message.badgeid !== 0) {
       writer.uint32(16).uint32(message.badgeid);
     }
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(24).uint64(message.communityitemid);
     }
     if (message.itemType !== 0) {
@@ -5446,7 +5446,7 @@ export const CPlayerGetFavoriteBadgeResponse = {
           message.badgeid = reader.uint32();
           break;
         case 3:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.itemType = reader.uint32();
@@ -5472,7 +5472,7 @@ export const CPlayerGetFavoriteBadgeResponse = {
     return {
       hasFavoriteBadge: isSet(object.hasFavoriteBadge) ? Boolean(object.hasFavoriteBadge) : false,
       badgeid: isSet(object.badgeid) ? Number(object.badgeid) : 0,
-      communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0,
+      communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0",
       itemType: isSet(object.itemType) ? Number(object.itemType) : 0,
       borderColor: isSet(object.borderColor) ? Number(object.borderColor) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
@@ -5484,7 +5484,7 @@ export const CPlayerGetFavoriteBadgeResponse = {
     const obj: any = {};
     message.hasFavoriteBadge !== undefined && (obj.hasFavoriteBadge = message.hasFavoriteBadge);
     message.badgeid !== undefined && (obj.badgeid = Math.round(message.badgeid));
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     message.itemType !== undefined && (obj.itemType = Math.round(message.itemType));
     message.borderColor !== undefined && (obj.borderColor = Math.round(message.borderColor));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
@@ -5502,7 +5502,7 @@ export const CPlayerGetFavoriteBadgeResponse = {
     const message = createBaseCPlayerGetFavoriteBadgeResponse();
     message.hasFavoriteBadge = object.hasFavoriteBadge ?? false;
     message.badgeid = object.badgeid ?? 0;
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     message.itemType = object.itemType ?? 0;
     message.borderColor = object.borderColor ?? 0;
     message.appid = object.appid ?? 0;
@@ -5512,12 +5512,12 @@ export const CPlayerGetFavoriteBadgeResponse = {
 };
 
 function createBaseCPlayerSetFavoriteBadgeRequest(): CPlayerSetFavoriteBadgeRequest {
-  return { communityitemid: 0, badgeid: 0 };
+  return { communityitemid: "0", badgeid: 0 };
 }
 
 export const CPlayerSetFavoriteBadgeRequest = {
   encode(message: CPlayerSetFavoriteBadgeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.communityitemid !== 0) {
+    if (message.communityitemid !== "0") {
       writer.uint32(8).uint64(message.communityitemid);
     }
     if (message.badgeid !== 0) {
@@ -5534,7 +5534,7 @@ export const CPlayerSetFavoriteBadgeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.communityitemid = longToNumber(reader.uint64() as Long);
+          message.communityitemid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.badgeid = reader.uint32();
@@ -5549,14 +5549,14 @@ export const CPlayerSetFavoriteBadgeRequest = {
 
   fromJSON(object: any): CPlayerSetFavoriteBadgeRequest {
     return {
-      communityitemid: isSet(object.communityitemid) ? Number(object.communityitemid) : 0,
+      communityitemid: isSet(object.communityitemid) ? String(object.communityitemid) : "0",
       badgeid: isSet(object.badgeid) ? Number(object.badgeid) : 0,
     };
   },
 
   toJSON(message: CPlayerSetFavoriteBadgeRequest): unknown {
     const obj: any = {};
-    message.communityitemid !== undefined && (obj.communityitemid = Math.round(message.communityitemid));
+    message.communityitemid !== undefined && (obj.communityitemid = message.communityitemid);
     message.badgeid !== undefined && (obj.badgeid = Math.round(message.badgeid));
     return obj;
   },
@@ -5569,7 +5569,7 @@ export const CPlayerSetFavoriteBadgeRequest = {
     object: I,
   ): CPlayerSetFavoriteBadgeRequest {
     const message = createBaseCPlayerSetFavoriteBadgeRequest();
-    message.communityitemid = object.communityitemid ?? 0;
+    message.communityitemid = object.communityitemid ?? "0";
     message.badgeid = object.badgeid ?? 0;
     return message;
   },
@@ -5619,12 +5619,12 @@ export const CPlayerSetFavoriteBadgeResponse = {
 };
 
 function createBaseCPlayerGetProfileCustomizationRequest(): CPlayerGetProfileCustomizationRequest {
-  return { steamid: 0, includeInactiveCustomizations: false, includePurchasedCustomizations: false };
+  return { steamid: "0", includeInactiveCustomizations: false, includePurchasedCustomizations: false };
 }
 
 export const CPlayerGetProfileCustomizationRequest = {
   encode(message: CPlayerGetProfileCustomizationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.includeInactiveCustomizations === true) {
@@ -5644,7 +5644,7 @@ export const CPlayerGetProfileCustomizationRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.includeInactiveCustomizations = reader.bool();
@@ -5662,7 +5662,7 @@ export const CPlayerGetProfileCustomizationRequest = {
 
   fromJSON(object: any): CPlayerGetProfileCustomizationRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       includeInactiveCustomizations: isSet(object.includeInactiveCustomizations)
         ? Boolean(object.includeInactiveCustomizations)
         : false,
@@ -5674,7 +5674,7 @@ export const CPlayerGetProfileCustomizationRequest = {
 
   toJSON(message: CPlayerGetProfileCustomizationRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.includeInactiveCustomizations !== undefined &&
       (obj.includeInactiveCustomizations = message.includeInactiveCustomizations);
     message.includePurchasedCustomizations !== undefined &&
@@ -5692,7 +5692,7 @@ export const CPlayerGetProfileCustomizationRequest = {
     object: I,
   ): CPlayerGetProfileCustomizationRequest {
     const message = createBaseCPlayerGetProfileCustomizationRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.includeInactiveCustomizations = object.includeInactiveCustomizations ?? false;
     message.includePurchasedCustomizations = object.includePurchasedCustomizations ?? false;
     return message;
@@ -5703,16 +5703,16 @@ function createBaseProfileCustomizationSlot(): ProfileCustomizationSlot {
   return {
     slot: 0,
     appid: 0,
-    publishedfileid: 0,
-    itemAssetid: 0,
-    itemContextid: 0,
+    publishedfileid: "0",
+    itemAssetid: "0",
+    itemContextid: "0",
     notes: "",
     title: "",
     accountid: 0,
     badgeid: 0,
     borderColor: 0,
-    itemClassid: 0,
-    itemInstanceid: 0,
+    itemClassid: "0",
+    itemInstanceid: "0",
     banCheckResult: 0,
     replayYear: 0,
   };
@@ -5726,13 +5726,13 @@ export const ProfileCustomizationSlot = {
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(24).uint64(message.publishedfileid);
     }
-    if (message.itemAssetid !== 0) {
+    if (message.itemAssetid !== "0") {
       writer.uint32(32).uint64(message.itemAssetid);
     }
-    if (message.itemContextid !== 0) {
+    if (message.itemContextid !== "0") {
       writer.uint32(40).uint64(message.itemContextid);
     }
     if (message.notes !== "") {
@@ -5750,10 +5750,10 @@ export const ProfileCustomizationSlot = {
     if (message.borderColor !== 0) {
       writer.uint32(80).uint32(message.borderColor);
     }
-    if (message.itemClassid !== 0) {
+    if (message.itemClassid !== "0") {
       writer.uint32(88).uint64(message.itemClassid);
     }
-    if (message.itemInstanceid !== 0) {
+    if (message.itemInstanceid !== "0") {
       writer.uint32(96).uint64(message.itemInstanceid);
     }
     if (message.banCheckResult !== 0) {
@@ -5779,13 +5779,13 @@ export const ProfileCustomizationSlot = {
           message.appid = reader.uint32();
           break;
         case 3:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.itemAssetid = longToNumber(reader.uint64() as Long);
+          message.itemAssetid = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.itemContextid = longToNumber(reader.uint64() as Long);
+          message.itemContextid = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.notes = reader.string();
@@ -5803,10 +5803,10 @@ export const ProfileCustomizationSlot = {
           message.borderColor = reader.uint32();
           break;
         case 11:
-          message.itemClassid = longToNumber(reader.uint64() as Long);
+          message.itemClassid = longToString(reader.uint64() as Long);
           break;
         case 12:
-          message.itemInstanceid = longToNumber(reader.uint64() as Long);
+          message.itemInstanceid = longToString(reader.uint64() as Long);
           break;
         case 13:
           message.banCheckResult = reader.int32() as any;
@@ -5826,16 +5826,16 @@ export const ProfileCustomizationSlot = {
     return {
       slot: isSet(object.slot) ? Number(object.slot) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
-      itemAssetid: isSet(object.itemAssetid) ? Number(object.itemAssetid) : 0,
-      itemContextid: isSet(object.itemContextid) ? Number(object.itemContextid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
+      itemAssetid: isSet(object.itemAssetid) ? String(object.itemAssetid) : "0",
+      itemContextid: isSet(object.itemContextid) ? String(object.itemContextid) : "0",
       notes: isSet(object.notes) ? String(object.notes) : "",
       title: isSet(object.title) ? String(object.title) : "",
       accountid: isSet(object.accountid) ? Number(object.accountid) : 0,
       badgeid: isSet(object.badgeid) ? Number(object.badgeid) : 0,
       borderColor: isSet(object.borderColor) ? Number(object.borderColor) : 0,
-      itemClassid: isSet(object.itemClassid) ? Number(object.itemClassid) : 0,
-      itemInstanceid: isSet(object.itemInstanceid) ? Number(object.itemInstanceid) : 0,
+      itemClassid: isSet(object.itemClassid) ? String(object.itemClassid) : "0",
+      itemInstanceid: isSet(object.itemInstanceid) ? String(object.itemInstanceid) : "0",
       banCheckResult: isSet(object.banCheckResult) ? eBanContentCheckResultFromJSON(object.banCheckResult) : 0,
       replayYear: isSet(object.replayYear) ? Number(object.replayYear) : 0,
     };
@@ -5845,16 +5845,16 @@ export const ProfileCustomizationSlot = {
     const obj: any = {};
     message.slot !== undefined && (obj.slot = Math.round(message.slot));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
-    message.itemAssetid !== undefined && (obj.itemAssetid = Math.round(message.itemAssetid));
-    message.itemContextid !== undefined && (obj.itemContextid = Math.round(message.itemContextid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
+    message.itemAssetid !== undefined && (obj.itemAssetid = message.itemAssetid);
+    message.itemContextid !== undefined && (obj.itemContextid = message.itemContextid);
     message.notes !== undefined && (obj.notes = message.notes);
     message.title !== undefined && (obj.title = message.title);
     message.accountid !== undefined && (obj.accountid = Math.round(message.accountid));
     message.badgeid !== undefined && (obj.badgeid = Math.round(message.badgeid));
     message.borderColor !== undefined && (obj.borderColor = Math.round(message.borderColor));
-    message.itemClassid !== undefined && (obj.itemClassid = Math.round(message.itemClassid));
-    message.itemInstanceid !== undefined && (obj.itemInstanceid = Math.round(message.itemInstanceid));
+    message.itemClassid !== undefined && (obj.itemClassid = message.itemClassid);
+    message.itemInstanceid !== undefined && (obj.itemInstanceid = message.itemInstanceid);
     message.banCheckResult !== undefined && (obj.banCheckResult = eBanContentCheckResultToJSON(message.banCheckResult));
     message.replayYear !== undefined && (obj.replayYear = Math.round(message.replayYear));
     return obj;
@@ -5868,16 +5868,16 @@ export const ProfileCustomizationSlot = {
     const message = createBaseProfileCustomizationSlot();
     message.slot = object.slot ?? 0;
     message.appid = object.appid ?? 0;
-    message.publishedfileid = object.publishedfileid ?? 0;
-    message.itemAssetid = object.itemAssetid ?? 0;
-    message.itemContextid = object.itemContextid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
+    message.itemAssetid = object.itemAssetid ?? "0";
+    message.itemContextid = object.itemContextid ?? "0";
     message.notes = object.notes ?? "";
     message.title = object.title ?? "";
     message.accountid = object.accountid ?? 0;
     message.badgeid = object.badgeid ?? 0;
     message.borderColor = object.borderColor ?? 0;
-    message.itemClassid = object.itemClassid ?? 0;
-    message.itemInstanceid = object.itemInstanceid ?? 0;
+    message.itemClassid = object.itemClassid ?? "0";
+    message.itemInstanceid = object.itemInstanceid ?? "0";
     message.banCheckResult = object.banCheckResult ?? 0;
     message.replayYear = object.replayYear ?? 0;
     return message;
@@ -5891,7 +5891,7 @@ function createBaseProfileCustomization(): ProfileCustomization {
     slots: [],
     active: false,
     customizationStyle: 0,
-    purchaseid: 0,
+    purchaseid: "0",
     level: 0,
   };
 }
@@ -5913,7 +5913,7 @@ export const ProfileCustomization = {
     if (message.customizationStyle !== 0) {
       writer.uint32(40).int32(message.customizationStyle);
     }
-    if (message.purchaseid !== 0) {
+    if (message.purchaseid !== "0") {
       writer.uint32(48).uint64(message.purchaseid);
     }
     if (message.level !== 0) {
@@ -5945,7 +5945,7 @@ export const ProfileCustomization = {
           message.customizationStyle = reader.int32() as any;
           break;
         case 6:
-          message.purchaseid = longToNumber(reader.uint64() as Long);
+          message.purchaseid = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.level = reader.uint32();
@@ -5969,7 +5969,7 @@ export const ProfileCustomization = {
       customizationStyle: isSet(object.customizationStyle)
         ? eProfileCustomizationStyleFromJSON(object.customizationStyle)
         : 0,
-      purchaseid: isSet(object.purchaseid) ? Number(object.purchaseid) : 0,
+      purchaseid: isSet(object.purchaseid) ? String(object.purchaseid) : "0",
       level: isSet(object.level) ? Number(object.level) : 0,
     };
   },
@@ -5987,7 +5987,7 @@ export const ProfileCustomization = {
     message.active !== undefined && (obj.active = message.active);
     message.customizationStyle !== undefined &&
       (obj.customizationStyle = eProfileCustomizationStyleToJSON(message.customizationStyle));
-    message.purchaseid !== undefined && (obj.purchaseid = Math.round(message.purchaseid));
+    message.purchaseid !== undefined && (obj.purchaseid = message.purchaseid);
     message.level !== undefined && (obj.level = Math.round(message.level));
     return obj;
   },
@@ -6003,7 +6003,7 @@ export const ProfileCustomization = {
     message.slots = object.slots?.map((e) => ProfileCustomizationSlot.fromPartial(e)) || [];
     message.active = object.active ?? false;
     message.customizationStyle = object.customizationStyle ?? 0;
-    message.purchaseid = object.purchaseid ?? 0;
+    message.purchaseid = object.purchaseid ?? "0";
     message.level = object.level ?? 0;
     return message;
   },
@@ -6252,7 +6252,7 @@ export const CPlayerGetProfileCustomizationResponse = {
 };
 
 function createBaseCPlayerGetProfileCustomizationResponse_PurchasedCustomization(): CPlayerGetProfileCustomizationResponse_PurchasedCustomization {
-  return { purchaseid: 0, customizationType: 0, level: 0 };
+  return { purchaseid: "0", customizationType: 0, level: 0 };
 }
 
 export const CPlayerGetProfileCustomizationResponse_PurchasedCustomization = {
@@ -6260,7 +6260,7 @@ export const CPlayerGetProfileCustomizationResponse_PurchasedCustomization = {
     message: CPlayerGetProfileCustomizationResponse_PurchasedCustomization,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.purchaseid !== 0) {
+    if (message.purchaseid !== "0") {
       writer.uint32(8).uint64(message.purchaseid);
     }
     if (message.customizationType !== 0) {
@@ -6283,7 +6283,7 @@ export const CPlayerGetProfileCustomizationResponse_PurchasedCustomization = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.purchaseid = longToNumber(reader.uint64() as Long);
+          message.purchaseid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.customizationType = reader.int32() as any;
@@ -6301,7 +6301,7 @@ export const CPlayerGetProfileCustomizationResponse_PurchasedCustomization = {
 
   fromJSON(object: any): CPlayerGetProfileCustomizationResponse_PurchasedCustomization {
     return {
-      purchaseid: isSet(object.purchaseid) ? Number(object.purchaseid) : 0,
+      purchaseid: isSet(object.purchaseid) ? String(object.purchaseid) : "0",
       customizationType: isSet(object.customizationType)
         ? eProfileCustomizationTypeFromJSON(object.customizationType)
         : 0,
@@ -6311,7 +6311,7 @@ export const CPlayerGetProfileCustomizationResponse_PurchasedCustomization = {
 
   toJSON(message: CPlayerGetProfileCustomizationResponse_PurchasedCustomization): unknown {
     const obj: any = {};
-    message.purchaseid !== undefined && (obj.purchaseid = Math.round(message.purchaseid));
+    message.purchaseid !== undefined && (obj.purchaseid = message.purchaseid);
     message.customizationType !== undefined &&
       (obj.customizationType = eProfileCustomizationTypeToJSON(message.customizationType));
     message.level !== undefined && (obj.level = Math.round(message.level));
@@ -6328,7 +6328,7 @@ export const CPlayerGetProfileCustomizationResponse_PurchasedCustomization = {
     object: I,
   ): CPlayerGetProfileCustomizationResponse_PurchasedCustomization {
     const message = createBaseCPlayerGetProfileCustomizationResponse_PurchasedCustomization();
-    message.purchaseid = object.purchaseid ?? 0;
+    message.purchaseid = object.purchaseid ?? "0";
     message.customizationType = object.customizationType ?? 0;
     message.level = object.level ?? 0;
     return message;
@@ -6336,7 +6336,7 @@ export const CPlayerGetProfileCustomizationResponse_PurchasedCustomization = {
 };
 
 function createBaseCPlayerGetPurchasedProfileCustomizationsRequest(): CPlayerGetPurchasedProfileCustomizationsRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CPlayerGetPurchasedProfileCustomizationsRequest = {
@@ -6344,7 +6344,7 @@ export const CPlayerGetPurchasedProfileCustomizationsRequest = {
     message: CPlayerGetPurchasedProfileCustomizationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -6358,7 +6358,7 @@ export const CPlayerGetPurchasedProfileCustomizationsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6369,12 +6369,12 @@ export const CPlayerGetPurchasedProfileCustomizationsRequest = {
   },
 
   fromJSON(object: any): CPlayerGetPurchasedProfileCustomizationsRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CPlayerGetPurchasedProfileCustomizationsRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -6388,7 +6388,7 @@ export const CPlayerGetPurchasedProfileCustomizationsRequest = {
     object: I,
   ): CPlayerGetPurchasedProfileCustomizationsRequest {
     const message = createBaseCPlayerGetPurchasedProfileCustomizationsRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -6470,7 +6470,7 @@ export const CPlayerGetPurchasedProfileCustomizationsResponse = {
 };
 
 function createBaseCPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization(): CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization {
-  return { purchaseid: 0, customizationType: 0 };
+  return { purchaseid: "0", customizationType: 0 };
 }
 
 export const CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization = {
@@ -6478,7 +6478,7 @@ export const CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomiza
     message: CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.purchaseid !== 0) {
+    if (message.purchaseid !== "0") {
       writer.uint32(8).uint64(message.purchaseid);
     }
     if (message.customizationType !== 0) {
@@ -6498,7 +6498,7 @@ export const CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomiza
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.purchaseid = longToNumber(reader.uint64() as Long);
+          message.purchaseid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.customizationType = reader.int32() as any;
@@ -6513,7 +6513,7 @@ export const CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomiza
 
   fromJSON(object: any): CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization {
     return {
-      purchaseid: isSet(object.purchaseid) ? Number(object.purchaseid) : 0,
+      purchaseid: isSet(object.purchaseid) ? String(object.purchaseid) : "0",
       customizationType: isSet(object.customizationType)
         ? eProfileCustomizationTypeFromJSON(object.customizationType)
         : 0,
@@ -6522,7 +6522,7 @@ export const CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomiza
 
   toJSON(message: CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization): unknown {
     const obj: any = {};
-    message.purchaseid !== undefined && (obj.purchaseid = Math.round(message.purchaseid));
+    message.purchaseid !== undefined && (obj.purchaseid = message.purchaseid);
     message.customizationType !== undefined &&
       (obj.customizationType = eProfileCustomizationTypeToJSON(message.customizationType));
     return obj;
@@ -6538,14 +6538,14 @@ export const CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomiza
     object: I,
   ): CPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization {
     const message = createBaseCPlayerGetPurchasedProfileCustomizationsResponse_PurchasedCustomization();
-    message.purchaseid = object.purchaseid ?? 0;
+    message.purchaseid = object.purchaseid ?? "0";
     message.customizationType = object.customizationType ?? 0;
     return message;
   },
 };
 
 function createBaseCPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest(): CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest = {
@@ -6553,7 +6553,7 @@ export const CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest = {
     message: CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -6567,7 +6567,7 @@ export const CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6578,12 +6578,12 @@ export const CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest = {
   },
 
   fromJSON(object: any): CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -6597,7 +6597,7 @@ export const CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest = {
     object: I,
   ): CPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest {
     const message = createBaseCPlayerGetPurchasedAndUpgradedProfileCustomizationsRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -7293,15 +7293,15 @@ export const CPlayerPostStatusToFriendsResponse = {
 };
 
 function createBaseCPlayerGetPostedStatusRequest(): CPlayerGetPostedStatusRequest {
-  return { steamid: 0, postid: 0 };
+  return { steamid: "0", postid: "0" };
 }
 
 export const CPlayerGetPostedStatusRequest = {
   encode(message: CPlayerGetPostedStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(8).uint64(message.steamid);
     }
-    if (message.postid !== 0) {
+    if (message.postid !== "0") {
       writer.uint32(16).uint64(message.postid);
     }
     return writer;
@@ -7315,10 +7315,10 @@ export const CPlayerGetPostedStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.postid = longToNumber(reader.uint64() as Long);
+          message.postid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7330,15 +7330,15 @@ export const CPlayerGetPostedStatusRequest = {
 
   fromJSON(object: any): CPlayerGetPostedStatusRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      postid: isSet(object.postid) ? Number(object.postid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      postid: isSet(object.postid) ? String(object.postid) : "0",
     };
   },
 
   toJSON(message: CPlayerGetPostedStatusRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.postid !== undefined && (obj.postid = Math.round(message.postid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.postid !== undefined && (obj.postid = message.postid);
     return obj;
   },
 
@@ -7350,14 +7350,14 @@ export const CPlayerGetPostedStatusRequest = {
     object: I,
   ): CPlayerGetPostedStatusRequest {
     const message = createBaseCPlayerGetPostedStatusRequest();
-    message.steamid = object.steamid ?? 0;
-    message.postid = object.postid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.postid = object.postid ?? "0";
     return message;
   },
 };
 
 function createBaseCPlayerGetPostedStatusResponse(): CPlayerGetPostedStatusResponse {
-  return { accountid: 0, postid: 0, statusText: "", deleted: false, appid: 0 };
+  return { accountid: 0, postid: "0", statusText: "", deleted: false, appid: 0 };
 }
 
 export const CPlayerGetPostedStatusResponse = {
@@ -7365,7 +7365,7 @@ export const CPlayerGetPostedStatusResponse = {
     if (message.accountid !== 0) {
       writer.uint32(8).uint32(message.accountid);
     }
-    if (message.postid !== 0) {
+    if (message.postid !== "0") {
       writer.uint32(16).uint64(message.postid);
     }
     if (message.statusText !== "") {
@@ -7391,7 +7391,7 @@ export const CPlayerGetPostedStatusResponse = {
           message.accountid = reader.uint32();
           break;
         case 2:
-          message.postid = longToNumber(reader.uint64() as Long);
+          message.postid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.statusText = reader.string();
@@ -7413,7 +7413,7 @@ export const CPlayerGetPostedStatusResponse = {
   fromJSON(object: any): CPlayerGetPostedStatusResponse {
     return {
       accountid: isSet(object.accountid) ? Number(object.accountid) : 0,
-      postid: isSet(object.postid) ? Number(object.postid) : 0,
+      postid: isSet(object.postid) ? String(object.postid) : "0",
       statusText: isSet(object.statusText) ? String(object.statusText) : "",
       deleted: isSet(object.deleted) ? Boolean(object.deleted) : false,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
@@ -7423,7 +7423,7 @@ export const CPlayerGetPostedStatusResponse = {
   toJSON(message: CPlayerGetPostedStatusResponse): unknown {
     const obj: any = {};
     message.accountid !== undefined && (obj.accountid = Math.round(message.accountid));
-    message.postid !== undefined && (obj.postid = Math.round(message.postid));
+    message.postid !== undefined && (obj.postid = message.postid);
     message.statusText !== undefined && (obj.statusText = message.statusText);
     message.deleted !== undefined && (obj.deleted = message.deleted);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
@@ -7439,7 +7439,7 @@ export const CPlayerGetPostedStatusResponse = {
   ): CPlayerGetPostedStatusResponse {
     const message = createBaseCPlayerGetPostedStatusResponse();
     message.accountid = object.accountid ?? 0;
-    message.postid = object.postid ?? 0;
+    message.postid = object.postid ?? "0";
     message.statusText = object.statusText ?? "";
     message.deleted = object.deleted ?? false;
     message.appid = object.appid ?? 0;
@@ -7448,12 +7448,12 @@ export const CPlayerGetPostedStatusResponse = {
 };
 
 function createBaseCPlayerDeletePostedStatusRequest(): CPlayerDeletePostedStatusRequest {
-  return { postid: 0 };
+  return { postid: "0" };
 }
 
 export const CPlayerDeletePostedStatusRequest = {
   encode(message: CPlayerDeletePostedStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.postid !== 0) {
+    if (message.postid !== "0") {
       writer.uint32(8).uint64(message.postid);
     }
     return writer;
@@ -7467,7 +7467,7 @@ export const CPlayerDeletePostedStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.postid = longToNumber(reader.uint64() as Long);
+          message.postid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7478,12 +7478,12 @@ export const CPlayerDeletePostedStatusRequest = {
   },
 
   fromJSON(object: any): CPlayerDeletePostedStatusRequest {
-    return { postid: isSet(object.postid) ? Number(object.postid) : 0 };
+    return { postid: isSet(object.postid) ? String(object.postid) : "0" };
   },
 
   toJSON(message: CPlayerDeletePostedStatusRequest): unknown {
     const obj: any = {};
-    message.postid !== undefined && (obj.postid = Math.round(message.postid));
+    message.postid !== undefined && (obj.postid = message.postid);
     return obj;
   },
 
@@ -7497,7 +7497,7 @@ export const CPlayerDeletePostedStatusRequest = {
     object: I,
   ): CPlayerDeletePostedStatusRequest {
     const message = createBaseCPlayerDeletePostedStatusRequest();
-    message.postid = object.postid ?? 0;
+    message.postid = object.postid ?? "0";
     return message;
   },
 };
@@ -8625,12 +8625,12 @@ export const CPlayerSetPerFriendPreferencesResponse = {
 };
 
 function createBaseCPlayerAddFriendRequest(): CPlayerAddFriendRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CPlayerAddFriendRequest = {
   encode(message: CPlayerAddFriendRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -8644,7 +8644,7 @@ export const CPlayerAddFriendRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8655,12 +8655,12 @@ export const CPlayerAddFriendRequest = {
   },
 
   fromJSON(object: any): CPlayerAddFriendRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CPlayerAddFriendRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -8670,7 +8670,7 @@ export const CPlayerAddFriendRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPlayerAddFriendRequest>, I>>(object: I): CPlayerAddFriendRequest {
     const message = createBaseCPlayerAddFriendRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -8747,12 +8747,12 @@ export const CPlayerAddFriendResponse = {
 };
 
 function createBaseCPlayerRemoveFriendRequest(): CPlayerRemoveFriendRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CPlayerRemoveFriendRequest = {
   encode(message: CPlayerRemoveFriendRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -8766,7 +8766,7 @@ export const CPlayerRemoveFriendRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8777,12 +8777,12 @@ export const CPlayerRemoveFriendRequest = {
   },
 
   fromJSON(object: any): CPlayerRemoveFriendRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CPlayerRemoveFriendRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -8792,7 +8792,7 @@ export const CPlayerRemoveFriendRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPlayerRemoveFriendRequest>, I>>(object: I): CPlayerRemoveFriendRequest {
     const message = createBaseCPlayerRemoveFriendRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -8849,12 +8849,12 @@ export const CPlayerRemoveFriendResponse = {
 };
 
 function createBaseCPlayerIgnoreFriendRequest(): CPlayerIgnoreFriendRequest {
-  return { steamid: 0, unignore: false };
+  return { steamid: "0", unignore: false };
 }
 
 export const CPlayerIgnoreFriendRequest = {
   encode(message: CPlayerIgnoreFriendRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.unignore === true) {
@@ -8871,7 +8871,7 @@ export const CPlayerIgnoreFriendRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.unignore = reader.bool();
@@ -8886,14 +8886,14 @@ export const CPlayerIgnoreFriendRequest = {
 
   fromJSON(object: any): CPlayerIgnoreFriendRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       unignore: isSet(object.unignore) ? Boolean(object.unignore) : false,
     };
   },
 
   toJSON(message: CPlayerIgnoreFriendRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.unignore !== undefined && (obj.unignore = message.unignore);
     return obj;
   },
@@ -8904,7 +8904,7 @@ export const CPlayerIgnoreFriendRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPlayerIgnoreFriendRequest>, I>>(object: I): CPlayerIgnoreFriendRequest {
     const message = createBaseCPlayerIgnoreFriendRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.unignore = object.unignore ?? false;
     return message;
   },
@@ -9539,7 +9539,7 @@ export const CPlayerGetNewSteamAnnouncementStateRequest = {
 };
 
 function createBaseCPlayerGetNewSteamAnnouncementStateResponse(): CPlayerGetNewSteamAnnouncementStateResponse {
-  return { state: 0, announcementHeadline: "", announcementUrl: "", timePosted: 0, announcementGid: 0 };
+  return { state: 0, announcementHeadline: "", announcementUrl: "", timePosted: 0, announcementGid: "0" };
 }
 
 export const CPlayerGetNewSteamAnnouncementStateResponse = {
@@ -9556,7 +9556,7 @@ export const CPlayerGetNewSteamAnnouncementStateResponse = {
     if (message.timePosted !== 0) {
       writer.uint32(32).uint32(message.timePosted);
     }
-    if (message.announcementGid !== 0) {
+    if (message.announcementGid !== "0") {
       writer.uint32(40).uint64(message.announcementGid);
     }
     return writer;
@@ -9582,7 +9582,7 @@ export const CPlayerGetNewSteamAnnouncementStateResponse = {
           message.timePosted = reader.uint32();
           break;
         case 5:
-          message.announcementGid = longToNumber(reader.uint64() as Long);
+          message.announcementGid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -9598,7 +9598,7 @@ export const CPlayerGetNewSteamAnnouncementStateResponse = {
       announcementHeadline: isSet(object.announcementHeadline) ? String(object.announcementHeadline) : "",
       announcementUrl: isSet(object.announcementUrl) ? String(object.announcementUrl) : "",
       timePosted: isSet(object.timePosted) ? Number(object.timePosted) : 0,
-      announcementGid: isSet(object.announcementGid) ? Number(object.announcementGid) : 0,
+      announcementGid: isSet(object.announcementGid) ? String(object.announcementGid) : "0",
     };
   },
 
@@ -9608,7 +9608,7 @@ export const CPlayerGetNewSteamAnnouncementStateResponse = {
     message.announcementHeadline !== undefined && (obj.announcementHeadline = message.announcementHeadline);
     message.announcementUrl !== undefined && (obj.announcementUrl = message.announcementUrl);
     message.timePosted !== undefined && (obj.timePosted = Math.round(message.timePosted));
-    message.announcementGid !== undefined && (obj.announcementGid = Math.round(message.announcementGid));
+    message.announcementGid !== undefined && (obj.announcementGid = message.announcementGid);
     return obj;
   },
 
@@ -9626,18 +9626,18 @@ export const CPlayerGetNewSteamAnnouncementStateResponse = {
     message.announcementHeadline = object.announcementHeadline ?? "";
     message.announcementUrl = object.announcementUrl ?? "";
     message.timePosted = object.timePosted ?? 0;
-    message.announcementGid = object.announcementGid ?? 0;
+    message.announcementGid = object.announcementGid ?? "0";
     return message;
   },
 };
 
 function createBaseCPlayerUpdateSteamAnnouncementLastReadRequest(): CPlayerUpdateSteamAnnouncementLastReadRequest {
-  return { announcementGid: 0, timePosted: 0 };
+  return { announcementGid: "0", timePosted: 0 };
 }
 
 export const CPlayerUpdateSteamAnnouncementLastReadRequest = {
   encode(message: CPlayerUpdateSteamAnnouncementLastReadRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.announcementGid !== 0) {
+    if (message.announcementGid !== "0") {
       writer.uint32(8).uint64(message.announcementGid);
     }
     if (message.timePosted !== 0) {
@@ -9654,7 +9654,7 @@ export const CPlayerUpdateSteamAnnouncementLastReadRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.announcementGid = longToNumber(reader.uint64() as Long);
+          message.announcementGid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.timePosted = reader.uint32();
@@ -9669,14 +9669,14 @@ export const CPlayerUpdateSteamAnnouncementLastReadRequest = {
 
   fromJSON(object: any): CPlayerUpdateSteamAnnouncementLastReadRequest {
     return {
-      announcementGid: isSet(object.announcementGid) ? Number(object.announcementGid) : 0,
+      announcementGid: isSet(object.announcementGid) ? String(object.announcementGid) : "0",
       timePosted: isSet(object.timePosted) ? Number(object.timePosted) : 0,
     };
   },
 
   toJSON(message: CPlayerUpdateSteamAnnouncementLastReadRequest): unknown {
     const obj: any = {};
-    message.announcementGid !== undefined && (obj.announcementGid = Math.round(message.announcementGid));
+    message.announcementGid !== undefined && (obj.announcementGid = message.announcementGid);
     message.timePosted !== undefined && (obj.timePosted = Math.round(message.timePosted));
     return obj;
   },
@@ -9691,7 +9691,7 @@ export const CPlayerUpdateSteamAnnouncementLastReadRequest = {
     object: I,
   ): CPlayerUpdateSteamAnnouncementLastReadRequest {
     const message = createBaseCPlayerUpdateSteamAnnouncementLastReadRequest();
-    message.announcementGid = object.announcementGid ?? 0;
+    message.announcementGid = object.announcementGid ?? "0";
     message.timePosted = object.timePosted ?? 0;
     return message;
   },
@@ -10542,7 +10542,7 @@ export const CPlayerFriendEquippedProfileItemsChangedNotification = {
 };
 
 function createBaseCPlayerNewSteamAnnouncementStateNotification(): CPlayerNewSteamAnnouncementStateNotification {
-  return { state: 0, announcementHeadline: "", announcementUrl: "", timePosted: 0, announcementGid: 0 };
+  return { state: 0, announcementHeadline: "", announcementUrl: "", timePosted: 0, announcementGid: "0" };
 }
 
 export const CPlayerNewSteamAnnouncementStateNotification = {
@@ -10559,7 +10559,7 @@ export const CPlayerNewSteamAnnouncementStateNotification = {
     if (message.timePosted !== 0) {
       writer.uint32(32).uint32(message.timePosted);
     }
-    if (message.announcementGid !== 0) {
+    if (message.announcementGid !== "0") {
       writer.uint32(40).uint64(message.announcementGid);
     }
     return writer;
@@ -10585,7 +10585,7 @@ export const CPlayerNewSteamAnnouncementStateNotification = {
           message.timePosted = reader.uint32();
           break;
         case 5:
-          message.announcementGid = longToNumber(reader.uint64() as Long);
+          message.announcementGid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -10601,7 +10601,7 @@ export const CPlayerNewSteamAnnouncementStateNotification = {
       announcementHeadline: isSet(object.announcementHeadline) ? String(object.announcementHeadline) : "",
       announcementUrl: isSet(object.announcementUrl) ? String(object.announcementUrl) : "",
       timePosted: isSet(object.timePosted) ? Number(object.timePosted) : 0,
-      announcementGid: isSet(object.announcementGid) ? Number(object.announcementGid) : 0,
+      announcementGid: isSet(object.announcementGid) ? String(object.announcementGid) : "0",
     };
   },
 
@@ -10611,7 +10611,7 @@ export const CPlayerNewSteamAnnouncementStateNotification = {
     message.announcementHeadline !== undefined && (obj.announcementHeadline = message.announcementHeadline);
     message.announcementUrl !== undefined && (obj.announcementUrl = message.announcementUrl);
     message.timePosted !== undefined && (obj.timePosted = Math.round(message.timePosted));
-    message.announcementGid !== undefined && (obj.announcementGid = Math.round(message.announcementGid));
+    message.announcementGid !== undefined && (obj.announcementGid = message.announcementGid);
     return obj;
   },
 
@@ -10629,7 +10629,7 @@ export const CPlayerNewSteamAnnouncementStateNotification = {
     message.announcementHeadline = object.announcementHeadline ?? "";
     message.announcementUrl = object.announcementUrl ?? "";
     message.timePosted = object.timePosted ?? 0;
-    message.announcementGid = object.announcementGid ?? 0;
+    message.announcementGid = object.announcementGid ?? "0";
     return message;
   },
 };
@@ -11465,25 +11465,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -11495,11 +11476,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

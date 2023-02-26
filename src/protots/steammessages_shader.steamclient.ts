@@ -40,9 +40,9 @@ export interface CShaderGetBucketManifestRequest {
 }
 
 export interface CShaderGetBucketManifestResponse {
-  manifestid: number;
-  depotsize: number;
-  bucketid: number;
+  manifestid: string;
+  depotsize: string;
+  bucketid: string;
 }
 
 export interface CShaderGetStaleBucketRequest {
@@ -51,9 +51,9 @@ export interface CShaderGetStaleBucketRequest {
 }
 
 export interface CShaderGetStaleBucketResponse {
-  bucketid: number;
+  bucketid: string;
   appid: number;
-  manifestid: number;
+  manifestid: string;
   gpuDesc: string;
   driverDesc: string;
   depotEncryptionKey: Buffer;
@@ -63,10 +63,10 @@ export interface CShaderReportExternalBuildRequest {
   appid: number;
   gpuDesc: string;
   driverDesc: string;
-  manifestid: number;
+  manifestid: string;
   sourceGpuDesc: string;
   sourceDriverDesc: string;
-  depotsize: number;
+  depotsize: string;
 }
 
 export interface CShaderReportExternalBuildResponse {
@@ -553,18 +553,18 @@ export const CShaderGetBucketManifestRequest = {
 };
 
 function createBaseCShaderGetBucketManifestResponse(): CShaderGetBucketManifestResponse {
-  return { manifestid: 0, depotsize: 0, bucketid: 0 };
+  return { manifestid: "0", depotsize: "0", bucketid: "0" };
 }
 
 export const CShaderGetBucketManifestResponse = {
   encode(message: CShaderGetBucketManifestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.manifestid !== 0) {
+    if (message.manifestid !== "0") {
       writer.uint32(8).uint64(message.manifestid);
     }
-    if (message.depotsize !== 0) {
+    if (message.depotsize !== "0") {
       writer.uint32(16).uint64(message.depotsize);
     }
-    if (message.bucketid !== 0) {
+    if (message.bucketid !== "0") {
       writer.uint32(24).uint64(message.bucketid);
     }
     return writer;
@@ -578,13 +578,13 @@ export const CShaderGetBucketManifestResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.manifestid = longToNumber(reader.uint64() as Long);
+          message.manifestid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.depotsize = longToNumber(reader.uint64() as Long);
+          message.depotsize = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.bucketid = longToNumber(reader.uint64() as Long);
+          message.bucketid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -596,17 +596,17 @@ export const CShaderGetBucketManifestResponse = {
 
   fromJSON(object: any): CShaderGetBucketManifestResponse {
     return {
-      manifestid: isSet(object.manifestid) ? Number(object.manifestid) : 0,
-      depotsize: isSet(object.depotsize) ? Number(object.depotsize) : 0,
-      bucketid: isSet(object.bucketid) ? Number(object.bucketid) : 0,
+      manifestid: isSet(object.manifestid) ? String(object.manifestid) : "0",
+      depotsize: isSet(object.depotsize) ? String(object.depotsize) : "0",
+      bucketid: isSet(object.bucketid) ? String(object.bucketid) : "0",
     };
   },
 
   toJSON(message: CShaderGetBucketManifestResponse): unknown {
     const obj: any = {};
-    message.manifestid !== undefined && (obj.manifestid = Math.round(message.manifestid));
-    message.depotsize !== undefined && (obj.depotsize = Math.round(message.depotsize));
-    message.bucketid !== undefined && (obj.bucketid = Math.round(message.bucketid));
+    message.manifestid !== undefined && (obj.manifestid = message.manifestid);
+    message.depotsize !== undefined && (obj.depotsize = message.depotsize);
+    message.bucketid !== undefined && (obj.bucketid = message.bucketid);
     return obj;
   },
 
@@ -620,9 +620,9 @@ export const CShaderGetBucketManifestResponse = {
     object: I,
   ): CShaderGetBucketManifestResponse {
     const message = createBaseCShaderGetBucketManifestResponse();
-    message.manifestid = object.manifestid ?? 0;
-    message.depotsize = object.depotsize ?? 0;
-    message.bucketid = object.bucketid ?? 0;
+    message.manifestid = object.manifestid ?? "0";
+    message.depotsize = object.depotsize ?? "0";
+    message.bucketid = object.bucketid ?? "0";
     return message;
   },
 };
@@ -690,18 +690,18 @@ export const CShaderGetStaleBucketRequest = {
 };
 
 function createBaseCShaderGetStaleBucketResponse(): CShaderGetStaleBucketResponse {
-  return { bucketid: 0, appid: 0, manifestid: 0, gpuDesc: "", driverDesc: "", depotEncryptionKey: Buffer.alloc(0) };
+  return { bucketid: "0", appid: 0, manifestid: "0", gpuDesc: "", driverDesc: "", depotEncryptionKey: Buffer.alloc(0) };
 }
 
 export const CShaderGetStaleBucketResponse = {
   encode(message: CShaderGetStaleBucketResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.bucketid !== 0) {
+    if (message.bucketid !== "0") {
       writer.uint32(8).uint64(message.bucketid);
     }
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.manifestid !== 0) {
+    if (message.manifestid !== "0") {
       writer.uint32(24).uint64(message.manifestid);
     }
     if (message.gpuDesc !== "") {
@@ -724,13 +724,13 @@ export const CShaderGetStaleBucketResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.bucketid = longToNumber(reader.uint64() as Long);
+          message.bucketid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
           break;
         case 3:
-          message.manifestid = longToNumber(reader.uint64() as Long);
+          message.manifestid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.gpuDesc = reader.string();
@@ -751,9 +751,9 @@ export const CShaderGetStaleBucketResponse = {
 
   fromJSON(object: any): CShaderGetStaleBucketResponse {
     return {
-      bucketid: isSet(object.bucketid) ? Number(object.bucketid) : 0,
+      bucketid: isSet(object.bucketid) ? String(object.bucketid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      manifestid: isSet(object.manifestid) ? Number(object.manifestid) : 0,
+      manifestid: isSet(object.manifestid) ? String(object.manifestid) : "0",
       gpuDesc: isSet(object.gpuDesc) ? String(object.gpuDesc) : "",
       driverDesc: isSet(object.driverDesc) ? String(object.driverDesc) : "",
       depotEncryptionKey: isSet(object.depotEncryptionKey)
@@ -764,9 +764,9 @@ export const CShaderGetStaleBucketResponse = {
 
   toJSON(message: CShaderGetStaleBucketResponse): unknown {
     const obj: any = {};
-    message.bucketid !== undefined && (obj.bucketid = Math.round(message.bucketid));
+    message.bucketid !== undefined && (obj.bucketid = message.bucketid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.manifestid !== undefined && (obj.manifestid = Math.round(message.manifestid));
+    message.manifestid !== undefined && (obj.manifestid = message.manifestid);
     message.gpuDesc !== undefined && (obj.gpuDesc = message.gpuDesc);
     message.driverDesc !== undefined && (obj.driverDesc = message.driverDesc);
     message.depotEncryptionKey !== undefined &&
@@ -784,9 +784,9 @@ export const CShaderGetStaleBucketResponse = {
     object: I,
   ): CShaderGetStaleBucketResponse {
     const message = createBaseCShaderGetStaleBucketResponse();
-    message.bucketid = object.bucketid ?? 0;
+    message.bucketid = object.bucketid ?? "0";
     message.appid = object.appid ?? 0;
-    message.manifestid = object.manifestid ?? 0;
+    message.manifestid = object.manifestid ?? "0";
     message.gpuDesc = object.gpuDesc ?? "";
     message.driverDesc = object.driverDesc ?? "";
     message.depotEncryptionKey = object.depotEncryptionKey ?? Buffer.alloc(0);
@@ -799,10 +799,10 @@ function createBaseCShaderReportExternalBuildRequest(): CShaderReportExternalBui
     appid: 0,
     gpuDesc: "",
     driverDesc: "",
-    manifestid: 0,
+    manifestid: "0",
     sourceGpuDesc: "",
     sourceDriverDesc: "",
-    depotsize: 0,
+    depotsize: "0",
   };
 }
 
@@ -817,7 +817,7 @@ export const CShaderReportExternalBuildRequest = {
     if (message.driverDesc !== "") {
       writer.uint32(26).string(message.driverDesc);
     }
-    if (message.manifestid !== 0) {
+    if (message.manifestid !== "0") {
       writer.uint32(32).uint64(message.manifestid);
     }
     if (message.sourceGpuDesc !== "") {
@@ -826,7 +826,7 @@ export const CShaderReportExternalBuildRequest = {
     if (message.sourceDriverDesc !== "") {
       writer.uint32(50).string(message.sourceDriverDesc);
     }
-    if (message.depotsize !== 0) {
+    if (message.depotsize !== "0") {
       writer.uint32(56).uint64(message.depotsize);
     }
     return writer;
@@ -849,7 +849,7 @@ export const CShaderReportExternalBuildRequest = {
           message.driverDesc = reader.string();
           break;
         case 4:
-          message.manifestid = longToNumber(reader.uint64() as Long);
+          message.manifestid = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.sourceGpuDesc = reader.string();
@@ -858,7 +858,7 @@ export const CShaderReportExternalBuildRequest = {
           message.sourceDriverDesc = reader.string();
           break;
         case 7:
-          message.depotsize = longToNumber(reader.uint64() as Long);
+          message.depotsize = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -873,10 +873,10 @@ export const CShaderReportExternalBuildRequest = {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       gpuDesc: isSet(object.gpuDesc) ? String(object.gpuDesc) : "",
       driverDesc: isSet(object.driverDesc) ? String(object.driverDesc) : "",
-      manifestid: isSet(object.manifestid) ? Number(object.manifestid) : 0,
+      manifestid: isSet(object.manifestid) ? String(object.manifestid) : "0",
       sourceGpuDesc: isSet(object.sourceGpuDesc) ? String(object.sourceGpuDesc) : "",
       sourceDriverDesc: isSet(object.sourceDriverDesc) ? String(object.sourceDriverDesc) : "",
-      depotsize: isSet(object.depotsize) ? Number(object.depotsize) : 0,
+      depotsize: isSet(object.depotsize) ? String(object.depotsize) : "0",
     };
   },
 
@@ -885,10 +885,10 @@ export const CShaderReportExternalBuildRequest = {
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.gpuDesc !== undefined && (obj.gpuDesc = message.gpuDesc);
     message.driverDesc !== undefined && (obj.driverDesc = message.driverDesc);
-    message.manifestid !== undefined && (obj.manifestid = Math.round(message.manifestid));
+    message.manifestid !== undefined && (obj.manifestid = message.manifestid);
     message.sourceGpuDesc !== undefined && (obj.sourceGpuDesc = message.sourceGpuDesc);
     message.sourceDriverDesc !== undefined && (obj.sourceDriverDesc = message.sourceDriverDesc);
-    message.depotsize !== undefined && (obj.depotsize = Math.round(message.depotsize));
+    message.depotsize !== undefined && (obj.depotsize = message.depotsize);
     return obj;
   },
 
@@ -905,10 +905,10 @@ export const CShaderReportExternalBuildRequest = {
     message.appid = object.appid ?? 0;
     message.gpuDesc = object.gpuDesc ?? "";
     message.driverDesc = object.driverDesc ?? "";
-    message.manifestid = object.manifestid ?? 0;
+    message.manifestid = object.manifestid ?? "0";
     message.sourceGpuDesc = object.sourceGpuDesc ?? "";
     message.sourceDriverDesc = object.sourceDriverDesc ?? "";
-    message.depotsize = object.depotsize ?? 0;
+    message.depotsize = object.depotsize ?? "0";
     return message;
   },
 };
@@ -1070,11 +1070,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

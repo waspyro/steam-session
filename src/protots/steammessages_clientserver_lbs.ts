@@ -23,7 +23,7 @@ export interface CMsgClientLBSSetScoreResponse {
 export interface CMsgClientLBSSetUGC {
   appId: number;
   leaderboardId: number;
-  ugcId: number;
+  ugcId: string;
 }
 
 export interface CMsgClientLBSSetUGCResponse {
@@ -53,7 +53,7 @@ export interface CMsgClientLBSGetLBEntries {
   rangeStart: number;
   rangeEnd: number;
   leaderboardDataRequest: number;
-  steamids: number[];
+  steamids: string[];
 }
 
 export interface CMsgClientLBSGetLBEntriesResponse {
@@ -63,11 +63,11 @@ export interface CMsgClientLBSGetLBEntriesResponse {
 }
 
 export interface CMsgClientLBSGetLBEntriesResponse_Entry {
-  steamIdUser: number;
+  steamIdUser: string;
   globalRank: number;
   score: number;
   details: Buffer;
-  ugcId: number;
+  ugcId: string;
 }
 
 function createBaseCMsgClientLBSSetScore(): CMsgClientLBSSetScore {
@@ -253,7 +253,7 @@ export const CMsgClientLBSSetScoreResponse = {
 };
 
 function createBaseCMsgClientLBSSetUGC(): CMsgClientLBSSetUGC {
-  return { appId: 0, leaderboardId: 0, ugcId: 0 };
+  return { appId: 0, leaderboardId: 0, ugcId: "0" };
 }
 
 export const CMsgClientLBSSetUGC = {
@@ -264,7 +264,7 @@ export const CMsgClientLBSSetUGC = {
     if (message.leaderboardId !== 0) {
       writer.uint32(16).int32(message.leaderboardId);
     }
-    if (message.ugcId !== 0) {
+    if (message.ugcId !== "0") {
       writer.uint32(25).fixed64(message.ugcId);
     }
     return writer;
@@ -284,7 +284,7 @@ export const CMsgClientLBSSetUGC = {
           message.leaderboardId = reader.int32();
           break;
         case 3:
-          message.ugcId = longToNumber(reader.fixed64() as Long);
+          message.ugcId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -298,7 +298,7 @@ export const CMsgClientLBSSetUGC = {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       leaderboardId: isSet(object.leaderboardId) ? Number(object.leaderboardId) : 0,
-      ugcId: isSet(object.ugcId) ? Number(object.ugcId) : 0,
+      ugcId: isSet(object.ugcId) ? String(object.ugcId) : "0",
     };
   },
 
@@ -306,7 +306,7 @@ export const CMsgClientLBSSetUGC = {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.leaderboardId !== undefined && (obj.leaderboardId = Math.round(message.leaderboardId));
-    message.ugcId !== undefined && (obj.ugcId = Math.round(message.ugcId));
+    message.ugcId !== undefined && (obj.ugcId = message.ugcId);
     return obj;
   },
 
@@ -318,7 +318,7 @@ export const CMsgClientLBSSetUGC = {
     const message = createBaseCMsgClientLBSSetUGC();
     message.appId = object.appId ?? 0;
     message.leaderboardId = object.leaderboardId ?? 0;
-    message.ugcId = object.ugcId ?? 0;
+    message.ugcId = object.ugcId ?? "0";
     return message;
   },
 };
@@ -638,10 +638,10 @@ export const CMsgClientLBSGetLBEntries = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamids.push(longToNumber(reader.fixed64() as Long));
+              message.steamids.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamids.push(longToNumber(reader.fixed64() as Long));
+            message.steamids.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -659,7 +659,7 @@ export const CMsgClientLBSGetLBEntries = {
       rangeStart: isSet(object.rangeStart) ? Number(object.rangeStart) : 0,
       rangeEnd: isSet(object.rangeEnd) ? Number(object.rangeEnd) : 0,
       leaderboardDataRequest: isSet(object.leaderboardDataRequest) ? Number(object.leaderboardDataRequest) : 0,
-      steamids: Array.isArray(object?.steamids) ? object.steamids.map((e: any) => Number(e)) : [],
+      steamids: Array.isArray(object?.steamids) ? object.steamids.map((e: any) => String(e)) : [],
     };
   },
 
@@ -672,7 +672,7 @@ export const CMsgClientLBSGetLBEntries = {
     message.leaderboardDataRequest !== undefined &&
       (obj.leaderboardDataRequest = Math.round(message.leaderboardDataRequest));
     if (message.steamids) {
-      obj.steamids = message.steamids.map((e) => Math.round(e));
+      obj.steamids = message.steamids.map((e) => e);
     } else {
       obj.steamids = [];
     }
@@ -778,12 +778,12 @@ export const CMsgClientLBSGetLBEntriesResponse = {
 };
 
 function createBaseCMsgClientLBSGetLBEntriesResponse_Entry(): CMsgClientLBSGetLBEntriesResponse_Entry {
-  return { steamIdUser: 0, globalRank: 0, score: 0, details: Buffer.alloc(0), ugcId: 0 };
+  return { steamIdUser: "0", globalRank: 0, score: 0, details: Buffer.alloc(0), ugcId: "0" };
 }
 
 export const CMsgClientLBSGetLBEntriesResponse_Entry = {
   encode(message: CMsgClientLBSGetLBEntriesResponse_Entry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamIdUser !== 0) {
+    if (message.steamIdUser !== "0") {
       writer.uint32(9).fixed64(message.steamIdUser);
     }
     if (message.globalRank !== 0) {
@@ -795,7 +795,7 @@ export const CMsgClientLBSGetLBEntriesResponse_Entry = {
     if (message.details.length !== 0) {
       writer.uint32(34).bytes(message.details);
     }
-    if (message.ugcId !== 0) {
+    if (message.ugcId !== "0") {
       writer.uint32(41).fixed64(message.ugcId);
     }
     return writer;
@@ -809,7 +809,7 @@ export const CMsgClientLBSGetLBEntriesResponse_Entry = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamIdUser = longToNumber(reader.fixed64() as Long);
+          message.steamIdUser = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.globalRank = reader.int32();
@@ -821,7 +821,7 @@ export const CMsgClientLBSGetLBEntriesResponse_Entry = {
           message.details = reader.bytes() as Buffer;
           break;
         case 5:
-          message.ugcId = longToNumber(reader.fixed64() as Long);
+          message.ugcId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -833,22 +833,22 @@ export const CMsgClientLBSGetLBEntriesResponse_Entry = {
 
   fromJSON(object: any): CMsgClientLBSGetLBEntriesResponse_Entry {
     return {
-      steamIdUser: isSet(object.steamIdUser) ? Number(object.steamIdUser) : 0,
+      steamIdUser: isSet(object.steamIdUser) ? String(object.steamIdUser) : "0",
       globalRank: isSet(object.globalRank) ? Number(object.globalRank) : 0,
       score: isSet(object.score) ? Number(object.score) : 0,
       details: isSet(object.details) ? Buffer.from(bytesFromBase64(object.details)) : Buffer.alloc(0),
-      ugcId: isSet(object.ugcId) ? Number(object.ugcId) : 0,
+      ugcId: isSet(object.ugcId) ? String(object.ugcId) : "0",
     };
   },
 
   toJSON(message: CMsgClientLBSGetLBEntriesResponse_Entry): unknown {
     const obj: any = {};
-    message.steamIdUser !== undefined && (obj.steamIdUser = Math.round(message.steamIdUser));
+    message.steamIdUser !== undefined && (obj.steamIdUser = message.steamIdUser);
     message.globalRank !== undefined && (obj.globalRank = Math.round(message.globalRank));
     message.score !== undefined && (obj.score = Math.round(message.score));
     message.details !== undefined &&
       (obj.details = base64FromBytes(message.details !== undefined ? message.details : Buffer.alloc(0)));
-    message.ugcId !== undefined && (obj.ugcId = Math.round(message.ugcId));
+    message.ugcId !== undefined && (obj.ugcId = message.ugcId);
     return obj;
   },
 
@@ -862,11 +862,11 @@ export const CMsgClientLBSGetLBEntriesResponse_Entry = {
     object: I,
   ): CMsgClientLBSGetLBEntriesResponse_Entry {
     const message = createBaseCMsgClientLBSGetLBEntriesResponse_Entry();
-    message.steamIdUser = object.steamIdUser ?? 0;
+    message.steamIdUser = object.steamIdUser ?? "0";
     message.globalRank = object.globalRank ?? 0;
     message.score = object.score ?? 0;
     message.details = object.details ?? Buffer.alloc(0);
-    message.ugcId = object.ugcId ?? 0;
+    message.ugcId = object.ugcId ?? "0";
     return message;
   },
 };
@@ -926,11 +926,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

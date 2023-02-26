@@ -280,7 +280,7 @@ export interface CAuthenticationGetPasswordRSAPublicKeyRequest {
 export interface CAuthenticationGetPasswordRSAPublicKeyResponse {
   publickeyMod: string;
   publickeyExp: string;
-  timestamp: number;
+  timestamp: string;
 }
 
 export interface CAuthenticationDeviceDetails {
@@ -303,7 +303,7 @@ export interface CAuthenticationAllowedConfirmation {
 }
 
 export interface CAuthenticationBeginAuthSessionViaQRResponse {
-  clientId: number;
+  clientId: string;
   challengeUrl: string;
   requestId: Buffer;
   interval: number;
@@ -315,7 +315,7 @@ export interface CAuthenticationBeginAuthSessionViaCredentialsRequest {
   deviceFriendlyName: string;
   accountName: string;
   encryptedPassword: string;
-  encryptionTimestamp: number;
+  encryptionTimestamp: string;
   rememberLogin: boolean;
   platformType: EAuthTokenPlatformType;
   persistence: ESessionPersistence;
@@ -326,24 +326,24 @@ export interface CAuthenticationBeginAuthSessionViaCredentialsRequest {
 }
 
 export interface CAuthenticationBeginAuthSessionViaCredentialsResponse {
-  clientId: number;
+  clientId: string;
   requestId: Buffer;
   interval: number;
   allowedConfirmations: CAuthenticationAllowedConfirmation[];
-  steamid: number;
+  steamid: string;
   weakToken: string;
   agreementSessionUrl: string;
   extendedErrorMessage: string;
 }
 
 export interface CAuthenticationPollAuthSessionStatusRequest {
-  clientId: number;
+  clientId: string;
   requestId: Buffer;
-  tokenToRevoke: number;
+  tokenToRevoke: string;
 }
 
 export interface CAuthenticationPollAuthSessionStatusResponse {
-  newClientId: number;
+  newClientId: string;
   newChallengeUrl: string;
   refreshToken: string;
   accessToken: string;
@@ -354,7 +354,7 @@ export interface CAuthenticationPollAuthSessionStatusResponse {
 }
 
 export interface CAuthenticationGetAuthSessionInfoRequest {
-  clientId: number;
+  clientId: string;
 }
 
 export interface CAuthenticationGetAuthSessionInfoResponse {
@@ -374,8 +374,8 @@ export interface CAuthenticationGetAuthSessionInfoResponse {
 
 export interface CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest {
   version: number;
-  clientId: number;
-  steamid: number;
+  clientId: string;
+  steamid: string;
   signature: Buffer;
   confirm: boolean;
   persistence: ESessionPersistence;
@@ -385,8 +385,8 @@ export interface CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse 
 }
 
 export interface CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest {
-  clientId: number;
-  steamid: number;
+  clientId: string;
+  steamid: string;
   code: string;
   codeType: EAuthSessionGuardType;
 }
@@ -397,7 +397,7 @@ export interface CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse {
 
 export interface CAuthenticationAccessTokenGenerateForAppRequest {
   refreshToken: string;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CAuthenticationAccessTokenGenerateForAppResponse {
@@ -409,7 +409,7 @@ export interface CAuthenticationRefreshTokenEnumerateRequest {
 
 export interface CAuthenticationRefreshTokenEnumerateResponse {
   refreshTokens: CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription[];
-  requestingToken: number;
+  requestingToken: string;
 }
 
 export interface CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent {
@@ -422,7 +422,7 @@ export interface CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent {
 }
 
 export interface CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription {
-  tokenId: number;
+  tokenId: string;
   tokenDescription: string;
   timeUpdated: number;
   platformType: EAuthTokenPlatformType;
@@ -439,11 +439,11 @@ export interface CAuthenticationGetAuthSessionsForAccountRequest {
 }
 
 export interface CAuthenticationGetAuthSessionsForAccountResponse {
-  clientIds: number[];
+  clientIds: string[];
 }
 
 export interface CAuthenticationMigrateMobileSessionRequest {
-  steamid: number;
+  steamid: string;
   token: string;
   signature: string;
 }
@@ -454,8 +454,8 @@ export interface CAuthenticationMigrateMobileSessionResponse {
 }
 
 export interface CAuthenticationRefreshTokenRevokeRequest {
-  tokenId: number;
-  steamid: number;
+  tokenId: string;
+  steamid: string;
   revokeAction: EAuthTokenRevokeAction;
   signature: Buffer;
 }
@@ -464,17 +464,17 @@ export interface CAuthenticationRefreshTokenRevokeResponse {
 }
 
 export interface CAuthenticationSupportQueryRefreshTokensByAccountRequest {
-  steamid: number;
+  steamid: string;
   includeRevokedTokens: boolean;
 }
 
 export interface CSupportRefreshTokenDescription {
-  tokenId: number;
+  tokenId: string;
   tokenDescription: string;
   timeUpdated: number;
   platformType: EAuthTokenPlatformType;
   tokenState: EAuthTokenState;
-  ownerSteamid: number;
+  ownerSteamid: string;
   osPlatform: number;
   osType: number;
   authType: number;
@@ -497,7 +497,7 @@ export interface CAuthenticationSupportQueryRefreshTokensByAccountResponse {
 }
 
 export interface CAuthenticationSupportQueryRefreshTokenByIDRequest {
-  tokenId: number;
+  tokenId: string;
 }
 
 export interface CAuthenticationSupportQueryRefreshTokenByIDResponse {
@@ -505,22 +505,22 @@ export interface CAuthenticationSupportQueryRefreshTokenByIDResponse {
 }
 
 export interface CAuthenticationSupportRevokeTokenRequest {
-  tokenId: number;
-  steamid: number;
+  tokenId: string;
+  steamid: string;
 }
 
 export interface CAuthenticationSupportRevokeTokenResponse {
 }
 
 export interface CAuthenticationSupportGetTokenHistoryRequest {
-  tokenId: number;
+  tokenId: string;
 }
 
 export interface CSupportRefreshTokenAudit {
   action: number;
   time: number;
   ip: CMsgIPAddress | undefined;
-  actor: number;
+  actor: string;
 }
 
 export interface CAuthenticationSupportGetTokenHistoryResponse {
@@ -607,7 +607,7 @@ export const CAuthenticationGetPasswordRSAPublicKeyRequest = {
 };
 
 function createBaseCAuthenticationGetPasswordRSAPublicKeyResponse(): CAuthenticationGetPasswordRSAPublicKeyResponse {
-  return { publickeyMod: "", publickeyExp: "", timestamp: 0 };
+  return { publickeyMod: "", publickeyExp: "", timestamp: "0" };
 }
 
 export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
@@ -621,7 +621,7 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
     if (message.publickeyExp !== "") {
       writer.uint32(18).string(message.publickeyExp);
     }
-    if (message.timestamp !== 0) {
+    if (message.timestamp !== "0") {
       writer.uint32(24).uint64(message.timestamp);
     }
     return writer;
@@ -641,7 +641,7 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
           message.publickeyExp = reader.string();
           break;
         case 3:
-          message.timestamp = longToNumber(reader.uint64() as Long);
+          message.timestamp = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -655,7 +655,7 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
     return {
       publickeyMod: isSet(object.publickeyMod) ? String(object.publickeyMod) : "",
       publickeyExp: isSet(object.publickeyExp) ? String(object.publickeyExp) : "",
-      timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : "0",
     };
   },
 
@@ -663,7 +663,7 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
     const obj: any = {};
     message.publickeyMod !== undefined && (obj.publickeyMod = message.publickeyMod);
     message.publickeyExp !== undefined && (obj.publickeyExp = message.publickeyExp);
-    message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
     return obj;
   },
 
@@ -679,7 +679,7 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
     const message = createBaseCAuthenticationGetPasswordRSAPublicKeyResponse();
     message.publickeyMod = object.publickeyMod ?? "";
     message.publickeyExp = object.publickeyExp ?? "";
-    message.timestamp = object.timestamp ?? 0;
+    message.timestamp = object.timestamp ?? "0";
     return message;
   },
 };
@@ -923,7 +923,7 @@ export const CAuthenticationAllowedConfirmation = {
 
 function createBaseCAuthenticationBeginAuthSessionViaQRResponse(): CAuthenticationBeginAuthSessionViaQRResponse {
   return {
-    clientId: 0,
+    clientId: "0",
     challengeUrl: "",
     requestId: Buffer.alloc(0),
     interval: 0,
@@ -934,7 +934,7 @@ function createBaseCAuthenticationBeginAuthSessionViaQRResponse(): CAuthenticati
 
 export const CAuthenticationBeginAuthSessionViaQRResponse = {
   encode(message: CAuthenticationBeginAuthSessionViaQRResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
     if (message.challengeUrl !== "") {
@@ -963,7 +963,7 @@ export const CAuthenticationBeginAuthSessionViaQRResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.challengeUrl = reader.string();
@@ -990,7 +990,7 @@ export const CAuthenticationBeginAuthSessionViaQRResponse = {
 
   fromJSON(object: any): CAuthenticationBeginAuthSessionViaQRResponse {
     return {
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       challengeUrl: isSet(object.challengeUrl) ? String(object.challengeUrl) : "",
       requestId: isSet(object.requestId) ? Buffer.from(bytesFromBase64(object.requestId)) : Buffer.alloc(0),
       interval: isSet(object.interval) ? Number(object.interval) : 0,
@@ -1003,7 +1003,7 @@ export const CAuthenticationBeginAuthSessionViaQRResponse = {
 
   toJSON(message: CAuthenticationBeginAuthSessionViaQRResponse): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.challengeUrl !== undefined && (obj.challengeUrl = message.challengeUrl);
     message.requestId !== undefined &&
       (obj.requestId = base64FromBytes(message.requestId !== undefined ? message.requestId : Buffer.alloc(0)));
@@ -1029,7 +1029,7 @@ export const CAuthenticationBeginAuthSessionViaQRResponse = {
     object: I,
   ): CAuthenticationBeginAuthSessionViaQRResponse {
     const message = createBaseCAuthenticationBeginAuthSessionViaQRResponse();
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.challengeUrl = object.challengeUrl ?? "";
     message.requestId = object.requestId ?? Buffer.alloc(0);
     message.interval = object.interval ?? 0;
@@ -1045,7 +1045,7 @@ function createBaseCAuthenticationBeginAuthSessionViaCredentialsRequest(): CAuth
     deviceFriendlyName: "",
     accountName: "",
     encryptedPassword: "",
-    encryptionTimestamp: 0,
+    encryptionTimestamp: "0",
     rememberLogin: false,
     platformType: 0,
     persistence: 0,
@@ -1070,7 +1070,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
     if (message.encryptedPassword !== "") {
       writer.uint32(26).string(message.encryptedPassword);
     }
-    if (message.encryptionTimestamp !== 0) {
+    if (message.encryptionTimestamp !== "0") {
       writer.uint32(32).uint64(message.encryptionTimestamp);
     }
     if (message.rememberLogin === true) {
@@ -1114,7 +1114,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
           message.encryptedPassword = reader.string();
           break;
         case 4:
-          message.encryptionTimestamp = longToNumber(reader.uint64() as Long);
+          message.encryptionTimestamp = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.rememberLogin = reader.bool();
@@ -1150,7 +1150,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
       deviceFriendlyName: isSet(object.deviceFriendlyName) ? String(object.deviceFriendlyName) : "",
       accountName: isSet(object.accountName) ? String(object.accountName) : "",
       encryptedPassword: isSet(object.encryptedPassword) ? String(object.encryptedPassword) : "",
-      encryptionTimestamp: isSet(object.encryptionTimestamp) ? Number(object.encryptionTimestamp) : 0,
+      encryptionTimestamp: isSet(object.encryptionTimestamp) ? String(object.encryptionTimestamp) : "0",
       rememberLogin: isSet(object.rememberLogin) ? Boolean(object.rememberLogin) : false,
       platformType: isSet(object.platformType) ? eAuthTokenPlatformTypeFromJSON(object.platformType) : 0,
       persistence: isSet(object.persistence) ? eSessionPersistenceFromJSON(object.persistence) : 0,
@@ -1168,7 +1168,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
     message.deviceFriendlyName !== undefined && (obj.deviceFriendlyName = message.deviceFriendlyName);
     message.accountName !== undefined && (obj.accountName = message.accountName);
     message.encryptedPassword !== undefined && (obj.encryptedPassword = message.encryptedPassword);
-    message.encryptionTimestamp !== undefined && (obj.encryptionTimestamp = Math.round(message.encryptionTimestamp));
+    message.encryptionTimestamp !== undefined && (obj.encryptionTimestamp = message.encryptionTimestamp);
     message.rememberLogin !== undefined && (obj.rememberLogin = message.rememberLogin);
     message.platformType !== undefined && (obj.platformType = eAuthTokenPlatformTypeToJSON(message.platformType));
     message.persistence !== undefined && (obj.persistence = eSessionPersistenceToJSON(message.persistence));
@@ -1194,7 +1194,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
     message.deviceFriendlyName = object.deviceFriendlyName ?? "";
     message.accountName = object.accountName ?? "";
     message.encryptedPassword = object.encryptedPassword ?? "";
-    message.encryptionTimestamp = object.encryptionTimestamp ?? 0;
+    message.encryptionTimestamp = object.encryptionTimestamp ?? "0";
     message.rememberLogin = object.rememberLogin ?? false;
     message.platformType = object.platformType ?? 0;
     message.persistence = object.persistence ?? 0;
@@ -1210,11 +1210,11 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
 
 function createBaseCAuthenticationBeginAuthSessionViaCredentialsResponse(): CAuthenticationBeginAuthSessionViaCredentialsResponse {
   return {
-    clientId: 0,
+    clientId: "0",
     requestId: Buffer.alloc(0),
     interval: 0,
     allowedConfirmations: [],
-    steamid: 0,
+    steamid: "0",
     weakToken: "",
     agreementSessionUrl: "",
     extendedErrorMessage: "",
@@ -1226,7 +1226,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
     message: CAuthenticationBeginAuthSessionViaCredentialsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
     if (message.requestId.length !== 0) {
@@ -1238,7 +1238,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
     for (const v of message.allowedConfirmations) {
       CAuthenticationAllowedConfirmation.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(40).uint64(message.steamid);
     }
     if (message.weakToken !== "") {
@@ -1261,7 +1261,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.requestId = reader.bytes() as Buffer;
@@ -1273,7 +1273,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
           message.allowedConfirmations.push(CAuthenticationAllowedConfirmation.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.weakToken = reader.string();
@@ -1294,13 +1294,13 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
 
   fromJSON(object: any): CAuthenticationBeginAuthSessionViaCredentialsResponse {
     return {
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       requestId: isSet(object.requestId) ? Buffer.from(bytesFromBase64(object.requestId)) : Buffer.alloc(0),
       interval: isSet(object.interval) ? Number(object.interval) : 0,
       allowedConfirmations: Array.isArray(object?.allowedConfirmations)
         ? object.allowedConfirmations.map((e: any) => CAuthenticationAllowedConfirmation.fromJSON(e))
         : [],
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       weakToken: isSet(object.weakToken) ? String(object.weakToken) : "",
       agreementSessionUrl: isSet(object.agreementSessionUrl) ? String(object.agreementSessionUrl) : "",
       extendedErrorMessage: isSet(object.extendedErrorMessage) ? String(object.extendedErrorMessage) : "",
@@ -1309,7 +1309,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
 
   toJSON(message: CAuthenticationBeginAuthSessionViaCredentialsResponse): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.requestId !== undefined &&
       (obj.requestId = base64FromBytes(message.requestId !== undefined ? message.requestId : Buffer.alloc(0)));
     message.interval !== undefined && (obj.interval = message.interval);
@@ -1320,7 +1320,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
     } else {
       obj.allowedConfirmations = [];
     }
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.weakToken !== undefined && (obj.weakToken = message.weakToken);
     message.agreementSessionUrl !== undefined && (obj.agreementSessionUrl = message.agreementSessionUrl);
     message.extendedErrorMessage !== undefined && (obj.extendedErrorMessage = message.extendedErrorMessage);
@@ -1337,12 +1337,12 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
     object: I,
   ): CAuthenticationBeginAuthSessionViaCredentialsResponse {
     const message = createBaseCAuthenticationBeginAuthSessionViaCredentialsResponse();
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.requestId = object.requestId ?? Buffer.alloc(0);
     message.interval = object.interval ?? 0;
     message.allowedConfirmations =
       object.allowedConfirmations?.map((e) => CAuthenticationAllowedConfirmation.fromPartial(e)) || [];
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.weakToken = object.weakToken ?? "";
     message.agreementSessionUrl = object.agreementSessionUrl ?? "";
     message.extendedErrorMessage = object.extendedErrorMessage ?? "";
@@ -1351,18 +1351,18 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
 };
 
 function createBaseCAuthenticationPollAuthSessionStatusRequest(): CAuthenticationPollAuthSessionStatusRequest {
-  return { clientId: 0, requestId: Buffer.alloc(0), tokenToRevoke: 0 };
+  return { clientId: "0", requestId: Buffer.alloc(0), tokenToRevoke: "0" };
 }
 
 export const CAuthenticationPollAuthSessionStatusRequest = {
   encode(message: CAuthenticationPollAuthSessionStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
     if (message.requestId.length !== 0) {
       writer.uint32(18).bytes(message.requestId);
     }
-    if (message.tokenToRevoke !== 0) {
+    if (message.tokenToRevoke !== "0") {
       writer.uint32(25).fixed64(message.tokenToRevoke);
     }
     return writer;
@@ -1376,13 +1376,13 @@ export const CAuthenticationPollAuthSessionStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.requestId = reader.bytes() as Buffer;
           break;
         case 3:
-          message.tokenToRevoke = longToNumber(reader.fixed64() as Long);
+          message.tokenToRevoke = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1394,18 +1394,18 @@ export const CAuthenticationPollAuthSessionStatusRequest = {
 
   fromJSON(object: any): CAuthenticationPollAuthSessionStatusRequest {
     return {
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       requestId: isSet(object.requestId) ? Buffer.from(bytesFromBase64(object.requestId)) : Buffer.alloc(0),
-      tokenToRevoke: isSet(object.tokenToRevoke) ? Number(object.tokenToRevoke) : 0,
+      tokenToRevoke: isSet(object.tokenToRevoke) ? String(object.tokenToRevoke) : "0",
     };
   },
 
   toJSON(message: CAuthenticationPollAuthSessionStatusRequest): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.requestId !== undefined &&
       (obj.requestId = base64FromBytes(message.requestId !== undefined ? message.requestId : Buffer.alloc(0)));
-    message.tokenToRevoke !== undefined && (obj.tokenToRevoke = Math.round(message.tokenToRevoke));
+    message.tokenToRevoke !== undefined && (obj.tokenToRevoke = message.tokenToRevoke);
     return obj;
   },
 
@@ -1419,16 +1419,16 @@ export const CAuthenticationPollAuthSessionStatusRequest = {
     object: I,
   ): CAuthenticationPollAuthSessionStatusRequest {
     const message = createBaseCAuthenticationPollAuthSessionStatusRequest();
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.requestId = object.requestId ?? Buffer.alloc(0);
-    message.tokenToRevoke = object.tokenToRevoke ?? 0;
+    message.tokenToRevoke = object.tokenToRevoke ?? "0";
     return message;
   },
 };
 
 function createBaseCAuthenticationPollAuthSessionStatusResponse(): CAuthenticationPollAuthSessionStatusResponse {
   return {
-    newClientId: 0,
+    newClientId: "0",
     newChallengeUrl: "",
     refreshToken: "",
     accessToken: "",
@@ -1441,7 +1441,7 @@ function createBaseCAuthenticationPollAuthSessionStatusResponse(): CAuthenticati
 
 export const CAuthenticationPollAuthSessionStatusResponse = {
   encode(message: CAuthenticationPollAuthSessionStatusResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.newClientId !== 0) {
+    if (message.newClientId !== "0") {
       writer.uint32(8).uint64(message.newClientId);
     }
     if (message.newChallengeUrl !== "") {
@@ -1476,7 +1476,7 @@ export const CAuthenticationPollAuthSessionStatusResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.newClientId = longToNumber(reader.uint64() as Long);
+          message.newClientId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.newChallengeUrl = reader.string();
@@ -1509,7 +1509,7 @@ export const CAuthenticationPollAuthSessionStatusResponse = {
 
   fromJSON(object: any): CAuthenticationPollAuthSessionStatusResponse {
     return {
-      newClientId: isSet(object.newClientId) ? Number(object.newClientId) : 0,
+      newClientId: isSet(object.newClientId) ? String(object.newClientId) : "0",
       newChallengeUrl: isSet(object.newChallengeUrl) ? String(object.newChallengeUrl) : "",
       refreshToken: isSet(object.refreshToken) ? String(object.refreshToken) : "",
       accessToken: isSet(object.accessToken) ? String(object.accessToken) : "",
@@ -1522,7 +1522,7 @@ export const CAuthenticationPollAuthSessionStatusResponse = {
 
   toJSON(message: CAuthenticationPollAuthSessionStatusResponse): unknown {
     const obj: any = {};
-    message.newClientId !== undefined && (obj.newClientId = Math.round(message.newClientId));
+    message.newClientId !== undefined && (obj.newClientId = message.newClientId);
     message.newChallengeUrl !== undefined && (obj.newChallengeUrl = message.newChallengeUrl);
     message.refreshToken !== undefined && (obj.refreshToken = message.refreshToken);
     message.accessToken !== undefined && (obj.accessToken = message.accessToken);
@@ -1543,7 +1543,7 @@ export const CAuthenticationPollAuthSessionStatusResponse = {
     object: I,
   ): CAuthenticationPollAuthSessionStatusResponse {
     const message = createBaseCAuthenticationPollAuthSessionStatusResponse();
-    message.newClientId = object.newClientId ?? 0;
+    message.newClientId = object.newClientId ?? "0";
     message.newChallengeUrl = object.newChallengeUrl ?? "";
     message.refreshToken = object.refreshToken ?? "";
     message.accessToken = object.accessToken ?? "";
@@ -1556,12 +1556,12 @@ export const CAuthenticationPollAuthSessionStatusResponse = {
 };
 
 function createBaseCAuthenticationGetAuthSessionInfoRequest(): CAuthenticationGetAuthSessionInfoRequest {
-  return { clientId: 0 };
+  return { clientId: "0" };
 }
 
 export const CAuthenticationGetAuthSessionInfoRequest = {
   encode(message: CAuthenticationGetAuthSessionInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
     return writer;
@@ -1575,7 +1575,7 @@ export const CAuthenticationGetAuthSessionInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1586,12 +1586,12 @@ export const CAuthenticationGetAuthSessionInfoRequest = {
   },
 
   fromJSON(object: any): CAuthenticationGetAuthSessionInfoRequest {
-    return { clientId: isSet(object.clientId) ? Number(object.clientId) : 0 };
+    return { clientId: isSet(object.clientId) ? String(object.clientId) : "0" };
   },
 
   toJSON(message: CAuthenticationGetAuthSessionInfoRequest): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     return obj;
   },
 
@@ -1605,7 +1605,7 @@ export const CAuthenticationGetAuthSessionInfoRequest = {
     object: I,
   ): CAuthenticationGetAuthSessionInfoRequest {
     const message = createBaseCAuthenticationGetAuthSessionInfoRequest();
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     return message;
   },
 };
@@ -1786,7 +1786,7 @@ export const CAuthenticationGetAuthSessionInfoResponse = {
 };
 
 function createBaseCAuthenticationUpdateAuthSessionWithMobileConfirmationRequest(): CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest {
-  return { version: 0, clientId: 0, steamid: 0, signature: Buffer.alloc(0), confirm: false, persistence: 0 };
+  return { version: 0, clientId: "0", steamid: "0", signature: Buffer.alloc(0), confirm: false, persistence: 0 };
 }
 
 export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
@@ -1797,10 +1797,10 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
     if (message.version !== 0) {
       writer.uint32(8).int32(message.version);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(16).uint64(message.clientId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(25).fixed64(message.steamid);
     }
     if (message.signature.length !== 0) {
@@ -1829,10 +1829,10 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
           message.version = reader.int32();
           break;
         case 2:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.signature = reader.bytes() as Buffer;
@@ -1854,8 +1854,8 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
   fromJSON(object: any): CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest {
     return {
       version: isSet(object.version) ? Number(object.version) : 0,
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
       confirm: isSet(object.confirm) ? Boolean(object.confirm) : false,
       persistence: isSet(object.persistence) ? eSessionPersistenceFromJSON(object.persistence) : 0,
@@ -1865,8 +1865,8 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
   toJSON(message: CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest): unknown {
     const obj: any = {};
     message.version !== undefined && (obj.version = Math.round(message.version));
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.signature !== undefined &&
       (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : Buffer.alloc(0)));
     message.confirm !== undefined && (obj.confirm = message.confirm);
@@ -1885,8 +1885,8 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
   ): CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest {
     const message = createBaseCAuthenticationUpdateAuthSessionWithMobileConfirmationRequest();
     message.version = object.version ?? 0;
-    message.clientId = object.clientId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.clientId = object.clientId ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.signature = object.signature ?? Buffer.alloc(0);
     message.confirm = object.confirm ?? false;
     message.persistence = object.persistence ?? 0;
@@ -1948,7 +1948,7 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse = {
 };
 
 function createBaseCAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest(): CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest {
-  return { clientId: 0, steamid: 0, code: "", codeType: 0 };
+  return { clientId: "0", steamid: "0", code: "", codeType: 0 };
 }
 
 export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
@@ -1956,10 +1956,10 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
     message: CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     if (message.code !== "") {
@@ -1979,10 +1979,10 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.code = reader.string();
@@ -2000,8 +2000,8 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
 
   fromJSON(object: any): CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest {
     return {
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       code: isSet(object.code) ? String(object.code) : "",
       codeType: isSet(object.codeType) ? eAuthSessionGuardTypeFromJSON(object.codeType) : 0,
     };
@@ -2009,8 +2009,8 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
 
   toJSON(message: CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.code !== undefined && (obj.code = message.code);
     message.codeType !== undefined && (obj.codeType = eAuthSessionGuardTypeToJSON(message.codeType));
     return obj;
@@ -2026,8 +2026,8 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
     object: I,
   ): CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest {
     const message = createBaseCAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest();
-    message.clientId = object.clientId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.clientId = object.clientId ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.code = object.code ?? "";
     message.codeType = object.codeType ?? 0;
     return message;
@@ -2093,7 +2093,7 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse = {
 };
 
 function createBaseCAuthenticationAccessTokenGenerateForAppRequest(): CAuthenticationAccessTokenGenerateForAppRequest {
-  return { refreshToken: "", steamid: 0 };
+  return { refreshToken: "", steamid: "0" };
 }
 
 export const CAuthenticationAccessTokenGenerateForAppRequest = {
@@ -2104,7 +2104,7 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
     if (message.refreshToken !== "") {
       writer.uint32(10).string(message.refreshToken);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -2121,7 +2121,7 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
           message.refreshToken = reader.string();
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2134,14 +2134,14 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
   fromJSON(object: any): CAuthenticationAccessTokenGenerateForAppRequest {
     return {
       refreshToken: isSet(object.refreshToken) ? String(object.refreshToken) : "",
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CAuthenticationAccessTokenGenerateForAppRequest): unknown {
     const obj: any = {};
     message.refreshToken !== undefined && (obj.refreshToken = message.refreshToken);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -2156,7 +2156,7 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
   ): CAuthenticationAccessTokenGenerateForAppRequest {
     const message = createBaseCAuthenticationAccessTokenGenerateForAppRequest();
     message.refreshToken = object.refreshToken ?? "";
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -2267,7 +2267,7 @@ export const CAuthenticationRefreshTokenEnumerateRequest = {
 };
 
 function createBaseCAuthenticationRefreshTokenEnumerateResponse(): CAuthenticationRefreshTokenEnumerateResponse {
-  return { refreshTokens: [], requestingToken: 0 };
+  return { refreshTokens: [], requestingToken: "0" };
 }
 
 export const CAuthenticationRefreshTokenEnumerateResponse = {
@@ -2276,7 +2276,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
       CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription.encode(v!, writer.uint32(10).fork())
         .ldelim();
     }
-    if (message.requestingToken !== 0) {
+    if (message.requestingToken !== "0") {
       writer.uint32(17).fixed64(message.requestingToken);
     }
     return writer;
@@ -2295,7 +2295,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
           );
           break;
         case 2:
-          message.requestingToken = longToNumber(reader.fixed64() as Long);
+          message.requestingToken = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2312,7 +2312,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
           CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription.fromJSON(e)
         )
         : [],
-      requestingToken: isSet(object.requestingToken) ? Number(object.requestingToken) : 0,
+      requestingToken: isSet(object.requestingToken) ? String(object.requestingToken) : "0",
     };
   },
 
@@ -2325,7 +2325,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
     } else {
       obj.refreshTokens = [];
     }
-    message.requestingToken !== undefined && (obj.requestingToken = Math.round(message.requestingToken));
+    message.requestingToken !== undefined && (obj.requestingToken = message.requestingToken);
     return obj;
   },
 
@@ -2343,7 +2343,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
       object.refreshTokens?.map((e) =>
         CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription.fromPartial(e)
       ) || [];
-    message.requestingToken = object.requestingToken ?? 0;
+    message.requestingToken = object.requestingToken ?? "0";
     return message;
   },
 };
@@ -2458,7 +2458,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent = {
 
 function createBaseCAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription(): CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription {
   return {
-    tokenId: 0,
+    tokenId: "0",
     tokenDescription: "",
     timeUpdated: 0,
     platformType: 0,
@@ -2477,7 +2477,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
     message: CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(9).fixed64(message.tokenId);
     }
     if (message.tokenDescription !== "") {
@@ -2526,7 +2526,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenId = longToNumber(reader.fixed64() as Long);
+          message.tokenId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.tokenDescription = reader.string();
@@ -2574,7 +2574,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
 
   fromJSON(object: any): CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription {
     return {
-      tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0,
+      tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0",
       tokenDescription: isSet(object.tokenDescription) ? String(object.tokenDescription) : "",
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
       platformType: isSet(object.platformType) ? eAuthTokenPlatformTypeFromJSON(object.platformType) : 0,
@@ -2594,7 +2594,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
 
   toJSON(message: CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription): unknown {
     const obj: any = {};
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
     message.tokenDescription !== undefined && (obj.tokenDescription = message.tokenDescription);
     message.timeUpdated !== undefined && (obj.timeUpdated = Math.round(message.timeUpdated));
     message.platformType !== undefined && (obj.platformType = eAuthTokenPlatformTypeToJSON(message.platformType));
@@ -2622,7 +2622,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
     object: I,
   ): CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription {
     const message = createBaseCAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription();
-    message.tokenId = object.tokenId ?? 0;
+    message.tokenId = object.tokenId ?? "0";
     message.tokenDescription = object.tokenDescription ?? "";
     message.timeUpdated = object.timeUpdated ?? 0;
     message.platformType = object.platformType ?? 0;
@@ -2716,10 +2716,10 @@ export const CAuthenticationGetAuthSessionsForAccountResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.clientIds.push(longToNumber(reader.uint64() as Long));
+              message.clientIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.clientIds.push(longToNumber(reader.uint64() as Long));
+            message.clientIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -2731,13 +2731,13 @@ export const CAuthenticationGetAuthSessionsForAccountResponse = {
   },
 
   fromJSON(object: any): CAuthenticationGetAuthSessionsForAccountResponse {
-    return { clientIds: Array.isArray(object?.clientIds) ? object.clientIds.map((e: any) => Number(e)) : [] };
+    return { clientIds: Array.isArray(object?.clientIds) ? object.clientIds.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: CAuthenticationGetAuthSessionsForAccountResponse): unknown {
     const obj: any = {};
     if (message.clientIds) {
-      obj.clientIds = message.clientIds.map((e) => Math.round(e));
+      obj.clientIds = message.clientIds.map((e) => e);
     } else {
       obj.clientIds = [];
     }
@@ -2760,12 +2760,12 @@ export const CAuthenticationGetAuthSessionsForAccountResponse = {
 };
 
 function createBaseCAuthenticationMigrateMobileSessionRequest(): CAuthenticationMigrateMobileSessionRequest {
-  return { steamid: 0, token: "", signature: "" };
+  return { steamid: "0", token: "", signature: "" };
 }
 
 export const CAuthenticationMigrateMobileSessionRequest = {
   encode(message: CAuthenticationMigrateMobileSessionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.token !== "") {
@@ -2785,7 +2785,7 @@ export const CAuthenticationMigrateMobileSessionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.token = reader.string();
@@ -2803,7 +2803,7 @@ export const CAuthenticationMigrateMobileSessionRequest = {
 
   fromJSON(object: any): CAuthenticationMigrateMobileSessionRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       token: isSet(object.token) ? String(object.token) : "",
       signature: isSet(object.signature) ? String(object.signature) : "",
     };
@@ -2811,7 +2811,7 @@ export const CAuthenticationMigrateMobileSessionRequest = {
 
   toJSON(message: CAuthenticationMigrateMobileSessionRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.token !== undefined && (obj.token = message.token);
     message.signature !== undefined && (obj.signature = message.signature);
     return obj;
@@ -2827,7 +2827,7 @@ export const CAuthenticationMigrateMobileSessionRequest = {
     object: I,
   ): CAuthenticationMigrateMobileSessionRequest {
     const message = createBaseCAuthenticationMigrateMobileSessionRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.token = object.token ?? "";
     message.signature = object.signature ?? "";
     return message;
@@ -2901,15 +2901,15 @@ export const CAuthenticationMigrateMobileSessionResponse = {
 };
 
 function createBaseCAuthenticationRefreshTokenRevokeRequest(): CAuthenticationRefreshTokenRevokeRequest {
-  return { tokenId: 0, steamid: 0, revokeAction: 0, signature: Buffer.alloc(0) };
+  return { tokenId: "0", steamid: "0", revokeAction: 0, signature: Buffer.alloc(0) };
 }
 
 export const CAuthenticationRefreshTokenRevokeRequest = {
   encode(message: CAuthenticationRefreshTokenRevokeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(9).fixed64(message.tokenId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     if (message.revokeAction !== 0) {
@@ -2929,10 +2929,10 @@ export const CAuthenticationRefreshTokenRevokeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenId = longToNumber(reader.fixed64() as Long);
+          message.tokenId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.revokeAction = reader.int32() as any;
@@ -2950,8 +2950,8 @@ export const CAuthenticationRefreshTokenRevokeRequest = {
 
   fromJSON(object: any): CAuthenticationRefreshTokenRevokeRequest {
     return {
-      tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       revokeAction: isSet(object.revokeAction) ? eAuthTokenRevokeActionFromJSON(object.revokeAction) : 0,
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
     };
@@ -2959,8 +2959,8 @@ export const CAuthenticationRefreshTokenRevokeRequest = {
 
   toJSON(message: CAuthenticationRefreshTokenRevokeRequest): unknown {
     const obj: any = {};
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.revokeAction !== undefined && (obj.revokeAction = eAuthTokenRevokeActionToJSON(message.revokeAction));
     message.signature !== undefined &&
       (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : Buffer.alloc(0)));
@@ -2977,8 +2977,8 @@ export const CAuthenticationRefreshTokenRevokeRequest = {
     object: I,
   ): CAuthenticationRefreshTokenRevokeRequest {
     const message = createBaseCAuthenticationRefreshTokenRevokeRequest();
-    message.tokenId = object.tokenId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.tokenId = object.tokenId ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.revokeAction = object.revokeAction ?? 0;
     message.signature = object.signature ?? Buffer.alloc(0);
     return message;
@@ -3033,7 +3033,7 @@ export const CAuthenticationRefreshTokenRevokeResponse = {
 };
 
 function createBaseCAuthenticationSupportQueryRefreshTokensByAccountRequest(): CAuthenticationSupportQueryRefreshTokensByAccountRequest {
-  return { steamid: 0, includeRevokedTokens: false };
+  return { steamid: "0", includeRevokedTokens: false };
 }
 
 export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
@@ -3041,7 +3041,7 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
     message: CAuthenticationSupportQueryRefreshTokensByAccountRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.includeRevokedTokens === true) {
@@ -3058,7 +3058,7 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.includeRevokedTokens = reader.bool();
@@ -3073,14 +3073,14 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
 
   fromJSON(object: any): CAuthenticationSupportQueryRefreshTokensByAccountRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       includeRevokedTokens: isSet(object.includeRevokedTokens) ? Boolean(object.includeRevokedTokens) : false,
     };
   },
 
   toJSON(message: CAuthenticationSupportQueryRefreshTokensByAccountRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.includeRevokedTokens !== undefined && (obj.includeRevokedTokens = message.includeRevokedTokens);
     return obj;
   },
@@ -3095,7 +3095,7 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
     object: I,
   ): CAuthenticationSupportQueryRefreshTokensByAccountRequest {
     const message = createBaseCAuthenticationSupportQueryRefreshTokensByAccountRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.includeRevokedTokens = object.includeRevokedTokens ?? false;
     return message;
   },
@@ -3103,12 +3103,12 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
 
 function createBaseCSupportRefreshTokenDescription(): CSupportRefreshTokenDescription {
   return {
-    tokenId: 0,
+    tokenId: "0",
     tokenDescription: "",
     timeUpdated: 0,
     platformType: 0,
     tokenState: 0,
-    ownerSteamid: 0,
+    ownerSteamid: "0",
     osPlatform: 0,
     osType: 0,
     authType: 0,
@@ -3120,7 +3120,7 @@ function createBaseCSupportRefreshTokenDescription(): CSupportRefreshTokenDescri
 
 export const CSupportRefreshTokenDescription = {
   encode(message: CSupportRefreshTokenDescription, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(9).fixed64(message.tokenId);
     }
     if (message.tokenDescription !== "") {
@@ -3135,7 +3135,7 @@ export const CSupportRefreshTokenDescription = {
     if (message.tokenState !== 0) {
       writer.uint32(40).int32(message.tokenState);
     }
-    if (message.ownerSteamid !== 0) {
+    if (message.ownerSteamid !== "0") {
       writer.uint32(49).fixed64(message.ownerSteamid);
     }
     if (message.osPlatform !== 0) {
@@ -3167,7 +3167,7 @@ export const CSupportRefreshTokenDescription = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenId = longToNumber(reader.fixed64() as Long);
+          message.tokenId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.tokenDescription = reader.string();
@@ -3182,7 +3182,7 @@ export const CSupportRefreshTokenDescription = {
           message.tokenState = reader.int32() as any;
           break;
         case 6:
-          message.ownerSteamid = longToNumber(reader.fixed64() as Long);
+          message.ownerSteamid = longToString(reader.fixed64() as Long);
           break;
         case 7:
           message.osPlatform = reader.uint32();
@@ -3212,12 +3212,12 @@ export const CSupportRefreshTokenDescription = {
 
   fromJSON(object: any): CSupportRefreshTokenDescription {
     return {
-      tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0,
+      tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0",
       tokenDescription: isSet(object.tokenDescription) ? String(object.tokenDescription) : "",
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
       platformType: isSet(object.platformType) ? eAuthTokenPlatformTypeFromJSON(object.platformType) : 0,
       tokenState: isSet(object.tokenState) ? eAuthTokenStateFromJSON(object.tokenState) : 0,
-      ownerSteamid: isSet(object.ownerSteamid) ? Number(object.ownerSteamid) : 0,
+      ownerSteamid: isSet(object.ownerSteamid) ? String(object.ownerSteamid) : "0",
       osPlatform: isSet(object.osPlatform) ? Number(object.osPlatform) : 0,
       osType: isSet(object.osType) ? Number(object.osType) : 0,
       authType: isSet(object.authType) ? Number(object.authType) : 0,
@@ -3233,12 +3233,12 @@ export const CSupportRefreshTokenDescription = {
 
   toJSON(message: CSupportRefreshTokenDescription): unknown {
     const obj: any = {};
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
     message.tokenDescription !== undefined && (obj.tokenDescription = message.tokenDescription);
     message.timeUpdated !== undefined && (obj.timeUpdated = Math.round(message.timeUpdated));
     message.platformType !== undefined && (obj.platformType = eAuthTokenPlatformTypeToJSON(message.platformType));
     message.tokenState !== undefined && (obj.tokenState = eAuthTokenStateToJSON(message.tokenState));
-    message.ownerSteamid !== undefined && (obj.ownerSteamid = Math.round(message.ownerSteamid));
+    message.ownerSteamid !== undefined && (obj.ownerSteamid = message.ownerSteamid);
     message.osPlatform !== undefined && (obj.osPlatform = Math.round(message.osPlatform));
     message.osType !== undefined && (obj.osType = Math.round(message.osType));
     message.authType !== undefined && (obj.authType = Math.round(message.authType));
@@ -3260,12 +3260,12 @@ export const CSupportRefreshTokenDescription = {
     object: I,
   ): CSupportRefreshTokenDescription {
     const message = createBaseCSupportRefreshTokenDescription();
-    message.tokenId = object.tokenId ?? 0;
+    message.tokenId = object.tokenId ?? "0";
     message.tokenDescription = object.tokenDescription ?? "";
     message.timeUpdated = object.timeUpdated ?? 0;
     message.platformType = object.platformType ?? 0;
     message.tokenState = object.tokenState ?? 0;
-    message.ownerSteamid = object.ownerSteamid ?? 0;
+    message.ownerSteamid = object.ownerSteamid ?? "0";
     message.osPlatform = object.osPlatform ?? 0;
     message.osType = object.osType ?? 0;
     message.authType = object.authType ?? 0;
@@ -3452,7 +3452,7 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountResponse = {
 };
 
 function createBaseCAuthenticationSupportQueryRefreshTokenByIDRequest(): CAuthenticationSupportQueryRefreshTokenByIDRequest {
-  return { tokenId: 0 };
+  return { tokenId: "0" };
 }
 
 export const CAuthenticationSupportQueryRefreshTokenByIDRequest = {
@@ -3460,7 +3460,7 @@ export const CAuthenticationSupportQueryRefreshTokenByIDRequest = {
     message: CAuthenticationSupportQueryRefreshTokenByIDRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(9).fixed64(message.tokenId);
     }
     return writer;
@@ -3474,7 +3474,7 @@ export const CAuthenticationSupportQueryRefreshTokenByIDRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenId = longToNumber(reader.fixed64() as Long);
+          message.tokenId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3485,12 +3485,12 @@ export const CAuthenticationSupportQueryRefreshTokenByIDRequest = {
   },
 
   fromJSON(object: any): CAuthenticationSupportQueryRefreshTokenByIDRequest {
-    return { tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0 };
+    return { tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0" };
   },
 
   toJSON(message: CAuthenticationSupportQueryRefreshTokenByIDRequest): unknown {
     const obj: any = {};
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
     return obj;
   },
 
@@ -3504,7 +3504,7 @@ export const CAuthenticationSupportQueryRefreshTokenByIDRequest = {
     object: I,
   ): CAuthenticationSupportQueryRefreshTokenByIDRequest {
     const message = createBaseCAuthenticationSupportQueryRefreshTokenByIDRequest();
-    message.tokenId = object.tokenId ?? 0;
+    message.tokenId = object.tokenId ?? "0";
     return message;
   },
 };
@@ -3576,15 +3576,15 @@ export const CAuthenticationSupportQueryRefreshTokenByIDResponse = {
 };
 
 function createBaseCAuthenticationSupportRevokeTokenRequest(): CAuthenticationSupportRevokeTokenRequest {
-  return { tokenId: 0, steamid: 0 };
+  return { tokenId: "0", steamid: "0" };
 }
 
 export const CAuthenticationSupportRevokeTokenRequest = {
   encode(message: CAuthenticationSupportRevokeTokenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(9).fixed64(message.tokenId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -3598,10 +3598,10 @@ export const CAuthenticationSupportRevokeTokenRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenId = longToNumber(reader.fixed64() as Long);
+          message.tokenId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3613,15 +3613,15 @@ export const CAuthenticationSupportRevokeTokenRequest = {
 
   fromJSON(object: any): CAuthenticationSupportRevokeTokenRequest {
     return {
-      tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CAuthenticationSupportRevokeTokenRequest): unknown {
     const obj: any = {};
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -3635,8 +3635,8 @@ export const CAuthenticationSupportRevokeTokenRequest = {
     object: I,
   ): CAuthenticationSupportRevokeTokenRequest {
     const message = createBaseCAuthenticationSupportRevokeTokenRequest();
-    message.tokenId = object.tokenId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.tokenId = object.tokenId ?? "0";
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -3689,12 +3689,12 @@ export const CAuthenticationSupportRevokeTokenResponse = {
 };
 
 function createBaseCAuthenticationSupportGetTokenHistoryRequest(): CAuthenticationSupportGetTokenHistoryRequest {
-  return { tokenId: 0 };
+  return { tokenId: "0" };
 }
 
 export const CAuthenticationSupportGetTokenHistoryRequest = {
   encode(message: CAuthenticationSupportGetTokenHistoryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(9).fixed64(message.tokenId);
     }
     return writer;
@@ -3708,7 +3708,7 @@ export const CAuthenticationSupportGetTokenHistoryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenId = longToNumber(reader.fixed64() as Long);
+          message.tokenId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3719,12 +3719,12 @@ export const CAuthenticationSupportGetTokenHistoryRequest = {
   },
 
   fromJSON(object: any): CAuthenticationSupportGetTokenHistoryRequest {
-    return { tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0 };
+    return { tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0" };
   },
 
   toJSON(message: CAuthenticationSupportGetTokenHistoryRequest): unknown {
     const obj: any = {};
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
     return obj;
   },
 
@@ -3738,13 +3738,13 @@ export const CAuthenticationSupportGetTokenHistoryRequest = {
     object: I,
   ): CAuthenticationSupportGetTokenHistoryRequest {
     const message = createBaseCAuthenticationSupportGetTokenHistoryRequest();
-    message.tokenId = object.tokenId ?? 0;
+    message.tokenId = object.tokenId ?? "0";
     return message;
   },
 };
 
 function createBaseCSupportRefreshTokenAudit(): CSupportRefreshTokenAudit {
-  return { action: 0, time: 0, ip: undefined, actor: 0 };
+  return { action: 0, time: 0, ip: undefined, actor: "0" };
 }
 
 export const CSupportRefreshTokenAudit = {
@@ -3758,7 +3758,7 @@ export const CSupportRefreshTokenAudit = {
     if (message.ip !== undefined) {
       CMsgIPAddress.encode(message.ip, writer.uint32(26).fork()).ldelim();
     }
-    if (message.actor !== 0) {
+    if (message.actor !== "0") {
       writer.uint32(33).fixed64(message.actor);
     }
     return writer;
@@ -3781,7 +3781,7 @@ export const CSupportRefreshTokenAudit = {
           message.ip = CMsgIPAddress.decode(reader, reader.uint32());
           break;
         case 4:
-          message.actor = longToNumber(reader.fixed64() as Long);
+          message.actor = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3796,7 +3796,7 @@ export const CSupportRefreshTokenAudit = {
       action: isSet(object.action) ? Number(object.action) : 0,
       time: isSet(object.time) ? Number(object.time) : 0,
       ip: isSet(object.ip) ? CMsgIPAddress.fromJSON(object.ip) : undefined,
-      actor: isSet(object.actor) ? Number(object.actor) : 0,
+      actor: isSet(object.actor) ? String(object.actor) : "0",
     };
   },
 
@@ -3805,7 +3805,7 @@ export const CSupportRefreshTokenAudit = {
     message.action !== undefined && (obj.action = Math.round(message.action));
     message.time !== undefined && (obj.time = Math.round(message.time));
     message.ip !== undefined && (obj.ip = message.ip ? CMsgIPAddress.toJSON(message.ip) : undefined);
-    message.actor !== undefined && (obj.actor = Math.round(message.actor));
+    message.actor !== undefined && (obj.actor = message.actor);
     return obj;
   },
 
@@ -3818,7 +3818,7 @@ export const CSupportRefreshTokenAudit = {
     message.action = object.action ?? 0;
     message.time = object.time ?? 0;
     message.ip = (object.ip !== undefined && object.ip !== null) ? CMsgIPAddress.fromPartial(object.ip) : undefined;
-    message.actor = object.actor ?? 0;
+    message.actor = object.actor ?? "0";
     return message;
   },
 };
@@ -4520,11 +4520,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

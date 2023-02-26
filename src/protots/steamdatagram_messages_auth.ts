@@ -14,8 +14,8 @@ export interface CMsgSteamDatagramRelayAuthTicket {
   appId: number;
   virtualPort: number;
   extraFields: CMsgSteamDatagramRelayAuthTicket_ExtraField[];
-  legacyAuthorizedSteamId: number;
-  legacyGameserverSteamId: number;
+  legacyAuthorizedSteamId: string;
+  legacyGameserverSteamId: string;
   legacyGameserverPopId: number;
   legacyAuthorizedClientIdentityBinary: Buffer;
   legacyGameserverIdentityBinary: Buffer;
@@ -24,15 +24,15 @@ export interface CMsgSteamDatagramRelayAuthTicket {
 export interface CMsgSteamDatagramRelayAuthTicket_ExtraField {
   name: string;
   stringValue: string;
-  int64Value: number;
-  fixed64Value: number;
+  int64Value: string;
+  fixed64Value: string;
 }
 
 export interface CMsgSteamDatagramSignedRelayAuthTicket {
-  reservedDoNotUse: number;
+  reservedDoNotUse: string;
   ticket: Buffer;
   signature: Buffer;
-  keyId: number;
+  keyId: string;
   certs: CMsgSteamDatagramCertificateSigned[];
 }
 
@@ -49,7 +49,7 @@ export interface CMsgSteamDatagramGameCoordinatorServerLogin {
   appdata: Buffer;
   legacyIdentityBinary: Buffer;
   identityString: string;
-  dummySteamId: number;
+  dummySteamId: string;
 }
 
 export interface CMsgSteamDatagramSignedGameCoordinatorServerLogin {
@@ -62,7 +62,7 @@ export interface CMsgSteamDatagramHostedServerAddressPlaintext {
   ipv4: number;
   ipv6: Buffer;
   port: number;
-  routingSecret: number;
+  routingSecret: string;
   protocolVersion: number;
 }
 
@@ -76,8 +76,8 @@ function createBaseCMsgSteamDatagramRelayAuthTicket(): CMsgSteamDatagramRelayAut
     appId: 0,
     virtualPort: 0,
     extraFields: [],
-    legacyAuthorizedSteamId: 0,
-    legacyGameserverSteamId: 0,
+    legacyAuthorizedSteamId: "0",
+    legacyGameserverSteamId: "0",
     legacyGameserverPopId: 0,
     legacyAuthorizedClientIdentityBinary: Buffer.alloc(0),
     legacyGameserverIdentityBinary: Buffer.alloc(0),
@@ -110,10 +110,10 @@ export const CMsgSteamDatagramRelayAuthTicket = {
     for (const v of message.extraFields) {
       CMsgSteamDatagramRelayAuthTicket_ExtraField.encode(v!, writer.uint32(66).fork()).ldelim();
     }
-    if (message.legacyAuthorizedSteamId !== 0) {
+    if (message.legacyAuthorizedSteamId !== "0") {
       writer.uint32(17).fixed64(message.legacyAuthorizedSteamId);
     }
-    if (message.legacyGameserverSteamId !== 0) {
+    if (message.legacyGameserverSteamId !== "0") {
       writer.uint32(33).fixed64(message.legacyGameserverSteamId);
     }
     if (message.legacyGameserverPopId !== 0) {
@@ -160,10 +160,10 @@ export const CMsgSteamDatagramRelayAuthTicket = {
           message.extraFields.push(CMsgSteamDatagramRelayAuthTicket_ExtraField.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.legacyAuthorizedSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyAuthorizedSteamId = longToString(reader.fixed64() as Long);
           break;
         case 4:
-          message.legacyGameserverSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyGameserverSteamId = longToString(reader.fixed64() as Long);
           break;
         case 9:
           message.legacyGameserverPopId = reader.fixed32();
@@ -198,8 +198,8 @@ export const CMsgSteamDatagramRelayAuthTicket = {
       extraFields: Array.isArray(object?.extraFields)
         ? object.extraFields.map((e: any) => CMsgSteamDatagramRelayAuthTicket_ExtraField.fromJSON(e))
         : [],
-      legacyAuthorizedSteamId: isSet(object.legacyAuthorizedSteamId) ? Number(object.legacyAuthorizedSteamId) : 0,
-      legacyGameserverSteamId: isSet(object.legacyGameserverSteamId) ? Number(object.legacyGameserverSteamId) : 0,
+      legacyAuthorizedSteamId: isSet(object.legacyAuthorizedSteamId) ? String(object.legacyAuthorizedSteamId) : "0",
+      legacyGameserverSteamId: isSet(object.legacyGameserverSteamId) ? String(object.legacyGameserverSteamId) : "0",
       legacyGameserverPopId: isSet(object.legacyGameserverPopId) ? Number(object.legacyGameserverPopId) : 0,
       legacyAuthorizedClientIdentityBinary: isSet(object.legacyAuthorizedClientIdentityBinary)
         ? Buffer.from(bytesFromBase64(object.legacyAuthorizedClientIdentityBinary))
@@ -230,10 +230,8 @@ export const CMsgSteamDatagramRelayAuthTicket = {
     } else {
       obj.extraFields = [];
     }
-    message.legacyAuthorizedSteamId !== undefined &&
-      (obj.legacyAuthorizedSteamId = Math.round(message.legacyAuthorizedSteamId));
-    message.legacyGameserverSteamId !== undefined &&
-      (obj.legacyGameserverSteamId = Math.round(message.legacyGameserverSteamId));
+    message.legacyAuthorizedSteamId !== undefined && (obj.legacyAuthorizedSteamId = message.legacyAuthorizedSteamId);
+    message.legacyGameserverSteamId !== undefined && (obj.legacyGameserverSteamId = message.legacyGameserverSteamId);
     message.legacyGameserverPopId !== undefined &&
       (obj.legacyGameserverPopId = Math.round(message.legacyGameserverPopId));
     message.legacyAuthorizedClientIdentityBinary !== undefined &&
@@ -268,8 +266,8 @@ export const CMsgSteamDatagramRelayAuthTicket = {
     message.virtualPort = object.virtualPort ?? 0;
     message.extraFields = object.extraFields?.map((e) => CMsgSteamDatagramRelayAuthTicket_ExtraField.fromPartial(e)) ||
       [];
-    message.legacyAuthorizedSteamId = object.legacyAuthorizedSteamId ?? 0;
-    message.legacyGameserverSteamId = object.legacyGameserverSteamId ?? 0;
+    message.legacyAuthorizedSteamId = object.legacyAuthorizedSteamId ?? "0";
+    message.legacyGameserverSteamId = object.legacyGameserverSteamId ?? "0";
     message.legacyGameserverPopId = object.legacyGameserverPopId ?? 0;
     message.legacyAuthorizedClientIdentityBinary = object.legacyAuthorizedClientIdentityBinary ?? Buffer.alloc(0);
     message.legacyGameserverIdentityBinary = object.legacyGameserverIdentityBinary ?? Buffer.alloc(0);
@@ -278,7 +276,7 @@ export const CMsgSteamDatagramRelayAuthTicket = {
 };
 
 function createBaseCMsgSteamDatagramRelayAuthTicket_ExtraField(): CMsgSteamDatagramRelayAuthTicket_ExtraField {
-  return { name: "", stringValue: "", int64Value: 0, fixed64Value: 0 };
+  return { name: "", stringValue: "", int64Value: "0", fixed64Value: "0" };
 }
 
 export const CMsgSteamDatagramRelayAuthTicket_ExtraField = {
@@ -289,10 +287,10 @@ export const CMsgSteamDatagramRelayAuthTicket_ExtraField = {
     if (message.stringValue !== "") {
       writer.uint32(18).string(message.stringValue);
     }
-    if (message.int64Value !== 0) {
+    if (message.int64Value !== "0") {
       writer.uint32(24).sint64(message.int64Value);
     }
-    if (message.fixed64Value !== 0) {
+    if (message.fixed64Value !== "0") {
       writer.uint32(41).fixed64(message.fixed64Value);
     }
     return writer;
@@ -312,10 +310,10 @@ export const CMsgSteamDatagramRelayAuthTicket_ExtraField = {
           message.stringValue = reader.string();
           break;
         case 3:
-          message.int64Value = longToNumber(reader.sint64() as Long);
+          message.int64Value = longToString(reader.sint64() as Long);
           break;
         case 5:
-          message.fixed64Value = longToNumber(reader.fixed64() as Long);
+          message.fixed64Value = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -329,8 +327,8 @@ export const CMsgSteamDatagramRelayAuthTicket_ExtraField = {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       stringValue: isSet(object.stringValue) ? String(object.stringValue) : "",
-      int64Value: isSet(object.int64Value) ? Number(object.int64Value) : 0,
-      fixed64Value: isSet(object.fixed64Value) ? Number(object.fixed64Value) : 0,
+      int64Value: isSet(object.int64Value) ? String(object.int64Value) : "0",
+      fixed64Value: isSet(object.fixed64Value) ? String(object.fixed64Value) : "0",
     };
   },
 
@@ -338,8 +336,8 @@ export const CMsgSteamDatagramRelayAuthTicket_ExtraField = {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
     message.stringValue !== undefined && (obj.stringValue = message.stringValue);
-    message.int64Value !== undefined && (obj.int64Value = Math.round(message.int64Value));
-    message.fixed64Value !== undefined && (obj.fixed64Value = Math.round(message.fixed64Value));
+    message.int64Value !== undefined && (obj.int64Value = message.int64Value);
+    message.fixed64Value !== undefined && (obj.fixed64Value = message.fixed64Value);
     return obj;
   },
 
@@ -355,19 +353,19 @@ export const CMsgSteamDatagramRelayAuthTicket_ExtraField = {
     const message = createBaseCMsgSteamDatagramRelayAuthTicket_ExtraField();
     message.name = object.name ?? "";
     message.stringValue = object.stringValue ?? "";
-    message.int64Value = object.int64Value ?? 0;
-    message.fixed64Value = object.fixed64Value ?? 0;
+    message.int64Value = object.int64Value ?? "0";
+    message.fixed64Value = object.fixed64Value ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgSteamDatagramSignedRelayAuthTicket(): CMsgSteamDatagramSignedRelayAuthTicket {
-  return { reservedDoNotUse: 0, ticket: Buffer.alloc(0), signature: Buffer.alloc(0), keyId: 0, certs: [] };
+  return { reservedDoNotUse: "0", ticket: Buffer.alloc(0), signature: Buffer.alloc(0), keyId: "0", certs: [] };
 }
 
 export const CMsgSteamDatagramSignedRelayAuthTicket = {
   encode(message: CMsgSteamDatagramSignedRelayAuthTicket, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.reservedDoNotUse !== 0) {
+    if (message.reservedDoNotUse !== "0") {
       writer.uint32(9).fixed64(message.reservedDoNotUse);
     }
     if (message.ticket.length !== 0) {
@@ -376,7 +374,7 @@ export const CMsgSteamDatagramSignedRelayAuthTicket = {
     if (message.signature.length !== 0) {
       writer.uint32(34).bytes(message.signature);
     }
-    if (message.keyId !== 0) {
+    if (message.keyId !== "0") {
       writer.uint32(17).fixed64(message.keyId);
     }
     for (const v of message.certs) {
@@ -393,7 +391,7 @@ export const CMsgSteamDatagramSignedRelayAuthTicket = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.reservedDoNotUse = longToNumber(reader.fixed64() as Long);
+          message.reservedDoNotUse = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.ticket = reader.bytes() as Buffer;
@@ -402,7 +400,7 @@ export const CMsgSteamDatagramSignedRelayAuthTicket = {
           message.signature = reader.bytes() as Buffer;
           break;
         case 2:
-          message.keyId = longToNumber(reader.fixed64() as Long);
+          message.keyId = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.certs.push(CMsgSteamDatagramCertificateSigned.decode(reader, reader.uint32()));
@@ -417,10 +415,10 @@ export const CMsgSteamDatagramSignedRelayAuthTicket = {
 
   fromJSON(object: any): CMsgSteamDatagramSignedRelayAuthTicket {
     return {
-      reservedDoNotUse: isSet(object.reservedDoNotUse) ? Number(object.reservedDoNotUse) : 0,
+      reservedDoNotUse: isSet(object.reservedDoNotUse) ? String(object.reservedDoNotUse) : "0",
       ticket: isSet(object.ticket) ? Buffer.from(bytesFromBase64(object.ticket)) : Buffer.alloc(0),
       signature: isSet(object.signature) ? Buffer.from(bytesFromBase64(object.signature)) : Buffer.alloc(0),
-      keyId: isSet(object.keyId) ? Number(object.keyId) : 0,
+      keyId: isSet(object.keyId) ? String(object.keyId) : "0",
       certs: Array.isArray(object?.certs)
         ? object.certs.map((e: any) => CMsgSteamDatagramCertificateSigned.fromJSON(e))
         : [],
@@ -429,12 +427,12 @@ export const CMsgSteamDatagramSignedRelayAuthTicket = {
 
   toJSON(message: CMsgSteamDatagramSignedRelayAuthTicket): unknown {
     const obj: any = {};
-    message.reservedDoNotUse !== undefined && (obj.reservedDoNotUse = Math.round(message.reservedDoNotUse));
+    message.reservedDoNotUse !== undefined && (obj.reservedDoNotUse = message.reservedDoNotUse);
     message.ticket !== undefined &&
       (obj.ticket = base64FromBytes(message.ticket !== undefined ? message.ticket : Buffer.alloc(0)));
     message.signature !== undefined &&
       (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : Buffer.alloc(0)));
-    message.keyId !== undefined && (obj.keyId = Math.round(message.keyId));
+    message.keyId !== undefined && (obj.keyId = message.keyId);
     if (message.certs) {
       obj.certs = message.certs.map((e) => e ? CMsgSteamDatagramCertificateSigned.toJSON(e) : undefined);
     } else {
@@ -453,10 +451,10 @@ export const CMsgSteamDatagramSignedRelayAuthTicket = {
     object: I,
   ): CMsgSteamDatagramSignedRelayAuthTicket {
     const message = createBaseCMsgSteamDatagramSignedRelayAuthTicket();
-    message.reservedDoNotUse = object.reservedDoNotUse ?? 0;
+    message.reservedDoNotUse = object.reservedDoNotUse ?? "0";
     message.ticket = object.ticket ?? Buffer.alloc(0);
     message.signature = object.signature ?? Buffer.alloc(0);
-    message.keyId = object.keyId ?? 0;
+    message.keyId = object.keyId ?? "0";
     message.certs = object.certs?.map((e) => CMsgSteamDatagramCertificateSigned.fromPartial(e)) || [];
     return message;
   },
@@ -553,7 +551,7 @@ function createBaseCMsgSteamDatagramGameCoordinatorServerLogin(): CMsgSteamDatag
     appdata: Buffer.alloc(0),
     legacyIdentityBinary: Buffer.alloc(0),
     identityString: "",
-    dummySteamId: 0,
+    dummySteamId: "0",
   };
 }
 
@@ -577,7 +575,7 @@ export const CMsgSteamDatagramGameCoordinatorServerLogin = {
     if (message.identityString !== "") {
       writer.uint32(50).string(message.identityString);
     }
-    if (message.dummySteamId !== 0) {
+    if (message.dummySteamId !== "0") {
       writer.uint32(793).fixed64(message.dummySteamId);
     }
     return writer;
@@ -609,7 +607,7 @@ export const CMsgSteamDatagramGameCoordinatorServerLogin = {
           message.identityString = reader.string();
           break;
         case 99:
-          message.dummySteamId = longToNumber(reader.fixed64() as Long);
+          message.dummySteamId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -629,7 +627,7 @@ export const CMsgSteamDatagramGameCoordinatorServerLogin = {
         ? Buffer.from(bytesFromBase64(object.legacyIdentityBinary))
         : Buffer.alloc(0),
       identityString: isSet(object.identityString) ? String(object.identityString) : "",
-      dummySteamId: isSet(object.dummySteamId) ? Number(object.dummySteamId) : 0,
+      dummySteamId: isSet(object.dummySteamId) ? String(object.dummySteamId) : "0",
     };
   },
 
@@ -646,7 +644,7 @@ export const CMsgSteamDatagramGameCoordinatorServerLogin = {
         message.legacyIdentityBinary !== undefined ? message.legacyIdentityBinary : Buffer.alloc(0),
       ));
     message.identityString !== undefined && (obj.identityString = message.identityString);
-    message.dummySteamId !== undefined && (obj.dummySteamId = Math.round(message.dummySteamId));
+    message.dummySteamId !== undefined && (obj.dummySteamId = message.dummySteamId);
     return obj;
   },
 
@@ -666,7 +664,7 @@ export const CMsgSteamDatagramGameCoordinatorServerLogin = {
     message.appdata = object.appdata ?? Buffer.alloc(0);
     message.legacyIdentityBinary = object.legacyIdentityBinary ?? Buffer.alloc(0);
     message.identityString = object.identityString ?? "";
-    message.dummySteamId = object.dummySteamId ?? 0;
+    message.dummySteamId = object.dummySteamId ?? "0";
     return message;
   },
 };
@@ -755,7 +753,7 @@ export const CMsgSteamDatagramSignedGameCoordinatorServerLogin = {
 };
 
 function createBaseCMsgSteamDatagramHostedServerAddressPlaintext(): CMsgSteamDatagramHostedServerAddressPlaintext {
-  return { ipv4: 0, ipv6: Buffer.alloc(0), port: 0, routingSecret: 0, protocolVersion: 0 };
+  return { ipv4: 0, ipv6: Buffer.alloc(0), port: 0, routingSecret: "0", protocolVersion: 0 };
 }
 
 export const CMsgSteamDatagramHostedServerAddressPlaintext = {
@@ -769,7 +767,7 @@ export const CMsgSteamDatagramHostedServerAddressPlaintext = {
     if (message.port !== 0) {
       writer.uint32(24).uint32(message.port);
     }
-    if (message.routingSecret !== 0) {
+    if (message.routingSecret !== "0") {
       writer.uint32(33).fixed64(message.routingSecret);
     }
     if (message.protocolVersion !== 0) {
@@ -795,7 +793,7 @@ export const CMsgSteamDatagramHostedServerAddressPlaintext = {
           message.port = reader.uint32();
           break;
         case 4:
-          message.routingSecret = longToNumber(reader.fixed64() as Long);
+          message.routingSecret = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.protocolVersion = reader.uint32();
@@ -813,7 +811,7 @@ export const CMsgSteamDatagramHostedServerAddressPlaintext = {
       ipv4: isSet(object.ipv4) ? Number(object.ipv4) : 0,
       ipv6: isSet(object.ipv6) ? Buffer.from(bytesFromBase64(object.ipv6)) : Buffer.alloc(0),
       port: isSet(object.port) ? Number(object.port) : 0,
-      routingSecret: isSet(object.routingSecret) ? Number(object.routingSecret) : 0,
+      routingSecret: isSet(object.routingSecret) ? String(object.routingSecret) : "0",
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
     };
   },
@@ -824,7 +822,7 @@ export const CMsgSteamDatagramHostedServerAddressPlaintext = {
     message.ipv6 !== undefined &&
       (obj.ipv6 = base64FromBytes(message.ipv6 !== undefined ? message.ipv6 : Buffer.alloc(0)));
     message.port !== undefined && (obj.port = Math.round(message.port));
-    message.routingSecret !== undefined && (obj.routingSecret = Math.round(message.routingSecret));
+    message.routingSecret !== undefined && (obj.routingSecret = message.routingSecret);
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
     return obj;
   },
@@ -842,7 +840,7 @@ export const CMsgSteamDatagramHostedServerAddressPlaintext = {
     message.ipv4 = object.ipv4 ?? 0;
     message.ipv6 = object.ipv6 ?? Buffer.alloc(0);
     message.port = object.port ?? 0;
-    message.routingSecret = object.routingSecret ?? 0;
+    message.routingSecret = object.routingSecret ?? "0";
     message.protocolVersion = object.protocolVersion ?? 0;
     return message;
   },
@@ -903,11 +901,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

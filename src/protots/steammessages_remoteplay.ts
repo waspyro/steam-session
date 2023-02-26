@@ -1938,7 +1938,7 @@ export interface CServerHandshakeMsg {
 export interface CAuthenticationRequestMsg {
   token: Buffer;
   version: EStreamVersion;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CAuthenticationResponseMsg {
@@ -2135,21 +2135,21 @@ export interface CInputLatencyTestMsg {
 
 export interface CInputTouchFingerDownMsg {
   inputMark: number;
-  fingerid: number;
+  fingerid: string;
   xNormalized: number;
   yNormalized: number;
 }
 
 export interface CInputTouchFingerMotionMsg {
   inputMark: number;
-  fingerid: number;
+  fingerid: string;
   xNormalized: number;
   yNormalized: number;
 }
 
 export interface CInputTouchFingerUpMsg {
   inputMark: number;
-  fingerid: number;
+  fingerid: string;
   xNormalized: number;
   yNormalized: number;
 }
@@ -2222,15 +2222,15 @@ export interface CHideCursorMsg {
 }
 
 export interface CSetCursorMsg {
-  cursorId: number;
+  cursorId: string;
 }
 
 export interface CGetCursorImageMsg {
-  cursorId: number;
+  cursorId: string;
 }
 
 export interface CSetCursorImageMsg {
-  cursorId: number;
+  cursorId: string;
   width: number;
   height: number;
   hotX: number;
@@ -2299,7 +2299,7 @@ export interface CQuitRequest {
 }
 
 export interface CDeleteCursorMsg {
-  cursorId: number;
+  cursorId: string;
 }
 
 export interface CSetStreamingClientConfig {
@@ -2332,7 +2332,7 @@ export interface CSetGammaRampMsg {
 export interface CSetActivityMsg {
   activity: EStreamActivity;
   appid: number;
-  gameid: number;
+  gameid: string;
   gameName: string;
 }
 
@@ -2363,7 +2363,7 @@ export interface CRemoteHIDMsg {
 export interface CTouchConfigActiveMsg {
   appid: number;
   revision: number;
-  creator: number;
+  creator: string;
 }
 
 export interface CGetTouchConfigDataMsg {
@@ -2375,7 +2375,7 @@ export interface CSetTouchConfigDataMsg {
   revision: number;
   data: Buffer;
   layout: Buffer;
-  creator: number;
+  creator: string;
 }
 
 export interface CSaveTouchConfigLayoutMsg {
@@ -2911,7 +2911,7 @@ export const CServerHandshakeMsg = {
 };
 
 function createBaseCAuthenticationRequestMsg(): CAuthenticationRequestMsg {
-  return { token: Buffer.alloc(0), version: 0, steamid: 0 };
+  return { token: Buffer.alloc(0), version: 0, steamid: "0" };
 }
 
 export const CAuthenticationRequestMsg = {
@@ -2922,7 +2922,7 @@ export const CAuthenticationRequestMsg = {
     if (message.version !== 0) {
       writer.uint32(16).int32(message.version);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(24).uint64(message.steamid);
     }
     return writer;
@@ -2942,7 +2942,7 @@ export const CAuthenticationRequestMsg = {
           message.version = reader.int32() as any;
           break;
         case 3:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2956,7 +2956,7 @@ export const CAuthenticationRequestMsg = {
     return {
       token: isSet(object.token) ? Buffer.from(bytesFromBase64(object.token)) : Buffer.alloc(0),
       version: isSet(object.version) ? eStreamVersionFromJSON(object.version) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
@@ -2965,7 +2965,7 @@ export const CAuthenticationRequestMsg = {
     message.token !== undefined &&
       (obj.token = base64FromBytes(message.token !== undefined ? message.token : Buffer.alloc(0)));
     message.version !== undefined && (obj.version = eStreamVersionToJSON(message.version));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -2977,7 +2977,7 @@ export const CAuthenticationRequestMsg = {
     const message = createBaseCAuthenticationRequestMsg();
     message.token = object.token ?? Buffer.alloc(0);
     message.version = object.version ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -4925,7 +4925,7 @@ export const CInputLatencyTestMsg = {
 };
 
 function createBaseCInputTouchFingerDownMsg(): CInputTouchFingerDownMsg {
-  return { inputMark: 0, fingerid: 0, xNormalized: 0, yNormalized: 0 };
+  return { inputMark: 0, fingerid: "0", xNormalized: 0, yNormalized: 0 };
 }
 
 export const CInputTouchFingerDownMsg = {
@@ -4933,7 +4933,7 @@ export const CInputTouchFingerDownMsg = {
     if (message.inputMark !== 0) {
       writer.uint32(8).uint32(message.inputMark);
     }
-    if (message.fingerid !== 0) {
+    if (message.fingerid !== "0") {
       writer.uint32(16).uint64(message.fingerid);
     }
     if (message.xNormalized !== 0) {
@@ -4956,7 +4956,7 @@ export const CInputTouchFingerDownMsg = {
           message.inputMark = reader.uint32();
           break;
         case 2:
-          message.fingerid = longToNumber(reader.uint64() as Long);
+          message.fingerid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.xNormalized = reader.float();
@@ -4975,7 +4975,7 @@ export const CInputTouchFingerDownMsg = {
   fromJSON(object: any): CInputTouchFingerDownMsg {
     return {
       inputMark: isSet(object.inputMark) ? Number(object.inputMark) : 0,
-      fingerid: isSet(object.fingerid) ? Number(object.fingerid) : 0,
+      fingerid: isSet(object.fingerid) ? String(object.fingerid) : "0",
       xNormalized: isSet(object.xNormalized) ? Number(object.xNormalized) : 0,
       yNormalized: isSet(object.yNormalized) ? Number(object.yNormalized) : 0,
     };
@@ -4984,7 +4984,7 @@ export const CInputTouchFingerDownMsg = {
   toJSON(message: CInputTouchFingerDownMsg): unknown {
     const obj: any = {};
     message.inputMark !== undefined && (obj.inputMark = Math.round(message.inputMark));
-    message.fingerid !== undefined && (obj.fingerid = Math.round(message.fingerid));
+    message.fingerid !== undefined && (obj.fingerid = message.fingerid);
     message.xNormalized !== undefined && (obj.xNormalized = message.xNormalized);
     message.yNormalized !== undefined && (obj.yNormalized = message.yNormalized);
     return obj;
@@ -4997,7 +4997,7 @@ export const CInputTouchFingerDownMsg = {
   fromPartial<I extends Exact<DeepPartial<CInputTouchFingerDownMsg>, I>>(object: I): CInputTouchFingerDownMsg {
     const message = createBaseCInputTouchFingerDownMsg();
     message.inputMark = object.inputMark ?? 0;
-    message.fingerid = object.fingerid ?? 0;
+    message.fingerid = object.fingerid ?? "0";
     message.xNormalized = object.xNormalized ?? 0;
     message.yNormalized = object.yNormalized ?? 0;
     return message;
@@ -5005,7 +5005,7 @@ export const CInputTouchFingerDownMsg = {
 };
 
 function createBaseCInputTouchFingerMotionMsg(): CInputTouchFingerMotionMsg {
-  return { inputMark: 0, fingerid: 0, xNormalized: 0, yNormalized: 0 };
+  return { inputMark: 0, fingerid: "0", xNormalized: 0, yNormalized: 0 };
 }
 
 export const CInputTouchFingerMotionMsg = {
@@ -5013,7 +5013,7 @@ export const CInputTouchFingerMotionMsg = {
     if (message.inputMark !== 0) {
       writer.uint32(8).uint32(message.inputMark);
     }
-    if (message.fingerid !== 0) {
+    if (message.fingerid !== "0") {
       writer.uint32(16).uint64(message.fingerid);
     }
     if (message.xNormalized !== 0) {
@@ -5036,7 +5036,7 @@ export const CInputTouchFingerMotionMsg = {
           message.inputMark = reader.uint32();
           break;
         case 2:
-          message.fingerid = longToNumber(reader.uint64() as Long);
+          message.fingerid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.xNormalized = reader.float();
@@ -5055,7 +5055,7 @@ export const CInputTouchFingerMotionMsg = {
   fromJSON(object: any): CInputTouchFingerMotionMsg {
     return {
       inputMark: isSet(object.inputMark) ? Number(object.inputMark) : 0,
-      fingerid: isSet(object.fingerid) ? Number(object.fingerid) : 0,
+      fingerid: isSet(object.fingerid) ? String(object.fingerid) : "0",
       xNormalized: isSet(object.xNormalized) ? Number(object.xNormalized) : 0,
       yNormalized: isSet(object.yNormalized) ? Number(object.yNormalized) : 0,
     };
@@ -5064,7 +5064,7 @@ export const CInputTouchFingerMotionMsg = {
   toJSON(message: CInputTouchFingerMotionMsg): unknown {
     const obj: any = {};
     message.inputMark !== undefined && (obj.inputMark = Math.round(message.inputMark));
-    message.fingerid !== undefined && (obj.fingerid = Math.round(message.fingerid));
+    message.fingerid !== undefined && (obj.fingerid = message.fingerid);
     message.xNormalized !== undefined && (obj.xNormalized = message.xNormalized);
     message.yNormalized !== undefined && (obj.yNormalized = message.yNormalized);
     return obj;
@@ -5077,7 +5077,7 @@ export const CInputTouchFingerMotionMsg = {
   fromPartial<I extends Exact<DeepPartial<CInputTouchFingerMotionMsg>, I>>(object: I): CInputTouchFingerMotionMsg {
     const message = createBaseCInputTouchFingerMotionMsg();
     message.inputMark = object.inputMark ?? 0;
-    message.fingerid = object.fingerid ?? 0;
+    message.fingerid = object.fingerid ?? "0";
     message.xNormalized = object.xNormalized ?? 0;
     message.yNormalized = object.yNormalized ?? 0;
     return message;
@@ -5085,7 +5085,7 @@ export const CInputTouchFingerMotionMsg = {
 };
 
 function createBaseCInputTouchFingerUpMsg(): CInputTouchFingerUpMsg {
-  return { inputMark: 0, fingerid: 0, xNormalized: 0, yNormalized: 0 };
+  return { inputMark: 0, fingerid: "0", xNormalized: 0, yNormalized: 0 };
 }
 
 export const CInputTouchFingerUpMsg = {
@@ -5093,7 +5093,7 @@ export const CInputTouchFingerUpMsg = {
     if (message.inputMark !== 0) {
       writer.uint32(8).uint32(message.inputMark);
     }
-    if (message.fingerid !== 0) {
+    if (message.fingerid !== "0") {
       writer.uint32(16).uint64(message.fingerid);
     }
     if (message.xNormalized !== 0) {
@@ -5116,7 +5116,7 @@ export const CInputTouchFingerUpMsg = {
           message.inputMark = reader.uint32();
           break;
         case 2:
-          message.fingerid = longToNumber(reader.uint64() as Long);
+          message.fingerid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.xNormalized = reader.float();
@@ -5135,7 +5135,7 @@ export const CInputTouchFingerUpMsg = {
   fromJSON(object: any): CInputTouchFingerUpMsg {
     return {
       inputMark: isSet(object.inputMark) ? Number(object.inputMark) : 0,
-      fingerid: isSet(object.fingerid) ? Number(object.fingerid) : 0,
+      fingerid: isSet(object.fingerid) ? String(object.fingerid) : "0",
       xNormalized: isSet(object.xNormalized) ? Number(object.xNormalized) : 0,
       yNormalized: isSet(object.yNormalized) ? Number(object.yNormalized) : 0,
     };
@@ -5144,7 +5144,7 @@ export const CInputTouchFingerUpMsg = {
   toJSON(message: CInputTouchFingerUpMsg): unknown {
     const obj: any = {};
     message.inputMark !== undefined && (obj.inputMark = Math.round(message.inputMark));
-    message.fingerid !== undefined && (obj.fingerid = Math.round(message.fingerid));
+    message.fingerid !== undefined && (obj.fingerid = message.fingerid);
     message.xNormalized !== undefined && (obj.xNormalized = message.xNormalized);
     message.yNormalized !== undefined && (obj.yNormalized = message.yNormalized);
     return obj;
@@ -5157,7 +5157,7 @@ export const CInputTouchFingerUpMsg = {
   fromPartial<I extends Exact<DeepPartial<CInputTouchFingerUpMsg>, I>>(object: I): CInputTouchFingerUpMsg {
     const message = createBaseCInputTouchFingerUpMsg();
     message.inputMark = object.inputMark ?? 0;
-    message.fingerid = object.fingerid ?? 0;
+    message.fingerid = object.fingerid ?? "0";
     message.xNormalized = object.xNormalized ?? 0;
     message.yNormalized = object.yNormalized ?? 0;
     return message;
@@ -5987,12 +5987,12 @@ export const CHideCursorMsg = {
 };
 
 function createBaseCSetCursorMsg(): CSetCursorMsg {
-  return { cursorId: 0 };
+  return { cursorId: "0" };
 }
 
 export const CSetCursorMsg = {
   encode(message: CSetCursorMsg, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.cursorId !== 0) {
+    if (message.cursorId !== "0") {
       writer.uint32(8).uint64(message.cursorId);
     }
     return writer;
@@ -6006,7 +6006,7 @@ export const CSetCursorMsg = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cursorId = longToNumber(reader.uint64() as Long);
+          message.cursorId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6017,12 +6017,12 @@ export const CSetCursorMsg = {
   },
 
   fromJSON(object: any): CSetCursorMsg {
-    return { cursorId: isSet(object.cursorId) ? Number(object.cursorId) : 0 };
+    return { cursorId: isSet(object.cursorId) ? String(object.cursorId) : "0" };
   },
 
   toJSON(message: CSetCursorMsg): unknown {
     const obj: any = {};
-    message.cursorId !== undefined && (obj.cursorId = Math.round(message.cursorId));
+    message.cursorId !== undefined && (obj.cursorId = message.cursorId);
     return obj;
   },
 
@@ -6032,18 +6032,18 @@ export const CSetCursorMsg = {
 
   fromPartial<I extends Exact<DeepPartial<CSetCursorMsg>, I>>(object: I): CSetCursorMsg {
     const message = createBaseCSetCursorMsg();
-    message.cursorId = object.cursorId ?? 0;
+    message.cursorId = object.cursorId ?? "0";
     return message;
   },
 };
 
 function createBaseCGetCursorImageMsg(): CGetCursorImageMsg {
-  return { cursorId: 0 };
+  return { cursorId: "0" };
 }
 
 export const CGetCursorImageMsg = {
   encode(message: CGetCursorImageMsg, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.cursorId !== 0) {
+    if (message.cursorId !== "0") {
       writer.uint32(8).uint64(message.cursorId);
     }
     return writer;
@@ -6057,7 +6057,7 @@ export const CGetCursorImageMsg = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cursorId = longToNumber(reader.uint64() as Long);
+          message.cursorId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6068,12 +6068,12 @@ export const CGetCursorImageMsg = {
   },
 
   fromJSON(object: any): CGetCursorImageMsg {
-    return { cursorId: isSet(object.cursorId) ? Number(object.cursorId) : 0 };
+    return { cursorId: isSet(object.cursorId) ? String(object.cursorId) : "0" };
   },
 
   toJSON(message: CGetCursorImageMsg): unknown {
     const obj: any = {};
-    message.cursorId !== undefined && (obj.cursorId = Math.round(message.cursorId));
+    message.cursorId !== undefined && (obj.cursorId = message.cursorId);
     return obj;
   },
 
@@ -6083,18 +6083,18 @@ export const CGetCursorImageMsg = {
 
   fromPartial<I extends Exact<DeepPartial<CGetCursorImageMsg>, I>>(object: I): CGetCursorImageMsg {
     const message = createBaseCGetCursorImageMsg();
-    message.cursorId = object.cursorId ?? 0;
+    message.cursorId = object.cursorId ?? "0";
     return message;
   },
 };
 
 function createBaseCSetCursorImageMsg(): CSetCursorImageMsg {
-  return { cursorId: 0, width: 0, height: 0, hotX: 0, hotY: 0, image: Buffer.alloc(0) };
+  return { cursorId: "0", width: 0, height: 0, hotX: 0, hotY: 0, image: Buffer.alloc(0) };
 }
 
 export const CSetCursorImageMsg = {
   encode(message: CSetCursorImageMsg, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.cursorId !== 0) {
+    if (message.cursorId !== "0") {
       writer.uint32(8).uint64(message.cursorId);
     }
     if (message.width !== 0) {
@@ -6123,7 +6123,7 @@ export const CSetCursorImageMsg = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cursorId = longToNumber(reader.uint64() as Long);
+          message.cursorId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.width = reader.int32();
@@ -6150,7 +6150,7 @@ export const CSetCursorImageMsg = {
 
   fromJSON(object: any): CSetCursorImageMsg {
     return {
-      cursorId: isSet(object.cursorId) ? Number(object.cursorId) : 0,
+      cursorId: isSet(object.cursorId) ? String(object.cursorId) : "0",
       width: isSet(object.width) ? Number(object.width) : 0,
       height: isSet(object.height) ? Number(object.height) : 0,
       hotX: isSet(object.hotX) ? Number(object.hotX) : 0,
@@ -6161,7 +6161,7 @@ export const CSetCursorImageMsg = {
 
   toJSON(message: CSetCursorImageMsg): unknown {
     const obj: any = {};
-    message.cursorId !== undefined && (obj.cursorId = Math.round(message.cursorId));
+    message.cursorId !== undefined && (obj.cursorId = message.cursorId);
     message.width !== undefined && (obj.width = Math.round(message.width));
     message.height !== undefined && (obj.height = Math.round(message.height));
     message.hotX !== undefined && (obj.hotX = Math.round(message.hotX));
@@ -6177,7 +6177,7 @@ export const CSetCursorImageMsg = {
 
   fromPartial<I extends Exact<DeepPartial<CSetCursorImageMsg>, I>>(object: I): CSetCursorImageMsg {
     const message = createBaseCSetCursorImageMsg();
-    message.cursorId = object.cursorId ?? 0;
+    message.cursorId = object.cursorId ?? "0";
     message.width = object.width ?? 0;
     message.height = object.height ?? 0;
     message.hotX = object.hotX ?? 0;
@@ -6985,12 +6985,12 @@ export const CQuitRequest = {
 };
 
 function createBaseCDeleteCursorMsg(): CDeleteCursorMsg {
-  return { cursorId: 0 };
+  return { cursorId: "0" };
 }
 
 export const CDeleteCursorMsg = {
   encode(message: CDeleteCursorMsg, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.cursorId !== 0) {
+    if (message.cursorId !== "0") {
       writer.uint32(8).uint64(message.cursorId);
     }
     return writer;
@@ -7004,7 +7004,7 @@ export const CDeleteCursorMsg = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cursorId = longToNumber(reader.uint64() as Long);
+          message.cursorId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7015,12 +7015,12 @@ export const CDeleteCursorMsg = {
   },
 
   fromJSON(object: any): CDeleteCursorMsg {
-    return { cursorId: isSet(object.cursorId) ? Number(object.cursorId) : 0 };
+    return { cursorId: isSet(object.cursorId) ? String(object.cursorId) : "0" };
   },
 
   toJSON(message: CDeleteCursorMsg): unknown {
     const obj: any = {};
-    message.cursorId !== undefined && (obj.cursorId = Math.round(message.cursorId));
+    message.cursorId !== undefined && (obj.cursorId = message.cursorId);
     return obj;
   },
 
@@ -7030,7 +7030,7 @@ export const CDeleteCursorMsg = {
 
   fromPartial<I extends Exact<DeepPartial<CDeleteCursorMsg>, I>>(object: I): CDeleteCursorMsg {
     const message = createBaseCDeleteCursorMsg();
-    message.cursorId = object.cursorId ?? 0;
+    message.cursorId = object.cursorId ?? "0";
     return message;
   },
 };
@@ -7375,7 +7375,7 @@ export const CSetGammaRampMsg = {
 };
 
 function createBaseCSetActivityMsg(): CSetActivityMsg {
-  return { activity: 1, appid: 0, gameid: 0, gameName: "" };
+  return { activity: 1, appid: 0, gameid: "0", gameName: "" };
 }
 
 export const CSetActivityMsg = {
@@ -7386,7 +7386,7 @@ export const CSetActivityMsg = {
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(24).uint64(message.gameid);
     }
     if (message.gameName !== "") {
@@ -7409,7 +7409,7 @@ export const CSetActivityMsg = {
           message.appid = reader.uint32();
           break;
         case 3:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.gameName = reader.string();
@@ -7426,7 +7426,7 @@ export const CSetActivityMsg = {
     return {
       activity: isSet(object.activity) ? eStreamActivityFromJSON(object.activity) : 1,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       gameName: isSet(object.gameName) ? String(object.gameName) : "",
     };
   },
@@ -7435,7 +7435,7 @@ export const CSetActivityMsg = {
     const obj: any = {};
     message.activity !== undefined && (obj.activity = eStreamActivityToJSON(message.activity));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.gameName !== undefined && (obj.gameName = message.gameName);
     return obj;
   },
@@ -7448,7 +7448,7 @@ export const CSetActivityMsg = {
     const message = createBaseCSetActivityMsg();
     message.activity = object.activity ?? 1;
     message.appid = object.appid ?? 0;
-    message.gameid = object.gameid ?? 0;
+    message.gameid = object.gameid ?? "0";
     message.gameName = object.gameName ?? "";
     return message;
   },
@@ -7765,7 +7765,7 @@ export const CRemoteHIDMsg = {
 };
 
 function createBaseCTouchConfigActiveMsg(): CTouchConfigActiveMsg {
-  return { appid: 0, revision: 0, creator: 0 };
+  return { appid: 0, revision: 0, creator: "0" };
 }
 
 export const CTouchConfigActiveMsg = {
@@ -7776,7 +7776,7 @@ export const CTouchConfigActiveMsg = {
     if (message.revision !== 0) {
       writer.uint32(16).uint32(message.revision);
     }
-    if (message.creator !== 0) {
+    if (message.creator !== "0") {
       writer.uint32(24).uint64(message.creator);
     }
     return writer;
@@ -7796,7 +7796,7 @@ export const CTouchConfigActiveMsg = {
           message.revision = reader.uint32();
           break;
         case 3:
-          message.creator = longToNumber(reader.uint64() as Long);
+          message.creator = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7810,7 +7810,7 @@ export const CTouchConfigActiveMsg = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       revision: isSet(object.revision) ? Number(object.revision) : 0,
-      creator: isSet(object.creator) ? Number(object.creator) : 0,
+      creator: isSet(object.creator) ? String(object.creator) : "0",
     };
   },
 
@@ -7818,7 +7818,7 @@ export const CTouchConfigActiveMsg = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.revision !== undefined && (obj.revision = Math.round(message.revision));
-    message.creator !== undefined && (obj.creator = Math.round(message.creator));
+    message.creator !== undefined && (obj.creator = message.creator);
     return obj;
   },
 
@@ -7830,7 +7830,7 @@ export const CTouchConfigActiveMsg = {
     const message = createBaseCTouchConfigActiveMsg();
     message.appid = object.appid ?? 0;
     message.revision = object.revision ?? 0;
-    message.creator = object.creator ?? 0;
+    message.creator = object.creator ?? "0";
     return message;
   },
 };
@@ -7887,7 +7887,7 @@ export const CGetTouchConfigDataMsg = {
 };
 
 function createBaseCSetTouchConfigDataMsg(): CSetTouchConfigDataMsg {
-  return { appid: 0, revision: 0, data: Buffer.alloc(0), layout: Buffer.alloc(0), creator: 0 };
+  return { appid: 0, revision: 0, data: Buffer.alloc(0), layout: Buffer.alloc(0), creator: "0" };
 }
 
 export const CSetTouchConfigDataMsg = {
@@ -7904,7 +7904,7 @@ export const CSetTouchConfigDataMsg = {
     if (message.layout.length !== 0) {
       writer.uint32(34).bytes(message.layout);
     }
-    if (message.creator !== 0) {
+    if (message.creator !== "0") {
       writer.uint32(40).uint64(message.creator);
     }
     return writer;
@@ -7930,7 +7930,7 @@ export const CSetTouchConfigDataMsg = {
           message.layout = reader.bytes() as Buffer;
           break;
         case 5:
-          message.creator = longToNumber(reader.uint64() as Long);
+          message.creator = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7946,7 +7946,7 @@ export const CSetTouchConfigDataMsg = {
       revision: isSet(object.revision) ? Number(object.revision) : 0,
       data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
       layout: isSet(object.layout) ? Buffer.from(bytesFromBase64(object.layout)) : Buffer.alloc(0),
-      creator: isSet(object.creator) ? Number(object.creator) : 0,
+      creator: isSet(object.creator) ? String(object.creator) : "0",
     };
   },
 
@@ -7958,7 +7958,7 @@ export const CSetTouchConfigDataMsg = {
       (obj.data = base64FromBytes(message.data !== undefined ? message.data : Buffer.alloc(0)));
     message.layout !== undefined &&
       (obj.layout = base64FromBytes(message.layout !== undefined ? message.layout : Buffer.alloc(0)));
-    message.creator !== undefined && (obj.creator = Math.round(message.creator));
+    message.creator !== undefined && (obj.creator = message.creator);
     return obj;
   },
 
@@ -7972,7 +7972,7 @@ export const CSetTouchConfigDataMsg = {
     message.revision = object.revision ?? 0;
     message.data = object.data ?? Buffer.alloc(0);
     message.layout = object.layout ?? Buffer.alloc(0);
-    message.creator = object.creator ?? 0;
+    message.creator = object.creator ?? "0";
     return message;
   },
 };
@@ -10486,11 +10486,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

@@ -45,8 +45,8 @@ export function eMessageReactionTypeToJSON(object: EMessageReactionType): string
 }
 
 export interface CFriendMessagesGetRecentMessagesRequest {
-  steamid1: number;
-  steamid2: number;
+  steamid1: string;
+  steamid2: string;
   count: number;
   mostRecentConversation: boolean;
   rtime32StartTime: number;
@@ -93,7 +93,7 @@ export interface CFriendsMessagesGetActiveMessageSessionsResponse_FriendMessageS
 }
 
 export interface CFriendMessagesSendMessageRequest {
-  steamid: number;
+  steamid: string;
   chatEntryType: number;
   message: string;
   containsBbcode: boolean;
@@ -110,12 +110,12 @@ export interface CFriendMessagesSendMessageResponse {
 }
 
 export interface CFriendMessagesAckMessageNotification {
-  steamidPartner: number;
+  steamidPartner: string;
   timestamp: number;
 }
 
 export interface CFriendMessagesIsInFriendsUIBetaRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CFriendMessagesIsInFriendsUIBetaResponse {
@@ -124,7 +124,7 @@ export interface CFriendMessagesIsInFriendsUIBetaResponse {
 }
 
 export interface CFriendMessagesUpdateMessageReactionRequest {
-  steamid: number;
+  steamid: string;
   serverTimestamp: number;
   ordinal: number;
   reactionType: EMessageReactionType;
@@ -137,7 +137,7 @@ export interface CFriendMessagesUpdateMessageReactionResponse {
 }
 
 export interface CFriendMessagesIncomingMessageNotification {
-  steamidFriend: number;
+  steamidFriend: string;
   chatEntryType: number;
   fromLimitedAccount: boolean;
   message: string;
@@ -149,10 +149,10 @@ export interface CFriendMessagesIncomingMessageNotification {
 }
 
 export interface CFriendMessagesMessageReactionNotification {
-  steamidFriend: number;
+  steamidFriend: string;
   serverTimestamp: number;
   ordinal: number;
-  reactor: number;
+  reactor: string;
   reactionType: EMessageReactionType;
   reaction: string;
   isAdd: boolean;
@@ -160,8 +160,8 @@ export interface CFriendMessagesMessageReactionNotification {
 
 function createBaseCFriendMessagesGetRecentMessagesRequest(): CFriendMessagesGetRecentMessagesRequest {
   return {
-    steamid1: 0,
-    steamid2: 0,
+    steamid1: "0",
+    steamid2: "0",
     count: 0,
     mostRecentConversation: false,
     rtime32StartTime: 0,
@@ -174,10 +174,10 @@ function createBaseCFriendMessagesGetRecentMessagesRequest(): CFriendMessagesGet
 
 export const CFriendMessagesGetRecentMessagesRequest = {
   encode(message: CFriendMessagesGetRecentMessagesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid1 !== 0) {
+    if (message.steamid1 !== "0") {
       writer.uint32(9).fixed64(message.steamid1);
     }
-    if (message.steamid2 !== 0) {
+    if (message.steamid2 !== "0") {
       writer.uint32(17).fixed64(message.steamid2);
     }
     if (message.count !== 0) {
@@ -212,10 +212,10 @@ export const CFriendMessagesGetRecentMessagesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid1 = longToNumber(reader.fixed64() as Long);
+          message.steamid1 = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.steamid2 = longToNumber(reader.fixed64() as Long);
+          message.steamid2 = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.count = reader.uint32();
@@ -248,8 +248,8 @@ export const CFriendMessagesGetRecentMessagesRequest = {
 
   fromJSON(object: any): CFriendMessagesGetRecentMessagesRequest {
     return {
-      steamid1: isSet(object.steamid1) ? Number(object.steamid1) : 0,
-      steamid2: isSet(object.steamid2) ? Number(object.steamid2) : 0,
+      steamid1: isSet(object.steamid1) ? String(object.steamid1) : "0",
+      steamid2: isSet(object.steamid2) ? String(object.steamid2) : "0",
       count: isSet(object.count) ? Number(object.count) : 0,
       mostRecentConversation: isSet(object.mostRecentConversation) ? Boolean(object.mostRecentConversation) : false,
       rtime32StartTime: isSet(object.rtime32StartTime) ? Number(object.rtime32StartTime) : 0,
@@ -262,8 +262,8 @@ export const CFriendMessagesGetRecentMessagesRequest = {
 
   toJSON(message: CFriendMessagesGetRecentMessagesRequest): unknown {
     const obj: any = {};
-    message.steamid1 !== undefined && (obj.steamid1 = Math.round(message.steamid1));
-    message.steamid2 !== undefined && (obj.steamid2 = Math.round(message.steamid2));
+    message.steamid1 !== undefined && (obj.steamid1 = message.steamid1);
+    message.steamid2 !== undefined && (obj.steamid2 = message.steamid2);
     message.count !== undefined && (obj.count = Math.round(message.count));
     message.mostRecentConversation !== undefined && (obj.mostRecentConversation = message.mostRecentConversation);
     message.rtime32StartTime !== undefined && (obj.rtime32StartTime = Math.round(message.rtime32StartTime));
@@ -284,8 +284,8 @@ export const CFriendMessagesGetRecentMessagesRequest = {
     object: I,
   ): CFriendMessagesGetRecentMessagesRequest {
     const message = createBaseCFriendMessagesGetRecentMessagesRequest();
-    message.steamid1 = object.steamid1 ?? 0;
-    message.steamid2 = object.steamid2 ?? 0;
+    message.steamid1 = object.steamid1 ?? "0";
+    message.steamid2 = object.steamid2 ?? "0";
     message.count = object.count ?? 0;
     message.mostRecentConversation = object.mostRecentConversation ?? false;
     message.rtime32StartTime = object.rtime32StartTime ?? 0;
@@ -826,7 +826,7 @@ export const CFriendsMessagesGetActiveMessageSessionsResponse_FriendMessageSessi
 
 function createBaseCFriendMessagesSendMessageRequest(): CFriendMessagesSendMessageRequest {
   return {
-    steamid: 0,
+    steamid: "0",
     chatEntryType: 0,
     message: "",
     containsBbcode: false,
@@ -838,7 +838,7 @@ function createBaseCFriendMessagesSendMessageRequest(): CFriendMessagesSendMessa
 
 export const CFriendMessagesSendMessageRequest = {
   encode(message: CFriendMessagesSendMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.chatEntryType !== 0) {
@@ -870,7 +870,7 @@ export const CFriendMessagesSendMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.chatEntryType = reader.int32();
@@ -900,7 +900,7 @@ export const CFriendMessagesSendMessageRequest = {
 
   fromJSON(object: any): CFriendMessagesSendMessageRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       chatEntryType: isSet(object.chatEntryType) ? Number(object.chatEntryType) : 0,
       message: isSet(object.message) ? String(object.message) : "",
       containsBbcode: isSet(object.containsBbcode) ? Boolean(object.containsBbcode) : false,
@@ -912,7 +912,7 @@ export const CFriendMessagesSendMessageRequest = {
 
   toJSON(message: CFriendMessagesSendMessageRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.chatEntryType !== undefined && (obj.chatEntryType = Math.round(message.chatEntryType));
     message.message !== undefined && (obj.message = message.message);
     message.containsBbcode !== undefined && (obj.containsBbcode = message.containsBbcode);
@@ -932,7 +932,7 @@ export const CFriendMessagesSendMessageRequest = {
     object: I,
   ): CFriendMessagesSendMessageRequest {
     const message = createBaseCFriendMessagesSendMessageRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.chatEntryType = object.chatEntryType ?? 0;
     message.message = object.message ?? "";
     message.containsBbcode = object.containsBbcode ?? false;
@@ -1028,12 +1028,12 @@ export const CFriendMessagesSendMessageResponse = {
 };
 
 function createBaseCFriendMessagesAckMessageNotification(): CFriendMessagesAckMessageNotification {
-  return { steamidPartner: 0, timestamp: 0 };
+  return { steamidPartner: "0", timestamp: 0 };
 }
 
 export const CFriendMessagesAckMessageNotification = {
   encode(message: CFriendMessagesAckMessageNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidPartner !== 0) {
+    if (message.steamidPartner !== "0") {
       writer.uint32(9).fixed64(message.steamidPartner);
     }
     if (message.timestamp !== 0) {
@@ -1050,7 +1050,7 @@ export const CFriendMessagesAckMessageNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidPartner = longToNumber(reader.fixed64() as Long);
+          message.steamidPartner = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timestamp = reader.uint32();
@@ -1065,14 +1065,14 @@ export const CFriendMessagesAckMessageNotification = {
 
   fromJSON(object: any): CFriendMessagesAckMessageNotification {
     return {
-      steamidPartner: isSet(object.steamidPartner) ? Number(object.steamidPartner) : 0,
+      steamidPartner: isSet(object.steamidPartner) ? String(object.steamidPartner) : "0",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
     };
   },
 
   toJSON(message: CFriendMessagesAckMessageNotification): unknown {
     const obj: any = {};
-    message.steamidPartner !== undefined && (obj.steamidPartner = Math.round(message.steamidPartner));
+    message.steamidPartner !== undefined && (obj.steamidPartner = message.steamidPartner);
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
     return obj;
   },
@@ -1087,19 +1087,19 @@ export const CFriendMessagesAckMessageNotification = {
     object: I,
   ): CFriendMessagesAckMessageNotification {
     const message = createBaseCFriendMessagesAckMessageNotification();
-    message.steamidPartner = object.steamidPartner ?? 0;
+    message.steamidPartner = object.steamidPartner ?? "0";
     message.timestamp = object.timestamp ?? 0;
     return message;
   },
 };
 
 function createBaseCFriendMessagesIsInFriendsUIBetaRequest(): CFriendMessagesIsInFriendsUIBetaRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CFriendMessagesIsInFriendsUIBetaRequest = {
   encode(message: CFriendMessagesIsInFriendsUIBetaRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -1113,7 +1113,7 @@ export const CFriendMessagesIsInFriendsUIBetaRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1124,12 +1124,12 @@ export const CFriendMessagesIsInFriendsUIBetaRequest = {
   },
 
   fromJSON(object: any): CFriendMessagesIsInFriendsUIBetaRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CFriendMessagesIsInFriendsUIBetaRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1143,7 +1143,7 @@ export const CFriendMessagesIsInFriendsUIBetaRequest = {
     object: I,
   ): CFriendMessagesIsInFriendsUIBetaRequest {
     const message = createBaseCFriendMessagesIsInFriendsUIBetaRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1215,12 +1215,12 @@ export const CFriendMessagesIsInFriendsUIBetaResponse = {
 };
 
 function createBaseCFriendMessagesUpdateMessageReactionRequest(): CFriendMessagesUpdateMessageReactionRequest {
-  return { steamid: 0, serverTimestamp: 0, ordinal: 0, reactionType: 0, reaction: "", isAdd: false };
+  return { steamid: "0", serverTimestamp: 0, ordinal: 0, reactionType: 0, reaction: "", isAdd: false };
 }
 
 export const CFriendMessagesUpdateMessageReactionRequest = {
   encode(message: CFriendMessagesUpdateMessageReactionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.serverTimestamp !== 0) {
@@ -1249,7 +1249,7 @@ export const CFriendMessagesUpdateMessageReactionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.serverTimestamp = reader.uint32();
@@ -1276,7 +1276,7 @@ export const CFriendMessagesUpdateMessageReactionRequest = {
 
   fromJSON(object: any): CFriendMessagesUpdateMessageReactionRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       serverTimestamp: isSet(object.serverTimestamp) ? Number(object.serverTimestamp) : 0,
       ordinal: isSet(object.ordinal) ? Number(object.ordinal) : 0,
       reactionType: isSet(object.reactionType) ? eMessageReactionTypeFromJSON(object.reactionType) : 0,
@@ -1287,7 +1287,7 @@ export const CFriendMessagesUpdateMessageReactionRequest = {
 
   toJSON(message: CFriendMessagesUpdateMessageReactionRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.serverTimestamp !== undefined && (obj.serverTimestamp = Math.round(message.serverTimestamp));
     message.ordinal !== undefined && (obj.ordinal = Math.round(message.ordinal));
     message.reactionType !== undefined && (obj.reactionType = eMessageReactionTypeToJSON(message.reactionType));
@@ -1306,7 +1306,7 @@ export const CFriendMessagesUpdateMessageReactionRequest = {
     object: I,
   ): CFriendMessagesUpdateMessageReactionRequest {
     const message = createBaseCFriendMessagesUpdateMessageReactionRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.serverTimestamp = object.serverTimestamp ?? 0;
     message.ordinal = object.ordinal ?? 0;
     message.reactionType = object.reactionType ?? 0;
@@ -1386,7 +1386,7 @@ export const CFriendMessagesUpdateMessageReactionResponse = {
 
 function createBaseCFriendMessagesIncomingMessageNotification(): CFriendMessagesIncomingMessageNotification {
   return {
-    steamidFriend: 0,
+    steamidFriend: "0",
     chatEntryType: 0,
     fromLimitedAccount: false,
     message: "",
@@ -1400,7 +1400,7 @@ function createBaseCFriendMessagesIncomingMessageNotification(): CFriendMessages
 
 export const CFriendMessagesIncomingMessageNotification = {
   encode(message: CFriendMessagesIncomingMessageNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidFriend !== 0) {
+    if (message.steamidFriend !== "0") {
       writer.uint32(9).fixed64(message.steamidFriend);
     }
     if (message.chatEntryType !== 0) {
@@ -1438,7 +1438,7 @@ export const CFriendMessagesIncomingMessageNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidFriend = longToNumber(reader.fixed64() as Long);
+          message.steamidFriend = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.chatEntryType = reader.int32();
@@ -1474,7 +1474,7 @@ export const CFriendMessagesIncomingMessageNotification = {
 
   fromJSON(object: any): CFriendMessagesIncomingMessageNotification {
     return {
-      steamidFriend: isSet(object.steamidFriend) ? Number(object.steamidFriend) : 0,
+      steamidFriend: isSet(object.steamidFriend) ? String(object.steamidFriend) : "0",
       chatEntryType: isSet(object.chatEntryType) ? Number(object.chatEntryType) : 0,
       fromLimitedAccount: isSet(object.fromLimitedAccount) ? Boolean(object.fromLimitedAccount) : false,
       message: isSet(object.message) ? String(object.message) : "",
@@ -1488,7 +1488,7 @@ export const CFriendMessagesIncomingMessageNotification = {
 
   toJSON(message: CFriendMessagesIncomingMessageNotification): unknown {
     const obj: any = {};
-    message.steamidFriend !== undefined && (obj.steamidFriend = Math.round(message.steamidFriend));
+    message.steamidFriend !== undefined && (obj.steamidFriend = message.steamidFriend);
     message.chatEntryType !== undefined && (obj.chatEntryType = Math.round(message.chatEntryType));
     message.fromLimitedAccount !== undefined && (obj.fromLimitedAccount = message.fromLimitedAccount);
     message.message !== undefined && (obj.message = message.message);
@@ -1511,7 +1511,7 @@ export const CFriendMessagesIncomingMessageNotification = {
     object: I,
   ): CFriendMessagesIncomingMessageNotification {
     const message = createBaseCFriendMessagesIncomingMessageNotification();
-    message.steamidFriend = object.steamidFriend ?? 0;
+    message.steamidFriend = object.steamidFriend ?? "0";
     message.chatEntryType = object.chatEntryType ?? 0;
     message.fromLimitedAccount = object.fromLimitedAccount ?? false;
     message.message = object.message ?? "";
@@ -1525,12 +1525,20 @@ export const CFriendMessagesIncomingMessageNotification = {
 };
 
 function createBaseCFriendMessagesMessageReactionNotification(): CFriendMessagesMessageReactionNotification {
-  return { steamidFriend: 0, serverTimestamp: 0, ordinal: 0, reactor: 0, reactionType: 0, reaction: "", isAdd: false };
+  return {
+    steamidFriend: "0",
+    serverTimestamp: 0,
+    ordinal: 0,
+    reactor: "0",
+    reactionType: 0,
+    reaction: "",
+    isAdd: false,
+  };
 }
 
 export const CFriendMessagesMessageReactionNotification = {
   encode(message: CFriendMessagesMessageReactionNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidFriend !== 0) {
+    if (message.steamidFriend !== "0") {
       writer.uint32(9).fixed64(message.steamidFriend);
     }
     if (message.serverTimestamp !== 0) {
@@ -1539,7 +1547,7 @@ export const CFriendMessagesMessageReactionNotification = {
     if (message.ordinal !== 0) {
       writer.uint32(24).uint32(message.ordinal);
     }
-    if (message.reactor !== 0) {
+    if (message.reactor !== "0") {
       writer.uint32(33).fixed64(message.reactor);
     }
     if (message.reactionType !== 0) {
@@ -1562,7 +1570,7 @@ export const CFriendMessagesMessageReactionNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidFriend = longToNumber(reader.fixed64() as Long);
+          message.steamidFriend = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.serverTimestamp = reader.uint32();
@@ -1571,7 +1579,7 @@ export const CFriendMessagesMessageReactionNotification = {
           message.ordinal = reader.uint32();
           break;
         case 4:
-          message.reactor = longToNumber(reader.fixed64() as Long);
+          message.reactor = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.reactionType = reader.int32() as any;
@@ -1592,10 +1600,10 @@ export const CFriendMessagesMessageReactionNotification = {
 
   fromJSON(object: any): CFriendMessagesMessageReactionNotification {
     return {
-      steamidFriend: isSet(object.steamidFriend) ? Number(object.steamidFriend) : 0,
+      steamidFriend: isSet(object.steamidFriend) ? String(object.steamidFriend) : "0",
       serverTimestamp: isSet(object.serverTimestamp) ? Number(object.serverTimestamp) : 0,
       ordinal: isSet(object.ordinal) ? Number(object.ordinal) : 0,
-      reactor: isSet(object.reactor) ? Number(object.reactor) : 0,
+      reactor: isSet(object.reactor) ? String(object.reactor) : "0",
       reactionType: isSet(object.reactionType) ? eMessageReactionTypeFromJSON(object.reactionType) : 0,
       reaction: isSet(object.reaction) ? String(object.reaction) : "",
       isAdd: isSet(object.isAdd) ? Boolean(object.isAdd) : false,
@@ -1604,10 +1612,10 @@ export const CFriendMessagesMessageReactionNotification = {
 
   toJSON(message: CFriendMessagesMessageReactionNotification): unknown {
     const obj: any = {};
-    message.steamidFriend !== undefined && (obj.steamidFriend = Math.round(message.steamidFriend));
+    message.steamidFriend !== undefined && (obj.steamidFriend = message.steamidFriend);
     message.serverTimestamp !== undefined && (obj.serverTimestamp = Math.round(message.serverTimestamp));
     message.ordinal !== undefined && (obj.ordinal = Math.round(message.ordinal));
-    message.reactor !== undefined && (obj.reactor = Math.round(message.reactor));
+    message.reactor !== undefined && (obj.reactor = message.reactor);
     message.reactionType !== undefined && (obj.reactionType = eMessageReactionTypeToJSON(message.reactionType));
     message.reaction !== undefined && (obj.reaction = message.reaction);
     message.isAdd !== undefined && (obj.isAdd = message.isAdd);
@@ -1624,10 +1632,10 @@ export const CFriendMessagesMessageReactionNotification = {
     object: I,
   ): CFriendMessagesMessageReactionNotification {
     const message = createBaseCFriendMessagesMessageReactionNotification();
-    message.steamidFriend = object.steamidFriend ?? 0;
+    message.steamidFriend = object.steamidFriend ?? "0";
     message.serverTimestamp = object.serverTimestamp ?? 0;
     message.ordinal = object.ordinal ?? 0;
-    message.reactor = object.reactor ?? 0;
+    message.reactor = object.reactor ?? "0";
     message.reactionType = object.reactionType ?? 0;
     message.reaction = object.reaction ?? "";
     message.isAdd = object.isAdd ?? false;
@@ -1749,25 +1757,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1779,11 +1768,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

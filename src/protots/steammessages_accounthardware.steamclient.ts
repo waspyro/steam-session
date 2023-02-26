@@ -81,7 +81,7 @@ export interface CAccountHardwareQueryAccountsRegisteredToSerialResponse {
 
 export interface CAccountHardwareSteamControllerSetConfigControllerConfig {
   appidorname: string;
-  publishedfileid: number;
+  publishedfileid: string;
   templatename: string;
 }
 
@@ -108,7 +108,7 @@ export interface CAccountHardwareSteamControllerGetConfigRequest {
 
 export interface CAccountHardwareSteamControllerGetConfigControllerConfig {
   appidorname: string;
-  publishedfileid: number;
+  publishedfileid: string;
   templatename: string;
   serialNumber: string;
   autosave: boolean;
@@ -129,7 +129,7 @@ export interface CAccountHardwareDeRegisterSteamControllerResponse {
 
 export interface CAccountHardwareSetPersonalizationFileRequest {
   serialNumber: string;
-  publishedfileid: number;
+  publishedfileid: string;
   accountid: number;
 }
 
@@ -142,7 +142,7 @@ export interface CAccountHardwareGetPersonalizationFileRequest {
 }
 
 export interface CAccountHardwareGetPersonalizationFileResponse {
-  publishedfileid: number;
+  publishedfileid: string;
 }
 
 export interface CAccountHardwareVRCompatibilityCheckRequest {
@@ -636,7 +636,7 @@ export const CAccountHardwareQueryAccountsRegisteredToSerialResponse = {
 };
 
 function createBaseCAccountHardwareSteamControllerSetConfigControllerConfig(): CAccountHardwareSteamControllerSetConfigControllerConfig {
-  return { appidorname: "", publishedfileid: 0, templatename: "" };
+  return { appidorname: "", publishedfileid: "0", templatename: "" };
 }
 
 export const CAccountHardwareSteamControllerSetConfigControllerConfig = {
@@ -647,7 +647,7 @@ export const CAccountHardwareSteamControllerSetConfigControllerConfig = {
     if (message.appidorname !== "") {
       writer.uint32(10).string(message.appidorname);
     }
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(16).uint64(message.publishedfileid);
     }
     if (message.templatename !== "") {
@@ -667,7 +667,7 @@ export const CAccountHardwareSteamControllerSetConfigControllerConfig = {
           message.appidorname = reader.string();
           break;
         case 2:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.templatename = reader.string();
@@ -683,7 +683,7 @@ export const CAccountHardwareSteamControllerSetConfigControllerConfig = {
   fromJSON(object: any): CAccountHardwareSteamControllerSetConfigControllerConfig {
     return {
       appidorname: isSet(object.appidorname) ? String(object.appidorname) : "",
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       templatename: isSet(object.templatename) ? String(object.templatename) : "",
     };
   },
@@ -691,7 +691,7 @@ export const CAccountHardwareSteamControllerSetConfigControllerConfig = {
   toJSON(message: CAccountHardwareSteamControllerSetConfigControllerConfig): unknown {
     const obj: any = {};
     message.appidorname !== undefined && (obj.appidorname = message.appidorname);
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.templatename !== undefined && (obj.templatename = message.templatename);
     return obj;
   },
@@ -707,7 +707,7 @@ export const CAccountHardwareSteamControllerSetConfigControllerConfig = {
   ): CAccountHardwareSteamControllerSetConfigControllerConfig {
     const message = createBaseCAccountHardwareSteamControllerSetConfigControllerConfig();
     message.appidorname = object.appidorname ?? "";
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.templatename = object.templatename ?? "";
     return message;
   },
@@ -996,7 +996,7 @@ export const CAccountHardwareSteamControllerGetConfigRequest = {
 };
 
 function createBaseCAccountHardwareSteamControllerGetConfigControllerConfig(): CAccountHardwareSteamControllerGetConfigControllerConfig {
-  return { appidorname: "", publishedfileid: 0, templatename: "", serialNumber: "", autosave: false };
+  return { appidorname: "", publishedfileid: "0", templatename: "", serialNumber: "", autosave: false };
 }
 
 export const CAccountHardwareSteamControllerGetConfigControllerConfig = {
@@ -1007,7 +1007,7 @@ export const CAccountHardwareSteamControllerGetConfigControllerConfig = {
     if (message.appidorname !== "") {
       writer.uint32(10).string(message.appidorname);
     }
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(16).uint64(message.publishedfileid);
     }
     if (message.templatename !== "") {
@@ -1033,7 +1033,7 @@ export const CAccountHardwareSteamControllerGetConfigControllerConfig = {
           message.appidorname = reader.string();
           break;
         case 2:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.templatename = reader.string();
@@ -1055,7 +1055,7 @@ export const CAccountHardwareSteamControllerGetConfigControllerConfig = {
   fromJSON(object: any): CAccountHardwareSteamControllerGetConfigControllerConfig {
     return {
       appidorname: isSet(object.appidorname) ? String(object.appidorname) : "",
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       templatename: isSet(object.templatename) ? String(object.templatename) : "",
       serialNumber: isSet(object.serialNumber) ? String(object.serialNumber) : "",
       autosave: isSet(object.autosave) ? Boolean(object.autosave) : false,
@@ -1065,7 +1065,7 @@ export const CAccountHardwareSteamControllerGetConfigControllerConfig = {
   toJSON(message: CAccountHardwareSteamControllerGetConfigControllerConfig): unknown {
     const obj: any = {};
     message.appidorname !== undefined && (obj.appidorname = message.appidorname);
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.templatename !== undefined && (obj.templatename = message.templatename);
     message.serialNumber !== undefined && (obj.serialNumber = message.serialNumber);
     message.autosave !== undefined && (obj.autosave = message.autosave);
@@ -1083,7 +1083,7 @@ export const CAccountHardwareSteamControllerGetConfigControllerConfig = {
   ): CAccountHardwareSteamControllerGetConfigControllerConfig {
     const message = createBaseCAccountHardwareSteamControllerGetConfigControllerConfig();
     message.appidorname = object.appidorname ?? "";
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.templatename = object.templatename ?? "";
     message.serialNumber = object.serialNumber ?? "";
     message.autosave = object.autosave ?? false;
@@ -1288,7 +1288,7 @@ export const CAccountHardwareDeRegisterSteamControllerResponse = {
 };
 
 function createBaseCAccountHardwareSetPersonalizationFileRequest(): CAccountHardwareSetPersonalizationFileRequest {
-  return { serialNumber: "", publishedfileid: 0, accountid: 0 };
+  return { serialNumber: "", publishedfileid: "0", accountid: 0 };
 }
 
 export const CAccountHardwareSetPersonalizationFileRequest = {
@@ -1296,7 +1296,7 @@ export const CAccountHardwareSetPersonalizationFileRequest = {
     if (message.serialNumber !== "") {
       writer.uint32(10).string(message.serialNumber);
     }
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(16).uint64(message.publishedfileid);
     }
     if (message.accountid !== 0) {
@@ -1316,7 +1316,7 @@ export const CAccountHardwareSetPersonalizationFileRequest = {
           message.serialNumber = reader.string();
           break;
         case 2:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.accountid = reader.uint32();
@@ -1332,7 +1332,7 @@ export const CAccountHardwareSetPersonalizationFileRequest = {
   fromJSON(object: any): CAccountHardwareSetPersonalizationFileRequest {
     return {
       serialNumber: isSet(object.serialNumber) ? String(object.serialNumber) : "",
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       accountid: isSet(object.accountid) ? Number(object.accountid) : 0,
     };
   },
@@ -1340,7 +1340,7 @@ export const CAccountHardwareSetPersonalizationFileRequest = {
   toJSON(message: CAccountHardwareSetPersonalizationFileRequest): unknown {
     const obj: any = {};
     message.serialNumber !== undefined && (obj.serialNumber = message.serialNumber);
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.accountid !== undefined && (obj.accountid = Math.round(message.accountid));
     return obj;
   },
@@ -1356,7 +1356,7 @@ export const CAccountHardwareSetPersonalizationFileRequest = {
   ): CAccountHardwareSetPersonalizationFileRequest {
     const message = createBaseCAccountHardwareSetPersonalizationFileRequest();
     message.serialNumber = object.serialNumber ?? "";
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.accountid = object.accountid ?? 0;
     return message;
   },
@@ -1476,7 +1476,7 @@ export const CAccountHardwareGetPersonalizationFileRequest = {
 };
 
 function createBaseCAccountHardwareGetPersonalizationFileResponse(): CAccountHardwareGetPersonalizationFileResponse {
-  return { publishedfileid: 0 };
+  return { publishedfileid: "0" };
 }
 
 export const CAccountHardwareGetPersonalizationFileResponse = {
@@ -1484,7 +1484,7 @@ export const CAccountHardwareGetPersonalizationFileResponse = {
     message: CAccountHardwareGetPersonalizationFileResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     return writer;
@@ -1498,7 +1498,7 @@ export const CAccountHardwareGetPersonalizationFileResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1509,12 +1509,12 @@ export const CAccountHardwareGetPersonalizationFileResponse = {
   },
 
   fromJSON(object: any): CAccountHardwareGetPersonalizationFileResponse {
-    return { publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0 };
+    return { publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0" };
   },
 
   toJSON(message: CAccountHardwareGetPersonalizationFileResponse): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     return obj;
   },
 
@@ -1528,7 +1528,7 @@ export const CAccountHardwareGetPersonalizationFileResponse = {
     object: I,
   ): CAccountHardwareGetPersonalizationFileResponse {
     const message = createBaseCAccountHardwareGetPersonalizationFileResponse();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     return message;
   },
 };
@@ -2328,25 +2328,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -2358,11 +2339,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

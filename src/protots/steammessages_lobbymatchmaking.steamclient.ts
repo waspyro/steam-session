@@ -51,7 +51,7 @@ export function eLobbyStatusToJSON(object: ELobbyStatus): string {
 
 export interface LobbyMatchmakingLegacyGetLobbyStatusRequest {
   appId: number;
-  steamidLobby: number;
+  steamidLobby: string;
   claimOwnership: boolean;
   claimMembership: boolean;
   versionNum: number;
@@ -59,12 +59,12 @@ export interface LobbyMatchmakingLegacyGetLobbyStatusRequest {
 
 export interface LobbyMatchmakingLegacyGetLobbyStatusResponse {
   appId: number;
-  steamidLobby: number;
+  steamidLobby: string;
   lobbyStatus: ELobbyStatus;
 }
 
 function createBaseLobbyMatchmakingLegacyGetLobbyStatusRequest(): LobbyMatchmakingLegacyGetLobbyStatusRequest {
-  return { appId: 0, steamidLobby: 0, claimOwnership: false, claimMembership: false, versionNum: 0 };
+  return { appId: 0, steamidLobby: "0", claimOwnership: false, claimMembership: false, versionNum: 0 };
 }
 
 export const LobbyMatchmakingLegacyGetLobbyStatusRequest = {
@@ -72,7 +72,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusRequest = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamidLobby !== 0) {
+    if (message.steamidLobby !== "0") {
       writer.uint32(17).fixed64(message.steamidLobby);
     }
     if (message.claimOwnership === true) {
@@ -98,7 +98,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusRequest = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamidLobby = longToNumber(reader.fixed64() as Long);
+          message.steamidLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.claimOwnership = reader.bool();
@@ -120,7 +120,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusRequest = {
   fromJSON(object: any): LobbyMatchmakingLegacyGetLobbyStatusRequest {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamidLobby: isSet(object.steamidLobby) ? Number(object.steamidLobby) : 0,
+      steamidLobby: isSet(object.steamidLobby) ? String(object.steamidLobby) : "0",
       claimOwnership: isSet(object.claimOwnership) ? Boolean(object.claimOwnership) : false,
       claimMembership: isSet(object.claimMembership) ? Boolean(object.claimMembership) : false,
       versionNum: isSet(object.versionNum) ? Number(object.versionNum) : 0,
@@ -130,7 +130,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusRequest = {
   toJSON(message: LobbyMatchmakingLegacyGetLobbyStatusRequest): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamidLobby !== undefined && (obj.steamidLobby = Math.round(message.steamidLobby));
+    message.steamidLobby !== undefined && (obj.steamidLobby = message.steamidLobby);
     message.claimOwnership !== undefined && (obj.claimOwnership = message.claimOwnership);
     message.claimMembership !== undefined && (obj.claimMembership = message.claimMembership);
     message.versionNum !== undefined && (obj.versionNum = Math.round(message.versionNum));
@@ -148,7 +148,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusRequest = {
   ): LobbyMatchmakingLegacyGetLobbyStatusRequest {
     const message = createBaseLobbyMatchmakingLegacyGetLobbyStatusRequest();
     message.appId = object.appId ?? 0;
-    message.steamidLobby = object.steamidLobby ?? 0;
+    message.steamidLobby = object.steamidLobby ?? "0";
     message.claimOwnership = object.claimOwnership ?? false;
     message.claimMembership = object.claimMembership ?? false;
     message.versionNum = object.versionNum ?? 0;
@@ -157,7 +157,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusRequest = {
 };
 
 function createBaseLobbyMatchmakingLegacyGetLobbyStatusResponse(): LobbyMatchmakingLegacyGetLobbyStatusResponse {
-  return { appId: 0, steamidLobby: 0, lobbyStatus: 0 };
+  return { appId: 0, steamidLobby: "0", lobbyStatus: 0 };
 }
 
 export const LobbyMatchmakingLegacyGetLobbyStatusResponse = {
@@ -165,7 +165,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusResponse = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamidLobby !== 0) {
+    if (message.steamidLobby !== "0") {
       writer.uint32(17).fixed64(message.steamidLobby);
     }
     if (message.lobbyStatus !== 0) {
@@ -185,7 +185,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusResponse = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamidLobby = longToNumber(reader.fixed64() as Long);
+          message.steamidLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.lobbyStatus = reader.int32() as any;
@@ -201,7 +201,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusResponse = {
   fromJSON(object: any): LobbyMatchmakingLegacyGetLobbyStatusResponse {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamidLobby: isSet(object.steamidLobby) ? Number(object.steamidLobby) : 0,
+      steamidLobby: isSet(object.steamidLobby) ? String(object.steamidLobby) : "0",
       lobbyStatus: isSet(object.lobbyStatus) ? eLobbyStatusFromJSON(object.lobbyStatus) : 0,
     };
   },
@@ -209,7 +209,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusResponse = {
   toJSON(message: LobbyMatchmakingLegacyGetLobbyStatusResponse): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamidLobby !== undefined && (obj.steamidLobby = Math.round(message.steamidLobby));
+    message.steamidLobby !== undefined && (obj.steamidLobby = message.steamidLobby);
     message.lobbyStatus !== undefined && (obj.lobbyStatus = eLobbyStatusToJSON(message.lobbyStatus));
     return obj;
   },
@@ -225,7 +225,7 @@ export const LobbyMatchmakingLegacyGetLobbyStatusResponse = {
   ): LobbyMatchmakingLegacyGetLobbyStatusResponse {
     const message = createBaseLobbyMatchmakingLegacyGetLobbyStatusResponse();
     message.appId = object.appId ?? 0;
-    message.steamidLobby = object.steamidLobby ?? 0;
+    message.steamidLobby = object.steamidLobby ?? "0";
     message.lobbyStatus = object.lobbyStatus ?? 0;
     return message;
   },
@@ -258,25 +258,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -288,11 +269,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

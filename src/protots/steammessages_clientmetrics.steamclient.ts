@@ -96,7 +96,7 @@ export interface CClientMetricsAppInterfaceMethodCounts {
 }
 
 export interface CClientMetricsAppInterfaceStatsNotification {
-  gameId: number;
+  gameId: string;
   interfacesCreated: CClientMetricsAppInterfaceCreation[];
   methodsCalled: CClientMetricsAppInterfaceMethodCounts[];
   sessionLengthSeconds: number;
@@ -116,11 +116,11 @@ export interface CClientMetricsIPv6ConnectivityNotification {
 export interface CClientMetricsSteamPipeWorkStatsOperation {
   type: ESteamPipeOperationType;
   numOps: number;
-  numBytes: number;
-  busyTimeMs: number;
-  idleTimeMs: number;
-  sumRunTimeMs: number;
-  sumWaitTimeMs: number;
+  numBytes: string;
+  busyTimeMs: string;
+  idleTimeMs: string;
+  sumRunTimeMs: string;
+  sumWaitTimeMs: string;
 }
 
 export interface CClientMetricsSteamPipeWorkStatsNotification {
@@ -179,16 +179,16 @@ export interface CClientMetricsDownloadRatesNotification {
 export interface CClientMetricsDownloadRatesNotification_StatsInfo {
   sourceType: number;
   sourceId: number;
-  bytes: number;
+  bytes: string;
   hostName: string;
-  microseconds: number;
+  microseconds: string;
   usedIpv6: boolean;
   proxied: boolean;
   usedHttp2: boolean;
   cacheHits: number;
   cacheMisses: number;
-  hitBytes: number;
-  missBytes: number;
+  hitBytes: string;
+  missBytes: string;
 }
 
 export interface CClientMetricsContentValidationNotification {
@@ -199,9 +199,9 @@ export interface CClientMetricsContentValidationNotification {
   earlyOut: boolean;
   chunksScanned: number;
   chunksCorrupt: number;
-  bytesScanned: number;
-  chunkBytesCorrupt: number;
-  totalFileSizeCorrupt: number;
+  bytesScanned: string;
+  chunkBytesCorrupt: string;
+  totalFileSizeCorrupt: string;
 }
 
 export interface CClientMetricsCloudAppSyncStatsNotification {
@@ -212,18 +212,18 @@ export interface CClientMetricsCloudAppSyncStatsNotification {
   filesUploaded: number;
   filesDownloaded: number;
   filesDeleted: number;
-  bytesUploaded: number;
-  bytesDownloaded: number;
-  microsecTotal: number;
-  microsecInitCaches: number;
-  microsecValidateState: number;
-  microsecAcLaunch: number;
-  microsecAcPrepUserFiles: number;
-  microsecAcExit: number;
-  microsecBuildSyncList: number;
-  microsecDeleteFiles: number;
-  microsecDownloadFiles: number;
-  microsecUploadFiles: number;
+  bytesUploaded: string;
+  bytesDownloaded: string;
+  microsecTotal: string;
+  microsecInitCaches: string;
+  microsecValidateState: string;
+  microsecAcLaunch: string;
+  microsecAcPrepUserFiles: string;
+  microsecAcExit: string;
+  microsecBuildSyncList: string;
+  microsecDeleteFiles: string;
+  microsecDownloadFiles: string;
+  microsecUploadFiles: string;
   hardwareType: number;
   filesManaged: number;
 }
@@ -387,12 +387,12 @@ export const CClientMetricsAppInterfaceMethodCounts = {
 };
 
 function createBaseCClientMetricsAppInterfaceStatsNotification(): CClientMetricsAppInterfaceStatsNotification {
-  return { gameId: 0, interfacesCreated: [], methodsCalled: [], sessionLengthSeconds: 0 };
+  return { gameId: "0", interfacesCreated: [], methodsCalled: [], sessionLengthSeconds: 0 };
 }
 
 export const CClientMetricsAppInterfaceStatsNotification = {
   encode(message: CClientMetricsAppInterfaceStatsNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameId !== 0) {
+    if (message.gameId !== "0") {
       writer.uint32(8).uint64(message.gameId);
     }
     for (const v of message.interfacesCreated) {
@@ -415,7 +415,7 @@ export const CClientMetricsAppInterfaceStatsNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameId = longToNumber(reader.uint64() as Long);
+          message.gameId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.interfacesCreated.push(CClientMetricsAppInterfaceCreation.decode(reader, reader.uint32()));
@@ -436,7 +436,7 @@ export const CClientMetricsAppInterfaceStatsNotification = {
 
   fromJSON(object: any): CClientMetricsAppInterfaceStatsNotification {
     return {
-      gameId: isSet(object.gameId) ? Number(object.gameId) : 0,
+      gameId: isSet(object.gameId) ? String(object.gameId) : "0",
       interfacesCreated: Array.isArray(object?.interfacesCreated)
         ? object.interfacesCreated.map((e: any) => CClientMetricsAppInterfaceCreation.fromJSON(e))
         : [],
@@ -449,7 +449,7 @@ export const CClientMetricsAppInterfaceStatsNotification = {
 
   toJSON(message: CClientMetricsAppInterfaceStatsNotification): unknown {
     const obj: any = {};
-    message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
+    message.gameId !== undefined && (obj.gameId = message.gameId);
     if (message.interfacesCreated) {
       obj.interfacesCreated = message.interfacesCreated.map((e) =>
         e ? CClientMetricsAppInterfaceCreation.toJSON(e) : undefined
@@ -478,7 +478,7 @@ export const CClientMetricsAppInterfaceStatsNotification = {
     object: I,
   ): CClientMetricsAppInterfaceStatsNotification {
     const message = createBaseCClientMetricsAppInterfaceStatsNotification();
-    message.gameId = object.gameId ?? 0;
+    message.gameId = object.gameId ?? "0";
     message.interfacesCreated =
       object.interfacesCreated?.map((e) => CClientMetricsAppInterfaceCreation.fromPartial(e)) || [];
     message.methodsCalled = object.methodsCalled?.map((e) => CClientMetricsAppInterfaceMethodCounts.fromPartial(e)) ||
@@ -636,7 +636,7 @@ export const CClientMetricsIPv6ConnectivityNotification = {
 };
 
 function createBaseCClientMetricsSteamPipeWorkStatsOperation(): CClientMetricsSteamPipeWorkStatsOperation {
-  return { type: 0, numOps: 0, numBytes: 0, busyTimeMs: 0, idleTimeMs: 0, sumRunTimeMs: 0, sumWaitTimeMs: 0 };
+  return { type: 0, numOps: 0, numBytes: "0", busyTimeMs: "0", idleTimeMs: "0", sumRunTimeMs: "0", sumWaitTimeMs: "0" };
 }
 
 export const CClientMetricsSteamPipeWorkStatsOperation = {
@@ -647,19 +647,19 @@ export const CClientMetricsSteamPipeWorkStatsOperation = {
     if (message.numOps !== 0) {
       writer.uint32(16).uint32(message.numOps);
     }
-    if (message.numBytes !== 0) {
+    if (message.numBytes !== "0") {
       writer.uint32(24).uint64(message.numBytes);
     }
-    if (message.busyTimeMs !== 0) {
+    if (message.busyTimeMs !== "0") {
       writer.uint32(32).uint64(message.busyTimeMs);
     }
-    if (message.idleTimeMs !== 0) {
+    if (message.idleTimeMs !== "0") {
       writer.uint32(40).uint64(message.idleTimeMs);
     }
-    if (message.sumRunTimeMs !== 0) {
+    if (message.sumRunTimeMs !== "0") {
       writer.uint32(48).uint64(message.sumRunTimeMs);
     }
-    if (message.sumWaitTimeMs !== 0) {
+    if (message.sumWaitTimeMs !== "0") {
       writer.uint32(56).uint64(message.sumWaitTimeMs);
     }
     return writer;
@@ -679,19 +679,19 @@ export const CClientMetricsSteamPipeWorkStatsOperation = {
           message.numOps = reader.uint32();
           break;
         case 3:
-          message.numBytes = longToNumber(reader.uint64() as Long);
+          message.numBytes = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.busyTimeMs = longToNumber(reader.uint64() as Long);
+          message.busyTimeMs = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.idleTimeMs = longToNumber(reader.uint64() as Long);
+          message.idleTimeMs = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.sumRunTimeMs = longToNumber(reader.uint64() as Long);
+          message.sumRunTimeMs = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.sumWaitTimeMs = longToNumber(reader.uint64() as Long);
+          message.sumWaitTimeMs = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -705,11 +705,11 @@ export const CClientMetricsSteamPipeWorkStatsOperation = {
     return {
       type: isSet(object.type) ? eSteamPipeOperationTypeFromJSON(object.type) : 0,
       numOps: isSet(object.numOps) ? Number(object.numOps) : 0,
-      numBytes: isSet(object.numBytes) ? Number(object.numBytes) : 0,
-      busyTimeMs: isSet(object.busyTimeMs) ? Number(object.busyTimeMs) : 0,
-      idleTimeMs: isSet(object.idleTimeMs) ? Number(object.idleTimeMs) : 0,
-      sumRunTimeMs: isSet(object.sumRunTimeMs) ? Number(object.sumRunTimeMs) : 0,
-      sumWaitTimeMs: isSet(object.sumWaitTimeMs) ? Number(object.sumWaitTimeMs) : 0,
+      numBytes: isSet(object.numBytes) ? String(object.numBytes) : "0",
+      busyTimeMs: isSet(object.busyTimeMs) ? String(object.busyTimeMs) : "0",
+      idleTimeMs: isSet(object.idleTimeMs) ? String(object.idleTimeMs) : "0",
+      sumRunTimeMs: isSet(object.sumRunTimeMs) ? String(object.sumRunTimeMs) : "0",
+      sumWaitTimeMs: isSet(object.sumWaitTimeMs) ? String(object.sumWaitTimeMs) : "0",
     };
   },
 
@@ -717,11 +717,11 @@ export const CClientMetricsSteamPipeWorkStatsOperation = {
     const obj: any = {};
     message.type !== undefined && (obj.type = eSteamPipeOperationTypeToJSON(message.type));
     message.numOps !== undefined && (obj.numOps = Math.round(message.numOps));
-    message.numBytes !== undefined && (obj.numBytes = Math.round(message.numBytes));
-    message.busyTimeMs !== undefined && (obj.busyTimeMs = Math.round(message.busyTimeMs));
-    message.idleTimeMs !== undefined && (obj.idleTimeMs = Math.round(message.idleTimeMs));
-    message.sumRunTimeMs !== undefined && (obj.sumRunTimeMs = Math.round(message.sumRunTimeMs));
-    message.sumWaitTimeMs !== undefined && (obj.sumWaitTimeMs = Math.round(message.sumWaitTimeMs));
+    message.numBytes !== undefined && (obj.numBytes = message.numBytes);
+    message.busyTimeMs !== undefined && (obj.busyTimeMs = message.busyTimeMs);
+    message.idleTimeMs !== undefined && (obj.idleTimeMs = message.idleTimeMs);
+    message.sumRunTimeMs !== undefined && (obj.sumRunTimeMs = message.sumRunTimeMs);
+    message.sumWaitTimeMs !== undefined && (obj.sumWaitTimeMs = message.sumWaitTimeMs);
     return obj;
   },
 
@@ -737,11 +737,11 @@ export const CClientMetricsSteamPipeWorkStatsOperation = {
     const message = createBaseCClientMetricsSteamPipeWorkStatsOperation();
     message.type = object.type ?? 0;
     message.numOps = object.numOps ?? 0;
-    message.numBytes = object.numBytes ?? 0;
-    message.busyTimeMs = object.busyTimeMs ?? 0;
-    message.idleTimeMs = object.idleTimeMs ?? 0;
-    message.sumRunTimeMs = object.sumRunTimeMs ?? 0;
-    message.sumWaitTimeMs = object.sumWaitTimeMs ?? 0;
+    message.numBytes = object.numBytes ?? "0";
+    message.busyTimeMs = object.busyTimeMs ?? "0";
+    message.idleTimeMs = object.idleTimeMs ?? "0";
+    message.sumRunTimeMs = object.sumRunTimeMs ?? "0";
+    message.sumWaitTimeMs = object.sumWaitTimeMs ?? "0";
     return message;
   },
 };
@@ -1482,16 +1482,16 @@ function createBaseCClientMetricsDownloadRatesNotification_StatsInfo(): CClientM
   return {
     sourceType: 0,
     sourceId: 0,
-    bytes: 0,
+    bytes: "0",
     hostName: "",
-    microseconds: 0,
+    microseconds: "0",
     usedIpv6: false,
     proxied: false,
     usedHttp2: false,
     cacheHits: 0,
     cacheMisses: 0,
-    hitBytes: 0,
-    missBytes: 0,
+    hitBytes: "0",
+    missBytes: "0",
   };
 }
 
@@ -1506,13 +1506,13 @@ export const CClientMetricsDownloadRatesNotification_StatsInfo = {
     if (message.sourceId !== 0) {
       writer.uint32(16).uint32(message.sourceId);
     }
-    if (message.bytes !== 0) {
+    if (message.bytes !== "0") {
       writer.uint32(24).uint64(message.bytes);
     }
     if (message.hostName !== "") {
       writer.uint32(34).string(message.hostName);
     }
-    if (message.microseconds !== 0) {
+    if (message.microseconds !== "0") {
       writer.uint32(40).uint64(message.microseconds);
     }
     if (message.usedIpv6 === true) {
@@ -1530,10 +1530,10 @@ export const CClientMetricsDownloadRatesNotification_StatsInfo = {
     if (message.cacheMisses !== 0) {
       writer.uint32(80).uint32(message.cacheMisses);
     }
-    if (message.hitBytes !== 0) {
+    if (message.hitBytes !== "0") {
       writer.uint32(88).uint64(message.hitBytes);
     }
-    if (message.missBytes !== 0) {
+    if (message.missBytes !== "0") {
       writer.uint32(96).uint64(message.missBytes);
     }
     return writer;
@@ -1553,13 +1553,13 @@ export const CClientMetricsDownloadRatesNotification_StatsInfo = {
           message.sourceId = reader.uint32();
           break;
         case 3:
-          message.bytes = longToNumber(reader.uint64() as Long);
+          message.bytes = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.hostName = reader.string();
           break;
         case 5:
-          message.microseconds = longToNumber(reader.uint64() as Long);
+          message.microseconds = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.usedIpv6 = reader.bool();
@@ -1577,10 +1577,10 @@ export const CClientMetricsDownloadRatesNotification_StatsInfo = {
           message.cacheMisses = reader.uint32();
           break;
         case 11:
-          message.hitBytes = longToNumber(reader.uint64() as Long);
+          message.hitBytes = longToString(reader.uint64() as Long);
           break;
         case 12:
-          message.missBytes = longToNumber(reader.uint64() as Long);
+          message.missBytes = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1594,16 +1594,16 @@ export const CClientMetricsDownloadRatesNotification_StatsInfo = {
     return {
       sourceType: isSet(object.sourceType) ? Number(object.sourceType) : 0,
       sourceId: isSet(object.sourceId) ? Number(object.sourceId) : 0,
-      bytes: isSet(object.bytes) ? Number(object.bytes) : 0,
+      bytes: isSet(object.bytes) ? String(object.bytes) : "0",
       hostName: isSet(object.hostName) ? String(object.hostName) : "",
-      microseconds: isSet(object.microseconds) ? Number(object.microseconds) : 0,
+      microseconds: isSet(object.microseconds) ? String(object.microseconds) : "0",
       usedIpv6: isSet(object.usedIpv6) ? Boolean(object.usedIpv6) : false,
       proxied: isSet(object.proxied) ? Boolean(object.proxied) : false,
       usedHttp2: isSet(object.usedHttp2) ? Boolean(object.usedHttp2) : false,
       cacheHits: isSet(object.cacheHits) ? Number(object.cacheHits) : 0,
       cacheMisses: isSet(object.cacheMisses) ? Number(object.cacheMisses) : 0,
-      hitBytes: isSet(object.hitBytes) ? Number(object.hitBytes) : 0,
-      missBytes: isSet(object.missBytes) ? Number(object.missBytes) : 0,
+      hitBytes: isSet(object.hitBytes) ? String(object.hitBytes) : "0",
+      missBytes: isSet(object.missBytes) ? String(object.missBytes) : "0",
     };
   },
 
@@ -1611,16 +1611,16 @@ export const CClientMetricsDownloadRatesNotification_StatsInfo = {
     const obj: any = {};
     message.sourceType !== undefined && (obj.sourceType = Math.round(message.sourceType));
     message.sourceId !== undefined && (obj.sourceId = Math.round(message.sourceId));
-    message.bytes !== undefined && (obj.bytes = Math.round(message.bytes));
+    message.bytes !== undefined && (obj.bytes = message.bytes);
     message.hostName !== undefined && (obj.hostName = message.hostName);
-    message.microseconds !== undefined && (obj.microseconds = Math.round(message.microseconds));
+    message.microseconds !== undefined && (obj.microseconds = message.microseconds);
     message.usedIpv6 !== undefined && (obj.usedIpv6 = message.usedIpv6);
     message.proxied !== undefined && (obj.proxied = message.proxied);
     message.usedHttp2 !== undefined && (obj.usedHttp2 = message.usedHttp2);
     message.cacheHits !== undefined && (obj.cacheHits = Math.round(message.cacheHits));
     message.cacheMisses !== undefined && (obj.cacheMisses = Math.round(message.cacheMisses));
-    message.hitBytes !== undefined && (obj.hitBytes = Math.round(message.hitBytes));
-    message.missBytes !== undefined && (obj.missBytes = Math.round(message.missBytes));
+    message.hitBytes !== undefined && (obj.hitBytes = message.hitBytes);
+    message.missBytes !== undefined && (obj.missBytes = message.missBytes);
     return obj;
   },
 
@@ -1636,16 +1636,16 @@ export const CClientMetricsDownloadRatesNotification_StatsInfo = {
     const message = createBaseCClientMetricsDownloadRatesNotification_StatsInfo();
     message.sourceType = object.sourceType ?? 0;
     message.sourceId = object.sourceId ?? 0;
-    message.bytes = object.bytes ?? 0;
+    message.bytes = object.bytes ?? "0";
     message.hostName = object.hostName ?? "";
-    message.microseconds = object.microseconds ?? 0;
+    message.microseconds = object.microseconds ?? "0";
     message.usedIpv6 = object.usedIpv6 ?? false;
     message.proxied = object.proxied ?? false;
     message.usedHttp2 = object.usedHttp2 ?? false;
     message.cacheHits = object.cacheHits ?? 0;
     message.cacheMisses = object.cacheMisses ?? 0;
-    message.hitBytes = object.hitBytes ?? 0;
-    message.missBytes = object.missBytes ?? 0;
+    message.hitBytes = object.hitBytes ?? "0";
+    message.missBytes = object.missBytes ?? "0";
     return message;
   },
 };
@@ -1659,9 +1659,9 @@ function createBaseCClientMetricsContentValidationNotification(): CClientMetrics
     earlyOut: false,
     chunksScanned: 0,
     chunksCorrupt: 0,
-    bytesScanned: 0,
-    chunkBytesCorrupt: 0,
-    totalFileSizeCorrupt: 0,
+    bytesScanned: "0",
+    chunkBytesCorrupt: "0",
+    totalFileSizeCorrupt: "0",
   };
 }
 
@@ -1688,13 +1688,13 @@ export const CClientMetricsContentValidationNotification = {
     if (message.chunksCorrupt !== 0) {
       writer.uint32(56).uint32(message.chunksCorrupt);
     }
-    if (message.bytesScanned !== 0) {
+    if (message.bytesScanned !== "0") {
       writer.uint32(64).uint64(message.bytesScanned);
     }
-    if (message.chunkBytesCorrupt !== 0) {
+    if (message.chunkBytesCorrupt !== "0") {
       writer.uint32(72).uint64(message.chunkBytesCorrupt);
     }
-    if (message.totalFileSizeCorrupt !== 0) {
+    if (message.totalFileSizeCorrupt !== "0") {
       writer.uint32(80).uint64(message.totalFileSizeCorrupt);
     }
     return writer;
@@ -1729,13 +1729,13 @@ export const CClientMetricsContentValidationNotification = {
           message.chunksCorrupt = reader.uint32();
           break;
         case 8:
-          message.bytesScanned = longToNumber(reader.uint64() as Long);
+          message.bytesScanned = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.chunkBytesCorrupt = longToNumber(reader.uint64() as Long);
+          message.chunkBytesCorrupt = longToString(reader.uint64() as Long);
           break;
         case 10:
-          message.totalFileSizeCorrupt = longToNumber(reader.uint64() as Long);
+          message.totalFileSizeCorrupt = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1754,9 +1754,9 @@ export const CClientMetricsContentValidationNotification = {
       earlyOut: isSet(object.earlyOut) ? Boolean(object.earlyOut) : false,
       chunksScanned: isSet(object.chunksScanned) ? Number(object.chunksScanned) : 0,
       chunksCorrupt: isSet(object.chunksCorrupt) ? Number(object.chunksCorrupt) : 0,
-      bytesScanned: isSet(object.bytesScanned) ? Number(object.bytesScanned) : 0,
-      chunkBytesCorrupt: isSet(object.chunkBytesCorrupt) ? Number(object.chunkBytesCorrupt) : 0,
-      totalFileSizeCorrupt: isSet(object.totalFileSizeCorrupt) ? Number(object.totalFileSizeCorrupt) : 0,
+      bytesScanned: isSet(object.bytesScanned) ? String(object.bytesScanned) : "0",
+      chunkBytesCorrupt: isSet(object.chunkBytesCorrupt) ? String(object.chunkBytesCorrupt) : "0",
+      totalFileSizeCorrupt: isSet(object.totalFileSizeCorrupt) ? String(object.totalFileSizeCorrupt) : "0",
     };
   },
 
@@ -1769,9 +1769,9 @@ export const CClientMetricsContentValidationNotification = {
     message.earlyOut !== undefined && (obj.earlyOut = message.earlyOut);
     message.chunksScanned !== undefined && (obj.chunksScanned = Math.round(message.chunksScanned));
     message.chunksCorrupt !== undefined && (obj.chunksCorrupt = Math.round(message.chunksCorrupt));
-    message.bytesScanned !== undefined && (obj.bytesScanned = Math.round(message.bytesScanned));
-    message.chunkBytesCorrupt !== undefined && (obj.chunkBytesCorrupt = Math.round(message.chunkBytesCorrupt));
-    message.totalFileSizeCorrupt !== undefined && (obj.totalFileSizeCorrupt = Math.round(message.totalFileSizeCorrupt));
+    message.bytesScanned !== undefined && (obj.bytesScanned = message.bytesScanned);
+    message.chunkBytesCorrupt !== undefined && (obj.chunkBytesCorrupt = message.chunkBytesCorrupt);
+    message.totalFileSizeCorrupt !== undefined && (obj.totalFileSizeCorrupt = message.totalFileSizeCorrupt);
     return obj;
   },
 
@@ -1792,9 +1792,9 @@ export const CClientMetricsContentValidationNotification = {
     message.earlyOut = object.earlyOut ?? false;
     message.chunksScanned = object.chunksScanned ?? 0;
     message.chunksCorrupt = object.chunksCorrupt ?? 0;
-    message.bytesScanned = object.bytesScanned ?? 0;
-    message.chunkBytesCorrupt = object.chunkBytesCorrupt ?? 0;
-    message.totalFileSizeCorrupt = object.totalFileSizeCorrupt ?? 0;
+    message.bytesScanned = object.bytesScanned ?? "0";
+    message.chunkBytesCorrupt = object.chunkBytesCorrupt ?? "0";
+    message.totalFileSizeCorrupt = object.totalFileSizeCorrupt ?? "0";
     return message;
   },
 };
@@ -1808,18 +1808,18 @@ function createBaseCClientMetricsCloudAppSyncStatsNotification(): CClientMetrics
     filesUploaded: 0,
     filesDownloaded: 0,
     filesDeleted: 0,
-    bytesUploaded: 0,
-    bytesDownloaded: 0,
-    microsecTotal: 0,
-    microsecInitCaches: 0,
-    microsecValidateState: 0,
-    microsecAcLaunch: 0,
-    microsecAcPrepUserFiles: 0,
-    microsecAcExit: 0,
-    microsecBuildSyncList: 0,
-    microsecDeleteFiles: 0,
-    microsecDownloadFiles: 0,
-    microsecUploadFiles: 0,
+    bytesUploaded: "0",
+    bytesDownloaded: "0",
+    microsecTotal: "0",
+    microsecInitCaches: "0",
+    microsecValidateState: "0",
+    microsecAcLaunch: "0",
+    microsecAcPrepUserFiles: "0",
+    microsecAcExit: "0",
+    microsecBuildSyncList: "0",
+    microsecDeleteFiles: "0",
+    microsecDownloadFiles: "0",
+    microsecUploadFiles: "0",
     hardwareType: 0,
     filesManaged: 0,
   };
@@ -1848,40 +1848,40 @@ export const CClientMetricsCloudAppSyncStatsNotification = {
     if (message.filesDeleted !== 0) {
       writer.uint32(56).uint32(message.filesDeleted);
     }
-    if (message.bytesUploaded !== 0) {
+    if (message.bytesUploaded !== "0") {
       writer.uint32(64).uint64(message.bytesUploaded);
     }
-    if (message.bytesDownloaded !== 0) {
+    if (message.bytesDownloaded !== "0") {
       writer.uint32(72).uint64(message.bytesDownloaded);
     }
-    if (message.microsecTotal !== 0) {
+    if (message.microsecTotal !== "0") {
       writer.uint32(80).uint64(message.microsecTotal);
     }
-    if (message.microsecInitCaches !== 0) {
+    if (message.microsecInitCaches !== "0") {
       writer.uint32(88).uint64(message.microsecInitCaches);
     }
-    if (message.microsecValidateState !== 0) {
+    if (message.microsecValidateState !== "0") {
       writer.uint32(96).uint64(message.microsecValidateState);
     }
-    if (message.microsecAcLaunch !== 0) {
+    if (message.microsecAcLaunch !== "0") {
       writer.uint32(104).uint64(message.microsecAcLaunch);
     }
-    if (message.microsecAcPrepUserFiles !== 0) {
+    if (message.microsecAcPrepUserFiles !== "0") {
       writer.uint32(112).uint64(message.microsecAcPrepUserFiles);
     }
-    if (message.microsecAcExit !== 0) {
+    if (message.microsecAcExit !== "0") {
       writer.uint32(120).uint64(message.microsecAcExit);
     }
-    if (message.microsecBuildSyncList !== 0) {
+    if (message.microsecBuildSyncList !== "0") {
       writer.uint32(128).uint64(message.microsecBuildSyncList);
     }
-    if (message.microsecDeleteFiles !== 0) {
+    if (message.microsecDeleteFiles !== "0") {
       writer.uint32(136).uint64(message.microsecDeleteFiles);
     }
-    if (message.microsecDownloadFiles !== 0) {
+    if (message.microsecDownloadFiles !== "0") {
       writer.uint32(144).uint64(message.microsecDownloadFiles);
     }
-    if (message.microsecUploadFiles !== 0) {
+    if (message.microsecUploadFiles !== "0") {
       writer.uint32(152).uint64(message.microsecUploadFiles);
     }
     if (message.hardwareType !== 0) {
@@ -1922,40 +1922,40 @@ export const CClientMetricsCloudAppSyncStatsNotification = {
           message.filesDeleted = reader.uint32();
           break;
         case 8:
-          message.bytesUploaded = longToNumber(reader.uint64() as Long);
+          message.bytesUploaded = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.bytesDownloaded = longToNumber(reader.uint64() as Long);
+          message.bytesDownloaded = longToString(reader.uint64() as Long);
           break;
         case 10:
-          message.microsecTotal = longToNumber(reader.uint64() as Long);
+          message.microsecTotal = longToString(reader.uint64() as Long);
           break;
         case 11:
-          message.microsecInitCaches = longToNumber(reader.uint64() as Long);
+          message.microsecInitCaches = longToString(reader.uint64() as Long);
           break;
         case 12:
-          message.microsecValidateState = longToNumber(reader.uint64() as Long);
+          message.microsecValidateState = longToString(reader.uint64() as Long);
           break;
         case 13:
-          message.microsecAcLaunch = longToNumber(reader.uint64() as Long);
+          message.microsecAcLaunch = longToString(reader.uint64() as Long);
           break;
         case 14:
-          message.microsecAcPrepUserFiles = longToNumber(reader.uint64() as Long);
+          message.microsecAcPrepUserFiles = longToString(reader.uint64() as Long);
           break;
         case 15:
-          message.microsecAcExit = longToNumber(reader.uint64() as Long);
+          message.microsecAcExit = longToString(reader.uint64() as Long);
           break;
         case 16:
-          message.microsecBuildSyncList = longToNumber(reader.uint64() as Long);
+          message.microsecBuildSyncList = longToString(reader.uint64() as Long);
           break;
         case 17:
-          message.microsecDeleteFiles = longToNumber(reader.uint64() as Long);
+          message.microsecDeleteFiles = longToString(reader.uint64() as Long);
           break;
         case 18:
-          message.microsecDownloadFiles = longToNumber(reader.uint64() as Long);
+          message.microsecDownloadFiles = longToString(reader.uint64() as Long);
           break;
         case 19:
-          message.microsecUploadFiles = longToNumber(reader.uint64() as Long);
+          message.microsecUploadFiles = longToString(reader.uint64() as Long);
           break;
         case 20:
           message.hardwareType = reader.uint32();
@@ -1980,18 +1980,18 @@ export const CClientMetricsCloudAppSyncStatsNotification = {
       filesUploaded: isSet(object.filesUploaded) ? Number(object.filesUploaded) : 0,
       filesDownloaded: isSet(object.filesDownloaded) ? Number(object.filesDownloaded) : 0,
       filesDeleted: isSet(object.filesDeleted) ? Number(object.filesDeleted) : 0,
-      bytesUploaded: isSet(object.bytesUploaded) ? Number(object.bytesUploaded) : 0,
-      bytesDownloaded: isSet(object.bytesDownloaded) ? Number(object.bytesDownloaded) : 0,
-      microsecTotal: isSet(object.microsecTotal) ? Number(object.microsecTotal) : 0,
-      microsecInitCaches: isSet(object.microsecInitCaches) ? Number(object.microsecInitCaches) : 0,
-      microsecValidateState: isSet(object.microsecValidateState) ? Number(object.microsecValidateState) : 0,
-      microsecAcLaunch: isSet(object.microsecAcLaunch) ? Number(object.microsecAcLaunch) : 0,
-      microsecAcPrepUserFiles: isSet(object.microsecAcPrepUserFiles) ? Number(object.microsecAcPrepUserFiles) : 0,
-      microsecAcExit: isSet(object.microsecAcExit) ? Number(object.microsecAcExit) : 0,
-      microsecBuildSyncList: isSet(object.microsecBuildSyncList) ? Number(object.microsecBuildSyncList) : 0,
-      microsecDeleteFiles: isSet(object.microsecDeleteFiles) ? Number(object.microsecDeleteFiles) : 0,
-      microsecDownloadFiles: isSet(object.microsecDownloadFiles) ? Number(object.microsecDownloadFiles) : 0,
-      microsecUploadFiles: isSet(object.microsecUploadFiles) ? Number(object.microsecUploadFiles) : 0,
+      bytesUploaded: isSet(object.bytesUploaded) ? String(object.bytesUploaded) : "0",
+      bytesDownloaded: isSet(object.bytesDownloaded) ? String(object.bytesDownloaded) : "0",
+      microsecTotal: isSet(object.microsecTotal) ? String(object.microsecTotal) : "0",
+      microsecInitCaches: isSet(object.microsecInitCaches) ? String(object.microsecInitCaches) : "0",
+      microsecValidateState: isSet(object.microsecValidateState) ? String(object.microsecValidateState) : "0",
+      microsecAcLaunch: isSet(object.microsecAcLaunch) ? String(object.microsecAcLaunch) : "0",
+      microsecAcPrepUserFiles: isSet(object.microsecAcPrepUserFiles) ? String(object.microsecAcPrepUserFiles) : "0",
+      microsecAcExit: isSet(object.microsecAcExit) ? String(object.microsecAcExit) : "0",
+      microsecBuildSyncList: isSet(object.microsecBuildSyncList) ? String(object.microsecBuildSyncList) : "0",
+      microsecDeleteFiles: isSet(object.microsecDeleteFiles) ? String(object.microsecDeleteFiles) : "0",
+      microsecDownloadFiles: isSet(object.microsecDownloadFiles) ? String(object.microsecDownloadFiles) : "0",
+      microsecUploadFiles: isSet(object.microsecUploadFiles) ? String(object.microsecUploadFiles) : "0",
       hardwareType: isSet(object.hardwareType) ? Number(object.hardwareType) : 0,
       filesManaged: isSet(object.filesManaged) ? Number(object.filesManaged) : 0,
     };
@@ -2006,22 +2006,18 @@ export const CClientMetricsCloudAppSyncStatsNotification = {
     message.filesUploaded !== undefined && (obj.filesUploaded = Math.round(message.filesUploaded));
     message.filesDownloaded !== undefined && (obj.filesDownloaded = Math.round(message.filesDownloaded));
     message.filesDeleted !== undefined && (obj.filesDeleted = Math.round(message.filesDeleted));
-    message.bytesUploaded !== undefined && (obj.bytesUploaded = Math.round(message.bytesUploaded));
-    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = Math.round(message.bytesDownloaded));
-    message.microsecTotal !== undefined && (obj.microsecTotal = Math.round(message.microsecTotal));
-    message.microsecInitCaches !== undefined && (obj.microsecInitCaches = Math.round(message.microsecInitCaches));
-    message.microsecValidateState !== undefined &&
-      (obj.microsecValidateState = Math.round(message.microsecValidateState));
-    message.microsecAcLaunch !== undefined && (obj.microsecAcLaunch = Math.round(message.microsecAcLaunch));
-    message.microsecAcPrepUserFiles !== undefined &&
-      (obj.microsecAcPrepUserFiles = Math.round(message.microsecAcPrepUserFiles));
-    message.microsecAcExit !== undefined && (obj.microsecAcExit = Math.round(message.microsecAcExit));
-    message.microsecBuildSyncList !== undefined &&
-      (obj.microsecBuildSyncList = Math.round(message.microsecBuildSyncList));
-    message.microsecDeleteFiles !== undefined && (obj.microsecDeleteFiles = Math.round(message.microsecDeleteFiles));
-    message.microsecDownloadFiles !== undefined &&
-      (obj.microsecDownloadFiles = Math.round(message.microsecDownloadFiles));
-    message.microsecUploadFiles !== undefined && (obj.microsecUploadFiles = Math.round(message.microsecUploadFiles));
+    message.bytesUploaded !== undefined && (obj.bytesUploaded = message.bytesUploaded);
+    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = message.bytesDownloaded);
+    message.microsecTotal !== undefined && (obj.microsecTotal = message.microsecTotal);
+    message.microsecInitCaches !== undefined && (obj.microsecInitCaches = message.microsecInitCaches);
+    message.microsecValidateState !== undefined && (obj.microsecValidateState = message.microsecValidateState);
+    message.microsecAcLaunch !== undefined && (obj.microsecAcLaunch = message.microsecAcLaunch);
+    message.microsecAcPrepUserFiles !== undefined && (obj.microsecAcPrepUserFiles = message.microsecAcPrepUserFiles);
+    message.microsecAcExit !== undefined && (obj.microsecAcExit = message.microsecAcExit);
+    message.microsecBuildSyncList !== undefined && (obj.microsecBuildSyncList = message.microsecBuildSyncList);
+    message.microsecDeleteFiles !== undefined && (obj.microsecDeleteFiles = message.microsecDeleteFiles);
+    message.microsecDownloadFiles !== undefined && (obj.microsecDownloadFiles = message.microsecDownloadFiles);
+    message.microsecUploadFiles !== undefined && (obj.microsecUploadFiles = message.microsecUploadFiles);
     message.hardwareType !== undefined && (obj.hardwareType = Math.round(message.hardwareType));
     message.filesManaged !== undefined && (obj.filesManaged = Math.round(message.filesManaged));
     return obj;
@@ -2044,18 +2040,18 @@ export const CClientMetricsCloudAppSyncStatsNotification = {
     message.filesUploaded = object.filesUploaded ?? 0;
     message.filesDownloaded = object.filesDownloaded ?? 0;
     message.filesDeleted = object.filesDeleted ?? 0;
-    message.bytesUploaded = object.bytesUploaded ?? 0;
-    message.bytesDownloaded = object.bytesDownloaded ?? 0;
-    message.microsecTotal = object.microsecTotal ?? 0;
-    message.microsecInitCaches = object.microsecInitCaches ?? 0;
-    message.microsecValidateState = object.microsecValidateState ?? 0;
-    message.microsecAcLaunch = object.microsecAcLaunch ?? 0;
-    message.microsecAcPrepUserFiles = object.microsecAcPrepUserFiles ?? 0;
-    message.microsecAcExit = object.microsecAcExit ?? 0;
-    message.microsecBuildSyncList = object.microsecBuildSyncList ?? 0;
-    message.microsecDeleteFiles = object.microsecDeleteFiles ?? 0;
-    message.microsecDownloadFiles = object.microsecDownloadFiles ?? 0;
-    message.microsecUploadFiles = object.microsecUploadFiles ?? 0;
+    message.bytesUploaded = object.bytesUploaded ?? "0";
+    message.bytesDownloaded = object.bytesDownloaded ?? "0";
+    message.microsecTotal = object.microsecTotal ?? "0";
+    message.microsecInitCaches = object.microsecInitCaches ?? "0";
+    message.microsecValidateState = object.microsecValidateState ?? "0";
+    message.microsecAcLaunch = object.microsecAcLaunch ?? "0";
+    message.microsecAcPrepUserFiles = object.microsecAcPrepUserFiles ?? "0";
+    message.microsecAcExit = object.microsecAcExit ?? "0";
+    message.microsecBuildSyncList = object.microsecBuildSyncList ?? "0";
+    message.microsecDeleteFiles = object.microsecDeleteFiles ?? "0";
+    message.microsecDownloadFiles = object.microsecDownloadFiles ?? "0";
+    message.microsecUploadFiles = object.microsecUploadFiles ?? "0";
     message.hardwareType = object.hardwareType ?? 0;
     message.filesManaged = object.filesManaged ?? 0;
     return message;
@@ -2395,25 +2391,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -2425,11 +2402,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

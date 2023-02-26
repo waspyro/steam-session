@@ -71,39 +71,39 @@ export function eSteamNetworkingUDPMsgIDToJSON(object: ESteamNetworkingUDPMsgID)
 
 export interface CMsgSteamSocketsUDPChallengeRequest {
   connectionId: number;
-  myTimestamp: number;
+  myTimestamp: string;
   protocolVersion: number;
 }
 
 export interface CMsgSteamSocketsUDPChallengeReply {
   connectionId: number;
-  challenge: number;
-  yourTimestamp: number;
+  challenge: string;
+  yourTimestamp: string;
   protocolVersion: number;
 }
 
 export interface CMsgSteamSocketsUDPConnectRequest {
   clientConnectionId: number;
-  challenge: number;
-  myTimestamp: number;
+  challenge: string;
+  myTimestamp: string;
   pingEstMs: number;
   crypt: CMsgSteamDatagramSessionCryptInfoSigned | undefined;
   cert: CMsgSteamDatagramCertificateSigned | undefined;
   legacyProtocolVersion: number;
   identityString: string;
-  legacyClientSteamId: number;
+  legacyClientSteamId: string;
   legacyIdentityBinary: CMsgSteamNetworkingIdentityLegacyBinary | undefined;
 }
 
 export interface CMsgSteamSocketsUDPConnectOK {
   clientConnectionId: number;
   serverConnectionId: number;
-  yourTimestamp: number;
+  yourTimestamp: string;
   delayTimeUsec: number;
   crypt: CMsgSteamDatagramSessionCryptInfoSigned | undefined;
   cert: CMsgSteamDatagramCertificateSigned | undefined;
   identityString: string;
-  legacyServerSteamId: number;
+  legacyServerSteamId: string;
   legacyIdentityBinary: CMsgSteamNetworkingIdentityLegacyBinary | undefined;
 }
 
@@ -164,7 +164,7 @@ export function cMsgSteamSocketsUDPStats_FlagsToJSON(object: CMsgSteamSocketsUDP
 }
 
 function createBaseCMsgSteamSocketsUDPChallengeRequest(): CMsgSteamSocketsUDPChallengeRequest {
-  return { connectionId: 0, myTimestamp: 0, protocolVersion: 0 };
+  return { connectionId: 0, myTimestamp: "0", protocolVersion: 0 };
 }
 
 export const CMsgSteamSocketsUDPChallengeRequest = {
@@ -172,7 +172,7 @@ export const CMsgSteamSocketsUDPChallengeRequest = {
     if (message.connectionId !== 0) {
       writer.uint32(13).fixed32(message.connectionId);
     }
-    if (message.myTimestamp !== 0) {
+    if (message.myTimestamp !== "0") {
       writer.uint32(25).fixed64(message.myTimestamp);
     }
     if (message.protocolVersion !== 0) {
@@ -192,7 +192,7 @@ export const CMsgSteamSocketsUDPChallengeRequest = {
           message.connectionId = reader.fixed32();
           break;
         case 3:
-          message.myTimestamp = longToNumber(reader.fixed64() as Long);
+          message.myTimestamp = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.protocolVersion = reader.uint32();
@@ -208,7 +208,7 @@ export const CMsgSteamSocketsUDPChallengeRequest = {
   fromJSON(object: any): CMsgSteamSocketsUDPChallengeRequest {
     return {
       connectionId: isSet(object.connectionId) ? Number(object.connectionId) : 0,
-      myTimestamp: isSet(object.myTimestamp) ? Number(object.myTimestamp) : 0,
+      myTimestamp: isSet(object.myTimestamp) ? String(object.myTimestamp) : "0",
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
     };
   },
@@ -216,7 +216,7 @@ export const CMsgSteamSocketsUDPChallengeRequest = {
   toJSON(message: CMsgSteamSocketsUDPChallengeRequest): unknown {
     const obj: any = {};
     message.connectionId !== undefined && (obj.connectionId = Math.round(message.connectionId));
-    message.myTimestamp !== undefined && (obj.myTimestamp = Math.round(message.myTimestamp));
+    message.myTimestamp !== undefined && (obj.myTimestamp = message.myTimestamp);
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
     return obj;
   },
@@ -232,14 +232,14 @@ export const CMsgSteamSocketsUDPChallengeRequest = {
   ): CMsgSteamSocketsUDPChallengeRequest {
     const message = createBaseCMsgSteamSocketsUDPChallengeRequest();
     message.connectionId = object.connectionId ?? 0;
-    message.myTimestamp = object.myTimestamp ?? 0;
+    message.myTimestamp = object.myTimestamp ?? "0";
     message.protocolVersion = object.protocolVersion ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgSteamSocketsUDPChallengeReply(): CMsgSteamSocketsUDPChallengeReply {
-  return { connectionId: 0, challenge: 0, yourTimestamp: 0, protocolVersion: 0 };
+  return { connectionId: 0, challenge: "0", yourTimestamp: "0", protocolVersion: 0 };
 }
 
 export const CMsgSteamSocketsUDPChallengeReply = {
@@ -247,10 +247,10 @@ export const CMsgSteamSocketsUDPChallengeReply = {
     if (message.connectionId !== 0) {
       writer.uint32(13).fixed32(message.connectionId);
     }
-    if (message.challenge !== 0) {
+    if (message.challenge !== "0") {
       writer.uint32(17).fixed64(message.challenge);
     }
-    if (message.yourTimestamp !== 0) {
+    if (message.yourTimestamp !== "0") {
       writer.uint32(25).fixed64(message.yourTimestamp);
     }
     if (message.protocolVersion !== 0) {
@@ -270,10 +270,10 @@ export const CMsgSteamSocketsUDPChallengeReply = {
           message.connectionId = reader.fixed32();
           break;
         case 2:
-          message.challenge = longToNumber(reader.fixed64() as Long);
+          message.challenge = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.yourTimestamp = longToNumber(reader.fixed64() as Long);
+          message.yourTimestamp = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.protocolVersion = reader.uint32();
@@ -289,8 +289,8 @@ export const CMsgSteamSocketsUDPChallengeReply = {
   fromJSON(object: any): CMsgSteamSocketsUDPChallengeReply {
     return {
       connectionId: isSet(object.connectionId) ? Number(object.connectionId) : 0,
-      challenge: isSet(object.challenge) ? Number(object.challenge) : 0,
-      yourTimestamp: isSet(object.yourTimestamp) ? Number(object.yourTimestamp) : 0,
+      challenge: isSet(object.challenge) ? String(object.challenge) : "0",
+      yourTimestamp: isSet(object.yourTimestamp) ? String(object.yourTimestamp) : "0",
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
     };
   },
@@ -298,8 +298,8 @@ export const CMsgSteamSocketsUDPChallengeReply = {
   toJSON(message: CMsgSteamSocketsUDPChallengeReply): unknown {
     const obj: any = {};
     message.connectionId !== undefined && (obj.connectionId = Math.round(message.connectionId));
-    message.challenge !== undefined && (obj.challenge = Math.round(message.challenge));
-    message.yourTimestamp !== undefined && (obj.yourTimestamp = Math.round(message.yourTimestamp));
+    message.challenge !== undefined && (obj.challenge = message.challenge);
+    message.yourTimestamp !== undefined && (obj.yourTimestamp = message.yourTimestamp);
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
     return obj;
   },
@@ -315,8 +315,8 @@ export const CMsgSteamSocketsUDPChallengeReply = {
   ): CMsgSteamSocketsUDPChallengeReply {
     const message = createBaseCMsgSteamSocketsUDPChallengeReply();
     message.connectionId = object.connectionId ?? 0;
-    message.challenge = object.challenge ?? 0;
-    message.yourTimestamp = object.yourTimestamp ?? 0;
+    message.challenge = object.challenge ?? "0";
+    message.yourTimestamp = object.yourTimestamp ?? "0";
     message.protocolVersion = object.protocolVersion ?? 0;
     return message;
   },
@@ -325,14 +325,14 @@ export const CMsgSteamSocketsUDPChallengeReply = {
 function createBaseCMsgSteamSocketsUDPConnectRequest(): CMsgSteamSocketsUDPConnectRequest {
   return {
     clientConnectionId: 0,
-    challenge: 0,
-    myTimestamp: 0,
+    challenge: "0",
+    myTimestamp: "0",
     pingEstMs: 0,
     crypt: undefined,
     cert: undefined,
     legacyProtocolVersion: 0,
     identityString: "",
-    legacyClientSteamId: 0,
+    legacyClientSteamId: "0",
     legacyIdentityBinary: undefined,
   };
 }
@@ -342,10 +342,10 @@ export const CMsgSteamSocketsUDPConnectRequest = {
     if (message.clientConnectionId !== 0) {
       writer.uint32(13).fixed32(message.clientConnectionId);
     }
-    if (message.challenge !== 0) {
+    if (message.challenge !== "0") {
       writer.uint32(17).fixed64(message.challenge);
     }
-    if (message.myTimestamp !== 0) {
+    if (message.myTimestamp !== "0") {
       writer.uint32(41).fixed64(message.myTimestamp);
     }
     if (message.pingEstMs !== 0) {
@@ -363,7 +363,7 @@ export const CMsgSteamSocketsUDPConnectRequest = {
     if (message.identityString !== "") {
       writer.uint32(82).string(message.identityString);
     }
-    if (message.legacyClientSteamId !== 0) {
+    if (message.legacyClientSteamId !== "0") {
       writer.uint32(25).fixed64(message.legacyClientSteamId);
     }
     if (message.legacyIdentityBinary !== undefined) {
@@ -383,10 +383,10 @@ export const CMsgSteamSocketsUDPConnectRequest = {
           message.clientConnectionId = reader.fixed32();
           break;
         case 2:
-          message.challenge = longToNumber(reader.fixed64() as Long);
+          message.challenge = longToString(reader.fixed64() as Long);
           break;
         case 5:
-          message.myTimestamp = longToNumber(reader.fixed64() as Long);
+          message.myTimestamp = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.pingEstMs = reader.uint32();
@@ -404,7 +404,7 @@ export const CMsgSteamSocketsUDPConnectRequest = {
           message.identityString = reader.string();
           break;
         case 3:
-          message.legacyClientSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyClientSteamId = longToString(reader.fixed64() as Long);
           break;
         case 9:
           message.legacyIdentityBinary = CMsgSteamNetworkingIdentityLegacyBinary.decode(reader, reader.uint32());
@@ -420,14 +420,14 @@ export const CMsgSteamSocketsUDPConnectRequest = {
   fromJSON(object: any): CMsgSteamSocketsUDPConnectRequest {
     return {
       clientConnectionId: isSet(object.clientConnectionId) ? Number(object.clientConnectionId) : 0,
-      challenge: isSet(object.challenge) ? Number(object.challenge) : 0,
-      myTimestamp: isSet(object.myTimestamp) ? Number(object.myTimestamp) : 0,
+      challenge: isSet(object.challenge) ? String(object.challenge) : "0",
+      myTimestamp: isSet(object.myTimestamp) ? String(object.myTimestamp) : "0",
       pingEstMs: isSet(object.pingEstMs) ? Number(object.pingEstMs) : 0,
       crypt: isSet(object.crypt) ? CMsgSteamDatagramSessionCryptInfoSigned.fromJSON(object.crypt) : undefined,
       cert: isSet(object.cert) ? CMsgSteamDatagramCertificateSigned.fromJSON(object.cert) : undefined,
       legacyProtocolVersion: isSet(object.legacyProtocolVersion) ? Number(object.legacyProtocolVersion) : 0,
       identityString: isSet(object.identityString) ? String(object.identityString) : "",
-      legacyClientSteamId: isSet(object.legacyClientSteamId) ? Number(object.legacyClientSteamId) : 0,
+      legacyClientSteamId: isSet(object.legacyClientSteamId) ? String(object.legacyClientSteamId) : "0",
       legacyIdentityBinary: isSet(object.legacyIdentityBinary)
         ? CMsgSteamNetworkingIdentityLegacyBinary.fromJSON(object.legacyIdentityBinary)
         : undefined,
@@ -437,8 +437,8 @@ export const CMsgSteamSocketsUDPConnectRequest = {
   toJSON(message: CMsgSteamSocketsUDPConnectRequest): unknown {
     const obj: any = {};
     message.clientConnectionId !== undefined && (obj.clientConnectionId = Math.round(message.clientConnectionId));
-    message.challenge !== undefined && (obj.challenge = Math.round(message.challenge));
-    message.myTimestamp !== undefined && (obj.myTimestamp = Math.round(message.myTimestamp));
+    message.challenge !== undefined && (obj.challenge = message.challenge);
+    message.myTimestamp !== undefined && (obj.myTimestamp = message.myTimestamp);
     message.pingEstMs !== undefined && (obj.pingEstMs = Math.round(message.pingEstMs));
     message.crypt !== undefined &&
       (obj.crypt = message.crypt ? CMsgSteamDatagramSessionCryptInfoSigned.toJSON(message.crypt) : undefined);
@@ -447,7 +447,7 @@ export const CMsgSteamSocketsUDPConnectRequest = {
     message.legacyProtocolVersion !== undefined &&
       (obj.legacyProtocolVersion = Math.round(message.legacyProtocolVersion));
     message.identityString !== undefined && (obj.identityString = message.identityString);
-    message.legacyClientSteamId !== undefined && (obj.legacyClientSteamId = Math.round(message.legacyClientSteamId));
+    message.legacyClientSteamId !== undefined && (obj.legacyClientSteamId = message.legacyClientSteamId);
     message.legacyIdentityBinary !== undefined && (obj.legacyIdentityBinary = message.legacyIdentityBinary
       ? CMsgSteamNetworkingIdentityLegacyBinary.toJSON(message.legacyIdentityBinary)
       : undefined);
@@ -465,8 +465,8 @@ export const CMsgSteamSocketsUDPConnectRequest = {
   ): CMsgSteamSocketsUDPConnectRequest {
     const message = createBaseCMsgSteamSocketsUDPConnectRequest();
     message.clientConnectionId = object.clientConnectionId ?? 0;
-    message.challenge = object.challenge ?? 0;
-    message.myTimestamp = object.myTimestamp ?? 0;
+    message.challenge = object.challenge ?? "0";
+    message.myTimestamp = object.myTimestamp ?? "0";
     message.pingEstMs = object.pingEstMs ?? 0;
     message.crypt = (object.crypt !== undefined && object.crypt !== null)
       ? CMsgSteamDatagramSessionCryptInfoSigned.fromPartial(object.crypt)
@@ -476,7 +476,7 @@ export const CMsgSteamSocketsUDPConnectRequest = {
       : undefined;
     message.legacyProtocolVersion = object.legacyProtocolVersion ?? 0;
     message.identityString = object.identityString ?? "";
-    message.legacyClientSteamId = object.legacyClientSteamId ?? 0;
+    message.legacyClientSteamId = object.legacyClientSteamId ?? "0";
     message.legacyIdentityBinary = (object.legacyIdentityBinary !== undefined && object.legacyIdentityBinary !== null)
       ? CMsgSteamNetworkingIdentityLegacyBinary.fromPartial(object.legacyIdentityBinary)
       : undefined;
@@ -488,12 +488,12 @@ function createBaseCMsgSteamSocketsUDPConnectOK(): CMsgSteamSocketsUDPConnectOK 
   return {
     clientConnectionId: 0,
     serverConnectionId: 0,
-    yourTimestamp: 0,
+    yourTimestamp: "0",
     delayTimeUsec: 0,
     crypt: undefined,
     cert: undefined,
     identityString: "",
-    legacyServerSteamId: 0,
+    legacyServerSteamId: "0",
     legacyIdentityBinary: undefined,
   };
 }
@@ -506,7 +506,7 @@ export const CMsgSteamSocketsUDPConnectOK = {
     if (message.serverConnectionId !== 0) {
       writer.uint32(45).fixed32(message.serverConnectionId);
     }
-    if (message.yourTimestamp !== 0) {
+    if (message.yourTimestamp !== "0") {
       writer.uint32(25).fixed64(message.yourTimestamp);
     }
     if (message.delayTimeUsec !== 0) {
@@ -521,7 +521,7 @@ export const CMsgSteamSocketsUDPConnectOK = {
     if (message.identityString !== "") {
       writer.uint32(90).string(message.identityString);
     }
-    if (message.legacyServerSteamId !== 0) {
+    if (message.legacyServerSteamId !== "0") {
       writer.uint32(17).fixed64(message.legacyServerSteamId);
     }
     if (message.legacyIdentityBinary !== undefined) {
@@ -544,7 +544,7 @@ export const CMsgSteamSocketsUDPConnectOK = {
           message.serverConnectionId = reader.fixed32();
           break;
         case 3:
-          message.yourTimestamp = longToNumber(reader.fixed64() as Long);
+          message.yourTimestamp = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.delayTimeUsec = reader.uint32();
@@ -559,7 +559,7 @@ export const CMsgSteamSocketsUDPConnectOK = {
           message.identityString = reader.string();
           break;
         case 2:
-          message.legacyServerSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyServerSteamId = longToString(reader.fixed64() as Long);
           break;
         case 10:
           message.legacyIdentityBinary = CMsgSteamNetworkingIdentityLegacyBinary.decode(reader, reader.uint32());
@@ -576,12 +576,12 @@ export const CMsgSteamSocketsUDPConnectOK = {
     return {
       clientConnectionId: isSet(object.clientConnectionId) ? Number(object.clientConnectionId) : 0,
       serverConnectionId: isSet(object.serverConnectionId) ? Number(object.serverConnectionId) : 0,
-      yourTimestamp: isSet(object.yourTimestamp) ? Number(object.yourTimestamp) : 0,
+      yourTimestamp: isSet(object.yourTimestamp) ? String(object.yourTimestamp) : "0",
       delayTimeUsec: isSet(object.delayTimeUsec) ? Number(object.delayTimeUsec) : 0,
       crypt: isSet(object.crypt) ? CMsgSteamDatagramSessionCryptInfoSigned.fromJSON(object.crypt) : undefined,
       cert: isSet(object.cert) ? CMsgSteamDatagramCertificateSigned.fromJSON(object.cert) : undefined,
       identityString: isSet(object.identityString) ? String(object.identityString) : "",
-      legacyServerSteamId: isSet(object.legacyServerSteamId) ? Number(object.legacyServerSteamId) : 0,
+      legacyServerSteamId: isSet(object.legacyServerSteamId) ? String(object.legacyServerSteamId) : "0",
       legacyIdentityBinary: isSet(object.legacyIdentityBinary)
         ? CMsgSteamNetworkingIdentityLegacyBinary.fromJSON(object.legacyIdentityBinary)
         : undefined,
@@ -592,14 +592,14 @@ export const CMsgSteamSocketsUDPConnectOK = {
     const obj: any = {};
     message.clientConnectionId !== undefined && (obj.clientConnectionId = Math.round(message.clientConnectionId));
     message.serverConnectionId !== undefined && (obj.serverConnectionId = Math.round(message.serverConnectionId));
-    message.yourTimestamp !== undefined && (obj.yourTimestamp = Math.round(message.yourTimestamp));
+    message.yourTimestamp !== undefined && (obj.yourTimestamp = message.yourTimestamp);
     message.delayTimeUsec !== undefined && (obj.delayTimeUsec = Math.round(message.delayTimeUsec));
     message.crypt !== undefined &&
       (obj.crypt = message.crypt ? CMsgSteamDatagramSessionCryptInfoSigned.toJSON(message.crypt) : undefined);
     message.cert !== undefined &&
       (obj.cert = message.cert ? CMsgSteamDatagramCertificateSigned.toJSON(message.cert) : undefined);
     message.identityString !== undefined && (obj.identityString = message.identityString);
-    message.legacyServerSteamId !== undefined && (obj.legacyServerSteamId = Math.round(message.legacyServerSteamId));
+    message.legacyServerSteamId !== undefined && (obj.legacyServerSteamId = message.legacyServerSteamId);
     message.legacyIdentityBinary !== undefined && (obj.legacyIdentityBinary = message.legacyIdentityBinary
       ? CMsgSteamNetworkingIdentityLegacyBinary.toJSON(message.legacyIdentityBinary)
       : undefined);
@@ -614,7 +614,7 @@ export const CMsgSteamSocketsUDPConnectOK = {
     const message = createBaseCMsgSteamSocketsUDPConnectOK();
     message.clientConnectionId = object.clientConnectionId ?? 0;
     message.serverConnectionId = object.serverConnectionId ?? 0;
-    message.yourTimestamp = object.yourTimestamp ?? 0;
+    message.yourTimestamp = object.yourTimestamp ?? "0";
     message.delayTimeUsec = object.delayTimeUsec ?? 0;
     message.crypt = (object.crypt !== undefined && object.crypt !== null)
       ? CMsgSteamDatagramSessionCryptInfoSigned.fromPartial(object.crypt)
@@ -623,7 +623,7 @@ export const CMsgSteamSocketsUDPConnectOK = {
       ? CMsgSteamDatagramCertificateSigned.fromPartial(object.cert)
       : undefined;
     message.identityString = object.identityString ?? "";
-    message.legacyServerSteamId = object.legacyServerSteamId ?? 0;
+    message.legacyServerSteamId = object.legacyServerSteamId ?? "0";
     message.legacyIdentityBinary = (object.legacyIdentityBinary !== undefined && object.legacyIdentityBinary !== null)
       ? CMsgSteamNetworkingIdentityLegacyBinary.fromPartial(object.legacyIdentityBinary)
       : undefined;
@@ -844,25 +844,6 @@ export const CMsgSteamSocketsUDPStats = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -874,11 +855,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

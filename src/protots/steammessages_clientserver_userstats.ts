@@ -5,14 +5,14 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CMsgClientGetUserStats {
-  gameId: number;
+  gameId: string;
   crcStats: number;
   schemaLocalVersion: number;
-  steamIdForUser: number;
+  steamIdForUser: string;
 }
 
 export interface CMsgClientGetUserStatsResponse {
-  gameId: number;
+  gameId: string;
   eresult: number;
   crcStats: number;
   schema: Buffer;
@@ -31,7 +31,7 @@ export interface CMsgClientGetUserStatsResponse_AchievementBlocks {
 }
 
 export interface CMsgClientStoreUserStatsResponse {
-  gameId: number;
+  gameId: string;
   eresult: number;
   crcStats: number;
   statsFailedValidation: CMsgClientStoreUserStatsResponse_StatsFailedValidation[];
@@ -44,9 +44,9 @@ export interface CMsgClientStoreUserStatsResponse_StatsFailedValidation {
 }
 
 export interface CMsgClientStoreUserStats2 {
-  gameId: number;
-  settorSteamId: number;
-  setteeSteamId: number;
+  gameId: string;
+  settorSteamId: string;
+  setteeSteamId: string;
   crcStats: number;
   explicitReset: boolean;
   stats: CMsgClientStoreUserStats2_Stats[];
@@ -58,8 +58,8 @@ export interface CMsgClientStoreUserStats2_Stats {
 }
 
 export interface CMsgClientStatsUpdated {
-  steamId: number;
-  gameId: number;
+  steamId: string;
+  gameId: string;
   crcStats: number;
   updatedStats: CMsgClientStatsUpdated_UpdatedStats[];
 }
@@ -70,7 +70,7 @@ export interface CMsgClientStatsUpdated_UpdatedStats {
 }
 
 export interface CMsgClientStoreUserStats {
-  gameId: number;
+  gameId: string;
   explicitReset: boolean;
   statsToStore: CMsgClientStoreUserStats_StatsToStore[];
 }
@@ -81,12 +81,12 @@ export interface CMsgClientStoreUserStats_StatsToStore {
 }
 
 function createBaseCMsgClientGetUserStats(): CMsgClientGetUserStats {
-  return { gameId: 0, crcStats: 0, schemaLocalVersion: 0, steamIdForUser: 0 };
+  return { gameId: "0", crcStats: 0, schemaLocalVersion: 0, steamIdForUser: "0" };
 }
 
 export const CMsgClientGetUserStats = {
   encode(message: CMsgClientGetUserStats, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameId !== 0) {
+    if (message.gameId !== "0") {
       writer.uint32(9).fixed64(message.gameId);
     }
     if (message.crcStats !== 0) {
@@ -95,7 +95,7 @@ export const CMsgClientGetUserStats = {
     if (message.schemaLocalVersion !== 0) {
       writer.uint32(24).int32(message.schemaLocalVersion);
     }
-    if (message.steamIdForUser !== 0) {
+    if (message.steamIdForUser !== "0") {
       writer.uint32(33).fixed64(message.steamIdForUser);
     }
     return writer;
@@ -109,7 +109,7 @@ export const CMsgClientGetUserStats = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameId = longToNumber(reader.fixed64() as Long);
+          message.gameId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.crcStats = reader.uint32();
@@ -118,7 +118,7 @@ export const CMsgClientGetUserStats = {
           message.schemaLocalVersion = reader.int32();
           break;
         case 4:
-          message.steamIdForUser = longToNumber(reader.fixed64() as Long);
+          message.steamIdForUser = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -130,19 +130,19 @@ export const CMsgClientGetUserStats = {
 
   fromJSON(object: any): CMsgClientGetUserStats {
     return {
-      gameId: isSet(object.gameId) ? Number(object.gameId) : 0,
+      gameId: isSet(object.gameId) ? String(object.gameId) : "0",
       crcStats: isSet(object.crcStats) ? Number(object.crcStats) : 0,
       schemaLocalVersion: isSet(object.schemaLocalVersion) ? Number(object.schemaLocalVersion) : 0,
-      steamIdForUser: isSet(object.steamIdForUser) ? Number(object.steamIdForUser) : 0,
+      steamIdForUser: isSet(object.steamIdForUser) ? String(object.steamIdForUser) : "0",
     };
   },
 
   toJSON(message: CMsgClientGetUserStats): unknown {
     const obj: any = {};
-    message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
+    message.gameId !== undefined && (obj.gameId = message.gameId);
     message.crcStats !== undefined && (obj.crcStats = Math.round(message.crcStats));
     message.schemaLocalVersion !== undefined && (obj.schemaLocalVersion = Math.round(message.schemaLocalVersion));
-    message.steamIdForUser !== undefined && (obj.steamIdForUser = Math.round(message.steamIdForUser));
+    message.steamIdForUser !== undefined && (obj.steamIdForUser = message.steamIdForUser);
     return obj;
   },
 
@@ -152,21 +152,21 @@ export const CMsgClientGetUserStats = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientGetUserStats>, I>>(object: I): CMsgClientGetUserStats {
     const message = createBaseCMsgClientGetUserStats();
-    message.gameId = object.gameId ?? 0;
+    message.gameId = object.gameId ?? "0";
     message.crcStats = object.crcStats ?? 0;
     message.schemaLocalVersion = object.schemaLocalVersion ?? 0;
-    message.steamIdForUser = object.steamIdForUser ?? 0;
+    message.steamIdForUser = object.steamIdForUser ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientGetUserStatsResponse(): CMsgClientGetUserStatsResponse {
-  return { gameId: 0, eresult: 0, crcStats: 0, schema: Buffer.alloc(0), stats: [], achievementBlocks: [] };
+  return { gameId: "0", eresult: 0, crcStats: 0, schema: Buffer.alloc(0), stats: [], achievementBlocks: [] };
 }
 
 export const CMsgClientGetUserStatsResponse = {
   encode(message: CMsgClientGetUserStatsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameId !== 0) {
+    if (message.gameId !== "0") {
       writer.uint32(9).fixed64(message.gameId);
     }
     if (message.eresult !== 0) {
@@ -195,7 +195,7 @@ export const CMsgClientGetUserStatsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameId = longToNumber(reader.fixed64() as Long);
+          message.gameId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.eresult = reader.int32();
@@ -224,7 +224,7 @@ export const CMsgClientGetUserStatsResponse = {
 
   fromJSON(object: any): CMsgClientGetUserStatsResponse {
     return {
-      gameId: isSet(object.gameId) ? Number(object.gameId) : 0,
+      gameId: isSet(object.gameId) ? String(object.gameId) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
       crcStats: isSet(object.crcStats) ? Number(object.crcStats) : 0,
       schema: isSet(object.schema) ? Buffer.from(bytesFromBase64(object.schema)) : Buffer.alloc(0),
@@ -239,7 +239,7 @@ export const CMsgClientGetUserStatsResponse = {
 
   toJSON(message: CMsgClientGetUserStatsResponse): unknown {
     const obj: any = {};
-    message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
+    message.gameId !== undefined && (obj.gameId = message.gameId);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     message.crcStats !== undefined && (obj.crcStats = Math.round(message.crcStats));
     message.schema !== undefined &&
@@ -267,7 +267,7 @@ export const CMsgClientGetUserStatsResponse = {
     object: I,
   ): CMsgClientGetUserStatsResponse {
     const message = createBaseCMsgClientGetUserStatsResponse();
-    message.gameId = object.gameId ?? 0;
+    message.gameId = object.gameId ?? "0";
     message.eresult = object.eresult ?? 0;
     message.crcStats = object.crcStats ?? 0;
     message.schema = object.schema ?? Buffer.alloc(0);
@@ -427,12 +427,12 @@ export const CMsgClientGetUserStatsResponse_AchievementBlocks = {
 };
 
 function createBaseCMsgClientStoreUserStatsResponse(): CMsgClientStoreUserStatsResponse {
-  return { gameId: 0, eresult: 0, crcStats: 0, statsFailedValidation: [], statsOutOfDate: false };
+  return { gameId: "0", eresult: 0, crcStats: 0, statsFailedValidation: [], statsOutOfDate: false };
 }
 
 export const CMsgClientStoreUserStatsResponse = {
   encode(message: CMsgClientStoreUserStatsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameId !== 0) {
+    if (message.gameId !== "0") {
       writer.uint32(9).fixed64(message.gameId);
     }
     if (message.eresult !== 0) {
@@ -458,7 +458,7 @@ export const CMsgClientStoreUserStatsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameId = longToNumber(reader.fixed64() as Long);
+          message.gameId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.eresult = reader.int32();
@@ -484,7 +484,7 @@ export const CMsgClientStoreUserStatsResponse = {
 
   fromJSON(object: any): CMsgClientStoreUserStatsResponse {
     return {
-      gameId: isSet(object.gameId) ? Number(object.gameId) : 0,
+      gameId: isSet(object.gameId) ? String(object.gameId) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
       crcStats: isSet(object.crcStats) ? Number(object.crcStats) : 0,
       statsFailedValidation: Array.isArray(object?.statsFailedValidation)
@@ -498,7 +498,7 @@ export const CMsgClientStoreUserStatsResponse = {
 
   toJSON(message: CMsgClientStoreUserStatsResponse): unknown {
     const obj: any = {};
-    message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
+    message.gameId !== undefined && (obj.gameId = message.gameId);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     message.crcStats !== undefined && (obj.crcStats = Math.round(message.crcStats));
     if (message.statsFailedValidation) {
@@ -522,7 +522,7 @@ export const CMsgClientStoreUserStatsResponse = {
     object: I,
   ): CMsgClientStoreUserStatsResponse {
     const message = createBaseCMsgClientStoreUserStatsResponse();
-    message.gameId = object.gameId ?? 0;
+    message.gameId = object.gameId ?? "0";
     message.eresult = object.eresult ?? 0;
     message.crcStats = object.crcStats ?? 0;
     message.statsFailedValidation =
@@ -603,18 +603,18 @@ export const CMsgClientStoreUserStatsResponse_StatsFailedValidation = {
 };
 
 function createBaseCMsgClientStoreUserStats2(): CMsgClientStoreUserStats2 {
-  return { gameId: 0, settorSteamId: 0, setteeSteamId: 0, crcStats: 0, explicitReset: false, stats: [] };
+  return { gameId: "0", settorSteamId: "0", setteeSteamId: "0", crcStats: 0, explicitReset: false, stats: [] };
 }
 
 export const CMsgClientStoreUserStats2 = {
   encode(message: CMsgClientStoreUserStats2, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameId !== 0) {
+    if (message.gameId !== "0") {
       writer.uint32(9).fixed64(message.gameId);
     }
-    if (message.settorSteamId !== 0) {
+    if (message.settorSteamId !== "0") {
       writer.uint32(17).fixed64(message.settorSteamId);
     }
-    if (message.setteeSteamId !== 0) {
+    if (message.setteeSteamId !== "0") {
       writer.uint32(25).fixed64(message.setteeSteamId);
     }
     if (message.crcStats !== 0) {
@@ -637,13 +637,13 @@ export const CMsgClientStoreUserStats2 = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameId = longToNumber(reader.fixed64() as Long);
+          message.gameId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.settorSteamId = longToNumber(reader.fixed64() as Long);
+          message.settorSteamId = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.setteeSteamId = longToNumber(reader.fixed64() as Long);
+          message.setteeSteamId = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.crcStats = reader.uint32();
@@ -664,9 +664,9 @@ export const CMsgClientStoreUserStats2 = {
 
   fromJSON(object: any): CMsgClientStoreUserStats2 {
     return {
-      gameId: isSet(object.gameId) ? Number(object.gameId) : 0,
-      settorSteamId: isSet(object.settorSteamId) ? Number(object.settorSteamId) : 0,
-      setteeSteamId: isSet(object.setteeSteamId) ? Number(object.setteeSteamId) : 0,
+      gameId: isSet(object.gameId) ? String(object.gameId) : "0",
+      settorSteamId: isSet(object.settorSteamId) ? String(object.settorSteamId) : "0",
+      setteeSteamId: isSet(object.setteeSteamId) ? String(object.setteeSteamId) : "0",
       crcStats: isSet(object.crcStats) ? Number(object.crcStats) : 0,
       explicitReset: isSet(object.explicitReset) ? Boolean(object.explicitReset) : false,
       stats: Array.isArray(object?.stats)
@@ -677,9 +677,9 @@ export const CMsgClientStoreUserStats2 = {
 
   toJSON(message: CMsgClientStoreUserStats2): unknown {
     const obj: any = {};
-    message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
-    message.settorSteamId !== undefined && (obj.settorSteamId = Math.round(message.settorSteamId));
-    message.setteeSteamId !== undefined && (obj.setteeSteamId = Math.round(message.setteeSteamId));
+    message.gameId !== undefined && (obj.gameId = message.gameId);
+    message.settorSteamId !== undefined && (obj.settorSteamId = message.settorSteamId);
+    message.setteeSteamId !== undefined && (obj.setteeSteamId = message.setteeSteamId);
     message.crcStats !== undefined && (obj.crcStats = Math.round(message.crcStats));
     message.explicitReset !== undefined && (obj.explicitReset = message.explicitReset);
     if (message.stats) {
@@ -696,9 +696,9 @@ export const CMsgClientStoreUserStats2 = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientStoreUserStats2>, I>>(object: I): CMsgClientStoreUserStats2 {
     const message = createBaseCMsgClientStoreUserStats2();
-    message.gameId = object.gameId ?? 0;
-    message.settorSteamId = object.settorSteamId ?? 0;
-    message.setteeSteamId = object.setteeSteamId ?? 0;
+    message.gameId = object.gameId ?? "0";
+    message.settorSteamId = object.settorSteamId ?? "0";
+    message.setteeSteamId = object.setteeSteamId ?? "0";
     message.crcStats = object.crcStats ?? 0;
     message.explicitReset = object.explicitReset ?? false;
     message.stats = object.stats?.map((e) => CMsgClientStoreUserStats2_Stats.fromPartial(e)) || [];
@@ -771,15 +771,15 @@ export const CMsgClientStoreUserStats2_Stats = {
 };
 
 function createBaseCMsgClientStatsUpdated(): CMsgClientStatsUpdated {
-  return { steamId: 0, gameId: 0, crcStats: 0, updatedStats: [] };
+  return { steamId: "0", gameId: "0", crcStats: 0, updatedStats: [] };
 }
 
 export const CMsgClientStatsUpdated = {
   encode(message: CMsgClientStatsUpdated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
-    if (message.gameId !== 0) {
+    if (message.gameId !== "0") {
       writer.uint32(17).fixed64(message.gameId);
     }
     if (message.crcStats !== 0) {
@@ -799,10 +799,10 @@ export const CMsgClientStatsUpdated = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.gameId = longToNumber(reader.fixed64() as Long);
+          message.gameId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.crcStats = reader.uint32();
@@ -820,8 +820,8 @@ export const CMsgClientStatsUpdated = {
 
   fromJSON(object: any): CMsgClientStatsUpdated {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
-      gameId: isSet(object.gameId) ? Number(object.gameId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
+      gameId: isSet(object.gameId) ? String(object.gameId) : "0",
       crcStats: isSet(object.crcStats) ? Number(object.crcStats) : 0,
       updatedStats: Array.isArray(object?.updatedStats)
         ? object.updatedStats.map((e: any) => CMsgClientStatsUpdated_UpdatedStats.fromJSON(e))
@@ -831,8 +831,8 @@ export const CMsgClientStatsUpdated = {
 
   toJSON(message: CMsgClientStatsUpdated): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
-    message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
+    message.gameId !== undefined && (obj.gameId = message.gameId);
     message.crcStats !== undefined && (obj.crcStats = Math.round(message.crcStats));
     if (message.updatedStats) {
       obj.updatedStats = message.updatedStats.map((e) => e ? CMsgClientStatsUpdated_UpdatedStats.toJSON(e) : undefined);
@@ -848,8 +848,8 @@ export const CMsgClientStatsUpdated = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientStatsUpdated>, I>>(object: I): CMsgClientStatsUpdated {
     const message = createBaseCMsgClientStatsUpdated();
-    message.steamId = object.steamId ?? 0;
-    message.gameId = object.gameId ?? 0;
+    message.steamId = object.steamId ?? "0";
+    message.gameId = object.gameId ?? "0";
     message.crcStats = object.crcStats ?? 0;
     message.updatedStats = object.updatedStats?.map((e) => CMsgClientStatsUpdated_UpdatedStats.fromPartial(e)) || [];
     return message;
@@ -923,12 +923,12 @@ export const CMsgClientStatsUpdated_UpdatedStats = {
 };
 
 function createBaseCMsgClientStoreUserStats(): CMsgClientStoreUserStats {
-  return { gameId: 0, explicitReset: false, statsToStore: [] };
+  return { gameId: "0", explicitReset: false, statsToStore: [] };
 }
 
 export const CMsgClientStoreUserStats = {
   encode(message: CMsgClientStoreUserStats, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameId !== 0) {
+    if (message.gameId !== "0") {
       writer.uint32(9).fixed64(message.gameId);
     }
     if (message.explicitReset === true) {
@@ -948,7 +948,7 @@ export const CMsgClientStoreUserStats = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameId = longToNumber(reader.fixed64() as Long);
+          message.gameId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.explicitReset = reader.bool();
@@ -966,7 +966,7 @@ export const CMsgClientStoreUserStats = {
 
   fromJSON(object: any): CMsgClientStoreUserStats {
     return {
-      gameId: isSet(object.gameId) ? Number(object.gameId) : 0,
+      gameId: isSet(object.gameId) ? String(object.gameId) : "0",
       explicitReset: isSet(object.explicitReset) ? Boolean(object.explicitReset) : false,
       statsToStore: Array.isArray(object?.statsToStore)
         ? object.statsToStore.map((e: any) => CMsgClientStoreUserStats_StatsToStore.fromJSON(e))
@@ -976,7 +976,7 @@ export const CMsgClientStoreUserStats = {
 
   toJSON(message: CMsgClientStoreUserStats): unknown {
     const obj: any = {};
-    message.gameId !== undefined && (obj.gameId = Math.round(message.gameId));
+    message.gameId !== undefined && (obj.gameId = message.gameId);
     message.explicitReset !== undefined && (obj.explicitReset = message.explicitReset);
     if (message.statsToStore) {
       obj.statsToStore = message.statsToStore.map((e) =>
@@ -994,7 +994,7 @@ export const CMsgClientStoreUserStats = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientStoreUserStats>, I>>(object: I): CMsgClientStoreUserStats {
     const message = createBaseCMsgClientStoreUserStats();
-    message.gameId = object.gameId ?? 0;
+    message.gameId = object.gameId ?? "0";
     message.explicitReset = object.explicitReset ?? false;
     message.statsToStore = object.statsToStore?.map((e) => CMsgClientStoreUserStats_StatsToStore.fromPartial(e)) || [];
     return message;
@@ -1122,11 +1122,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

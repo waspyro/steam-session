@@ -245,7 +245,7 @@ export interface CClientNotificationDownloadCompleted {
 }
 
 export interface CClientNotificationFriendInvite {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CClientNotificationFriendInviteRollup {
@@ -253,12 +253,12 @@ export interface CClientNotificationFriendInviteRollup {
 }
 
 export interface CClientNotificationFriendInGame {
-  steamid: number;
+  steamid: string;
   gameName: string;
 }
 
 export interface CClientNotificationFriendOnline {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CClientNotificationAchievement {
@@ -320,7 +320,7 @@ export interface CClientNotificationFamilySharingLibraryAvailable {
 }
 
 export interface CClientNotificationIncomingVoiceChat {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CClientNotificationClaimSteamDeckRewards {
@@ -598,12 +598,12 @@ export const CClientNotificationDownloadCompleted = {
 };
 
 function createBaseCClientNotificationFriendInvite(): CClientNotificationFriendInvite {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CClientNotificationFriendInvite = {
   encode(message: CClientNotificationFriendInvite, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -617,7 +617,7 @@ export const CClientNotificationFriendInvite = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -628,12 +628,12 @@ export const CClientNotificationFriendInvite = {
   },
 
   fromJSON(object: any): CClientNotificationFriendInvite {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CClientNotificationFriendInvite): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -645,7 +645,7 @@ export const CClientNotificationFriendInvite = {
     object: I,
   ): CClientNotificationFriendInvite {
     const message = createBaseCClientNotificationFriendInvite();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -706,12 +706,12 @@ export const CClientNotificationFriendInviteRollup = {
 };
 
 function createBaseCClientNotificationFriendInGame(): CClientNotificationFriendInGame {
-  return { steamid: 0, gameName: "" };
+  return { steamid: "0", gameName: "" };
 }
 
 export const CClientNotificationFriendInGame = {
   encode(message: CClientNotificationFriendInGame, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.gameName !== "") {
@@ -728,7 +728,7 @@ export const CClientNotificationFriendInGame = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.gameName = reader.string();
@@ -743,14 +743,14 @@ export const CClientNotificationFriendInGame = {
 
   fromJSON(object: any): CClientNotificationFriendInGame {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       gameName: isSet(object.gameName) ? String(object.gameName) : "",
     };
   },
 
   toJSON(message: CClientNotificationFriendInGame): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.gameName !== undefined && (obj.gameName = message.gameName);
     return obj;
   },
@@ -763,19 +763,19 @@ export const CClientNotificationFriendInGame = {
     object: I,
   ): CClientNotificationFriendInGame {
     const message = createBaseCClientNotificationFriendInGame();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.gameName = object.gameName ?? "";
     return message;
   },
 };
 
 function createBaseCClientNotificationFriendOnline(): CClientNotificationFriendOnline {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CClientNotificationFriendOnline = {
   encode(message: CClientNotificationFriendOnline, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -789,7 +789,7 @@ export const CClientNotificationFriendOnline = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -800,12 +800,12 @@ export const CClientNotificationFriendOnline = {
   },
 
   fromJSON(object: any): CClientNotificationFriendOnline {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CClientNotificationFriendOnline): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -817,7 +817,7 @@ export const CClientNotificationFriendOnline = {
     object: I,
   ): CClientNotificationFriendOnline {
     const message = createBaseCClientNotificationFriendOnline();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1529,12 +1529,12 @@ export const CClientNotificationFamilySharingLibraryAvailable = {
 };
 
 function createBaseCClientNotificationIncomingVoiceChat(): CClientNotificationIncomingVoiceChat {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CClientNotificationIncomingVoiceChat = {
   encode(message: CClientNotificationIncomingVoiceChat, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -1548,7 +1548,7 @@ export const CClientNotificationIncomingVoiceChat = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1559,12 +1559,12 @@ export const CClientNotificationIncomingVoiceChat = {
   },
 
   fromJSON(object: any): CClientNotificationIncomingVoiceChat {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CClientNotificationIncomingVoiceChat): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1578,7 +1578,7 @@ export const CClientNotificationIncomingVoiceChat = {
     object: I,
   ): CClientNotificationIncomingVoiceChat {
     const message = createBaseCClientNotificationIncomingVoiceChat();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -2086,25 +2086,6 @@ export const CClientNotificationCannotReadControllerGuideButton = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -2116,11 +2097,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

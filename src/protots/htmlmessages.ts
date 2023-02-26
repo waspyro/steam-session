@@ -128,7 +128,7 @@ export interface CMsgBrowserCreate {
   initialLeft: number;
   onlyAllowTrustedPopups: boolean;
   initialUrl: string;
-  hwndParent: number;
+  hwndParent: string;
   creationFlags: number;
 }
 
@@ -326,7 +326,7 @@ export interface CMsgViewSource {
 export interface CMsgBrowserReady {
   browserHandle: number;
   vrOverlayKey: string;
-  hwndBrowser: number;
+  hwndBrowser: string;
 }
 
 export interface CMsgURLChanged {
@@ -434,7 +434,7 @@ export interface CMsgPopupHTMLWindow {
   popupIndex: number;
   trustedCreator: boolean;
   name: string;
-  hwnd: number;
+  hwnd: string;
   parentPopupIndex: number;
 }
 
@@ -509,9 +509,9 @@ export interface CMsgSetSharedPaintBuffers {
   browserHandle: number;
   wide: number;
   tall: number;
-  sourcePid: number;
-  sourceHandle: number;
-  handle: number;
+  sourcePid: string;
+  sourceHandle: string;
+  handle: string;
 }
 
 export interface CMsgAckSharedPaintBuffers {
@@ -531,11 +531,11 @@ export interface CMsgNeedsPaint {
 
 export interface CMsgComboNeedsPaint {
   browserHandle: number;
-  rgba: number;
+  rgba: string;
   comboboxWide: number;
   comboboxTall: number;
-  sharedMemoryHandle: number;
-  sharedMemorySize: number;
+  sharedMemoryHandle: string;
+  sharedMemorySize: string;
 }
 
 export interface CMsgNeedsSharedTexturePaint {
@@ -751,7 +751,7 @@ export interface CMsgFocusedNodeTextResponse {
 }
 
 export interface CMsgBuildID {
-  buildId: number;
+  buildId: string;
 }
 
 export interface CMsgOpenDevTools {
@@ -818,7 +818,7 @@ export interface CMsgJSValue {
   uintValue: number;
   doubleValue: number;
   stringValue: string;
-  functionHandle: number;
+  functionHandle: string;
   bytesValue: Buffer;
   isArray: boolean;
   arrayValues: CMsgJSValue[];
@@ -841,14 +841,14 @@ export interface CMsgJSMethodCall {
 export interface CMsgJSExecuteCallback {
   browserHandle: number;
   owningBrowserHandle: number;
-  functionHandle: number;
+  functionHandle: string;
   arguments: CMsgJSValue[];
 }
 
 export interface CMsgJSReleaseCallback {
   browserHandle: number;
   owningBrowserHandle: number;
-  functionHandle: number;
+  functionHandle: string;
 }
 
 export interface CMsgJSRaiseException {
@@ -1789,7 +1789,7 @@ function createBaseCMsgBrowserCreate(): CMsgBrowserCreate {
     initialLeft: 0,
     onlyAllowTrustedPopups: false,
     initialUrl: "",
-    hwndParent: 0,
+    hwndParent: "0",
     creationFlags: 0,
   };
 }
@@ -1844,7 +1844,7 @@ export const CMsgBrowserCreate = {
     if (message.initialUrl !== "") {
       writer.uint32(146).string(message.initialUrl);
     }
-    if (message.hwndParent !== 0) {
+    if (message.hwndParent !== "0") {
       writer.uint32(153).fixed64(message.hwndParent);
     }
     if (message.creationFlags !== 0) {
@@ -1909,7 +1909,7 @@ export const CMsgBrowserCreate = {
           message.initialUrl = reader.string();
           break;
         case 19:
-          message.hwndParent = longToNumber(reader.fixed64() as Long);
+          message.hwndParent = longToString(reader.fixed64() as Long);
           break;
         case 20:
           message.creationFlags = reader.uint32();
@@ -1940,7 +1940,7 @@ export const CMsgBrowserCreate = {
       initialLeft: isSet(object.initialLeft) ? Number(object.initialLeft) : 0,
       onlyAllowTrustedPopups: isSet(object.onlyAllowTrustedPopups) ? Boolean(object.onlyAllowTrustedPopups) : false,
       initialUrl: isSet(object.initialUrl) ? String(object.initialUrl) : "",
-      hwndParent: isSet(object.hwndParent) ? Number(object.hwndParent) : 0,
+      hwndParent: isSet(object.hwndParent) ? String(object.hwndParent) : "0",
       creationFlags: isSet(object.creationFlags) ? Number(object.creationFlags) : 0,
     };
   },
@@ -1963,7 +1963,7 @@ export const CMsgBrowserCreate = {
     message.initialLeft !== undefined && (obj.initialLeft = Math.round(message.initialLeft));
     message.onlyAllowTrustedPopups !== undefined && (obj.onlyAllowTrustedPopups = message.onlyAllowTrustedPopups);
     message.initialUrl !== undefined && (obj.initialUrl = message.initialUrl);
-    message.hwndParent !== undefined && (obj.hwndParent = Math.round(message.hwndParent));
+    message.hwndParent !== undefined && (obj.hwndParent = message.hwndParent);
     message.creationFlags !== undefined && (obj.creationFlags = Math.round(message.creationFlags));
     return obj;
   },
@@ -1990,7 +1990,7 @@ export const CMsgBrowserCreate = {
     message.initialLeft = object.initialLeft ?? 0;
     message.onlyAllowTrustedPopups = object.onlyAllowTrustedPopups ?? false;
     message.initialUrl = object.initialUrl ?? "";
-    message.hwndParent = object.hwndParent ?? 0;
+    message.hwndParent = object.hwndParent ?? "0";
     message.creationFlags = object.creationFlags ?? 0;
     return message;
   },
@@ -4300,7 +4300,7 @@ export const CMsgViewSource = {
 };
 
 function createBaseCMsgBrowserReady(): CMsgBrowserReady {
-  return { browserHandle: 0, vrOverlayKey: "", hwndBrowser: 0 };
+  return { browserHandle: 0, vrOverlayKey: "", hwndBrowser: "0" };
 }
 
 export const CMsgBrowserReady = {
@@ -4311,7 +4311,7 @@ export const CMsgBrowserReady = {
     if (message.vrOverlayKey !== "") {
       writer.uint32(18).string(message.vrOverlayKey);
     }
-    if (message.hwndBrowser !== 0) {
+    if (message.hwndBrowser !== "0") {
       writer.uint32(25).fixed64(message.hwndBrowser);
     }
     return writer;
@@ -4331,7 +4331,7 @@ export const CMsgBrowserReady = {
           message.vrOverlayKey = reader.string();
           break;
         case 3:
-          message.hwndBrowser = longToNumber(reader.fixed64() as Long);
+          message.hwndBrowser = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4345,7 +4345,7 @@ export const CMsgBrowserReady = {
     return {
       browserHandle: isSet(object.browserHandle) ? Number(object.browserHandle) : 0,
       vrOverlayKey: isSet(object.vrOverlayKey) ? String(object.vrOverlayKey) : "",
-      hwndBrowser: isSet(object.hwndBrowser) ? Number(object.hwndBrowser) : 0,
+      hwndBrowser: isSet(object.hwndBrowser) ? String(object.hwndBrowser) : "0",
     };
   },
 
@@ -4353,7 +4353,7 @@ export const CMsgBrowserReady = {
     const obj: any = {};
     message.browserHandle !== undefined && (obj.browserHandle = Math.round(message.browserHandle));
     message.vrOverlayKey !== undefined && (obj.vrOverlayKey = message.vrOverlayKey);
-    message.hwndBrowser !== undefined && (obj.hwndBrowser = Math.round(message.hwndBrowser));
+    message.hwndBrowser !== undefined && (obj.hwndBrowser = message.hwndBrowser);
     return obj;
   },
 
@@ -4365,7 +4365,7 @@ export const CMsgBrowserReady = {
     const message = createBaseCMsgBrowserReady();
     message.browserHandle = object.browserHandle ?? 0;
     message.vrOverlayKey = object.vrOverlayKey ?? "";
-    message.hwndBrowser = object.hwndBrowser ?? 0;
+    message.hwndBrowser = object.hwndBrowser ?? "0";
     return message;
   },
 };
@@ -5501,7 +5501,7 @@ function createBaseCMsgPopupHTMLWindow(): CMsgPopupHTMLWindow {
     popupIndex: 0,
     trustedCreator: false,
     name: "",
-    hwnd: 0,
+    hwnd: "0",
     parentPopupIndex: 0,
   };
 }
@@ -5535,7 +5535,7 @@ export const CMsgPopupHTMLWindow = {
     if (message.name !== "") {
       writer.uint32(74).string(message.name);
     }
-    if (message.hwnd !== 0) {
+    if (message.hwnd !== "0") {
       writer.uint32(80).uint64(message.hwnd);
     }
     if (message.parentPopupIndex !== 0) {
@@ -5579,7 +5579,7 @@ export const CMsgPopupHTMLWindow = {
           message.name = reader.string();
           break;
         case 10:
-          message.hwnd = longToNumber(reader.uint64() as Long);
+          message.hwnd = longToString(reader.uint64() as Long);
           break;
         case 11:
           message.parentPopupIndex = reader.uint32();
@@ -5603,7 +5603,7 @@ export const CMsgPopupHTMLWindow = {
       popupIndex: isSet(object.popupIndex) ? Number(object.popupIndex) : 0,
       trustedCreator: isSet(object.trustedCreator) ? Boolean(object.trustedCreator) : false,
       name: isSet(object.name) ? String(object.name) : "",
-      hwnd: isSet(object.hwnd) ? Number(object.hwnd) : 0,
+      hwnd: isSet(object.hwnd) ? String(object.hwnd) : "0",
       parentPopupIndex: isSet(object.parentPopupIndex) ? Number(object.parentPopupIndex) : 0,
     };
   },
@@ -5619,7 +5619,7 @@ export const CMsgPopupHTMLWindow = {
     message.popupIndex !== undefined && (obj.popupIndex = Math.round(message.popupIndex));
     message.trustedCreator !== undefined && (obj.trustedCreator = message.trustedCreator);
     message.name !== undefined && (obj.name = message.name);
-    message.hwnd !== undefined && (obj.hwnd = Math.round(message.hwnd));
+    message.hwnd !== undefined && (obj.hwnd = message.hwnd);
     message.parentPopupIndex !== undefined && (obj.parentPopupIndex = Math.round(message.parentPopupIndex));
     return obj;
   },
@@ -5639,7 +5639,7 @@ export const CMsgPopupHTMLWindow = {
     message.popupIndex = object.popupIndex ?? 0;
     message.trustedCreator = object.trustedCreator ?? false;
     message.name = object.name ?? "";
-    message.hwnd = object.hwnd ?? 0;
+    message.hwnd = object.hwnd ?? "0";
     message.parentPopupIndex = object.parentPopupIndex ?? 0;
     return message;
   },
@@ -6458,7 +6458,7 @@ export const CMsgClose = {
 };
 
 function createBaseCMsgSetSharedPaintBuffers(): CMsgSetSharedPaintBuffers {
-  return { browserHandle: 0, wide: 0, tall: 0, sourcePid: 0, sourceHandle: 0, handle: 0 };
+  return { browserHandle: 0, wide: 0, tall: 0, sourcePid: "0", sourceHandle: "0", handle: "0" };
 }
 
 export const CMsgSetSharedPaintBuffers = {
@@ -6472,13 +6472,13 @@ export const CMsgSetSharedPaintBuffers = {
     if (message.tall !== 0) {
       writer.uint32(24).uint32(message.tall);
     }
-    if (message.sourcePid !== 0) {
+    if (message.sourcePid !== "0") {
       writer.uint32(32).uint64(message.sourcePid);
     }
-    if (message.sourceHandle !== 0) {
+    if (message.sourceHandle !== "0") {
       writer.uint32(40).uint64(message.sourceHandle);
     }
-    if (message.handle !== 0) {
+    if (message.handle !== "0") {
       writer.uint32(48).uint64(message.handle);
     }
     return writer;
@@ -6501,13 +6501,13 @@ export const CMsgSetSharedPaintBuffers = {
           message.tall = reader.uint32();
           break;
         case 4:
-          message.sourcePid = longToNumber(reader.uint64() as Long);
+          message.sourcePid = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.sourceHandle = longToNumber(reader.uint64() as Long);
+          message.sourceHandle = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.handle = longToNumber(reader.uint64() as Long);
+          message.handle = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6522,9 +6522,9 @@ export const CMsgSetSharedPaintBuffers = {
       browserHandle: isSet(object.browserHandle) ? Number(object.browserHandle) : 0,
       wide: isSet(object.wide) ? Number(object.wide) : 0,
       tall: isSet(object.tall) ? Number(object.tall) : 0,
-      sourcePid: isSet(object.sourcePid) ? Number(object.sourcePid) : 0,
-      sourceHandle: isSet(object.sourceHandle) ? Number(object.sourceHandle) : 0,
-      handle: isSet(object.handle) ? Number(object.handle) : 0,
+      sourcePid: isSet(object.sourcePid) ? String(object.sourcePid) : "0",
+      sourceHandle: isSet(object.sourceHandle) ? String(object.sourceHandle) : "0",
+      handle: isSet(object.handle) ? String(object.handle) : "0",
     };
   },
 
@@ -6533,9 +6533,9 @@ export const CMsgSetSharedPaintBuffers = {
     message.browserHandle !== undefined && (obj.browserHandle = Math.round(message.browserHandle));
     message.wide !== undefined && (obj.wide = Math.round(message.wide));
     message.tall !== undefined && (obj.tall = Math.round(message.tall));
-    message.sourcePid !== undefined && (obj.sourcePid = Math.round(message.sourcePid));
-    message.sourceHandle !== undefined && (obj.sourceHandle = Math.round(message.sourceHandle));
-    message.handle !== undefined && (obj.handle = Math.round(message.handle));
+    message.sourcePid !== undefined && (obj.sourcePid = message.sourcePid);
+    message.sourceHandle !== undefined && (obj.sourceHandle = message.sourceHandle);
+    message.handle !== undefined && (obj.handle = message.handle);
     return obj;
   },
 
@@ -6548,9 +6548,9 @@ export const CMsgSetSharedPaintBuffers = {
     message.browserHandle = object.browserHandle ?? 0;
     message.wide = object.wide ?? 0;
     message.tall = object.tall ?? 0;
-    message.sourcePid = object.sourcePid ?? 0;
-    message.sourceHandle = object.sourceHandle ?? 0;
-    message.handle = object.handle ?? 0;
+    message.sourcePid = object.sourcePid ?? "0";
+    message.sourceHandle = object.sourceHandle ?? "0";
+    message.handle = object.handle ?? "0";
     return message;
   },
 };
@@ -6732,7 +6732,14 @@ export const CMsgNeedsPaint = {
 };
 
 function createBaseCMsgComboNeedsPaint(): CMsgComboNeedsPaint {
-  return { browserHandle: 0, rgba: 0, comboboxWide: 0, comboboxTall: 0, sharedMemoryHandle: 0, sharedMemorySize: 0 };
+  return {
+    browserHandle: 0,
+    rgba: "0",
+    comboboxWide: 0,
+    comboboxTall: 0,
+    sharedMemoryHandle: "0",
+    sharedMemorySize: "0",
+  };
 }
 
 export const CMsgComboNeedsPaint = {
@@ -6740,7 +6747,7 @@ export const CMsgComboNeedsPaint = {
     if (message.browserHandle !== 0) {
       writer.uint32(8).uint32(message.browserHandle);
     }
-    if (message.rgba !== 0) {
+    if (message.rgba !== "0") {
       writer.uint32(16).uint64(message.rgba);
     }
     if (message.comboboxWide !== 0) {
@@ -6749,10 +6756,10 @@ export const CMsgComboNeedsPaint = {
     if (message.comboboxTall !== 0) {
       writer.uint32(32).uint32(message.comboboxTall);
     }
-    if (message.sharedMemoryHandle !== 0) {
+    if (message.sharedMemoryHandle !== "0") {
       writer.uint32(40).uint64(message.sharedMemoryHandle);
     }
-    if (message.sharedMemorySize !== 0) {
+    if (message.sharedMemorySize !== "0") {
       writer.uint32(56).uint64(message.sharedMemorySize);
     }
     return writer;
@@ -6769,7 +6776,7 @@ export const CMsgComboNeedsPaint = {
           message.browserHandle = reader.uint32();
           break;
         case 2:
-          message.rgba = longToNumber(reader.uint64() as Long);
+          message.rgba = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.comboboxWide = reader.uint32();
@@ -6778,10 +6785,10 @@ export const CMsgComboNeedsPaint = {
           message.comboboxTall = reader.uint32();
           break;
         case 5:
-          message.sharedMemoryHandle = longToNumber(reader.uint64() as Long);
+          message.sharedMemoryHandle = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.sharedMemorySize = longToNumber(reader.uint64() as Long);
+          message.sharedMemorySize = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6794,22 +6801,22 @@ export const CMsgComboNeedsPaint = {
   fromJSON(object: any): CMsgComboNeedsPaint {
     return {
       browserHandle: isSet(object.browserHandle) ? Number(object.browserHandle) : 0,
-      rgba: isSet(object.rgba) ? Number(object.rgba) : 0,
+      rgba: isSet(object.rgba) ? String(object.rgba) : "0",
       comboboxWide: isSet(object.comboboxWide) ? Number(object.comboboxWide) : 0,
       comboboxTall: isSet(object.comboboxTall) ? Number(object.comboboxTall) : 0,
-      sharedMemoryHandle: isSet(object.sharedMemoryHandle) ? Number(object.sharedMemoryHandle) : 0,
-      sharedMemorySize: isSet(object.sharedMemorySize) ? Number(object.sharedMemorySize) : 0,
+      sharedMemoryHandle: isSet(object.sharedMemoryHandle) ? String(object.sharedMemoryHandle) : "0",
+      sharedMemorySize: isSet(object.sharedMemorySize) ? String(object.sharedMemorySize) : "0",
     };
   },
 
   toJSON(message: CMsgComboNeedsPaint): unknown {
     const obj: any = {};
     message.browserHandle !== undefined && (obj.browserHandle = Math.round(message.browserHandle));
-    message.rgba !== undefined && (obj.rgba = Math.round(message.rgba));
+    message.rgba !== undefined && (obj.rgba = message.rgba);
     message.comboboxWide !== undefined && (obj.comboboxWide = Math.round(message.comboboxWide));
     message.comboboxTall !== undefined && (obj.comboboxTall = Math.round(message.comboboxTall));
-    message.sharedMemoryHandle !== undefined && (obj.sharedMemoryHandle = Math.round(message.sharedMemoryHandle));
-    message.sharedMemorySize !== undefined && (obj.sharedMemorySize = Math.round(message.sharedMemorySize));
+    message.sharedMemoryHandle !== undefined && (obj.sharedMemoryHandle = message.sharedMemoryHandle);
+    message.sharedMemorySize !== undefined && (obj.sharedMemorySize = message.sharedMemorySize);
     return obj;
   },
 
@@ -6820,11 +6827,11 @@ export const CMsgComboNeedsPaint = {
   fromPartial<I extends Exact<DeepPartial<CMsgComboNeedsPaint>, I>>(object: I): CMsgComboNeedsPaint {
     const message = createBaseCMsgComboNeedsPaint();
     message.browserHandle = object.browserHandle ?? 0;
-    message.rgba = object.rgba ?? 0;
+    message.rgba = object.rgba ?? "0";
     message.comboboxWide = object.comboboxWide ?? 0;
     message.comboboxTall = object.comboboxTall ?? 0;
-    message.sharedMemoryHandle = object.sharedMemoryHandle ?? 0;
-    message.sharedMemorySize = object.sharedMemorySize ?? 0;
+    message.sharedMemoryHandle = object.sharedMemoryHandle ?? "0";
+    message.sharedMemorySize = object.sharedMemorySize ?? "0";
     return message;
   },
 };
@@ -9366,12 +9373,12 @@ export const CMsgFocusedNodeTextResponse = {
 };
 
 function createBaseCMsgBuildID(): CMsgBuildID {
-  return { buildId: 0 };
+  return { buildId: "0" };
 }
 
 export const CMsgBuildID = {
   encode(message: CMsgBuildID, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.buildId !== 0) {
+    if (message.buildId !== "0") {
       writer.uint32(8).uint64(message.buildId);
     }
     return writer;
@@ -9385,7 +9392,7 @@ export const CMsgBuildID = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.buildId = longToNumber(reader.uint64() as Long);
+          message.buildId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -9396,12 +9403,12 @@ export const CMsgBuildID = {
   },
 
   fromJSON(object: any): CMsgBuildID {
-    return { buildId: isSet(object.buildId) ? Number(object.buildId) : 0 };
+    return { buildId: isSet(object.buildId) ? String(object.buildId) : "0" };
   },
 
   toJSON(message: CMsgBuildID): unknown {
     const obj: any = {};
-    message.buildId !== undefined && (obj.buildId = Math.round(message.buildId));
+    message.buildId !== undefined && (obj.buildId = message.buildId);
     return obj;
   },
 
@@ -9411,7 +9418,7 @@ export const CMsgBuildID = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgBuildID>, I>>(object: I): CMsgBuildID {
     const message = createBaseCMsgBuildID();
-    message.buildId = object.buildId ?? 0;
+    message.buildId = object.buildId ?? "0";
     return message;
   },
 };
@@ -10134,7 +10141,7 @@ function createBaseCMsgJSValue(): CMsgJSValue {
     uintValue: 0,
     doubleValue: 0,
     stringValue: "",
-    functionHandle: 0,
+    functionHandle: "0",
     bytesValue: Buffer.alloc(0),
     isArray: false,
     arrayValues: [],
@@ -10160,7 +10167,7 @@ export const CMsgJSValue = {
     if (message.stringValue !== "") {
       writer.uint32(42).string(message.stringValue);
     }
-    if (message.functionHandle !== 0) {
+    if (message.functionHandle !== "0") {
       writer.uint32(48).uint64(message.functionHandle);
     }
     if (message.bytesValue.length !== 0) {
@@ -10204,7 +10211,7 @@ export const CMsgJSValue = {
           message.stringValue = reader.string();
           break;
         case 6:
-          message.functionHandle = longToNumber(reader.uint64() as Long);
+          message.functionHandle = longToString(reader.uint64() as Long);
           break;
         case 12:
           message.bytesValue = reader.bytes() as Buffer;
@@ -10236,7 +10243,7 @@ export const CMsgJSValue = {
       uintValue: isSet(object.uintValue) ? Number(object.uintValue) : 0,
       doubleValue: isSet(object.doubleValue) ? Number(object.doubleValue) : 0,
       stringValue: isSet(object.stringValue) ? String(object.stringValue) : "",
-      functionHandle: isSet(object.functionHandle) ? Number(object.functionHandle) : 0,
+      functionHandle: isSet(object.functionHandle) ? String(object.functionHandle) : "0",
       bytesValue: isSet(object.bytesValue) ? Buffer.from(bytesFromBase64(object.bytesValue)) : Buffer.alloc(0),
       isArray: isSet(object.isArray) ? Boolean(object.isArray) : false,
       arrayValues: Array.isArray(object?.arrayValues)
@@ -10256,7 +10263,7 @@ export const CMsgJSValue = {
     message.uintValue !== undefined && (obj.uintValue = Math.round(message.uintValue));
     message.doubleValue !== undefined && (obj.doubleValue = message.doubleValue);
     message.stringValue !== undefined && (obj.stringValue = message.stringValue);
-    message.functionHandle !== undefined && (obj.functionHandle = Math.round(message.functionHandle));
+    message.functionHandle !== undefined && (obj.functionHandle = message.functionHandle);
     message.bytesValue !== undefined &&
       (obj.bytesValue = base64FromBytes(message.bytesValue !== undefined ? message.bytesValue : Buffer.alloc(0)));
     message.isArray !== undefined && (obj.isArray = message.isArray);
@@ -10287,7 +10294,7 @@ export const CMsgJSValue = {
     message.uintValue = object.uintValue ?? 0;
     message.doubleValue = object.doubleValue ?? 0;
     message.stringValue = object.stringValue ?? "";
-    message.functionHandle = object.functionHandle ?? 0;
+    message.functionHandle = object.functionHandle ?? "0";
     message.bytesValue = object.bytesValue ?? Buffer.alloc(0);
     message.isArray = object.isArray ?? false;
     message.arrayValues = object.arrayValues?.map((e) => CMsgJSValue.fromPartial(e)) || [];
@@ -10446,7 +10453,7 @@ export const CMsgJSMethodCall = {
 };
 
 function createBaseCMsgJSExecuteCallback(): CMsgJSExecuteCallback {
-  return { browserHandle: 0, owningBrowserHandle: 0, functionHandle: 0, arguments: [] };
+  return { browserHandle: 0, owningBrowserHandle: 0, functionHandle: "0", arguments: [] };
 }
 
 export const CMsgJSExecuteCallback = {
@@ -10457,7 +10464,7 @@ export const CMsgJSExecuteCallback = {
     if (message.owningBrowserHandle !== 0) {
       writer.uint32(16).uint32(message.owningBrowserHandle);
     }
-    if (message.functionHandle !== 0) {
+    if (message.functionHandle !== "0") {
       writer.uint32(24).uint64(message.functionHandle);
     }
     for (const v of message.arguments) {
@@ -10480,7 +10487,7 @@ export const CMsgJSExecuteCallback = {
           message.owningBrowserHandle = reader.uint32();
           break;
         case 3:
-          message.functionHandle = longToNumber(reader.uint64() as Long);
+          message.functionHandle = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.arguments.push(CMsgJSValue.decode(reader, reader.uint32()));
@@ -10497,7 +10504,7 @@ export const CMsgJSExecuteCallback = {
     return {
       browserHandle: isSet(object.browserHandle) ? Number(object.browserHandle) : 0,
       owningBrowserHandle: isSet(object.owningBrowserHandle) ? Number(object.owningBrowserHandle) : 0,
-      functionHandle: isSet(object.functionHandle) ? Number(object.functionHandle) : 0,
+      functionHandle: isSet(object.functionHandle) ? String(object.functionHandle) : "0",
       arguments: Array.isArray(object?.arguments) ? object.arguments.map((e: any) => CMsgJSValue.fromJSON(e)) : [],
     };
   },
@@ -10506,7 +10513,7 @@ export const CMsgJSExecuteCallback = {
     const obj: any = {};
     message.browserHandle !== undefined && (obj.browserHandle = Math.round(message.browserHandle));
     message.owningBrowserHandle !== undefined && (obj.owningBrowserHandle = Math.round(message.owningBrowserHandle));
-    message.functionHandle !== undefined && (obj.functionHandle = Math.round(message.functionHandle));
+    message.functionHandle !== undefined && (obj.functionHandle = message.functionHandle);
     if (message.arguments) {
       obj.arguments = message.arguments.map((e) => e ? CMsgJSValue.toJSON(e) : undefined);
     } else {
@@ -10523,14 +10530,14 @@ export const CMsgJSExecuteCallback = {
     const message = createBaseCMsgJSExecuteCallback();
     message.browserHandle = object.browserHandle ?? 0;
     message.owningBrowserHandle = object.owningBrowserHandle ?? 0;
-    message.functionHandle = object.functionHandle ?? 0;
+    message.functionHandle = object.functionHandle ?? "0";
     message.arguments = object.arguments?.map((e) => CMsgJSValue.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseCMsgJSReleaseCallback(): CMsgJSReleaseCallback {
-  return { browserHandle: 0, owningBrowserHandle: 0, functionHandle: 0 };
+  return { browserHandle: 0, owningBrowserHandle: 0, functionHandle: "0" };
 }
 
 export const CMsgJSReleaseCallback = {
@@ -10541,7 +10548,7 @@ export const CMsgJSReleaseCallback = {
     if (message.owningBrowserHandle !== 0) {
       writer.uint32(16).uint32(message.owningBrowserHandle);
     }
-    if (message.functionHandle !== 0) {
+    if (message.functionHandle !== "0") {
       writer.uint32(24).uint64(message.functionHandle);
     }
     return writer;
@@ -10561,7 +10568,7 @@ export const CMsgJSReleaseCallback = {
           message.owningBrowserHandle = reader.uint32();
           break;
         case 3:
-          message.functionHandle = longToNumber(reader.uint64() as Long);
+          message.functionHandle = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -10575,7 +10582,7 @@ export const CMsgJSReleaseCallback = {
     return {
       browserHandle: isSet(object.browserHandle) ? Number(object.browserHandle) : 0,
       owningBrowserHandle: isSet(object.owningBrowserHandle) ? Number(object.owningBrowserHandle) : 0,
-      functionHandle: isSet(object.functionHandle) ? Number(object.functionHandle) : 0,
+      functionHandle: isSet(object.functionHandle) ? String(object.functionHandle) : "0",
     };
   },
 
@@ -10583,7 +10590,7 @@ export const CMsgJSReleaseCallback = {
     const obj: any = {};
     message.browserHandle !== undefined && (obj.browserHandle = Math.round(message.browserHandle));
     message.owningBrowserHandle !== undefined && (obj.owningBrowserHandle = Math.round(message.owningBrowserHandle));
-    message.functionHandle !== undefined && (obj.functionHandle = Math.round(message.functionHandle));
+    message.functionHandle !== undefined && (obj.functionHandle = message.functionHandle);
     return obj;
   },
 
@@ -10595,7 +10602,7 @@ export const CMsgJSReleaseCallback = {
     const message = createBaseCMsgJSReleaseCallback();
     message.browserHandle = object.browserHandle ?? 0;
     message.owningBrowserHandle = object.owningBrowserHandle ?? 0;
-    message.functionHandle = object.functionHandle ?? 0;
+    message.functionHandle = object.functionHandle ?? "0";
     return message;
   },
 };
@@ -13259,11 +13266,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

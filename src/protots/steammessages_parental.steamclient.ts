@@ -11,7 +11,7 @@ export interface ParentalApp {
 }
 
 export interface ParentalSettings {
-  steamid: number;
+  steamid: string;
   applistBaseId: number;
   applistBaseDescription: string;
   applistBase: ParentalApp[];
@@ -30,7 +30,7 @@ export interface CParentalEnableParentalSettingsRequest {
   settings: ParentalSettings | undefined;
   sessionid: string;
   enablecode: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CParentalEnableParentalSettingsResponse {
@@ -38,14 +38,14 @@ export interface CParentalEnableParentalSettingsResponse {
 
 export interface CParentalDisableParentalSettingsRequest {
   password: string;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CParentalDisableParentalSettingsResponse {
 }
 
 export interface CParentalGetParentalSettingsRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CParentalGetParentalSettingsResponse {
@@ -66,7 +66,7 @@ export interface CParentalSetParentalSettingsRequest {
   settings: ParentalSettings | undefined;
   newPassword: string;
   sessionid: string;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CParentalSetParentalSettingsResponse {
@@ -104,7 +104,7 @@ export interface CParentalRequestRecoveryCodeResponse {
 
 export interface CParentalDisableWithRecoveryCodeRequest {
   recoveryCode: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CParentalDisableWithRecoveryCodeResponse {
@@ -190,7 +190,7 @@ export const ParentalApp = {
 
 function createBaseParentalSettings(): ParentalSettings {
   return {
-    steamid: 0,
+    steamid: "0",
     applistBaseId: 0,
     applistBaseDescription: "",
     applistBase: [],
@@ -207,7 +207,7 @@ function createBaseParentalSettings(): ParentalSettings {
 
 export const ParentalSettings = {
   encode(message: ParentalSettings, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.applistBaseId !== 0) {
@@ -254,7 +254,7 @@ export const ParentalSettings = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.applistBaseId = reader.uint32();
@@ -299,7 +299,7 @@ export const ParentalSettings = {
 
   fromJSON(object: any): ParentalSettings {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       applistBaseId: isSet(object.applistBaseId) ? Number(object.applistBaseId) : 0,
       applistBaseDescription: isSet(object.applistBaseDescription) ? String(object.applistBaseDescription) : "",
       applistBase: Array.isArray(object?.applistBase)
@@ -320,7 +320,7 @@ export const ParentalSettings = {
 
   toJSON(message: ParentalSettings): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.applistBaseId !== undefined && (obj.applistBaseId = Math.round(message.applistBaseId));
     message.applistBaseDescription !== undefined && (obj.applistBaseDescription = message.applistBaseDescription);
     if (message.applistBase) {
@@ -351,7 +351,7 @@ export const ParentalSettings = {
 
   fromPartial<I extends Exact<DeepPartial<ParentalSettings>, I>>(object: I): ParentalSettings {
     const message = createBaseParentalSettings();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.applistBaseId = object.applistBaseId ?? 0;
     message.applistBaseDescription = object.applistBaseDescription ?? "";
     message.applistBase = object.applistBase?.map((e) => ParentalApp.fromPartial(e)) || [];
@@ -368,7 +368,7 @@ export const ParentalSettings = {
 };
 
 function createBaseCParentalEnableParentalSettingsRequest(): CParentalEnableParentalSettingsRequest {
-  return { password: "", settings: undefined, sessionid: "", enablecode: 0, steamid: 0 };
+  return { password: "", settings: undefined, sessionid: "", enablecode: 0, steamid: "0" };
 }
 
 export const CParentalEnableParentalSettingsRequest = {
@@ -385,7 +385,7 @@ export const CParentalEnableParentalSettingsRequest = {
     if (message.enablecode !== 0) {
       writer.uint32(32).uint32(message.enablecode);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(81).fixed64(message.steamid);
     }
     return writer;
@@ -411,7 +411,7 @@ export const CParentalEnableParentalSettingsRequest = {
           message.enablecode = reader.uint32();
           break;
         case 10:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -427,7 +427,7 @@ export const CParentalEnableParentalSettingsRequest = {
       settings: isSet(object.settings) ? ParentalSettings.fromJSON(object.settings) : undefined,
       sessionid: isSet(object.sessionid) ? String(object.sessionid) : "",
       enablecode: isSet(object.enablecode) ? Number(object.enablecode) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
@@ -438,7 +438,7 @@ export const CParentalEnableParentalSettingsRequest = {
       (obj.settings = message.settings ? ParentalSettings.toJSON(message.settings) : undefined);
     message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     message.enablecode !== undefined && (obj.enablecode = Math.round(message.enablecode));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -458,7 +458,7 @@ export const CParentalEnableParentalSettingsRequest = {
       : undefined;
     message.sessionid = object.sessionid ?? "";
     message.enablecode = object.enablecode ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -511,7 +511,7 @@ export const CParentalEnableParentalSettingsResponse = {
 };
 
 function createBaseCParentalDisableParentalSettingsRequest(): CParentalDisableParentalSettingsRequest {
-  return { password: "", steamid: 0 };
+  return { password: "", steamid: "0" };
 }
 
 export const CParentalDisableParentalSettingsRequest = {
@@ -519,7 +519,7 @@ export const CParentalDisableParentalSettingsRequest = {
     if (message.password !== "") {
       writer.uint32(10).string(message.password);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(81).fixed64(message.steamid);
     }
     return writer;
@@ -536,7 +536,7 @@ export const CParentalDisableParentalSettingsRequest = {
           message.password = reader.string();
           break;
         case 10:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -549,14 +549,14 @@ export const CParentalDisableParentalSettingsRequest = {
   fromJSON(object: any): CParentalDisableParentalSettingsRequest {
     return {
       password: isSet(object.password) ? String(object.password) : "",
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CParentalDisableParentalSettingsRequest): unknown {
     const obj: any = {};
     message.password !== undefined && (obj.password = message.password);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -571,7 +571,7 @@ export const CParentalDisableParentalSettingsRequest = {
   ): CParentalDisableParentalSettingsRequest {
     const message = createBaseCParentalDisableParentalSettingsRequest();
     message.password = object.password ?? "";
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -624,12 +624,12 @@ export const CParentalDisableParentalSettingsResponse = {
 };
 
 function createBaseCParentalGetParentalSettingsRequest(): CParentalGetParentalSettingsRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CParentalGetParentalSettingsRequest = {
   encode(message: CParentalGetParentalSettingsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(81).fixed64(message.steamid);
     }
     return writer;
@@ -643,7 +643,7 @@ export const CParentalGetParentalSettingsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 10:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -654,12 +654,12 @@ export const CParentalGetParentalSettingsRequest = {
   },
 
   fromJSON(object: any): CParentalGetParentalSettingsRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CParentalGetParentalSettingsRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -673,7 +673,7 @@ export const CParentalGetParentalSettingsRequest = {
     object: I,
   ): CParentalGetParentalSettingsRequest {
     const message = createBaseCParentalGetParentalSettingsRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -864,7 +864,7 @@ export const CParentalGetSignedParentalSettingsResponse = {
 };
 
 function createBaseCParentalSetParentalSettingsRequest(): CParentalSetParentalSettingsRequest {
-  return { password: "", settings: undefined, newPassword: "", sessionid: "", steamid: 0 };
+  return { password: "", settings: undefined, newPassword: "", sessionid: "", steamid: "0" };
 }
 
 export const CParentalSetParentalSettingsRequest = {
@@ -881,7 +881,7 @@ export const CParentalSetParentalSettingsRequest = {
     if (message.sessionid !== "") {
       writer.uint32(34).string(message.sessionid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(81).fixed64(message.steamid);
     }
     return writer;
@@ -907,7 +907,7 @@ export const CParentalSetParentalSettingsRequest = {
           message.sessionid = reader.string();
           break;
         case 10:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -923,7 +923,7 @@ export const CParentalSetParentalSettingsRequest = {
       settings: isSet(object.settings) ? ParentalSettings.fromJSON(object.settings) : undefined,
       newPassword: isSet(object.newPassword) ? String(object.newPassword) : "",
       sessionid: isSet(object.sessionid) ? String(object.sessionid) : "",
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
@@ -934,7 +934,7 @@ export const CParentalSetParentalSettingsRequest = {
       (obj.settings = message.settings ? ParentalSettings.toJSON(message.settings) : undefined);
     message.newPassword !== undefined && (obj.newPassword = message.newPassword);
     message.sessionid !== undefined && (obj.sessionid = message.sessionid);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -954,7 +954,7 @@ export const CParentalSetParentalSettingsRequest = {
       : undefined;
     message.newPassword = object.newPassword ?? "";
     message.sessionid = object.sessionid ?? "";
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1421,7 +1421,7 @@ export const CParentalRequestRecoveryCodeResponse = {
 };
 
 function createBaseCParentalDisableWithRecoveryCodeRequest(): CParentalDisableWithRecoveryCodeRequest {
-  return { recoveryCode: 0, steamid: 0 };
+  return { recoveryCode: 0, steamid: "0" };
 }
 
 export const CParentalDisableWithRecoveryCodeRequest = {
@@ -1429,7 +1429,7 @@ export const CParentalDisableWithRecoveryCodeRequest = {
     if (message.recoveryCode !== 0) {
       writer.uint32(8).uint32(message.recoveryCode);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(81).fixed64(message.steamid);
     }
     return writer;
@@ -1446,7 +1446,7 @@ export const CParentalDisableWithRecoveryCodeRequest = {
           message.recoveryCode = reader.uint32();
           break;
         case 10:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1459,14 +1459,14 @@ export const CParentalDisableWithRecoveryCodeRequest = {
   fromJSON(object: any): CParentalDisableWithRecoveryCodeRequest {
     return {
       recoveryCode: isSet(object.recoveryCode) ? Number(object.recoveryCode) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CParentalDisableWithRecoveryCodeRequest): unknown {
     const obj: any = {};
     message.recoveryCode !== undefined && (obj.recoveryCode = Math.round(message.recoveryCode));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1481,7 +1481,7 @@ export const CParentalDisableWithRecoveryCodeRequest = {
   ): CParentalDisableWithRecoveryCodeRequest {
     const message = createBaseCParentalDisableWithRecoveryCodeRequest();
     message.recoveryCode = object.recoveryCode ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1945,11 +1945,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

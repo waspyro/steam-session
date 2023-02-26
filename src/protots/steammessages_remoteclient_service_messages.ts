@@ -8,12 +8,12 @@ export interface CRemoteClientCreateSessionRequest {
 }
 
 export interface CRemoteClientCreateSessionResponse {
-  sessionId: number;
+  sessionId: string;
   euniverse: number;
 }
 
 export interface CRemoteClientStartPairingRequest {
-  sessionId: number;
+  sessionId: string;
 }
 
 export interface CRemoteClientStartPairingResponse {
@@ -21,8 +21,8 @@ export interface CRemoteClientStartPairingResponse {
 }
 
 export interface CRemoteClientSetPairingInfoRequest {
-  sessionId: number;
-  deviceId: number;
+  sessionId: string;
+  deviceId: string;
   request: Buffer;
 }
 
@@ -34,47 +34,47 @@ export interface CRemoteClientGetPairingInfoRequest {
 }
 
 export interface CRemoteClientGetPairingInfoResponse {
-  sessionId: number;
-  deviceId: number;
+  sessionId: string;
+  deviceId: string;
   request: Buffer;
 }
 
 export interface CRemoteClientCancelPairingRequest {
-  sessionId: number;
+  sessionId: string;
 }
 
 export interface CRemoteClientCancelPairingResponse {
 }
 
 export interface CRemoteClientRegisterStatusUpdateNotification {
-  sessionId: number;
-  steamid: number;
-  deviceId: number;
+  sessionId: string;
+  steamid: string;
+  deviceId: string;
 }
 
 export interface CRemoteClientUnregisterStatusUpdateNotification {
-  sessionId: number;
-  steamid: number;
+  sessionId: string;
+  steamid: string;
 }
 
 export interface CRemoteClientOnlineNotification {
-  steamid: number;
-  remoteClientId: number;
+  steamid: string;
+  remoteClientId: string;
 }
 
 export interface CRemoteClientRemotePacketNotification {
-  sessionId: number;
-  steamid: number;
+  sessionId: string;
+  steamid: string;
   payload: Buffer;
 }
 
 export interface CRemoteClientReplyPacketNotification {
-  sessionId: number;
+  sessionId: string;
   payload: Buffer;
 }
 
 export interface CRemoteClientGetRepliesRequest {
-  sessionId: number;
+  sessionId: string;
 }
 
 export interface CRemoteClientGetRepliesResponse {
@@ -107,15 +107,15 @@ export interface CRemoteClientAllocateSDRResponse {
 }
 
 export interface CRemoteClientSteamBroadcastNotification {
-  steamid: number;
-  clientid: number;
+  steamid: string;
+  clientid: string;
   payload: Buffer;
 }
 
 export interface CRemoteClientSteamToSteamNotification {
-  steamid: number;
-  srcClientid: number;
-  dstClientid: number;
+  steamid: string;
+  srcClientid: string;
+  dstClientid: string;
   secretid: number;
   encryptedPayload: Buffer;
 }
@@ -130,23 +130,23 @@ export interface CRemotePlaySessionStartedRequest {
 }
 
 export interface CRemotePlaySessionStartedResponse {
-  recordId: number;
+  recordId: string;
 }
 
 export interface CRemotePlaySessionStoppedNotification {
-  recordId: number;
+  recordId: string;
   usedX264: boolean;
   usedH264: boolean;
   usedHevc: boolean;
 }
 
 export interface CRemotePlayTogetherNotification {
-  steamid: number;
+  steamid: string;
   groupUpdated?: CRemotePlayTogetherNotification_GroupUpdated | undefined;
 }
 
 export interface CRemotePlayTogetherNotification_Player {
-  steamid: number;
+  steamid: string;
   guestid: number;
   avatarHash: Buffer;
   keyboardEnabled: boolean;
@@ -156,7 +156,7 @@ export interface CRemotePlayTogetherNotification_Player {
 
 export interface CRemotePlayTogetherNotification_ControllerSlotObsolete {
   slotid: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CRemotePlayTogetherNotification_ControllerSlot {
@@ -166,10 +166,10 @@ export interface CRemotePlayTogetherNotification_ControllerSlot {
 }
 
 export interface CRemotePlayTogetherNotification_GroupUpdated {
-  hostSteamid: number;
-  hostClientid: number;
-  playersObsolete: number[];
-  hostGameid: number;
+  hostSteamid: string;
+  hostClientid: string;
+  playersObsolete: string[];
+  hostGameid: string;
   controllerSlotsObsolete: CRemotePlayTogetherNotification_ControllerSlotObsolete[];
   hasNewPlayers: boolean;
   playerSlots: CRemotePlayTogetherNotification_Player[];
@@ -248,12 +248,12 @@ export const CRemoteClientCreateSessionRequest = {
 };
 
 function createBaseCRemoteClientCreateSessionResponse(): CRemoteClientCreateSessionResponse {
-  return { sessionId: 0, euniverse: 0 };
+  return { sessionId: "0", euniverse: 0 };
 }
 
 export const CRemoteClientCreateSessionResponse = {
   encode(message: CRemoteClientCreateSessionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
     if (message.euniverse !== 0) {
@@ -270,7 +270,7 @@ export const CRemoteClientCreateSessionResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.euniverse = reader.int32();
@@ -285,14 +285,14 @@ export const CRemoteClientCreateSessionResponse = {
 
   fromJSON(object: any): CRemoteClientCreateSessionResponse {
     return {
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
       euniverse: isSet(object.euniverse) ? Number(object.euniverse) : 0,
     };
   },
 
   toJSON(message: CRemoteClientCreateSessionResponse): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     message.euniverse !== undefined && (obj.euniverse = Math.round(message.euniverse));
     return obj;
   },
@@ -307,19 +307,19 @@ export const CRemoteClientCreateSessionResponse = {
     object: I,
   ): CRemoteClientCreateSessionResponse {
     const message = createBaseCRemoteClientCreateSessionResponse();
-    message.sessionId = object.sessionId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
     message.euniverse = object.euniverse ?? 0;
     return message;
   },
 };
 
 function createBaseCRemoteClientStartPairingRequest(): CRemoteClientStartPairingRequest {
-  return { sessionId: 0 };
+  return { sessionId: "0" };
 }
 
 export const CRemoteClientStartPairingRequest = {
   encode(message: CRemoteClientStartPairingRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
     return writer;
@@ -333,7 +333,7 @@ export const CRemoteClientStartPairingRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -344,12 +344,12 @@ export const CRemoteClientStartPairingRequest = {
   },
 
   fromJSON(object: any): CRemoteClientStartPairingRequest {
-    return { sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0 };
+    return { sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0" };
   },
 
   toJSON(message: CRemoteClientStartPairingRequest): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     return obj;
   },
 
@@ -363,7 +363,7 @@ export const CRemoteClientStartPairingRequest = {
     object: I,
   ): CRemoteClientStartPairingRequest {
     const message = createBaseCRemoteClientStartPairingRequest();
-    message.sessionId = object.sessionId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
     return message;
   },
 };
@@ -424,15 +424,15 @@ export const CRemoteClientStartPairingResponse = {
 };
 
 function createBaseCRemoteClientSetPairingInfoRequest(): CRemoteClientSetPairingInfoRequest {
-  return { sessionId: 0, deviceId: 0, request: Buffer.alloc(0) };
+  return { sessionId: "0", deviceId: "0", request: Buffer.alloc(0) };
 }
 
 export const CRemoteClientSetPairingInfoRequest = {
   encode(message: CRemoteClientSetPairingInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
-    if (message.deviceId !== 0) {
+    if (message.deviceId !== "0") {
       writer.uint32(17).fixed64(message.deviceId);
     }
     if (message.request.length !== 0) {
@@ -449,10 +449,10 @@ export const CRemoteClientSetPairingInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.deviceId = longToNumber(reader.fixed64() as Long);
+          message.deviceId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.request = reader.bytes() as Buffer;
@@ -467,16 +467,16 @@ export const CRemoteClientSetPairingInfoRequest = {
 
   fromJSON(object: any): CRemoteClientSetPairingInfoRequest {
     return {
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
-      deviceId: isSet(object.deviceId) ? Number(object.deviceId) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
+      deviceId: isSet(object.deviceId) ? String(object.deviceId) : "0",
       request: isSet(object.request) ? Buffer.from(bytesFromBase64(object.request)) : Buffer.alloc(0),
     };
   },
 
   toJSON(message: CRemoteClientSetPairingInfoRequest): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
-    message.deviceId !== undefined && (obj.deviceId = Math.round(message.deviceId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
+    message.deviceId !== undefined && (obj.deviceId = message.deviceId);
     message.request !== undefined &&
       (obj.request = base64FromBytes(message.request !== undefined ? message.request : Buffer.alloc(0)));
     return obj;
@@ -492,8 +492,8 @@ export const CRemoteClientSetPairingInfoRequest = {
     object: I,
   ): CRemoteClientSetPairingInfoRequest {
     const message = createBaseCRemoteClientSetPairingInfoRequest();
-    message.sessionId = object.sessionId ?? 0;
-    message.deviceId = object.deviceId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
+    message.deviceId = object.deviceId ?? "0";
     message.request = object.request ?? Buffer.alloc(0);
     return message;
   },
@@ -602,15 +602,15 @@ export const CRemoteClientGetPairingInfoRequest = {
 };
 
 function createBaseCRemoteClientGetPairingInfoResponse(): CRemoteClientGetPairingInfoResponse {
-  return { sessionId: 0, deviceId: 0, request: Buffer.alloc(0) };
+  return { sessionId: "0", deviceId: "0", request: Buffer.alloc(0) };
 }
 
 export const CRemoteClientGetPairingInfoResponse = {
   encode(message: CRemoteClientGetPairingInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
-    if (message.deviceId !== 0) {
+    if (message.deviceId !== "0") {
       writer.uint32(17).fixed64(message.deviceId);
     }
     if (message.request.length !== 0) {
@@ -627,10 +627,10 @@ export const CRemoteClientGetPairingInfoResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.deviceId = longToNumber(reader.fixed64() as Long);
+          message.deviceId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.request = reader.bytes() as Buffer;
@@ -645,16 +645,16 @@ export const CRemoteClientGetPairingInfoResponse = {
 
   fromJSON(object: any): CRemoteClientGetPairingInfoResponse {
     return {
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
-      deviceId: isSet(object.deviceId) ? Number(object.deviceId) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
+      deviceId: isSet(object.deviceId) ? String(object.deviceId) : "0",
       request: isSet(object.request) ? Buffer.from(bytesFromBase64(object.request)) : Buffer.alloc(0),
     };
   },
 
   toJSON(message: CRemoteClientGetPairingInfoResponse): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
-    message.deviceId !== undefined && (obj.deviceId = Math.round(message.deviceId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
+    message.deviceId !== undefined && (obj.deviceId = message.deviceId);
     message.request !== undefined &&
       (obj.request = base64FromBytes(message.request !== undefined ? message.request : Buffer.alloc(0)));
     return obj;
@@ -670,20 +670,20 @@ export const CRemoteClientGetPairingInfoResponse = {
     object: I,
   ): CRemoteClientGetPairingInfoResponse {
     const message = createBaseCRemoteClientGetPairingInfoResponse();
-    message.sessionId = object.sessionId ?? 0;
-    message.deviceId = object.deviceId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
+    message.deviceId = object.deviceId ?? "0";
     message.request = object.request ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseCRemoteClientCancelPairingRequest(): CRemoteClientCancelPairingRequest {
-  return { sessionId: 0 };
+  return { sessionId: "0" };
 }
 
 export const CRemoteClientCancelPairingRequest = {
   encode(message: CRemoteClientCancelPairingRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
     return writer;
@@ -697,7 +697,7 @@ export const CRemoteClientCancelPairingRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -708,12 +708,12 @@ export const CRemoteClientCancelPairingRequest = {
   },
 
   fromJSON(object: any): CRemoteClientCancelPairingRequest {
-    return { sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0 };
+    return { sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0" };
   },
 
   toJSON(message: CRemoteClientCancelPairingRequest): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     return obj;
   },
 
@@ -727,7 +727,7 @@ export const CRemoteClientCancelPairingRequest = {
     object: I,
   ): CRemoteClientCancelPairingRequest {
     const message = createBaseCRemoteClientCancelPairingRequest();
-    message.sessionId = object.sessionId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
     return message;
   },
 };
@@ -780,18 +780,18 @@ export const CRemoteClientCancelPairingResponse = {
 };
 
 function createBaseCRemoteClientRegisterStatusUpdateNotification(): CRemoteClientRegisterStatusUpdateNotification {
-  return { sessionId: 0, steamid: 0, deviceId: 0 };
+  return { sessionId: "0", steamid: "0", deviceId: "0" };
 }
 
 export const CRemoteClientRegisterStatusUpdateNotification = {
   encode(message: CRemoteClientRegisterStatusUpdateNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
-    if (message.deviceId !== 0) {
+    if (message.deviceId !== "0") {
       writer.uint32(25).fixed64(message.deviceId);
     }
     return writer;
@@ -805,13 +805,13 @@ export const CRemoteClientRegisterStatusUpdateNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.deviceId = longToNumber(reader.fixed64() as Long);
+          message.deviceId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -823,17 +823,17 @@ export const CRemoteClientRegisterStatusUpdateNotification = {
 
   fromJSON(object: any): CRemoteClientRegisterStatusUpdateNotification {
     return {
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      deviceId: isSet(object.deviceId) ? Number(object.deviceId) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      deviceId: isSet(object.deviceId) ? String(object.deviceId) : "0",
     };
   },
 
   toJSON(message: CRemoteClientRegisterStatusUpdateNotification): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.deviceId !== undefined && (obj.deviceId = Math.round(message.deviceId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.deviceId !== undefined && (obj.deviceId = message.deviceId);
     return obj;
   },
 
@@ -847,15 +847,15 @@ export const CRemoteClientRegisterStatusUpdateNotification = {
     object: I,
   ): CRemoteClientRegisterStatusUpdateNotification {
     const message = createBaseCRemoteClientRegisterStatusUpdateNotification();
-    message.sessionId = object.sessionId ?? 0;
-    message.steamid = object.steamid ?? 0;
-    message.deviceId = object.deviceId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
+    message.steamid = object.steamid ?? "0";
+    message.deviceId = object.deviceId ?? "0";
     return message;
   },
 };
 
 function createBaseCRemoteClientUnregisterStatusUpdateNotification(): CRemoteClientUnregisterStatusUpdateNotification {
-  return { sessionId: 0, steamid: 0 };
+  return { sessionId: "0", steamid: "0" };
 }
 
 export const CRemoteClientUnregisterStatusUpdateNotification = {
@@ -863,10 +863,10 @@ export const CRemoteClientUnregisterStatusUpdateNotification = {
     message: CRemoteClientUnregisterStatusUpdateNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -880,10 +880,10 @@ export const CRemoteClientUnregisterStatusUpdateNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -895,15 +895,15 @@ export const CRemoteClientUnregisterStatusUpdateNotification = {
 
   fromJSON(object: any): CRemoteClientUnregisterStatusUpdateNotification {
     return {
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CRemoteClientUnregisterStatusUpdateNotification): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -917,22 +917,22 @@ export const CRemoteClientUnregisterStatusUpdateNotification = {
     object: I,
   ): CRemoteClientUnregisterStatusUpdateNotification {
     const message = createBaseCRemoteClientUnregisterStatusUpdateNotification();
-    message.sessionId = object.sessionId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.sessionId = object.sessionId ?? "0";
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
 
 function createBaseCRemoteClientOnlineNotification(): CRemoteClientOnlineNotification {
-  return { steamid: 0, remoteClientId: 0 };
+  return { steamid: "0", remoteClientId: "0" };
 }
 
 export const CRemoteClientOnlineNotification = {
   encode(message: CRemoteClientOnlineNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.remoteClientId !== 0) {
+    if (message.remoteClientId !== "0") {
       writer.uint32(17).fixed64(message.remoteClientId);
     }
     return writer;
@@ -946,10 +946,10 @@ export const CRemoteClientOnlineNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.remoteClientId = longToNumber(reader.fixed64() as Long);
+          message.remoteClientId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -961,15 +961,15 @@ export const CRemoteClientOnlineNotification = {
 
   fromJSON(object: any): CRemoteClientOnlineNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      remoteClientId: isSet(object.remoteClientId) ? Number(object.remoteClientId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      remoteClientId: isSet(object.remoteClientId) ? String(object.remoteClientId) : "0",
     };
   },
 
   toJSON(message: CRemoteClientOnlineNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.remoteClientId !== undefined && (obj.remoteClientId = Math.round(message.remoteClientId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.remoteClientId !== undefined && (obj.remoteClientId = message.remoteClientId);
     return obj;
   },
 
@@ -981,22 +981,22 @@ export const CRemoteClientOnlineNotification = {
     object: I,
   ): CRemoteClientOnlineNotification {
     const message = createBaseCRemoteClientOnlineNotification();
-    message.steamid = object.steamid ?? 0;
-    message.remoteClientId = object.remoteClientId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.remoteClientId = object.remoteClientId ?? "0";
     return message;
   },
 };
 
 function createBaseCRemoteClientRemotePacketNotification(): CRemoteClientRemotePacketNotification {
-  return { sessionId: 0, steamid: 0, payload: Buffer.alloc(0) };
+  return { sessionId: "0", steamid: "0", payload: Buffer.alloc(0) };
 }
 
 export const CRemoteClientRemotePacketNotification = {
   encode(message: CRemoteClientRemotePacketNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     if (message.payload.length !== 0) {
@@ -1013,10 +1013,10 @@ export const CRemoteClientRemotePacketNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.payload = reader.bytes() as Buffer;
@@ -1031,16 +1031,16 @@ export const CRemoteClientRemotePacketNotification = {
 
   fromJSON(object: any): CRemoteClientRemotePacketNotification {
     return {
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
     };
   },
 
   toJSON(message: CRemoteClientRemotePacketNotification): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : Buffer.alloc(0)));
     return obj;
@@ -1056,20 +1056,20 @@ export const CRemoteClientRemotePacketNotification = {
     object: I,
   ): CRemoteClientRemotePacketNotification {
     const message = createBaseCRemoteClientRemotePacketNotification();
-    message.sessionId = object.sessionId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.sessionId = object.sessionId ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.payload = object.payload ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseCRemoteClientReplyPacketNotification(): CRemoteClientReplyPacketNotification {
-  return { sessionId: 0, payload: Buffer.alloc(0) };
+  return { sessionId: "0", payload: Buffer.alloc(0) };
 }
 
 export const CRemoteClientReplyPacketNotification = {
   encode(message: CRemoteClientReplyPacketNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
     if (message.payload.length !== 0) {
@@ -1086,7 +1086,7 @@ export const CRemoteClientReplyPacketNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.payload = reader.bytes() as Buffer;
@@ -1101,14 +1101,14 @@ export const CRemoteClientReplyPacketNotification = {
 
   fromJSON(object: any): CRemoteClientReplyPacketNotification {
     return {
-      sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0,
+      sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
     };
   },
 
   toJSON(message: CRemoteClientReplyPacketNotification): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : Buffer.alloc(0)));
     return obj;
@@ -1124,19 +1124,19 @@ export const CRemoteClientReplyPacketNotification = {
     object: I,
   ): CRemoteClientReplyPacketNotification {
     const message = createBaseCRemoteClientReplyPacketNotification();
-    message.sessionId = object.sessionId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
     message.payload = object.payload ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseCRemoteClientGetRepliesRequest(): CRemoteClientGetRepliesRequest {
-  return { sessionId: 0 };
+  return { sessionId: "0" };
 }
 
 export const CRemoteClientGetRepliesRequest = {
   encode(message: CRemoteClientGetRepliesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionId !== 0) {
+    if (message.sessionId !== "0") {
       writer.uint32(9).fixed64(message.sessionId);
     }
     return writer;
@@ -1150,7 +1150,7 @@ export const CRemoteClientGetRepliesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionId = longToNumber(reader.fixed64() as Long);
+          message.sessionId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1161,12 +1161,12 @@ export const CRemoteClientGetRepliesRequest = {
   },
 
   fromJSON(object: any): CRemoteClientGetRepliesRequest {
-    return { sessionId: isSet(object.sessionId) ? Number(object.sessionId) : 0 };
+    return { sessionId: isSet(object.sessionId) ? String(object.sessionId) : "0" };
   },
 
   toJSON(message: CRemoteClientGetRepliesRequest): unknown {
     const obj: any = {};
-    message.sessionId !== undefined && (obj.sessionId = Math.round(message.sessionId));
+    message.sessionId !== undefined && (obj.sessionId = message.sessionId);
     return obj;
   },
 
@@ -1178,7 +1178,7 @@ export const CRemoteClientGetRepliesRequest = {
     object: I,
   ): CRemoteClientGetRepliesRequest {
     const message = createBaseCRemoteClientGetRepliesRequest();
-    message.sessionId = object.sessionId ?? 0;
+    message.sessionId = object.sessionId ?? "0";
     return message;
   },
 };
@@ -1585,15 +1585,15 @@ export const CRemoteClientAllocateSDRResponse = {
 };
 
 function createBaseCRemoteClientSteamBroadcastNotification(): CRemoteClientSteamBroadcastNotification {
-  return { steamid: 0, clientid: 0, payload: Buffer.alloc(0) };
+  return { steamid: "0", clientid: "0", payload: Buffer.alloc(0) };
 }
 
 export const CRemoteClientSteamBroadcastNotification = {
   encode(message: CRemoteClientSteamBroadcastNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.clientid !== 0) {
+    if (message.clientid !== "0") {
       writer.uint32(17).fixed64(message.clientid);
     }
     if (message.payload.length !== 0) {
@@ -1610,10 +1610,10 @@ export const CRemoteClientSteamBroadcastNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.clientid = longToNumber(reader.fixed64() as Long);
+          message.clientid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.payload = reader.bytes() as Buffer;
@@ -1628,16 +1628,16 @@ export const CRemoteClientSteamBroadcastNotification = {
 
   fromJSON(object: any): CRemoteClientSteamBroadcastNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      clientid: isSet(object.clientid) ? Number(object.clientid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      clientid: isSet(object.clientid) ? String(object.clientid) : "0",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
     };
   },
 
   toJSON(message: CRemoteClientSteamBroadcastNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.clientid !== undefined && (obj.clientid = Math.round(message.clientid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.clientid !== undefined && (obj.clientid = message.clientid);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : Buffer.alloc(0)));
     return obj;
@@ -1653,26 +1653,26 @@ export const CRemoteClientSteamBroadcastNotification = {
     object: I,
   ): CRemoteClientSteamBroadcastNotification {
     const message = createBaseCRemoteClientSteamBroadcastNotification();
-    message.steamid = object.steamid ?? 0;
-    message.clientid = object.clientid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.clientid = object.clientid ?? "0";
     message.payload = object.payload ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseCRemoteClientSteamToSteamNotification(): CRemoteClientSteamToSteamNotification {
-  return { steamid: 0, srcClientid: 0, dstClientid: 0, secretid: 0, encryptedPayload: Buffer.alloc(0) };
+  return { steamid: "0", srcClientid: "0", dstClientid: "0", secretid: 0, encryptedPayload: Buffer.alloc(0) };
 }
 
 export const CRemoteClientSteamToSteamNotification = {
   encode(message: CRemoteClientSteamToSteamNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.srcClientid !== 0) {
+    if (message.srcClientid !== "0") {
       writer.uint32(17).fixed64(message.srcClientid);
     }
-    if (message.dstClientid !== 0) {
+    if (message.dstClientid !== "0") {
       writer.uint32(25).fixed64(message.dstClientid);
     }
     if (message.secretid !== 0) {
@@ -1692,13 +1692,13 @@ export const CRemoteClientSteamToSteamNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.srcClientid = longToNumber(reader.fixed64() as Long);
+          message.srcClientid = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.dstClientid = longToNumber(reader.fixed64() as Long);
+          message.dstClientid = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.secretid = reader.uint32();
@@ -1716,9 +1716,9 @@ export const CRemoteClientSteamToSteamNotification = {
 
   fromJSON(object: any): CRemoteClientSteamToSteamNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      srcClientid: isSet(object.srcClientid) ? Number(object.srcClientid) : 0,
-      dstClientid: isSet(object.dstClientid) ? Number(object.dstClientid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      srcClientid: isSet(object.srcClientid) ? String(object.srcClientid) : "0",
+      dstClientid: isSet(object.dstClientid) ? String(object.dstClientid) : "0",
       secretid: isSet(object.secretid) ? Number(object.secretid) : 0,
       encryptedPayload: isSet(object.encryptedPayload)
         ? Buffer.from(bytesFromBase64(object.encryptedPayload))
@@ -1728,9 +1728,9 @@ export const CRemoteClientSteamToSteamNotification = {
 
   toJSON(message: CRemoteClientSteamToSteamNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.srcClientid !== undefined && (obj.srcClientid = Math.round(message.srcClientid));
-    message.dstClientid !== undefined && (obj.dstClientid = Math.round(message.dstClientid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.srcClientid !== undefined && (obj.srcClientid = message.srcClientid);
+    message.dstClientid !== undefined && (obj.dstClientid = message.dstClientid);
     message.secretid !== undefined && (obj.secretid = Math.round(message.secretid));
     message.encryptedPayload !== undefined &&
       (obj.encryptedPayload = base64FromBytes(
@@ -1749,9 +1749,9 @@ export const CRemoteClientSteamToSteamNotification = {
     object: I,
   ): CRemoteClientSteamToSteamNotification {
     const message = createBaseCRemoteClientSteamToSteamNotification();
-    message.steamid = object.steamid ?? 0;
-    message.srcClientid = object.srcClientid ?? 0;
-    message.dstClientid = object.dstClientid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.srcClientid = object.srcClientid ?? "0";
+    message.dstClientid = object.dstClientid ?? "0";
     message.secretid = object.secretid ?? 0;
     message.encryptedPayload = object.encryptedPayload ?? Buffer.alloc(0);
     return message;
@@ -1868,12 +1868,12 @@ export const CRemotePlaySessionStartedRequest = {
 };
 
 function createBaseCRemotePlaySessionStartedResponse(): CRemotePlaySessionStartedResponse {
-  return { recordId: 0 };
+  return { recordId: "0" };
 }
 
 export const CRemotePlaySessionStartedResponse = {
   encode(message: CRemotePlaySessionStartedResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.recordId !== 0) {
+    if (message.recordId !== "0") {
       writer.uint32(9).fixed64(message.recordId);
     }
     return writer;
@@ -1887,7 +1887,7 @@ export const CRemotePlaySessionStartedResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.recordId = longToNumber(reader.fixed64() as Long);
+          message.recordId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1898,12 +1898,12 @@ export const CRemotePlaySessionStartedResponse = {
   },
 
   fromJSON(object: any): CRemotePlaySessionStartedResponse {
-    return { recordId: isSet(object.recordId) ? Number(object.recordId) : 0 };
+    return { recordId: isSet(object.recordId) ? String(object.recordId) : "0" };
   },
 
   toJSON(message: CRemotePlaySessionStartedResponse): unknown {
     const obj: any = {};
-    message.recordId !== undefined && (obj.recordId = Math.round(message.recordId));
+    message.recordId !== undefined && (obj.recordId = message.recordId);
     return obj;
   },
 
@@ -1917,18 +1917,18 @@ export const CRemotePlaySessionStartedResponse = {
     object: I,
   ): CRemotePlaySessionStartedResponse {
     const message = createBaseCRemotePlaySessionStartedResponse();
-    message.recordId = object.recordId ?? 0;
+    message.recordId = object.recordId ?? "0";
     return message;
   },
 };
 
 function createBaseCRemotePlaySessionStoppedNotification(): CRemotePlaySessionStoppedNotification {
-  return { recordId: 0, usedX264: false, usedH264: false, usedHevc: false };
+  return { recordId: "0", usedX264: false, usedH264: false, usedHevc: false };
 }
 
 export const CRemotePlaySessionStoppedNotification = {
   encode(message: CRemotePlaySessionStoppedNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.recordId !== 0) {
+    if (message.recordId !== "0") {
       writer.uint32(9).fixed64(message.recordId);
     }
     if (message.usedX264 === true) {
@@ -1951,7 +1951,7 @@ export const CRemotePlaySessionStoppedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.recordId = longToNumber(reader.fixed64() as Long);
+          message.recordId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.usedX264 = reader.bool();
@@ -1972,7 +1972,7 @@ export const CRemotePlaySessionStoppedNotification = {
 
   fromJSON(object: any): CRemotePlaySessionStoppedNotification {
     return {
-      recordId: isSet(object.recordId) ? Number(object.recordId) : 0,
+      recordId: isSet(object.recordId) ? String(object.recordId) : "0",
       usedX264: isSet(object.usedX264) ? Boolean(object.usedX264) : false,
       usedH264: isSet(object.usedH264) ? Boolean(object.usedH264) : false,
       usedHevc: isSet(object.usedHevc) ? Boolean(object.usedHevc) : false,
@@ -1981,7 +1981,7 @@ export const CRemotePlaySessionStoppedNotification = {
 
   toJSON(message: CRemotePlaySessionStoppedNotification): unknown {
     const obj: any = {};
-    message.recordId !== undefined && (obj.recordId = Math.round(message.recordId));
+    message.recordId !== undefined && (obj.recordId = message.recordId);
     message.usedX264 !== undefined && (obj.usedX264 = message.usedX264);
     message.usedH264 !== undefined && (obj.usedH264 = message.usedH264);
     message.usedHevc !== undefined && (obj.usedHevc = message.usedHevc);
@@ -1998,7 +1998,7 @@ export const CRemotePlaySessionStoppedNotification = {
     object: I,
   ): CRemotePlaySessionStoppedNotification {
     const message = createBaseCRemotePlaySessionStoppedNotification();
-    message.recordId = object.recordId ?? 0;
+    message.recordId = object.recordId ?? "0";
     message.usedX264 = object.usedX264 ?? false;
     message.usedH264 = object.usedH264 ?? false;
     message.usedHevc = object.usedHevc ?? false;
@@ -2007,12 +2007,12 @@ export const CRemotePlaySessionStoppedNotification = {
 };
 
 function createBaseCRemotePlayTogetherNotification(): CRemotePlayTogetherNotification {
-  return { steamid: 0, groupUpdated: undefined };
+  return { steamid: "0", groupUpdated: undefined };
 }
 
 export const CRemotePlayTogetherNotification = {
   encode(message: CRemotePlayTogetherNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.groupUpdated !== undefined) {
@@ -2029,7 +2029,7 @@ export const CRemotePlayTogetherNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.groupUpdated = CRemotePlayTogetherNotification_GroupUpdated.decode(reader, reader.uint32());
@@ -2044,7 +2044,7 @@ export const CRemotePlayTogetherNotification = {
 
   fromJSON(object: any): CRemotePlayTogetherNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       groupUpdated: isSet(object.groupUpdated)
         ? CRemotePlayTogetherNotification_GroupUpdated.fromJSON(object.groupUpdated)
         : undefined,
@@ -2053,7 +2053,7 @@ export const CRemotePlayTogetherNotification = {
 
   toJSON(message: CRemotePlayTogetherNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.groupUpdated !== undefined && (obj.groupUpdated = message.groupUpdated
       ? CRemotePlayTogetherNotification_GroupUpdated.toJSON(message.groupUpdated)
       : undefined);
@@ -2068,7 +2068,7 @@ export const CRemotePlayTogetherNotification = {
     object: I,
   ): CRemotePlayTogetherNotification {
     const message = createBaseCRemotePlayTogetherNotification();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.groupUpdated = (object.groupUpdated !== undefined && object.groupUpdated !== null)
       ? CRemotePlayTogetherNotification_GroupUpdated.fromPartial(object.groupUpdated)
       : undefined;
@@ -2078,7 +2078,7 @@ export const CRemotePlayTogetherNotification = {
 
 function createBaseCRemotePlayTogetherNotification_Player(): CRemotePlayTogetherNotification_Player {
   return {
-    steamid: 0,
+    steamid: "0",
     guestid: 0,
     avatarHash: Buffer.alloc(0),
     keyboardEnabled: false,
@@ -2089,7 +2089,7 @@ function createBaseCRemotePlayTogetherNotification_Player(): CRemotePlayTogether
 
 export const CRemotePlayTogetherNotification_Player = {
   encode(message: CRemotePlayTogetherNotification_Player, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.guestid !== 0) {
@@ -2118,7 +2118,7 @@ export const CRemotePlayTogetherNotification_Player = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.guestid = reader.uint32();
@@ -2145,7 +2145,7 @@ export const CRemotePlayTogetherNotification_Player = {
 
   fromJSON(object: any): CRemotePlayTogetherNotification_Player {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       guestid: isSet(object.guestid) ? Number(object.guestid) : 0,
       avatarHash: isSet(object.avatarHash) ? Buffer.from(bytesFromBase64(object.avatarHash)) : Buffer.alloc(0),
       keyboardEnabled: isSet(object.keyboardEnabled) ? Boolean(object.keyboardEnabled) : false,
@@ -2156,7 +2156,7 @@ export const CRemotePlayTogetherNotification_Player = {
 
   toJSON(message: CRemotePlayTogetherNotification_Player): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.guestid !== undefined && (obj.guestid = Math.round(message.guestid));
     message.avatarHash !== undefined &&
       (obj.avatarHash = base64FromBytes(message.avatarHash !== undefined ? message.avatarHash : Buffer.alloc(0)));
@@ -2176,7 +2176,7 @@ export const CRemotePlayTogetherNotification_Player = {
     object: I,
   ): CRemotePlayTogetherNotification_Player {
     const message = createBaseCRemotePlayTogetherNotification_Player();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.guestid = object.guestid ?? 0;
     message.avatarHash = object.avatarHash ?? Buffer.alloc(0);
     message.keyboardEnabled = object.keyboardEnabled ?? false;
@@ -2187,7 +2187,7 @@ export const CRemotePlayTogetherNotification_Player = {
 };
 
 function createBaseCRemotePlayTogetherNotification_ControllerSlotObsolete(): CRemotePlayTogetherNotification_ControllerSlotObsolete {
-  return { slotid: 0, steamid: 0 };
+  return { slotid: 0, steamid: "0" };
 }
 
 export const CRemotePlayTogetherNotification_ControllerSlotObsolete = {
@@ -2198,7 +2198,7 @@ export const CRemotePlayTogetherNotification_ControllerSlotObsolete = {
     if (message.slotid !== 0) {
       writer.uint32(8).uint32(message.slotid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -2215,7 +2215,7 @@ export const CRemotePlayTogetherNotification_ControllerSlotObsolete = {
           message.slotid = reader.uint32();
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2228,14 +2228,14 @@ export const CRemotePlayTogetherNotification_ControllerSlotObsolete = {
   fromJSON(object: any): CRemotePlayTogetherNotification_ControllerSlotObsolete {
     return {
       slotid: isSet(object.slotid) ? Number(object.slotid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CRemotePlayTogetherNotification_ControllerSlotObsolete): unknown {
     const obj: any = {};
     message.slotid !== undefined && (obj.slotid = Math.round(message.slotid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -2250,7 +2250,7 @@ export const CRemotePlayTogetherNotification_ControllerSlotObsolete = {
   ): CRemotePlayTogetherNotification_ControllerSlotObsolete {
     const message = createBaseCRemotePlayTogetherNotification_ControllerSlotObsolete();
     message.slotid = object.slotid ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -2338,10 +2338,10 @@ export const CRemotePlayTogetherNotification_ControllerSlot = {
 
 function createBaseCRemotePlayTogetherNotification_GroupUpdated(): CRemotePlayTogetherNotification_GroupUpdated {
   return {
-    hostSteamid: 0,
-    hostClientid: 0,
+    hostSteamid: "0",
+    hostClientid: "0",
     playersObsolete: [],
-    hostGameid: 0,
+    hostGameid: "0",
     controllerSlotsObsolete: [],
     hasNewPlayers: false,
     playerSlots: [],
@@ -2351,10 +2351,10 @@ function createBaseCRemotePlayTogetherNotification_GroupUpdated(): CRemotePlayTo
 
 export const CRemotePlayTogetherNotification_GroupUpdated = {
   encode(message: CRemotePlayTogetherNotification_GroupUpdated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.hostSteamid !== 0) {
+    if (message.hostSteamid !== "0") {
       writer.uint32(9).fixed64(message.hostSteamid);
     }
-    if (message.hostClientid !== 0) {
+    if (message.hostClientid !== "0") {
       writer.uint32(17).fixed64(message.hostClientid);
     }
     writer.uint32(26).fork();
@@ -2362,7 +2362,7 @@ export const CRemotePlayTogetherNotification_GroupUpdated = {
       writer.fixed64(v);
     }
     writer.ldelim();
-    if (message.hostGameid !== 0) {
+    if (message.hostGameid !== "0") {
       writer.uint32(33).fixed64(message.hostGameid);
     }
     for (const v of message.controllerSlotsObsolete) {
@@ -2388,23 +2388,23 @@ export const CRemotePlayTogetherNotification_GroupUpdated = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.hostSteamid = longToNumber(reader.fixed64() as Long);
+          message.hostSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.hostClientid = longToNumber(reader.fixed64() as Long);
+          message.hostClientid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.playersObsolete.push(longToNumber(reader.fixed64() as Long));
+              message.playersObsolete.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.playersObsolete.push(longToNumber(reader.fixed64() as Long));
+            message.playersObsolete.push(longToString(reader.fixed64() as Long));
           }
           break;
         case 4:
-          message.hostGameid = longToNumber(reader.fixed64() as Long);
+          message.hostGameid = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.controllerSlotsObsolete.push(
@@ -2430,10 +2430,10 @@ export const CRemotePlayTogetherNotification_GroupUpdated = {
 
   fromJSON(object: any): CRemotePlayTogetherNotification_GroupUpdated {
     return {
-      hostSteamid: isSet(object.hostSteamid) ? Number(object.hostSteamid) : 0,
-      hostClientid: isSet(object.hostClientid) ? Number(object.hostClientid) : 0,
-      playersObsolete: Array.isArray(object?.playersObsolete) ? object.playersObsolete.map((e: any) => Number(e)) : [],
-      hostGameid: isSet(object.hostGameid) ? Number(object.hostGameid) : 0,
+      hostSteamid: isSet(object.hostSteamid) ? String(object.hostSteamid) : "0",
+      hostClientid: isSet(object.hostClientid) ? String(object.hostClientid) : "0",
+      playersObsolete: Array.isArray(object?.playersObsolete) ? object.playersObsolete.map((e: any) => String(e)) : [],
+      hostGameid: isSet(object.hostGameid) ? String(object.hostGameid) : "0",
       controllerSlotsObsolete: Array.isArray(object?.controllerSlotsObsolete)
         ? object.controllerSlotsObsolete.map((e: any) =>
           CRemotePlayTogetherNotification_ControllerSlotObsolete.fromJSON(e)
@@ -2451,14 +2451,14 @@ export const CRemotePlayTogetherNotification_GroupUpdated = {
 
   toJSON(message: CRemotePlayTogetherNotification_GroupUpdated): unknown {
     const obj: any = {};
-    message.hostSteamid !== undefined && (obj.hostSteamid = Math.round(message.hostSteamid));
-    message.hostClientid !== undefined && (obj.hostClientid = Math.round(message.hostClientid));
+    message.hostSteamid !== undefined && (obj.hostSteamid = message.hostSteamid);
+    message.hostClientid !== undefined && (obj.hostClientid = message.hostClientid);
     if (message.playersObsolete) {
-      obj.playersObsolete = message.playersObsolete.map((e) => Math.round(e));
+      obj.playersObsolete = message.playersObsolete.map((e) => e);
     } else {
       obj.playersObsolete = [];
     }
-    message.hostGameid !== undefined && (obj.hostGameid = Math.round(message.hostGameid));
+    message.hostGameid !== undefined && (obj.hostGameid = message.hostGameid);
     if (message.controllerSlotsObsolete) {
       obj.controllerSlotsObsolete = message.controllerSlotsObsolete.map((e) =>
         e ? CRemotePlayTogetherNotification_ControllerSlotObsolete.toJSON(e) : undefined
@@ -2494,10 +2494,10 @@ export const CRemotePlayTogetherNotification_GroupUpdated = {
     object: I,
   ): CRemotePlayTogetherNotification_GroupUpdated {
     const message = createBaseCRemotePlayTogetherNotification_GroupUpdated();
-    message.hostSteamid = object.hostSteamid ?? 0;
-    message.hostClientid = object.hostClientid ?? 0;
+    message.hostSteamid = object.hostSteamid ?? "0";
+    message.hostClientid = object.hostClientid ?? "0";
     message.playersObsolete = object.playersObsolete?.map((e) => e) || [];
-    message.hostGameid = object.hostGameid ?? 0;
+    message.hostGameid = object.hostGameid ?? "0";
     message.controllerSlotsObsolete =
       object.controllerSlotsObsolete?.map((e) =>
         CRemotePlayTogetherNotification_ControllerSlotObsolete.fromPartial(e)
@@ -2916,11 +2916,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

@@ -238,7 +238,7 @@ export interface CMarketingMessagesGetActiveMarketingMessagesRequest {
 }
 
 export interface CMarketingMessageProto {
-  gid: number;
+  gid: string;
   title: string;
   type: EMarketingMessageType;
   visibility: EMarketingMessageVisibility;
@@ -281,7 +281,7 @@ export interface CMarketingMessagesGetMarketingMessagesForUserRequest {
 }
 
 export interface CDisplayMarketingMessage {
-  gid: number;
+  gid: string;
   title: string;
   type: EMarketingMessageType;
   associatedItemId: StoreItemID | undefined;
@@ -313,7 +313,7 @@ export interface CMarketingMessagesDoesUserHavePendingMarketingMessagesResponse 
 }
 
 export interface CMarketingMessagesGetDisplayMarketingMessageRequest {
-  gid: number;
+  gid: string;
   context: StoreBrowseContext | undefined;
   dataRequest: StoreBrowseItemDataRequest | undefined;
 }
@@ -323,11 +323,11 @@ export interface CMarketingMessagesGetDisplayMarketingMessageResponse {
 }
 
 export interface CMarketingMessagesMarkMessageSeenNotification {
-  gid: number;
+  gid: string;
 }
 
 export interface CMarketingMessagesGetMarketingMessageRequest {
-  gid: number;
+  gid: string;
 }
 
 export interface CMarketingMessagesGetMarketingMessageResponse {
@@ -340,11 +340,11 @@ export interface CMarketingMessagesCreateMarketingMessageRequest {
 }
 
 export interface CMarketingMessagesCreateMarketingMessageResponse {
-  gid: number;
+  gid: string;
 }
 
 export interface CMarketingMessagesUpdateMarketingMessageRequest {
-  gid: number;
+  gid: string;
   message: CMarketingMessageProto | undefined;
   fromJson: boolean;
 }
@@ -353,7 +353,7 @@ export interface CMarketingMessagesUpdateMarketingMessageResponse {
 }
 
 export interface CMarketingMessagesDeleteMarketingMessageRequest {
-  gid: number;
+  gid: string;
 }
 
 export interface CMarketingMessagesDeleteMarketingMessageResponse {
@@ -361,9 +361,9 @@ export interface CMarketingMessagesDeleteMarketingMessageResponse {
 
 export interface CMarketingMessagesFindMarketingMessagesRequest {
   lookupType: EMarketingMessageLookupType;
-  gid: number;
+  gid: string;
   messageType: EMarketingMessageType;
-  gidlist: number[];
+  gidlist: string[];
   title: string;
 }
 
@@ -431,7 +431,7 @@ export const CMarketingMessagesGetActiveMarketingMessagesRequest = {
 
 function createBaseCMarketingMessageProto(): CMarketingMessageProto {
   return {
-    gid: 0,
+    gid: "0",
     title: "",
     type: 0,
     visibility: 1,
@@ -461,7 +461,7 @@ function createBaseCMarketingMessageProto(): CMarketingMessageProto {
 
 export const CMarketingMessageProto = {
   encode(message: CMarketingMessageProto, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     if (message.title !== "") {
@@ -547,7 +547,7 @@ export const CMarketingMessageProto = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.title = reader.string();
@@ -631,7 +631,7 @@ export const CMarketingMessageProto = {
 
   fromJSON(object: any): CMarketingMessageProto {
     return {
-      gid: isSet(object.gid) ? Number(object.gid) : 0,
+      gid: isSet(object.gid) ? String(object.gid) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       type: isSet(object.type) ? eMarketingMessageTypeFromJSON(object.type) : 0,
       visibility: isSet(object.visibility) ? eMarketingMessageVisibilityFromJSON(object.visibility) : 1,
@@ -667,7 +667,7 @@ export const CMarketingMessageProto = {
 
   toJSON(message: CMarketingMessageProto): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     message.title !== undefined && (obj.title = message.title);
     message.type !== undefined && (obj.type = eMarketingMessageTypeToJSON(message.type));
     message.visibility !== undefined && (obj.visibility = eMarketingMessageVisibilityToJSON(message.visibility));
@@ -705,7 +705,7 @@ export const CMarketingMessageProto = {
 
   fromPartial<I extends Exact<DeepPartial<CMarketingMessageProto>, I>>(object: I): CMarketingMessageProto {
     const message = createBaseCMarketingMessageProto();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     message.title = object.title ?? "";
     message.type = object.type ?? 0;
     message.visibility = object.visibility ?? 1;
@@ -939,7 +939,7 @@ export const CMarketingMessagesGetMarketingMessagesForUserRequest = {
 
 function createBaseCDisplayMarketingMessage(): CDisplayMarketingMessage {
   return {
-    gid: 0,
+    gid: "0",
     title: "",
     type: 0,
     associatedItemId: undefined,
@@ -952,7 +952,7 @@ function createBaseCDisplayMarketingMessage(): CDisplayMarketingMessage {
 
 export const CDisplayMarketingMessage = {
   encode(message: CDisplayMarketingMessage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     if (message.title !== "") {
@@ -987,7 +987,7 @@ export const CDisplayMarketingMessage = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.title = reader.string();
@@ -1020,7 +1020,7 @@ export const CDisplayMarketingMessage = {
 
   fromJSON(object: any): CDisplayMarketingMessage {
     return {
-      gid: isSet(object.gid) ? Number(object.gid) : 0,
+      gid: isSet(object.gid) ? String(object.gid) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       type: isSet(object.type) ? eMarketingMessageTypeFromJSON(object.type) : 0,
       associatedItemId: isSet(object.associatedItemId) ? StoreItemID.fromJSON(object.associatedItemId) : undefined,
@@ -1033,7 +1033,7 @@ export const CDisplayMarketingMessage = {
 
   toJSON(message: CDisplayMarketingMessage): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     message.title !== undefined && (obj.title = message.title);
     message.type !== undefined && (obj.type = eMarketingMessageTypeToJSON(message.type));
     message.associatedItemId !== undefined &&
@@ -1052,7 +1052,7 @@ export const CDisplayMarketingMessage = {
 
   fromPartial<I extends Exact<DeepPartial<CDisplayMarketingMessage>, I>>(object: I): CDisplayMarketingMessage {
     const message = createBaseCDisplayMarketingMessage();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     message.title = object.title ?? "";
     message.type = object.type ?? 0;
     message.associatedItemId = (object.associatedItemId !== undefined && object.associatedItemId !== null)
@@ -1385,7 +1385,7 @@ export const CMarketingMessagesDoesUserHavePendingMarketingMessagesResponse = {
 };
 
 function createBaseCMarketingMessagesGetDisplayMarketingMessageRequest(): CMarketingMessagesGetDisplayMarketingMessageRequest {
-  return { gid: 0, context: undefined, dataRequest: undefined };
+  return { gid: "0", context: undefined, dataRequest: undefined };
 }
 
 export const CMarketingMessagesGetDisplayMarketingMessageRequest = {
@@ -1393,7 +1393,7 @@ export const CMarketingMessagesGetDisplayMarketingMessageRequest = {
     message: CMarketingMessagesGetDisplayMarketingMessageRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     if (message.context !== undefined) {
@@ -1413,7 +1413,7 @@ export const CMarketingMessagesGetDisplayMarketingMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.context = StoreBrowseContext.decode(reader, reader.uint32());
@@ -1431,7 +1431,7 @@ export const CMarketingMessagesGetDisplayMarketingMessageRequest = {
 
   fromJSON(object: any): CMarketingMessagesGetDisplayMarketingMessageRequest {
     return {
-      gid: isSet(object.gid) ? Number(object.gid) : 0,
+      gid: isSet(object.gid) ? String(object.gid) : "0",
       context: isSet(object.context) ? StoreBrowseContext.fromJSON(object.context) : undefined,
       dataRequest: isSet(object.dataRequest) ? StoreBrowseItemDataRequest.fromJSON(object.dataRequest) : undefined,
     };
@@ -1439,7 +1439,7 @@ export const CMarketingMessagesGetDisplayMarketingMessageRequest = {
 
   toJSON(message: CMarketingMessagesGetDisplayMarketingMessageRequest): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     message.context !== undefined &&
       (obj.context = message.context ? StoreBrowseContext.toJSON(message.context) : undefined);
     message.dataRequest !== undefined &&
@@ -1457,7 +1457,7 @@ export const CMarketingMessagesGetDisplayMarketingMessageRequest = {
     object: I,
   ): CMarketingMessagesGetDisplayMarketingMessageRequest {
     const message = createBaseCMarketingMessagesGetDisplayMarketingMessageRequest();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     message.context = (object.context !== undefined && object.context !== null)
       ? StoreBrowseContext.fromPartial(object.context)
       : undefined;
@@ -1530,12 +1530,12 @@ export const CMarketingMessagesGetDisplayMarketingMessageResponse = {
 };
 
 function createBaseCMarketingMessagesMarkMessageSeenNotification(): CMarketingMessagesMarkMessageSeenNotification {
-  return { gid: 0 };
+  return { gid: "0" };
 }
 
 export const CMarketingMessagesMarkMessageSeenNotification = {
   encode(message: CMarketingMessagesMarkMessageSeenNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     return writer;
@@ -1549,7 +1549,7 @@ export const CMarketingMessagesMarkMessageSeenNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1560,12 +1560,12 @@ export const CMarketingMessagesMarkMessageSeenNotification = {
   },
 
   fromJSON(object: any): CMarketingMessagesMarkMessageSeenNotification {
-    return { gid: isSet(object.gid) ? Number(object.gid) : 0 };
+    return { gid: isSet(object.gid) ? String(object.gid) : "0" };
   },
 
   toJSON(message: CMarketingMessagesMarkMessageSeenNotification): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     return obj;
   },
 
@@ -1579,18 +1579,18 @@ export const CMarketingMessagesMarkMessageSeenNotification = {
     object: I,
   ): CMarketingMessagesMarkMessageSeenNotification {
     const message = createBaseCMarketingMessagesMarkMessageSeenNotification();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     return message;
   },
 };
 
 function createBaseCMarketingMessagesGetMarketingMessageRequest(): CMarketingMessagesGetMarketingMessageRequest {
-  return { gid: 0 };
+  return { gid: "0" };
 }
 
 export const CMarketingMessagesGetMarketingMessageRequest = {
   encode(message: CMarketingMessagesGetMarketingMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     return writer;
@@ -1604,7 +1604,7 @@ export const CMarketingMessagesGetMarketingMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1615,12 +1615,12 @@ export const CMarketingMessagesGetMarketingMessageRequest = {
   },
 
   fromJSON(object: any): CMarketingMessagesGetMarketingMessageRequest {
-    return { gid: isSet(object.gid) ? Number(object.gid) : 0 };
+    return { gid: isSet(object.gid) ? String(object.gid) : "0" };
   },
 
   toJSON(message: CMarketingMessagesGetMarketingMessageRequest): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     return obj;
   },
 
@@ -1634,7 +1634,7 @@ export const CMarketingMessagesGetMarketingMessageRequest = {
     object: I,
   ): CMarketingMessagesGetMarketingMessageRequest {
     const message = createBaseCMarketingMessagesGetMarketingMessageRequest();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     return message;
   },
 };
@@ -1770,7 +1770,7 @@ export const CMarketingMessagesCreateMarketingMessageRequest = {
 };
 
 function createBaseCMarketingMessagesCreateMarketingMessageResponse(): CMarketingMessagesCreateMarketingMessageResponse {
-  return { gid: 0 };
+  return { gid: "0" };
 }
 
 export const CMarketingMessagesCreateMarketingMessageResponse = {
@@ -1778,7 +1778,7 @@ export const CMarketingMessagesCreateMarketingMessageResponse = {
     message: CMarketingMessagesCreateMarketingMessageResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     return writer;
@@ -1792,7 +1792,7 @@ export const CMarketingMessagesCreateMarketingMessageResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1803,12 +1803,12 @@ export const CMarketingMessagesCreateMarketingMessageResponse = {
   },
 
   fromJSON(object: any): CMarketingMessagesCreateMarketingMessageResponse {
-    return { gid: isSet(object.gid) ? Number(object.gid) : 0 };
+    return { gid: isSet(object.gid) ? String(object.gid) : "0" };
   },
 
   toJSON(message: CMarketingMessagesCreateMarketingMessageResponse): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     return obj;
   },
 
@@ -1822,13 +1822,13 @@ export const CMarketingMessagesCreateMarketingMessageResponse = {
     object: I,
   ): CMarketingMessagesCreateMarketingMessageResponse {
     const message = createBaseCMarketingMessagesCreateMarketingMessageResponse();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     return message;
   },
 };
 
 function createBaseCMarketingMessagesUpdateMarketingMessageRequest(): CMarketingMessagesUpdateMarketingMessageRequest {
-  return { gid: 0, message: undefined, fromJson: false };
+  return { gid: "0", message: undefined, fromJson: false };
 }
 
 export const CMarketingMessagesUpdateMarketingMessageRequest = {
@@ -1836,7 +1836,7 @@ export const CMarketingMessagesUpdateMarketingMessageRequest = {
     message: CMarketingMessagesUpdateMarketingMessageRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     if (message.message !== undefined) {
@@ -1856,7 +1856,7 @@ export const CMarketingMessagesUpdateMarketingMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.message = CMarketingMessageProto.decode(reader, reader.uint32());
@@ -1874,7 +1874,7 @@ export const CMarketingMessagesUpdateMarketingMessageRequest = {
 
   fromJSON(object: any): CMarketingMessagesUpdateMarketingMessageRequest {
     return {
-      gid: isSet(object.gid) ? Number(object.gid) : 0,
+      gid: isSet(object.gid) ? String(object.gid) : "0",
       message: isSet(object.message) ? CMarketingMessageProto.fromJSON(object.message) : undefined,
       fromJson: isSet(object.fromJson) ? Boolean(object.fromJson) : false,
     };
@@ -1882,7 +1882,7 @@ export const CMarketingMessagesUpdateMarketingMessageRequest = {
 
   toJSON(message: CMarketingMessagesUpdateMarketingMessageRequest): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     message.message !== undefined &&
       (obj.message = message.message ? CMarketingMessageProto.toJSON(message.message) : undefined);
     message.fromJson !== undefined && (obj.fromJson = message.fromJson);
@@ -1899,7 +1899,7 @@ export const CMarketingMessagesUpdateMarketingMessageRequest = {
     object: I,
   ): CMarketingMessagesUpdateMarketingMessageRequest {
     const message = createBaseCMarketingMessagesUpdateMarketingMessageRequest();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     message.message = (object.message !== undefined && object.message !== null)
       ? CMarketingMessageProto.fromPartial(object.message)
       : undefined;
@@ -1956,7 +1956,7 @@ export const CMarketingMessagesUpdateMarketingMessageResponse = {
 };
 
 function createBaseCMarketingMessagesDeleteMarketingMessageRequest(): CMarketingMessagesDeleteMarketingMessageRequest {
-  return { gid: 0 };
+  return { gid: "0" };
 }
 
 export const CMarketingMessagesDeleteMarketingMessageRequest = {
@@ -1964,7 +1964,7 @@ export const CMarketingMessagesDeleteMarketingMessageRequest = {
     message: CMarketingMessagesDeleteMarketingMessageRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
     return writer;
@@ -1978,7 +1978,7 @@ export const CMarketingMessagesDeleteMarketingMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1989,12 +1989,12 @@ export const CMarketingMessagesDeleteMarketingMessageRequest = {
   },
 
   fromJSON(object: any): CMarketingMessagesDeleteMarketingMessageRequest {
-    return { gid: isSet(object.gid) ? Number(object.gid) : 0 };
+    return { gid: isSet(object.gid) ? String(object.gid) : "0" };
   },
 
   toJSON(message: CMarketingMessagesDeleteMarketingMessageRequest): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     return obj;
   },
 
@@ -2008,7 +2008,7 @@ export const CMarketingMessagesDeleteMarketingMessageRequest = {
     object: I,
   ): CMarketingMessagesDeleteMarketingMessageRequest {
     const message = createBaseCMarketingMessagesDeleteMarketingMessageRequest();
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     return message;
   },
 };
@@ -2061,7 +2061,7 @@ export const CMarketingMessagesDeleteMarketingMessageResponse = {
 };
 
 function createBaseCMarketingMessagesFindMarketingMessagesRequest(): CMarketingMessagesFindMarketingMessagesRequest {
-  return { lookupType: 0, gid: 0, messageType: 0, gidlist: [], title: "" };
+  return { lookupType: 0, gid: "0", messageType: 0, gidlist: [], title: "" };
 }
 
 export const CMarketingMessagesFindMarketingMessagesRequest = {
@@ -2072,7 +2072,7 @@ export const CMarketingMessagesFindMarketingMessagesRequest = {
     if (message.lookupType !== 0) {
       writer.uint32(8).int32(message.lookupType);
     }
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(17).fixed64(message.gid);
     }
     if (message.messageType !== 0) {
@@ -2100,7 +2100,7 @@ export const CMarketingMessagesFindMarketingMessagesRequest = {
           message.lookupType = reader.int32() as any;
           break;
         case 2:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.messageType = reader.int32() as any;
@@ -2109,10 +2109,10 @@ export const CMarketingMessagesFindMarketingMessagesRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.gidlist.push(longToNumber(reader.fixed64() as Long));
+              message.gidlist.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.gidlist.push(longToNumber(reader.fixed64() as Long));
+            message.gidlist.push(longToString(reader.fixed64() as Long));
           }
           break;
         case 5:
@@ -2129,9 +2129,9 @@ export const CMarketingMessagesFindMarketingMessagesRequest = {
   fromJSON(object: any): CMarketingMessagesFindMarketingMessagesRequest {
     return {
       lookupType: isSet(object.lookupType) ? eMarketingMessageLookupTypeFromJSON(object.lookupType) : 0,
-      gid: isSet(object.gid) ? Number(object.gid) : 0,
+      gid: isSet(object.gid) ? String(object.gid) : "0",
       messageType: isSet(object.messageType) ? eMarketingMessageTypeFromJSON(object.messageType) : 0,
-      gidlist: Array.isArray(object?.gidlist) ? object.gidlist.map((e: any) => Number(e)) : [],
+      gidlist: Array.isArray(object?.gidlist) ? object.gidlist.map((e: any) => String(e)) : [],
       title: isSet(object.title) ? String(object.title) : "",
     };
   },
@@ -2139,10 +2139,10 @@ export const CMarketingMessagesFindMarketingMessagesRequest = {
   toJSON(message: CMarketingMessagesFindMarketingMessagesRequest): unknown {
     const obj: any = {};
     message.lookupType !== undefined && (obj.lookupType = eMarketingMessageLookupTypeToJSON(message.lookupType));
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
+    message.gid !== undefined && (obj.gid = message.gid);
     message.messageType !== undefined && (obj.messageType = eMarketingMessageTypeToJSON(message.messageType));
     if (message.gidlist) {
-      obj.gidlist = message.gidlist.map((e) => Math.round(e));
+      obj.gidlist = message.gidlist.map((e) => e);
     } else {
       obj.gidlist = [];
     }
@@ -2161,7 +2161,7 @@ export const CMarketingMessagesFindMarketingMessagesRequest = {
   ): CMarketingMessagesFindMarketingMessagesRequest {
     const message = createBaseCMarketingMessagesFindMarketingMessagesRequest();
     message.lookupType = object.lookupType ?? 0;
-    message.gid = object.gid ?? 0;
+    message.gid = object.gid ?? "0";
     message.messageType = object.messageType ?? 0;
     message.gidlist = object.gidlist?.map((e) => e) || [];
     message.title = object.title ?? "";
@@ -2380,25 +2380,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -2410,11 +2391,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

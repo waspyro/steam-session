@@ -40,7 +40,7 @@ export interface CKeyEscrowRequest {
 
 export interface CKeyEscrowTicket {
   password: Buffer;
-  identifier: number;
+  identifier: string;
   payload: Buffer;
   timestamp: number;
   usage: EKeyEscrowUsage;
@@ -143,7 +143,7 @@ export const CKeyEscrowRequest = {
 function createBaseCKeyEscrowTicket(): CKeyEscrowTicket {
   return {
     password: Buffer.alloc(0),
-    identifier: 0,
+    identifier: "0",
     payload: Buffer.alloc(0),
     timestamp: 0,
     usage: 0,
@@ -159,7 +159,7 @@ export const CKeyEscrowTicket = {
     if (message.password.length !== 0) {
       writer.uint32(10).bytes(message.password);
     }
-    if (message.identifier !== 0) {
+    if (message.identifier !== "0") {
       writer.uint32(16).uint64(message.identifier);
     }
     if (message.payload.length !== 0) {
@@ -197,7 +197,7 @@ export const CKeyEscrowTicket = {
           message.password = reader.bytes() as Buffer;
           break;
         case 2:
-          message.identifier = longToNumber(reader.uint64() as Long);
+          message.identifier = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.payload = reader.bytes() as Buffer;
@@ -231,7 +231,7 @@ export const CKeyEscrowTicket = {
   fromJSON(object: any): CKeyEscrowTicket {
     return {
       password: isSet(object.password) ? Buffer.from(bytesFromBase64(object.password)) : Buffer.alloc(0),
-      identifier: isSet(object.identifier) ? Number(object.identifier) : 0,
+      identifier: isSet(object.identifier) ? String(object.identifier) : "0",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
       usage: isSet(object.usage) ? eKeyEscrowUsageFromJSON(object.usage) : 0,
@@ -246,7 +246,7 @@ export const CKeyEscrowTicket = {
     const obj: any = {};
     message.password !== undefined &&
       (obj.password = base64FromBytes(message.password !== undefined ? message.password : Buffer.alloc(0)));
-    message.identifier !== undefined && (obj.identifier = Math.round(message.identifier));
+    message.identifier !== undefined && (obj.identifier = message.identifier);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : Buffer.alloc(0)));
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
@@ -265,7 +265,7 @@ export const CKeyEscrowTicket = {
   fromPartial<I extends Exact<DeepPartial<CKeyEscrowTicket>, I>>(object: I): CKeyEscrowTicket {
     const message = createBaseCKeyEscrowTicket();
     message.password = object.password ?? Buffer.alloc(0);
-    message.identifier = object.identifier ?? 0;
+    message.identifier = object.identifier ?? "0";
     message.payload = object.payload ?? Buffer.alloc(0);
     message.timestamp = object.timestamp ?? 0;
     message.usage = object.usage ?? 0;
@@ -408,11 +408,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

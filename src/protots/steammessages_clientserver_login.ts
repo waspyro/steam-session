@@ -10,19 +10,19 @@ export interface CMsgClientHeartBeat {
 }
 
 export interface CMsgClientServerTimestampRequest {
-  clientRequestTimestamp: number;
+  clientRequestTimestamp: string;
 }
 
 export interface CMsgClientServerTimestampResponse {
-  clientRequestTimestamp: number;
-  serverTimestampMs: number;
+  clientRequestTimestamp: string;
+  serverTimestampMs: string;
 }
 
 export interface CMsgClientSecret {
   version: number;
   appid: number;
   deviceid: number;
-  nonce: number;
+  nonce: string;
   hmac: Buffer;
 }
 
@@ -44,7 +44,7 @@ export interface CMsgClientLogon {
   obfuscatedPrivateIp: CMsgIPAddress | undefined;
   deprecatedPublicIp: number;
   qosLevel: number;
-  clientSuppliedSteamId: number;
+  clientSuppliedSteamId: string;
   publicIp: CMsgIPAddress | undefined;
   machineId: Buffer;
   launcherType: number;
@@ -59,7 +59,7 @@ export interface CMsgClientLogon {
   loginKey: string;
   wasConvertedDeprecatedMsg: boolean;
   anonUserTargetAccountName: string;
-  resolvedUserSteamId: number;
+  resolvedUserSteamId: string;
   eresultSentryfile: number;
   shaSentryfile: Buffer;
   authCode: string;
@@ -77,7 +77,7 @@ export interface CMsgClientLogon {
   machineNameUserchosen: string;
   countryOverride: string;
   isSteamBox: boolean;
-  clientInstanceId: number;
+  clientInstanceId: string;
   twoFactorCode: string;
   supportsRateLimitResponse: boolean;
   webLogonNonce: string;
@@ -106,17 +106,17 @@ export interface CMsgClientLogonResponse {
   deprecatedUsePics: boolean;
   vanityUrl: string;
   publicIp: CMsgIPAddress | undefined;
-  clientSuppliedSteamid: number;
+  clientSuppliedSteamid: string;
   ipCountryCode: string;
   parentalSettings: Buffer;
   parentalSettingSignature: Buffer;
   countLoginfailuresToMigrate: number;
   countDisconnectsToMigrate: number;
   ogsDataReportTimeWindow: number;
-  clientInstanceId: number;
+  clientInstanceId: string;
   forceClientUpdateCheck: boolean;
   agreementSessionUrl: string;
-  tokenId: number;
+  tokenId: string;
 }
 
 export interface CMsgClientRequestWebAPIAuthenticateUserNonce {
@@ -150,7 +150,7 @@ export interface CMsgClientAccountInfo {
   ipCountry: string;
   countAuthedComputers: number;
   accountFlags: number;
-  facebookId: number;
+  facebookId: string;
   facebookName: string;
   steamguardMachineNameUserChosen: string;
   isPhoneVerified: boolean;
@@ -160,11 +160,11 @@ export interface CMsgClientAccountInfo {
 }
 
 export interface CMsgClientChallengeRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CMsgClientChallengeResponse {
-  challenge: number;
+  challenge: string;
 }
 
 function createBaseCMsgClientHeartBeat(): CMsgClientHeartBeat {
@@ -219,12 +219,12 @@ export const CMsgClientHeartBeat = {
 };
 
 function createBaseCMsgClientServerTimestampRequest(): CMsgClientServerTimestampRequest {
-  return { clientRequestTimestamp: 0 };
+  return { clientRequestTimestamp: "0" };
 }
 
 export const CMsgClientServerTimestampRequest = {
   encode(message: CMsgClientServerTimestampRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientRequestTimestamp !== 0) {
+    if (message.clientRequestTimestamp !== "0") {
       writer.uint32(8).uint64(message.clientRequestTimestamp);
     }
     return writer;
@@ -238,7 +238,7 @@ export const CMsgClientServerTimestampRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientRequestTimestamp = longToNumber(reader.uint64() as Long);
+          message.clientRequestTimestamp = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -249,13 +249,14 @@ export const CMsgClientServerTimestampRequest = {
   },
 
   fromJSON(object: any): CMsgClientServerTimestampRequest {
-    return { clientRequestTimestamp: isSet(object.clientRequestTimestamp) ? Number(object.clientRequestTimestamp) : 0 };
+    return {
+      clientRequestTimestamp: isSet(object.clientRequestTimestamp) ? String(object.clientRequestTimestamp) : "0",
+    };
   },
 
   toJSON(message: CMsgClientServerTimestampRequest): unknown {
     const obj: any = {};
-    message.clientRequestTimestamp !== undefined &&
-      (obj.clientRequestTimestamp = Math.round(message.clientRequestTimestamp));
+    message.clientRequestTimestamp !== undefined && (obj.clientRequestTimestamp = message.clientRequestTimestamp);
     return obj;
   },
 
@@ -269,21 +270,21 @@ export const CMsgClientServerTimestampRequest = {
     object: I,
   ): CMsgClientServerTimestampRequest {
     const message = createBaseCMsgClientServerTimestampRequest();
-    message.clientRequestTimestamp = object.clientRequestTimestamp ?? 0;
+    message.clientRequestTimestamp = object.clientRequestTimestamp ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientServerTimestampResponse(): CMsgClientServerTimestampResponse {
-  return { clientRequestTimestamp: 0, serverTimestampMs: 0 };
+  return { clientRequestTimestamp: "0", serverTimestampMs: "0" };
 }
 
 export const CMsgClientServerTimestampResponse = {
   encode(message: CMsgClientServerTimestampResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientRequestTimestamp !== 0) {
+    if (message.clientRequestTimestamp !== "0") {
       writer.uint32(8).uint64(message.clientRequestTimestamp);
     }
-    if (message.serverTimestampMs !== 0) {
+    if (message.serverTimestampMs !== "0") {
       writer.uint32(16).uint64(message.serverTimestampMs);
     }
     return writer;
@@ -297,10 +298,10 @@ export const CMsgClientServerTimestampResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientRequestTimestamp = longToNumber(reader.uint64() as Long);
+          message.clientRequestTimestamp = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.serverTimestampMs = longToNumber(reader.uint64() as Long);
+          message.serverTimestampMs = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -312,16 +313,15 @@ export const CMsgClientServerTimestampResponse = {
 
   fromJSON(object: any): CMsgClientServerTimestampResponse {
     return {
-      clientRequestTimestamp: isSet(object.clientRequestTimestamp) ? Number(object.clientRequestTimestamp) : 0,
-      serverTimestampMs: isSet(object.serverTimestampMs) ? Number(object.serverTimestampMs) : 0,
+      clientRequestTimestamp: isSet(object.clientRequestTimestamp) ? String(object.clientRequestTimestamp) : "0",
+      serverTimestampMs: isSet(object.serverTimestampMs) ? String(object.serverTimestampMs) : "0",
     };
   },
 
   toJSON(message: CMsgClientServerTimestampResponse): unknown {
     const obj: any = {};
-    message.clientRequestTimestamp !== undefined &&
-      (obj.clientRequestTimestamp = Math.round(message.clientRequestTimestamp));
-    message.serverTimestampMs !== undefined && (obj.serverTimestampMs = Math.round(message.serverTimestampMs));
+    message.clientRequestTimestamp !== undefined && (obj.clientRequestTimestamp = message.clientRequestTimestamp);
+    message.serverTimestampMs !== undefined && (obj.serverTimestampMs = message.serverTimestampMs);
     return obj;
   },
 
@@ -335,14 +335,14 @@ export const CMsgClientServerTimestampResponse = {
     object: I,
   ): CMsgClientServerTimestampResponse {
     const message = createBaseCMsgClientServerTimestampResponse();
-    message.clientRequestTimestamp = object.clientRequestTimestamp ?? 0;
-    message.serverTimestampMs = object.serverTimestampMs ?? 0;
+    message.clientRequestTimestamp = object.clientRequestTimestamp ?? "0";
+    message.serverTimestampMs = object.serverTimestampMs ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientSecret(): CMsgClientSecret {
-  return { version: 0, appid: 0, deviceid: 0, nonce: 0, hmac: Buffer.alloc(0) };
+  return { version: 0, appid: 0, deviceid: 0, nonce: "0", hmac: Buffer.alloc(0) };
 }
 
 export const CMsgClientSecret = {
@@ -356,7 +356,7 @@ export const CMsgClientSecret = {
     if (message.deviceid !== 0) {
       writer.uint32(24).uint32(message.deviceid);
     }
-    if (message.nonce !== 0) {
+    if (message.nonce !== "0") {
       writer.uint32(33).fixed64(message.nonce);
     }
     if (message.hmac.length !== 0) {
@@ -382,7 +382,7 @@ export const CMsgClientSecret = {
           message.deviceid = reader.uint32();
           break;
         case 4:
-          message.nonce = longToNumber(reader.fixed64() as Long);
+          message.nonce = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.hmac = reader.bytes() as Buffer;
@@ -400,7 +400,7 @@ export const CMsgClientSecret = {
       version: isSet(object.version) ? Number(object.version) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       deviceid: isSet(object.deviceid) ? Number(object.deviceid) : 0,
-      nonce: isSet(object.nonce) ? Number(object.nonce) : 0,
+      nonce: isSet(object.nonce) ? String(object.nonce) : "0",
       hmac: isSet(object.hmac) ? Buffer.from(bytesFromBase64(object.hmac)) : Buffer.alloc(0),
     };
   },
@@ -410,7 +410,7 @@ export const CMsgClientSecret = {
     message.version !== undefined && (obj.version = Math.round(message.version));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.deviceid !== undefined && (obj.deviceid = Math.round(message.deviceid));
-    message.nonce !== undefined && (obj.nonce = Math.round(message.nonce));
+    message.nonce !== undefined && (obj.nonce = message.nonce);
     message.hmac !== undefined &&
       (obj.hmac = base64FromBytes(message.hmac !== undefined ? message.hmac : Buffer.alloc(0)));
     return obj;
@@ -425,7 +425,7 @@ export const CMsgClientSecret = {
     message.version = object.version ?? 0;
     message.appid = object.appid ?? 0;
     message.deviceid = object.deviceid ?? 0;
-    message.nonce = object.nonce ?? 0;
+    message.nonce = object.nonce ?? "0";
     message.hmac = object.hmac ?? Buffer.alloc(0);
     return message;
   },
@@ -497,7 +497,7 @@ function createBaseCMsgClientLogon(): CMsgClientLogon {
     obfuscatedPrivateIp: undefined,
     deprecatedPublicIp: 0,
     qosLevel: 0,
-    clientSuppliedSteamId: 0,
+    clientSuppliedSteamId: "0",
     publicIp: undefined,
     machineId: Buffer.alloc(0),
     launcherType: 0,
@@ -512,7 +512,7 @@ function createBaseCMsgClientLogon(): CMsgClientLogon {
     loginKey: "",
     wasConvertedDeprecatedMsg: false,
     anonUserTargetAccountName: "",
-    resolvedUserSteamId: 0,
+    resolvedUserSteamId: "0",
     eresultSentryfile: 0,
     shaSentryfile: Buffer.alloc(0),
     authCode: "",
@@ -530,7 +530,7 @@ function createBaseCMsgClientLogon(): CMsgClientLogon {
     machineNameUserchosen: "",
     countryOverride: "",
     isSteamBox: false,
-    clientInstanceId: 0,
+    clientInstanceId: "0",
     twoFactorCode: "",
     supportsRateLimitResponse: false,
     webLogonNonce: "",
@@ -585,7 +585,7 @@ export const CMsgClientLogon = {
     if (message.qosLevel !== 0) {
       writer.uint32(168).uint32(message.qosLevel);
     }
-    if (message.clientSuppliedSteamId !== 0) {
+    if (message.clientSuppliedSteamId !== "0") {
       writer.uint32(177).fixed64(message.clientSuppliedSteamId);
     }
     if (message.publicIp !== undefined) {
@@ -630,7 +630,7 @@ export const CMsgClientLogon = {
     if (message.anonUserTargetAccountName !== "") {
       writer.uint32(642).string(message.anonUserTargetAccountName);
     }
-    if (message.resolvedUserSteamId !== 0) {
+    if (message.resolvedUserSteamId !== "0") {
       writer.uint32(649).fixed64(message.resolvedUserSteamId);
     }
     if (message.eresultSentryfile !== 0) {
@@ -684,7 +684,7 @@ export const CMsgClientLogon = {
     if (message.isSteamBox === true) {
       writer.uint32(792).bool(message.isSteamBox);
     }
-    if (message.clientInstanceId !== 0) {
+    if (message.clientInstanceId !== "0") {
       writer.uint32(800).uint64(message.clientInstanceId);
     }
     if (message.twoFactorCode !== "") {
@@ -767,7 +767,7 @@ export const CMsgClientLogon = {
           message.qosLevel = reader.uint32();
           break;
         case 22:
-          message.clientSuppliedSteamId = longToNumber(reader.fixed64() as Long);
+          message.clientSuppliedSteamId = longToString(reader.fixed64() as Long);
           break;
         case 23:
           message.publicIp = CMsgIPAddress.decode(reader, reader.uint32());
@@ -812,7 +812,7 @@ export const CMsgClientLogon = {
           message.anonUserTargetAccountName = reader.string();
           break;
         case 81:
-          message.resolvedUserSteamId = longToNumber(reader.fixed64() as Long);
+          message.resolvedUserSteamId = longToString(reader.fixed64() as Long);
           break;
         case 82:
           message.eresultSentryfile = reader.int32();
@@ -866,7 +866,7 @@ export const CMsgClientLogon = {
           message.isSteamBox = reader.bool();
           break;
         case 100:
-          message.clientInstanceId = longToNumber(reader.uint64() as Long);
+          message.clientInstanceId = longToString(reader.uint64() as Long);
           break;
         case 101:
           message.twoFactorCode = reader.string();
@@ -925,7 +925,7 @@ export const CMsgClientLogon = {
         : undefined,
       deprecatedPublicIp: isSet(object.deprecatedPublicIp) ? Number(object.deprecatedPublicIp) : 0,
       qosLevel: isSet(object.qosLevel) ? Number(object.qosLevel) : 0,
-      clientSuppliedSteamId: isSet(object.clientSuppliedSteamId) ? Number(object.clientSuppliedSteamId) : 0,
+      clientSuppliedSteamId: isSet(object.clientSuppliedSteamId) ? String(object.clientSuppliedSteamId) : "0",
       publicIp: isSet(object.publicIp) ? CMsgIPAddress.fromJSON(object.publicIp) : undefined,
       machineId: isSet(object.machineId) ? Buffer.from(bytesFromBase64(object.machineId)) : Buffer.alloc(0),
       launcherType: isSet(object.launcherType) ? Number(object.launcherType) : 0,
@@ -946,7 +946,7 @@ export const CMsgClientLogon = {
       anonUserTargetAccountName: isSet(object.anonUserTargetAccountName)
         ? String(object.anonUserTargetAccountName)
         : "",
-      resolvedUserSteamId: isSet(object.resolvedUserSteamId) ? Number(object.resolvedUserSteamId) : 0,
+      resolvedUserSteamId: isSet(object.resolvedUserSteamId) ? String(object.resolvedUserSteamId) : "0",
       eresultSentryfile: isSet(object.eresultSentryfile) ? Number(object.eresultSentryfile) : 0,
       shaSentryfile: isSet(object.shaSentryfile) ? Buffer.from(bytesFromBase64(object.shaSentryfile)) : Buffer.alloc(0),
       authCode: isSet(object.authCode) ? String(object.authCode) : "",
@@ -968,7 +968,7 @@ export const CMsgClientLogon = {
       machineNameUserchosen: isSet(object.machineNameUserchosen) ? String(object.machineNameUserchosen) : "",
       countryOverride: isSet(object.countryOverride) ? String(object.countryOverride) : "",
       isSteamBox: isSet(object.isSteamBox) ? Boolean(object.isSteamBox) : false,
-      clientInstanceId: isSet(object.clientInstanceId) ? Number(object.clientInstanceId) : 0,
+      clientInstanceId: isSet(object.clientInstanceId) ? String(object.clientInstanceId) : "0",
       twoFactorCode: isSet(object.twoFactorCode) ? String(object.twoFactorCode) : "",
       supportsRateLimitResponse: isSet(object.supportsRateLimitResponse)
         ? Boolean(object.supportsRateLimitResponse)
@@ -1006,8 +1006,7 @@ export const CMsgClientLogon = {
       : undefined);
     message.deprecatedPublicIp !== undefined && (obj.deprecatedPublicIp = Math.round(message.deprecatedPublicIp));
     message.qosLevel !== undefined && (obj.qosLevel = Math.round(message.qosLevel));
-    message.clientSuppliedSteamId !== undefined &&
-      (obj.clientSuppliedSteamId = Math.round(message.clientSuppliedSteamId));
+    message.clientSuppliedSteamId !== undefined && (obj.clientSuppliedSteamId = message.clientSuppliedSteamId);
     message.publicIp !== undefined &&
       (obj.publicIp = message.publicIp ? CMsgIPAddress.toJSON(message.publicIp) : undefined);
     message.machineId !== undefined &&
@@ -1030,7 +1029,7 @@ export const CMsgClientLogon = {
       (obj.wasConvertedDeprecatedMsg = message.wasConvertedDeprecatedMsg);
     message.anonUserTargetAccountName !== undefined &&
       (obj.anonUserTargetAccountName = message.anonUserTargetAccountName);
-    message.resolvedUserSteamId !== undefined && (obj.resolvedUserSteamId = Math.round(message.resolvedUserSteamId));
+    message.resolvedUserSteamId !== undefined && (obj.resolvedUserSteamId = message.resolvedUserSteamId);
     message.eresultSentryfile !== undefined && (obj.eresultSentryfile = Math.round(message.eresultSentryfile));
     message.shaSentryfile !== undefined &&
       (obj.shaSentryfile = base64FromBytes(
@@ -1056,7 +1055,7 @@ export const CMsgClientLogon = {
     message.machineNameUserchosen !== undefined && (obj.machineNameUserchosen = message.machineNameUserchosen);
     message.countryOverride !== undefined && (obj.countryOverride = message.countryOverride);
     message.isSteamBox !== undefined && (obj.isSteamBox = message.isSteamBox);
-    message.clientInstanceId !== undefined && (obj.clientInstanceId = Math.round(message.clientInstanceId));
+    message.clientInstanceId !== undefined && (obj.clientInstanceId = message.clientInstanceId);
     message.twoFactorCode !== undefined && (obj.twoFactorCode = message.twoFactorCode);
     message.supportsRateLimitResponse !== undefined &&
       (obj.supportsRateLimitResponse = message.supportsRateLimitResponse);
@@ -1094,7 +1093,7 @@ export const CMsgClientLogon = {
       : undefined;
     message.deprecatedPublicIp = object.deprecatedPublicIp ?? 0;
     message.qosLevel = object.qosLevel ?? 0;
-    message.clientSuppliedSteamId = object.clientSuppliedSteamId ?? 0;
+    message.clientSuppliedSteamId = object.clientSuppliedSteamId ?? "0";
     message.publicIp = (object.publicIp !== undefined && object.publicIp !== null)
       ? CMsgIPAddress.fromPartial(object.publicIp)
       : undefined;
@@ -1111,7 +1110,7 @@ export const CMsgClientLogon = {
     message.loginKey = object.loginKey ?? "";
     message.wasConvertedDeprecatedMsg = object.wasConvertedDeprecatedMsg ?? false;
     message.anonUserTargetAccountName = object.anonUserTargetAccountName ?? "";
-    message.resolvedUserSteamId = object.resolvedUserSteamId ?? 0;
+    message.resolvedUserSteamId = object.resolvedUserSteamId ?? "0";
     message.eresultSentryfile = object.eresultSentryfile ?? 0;
     message.shaSentryfile = object.shaSentryfile ?? Buffer.alloc(0);
     message.authCode = object.authCode ?? "";
@@ -1129,7 +1128,7 @@ export const CMsgClientLogon = {
     message.machineNameUserchosen = object.machineNameUserchosen ?? "";
     message.countryOverride = object.countryOverride ?? "";
     message.isSteamBox = object.isSteamBox ?? false;
-    message.clientInstanceId = object.clientInstanceId ?? 0;
+    message.clientInstanceId = object.clientInstanceId ?? "0";
     message.twoFactorCode = object.twoFactorCode ?? "";
     message.supportsRateLimitResponse = object.supportsRateLimitResponse ?? false;
     message.webLogonNonce = object.webLogonNonce ?? "";
@@ -1163,17 +1162,17 @@ function createBaseCMsgClientLogonResponse(): CMsgClientLogonResponse {
     deprecatedUsePics: false,
     vanityUrl: "",
     publicIp: undefined,
-    clientSuppliedSteamid: 0,
+    clientSuppliedSteamid: "0",
     ipCountryCode: "",
     parentalSettings: Buffer.alloc(0),
     parentalSettingSignature: Buffer.alloc(0),
     countLoginfailuresToMigrate: 0,
     countDisconnectsToMigrate: 0,
     ogsDataReportTimeWindow: 0,
-    clientInstanceId: 0,
+    clientInstanceId: "0",
     forceClientUpdateCheck: false,
     agreementSessionUrl: "",
-    tokenId: 0,
+    tokenId: "0",
   };
 }
 
@@ -1224,7 +1223,7 @@ export const CMsgClientLogonResponse = {
     if (message.publicIp !== undefined) {
       CMsgIPAddress.encode(message.publicIp, writer.uint32(122).fork()).ldelim();
     }
-    if (message.clientSuppliedSteamid !== 0) {
+    if (message.clientSuppliedSteamid !== "0") {
       writer.uint32(161).fixed64(message.clientSuppliedSteamid);
     }
     if (message.ipCountryCode !== "") {
@@ -1245,7 +1244,7 @@ export const CMsgClientLogonResponse = {
     if (message.ogsDataReportTimeWindow !== 0) {
       writer.uint32(208).int32(message.ogsDataReportTimeWindow);
     }
-    if (message.clientInstanceId !== 0) {
+    if (message.clientInstanceId !== "0") {
       writer.uint32(216).uint64(message.clientInstanceId);
     }
     if (message.forceClientUpdateCheck === true) {
@@ -1254,7 +1253,7 @@ export const CMsgClientLogonResponse = {
     if (message.agreementSessionUrl !== "") {
       writer.uint32(234).string(message.agreementSessionUrl);
     }
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(240).uint64(message.tokenId);
     }
     return writer;
@@ -1313,7 +1312,7 @@ export const CMsgClientLogonResponse = {
           message.publicIp = CMsgIPAddress.decode(reader, reader.uint32());
           break;
         case 20:
-          message.clientSuppliedSteamid = longToNumber(reader.fixed64() as Long);
+          message.clientSuppliedSteamid = longToString(reader.fixed64() as Long);
           break;
         case 21:
           message.ipCountryCode = reader.string();
@@ -1334,7 +1333,7 @@ export const CMsgClientLogonResponse = {
           message.ogsDataReportTimeWindow = reader.int32();
           break;
         case 27:
-          message.clientInstanceId = longToNumber(reader.uint64() as Long);
+          message.clientInstanceId = longToString(reader.uint64() as Long);
           break;
         case 28:
           message.forceClientUpdateCheck = reader.bool();
@@ -1343,7 +1342,7 @@ export const CMsgClientLogonResponse = {
           message.agreementSessionUrl = reader.string();
           break;
         case 30:
-          message.tokenId = longToNumber(reader.uint64() as Long);
+          message.tokenId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1374,7 +1373,7 @@ export const CMsgClientLogonResponse = {
       deprecatedUsePics: isSet(object.deprecatedUsePics) ? Boolean(object.deprecatedUsePics) : false,
       vanityUrl: isSet(object.vanityUrl) ? String(object.vanityUrl) : "",
       publicIp: isSet(object.publicIp) ? CMsgIPAddress.fromJSON(object.publicIp) : undefined,
-      clientSuppliedSteamid: isSet(object.clientSuppliedSteamid) ? Number(object.clientSuppliedSteamid) : 0,
+      clientSuppliedSteamid: isSet(object.clientSuppliedSteamid) ? String(object.clientSuppliedSteamid) : "0",
       ipCountryCode: isSet(object.ipCountryCode) ? String(object.ipCountryCode) : "",
       parentalSettings: isSet(object.parentalSettings)
         ? Buffer.from(bytesFromBase64(object.parentalSettings))
@@ -1387,10 +1386,10 @@ export const CMsgClientLogonResponse = {
         : 0,
       countDisconnectsToMigrate: isSet(object.countDisconnectsToMigrate) ? Number(object.countDisconnectsToMigrate) : 0,
       ogsDataReportTimeWindow: isSet(object.ogsDataReportTimeWindow) ? Number(object.ogsDataReportTimeWindow) : 0,
-      clientInstanceId: isSet(object.clientInstanceId) ? Number(object.clientInstanceId) : 0,
+      clientInstanceId: isSet(object.clientInstanceId) ? String(object.clientInstanceId) : "0",
       forceClientUpdateCheck: isSet(object.forceClientUpdateCheck) ? Boolean(object.forceClientUpdateCheck) : false,
       agreementSessionUrl: isSet(object.agreementSessionUrl) ? String(object.agreementSessionUrl) : "",
-      tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0,
+      tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0",
     };
   },
 
@@ -1415,8 +1414,7 @@ export const CMsgClientLogonResponse = {
     message.vanityUrl !== undefined && (obj.vanityUrl = message.vanityUrl);
     message.publicIp !== undefined &&
       (obj.publicIp = message.publicIp ? CMsgIPAddress.toJSON(message.publicIp) : undefined);
-    message.clientSuppliedSteamid !== undefined &&
-      (obj.clientSuppliedSteamid = Math.round(message.clientSuppliedSteamid));
+    message.clientSuppliedSteamid !== undefined && (obj.clientSuppliedSteamid = message.clientSuppliedSteamid);
     message.ipCountryCode !== undefined && (obj.ipCountryCode = message.ipCountryCode);
     message.parentalSettings !== undefined &&
       (obj.parentalSettings = base64FromBytes(
@@ -1432,10 +1430,10 @@ export const CMsgClientLogonResponse = {
       (obj.countDisconnectsToMigrate = Math.round(message.countDisconnectsToMigrate));
     message.ogsDataReportTimeWindow !== undefined &&
       (obj.ogsDataReportTimeWindow = Math.round(message.ogsDataReportTimeWindow));
-    message.clientInstanceId !== undefined && (obj.clientInstanceId = Math.round(message.clientInstanceId));
+    message.clientInstanceId !== undefined && (obj.clientInstanceId = message.clientInstanceId);
     message.forceClientUpdateCheck !== undefined && (obj.forceClientUpdateCheck = message.forceClientUpdateCheck);
     message.agreementSessionUrl !== undefined && (obj.agreementSessionUrl = message.agreementSessionUrl);
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
     return obj;
   },
 
@@ -1462,17 +1460,17 @@ export const CMsgClientLogonResponse = {
     message.publicIp = (object.publicIp !== undefined && object.publicIp !== null)
       ? CMsgIPAddress.fromPartial(object.publicIp)
       : undefined;
-    message.clientSuppliedSteamid = object.clientSuppliedSteamid ?? 0;
+    message.clientSuppliedSteamid = object.clientSuppliedSteamid ?? "0";
     message.ipCountryCode = object.ipCountryCode ?? "";
     message.parentalSettings = object.parentalSettings ?? Buffer.alloc(0);
     message.parentalSettingSignature = object.parentalSettingSignature ?? Buffer.alloc(0);
     message.countLoginfailuresToMigrate = object.countLoginfailuresToMigrate ?? 0;
     message.countDisconnectsToMigrate = object.countDisconnectsToMigrate ?? 0;
     message.ogsDataReportTimeWindow = object.ogsDataReportTimeWindow ?? 0;
-    message.clientInstanceId = object.clientInstanceId ?? 0;
+    message.clientInstanceId = object.clientInstanceId ?? "0";
     message.forceClientUpdateCheck = object.forceClientUpdateCheck ?? false;
     message.agreementSessionUrl = object.agreementSessionUrl ?? "";
-    message.tokenId = object.tokenId ?? 0;
+    message.tokenId = object.tokenId ?? "0";
     return message;
   },
 };
@@ -1828,7 +1826,7 @@ function createBaseCMsgClientAccountInfo(): CMsgClientAccountInfo {
     ipCountry: "",
     countAuthedComputers: 0,
     accountFlags: 0,
-    facebookId: 0,
+    facebookId: "0",
     facebookName: "",
     steamguardMachineNameUserChosen: "",
     isPhoneVerified: false,
@@ -1852,7 +1850,7 @@ export const CMsgClientAccountInfo = {
     if (message.accountFlags !== 0) {
       writer.uint32(56).uint32(message.accountFlags);
     }
-    if (message.facebookId !== 0) {
+    if (message.facebookId !== "0") {
       writer.uint32(64).uint64(message.facebookId);
     }
     if (message.facebookName !== "") {
@@ -1896,7 +1894,7 @@ export const CMsgClientAccountInfo = {
           message.accountFlags = reader.uint32();
           break;
         case 8:
-          message.facebookId = longToNumber(reader.uint64() as Long);
+          message.facebookId = longToString(reader.uint64() as Long);
           break;
         case 9:
           message.facebookName = reader.string();
@@ -1930,7 +1928,7 @@ export const CMsgClientAccountInfo = {
       ipCountry: isSet(object.ipCountry) ? String(object.ipCountry) : "",
       countAuthedComputers: isSet(object.countAuthedComputers) ? Number(object.countAuthedComputers) : 0,
       accountFlags: isSet(object.accountFlags) ? Number(object.accountFlags) : 0,
-      facebookId: isSet(object.facebookId) ? Number(object.facebookId) : 0,
+      facebookId: isSet(object.facebookId) ? String(object.facebookId) : "0",
       facebookName: isSet(object.facebookName) ? String(object.facebookName) : "",
       steamguardMachineNameUserChosen: isSet(object.steamguardMachineNameUserChosen)
         ? String(object.steamguardMachineNameUserChosen)
@@ -1948,7 +1946,7 @@ export const CMsgClientAccountInfo = {
     message.ipCountry !== undefined && (obj.ipCountry = message.ipCountry);
     message.countAuthedComputers !== undefined && (obj.countAuthedComputers = Math.round(message.countAuthedComputers));
     message.accountFlags !== undefined && (obj.accountFlags = Math.round(message.accountFlags));
-    message.facebookId !== undefined && (obj.facebookId = Math.round(message.facebookId));
+    message.facebookId !== undefined && (obj.facebookId = message.facebookId);
     message.facebookName !== undefined && (obj.facebookName = message.facebookName);
     message.steamguardMachineNameUserChosen !== undefined &&
       (obj.steamguardMachineNameUserChosen = message.steamguardMachineNameUserChosen);
@@ -1969,7 +1967,7 @@ export const CMsgClientAccountInfo = {
     message.ipCountry = object.ipCountry ?? "";
     message.countAuthedComputers = object.countAuthedComputers ?? 0;
     message.accountFlags = object.accountFlags ?? 0;
-    message.facebookId = object.facebookId ?? 0;
+    message.facebookId = object.facebookId ?? "0";
     message.facebookName = object.facebookName ?? "";
     message.steamguardMachineNameUserChosen = object.steamguardMachineNameUserChosen ?? "";
     message.isPhoneVerified = object.isPhoneVerified ?? false;
@@ -1981,12 +1979,12 @@ export const CMsgClientAccountInfo = {
 };
 
 function createBaseCMsgClientChallengeRequest(): CMsgClientChallengeRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CMsgClientChallengeRequest = {
   encode(message: CMsgClientChallengeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -2000,7 +1998,7 @@ export const CMsgClientChallengeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2011,12 +2009,12 @@ export const CMsgClientChallengeRequest = {
   },
 
   fromJSON(object: any): CMsgClientChallengeRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CMsgClientChallengeRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -2026,18 +2024,18 @@ export const CMsgClientChallengeRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientChallengeRequest>, I>>(object: I): CMsgClientChallengeRequest {
     const message = createBaseCMsgClientChallengeRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientChallengeResponse(): CMsgClientChallengeResponse {
-  return { challenge: 0 };
+  return { challenge: "0" };
 }
 
 export const CMsgClientChallengeResponse = {
   encode(message: CMsgClientChallengeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.challenge !== 0) {
+    if (message.challenge !== "0") {
       writer.uint32(9).fixed64(message.challenge);
     }
     return writer;
@@ -2051,7 +2049,7 @@ export const CMsgClientChallengeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.challenge = longToNumber(reader.fixed64() as Long);
+          message.challenge = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2062,12 +2060,12 @@ export const CMsgClientChallengeResponse = {
   },
 
   fromJSON(object: any): CMsgClientChallengeResponse {
-    return { challenge: isSet(object.challenge) ? Number(object.challenge) : 0 };
+    return { challenge: isSet(object.challenge) ? String(object.challenge) : "0" };
   },
 
   toJSON(message: CMsgClientChallengeResponse): unknown {
     const obj: any = {};
-    message.challenge !== undefined && (obj.challenge = Math.round(message.challenge));
+    message.challenge !== undefined && (obj.challenge = message.challenge);
     return obj;
   },
 
@@ -2077,7 +2075,7 @@ export const CMsgClientChallengeResponse = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientChallengeResponse>, I>>(object: I): CMsgClientChallengeResponse {
     const message = createBaseCMsgClientChallengeResponse();
-    message.challenge = object.challenge ?? 0;
+    message.challenge = object.challenge ?? "0";
     return message;
   },
 };
@@ -2137,11 +2135,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

@@ -7,12 +7,12 @@ export const protobufPackage = "";
 
 export interface CInventoryGetInventoryRequest {
   appid: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CInventoryResponse {
   etag: string;
-  removeditemids: number[];
+  removeditemids: string[];
   itemJson: string;
   itemdefJson: string;
   ticket: Buffer;
@@ -21,82 +21,82 @@ export interface CInventoryResponse {
 
 export interface CInventoryExchangeItemRequest {
   appid: number;
-  steamid: number;
-  materialsitemid: number[];
+  steamid: string;
+  materialsitemid: string[];
   materialsquantity: number[];
-  outputitemdefid: number;
+  outputitemdefid: string;
 }
 
 export interface CInventoryGetEligiblePromoItemDefIDsRequest {
   appid: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CInventoryGetEligiblePromoItemDefIDsResponse {
-  itemdefids: number[];
+  itemdefids: string[];
 }
 
 export interface CInventoryAddItemRequest {
   appid: number;
-  itemdefid: number[];
+  itemdefid: string[];
   itempropsjson: string[];
-  steamid: number;
+  steamid: string;
   notify: boolean;
-  requestid: number;
+  requestid: string;
   tradeRestriction: boolean;
   isPurchase: boolean;
 }
 
 export interface CInventoryModifyItemsRequest {
   appid: number;
-  steamid: number;
+  steamid: string;
   updates: CInventoryModifyItemsRequest_ItemPropertyUpdate[];
   timestamp: number;
 }
 
 export interface CInventoryModifyItemsRequest_ItemPropertyUpdate {
-  itemid: number;
+  itemid: string;
   removeProperty: boolean;
   propertyName: string;
   propertyValueBool: boolean;
-  propertyValueInt: number;
+  propertyValueInt: string;
   propertyValueString: string;
   propertyValueFloat: number;
 }
 
 export interface CInventoryConsumePlaytimeRequest {
   appid: number;
-  itemdefid: number;
+  itemdefid: string;
 }
 
 export interface CInventoryConsumeItemRequest {
   appid: number;
-  itemid: number;
+  itemid: string;
   quantity: number;
   timestamp: string;
-  steamid: number;
-  requestid: number;
+  steamid: string;
+  requestid: string;
 }
 
 export interface CInventoryDevSetNextDropRequest {
   appid: number;
-  itemdefid: number;
+  itemdefid: string;
   droptime: string;
 }
 
 export interface CInventorySplitItemStackRequest {
   appid: number;
-  itemid: number;
+  itemid: string;
   quantity: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CInventoryCombineItemStacksRequest {
   appid: number;
-  fromitemid: number;
-  destitemid: number;
+  fromitemid: string;
+  destitemid: string;
   quantity: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CInventoryGetItemDefMetaRequest {
@@ -122,24 +122,24 @@ export interface CInventoryPurchaseInitRequest {
 }
 
 export interface CInventoryPurchaseInitRequest_LineItem {
-  itemdefid: number;
+  itemdefid: string;
   quantity: number;
 }
 
 export interface CInventoryPurchaseInitResponse {
-  orderid: number;
-  transid: number;
+  orderid: string;
+  transid: string;
 }
 
 export interface CInventoryPurchaseFinalizeRequest {
   appid: number;
   language: number;
-  orderid: number;
+  orderid: string;
 }
 
 export interface CInventoryInspectItemRequest {
-  itemdefid: number;
-  itemid: number;
+  itemdefid: string;
+  itemid: string;
   tags: string;
 }
 
@@ -149,7 +149,7 @@ export interface CInventoryClientNewItemsNotification {
 }
 
 function createBaseCInventoryGetInventoryRequest(): CInventoryGetInventoryRequest {
-  return { appid: 0, steamid: 0 };
+  return { appid: 0, steamid: "0" };
 }
 
 export const CInventoryGetInventoryRequest = {
@@ -157,7 +157,7 @@ export const CInventoryGetInventoryRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
     return writer;
@@ -174,7 +174,7 @@ export const CInventoryGetInventoryRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -187,14 +187,14 @@ export const CInventoryGetInventoryRequest = {
   fromJSON(object: any): CInventoryGetInventoryRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CInventoryGetInventoryRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -207,7 +207,7 @@ export const CInventoryGetInventoryRequest = {
   ): CInventoryGetInventoryRequest {
     const message = createBaseCInventoryGetInventoryRequest();
     message.appid = object.appid ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -255,10 +255,10 @@ export const CInventoryResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.removeditemids.push(longToNumber(reader.uint64() as Long));
+              message.removeditemids.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.removeditemids.push(longToNumber(reader.uint64() as Long));
+            message.removeditemids.push(longToString(reader.uint64() as Long));
           }
           break;
         case 3:
@@ -284,7 +284,7 @@ export const CInventoryResponse = {
   fromJSON(object: any): CInventoryResponse {
     return {
       etag: isSet(object.etag) ? String(object.etag) : "",
-      removeditemids: Array.isArray(object?.removeditemids) ? object.removeditemids.map((e: any) => Number(e)) : [],
+      removeditemids: Array.isArray(object?.removeditemids) ? object.removeditemids.map((e: any) => String(e)) : [],
       itemJson: isSet(object.itemJson) ? String(object.itemJson) : "",
       itemdefJson: isSet(object.itemdefJson) ? String(object.itemdefJson) : "",
       ticket: isSet(object.ticket) ? Buffer.from(bytesFromBase64(object.ticket)) : Buffer.alloc(0),
@@ -296,7 +296,7 @@ export const CInventoryResponse = {
     const obj: any = {};
     message.etag !== undefined && (obj.etag = message.etag);
     if (message.removeditemids) {
-      obj.removeditemids = message.removeditemids.map((e) => Math.round(e));
+      obj.removeditemids = message.removeditemids.map((e) => e);
     } else {
       obj.removeditemids = [];
     }
@@ -325,7 +325,7 @@ export const CInventoryResponse = {
 };
 
 function createBaseCInventoryExchangeItemRequest(): CInventoryExchangeItemRequest {
-  return { appid: 0, steamid: 0, materialsitemid: [], materialsquantity: [], outputitemdefid: 0 };
+  return { appid: 0, steamid: "0", materialsitemid: [], materialsquantity: [], outputitemdefid: "0" };
 }
 
 export const CInventoryExchangeItemRequest = {
@@ -333,7 +333,7 @@ export const CInventoryExchangeItemRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
     writer.uint32(26).fork();
@@ -346,7 +346,7 @@ export const CInventoryExchangeItemRequest = {
       writer.uint32(v);
     }
     writer.ldelim();
-    if (message.outputitemdefid !== 0) {
+    if (message.outputitemdefid !== "0") {
       writer.uint32(40).uint64(message.outputitemdefid);
     }
     return writer;
@@ -363,16 +363,16 @@ export const CInventoryExchangeItemRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 3:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.materialsitemid.push(longToNumber(reader.uint64() as Long));
+              message.materialsitemid.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.materialsitemid.push(longToNumber(reader.uint64() as Long));
+            message.materialsitemid.push(longToString(reader.uint64() as Long));
           }
           break;
         case 4:
@@ -386,7 +386,7 @@ export const CInventoryExchangeItemRequest = {
           }
           break;
         case 5:
-          message.outputitemdefid = longToNumber(reader.uint64() as Long);
+          message.outputitemdefid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -399,21 +399,21 @@ export const CInventoryExchangeItemRequest = {
   fromJSON(object: any): CInventoryExchangeItemRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      materialsitemid: Array.isArray(object?.materialsitemid) ? object.materialsitemid.map((e: any) => Number(e)) : [],
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      materialsitemid: Array.isArray(object?.materialsitemid) ? object.materialsitemid.map((e: any) => String(e)) : [],
       materialsquantity: Array.isArray(object?.materialsquantity)
         ? object.materialsquantity.map((e: any) => Number(e))
         : [],
-      outputitemdefid: isSet(object.outputitemdefid) ? Number(object.outputitemdefid) : 0,
+      outputitemdefid: isSet(object.outputitemdefid) ? String(object.outputitemdefid) : "0",
     };
   },
 
   toJSON(message: CInventoryExchangeItemRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     if (message.materialsitemid) {
-      obj.materialsitemid = message.materialsitemid.map((e) => Math.round(e));
+      obj.materialsitemid = message.materialsitemid.map((e) => e);
     } else {
       obj.materialsitemid = [];
     }
@@ -422,7 +422,7 @@ export const CInventoryExchangeItemRequest = {
     } else {
       obj.materialsquantity = [];
     }
-    message.outputitemdefid !== undefined && (obj.outputitemdefid = Math.round(message.outputitemdefid));
+    message.outputitemdefid !== undefined && (obj.outputitemdefid = message.outputitemdefid);
     return obj;
   },
 
@@ -435,16 +435,16 @@ export const CInventoryExchangeItemRequest = {
   ): CInventoryExchangeItemRequest {
     const message = createBaseCInventoryExchangeItemRequest();
     message.appid = object.appid ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.materialsitemid = object.materialsitemid?.map((e) => e) || [];
     message.materialsquantity = object.materialsquantity?.map((e) => e) || [];
-    message.outputitemdefid = object.outputitemdefid ?? 0;
+    message.outputitemdefid = object.outputitemdefid ?? "0";
     return message;
   },
 };
 
 function createBaseCInventoryGetEligiblePromoItemDefIDsRequest(): CInventoryGetEligiblePromoItemDefIDsRequest {
-  return { appid: 0, steamid: 0 };
+  return { appid: 0, steamid: "0" };
 }
 
 export const CInventoryGetEligiblePromoItemDefIDsRequest = {
@@ -452,7 +452,7 @@ export const CInventoryGetEligiblePromoItemDefIDsRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
     return writer;
@@ -469,7 +469,7 @@ export const CInventoryGetEligiblePromoItemDefIDsRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -482,14 +482,14 @@ export const CInventoryGetEligiblePromoItemDefIDsRequest = {
   fromJSON(object: any): CInventoryGetEligiblePromoItemDefIDsRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CInventoryGetEligiblePromoItemDefIDsRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -504,7 +504,7 @@ export const CInventoryGetEligiblePromoItemDefIDsRequest = {
   ): CInventoryGetEligiblePromoItemDefIDsRequest {
     const message = createBaseCInventoryGetEligiblePromoItemDefIDsRequest();
     message.appid = object.appid ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -534,10 +534,10 @@ export const CInventoryGetEligiblePromoItemDefIDsResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.itemdefids.push(longToNumber(reader.uint64() as Long));
+              message.itemdefids.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.itemdefids.push(longToNumber(reader.uint64() as Long));
+            message.itemdefids.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -549,13 +549,13 @@ export const CInventoryGetEligiblePromoItemDefIDsResponse = {
   },
 
   fromJSON(object: any): CInventoryGetEligiblePromoItemDefIDsResponse {
-    return { itemdefids: Array.isArray(object?.itemdefids) ? object.itemdefids.map((e: any) => Number(e)) : [] };
+    return { itemdefids: Array.isArray(object?.itemdefids) ? object.itemdefids.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: CInventoryGetEligiblePromoItemDefIDsResponse): unknown {
     const obj: any = {};
     if (message.itemdefids) {
-      obj.itemdefids = message.itemdefids.map((e) => Math.round(e));
+      obj.itemdefids = message.itemdefids.map((e) => e);
     } else {
       obj.itemdefids = [];
     }
@@ -582,9 +582,9 @@ function createBaseCInventoryAddItemRequest(): CInventoryAddItemRequest {
     appid: 0,
     itemdefid: [],
     itempropsjson: [],
-    steamid: 0,
+    steamid: "0",
     notify: false,
-    requestid: 0,
+    requestid: "0",
     tradeRestriction: false,
     isPurchase: false,
   };
@@ -603,13 +603,13 @@ export const CInventoryAddItemRequest = {
     for (const v of message.itempropsjson) {
       writer.uint32(26).string(v!);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(32).uint64(message.steamid);
     }
     if (message.notify === true) {
       writer.uint32(40).bool(message.notify);
     }
-    if (message.requestid !== 0) {
+    if (message.requestid !== "0") {
       writer.uint32(48).uint64(message.requestid);
     }
     if (message.tradeRestriction === true) {
@@ -635,23 +635,23 @@ export const CInventoryAddItemRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.itemdefid.push(longToNumber(reader.uint64() as Long));
+              message.itemdefid.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.itemdefid.push(longToNumber(reader.uint64() as Long));
+            message.itemdefid.push(longToString(reader.uint64() as Long));
           }
           break;
         case 3:
           message.itempropsjson.push(reader.string());
           break;
         case 4:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.notify = reader.bool();
           break;
         case 6:
-          message.requestid = longToNumber(reader.uint64() as Long);
+          message.requestid = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.tradeRestriction = reader.bool();
@@ -670,11 +670,11 @@ export const CInventoryAddItemRequest = {
   fromJSON(object: any): CInventoryAddItemRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      itemdefid: Array.isArray(object?.itemdefid) ? object.itemdefid.map((e: any) => Number(e)) : [],
+      itemdefid: Array.isArray(object?.itemdefid) ? object.itemdefid.map((e: any) => String(e)) : [],
       itempropsjson: Array.isArray(object?.itempropsjson) ? object.itempropsjson.map((e: any) => String(e)) : [],
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       notify: isSet(object.notify) ? Boolean(object.notify) : false,
-      requestid: isSet(object.requestid) ? Number(object.requestid) : 0,
+      requestid: isSet(object.requestid) ? String(object.requestid) : "0",
       tradeRestriction: isSet(object.tradeRestriction) ? Boolean(object.tradeRestriction) : false,
       isPurchase: isSet(object.isPurchase) ? Boolean(object.isPurchase) : false,
     };
@@ -684,7 +684,7 @@ export const CInventoryAddItemRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     if (message.itemdefid) {
-      obj.itemdefid = message.itemdefid.map((e) => Math.round(e));
+      obj.itemdefid = message.itemdefid.map((e) => e);
     } else {
       obj.itemdefid = [];
     }
@@ -693,9 +693,9 @@ export const CInventoryAddItemRequest = {
     } else {
       obj.itempropsjson = [];
     }
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.notify !== undefined && (obj.notify = message.notify);
-    message.requestid !== undefined && (obj.requestid = Math.round(message.requestid));
+    message.requestid !== undefined && (obj.requestid = message.requestid);
     message.tradeRestriction !== undefined && (obj.tradeRestriction = message.tradeRestriction);
     message.isPurchase !== undefined && (obj.isPurchase = message.isPurchase);
     return obj;
@@ -710,9 +710,9 @@ export const CInventoryAddItemRequest = {
     message.appid = object.appid ?? 0;
     message.itemdefid = object.itemdefid?.map((e) => e) || [];
     message.itempropsjson = object.itempropsjson?.map((e) => e) || [];
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.notify = object.notify ?? false;
-    message.requestid = object.requestid ?? 0;
+    message.requestid = object.requestid ?? "0";
     message.tradeRestriction = object.tradeRestriction ?? false;
     message.isPurchase = object.isPurchase ?? false;
     return message;
@@ -720,7 +720,7 @@ export const CInventoryAddItemRequest = {
 };
 
 function createBaseCInventoryModifyItemsRequest(): CInventoryModifyItemsRequest {
-  return { appid: 0, steamid: 0, updates: [], timestamp: 0 };
+  return { appid: 0, steamid: "0", updates: [], timestamp: 0 };
 }
 
 export const CInventoryModifyItemsRequest = {
@@ -728,7 +728,7 @@ export const CInventoryModifyItemsRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
     for (const v of message.updates) {
@@ -751,7 +751,7 @@ export const CInventoryModifyItemsRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.updates.push(CInventoryModifyItemsRequest_ItemPropertyUpdate.decode(reader, reader.uint32()));
@@ -770,7 +770,7 @@ export const CInventoryModifyItemsRequest = {
   fromJSON(object: any): CInventoryModifyItemsRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       updates: Array.isArray(object?.updates)
         ? object.updates.map((e: any) => CInventoryModifyItemsRequest_ItemPropertyUpdate.fromJSON(e))
         : [],
@@ -781,7 +781,7 @@ export const CInventoryModifyItemsRequest = {
   toJSON(message: CInventoryModifyItemsRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     if (message.updates) {
       obj.updates = message.updates.map((e) =>
         e ? CInventoryModifyItemsRequest_ItemPropertyUpdate.toJSON(e) : undefined
@@ -800,7 +800,7 @@ export const CInventoryModifyItemsRequest = {
   fromPartial<I extends Exact<DeepPartial<CInventoryModifyItemsRequest>, I>>(object: I): CInventoryModifyItemsRequest {
     const message = createBaseCInventoryModifyItemsRequest();
     message.appid = object.appid ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.updates = object.updates?.map((e) => CInventoryModifyItemsRequest_ItemPropertyUpdate.fromPartial(e)) || [];
     message.timestamp = object.timestamp ?? 0;
     return message;
@@ -809,11 +809,11 @@ export const CInventoryModifyItemsRequest = {
 
 function createBaseCInventoryModifyItemsRequest_ItemPropertyUpdate(): CInventoryModifyItemsRequest_ItemPropertyUpdate {
   return {
-    itemid: 0,
+    itemid: "0",
     removeProperty: false,
     propertyName: "",
     propertyValueBool: false,
-    propertyValueInt: 0,
+    propertyValueInt: "0",
     propertyValueString: "",
     propertyValueFloat: 0,
   };
@@ -824,7 +824,7 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
     message: CInventoryModifyItemsRequest_ItemPropertyUpdate,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.itemid !== 0) {
+    if (message.itemid !== "0") {
       writer.uint32(8).uint64(message.itemid);
     }
     if (message.removeProperty === true) {
@@ -836,7 +836,7 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
     if (message.propertyValueBool === true) {
       writer.uint32(32).bool(message.propertyValueBool);
     }
-    if (message.propertyValueInt !== 0) {
+    if (message.propertyValueInt !== "0") {
       writer.uint32(40).int64(message.propertyValueInt);
     }
     if (message.propertyValueString !== "") {
@@ -856,7 +856,7 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.itemid = longToNumber(reader.uint64() as Long);
+          message.itemid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.removeProperty = reader.bool();
@@ -868,7 +868,7 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
           message.propertyValueBool = reader.bool();
           break;
         case 5:
-          message.propertyValueInt = longToNumber(reader.int64() as Long);
+          message.propertyValueInt = longToString(reader.int64() as Long);
           break;
         case 6:
           message.propertyValueString = reader.string();
@@ -886,11 +886,11 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
 
   fromJSON(object: any): CInventoryModifyItemsRequest_ItemPropertyUpdate {
     return {
-      itemid: isSet(object.itemid) ? Number(object.itemid) : 0,
+      itemid: isSet(object.itemid) ? String(object.itemid) : "0",
       removeProperty: isSet(object.removeProperty) ? Boolean(object.removeProperty) : false,
       propertyName: isSet(object.propertyName) ? String(object.propertyName) : "",
       propertyValueBool: isSet(object.propertyValueBool) ? Boolean(object.propertyValueBool) : false,
-      propertyValueInt: isSet(object.propertyValueInt) ? Number(object.propertyValueInt) : 0,
+      propertyValueInt: isSet(object.propertyValueInt) ? String(object.propertyValueInt) : "0",
       propertyValueString: isSet(object.propertyValueString) ? String(object.propertyValueString) : "",
       propertyValueFloat: isSet(object.propertyValueFloat) ? Number(object.propertyValueFloat) : 0,
     };
@@ -898,11 +898,11 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
 
   toJSON(message: CInventoryModifyItemsRequest_ItemPropertyUpdate): unknown {
     const obj: any = {};
-    message.itemid !== undefined && (obj.itemid = Math.round(message.itemid));
+    message.itemid !== undefined && (obj.itemid = message.itemid);
     message.removeProperty !== undefined && (obj.removeProperty = message.removeProperty);
     message.propertyName !== undefined && (obj.propertyName = message.propertyName);
     message.propertyValueBool !== undefined && (obj.propertyValueBool = message.propertyValueBool);
-    message.propertyValueInt !== undefined && (obj.propertyValueInt = Math.round(message.propertyValueInt));
+    message.propertyValueInt !== undefined && (obj.propertyValueInt = message.propertyValueInt);
     message.propertyValueString !== undefined && (obj.propertyValueString = message.propertyValueString);
     message.propertyValueFloat !== undefined && (obj.propertyValueFloat = message.propertyValueFloat);
     return obj;
@@ -918,11 +918,11 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
     object: I,
   ): CInventoryModifyItemsRequest_ItemPropertyUpdate {
     const message = createBaseCInventoryModifyItemsRequest_ItemPropertyUpdate();
-    message.itemid = object.itemid ?? 0;
+    message.itemid = object.itemid ?? "0";
     message.removeProperty = object.removeProperty ?? false;
     message.propertyName = object.propertyName ?? "";
     message.propertyValueBool = object.propertyValueBool ?? false;
-    message.propertyValueInt = object.propertyValueInt ?? 0;
+    message.propertyValueInt = object.propertyValueInt ?? "0";
     message.propertyValueString = object.propertyValueString ?? "";
     message.propertyValueFloat = object.propertyValueFloat ?? 0;
     return message;
@@ -930,7 +930,7 @@ export const CInventoryModifyItemsRequest_ItemPropertyUpdate = {
 };
 
 function createBaseCInventoryConsumePlaytimeRequest(): CInventoryConsumePlaytimeRequest {
-  return { appid: 0, itemdefid: 0 };
+  return { appid: 0, itemdefid: "0" };
 }
 
 export const CInventoryConsumePlaytimeRequest = {
@@ -938,7 +938,7 @@ export const CInventoryConsumePlaytimeRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.itemdefid !== 0) {
+    if (message.itemdefid !== "0") {
       writer.uint32(16).uint64(message.itemdefid);
     }
     return writer;
@@ -955,7 +955,7 @@ export const CInventoryConsumePlaytimeRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.itemdefid = longToNumber(reader.uint64() as Long);
+          message.itemdefid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -968,14 +968,14 @@ export const CInventoryConsumePlaytimeRequest = {
   fromJSON(object: any): CInventoryConsumePlaytimeRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      itemdefid: isSet(object.itemdefid) ? Number(object.itemdefid) : 0,
+      itemdefid: isSet(object.itemdefid) ? String(object.itemdefid) : "0",
     };
   },
 
   toJSON(message: CInventoryConsumePlaytimeRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.itemdefid !== undefined && (obj.itemdefid = Math.round(message.itemdefid));
+    message.itemdefid !== undefined && (obj.itemdefid = message.itemdefid);
     return obj;
   },
 
@@ -990,13 +990,13 @@ export const CInventoryConsumePlaytimeRequest = {
   ): CInventoryConsumePlaytimeRequest {
     const message = createBaseCInventoryConsumePlaytimeRequest();
     message.appid = object.appid ?? 0;
-    message.itemdefid = object.itemdefid ?? 0;
+    message.itemdefid = object.itemdefid ?? "0";
     return message;
   },
 };
 
 function createBaseCInventoryConsumeItemRequest(): CInventoryConsumeItemRequest {
-  return { appid: 0, itemid: 0, quantity: 0, timestamp: "", steamid: 0, requestid: 0 };
+  return { appid: 0, itemid: "0", quantity: 0, timestamp: "", steamid: "0", requestid: "0" };
 }
 
 export const CInventoryConsumeItemRequest = {
@@ -1004,7 +1004,7 @@ export const CInventoryConsumeItemRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.itemid !== 0) {
+    if (message.itemid !== "0") {
       writer.uint32(16).uint64(message.itemid);
     }
     if (message.quantity !== 0) {
@@ -1013,10 +1013,10 @@ export const CInventoryConsumeItemRequest = {
     if (message.timestamp !== "") {
       writer.uint32(34).string(message.timestamp);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(40).uint64(message.steamid);
     }
-    if (message.requestid !== 0) {
+    if (message.requestid !== "0") {
       writer.uint32(48).uint64(message.requestid);
     }
     return writer;
@@ -1033,7 +1033,7 @@ export const CInventoryConsumeItemRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.itemid = longToNumber(reader.uint64() as Long);
+          message.itemid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.quantity = reader.uint32();
@@ -1042,10 +1042,10 @@ export const CInventoryConsumeItemRequest = {
           message.timestamp = reader.string();
           break;
         case 5:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.requestid = longToNumber(reader.uint64() as Long);
+          message.requestid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1058,22 +1058,22 @@ export const CInventoryConsumeItemRequest = {
   fromJSON(object: any): CInventoryConsumeItemRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      itemid: isSet(object.itemid) ? Number(object.itemid) : 0,
+      itemid: isSet(object.itemid) ? String(object.itemid) : "0",
       quantity: isSet(object.quantity) ? Number(object.quantity) : 0,
       timestamp: isSet(object.timestamp) ? String(object.timestamp) : "",
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      requestid: isSet(object.requestid) ? Number(object.requestid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      requestid: isSet(object.requestid) ? String(object.requestid) : "0",
     };
   },
 
   toJSON(message: CInventoryConsumeItemRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.itemid !== undefined && (obj.itemid = Math.round(message.itemid));
+    message.itemid !== undefined && (obj.itemid = message.itemid);
     message.quantity !== undefined && (obj.quantity = Math.round(message.quantity));
     message.timestamp !== undefined && (obj.timestamp = message.timestamp);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.requestid !== undefined && (obj.requestid = Math.round(message.requestid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.requestid !== undefined && (obj.requestid = message.requestid);
     return obj;
   },
 
@@ -1084,17 +1084,17 @@ export const CInventoryConsumeItemRequest = {
   fromPartial<I extends Exact<DeepPartial<CInventoryConsumeItemRequest>, I>>(object: I): CInventoryConsumeItemRequest {
     const message = createBaseCInventoryConsumeItemRequest();
     message.appid = object.appid ?? 0;
-    message.itemid = object.itemid ?? 0;
+    message.itemid = object.itemid ?? "0";
     message.quantity = object.quantity ?? 0;
     message.timestamp = object.timestamp ?? "";
-    message.steamid = object.steamid ?? 0;
-    message.requestid = object.requestid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.requestid = object.requestid ?? "0";
     return message;
   },
 };
 
 function createBaseCInventoryDevSetNextDropRequest(): CInventoryDevSetNextDropRequest {
-  return { appid: 0, itemdefid: 0, droptime: "" };
+  return { appid: 0, itemdefid: "0", droptime: "" };
 }
 
 export const CInventoryDevSetNextDropRequest = {
@@ -1102,7 +1102,7 @@ export const CInventoryDevSetNextDropRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.itemdefid !== 0) {
+    if (message.itemdefid !== "0") {
       writer.uint32(16).uint64(message.itemdefid);
     }
     if (message.droptime !== "") {
@@ -1122,7 +1122,7 @@ export const CInventoryDevSetNextDropRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.itemdefid = longToNumber(reader.uint64() as Long);
+          message.itemdefid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.droptime = reader.string();
@@ -1138,7 +1138,7 @@ export const CInventoryDevSetNextDropRequest = {
   fromJSON(object: any): CInventoryDevSetNextDropRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      itemdefid: isSet(object.itemdefid) ? Number(object.itemdefid) : 0,
+      itemdefid: isSet(object.itemdefid) ? String(object.itemdefid) : "0",
       droptime: isSet(object.droptime) ? String(object.droptime) : "",
     };
   },
@@ -1146,7 +1146,7 @@ export const CInventoryDevSetNextDropRequest = {
   toJSON(message: CInventoryDevSetNextDropRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.itemdefid !== undefined && (obj.itemdefid = Math.round(message.itemdefid));
+    message.itemdefid !== undefined && (obj.itemdefid = message.itemdefid);
     message.droptime !== undefined && (obj.droptime = message.droptime);
     return obj;
   },
@@ -1160,14 +1160,14 @@ export const CInventoryDevSetNextDropRequest = {
   ): CInventoryDevSetNextDropRequest {
     const message = createBaseCInventoryDevSetNextDropRequest();
     message.appid = object.appid ?? 0;
-    message.itemdefid = object.itemdefid ?? 0;
+    message.itemdefid = object.itemdefid ?? "0";
     message.droptime = object.droptime ?? "";
     return message;
   },
 };
 
 function createBaseCInventorySplitItemStackRequest(): CInventorySplitItemStackRequest {
-  return { appid: 0, itemid: 0, quantity: 0, steamid: 0 };
+  return { appid: 0, itemid: "0", quantity: 0, steamid: "0" };
 }
 
 export const CInventorySplitItemStackRequest = {
@@ -1175,13 +1175,13 @@ export const CInventorySplitItemStackRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.itemid !== 0) {
+    if (message.itemid !== "0") {
       writer.uint32(16).uint64(message.itemid);
     }
     if (message.quantity !== 0) {
       writer.uint32(24).uint32(message.quantity);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(40).uint64(message.steamid);
     }
     return writer;
@@ -1198,13 +1198,13 @@ export const CInventorySplitItemStackRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.itemid = longToNumber(reader.uint64() as Long);
+          message.itemid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.quantity = reader.uint32();
           break;
         case 5:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1217,18 +1217,18 @@ export const CInventorySplitItemStackRequest = {
   fromJSON(object: any): CInventorySplitItemStackRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      itemid: isSet(object.itemid) ? Number(object.itemid) : 0,
+      itemid: isSet(object.itemid) ? String(object.itemid) : "0",
       quantity: isSet(object.quantity) ? Number(object.quantity) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CInventorySplitItemStackRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.itemid !== undefined && (obj.itemid = Math.round(message.itemid));
+    message.itemid !== undefined && (obj.itemid = message.itemid);
     message.quantity !== undefined && (obj.quantity = Math.round(message.quantity));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1241,15 +1241,15 @@ export const CInventorySplitItemStackRequest = {
   ): CInventorySplitItemStackRequest {
     const message = createBaseCInventorySplitItemStackRequest();
     message.appid = object.appid ?? 0;
-    message.itemid = object.itemid ?? 0;
+    message.itemid = object.itemid ?? "0";
     message.quantity = object.quantity ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
 
 function createBaseCInventoryCombineItemStacksRequest(): CInventoryCombineItemStacksRequest {
-  return { appid: 0, fromitemid: 0, destitemid: 0, quantity: 0, steamid: 0 };
+  return { appid: 0, fromitemid: "0", destitemid: "0", quantity: 0, steamid: "0" };
 }
 
 export const CInventoryCombineItemStacksRequest = {
@@ -1257,16 +1257,16 @@ export const CInventoryCombineItemStacksRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.fromitemid !== 0) {
+    if (message.fromitemid !== "0") {
       writer.uint32(16).uint64(message.fromitemid);
     }
-    if (message.destitemid !== 0) {
+    if (message.destitemid !== "0") {
       writer.uint32(24).uint64(message.destitemid);
     }
     if (message.quantity !== 0) {
       writer.uint32(32).uint32(message.quantity);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(57).fixed64(message.steamid);
     }
     return writer;
@@ -1283,16 +1283,16 @@ export const CInventoryCombineItemStacksRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.fromitemid = longToNumber(reader.uint64() as Long);
+          message.fromitemid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.destitemid = longToNumber(reader.uint64() as Long);
+          message.destitemid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.quantity = reader.uint32();
           break;
         case 7:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1305,20 +1305,20 @@ export const CInventoryCombineItemStacksRequest = {
   fromJSON(object: any): CInventoryCombineItemStacksRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      fromitemid: isSet(object.fromitemid) ? Number(object.fromitemid) : 0,
-      destitemid: isSet(object.destitemid) ? Number(object.destitemid) : 0,
+      fromitemid: isSet(object.fromitemid) ? String(object.fromitemid) : "0",
+      destitemid: isSet(object.destitemid) ? String(object.destitemid) : "0",
       quantity: isSet(object.quantity) ? Number(object.quantity) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CInventoryCombineItemStacksRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.fromitemid !== undefined && (obj.fromitemid = Math.round(message.fromitemid));
-    message.destitemid !== undefined && (obj.destitemid = Math.round(message.destitemid));
+    message.fromitemid !== undefined && (obj.fromitemid = message.fromitemid);
+    message.destitemid !== undefined && (obj.destitemid = message.destitemid);
     message.quantity !== undefined && (obj.quantity = Math.round(message.quantity));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1333,10 +1333,10 @@ export const CInventoryCombineItemStacksRequest = {
   ): CInventoryCombineItemStacksRequest {
     const message = createBaseCInventoryCombineItemStacksRequest();
     message.appid = object.appid ?? 0;
-    message.fromitemid = object.fromitemid ?? 0;
-    message.destitemid = object.destitemid ?? 0;
+    message.fromitemid = object.fromitemid ?? "0";
+    message.destitemid = object.destitemid ?? "0";
     message.quantity = object.quantity ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1642,12 +1642,12 @@ export const CInventoryPurchaseInitRequest = {
 };
 
 function createBaseCInventoryPurchaseInitRequest_LineItem(): CInventoryPurchaseInitRequest_LineItem {
-  return { itemdefid: 0, quantity: 0 };
+  return { itemdefid: "0", quantity: 0 };
 }
 
 export const CInventoryPurchaseInitRequest_LineItem = {
   encode(message: CInventoryPurchaseInitRequest_LineItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.itemdefid !== 0) {
+    if (message.itemdefid !== "0") {
       writer.uint32(8).uint64(message.itemdefid);
     }
     if (message.quantity !== 0) {
@@ -1664,7 +1664,7 @@ export const CInventoryPurchaseInitRequest_LineItem = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.itemdefid = longToNumber(reader.uint64() as Long);
+          message.itemdefid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.quantity = reader.uint32();
@@ -1679,14 +1679,14 @@ export const CInventoryPurchaseInitRequest_LineItem = {
 
   fromJSON(object: any): CInventoryPurchaseInitRequest_LineItem {
     return {
-      itemdefid: isSet(object.itemdefid) ? Number(object.itemdefid) : 0,
+      itemdefid: isSet(object.itemdefid) ? String(object.itemdefid) : "0",
       quantity: isSet(object.quantity) ? Number(object.quantity) : 0,
     };
   },
 
   toJSON(message: CInventoryPurchaseInitRequest_LineItem): unknown {
     const obj: any = {};
-    message.itemdefid !== undefined && (obj.itemdefid = Math.round(message.itemdefid));
+    message.itemdefid !== undefined && (obj.itemdefid = message.itemdefid);
     message.quantity !== undefined && (obj.quantity = Math.round(message.quantity));
     return obj;
   },
@@ -1701,22 +1701,22 @@ export const CInventoryPurchaseInitRequest_LineItem = {
     object: I,
   ): CInventoryPurchaseInitRequest_LineItem {
     const message = createBaseCInventoryPurchaseInitRequest_LineItem();
-    message.itemdefid = object.itemdefid ?? 0;
+    message.itemdefid = object.itemdefid ?? "0";
     message.quantity = object.quantity ?? 0;
     return message;
   },
 };
 
 function createBaseCInventoryPurchaseInitResponse(): CInventoryPurchaseInitResponse {
-  return { orderid: 0, transid: 0 };
+  return { orderid: "0", transid: "0" };
 }
 
 export const CInventoryPurchaseInitResponse = {
   encode(message: CInventoryPurchaseInitResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.orderid !== 0) {
+    if (message.orderid !== "0") {
       writer.uint32(8).uint64(message.orderid);
     }
-    if (message.transid !== 0) {
+    if (message.transid !== "0") {
       writer.uint32(16).uint64(message.transid);
     }
     return writer;
@@ -1730,10 +1730,10 @@ export const CInventoryPurchaseInitResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.orderid = longToNumber(reader.uint64() as Long);
+          message.orderid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.transid = longToNumber(reader.uint64() as Long);
+          message.transid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1745,15 +1745,15 @@ export const CInventoryPurchaseInitResponse = {
 
   fromJSON(object: any): CInventoryPurchaseInitResponse {
     return {
-      orderid: isSet(object.orderid) ? Number(object.orderid) : 0,
-      transid: isSet(object.transid) ? Number(object.transid) : 0,
+      orderid: isSet(object.orderid) ? String(object.orderid) : "0",
+      transid: isSet(object.transid) ? String(object.transid) : "0",
     };
   },
 
   toJSON(message: CInventoryPurchaseInitResponse): unknown {
     const obj: any = {};
-    message.orderid !== undefined && (obj.orderid = Math.round(message.orderid));
-    message.transid !== undefined && (obj.transid = Math.round(message.transid));
+    message.orderid !== undefined && (obj.orderid = message.orderid);
+    message.transid !== undefined && (obj.transid = message.transid);
     return obj;
   },
 
@@ -1765,14 +1765,14 @@ export const CInventoryPurchaseInitResponse = {
     object: I,
   ): CInventoryPurchaseInitResponse {
     const message = createBaseCInventoryPurchaseInitResponse();
-    message.orderid = object.orderid ?? 0;
-    message.transid = object.transid ?? 0;
+    message.orderid = object.orderid ?? "0";
+    message.transid = object.transid ?? "0";
     return message;
   },
 };
 
 function createBaseCInventoryPurchaseFinalizeRequest(): CInventoryPurchaseFinalizeRequest {
-  return { appid: 0, language: 0, orderid: 0 };
+  return { appid: 0, language: 0, orderid: "0" };
 }
 
 export const CInventoryPurchaseFinalizeRequest = {
@@ -1783,7 +1783,7 @@ export const CInventoryPurchaseFinalizeRequest = {
     if (message.language !== 0) {
       writer.uint32(16).int32(message.language);
     }
-    if (message.orderid !== 0) {
+    if (message.orderid !== "0") {
       writer.uint32(24).uint64(message.orderid);
     }
     return writer;
@@ -1803,7 +1803,7 @@ export const CInventoryPurchaseFinalizeRequest = {
           message.language = reader.int32();
           break;
         case 3:
-          message.orderid = longToNumber(reader.uint64() as Long);
+          message.orderid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1817,7 +1817,7 @@ export const CInventoryPurchaseFinalizeRequest = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       language: isSet(object.language) ? Number(object.language) : 0,
-      orderid: isSet(object.orderid) ? Number(object.orderid) : 0,
+      orderid: isSet(object.orderid) ? String(object.orderid) : "0",
     };
   },
 
@@ -1825,7 +1825,7 @@ export const CInventoryPurchaseFinalizeRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.language !== undefined && (obj.language = Math.round(message.language));
-    message.orderid !== undefined && (obj.orderid = Math.round(message.orderid));
+    message.orderid !== undefined && (obj.orderid = message.orderid);
     return obj;
   },
 
@@ -1841,21 +1841,21 @@ export const CInventoryPurchaseFinalizeRequest = {
     const message = createBaseCInventoryPurchaseFinalizeRequest();
     message.appid = object.appid ?? 0;
     message.language = object.language ?? 0;
-    message.orderid = object.orderid ?? 0;
+    message.orderid = object.orderid ?? "0";
     return message;
   },
 };
 
 function createBaseCInventoryInspectItemRequest(): CInventoryInspectItemRequest {
-  return { itemdefid: 0, itemid: 0, tags: "" };
+  return { itemdefid: "0", itemid: "0", tags: "" };
 }
 
 export const CInventoryInspectItemRequest = {
   encode(message: CInventoryInspectItemRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.itemdefid !== 0) {
+    if (message.itemdefid !== "0") {
       writer.uint32(8).uint64(message.itemdefid);
     }
-    if (message.itemid !== 0) {
+    if (message.itemid !== "0") {
       writer.uint32(17).fixed64(message.itemid);
     }
     if (message.tags !== "") {
@@ -1872,10 +1872,10 @@ export const CInventoryInspectItemRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.itemdefid = longToNumber(reader.uint64() as Long);
+          message.itemdefid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.itemid = longToNumber(reader.fixed64() as Long);
+          message.itemid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.tags = reader.string();
@@ -1890,16 +1890,16 @@ export const CInventoryInspectItemRequest = {
 
   fromJSON(object: any): CInventoryInspectItemRequest {
     return {
-      itemdefid: isSet(object.itemdefid) ? Number(object.itemdefid) : 0,
-      itemid: isSet(object.itemid) ? Number(object.itemid) : 0,
+      itemdefid: isSet(object.itemdefid) ? String(object.itemdefid) : "0",
+      itemid: isSet(object.itemid) ? String(object.itemid) : "0",
       tags: isSet(object.tags) ? String(object.tags) : "",
     };
   },
 
   toJSON(message: CInventoryInspectItemRequest): unknown {
     const obj: any = {};
-    message.itemdefid !== undefined && (obj.itemdefid = Math.round(message.itemdefid));
-    message.itemid !== undefined && (obj.itemid = Math.round(message.itemid));
+    message.itemdefid !== undefined && (obj.itemdefid = message.itemdefid);
+    message.itemid !== undefined && (obj.itemid = message.itemid);
     message.tags !== undefined && (obj.tags = message.tags);
     return obj;
   },
@@ -1910,8 +1910,8 @@ export const CInventoryInspectItemRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CInventoryInspectItemRequest>, I>>(object: I): CInventoryInspectItemRequest {
     const message = createBaseCInventoryInspectItemRequest();
-    message.itemdefid = object.itemdefid ?? 0;
-    message.itemid = object.itemid ?? 0;
+    message.itemdefid = object.itemdefid ?? "0";
+    message.itemid = object.itemid ?? "0";
     message.tags = object.tags ?? "";
     return message;
   },
@@ -2210,11 +2210,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

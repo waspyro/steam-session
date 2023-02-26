@@ -467,7 +467,7 @@ export interface CMsgStorageDevicesData_Drive {
   vendor: string;
   serial: string;
   isEjectable: boolean;
-  sizeBytes: number;
+  sizeBytes: string;
   mediaType: EStorageDriveMediaType;
 }
 
@@ -477,7 +477,7 @@ export interface CMsgStorageDevicesData_BlockDevice {
   path: string;
   friendlyPath: string;
   label: string;
-  sizeBytes: number;
+  sizeBytes: string;
   isFormattable: boolean;
   isReadOnly: boolean;
   isRootDevice: boolean;
@@ -489,7 +489,7 @@ export interface CMsgStorageDevicesData_BlockDevice {
 export interface CCloudPendingRemoteOperation {
   operation: ECloudPendingRemoteOperation;
   machineName: string;
-  clientId: number;
+  clientId: string;
   timeLastUpdated: number;
 }
 
@@ -534,8 +534,8 @@ export interface CMsgSystemPerfDiagnosticEntry {
 export interface CMsgSystemPerfNetworkInterface {
   name: string;
   timestamp: number;
-  txBytesTotal: number;
-  rxBytesTotal: number;
+  txBytesTotal: string;
+  rxBytesTotal: string;
   txBytesPerSec: number;
   rxBytesPerSec: number;
 }
@@ -654,12 +654,12 @@ export interface CMsgSystemPerfSettingsV1 {
 export interface CMsgSystemPerfState {
   limits: CMsgSystemPerfLimits | undefined;
   settings: CMsgSystemPerfSettings | undefined;
-  currentGameId: number;
-  activeProfileGameId: number;
+  currentGameId: string;
+  activeProfileGameId: string;
 }
 
 export interface CMsgSystemPerfUpdateSettings {
-  gameid: number;
+  gameid: string;
   resetToDefault?: boolean | undefined;
   settingsDelta?: CMsgSystemPerfSettings | undefined;
 }
@@ -829,7 +829,7 @@ export interface CMsgSelectOSBranchParams {
 
 export interface CMsgSystemUpdateProgress {
   stageProgress: number;
-  stageSizeBytes: number;
+  stageSizeBytes: string;
   rtimeEstimatedCompletion: number;
 }
 
@@ -2264,7 +2264,7 @@ export const CMsgStorageDevicesData = {
 };
 
 function createBaseCMsgStorageDevicesData_Drive(): CMsgStorageDevicesData_Drive {
-  return { id: 0, model: "", vendor: "", serial: "", isEjectable: false, sizeBytes: 0, mediaType: 0 };
+  return { id: 0, model: "", vendor: "", serial: "", isEjectable: false, sizeBytes: "0", mediaType: 0 };
 }
 
 export const CMsgStorageDevicesData_Drive = {
@@ -2284,7 +2284,7 @@ export const CMsgStorageDevicesData_Drive = {
     if (message.isEjectable === true) {
       writer.uint32(40).bool(message.isEjectable);
     }
-    if (message.sizeBytes !== 0) {
+    if (message.sizeBytes !== "0") {
       writer.uint32(48).uint64(message.sizeBytes);
     }
     if (message.mediaType !== 0) {
@@ -2316,7 +2316,7 @@ export const CMsgStorageDevicesData_Drive = {
           message.isEjectable = reader.bool();
           break;
         case 6:
-          message.sizeBytes = longToNumber(reader.uint64() as Long);
+          message.sizeBytes = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.mediaType = reader.int32() as any;
@@ -2336,7 +2336,7 @@ export const CMsgStorageDevicesData_Drive = {
       vendor: isSet(object.vendor) ? String(object.vendor) : "",
       serial: isSet(object.serial) ? String(object.serial) : "",
       isEjectable: isSet(object.isEjectable) ? Boolean(object.isEjectable) : false,
-      sizeBytes: isSet(object.sizeBytes) ? Number(object.sizeBytes) : 0,
+      sizeBytes: isSet(object.sizeBytes) ? String(object.sizeBytes) : "0",
       mediaType: isSet(object.mediaType) ? eStorageDriveMediaTypeFromJSON(object.mediaType) : 0,
     };
   },
@@ -2348,7 +2348,7 @@ export const CMsgStorageDevicesData_Drive = {
     message.vendor !== undefined && (obj.vendor = message.vendor);
     message.serial !== undefined && (obj.serial = message.serial);
     message.isEjectable !== undefined && (obj.isEjectable = message.isEjectable);
-    message.sizeBytes !== undefined && (obj.sizeBytes = Math.round(message.sizeBytes));
+    message.sizeBytes !== undefined && (obj.sizeBytes = message.sizeBytes);
     message.mediaType !== undefined && (obj.mediaType = eStorageDriveMediaTypeToJSON(message.mediaType));
     return obj;
   },
@@ -2364,7 +2364,7 @@ export const CMsgStorageDevicesData_Drive = {
     message.vendor = object.vendor ?? "";
     message.serial = object.serial ?? "";
     message.isEjectable = object.isEjectable ?? false;
-    message.sizeBytes = object.sizeBytes ?? 0;
+    message.sizeBytes = object.sizeBytes ?? "0";
     message.mediaType = object.mediaType ?? 0;
     return message;
   },
@@ -2377,7 +2377,7 @@ function createBaseCMsgStorageDevicesData_BlockDevice(): CMsgStorageDevicesData_
     path: "",
     friendlyPath: "",
     label: "",
-    sizeBytes: 0,
+    sizeBytes: "0",
     isFormattable: false,
     isReadOnly: false,
     isRootDevice: false,
@@ -2404,7 +2404,7 @@ export const CMsgStorageDevicesData_BlockDevice = {
     if (message.label !== "") {
       writer.uint32(42).string(message.label);
     }
-    if (message.sizeBytes !== 0) {
+    if (message.sizeBytes !== "0") {
       writer.uint32(48).uint64(message.sizeBytes);
     }
     if (message.isFormattable === true) {
@@ -2451,7 +2451,7 @@ export const CMsgStorageDevicesData_BlockDevice = {
           message.label = reader.string();
           break;
         case 6:
-          message.sizeBytes = longToNumber(reader.uint64() as Long);
+          message.sizeBytes = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.isFormattable = reader.bool();
@@ -2486,7 +2486,7 @@ export const CMsgStorageDevicesData_BlockDevice = {
       path: isSet(object.path) ? String(object.path) : "",
       friendlyPath: isSet(object.friendlyPath) ? String(object.friendlyPath) : "",
       label: isSet(object.label) ? String(object.label) : "",
-      sizeBytes: isSet(object.sizeBytes) ? Number(object.sizeBytes) : 0,
+      sizeBytes: isSet(object.sizeBytes) ? String(object.sizeBytes) : "0",
       isFormattable: isSet(object.isFormattable) ? Boolean(object.isFormattable) : false,
       isReadOnly: isSet(object.isReadOnly) ? Boolean(object.isReadOnly) : false,
       isRootDevice: isSet(object.isRootDevice) ? Boolean(object.isRootDevice) : false,
@@ -2503,7 +2503,7 @@ export const CMsgStorageDevicesData_BlockDevice = {
     message.path !== undefined && (obj.path = message.path);
     message.friendlyPath !== undefined && (obj.friendlyPath = message.friendlyPath);
     message.label !== undefined && (obj.label = message.label);
-    message.sizeBytes !== undefined && (obj.sizeBytes = Math.round(message.sizeBytes));
+    message.sizeBytes !== undefined && (obj.sizeBytes = message.sizeBytes);
     message.isFormattable !== undefined && (obj.isFormattable = message.isFormattable);
     message.isReadOnly !== undefined && (obj.isReadOnly = message.isReadOnly);
     message.isRootDevice !== undefined && (obj.isRootDevice = message.isRootDevice);
@@ -2529,7 +2529,7 @@ export const CMsgStorageDevicesData_BlockDevice = {
     message.path = object.path ?? "";
     message.friendlyPath = object.friendlyPath ?? "";
     message.label = object.label ?? "";
-    message.sizeBytes = object.sizeBytes ?? 0;
+    message.sizeBytes = object.sizeBytes ?? "0";
     message.isFormattable = object.isFormattable ?? false;
     message.isReadOnly = object.isReadOnly ?? false;
     message.isRootDevice = object.isRootDevice ?? false;
@@ -2541,7 +2541,7 @@ export const CMsgStorageDevicesData_BlockDevice = {
 };
 
 function createBaseCCloudPendingRemoteOperation(): CCloudPendingRemoteOperation {
-  return { operation: 0, machineName: "", clientId: 0, timeLastUpdated: 0 };
+  return { operation: 0, machineName: "", clientId: "0", timeLastUpdated: 0 };
 }
 
 export const CCloudPendingRemoteOperation = {
@@ -2552,7 +2552,7 @@ export const CCloudPendingRemoteOperation = {
     if (message.machineName !== "") {
       writer.uint32(18).string(message.machineName);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(24).uint64(message.clientId);
     }
     if (message.timeLastUpdated !== 0) {
@@ -2575,7 +2575,7 @@ export const CCloudPendingRemoteOperation = {
           message.machineName = reader.string();
           break;
         case 3:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.timeLastUpdated = reader.uint32();
@@ -2592,7 +2592,7 @@ export const CCloudPendingRemoteOperation = {
     return {
       operation: isSet(object.operation) ? eCloudPendingRemoteOperationFromJSON(object.operation) : 0,
       machineName: isSet(object.machineName) ? String(object.machineName) : "",
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       timeLastUpdated: isSet(object.timeLastUpdated) ? Number(object.timeLastUpdated) : 0,
     };
   },
@@ -2601,7 +2601,7 @@ export const CCloudPendingRemoteOperation = {
     const obj: any = {};
     message.operation !== undefined && (obj.operation = eCloudPendingRemoteOperationToJSON(message.operation));
     message.machineName !== undefined && (obj.machineName = message.machineName);
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.timeLastUpdated !== undefined && (obj.timeLastUpdated = Math.round(message.timeLastUpdated));
     return obj;
   },
@@ -2614,7 +2614,7 @@ export const CCloudPendingRemoteOperation = {
     const message = createBaseCCloudPendingRemoteOperation();
     message.operation = object.operation ?? 0;
     message.machineName = object.machineName ?? "";
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.timeLastUpdated = object.timeLastUpdated ?? 0;
     return message;
   },
@@ -3100,7 +3100,7 @@ export const CMsgSystemPerfDiagnosticEntry = {
 };
 
 function createBaseCMsgSystemPerfNetworkInterface(): CMsgSystemPerfNetworkInterface {
-  return { name: "", timestamp: 0, txBytesTotal: 0, rxBytesTotal: 0, txBytesPerSec: 0, rxBytesPerSec: 0 };
+  return { name: "", timestamp: 0, txBytesTotal: "0", rxBytesTotal: "0", txBytesPerSec: 0, rxBytesPerSec: 0 };
 }
 
 export const CMsgSystemPerfNetworkInterface = {
@@ -3111,10 +3111,10 @@ export const CMsgSystemPerfNetworkInterface = {
     if (message.timestamp !== 0) {
       writer.uint32(17).double(message.timestamp);
     }
-    if (message.txBytesTotal !== 0) {
+    if (message.txBytesTotal !== "0") {
       writer.uint32(24).int64(message.txBytesTotal);
     }
-    if (message.rxBytesTotal !== 0) {
+    if (message.rxBytesTotal !== "0") {
       writer.uint32(32).int64(message.rxBytesTotal);
     }
     if (message.txBytesPerSec !== 0) {
@@ -3140,10 +3140,10 @@ export const CMsgSystemPerfNetworkInterface = {
           message.timestamp = reader.double();
           break;
         case 3:
-          message.txBytesTotal = longToNumber(reader.int64() as Long);
+          message.txBytesTotal = longToString(reader.int64() as Long);
           break;
         case 4:
-          message.rxBytesTotal = longToNumber(reader.int64() as Long);
+          message.rxBytesTotal = longToString(reader.int64() as Long);
           break;
         case 5:
           message.txBytesPerSec = reader.int32();
@@ -3163,8 +3163,8 @@ export const CMsgSystemPerfNetworkInterface = {
     return {
       name: isSet(object.name) ? String(object.name) : "",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
-      txBytesTotal: isSet(object.txBytesTotal) ? Number(object.txBytesTotal) : 0,
-      rxBytesTotal: isSet(object.rxBytesTotal) ? Number(object.rxBytesTotal) : 0,
+      txBytesTotal: isSet(object.txBytesTotal) ? String(object.txBytesTotal) : "0",
+      rxBytesTotal: isSet(object.rxBytesTotal) ? String(object.rxBytesTotal) : "0",
       txBytesPerSec: isSet(object.txBytesPerSec) ? Number(object.txBytesPerSec) : 0,
       rxBytesPerSec: isSet(object.rxBytesPerSec) ? Number(object.rxBytesPerSec) : 0,
     };
@@ -3174,8 +3174,8 @@ export const CMsgSystemPerfNetworkInterface = {
     const obj: any = {};
     message.name !== undefined && (obj.name = message.name);
     message.timestamp !== undefined && (obj.timestamp = message.timestamp);
-    message.txBytesTotal !== undefined && (obj.txBytesTotal = Math.round(message.txBytesTotal));
-    message.rxBytesTotal !== undefined && (obj.rxBytesTotal = Math.round(message.rxBytesTotal));
+    message.txBytesTotal !== undefined && (obj.txBytesTotal = message.txBytesTotal);
+    message.rxBytesTotal !== undefined && (obj.rxBytesTotal = message.rxBytesTotal);
     message.txBytesPerSec !== undefined && (obj.txBytesPerSec = Math.round(message.txBytesPerSec));
     message.rxBytesPerSec !== undefined && (obj.rxBytesPerSec = Math.round(message.rxBytesPerSec));
     return obj;
@@ -3191,8 +3191,8 @@ export const CMsgSystemPerfNetworkInterface = {
     const message = createBaseCMsgSystemPerfNetworkInterface();
     message.name = object.name ?? "";
     message.timestamp = object.timestamp ?? 0;
-    message.txBytesTotal = object.txBytesTotal ?? 0;
-    message.rxBytesTotal = object.rxBytesTotal ?? 0;
+    message.txBytesTotal = object.txBytesTotal ?? "0";
+    message.rxBytesTotal = object.rxBytesTotal ?? "0";
     message.txBytesPerSec = object.txBytesPerSec ?? 0;
     message.rxBytesPerSec = object.rxBytesPerSec ?? 0;
     return message;
@@ -4584,7 +4584,7 @@ export const CMsgSystemPerfSettingsV1 = {
 };
 
 function createBaseCMsgSystemPerfState(): CMsgSystemPerfState {
-  return { limits: undefined, settings: undefined, currentGameId: 0, activeProfileGameId: 0 };
+  return { limits: undefined, settings: undefined, currentGameId: "0", activeProfileGameId: "0" };
 }
 
 export const CMsgSystemPerfState = {
@@ -4595,10 +4595,10 @@ export const CMsgSystemPerfState = {
     if (message.settings !== undefined) {
       CMsgSystemPerfSettings.encode(message.settings, writer.uint32(18).fork()).ldelim();
     }
-    if (message.currentGameId !== 0) {
+    if (message.currentGameId !== "0") {
       writer.uint32(24).uint64(message.currentGameId);
     }
-    if (message.activeProfileGameId !== 0) {
+    if (message.activeProfileGameId !== "0") {
       writer.uint32(32).uint64(message.activeProfileGameId);
     }
     return writer;
@@ -4618,10 +4618,10 @@ export const CMsgSystemPerfState = {
           message.settings = CMsgSystemPerfSettings.decode(reader, reader.uint32());
           break;
         case 3:
-          message.currentGameId = longToNumber(reader.uint64() as Long);
+          message.currentGameId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.activeProfileGameId = longToNumber(reader.uint64() as Long);
+          message.activeProfileGameId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4635,8 +4635,8 @@ export const CMsgSystemPerfState = {
     return {
       limits: isSet(object.limits) ? CMsgSystemPerfLimits.fromJSON(object.limits) : undefined,
       settings: isSet(object.settings) ? CMsgSystemPerfSettings.fromJSON(object.settings) : undefined,
-      currentGameId: isSet(object.currentGameId) ? Number(object.currentGameId) : 0,
-      activeProfileGameId: isSet(object.activeProfileGameId) ? Number(object.activeProfileGameId) : 0,
+      currentGameId: isSet(object.currentGameId) ? String(object.currentGameId) : "0",
+      activeProfileGameId: isSet(object.activeProfileGameId) ? String(object.activeProfileGameId) : "0",
     };
   },
 
@@ -4646,8 +4646,8 @@ export const CMsgSystemPerfState = {
       (obj.limits = message.limits ? CMsgSystemPerfLimits.toJSON(message.limits) : undefined);
     message.settings !== undefined &&
       (obj.settings = message.settings ? CMsgSystemPerfSettings.toJSON(message.settings) : undefined);
-    message.currentGameId !== undefined && (obj.currentGameId = Math.round(message.currentGameId));
-    message.activeProfileGameId !== undefined && (obj.activeProfileGameId = Math.round(message.activeProfileGameId));
+    message.currentGameId !== undefined && (obj.currentGameId = message.currentGameId);
+    message.activeProfileGameId !== undefined && (obj.activeProfileGameId = message.activeProfileGameId);
     return obj;
   },
 
@@ -4663,19 +4663,19 @@ export const CMsgSystemPerfState = {
     message.settings = (object.settings !== undefined && object.settings !== null)
       ? CMsgSystemPerfSettings.fromPartial(object.settings)
       : undefined;
-    message.currentGameId = object.currentGameId ?? 0;
-    message.activeProfileGameId = object.activeProfileGameId ?? 0;
+    message.currentGameId = object.currentGameId ?? "0";
+    message.activeProfileGameId = object.activeProfileGameId ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgSystemPerfUpdateSettings(): CMsgSystemPerfUpdateSettings {
-  return { gameid: 0, resetToDefault: undefined, settingsDelta: undefined };
+  return { gameid: "0", resetToDefault: undefined, settingsDelta: undefined };
 }
 
 export const CMsgSystemPerfUpdateSettings = {
   encode(message: CMsgSystemPerfUpdateSettings, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(8).uint64(message.gameid);
     }
     if (message.resetToDefault !== undefined) {
@@ -4695,7 +4695,7 @@ export const CMsgSystemPerfUpdateSettings = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.resetToDefault = reader.bool();
@@ -4713,7 +4713,7 @@ export const CMsgSystemPerfUpdateSettings = {
 
   fromJSON(object: any): CMsgSystemPerfUpdateSettings {
     return {
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       resetToDefault: isSet(object.resetToDefault) ? Boolean(object.resetToDefault) : undefined,
       settingsDelta: isSet(object.settingsDelta) ? CMsgSystemPerfSettings.fromJSON(object.settingsDelta) : undefined,
     };
@@ -4721,7 +4721,7 @@ export const CMsgSystemPerfUpdateSettings = {
 
   toJSON(message: CMsgSystemPerfUpdateSettings): unknown {
     const obj: any = {};
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.resetToDefault !== undefined && (obj.resetToDefault = message.resetToDefault);
     message.settingsDelta !== undefined &&
       (obj.settingsDelta = message.settingsDelta ? CMsgSystemPerfSettings.toJSON(message.settingsDelta) : undefined);
@@ -4734,7 +4734,7 @@ export const CMsgSystemPerfUpdateSettings = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgSystemPerfUpdateSettings>, I>>(object: I): CMsgSystemPerfUpdateSettings {
     const message = createBaseCMsgSystemPerfUpdateSettings();
-    message.gameid = object.gameid ?? 0;
+    message.gameid = object.gameid ?? "0";
     message.resetToDefault = object.resetToDefault ?? undefined;
     message.settingsDelta = (object.settingsDelta !== undefined && object.settingsDelta !== null)
       ? CMsgSystemPerfSettings.fromPartial(object.settingsDelta)
@@ -6704,7 +6704,7 @@ export const CMsgSelectOSBranchParams = {
 };
 
 function createBaseCMsgSystemUpdateProgress(): CMsgSystemUpdateProgress {
-  return { stageProgress: 0, stageSizeBytes: 0, rtimeEstimatedCompletion: 0 };
+  return { stageProgress: 0, stageSizeBytes: "0", rtimeEstimatedCompletion: 0 };
 }
 
 export const CMsgSystemUpdateProgress = {
@@ -6712,7 +6712,7 @@ export const CMsgSystemUpdateProgress = {
     if (message.stageProgress !== 0) {
       writer.uint32(13).float(message.stageProgress);
     }
-    if (message.stageSizeBytes !== 0) {
+    if (message.stageSizeBytes !== "0") {
       writer.uint32(16).int64(message.stageSizeBytes);
     }
     if (message.rtimeEstimatedCompletion !== 0) {
@@ -6732,7 +6732,7 @@ export const CMsgSystemUpdateProgress = {
           message.stageProgress = reader.float();
           break;
         case 2:
-          message.stageSizeBytes = longToNumber(reader.int64() as Long);
+          message.stageSizeBytes = longToString(reader.int64() as Long);
           break;
         case 3:
           message.rtimeEstimatedCompletion = reader.fixed32();
@@ -6748,7 +6748,7 @@ export const CMsgSystemUpdateProgress = {
   fromJSON(object: any): CMsgSystemUpdateProgress {
     return {
       stageProgress: isSet(object.stageProgress) ? Number(object.stageProgress) : 0,
-      stageSizeBytes: isSet(object.stageSizeBytes) ? Number(object.stageSizeBytes) : 0,
+      stageSizeBytes: isSet(object.stageSizeBytes) ? String(object.stageSizeBytes) : "0",
       rtimeEstimatedCompletion: isSet(object.rtimeEstimatedCompletion) ? Number(object.rtimeEstimatedCompletion) : 0,
     };
   },
@@ -6756,7 +6756,7 @@ export const CMsgSystemUpdateProgress = {
   toJSON(message: CMsgSystemUpdateProgress): unknown {
     const obj: any = {};
     message.stageProgress !== undefined && (obj.stageProgress = message.stageProgress);
-    message.stageSizeBytes !== undefined && (obj.stageSizeBytes = Math.round(message.stageSizeBytes));
+    message.stageSizeBytes !== undefined && (obj.stageSizeBytes = message.stageSizeBytes);
     message.rtimeEstimatedCompletion !== undefined &&
       (obj.rtimeEstimatedCompletion = Math.round(message.rtimeEstimatedCompletion));
     return obj;
@@ -6769,7 +6769,7 @@ export const CMsgSystemUpdateProgress = {
   fromPartial<I extends Exact<DeepPartial<CMsgSystemUpdateProgress>, I>>(object: I): CMsgSystemUpdateProgress {
     const message = createBaseCMsgSystemUpdateProgress();
     message.stageProgress = object.stageProgress ?? 0;
-    message.stageSizeBytes = object.stageSizeBytes ?? 0;
+    message.stageSizeBytes = object.stageSizeBytes ?? "0";
     message.rtimeEstimatedCompletion = object.rtimeEstimatedCompletion ?? 0;
     return message;
   },
@@ -7721,25 +7721,6 @@ export const CMsgMonitorInfo_MonitorInfo = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -7751,11 +7732,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

@@ -67,13 +67,13 @@ export interface CMsgClientPICSProductInfoRequest {
 
 export interface CMsgClientPICSProductInfoRequest_AppInfo {
   appid: number;
-  accessToken: number;
+  accessToken: string;
   onlyPublicObsolete: boolean;
 }
 
 export interface CMsgClientPICSProductInfoRequest_PackageInfo {
   packageid: number;
-  accessToken: number;
+  accessToken: string;
 }
 
 export interface CMsgClientPICSProductInfoResponse {
@@ -120,12 +120,12 @@ export interface CMsgClientPICSAccessTokenResponse {
 
 export interface CMsgClientPICSAccessTokenResponse_PackageToken {
   packageid: number;
-  accessToken: number;
+  accessToken: string;
 }
 
 export interface CMsgClientPICSAccessTokenResponse_AppToken {
   appid: number;
-  accessToken: number;
+  accessToken: string;
 }
 
 function createBaseCMsgClientAppInfoUpdate(): CMsgClientAppInfoUpdate {
@@ -940,7 +940,7 @@ export const CMsgClientPICSProductInfoRequest = {
 };
 
 function createBaseCMsgClientPICSProductInfoRequest_AppInfo(): CMsgClientPICSProductInfoRequest_AppInfo {
-  return { appid: 0, accessToken: 0, onlyPublicObsolete: false };
+  return { appid: 0, accessToken: "0", onlyPublicObsolete: false };
 }
 
 export const CMsgClientPICSProductInfoRequest_AppInfo = {
@@ -948,7 +948,7 @@ export const CMsgClientPICSProductInfoRequest_AppInfo = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.accessToken !== 0) {
+    if (message.accessToken !== "0") {
       writer.uint32(16).uint64(message.accessToken);
     }
     if (message.onlyPublicObsolete === true) {
@@ -968,7 +968,7 @@ export const CMsgClientPICSProductInfoRequest_AppInfo = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.accessToken = longToNumber(reader.uint64() as Long);
+          message.accessToken = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.onlyPublicObsolete = reader.bool();
@@ -984,7 +984,7 @@ export const CMsgClientPICSProductInfoRequest_AppInfo = {
   fromJSON(object: any): CMsgClientPICSProductInfoRequest_AppInfo {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      accessToken: isSet(object.accessToken) ? Number(object.accessToken) : 0,
+      accessToken: isSet(object.accessToken) ? String(object.accessToken) : "0",
       onlyPublicObsolete: isSet(object.onlyPublicObsolete) ? Boolean(object.onlyPublicObsolete) : false,
     };
   },
@@ -992,7 +992,7 @@ export const CMsgClientPICSProductInfoRequest_AppInfo = {
   toJSON(message: CMsgClientPICSProductInfoRequest_AppInfo): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.accessToken !== undefined && (obj.accessToken = Math.round(message.accessToken));
+    message.accessToken !== undefined && (obj.accessToken = message.accessToken);
     message.onlyPublicObsolete !== undefined && (obj.onlyPublicObsolete = message.onlyPublicObsolete);
     return obj;
   },
@@ -1008,14 +1008,14 @@ export const CMsgClientPICSProductInfoRequest_AppInfo = {
   ): CMsgClientPICSProductInfoRequest_AppInfo {
     const message = createBaseCMsgClientPICSProductInfoRequest_AppInfo();
     message.appid = object.appid ?? 0;
-    message.accessToken = object.accessToken ?? 0;
+    message.accessToken = object.accessToken ?? "0";
     message.onlyPublicObsolete = object.onlyPublicObsolete ?? false;
     return message;
   },
 };
 
 function createBaseCMsgClientPICSProductInfoRequest_PackageInfo(): CMsgClientPICSProductInfoRequest_PackageInfo {
-  return { packageid: 0, accessToken: 0 };
+  return { packageid: 0, accessToken: "0" };
 }
 
 export const CMsgClientPICSProductInfoRequest_PackageInfo = {
@@ -1023,7 +1023,7 @@ export const CMsgClientPICSProductInfoRequest_PackageInfo = {
     if (message.packageid !== 0) {
       writer.uint32(8).uint32(message.packageid);
     }
-    if (message.accessToken !== 0) {
+    if (message.accessToken !== "0") {
       writer.uint32(16).uint64(message.accessToken);
     }
     return writer;
@@ -1040,7 +1040,7 @@ export const CMsgClientPICSProductInfoRequest_PackageInfo = {
           message.packageid = reader.uint32();
           break;
         case 2:
-          message.accessToken = longToNumber(reader.uint64() as Long);
+          message.accessToken = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1053,14 +1053,14 @@ export const CMsgClientPICSProductInfoRequest_PackageInfo = {
   fromJSON(object: any): CMsgClientPICSProductInfoRequest_PackageInfo {
     return {
       packageid: isSet(object.packageid) ? Number(object.packageid) : 0,
-      accessToken: isSet(object.accessToken) ? Number(object.accessToken) : 0,
+      accessToken: isSet(object.accessToken) ? String(object.accessToken) : "0",
     };
   },
 
   toJSON(message: CMsgClientPICSProductInfoRequest_PackageInfo): unknown {
     const obj: any = {};
     message.packageid !== undefined && (obj.packageid = Math.round(message.packageid));
-    message.accessToken !== undefined && (obj.accessToken = Math.round(message.accessToken));
+    message.accessToken !== undefined && (obj.accessToken = message.accessToken);
     return obj;
   },
 
@@ -1075,7 +1075,7 @@ export const CMsgClientPICSProductInfoRequest_PackageInfo = {
   ): CMsgClientPICSProductInfoRequest_PackageInfo {
     const message = createBaseCMsgClientPICSProductInfoRequest_PackageInfo();
     message.packageid = object.packageid ?? 0;
-    message.accessToken = object.accessToken ?? 0;
+    message.accessToken = object.accessToken ?? "0";
     return message;
   },
 };
@@ -1699,7 +1699,7 @@ export const CMsgClientPICSAccessTokenResponse = {
 };
 
 function createBaseCMsgClientPICSAccessTokenResponse_PackageToken(): CMsgClientPICSAccessTokenResponse_PackageToken {
-  return { packageid: 0, accessToken: 0 };
+  return { packageid: 0, accessToken: "0" };
 }
 
 export const CMsgClientPICSAccessTokenResponse_PackageToken = {
@@ -1710,7 +1710,7 @@ export const CMsgClientPICSAccessTokenResponse_PackageToken = {
     if (message.packageid !== 0) {
       writer.uint32(8).uint32(message.packageid);
     }
-    if (message.accessToken !== 0) {
+    if (message.accessToken !== "0") {
       writer.uint32(16).uint64(message.accessToken);
     }
     return writer;
@@ -1727,7 +1727,7 @@ export const CMsgClientPICSAccessTokenResponse_PackageToken = {
           message.packageid = reader.uint32();
           break;
         case 2:
-          message.accessToken = longToNumber(reader.uint64() as Long);
+          message.accessToken = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1740,14 +1740,14 @@ export const CMsgClientPICSAccessTokenResponse_PackageToken = {
   fromJSON(object: any): CMsgClientPICSAccessTokenResponse_PackageToken {
     return {
       packageid: isSet(object.packageid) ? Number(object.packageid) : 0,
-      accessToken: isSet(object.accessToken) ? Number(object.accessToken) : 0,
+      accessToken: isSet(object.accessToken) ? String(object.accessToken) : "0",
     };
   },
 
   toJSON(message: CMsgClientPICSAccessTokenResponse_PackageToken): unknown {
     const obj: any = {};
     message.packageid !== undefined && (obj.packageid = Math.round(message.packageid));
-    message.accessToken !== undefined && (obj.accessToken = Math.round(message.accessToken));
+    message.accessToken !== undefined && (obj.accessToken = message.accessToken);
     return obj;
   },
 
@@ -1762,13 +1762,13 @@ export const CMsgClientPICSAccessTokenResponse_PackageToken = {
   ): CMsgClientPICSAccessTokenResponse_PackageToken {
     const message = createBaseCMsgClientPICSAccessTokenResponse_PackageToken();
     message.packageid = object.packageid ?? 0;
-    message.accessToken = object.accessToken ?? 0;
+    message.accessToken = object.accessToken ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientPICSAccessTokenResponse_AppToken(): CMsgClientPICSAccessTokenResponse_AppToken {
-  return { appid: 0, accessToken: 0 };
+  return { appid: 0, accessToken: "0" };
 }
 
 export const CMsgClientPICSAccessTokenResponse_AppToken = {
@@ -1776,7 +1776,7 @@ export const CMsgClientPICSAccessTokenResponse_AppToken = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.accessToken !== 0) {
+    if (message.accessToken !== "0") {
       writer.uint32(16).uint64(message.accessToken);
     }
     return writer;
@@ -1793,7 +1793,7 @@ export const CMsgClientPICSAccessTokenResponse_AppToken = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.accessToken = longToNumber(reader.uint64() as Long);
+          message.accessToken = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1806,14 +1806,14 @@ export const CMsgClientPICSAccessTokenResponse_AppToken = {
   fromJSON(object: any): CMsgClientPICSAccessTokenResponse_AppToken {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      accessToken: isSet(object.accessToken) ? Number(object.accessToken) : 0,
+      accessToken: isSet(object.accessToken) ? String(object.accessToken) : "0",
     };
   },
 
   toJSON(message: CMsgClientPICSAccessTokenResponse_AppToken): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.accessToken !== undefined && (obj.accessToken = Math.round(message.accessToken));
+    message.accessToken !== undefined && (obj.accessToken = message.accessToken);
     return obj;
   },
 
@@ -1828,7 +1828,7 @@ export const CMsgClientPICSAccessTokenResponse_AppToken = {
   ): CMsgClientPICSAccessTokenResponse_AppToken {
     const message = createBaseCMsgClientPICSAccessTokenResponse_AppToken();
     message.appid = object.appid ?? 0;
-    message.accessToken = object.accessToken ?? 0;
+    message.accessToken = object.accessToken ?? "0";
     return message;
   },
 };
@@ -1888,11 +1888,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

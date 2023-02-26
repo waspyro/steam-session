@@ -356,20 +356,20 @@ export interface CMsgIPAddress {
 
 export interface CMsgIPAddressBucket {
   originalIpAddress: CMsgIPAddress | undefined;
-  bucket: number;
+  bucket: string;
 }
 
 export interface CMsgGCRoutingProtoBufHeader {
-  dstGcidQueue: number;
+  dstGcidQueue: string;
   dstGcDirIndex: number;
 }
 
 export interface CMsgProtoBufHeader {
-  steamid: number;
+  steamid: string;
   clientSessionid: number;
   routingAppid: number;
-  jobidSource: number;
-  jobidTarget: number;
+  jobidSource: string;
+  jobidTarget: string;
   targetJobName: string;
   seqNum: number;
   eresult: number;
@@ -378,10 +378,10 @@ export interface CMsgProtoBufHeader {
   tokenSource: number;
   adminSpoofingUser: boolean;
   transportError: number;
-  messageid: number;
+  messageid: string;
   publisherGroupId: number;
   sysid: number;
-  traceTag: number;
+  traceTag: string;
   webapiKeyId: number;
   isFromExternalSource: boolean;
   forwardToSysid: number[];
@@ -391,7 +391,7 @@ export interface CMsgProtoBufHeader {
   timeoutMs: number;
   debugSource: string;
   debugSourceStringIndex: number;
-  tokenId: number;
+  tokenId: string;
   routingGc: CMsgGCRoutingProtoBufHeader | undefined;
   ip?: number | undefined;
   ipV6?: Buffer | undefined;
@@ -409,8 +409,8 @@ export interface CMsgProtobufWrapped {
 export interface CMsgAuthTicket {
   estate: number;
   eresult: number;
-  steamid: number;
-  gameid: number;
+  steamid: string;
+  gameid: string;
   hSteamPipe: number;
   ticketCrc: number;
   ticket: Buffer;
@@ -479,8 +479,8 @@ export interface CLocalizationToken {
 
 export interface CClanEventUserNewsTuple {
   clanid: number;
-  eventGid: number;
-  announcementGid: number;
+  eventGid: string;
+  announcementGid: string;
   rtimeStart: number;
   rtimeEnd: number;
   priorityScore: number;
@@ -498,9 +498,9 @@ export interface CClanMatchEventByRange {
 }
 
 export interface CCommunityClanAnnouncementInfo {
-  gid: number;
-  clanid: number;
-  posterid: number;
+  gid: string;
+  clanid: string;
+  posterid: string;
   headline: string;
   posttime: number;
   updatetime: number;
@@ -509,8 +509,8 @@ export interface CCommunityClanAnnouncementInfo {
   tags: string[];
   language: number;
   hidden: boolean;
-  forumTopicId: number;
-  eventGid: number;
+  forumTopicId: string;
+  eventGid: string;
   voteupcount: number;
   votedowncount: number;
   banCheckResult: EBanContentCheckResult;
@@ -518,8 +518,8 @@ export interface CCommunityClanAnnouncementInfo {
 }
 
 export interface CClanEventData {
-  gid: number;
-  clanSteamid: number;
+  gid: string;
+  clanSteamid: string;
   eventName: string;
   eventType: EProtoClanEventType;
   appid: number;
@@ -528,8 +528,8 @@ export interface CClanEventData {
   rtime32StartTime: number;
   rtime32EndTime: number;
   commentCount: number;
-  creatorSteamid: number;
-  lastUpdateSteamid: number;
+  creatorSteamid: string;
+  lastUpdateSteamid: string;
   eventNotes: string;
   jsondata: string;
   announcementBody: CCommunityClanAnnouncementInfo | undefined;
@@ -540,9 +540,9 @@ export interface CClanEventData {
   broadcasterAccountid: number;
   followerCount: number;
   ignoreCount: number;
-  forumTopicId: number;
+  forumTopicId: string;
   rtime32LastModified: number;
-  newsPostGid: number;
+  newsPostGid: string;
   rtimeModReviewed: number;
   featuredAppTagid: number;
   referencedAppids: number[];
@@ -646,7 +646,7 @@ export const CMsgIPAddress = {
 };
 
 function createBaseCMsgIPAddressBucket(): CMsgIPAddressBucket {
-  return { originalIpAddress: undefined, bucket: 0 };
+  return { originalIpAddress: undefined, bucket: "0" };
 }
 
 export const CMsgIPAddressBucket = {
@@ -654,7 +654,7 @@ export const CMsgIPAddressBucket = {
     if (message.originalIpAddress !== undefined) {
       CMsgIPAddress.encode(message.originalIpAddress, writer.uint32(10).fork()).ldelim();
     }
-    if (message.bucket !== 0) {
+    if (message.bucket !== "0") {
       writer.uint32(17).fixed64(message.bucket);
     }
     return writer;
@@ -671,7 +671,7 @@ export const CMsgIPAddressBucket = {
           message.originalIpAddress = CMsgIPAddress.decode(reader, reader.uint32());
           break;
         case 2:
-          message.bucket = longToNumber(reader.fixed64() as Long);
+          message.bucket = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -684,7 +684,7 @@ export const CMsgIPAddressBucket = {
   fromJSON(object: any): CMsgIPAddressBucket {
     return {
       originalIpAddress: isSet(object.originalIpAddress) ? CMsgIPAddress.fromJSON(object.originalIpAddress) : undefined,
-      bucket: isSet(object.bucket) ? Number(object.bucket) : 0,
+      bucket: isSet(object.bucket) ? String(object.bucket) : "0",
     };
   },
 
@@ -692,7 +692,7 @@ export const CMsgIPAddressBucket = {
     const obj: any = {};
     message.originalIpAddress !== undefined &&
       (obj.originalIpAddress = message.originalIpAddress ? CMsgIPAddress.toJSON(message.originalIpAddress) : undefined);
-    message.bucket !== undefined && (obj.bucket = Math.round(message.bucket));
+    message.bucket !== undefined && (obj.bucket = message.bucket);
     return obj;
   },
 
@@ -705,18 +705,18 @@ export const CMsgIPAddressBucket = {
     message.originalIpAddress = (object.originalIpAddress !== undefined && object.originalIpAddress !== null)
       ? CMsgIPAddress.fromPartial(object.originalIpAddress)
       : undefined;
-    message.bucket = object.bucket ?? 0;
+    message.bucket = object.bucket ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgGCRoutingProtoBufHeader(): CMsgGCRoutingProtoBufHeader {
-  return { dstGcidQueue: 0, dstGcDirIndex: 0 };
+  return { dstGcidQueue: "0", dstGcDirIndex: 0 };
 }
 
 export const CMsgGCRoutingProtoBufHeader = {
   encode(message: CMsgGCRoutingProtoBufHeader, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.dstGcidQueue !== 0) {
+    if (message.dstGcidQueue !== "0") {
       writer.uint32(8).uint64(message.dstGcidQueue);
     }
     if (message.dstGcDirIndex !== 0) {
@@ -733,7 +733,7 @@ export const CMsgGCRoutingProtoBufHeader = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.dstGcidQueue = longToNumber(reader.uint64() as Long);
+          message.dstGcidQueue = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.dstGcDirIndex = reader.uint32();
@@ -748,14 +748,14 @@ export const CMsgGCRoutingProtoBufHeader = {
 
   fromJSON(object: any): CMsgGCRoutingProtoBufHeader {
     return {
-      dstGcidQueue: isSet(object.dstGcidQueue) ? Number(object.dstGcidQueue) : 0,
+      dstGcidQueue: isSet(object.dstGcidQueue) ? String(object.dstGcidQueue) : "0",
       dstGcDirIndex: isSet(object.dstGcDirIndex) ? Number(object.dstGcDirIndex) : 0,
     };
   },
 
   toJSON(message: CMsgGCRoutingProtoBufHeader): unknown {
     const obj: any = {};
-    message.dstGcidQueue !== undefined && (obj.dstGcidQueue = Math.round(message.dstGcidQueue));
+    message.dstGcidQueue !== undefined && (obj.dstGcidQueue = message.dstGcidQueue);
     message.dstGcDirIndex !== undefined && (obj.dstGcDirIndex = Math.round(message.dstGcDirIndex));
     return obj;
   },
@@ -766,7 +766,7 @@ export const CMsgGCRoutingProtoBufHeader = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGCRoutingProtoBufHeader>, I>>(object: I): CMsgGCRoutingProtoBufHeader {
     const message = createBaseCMsgGCRoutingProtoBufHeader();
-    message.dstGcidQueue = object.dstGcidQueue ?? 0;
+    message.dstGcidQueue = object.dstGcidQueue ?? "0";
     message.dstGcDirIndex = object.dstGcDirIndex ?? 0;
     return message;
   },
@@ -774,11 +774,11 @@ export const CMsgGCRoutingProtoBufHeader = {
 
 function createBaseCMsgProtoBufHeader(): CMsgProtoBufHeader {
   return {
-    steamid: 0,
+    steamid: "0",
     clientSessionid: 0,
     routingAppid: 0,
-    jobidSource: 0,
-    jobidTarget: 0,
+    jobidSource: "0",
+    jobidTarget: "0",
     targetJobName: "",
     seqNum: 0,
     eresult: 0,
@@ -787,10 +787,10 @@ function createBaseCMsgProtoBufHeader(): CMsgProtoBufHeader {
     tokenSource: 0,
     adminSpoofingUser: false,
     transportError: 0,
-    messageid: 0,
+    messageid: "0",
     publisherGroupId: 0,
     sysid: 0,
-    traceTag: 0,
+    traceTag: "0",
     webapiKeyId: 0,
     isFromExternalSource: false,
     forwardToSysid: [],
@@ -800,7 +800,7 @@ function createBaseCMsgProtoBufHeader(): CMsgProtoBufHeader {
     timeoutMs: 0,
     debugSource: "",
     debugSourceStringIndex: 0,
-    tokenId: 0,
+    tokenId: "0",
     routingGc: undefined,
     ip: undefined,
     ipV6: undefined,
@@ -809,7 +809,7 @@ function createBaseCMsgProtoBufHeader(): CMsgProtoBufHeader {
 
 export const CMsgProtoBufHeader = {
   encode(message: CMsgProtoBufHeader, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.clientSessionid !== 0) {
@@ -818,10 +818,10 @@ export const CMsgProtoBufHeader = {
     if (message.routingAppid !== 0) {
       writer.uint32(24).uint32(message.routingAppid);
     }
-    if (message.jobidSource !== 0) {
+    if (message.jobidSource !== "0") {
       writer.uint32(81).fixed64(message.jobidSource);
     }
-    if (message.jobidTarget !== 0) {
+    if (message.jobidTarget !== "0") {
       writer.uint32(89).fixed64(message.jobidTarget);
     }
     if (message.targetJobName !== "") {
@@ -848,7 +848,7 @@ export const CMsgProtoBufHeader = {
     if (message.transportError !== 0) {
       writer.uint32(136).int32(message.transportError);
     }
-    if (message.messageid !== 0) {
+    if (message.messageid !== "0") {
       writer.uint32(144).uint64(message.messageid);
     }
     if (message.publisherGroupId !== 0) {
@@ -857,7 +857,7 @@ export const CMsgProtoBufHeader = {
     if (message.sysid !== 0) {
       writer.uint32(160).uint32(message.sysid);
     }
-    if (message.traceTag !== 0) {
+    if (message.traceTag !== "0") {
       writer.uint32(168).uint64(message.traceTag);
     }
     if (message.webapiKeyId !== 0) {
@@ -889,7 +889,7 @@ export const CMsgProtoBufHeader = {
     if (message.debugSourceStringIndex !== 0) {
       writer.uint32(280).uint32(message.debugSourceStringIndex);
     }
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(288).uint64(message.tokenId);
     }
     if (message.routingGc !== undefined) {
@@ -912,7 +912,7 @@ export const CMsgProtoBufHeader = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.clientSessionid = reader.int32();
@@ -921,10 +921,10 @@ export const CMsgProtoBufHeader = {
           message.routingAppid = reader.uint32();
           break;
         case 10:
-          message.jobidSource = longToNumber(reader.fixed64() as Long);
+          message.jobidSource = longToString(reader.fixed64() as Long);
           break;
         case 11:
-          message.jobidTarget = longToNumber(reader.fixed64() as Long);
+          message.jobidTarget = longToString(reader.fixed64() as Long);
           break;
         case 12:
           message.targetJobName = reader.string();
@@ -951,7 +951,7 @@ export const CMsgProtoBufHeader = {
           message.transportError = reader.int32();
           break;
         case 18:
-          message.messageid = longToNumber(reader.uint64() as Long);
+          message.messageid = longToString(reader.uint64() as Long);
           break;
         case 19:
           message.publisherGroupId = reader.uint32();
@@ -960,7 +960,7 @@ export const CMsgProtoBufHeader = {
           message.sysid = reader.uint32();
           break;
         case 21:
-          message.traceTag = longToNumber(reader.uint64() as Long);
+          message.traceTag = longToString(reader.uint64() as Long);
           break;
         case 25:
           message.webapiKeyId = reader.uint32();
@@ -997,7 +997,7 @@ export const CMsgProtoBufHeader = {
           message.debugSourceStringIndex = reader.uint32();
           break;
         case 36:
-          message.tokenId = longToNumber(reader.uint64() as Long);
+          message.tokenId = longToString(reader.uint64() as Long);
           break;
         case 37:
           message.routingGc = CMsgGCRoutingProtoBufHeader.decode(reader, reader.uint32());
@@ -1018,11 +1018,11 @@ export const CMsgProtoBufHeader = {
 
   fromJSON(object: any): CMsgProtoBufHeader {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       clientSessionid: isSet(object.clientSessionid) ? Number(object.clientSessionid) : 0,
       routingAppid: isSet(object.routingAppid) ? Number(object.routingAppid) : 0,
-      jobidSource: isSet(object.jobidSource) ? Number(object.jobidSource) : 0,
-      jobidTarget: isSet(object.jobidTarget) ? Number(object.jobidTarget) : 0,
+      jobidSource: isSet(object.jobidSource) ? String(object.jobidSource) : "0",
+      jobidTarget: isSet(object.jobidTarget) ? String(object.jobidTarget) : "0",
       targetJobName: isSet(object.targetJobName) ? String(object.targetJobName) : "",
       seqNum: isSet(object.seqNum) ? Number(object.seqNum) : 0,
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
@@ -1031,10 +1031,10 @@ export const CMsgProtoBufHeader = {
       tokenSource: isSet(object.tokenSource) ? Number(object.tokenSource) : 0,
       adminSpoofingUser: isSet(object.adminSpoofingUser) ? Boolean(object.adminSpoofingUser) : false,
       transportError: isSet(object.transportError) ? Number(object.transportError) : 0,
-      messageid: isSet(object.messageid) ? Number(object.messageid) : 0,
+      messageid: isSet(object.messageid) ? String(object.messageid) : "0",
       publisherGroupId: isSet(object.publisherGroupId) ? Number(object.publisherGroupId) : 0,
       sysid: isSet(object.sysid) ? Number(object.sysid) : 0,
-      traceTag: isSet(object.traceTag) ? Number(object.traceTag) : 0,
+      traceTag: isSet(object.traceTag) ? String(object.traceTag) : "0",
       webapiKeyId: isSet(object.webapiKeyId) ? Number(object.webapiKeyId) : 0,
       isFromExternalSource: isSet(object.isFromExternalSource) ? Boolean(object.isFromExternalSource) : false,
       forwardToSysid: Array.isArray(object?.forwardToSysid) ? object.forwardToSysid.map((e: any) => Number(e)) : [],
@@ -1044,7 +1044,7 @@ export const CMsgProtoBufHeader = {
       timeoutMs: isSet(object.timeoutMs) ? Number(object.timeoutMs) : 0,
       debugSource: isSet(object.debugSource) ? String(object.debugSource) : "",
       debugSourceStringIndex: isSet(object.debugSourceStringIndex) ? Number(object.debugSourceStringIndex) : 0,
-      tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0,
+      tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0",
       routingGc: isSet(object.routingGc) ? CMsgGCRoutingProtoBufHeader.fromJSON(object.routingGc) : undefined,
       ip: isSet(object.ip) ? Number(object.ip) : undefined,
       ipV6: isSet(object.ipV6) ? Buffer.from(bytesFromBase64(object.ipV6)) : undefined,
@@ -1053,11 +1053,11 @@ export const CMsgProtoBufHeader = {
 
   toJSON(message: CMsgProtoBufHeader): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.clientSessionid !== undefined && (obj.clientSessionid = Math.round(message.clientSessionid));
     message.routingAppid !== undefined && (obj.routingAppid = Math.round(message.routingAppid));
-    message.jobidSource !== undefined && (obj.jobidSource = Math.round(message.jobidSource));
-    message.jobidTarget !== undefined && (obj.jobidTarget = Math.round(message.jobidTarget));
+    message.jobidSource !== undefined && (obj.jobidSource = message.jobidSource);
+    message.jobidTarget !== undefined && (obj.jobidTarget = message.jobidTarget);
     message.targetJobName !== undefined && (obj.targetJobName = message.targetJobName);
     message.seqNum !== undefined && (obj.seqNum = Math.round(message.seqNum));
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
@@ -1066,10 +1066,10 @@ export const CMsgProtoBufHeader = {
     message.tokenSource !== undefined && (obj.tokenSource = Math.round(message.tokenSource));
     message.adminSpoofingUser !== undefined && (obj.adminSpoofingUser = message.adminSpoofingUser);
     message.transportError !== undefined && (obj.transportError = Math.round(message.transportError));
-    message.messageid !== undefined && (obj.messageid = Math.round(message.messageid));
+    message.messageid !== undefined && (obj.messageid = message.messageid);
     message.publisherGroupId !== undefined && (obj.publisherGroupId = Math.round(message.publisherGroupId));
     message.sysid !== undefined && (obj.sysid = Math.round(message.sysid));
-    message.traceTag !== undefined && (obj.traceTag = Math.round(message.traceTag));
+    message.traceTag !== undefined && (obj.traceTag = message.traceTag);
     message.webapiKeyId !== undefined && (obj.webapiKeyId = Math.round(message.webapiKeyId));
     message.isFromExternalSource !== undefined && (obj.isFromExternalSource = message.isFromExternalSource);
     if (message.forwardToSysid) {
@@ -1084,7 +1084,7 @@ export const CMsgProtoBufHeader = {
     message.debugSource !== undefined && (obj.debugSource = message.debugSource);
     message.debugSourceStringIndex !== undefined &&
       (obj.debugSourceStringIndex = Math.round(message.debugSourceStringIndex));
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
     message.routingGc !== undefined &&
       (obj.routingGc = message.routingGc ? CMsgGCRoutingProtoBufHeader.toJSON(message.routingGc) : undefined);
     message.ip !== undefined && (obj.ip = Math.round(message.ip));
@@ -1098,11 +1098,11 @@ export const CMsgProtoBufHeader = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgProtoBufHeader>, I>>(object: I): CMsgProtoBufHeader {
     const message = createBaseCMsgProtoBufHeader();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.clientSessionid = object.clientSessionid ?? 0;
     message.routingAppid = object.routingAppid ?? 0;
-    message.jobidSource = object.jobidSource ?? 0;
-    message.jobidTarget = object.jobidTarget ?? 0;
+    message.jobidSource = object.jobidSource ?? "0";
+    message.jobidTarget = object.jobidTarget ?? "0";
     message.targetJobName = object.targetJobName ?? "";
     message.seqNum = object.seqNum ?? 0;
     message.eresult = object.eresult ?? 0;
@@ -1111,10 +1111,10 @@ export const CMsgProtoBufHeader = {
     message.tokenSource = object.tokenSource ?? 0;
     message.adminSpoofingUser = object.adminSpoofingUser ?? false;
     message.transportError = object.transportError ?? 0;
-    message.messageid = object.messageid ?? 0;
+    message.messageid = object.messageid ?? "0";
     message.publisherGroupId = object.publisherGroupId ?? 0;
     message.sysid = object.sysid ?? 0;
-    message.traceTag = object.traceTag ?? 0;
+    message.traceTag = object.traceTag ?? "0";
     message.webapiKeyId = object.webapiKeyId ?? 0;
     message.isFromExternalSource = object.isFromExternalSource ?? false;
     message.forwardToSysid = object.forwardToSysid?.map((e) => e) || [];
@@ -1124,7 +1124,7 @@ export const CMsgProtoBufHeader = {
     message.timeoutMs = object.timeoutMs ?? 0;
     message.debugSource = object.debugSource ?? "";
     message.debugSourceStringIndex = object.debugSourceStringIndex ?? 0;
-    message.tokenId = object.tokenId ?? 0;
+    message.tokenId = object.tokenId ?? "0";
     message.routingGc = (object.routingGc !== undefined && object.routingGc !== null)
       ? CMsgGCRoutingProtoBufHeader.fromPartial(object.routingGc)
       : undefined;
@@ -1255,8 +1255,8 @@ function createBaseCMsgAuthTicket(): CMsgAuthTicket {
   return {
     estate: 0,
     eresult: 0,
-    steamid: 0,
-    gameid: 0,
+    steamid: "0",
+    gameid: "0",
     hSteamPipe: 0,
     ticketCrc: 0,
     ticket: Buffer.alloc(0),
@@ -1272,10 +1272,10 @@ export const CMsgAuthTicket = {
     if (message.eresult !== 0) {
       writer.uint32(16).uint32(message.eresult);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(25).fixed64(message.steamid);
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(33).fixed64(message.gameid);
     }
     if (message.hSteamPipe !== 0) {
@@ -1307,10 +1307,10 @@ export const CMsgAuthTicket = {
           message.eresult = reader.uint32();
           break;
         case 3:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 4:
-          message.gameid = longToNumber(reader.fixed64() as Long);
+          message.gameid = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.hSteamPipe = reader.uint32();
@@ -1336,8 +1336,8 @@ export const CMsgAuthTicket = {
     return {
       estate: isSet(object.estate) ? Number(object.estate) : 0,
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       hSteamPipe: isSet(object.hSteamPipe) ? Number(object.hSteamPipe) : 0,
       ticketCrc: isSet(object.ticketCrc) ? Number(object.ticketCrc) : 0,
       ticket: isSet(object.ticket) ? Buffer.from(bytesFromBase64(object.ticket)) : Buffer.alloc(0),
@@ -1349,8 +1349,8 @@ export const CMsgAuthTicket = {
     const obj: any = {};
     message.estate !== undefined && (obj.estate = Math.round(message.estate));
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.hSteamPipe !== undefined && (obj.hSteamPipe = Math.round(message.hSteamPipe));
     message.ticketCrc !== undefined && (obj.ticketCrc = Math.round(message.ticketCrc));
     message.ticket !== undefined &&
@@ -1368,8 +1368,8 @@ export const CMsgAuthTicket = {
     const message = createBaseCMsgAuthTicket();
     message.estate = object.estate ?? 0;
     message.eresult = object.eresult ?? 0;
-    message.steamid = object.steamid ?? 0;
-    message.gameid = object.gameid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.gameid = object.gameid ?? "0";
     message.hSteamPipe = object.hSteamPipe ?? 0;
     message.ticketCrc = object.ticketCrc ?? 0;
     message.ticket = object.ticket ?? Buffer.alloc(0);
@@ -2081,8 +2081,8 @@ export const CLocalizationToken = {
 function createBaseCClanEventUserNewsTuple(): CClanEventUserNewsTuple {
   return {
     clanid: 0,
-    eventGid: 0,
-    announcementGid: 0,
+    eventGid: "0",
+    announcementGid: "0",
     rtimeStart: 0,
     rtimeEnd: 0,
     priorityScore: 0,
@@ -2098,10 +2098,10 @@ export const CClanEventUserNewsTuple = {
     if (message.clanid !== 0) {
       writer.uint32(8).uint32(message.clanid);
     }
-    if (message.eventGid !== 0) {
+    if (message.eventGid !== "0") {
       writer.uint32(17).fixed64(message.eventGid);
     }
-    if (message.announcementGid !== 0) {
+    if (message.announcementGid !== "0") {
       writer.uint32(25).fixed64(message.announcementGid);
     }
     if (message.rtimeStart !== 0) {
@@ -2139,10 +2139,10 @@ export const CClanEventUserNewsTuple = {
           message.clanid = reader.uint32();
           break;
         case 2:
-          message.eventGid = longToNumber(reader.fixed64() as Long);
+          message.eventGid = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.announcementGid = longToNumber(reader.fixed64() as Long);
+          message.announcementGid = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.rtimeStart = reader.uint32();
@@ -2176,8 +2176,8 @@ export const CClanEventUserNewsTuple = {
   fromJSON(object: any): CClanEventUserNewsTuple {
     return {
       clanid: isSet(object.clanid) ? Number(object.clanid) : 0,
-      eventGid: isSet(object.eventGid) ? Number(object.eventGid) : 0,
-      announcementGid: isSet(object.announcementGid) ? Number(object.announcementGid) : 0,
+      eventGid: isSet(object.eventGid) ? String(object.eventGid) : "0",
+      announcementGid: isSet(object.announcementGid) ? String(object.announcementGid) : "0",
       rtimeStart: isSet(object.rtimeStart) ? Number(object.rtimeStart) : 0,
       rtimeEnd: isSet(object.rtimeEnd) ? Number(object.rtimeEnd) : 0,
       priorityScore: isSet(object.priorityScore) ? Number(object.priorityScore) : 0,
@@ -2191,8 +2191,8 @@ export const CClanEventUserNewsTuple = {
   toJSON(message: CClanEventUserNewsTuple): unknown {
     const obj: any = {};
     message.clanid !== undefined && (obj.clanid = Math.round(message.clanid));
-    message.eventGid !== undefined && (obj.eventGid = Math.round(message.eventGid));
-    message.announcementGid !== undefined && (obj.announcementGid = Math.round(message.announcementGid));
+    message.eventGid !== undefined && (obj.eventGid = message.eventGid);
+    message.announcementGid !== undefined && (obj.announcementGid = message.announcementGid);
     message.rtimeStart !== undefined && (obj.rtimeStart = Math.round(message.rtimeStart));
     message.rtimeEnd !== undefined && (obj.rtimeEnd = Math.round(message.rtimeEnd));
     message.priorityScore !== undefined && (obj.priorityScore = Math.round(message.priorityScore));
@@ -2210,8 +2210,8 @@ export const CClanEventUserNewsTuple = {
   fromPartial<I extends Exact<DeepPartial<CClanEventUserNewsTuple>, I>>(object: I): CClanEventUserNewsTuple {
     const message = createBaseCClanEventUserNewsTuple();
     message.clanid = object.clanid ?? 0;
-    message.eventGid = object.eventGid ?? 0;
-    message.announcementGid = object.announcementGid ?? 0;
+    message.eventGid = object.eventGid ?? "0";
+    message.announcementGid = object.announcementGid ?? "0";
     message.rtimeStart = object.rtimeStart ?? 0;
     message.rtimeEnd = object.rtimeEnd ?? 0;
     message.priorityScore = object.priorityScore ?? 0;
@@ -2309,9 +2309,9 @@ export const CClanMatchEventByRange = {
 
 function createBaseCCommunityClanAnnouncementInfo(): CCommunityClanAnnouncementInfo {
   return {
-    gid: 0,
-    clanid: 0,
-    posterid: 0,
+    gid: "0",
+    clanid: "0",
+    posterid: "0",
     headline: "",
     posttime: 0,
     updatetime: 0,
@@ -2320,8 +2320,8 @@ function createBaseCCommunityClanAnnouncementInfo(): CCommunityClanAnnouncementI
     tags: [],
     language: 0,
     hidden: false,
-    forumTopicId: 0,
-    eventGid: 0,
+    forumTopicId: "0",
+    eventGid: "0",
     voteupcount: 0,
     votedowncount: 0,
     banCheckResult: 0,
@@ -2331,13 +2331,13 @@ function createBaseCCommunityClanAnnouncementInfo(): CCommunityClanAnnouncementI
 
 export const CCommunityClanAnnouncementInfo = {
   encode(message: CCommunityClanAnnouncementInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(8).uint64(message.gid);
     }
-    if (message.clanid !== 0) {
+    if (message.clanid !== "0") {
       writer.uint32(16).uint64(message.clanid);
     }
-    if (message.posterid !== 0) {
+    if (message.posterid !== "0") {
       writer.uint32(24).uint64(message.posterid);
     }
     if (message.headline !== "") {
@@ -2364,10 +2364,10 @@ export const CCommunityClanAnnouncementInfo = {
     if (message.hidden === true) {
       writer.uint32(88).bool(message.hidden);
     }
-    if (message.forumTopicId !== 0) {
+    if (message.forumTopicId !== "0") {
       writer.uint32(97).fixed64(message.forumTopicId);
     }
-    if (message.eventGid !== 0) {
+    if (message.eventGid !== "0") {
       writer.uint32(105).fixed64(message.eventGid);
     }
     if (message.voteupcount !== 0) {
@@ -2393,13 +2393,13 @@ export const CCommunityClanAnnouncementInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.uint64() as Long);
+          message.gid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.clanid = longToNumber(reader.uint64() as Long);
+          message.clanid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.posterid = longToNumber(reader.uint64() as Long);
+          message.posterid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.headline = reader.string();
@@ -2426,10 +2426,10 @@ export const CCommunityClanAnnouncementInfo = {
           message.hidden = reader.bool();
           break;
         case 12:
-          message.forumTopicId = longToNumber(reader.fixed64() as Long);
+          message.forumTopicId = longToString(reader.fixed64() as Long);
           break;
         case 13:
-          message.eventGid = longToNumber(reader.fixed64() as Long);
+          message.eventGid = longToString(reader.fixed64() as Long);
           break;
         case 14:
           message.voteupcount = reader.int32();
@@ -2453,9 +2453,9 @@ export const CCommunityClanAnnouncementInfo = {
 
   fromJSON(object: any): CCommunityClanAnnouncementInfo {
     return {
-      gid: isSet(object.gid) ? Number(object.gid) : 0,
-      clanid: isSet(object.clanid) ? Number(object.clanid) : 0,
-      posterid: isSet(object.posterid) ? Number(object.posterid) : 0,
+      gid: isSet(object.gid) ? String(object.gid) : "0",
+      clanid: isSet(object.clanid) ? String(object.clanid) : "0",
+      posterid: isSet(object.posterid) ? String(object.posterid) : "0",
       headline: isSet(object.headline) ? String(object.headline) : "",
       posttime: isSet(object.posttime) ? Number(object.posttime) : 0,
       updatetime: isSet(object.updatetime) ? Number(object.updatetime) : 0,
@@ -2464,8 +2464,8 @@ export const CCommunityClanAnnouncementInfo = {
       tags: Array.isArray(object?.tags) ? object.tags.map((e: any) => String(e)) : [],
       language: isSet(object.language) ? Number(object.language) : 0,
       hidden: isSet(object.hidden) ? Boolean(object.hidden) : false,
-      forumTopicId: isSet(object.forumTopicId) ? Number(object.forumTopicId) : 0,
-      eventGid: isSet(object.eventGid) ? Number(object.eventGid) : 0,
+      forumTopicId: isSet(object.forumTopicId) ? String(object.forumTopicId) : "0",
+      eventGid: isSet(object.eventGid) ? String(object.eventGid) : "0",
       voteupcount: isSet(object.voteupcount) ? Number(object.voteupcount) : 0,
       votedowncount: isSet(object.votedowncount) ? Number(object.votedowncount) : 0,
       banCheckResult: isSet(object.banCheckResult) ? eBanContentCheckResultFromJSON(object.banCheckResult) : 0,
@@ -2475,9 +2475,9 @@ export const CCommunityClanAnnouncementInfo = {
 
   toJSON(message: CCommunityClanAnnouncementInfo): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
-    message.clanid !== undefined && (obj.clanid = Math.round(message.clanid));
-    message.posterid !== undefined && (obj.posterid = Math.round(message.posterid));
+    message.gid !== undefined && (obj.gid = message.gid);
+    message.clanid !== undefined && (obj.clanid = message.clanid);
+    message.posterid !== undefined && (obj.posterid = message.posterid);
     message.headline !== undefined && (obj.headline = message.headline);
     message.posttime !== undefined && (obj.posttime = Math.round(message.posttime));
     message.updatetime !== undefined && (obj.updatetime = Math.round(message.updatetime));
@@ -2490,8 +2490,8 @@ export const CCommunityClanAnnouncementInfo = {
     }
     message.language !== undefined && (obj.language = Math.round(message.language));
     message.hidden !== undefined && (obj.hidden = message.hidden);
-    message.forumTopicId !== undefined && (obj.forumTopicId = Math.round(message.forumTopicId));
-    message.eventGid !== undefined && (obj.eventGid = Math.round(message.eventGid));
+    message.forumTopicId !== undefined && (obj.forumTopicId = message.forumTopicId);
+    message.eventGid !== undefined && (obj.eventGid = message.eventGid);
     message.voteupcount !== undefined && (obj.voteupcount = Math.round(message.voteupcount));
     message.votedowncount !== undefined && (obj.votedowncount = Math.round(message.votedowncount));
     message.banCheckResult !== undefined && (obj.banCheckResult = eBanContentCheckResultToJSON(message.banCheckResult));
@@ -2507,9 +2507,9 @@ export const CCommunityClanAnnouncementInfo = {
     object: I,
   ): CCommunityClanAnnouncementInfo {
     const message = createBaseCCommunityClanAnnouncementInfo();
-    message.gid = object.gid ?? 0;
-    message.clanid = object.clanid ?? 0;
-    message.posterid = object.posterid ?? 0;
+    message.gid = object.gid ?? "0";
+    message.clanid = object.clanid ?? "0";
+    message.posterid = object.posterid ?? "0";
     message.headline = object.headline ?? "";
     message.posttime = object.posttime ?? 0;
     message.updatetime = object.updatetime ?? 0;
@@ -2518,8 +2518,8 @@ export const CCommunityClanAnnouncementInfo = {
     message.tags = object.tags?.map((e) => e) || [];
     message.language = object.language ?? 0;
     message.hidden = object.hidden ?? false;
-    message.forumTopicId = object.forumTopicId ?? 0;
-    message.eventGid = object.eventGid ?? 0;
+    message.forumTopicId = object.forumTopicId ?? "0";
+    message.eventGid = object.eventGid ?? "0";
     message.voteupcount = object.voteupcount ?? 0;
     message.votedowncount = object.votedowncount ?? 0;
     message.banCheckResult = object.banCheckResult ?? 0;
@@ -2530,8 +2530,8 @@ export const CCommunityClanAnnouncementInfo = {
 
 function createBaseCClanEventData(): CClanEventData {
   return {
-    gid: 0,
-    clanSteamid: 0,
+    gid: "0",
+    clanSteamid: "0",
     eventName: "",
     eventType: 1,
     appid: 0,
@@ -2540,8 +2540,8 @@ function createBaseCClanEventData(): CClanEventData {
     rtime32StartTime: 0,
     rtime32EndTime: 0,
     commentCount: 0,
-    creatorSteamid: 0,
-    lastUpdateSteamid: 0,
+    creatorSteamid: "0",
+    lastUpdateSteamid: "0",
     eventNotes: "",
     jsondata: "",
     announcementBody: undefined,
@@ -2552,9 +2552,9 @@ function createBaseCClanEventData(): CClanEventData {
     broadcasterAccountid: 0,
     followerCount: 0,
     ignoreCount: 0,
-    forumTopicId: 0,
+    forumTopicId: "0",
     rtime32LastModified: 0,
-    newsPostGid: 0,
+    newsPostGid: "0",
     rtimeModReviewed: 0,
     featuredAppTagid: 0,
     referencedAppids: [],
@@ -2565,10 +2565,10 @@ function createBaseCClanEventData(): CClanEventData {
 
 export const CClanEventData = {
   encode(message: CClanEventData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gid !== 0) {
+    if (message.gid !== "0") {
       writer.uint32(9).fixed64(message.gid);
     }
-    if (message.clanSteamid !== 0) {
+    if (message.clanSteamid !== "0") {
       writer.uint32(17).fixed64(message.clanSteamid);
     }
     if (message.eventName !== "") {
@@ -2595,10 +2595,10 @@ export const CClanEventData = {
     if (message.commentCount !== 0) {
       writer.uint32(80).int32(message.commentCount);
     }
-    if (message.creatorSteamid !== 0) {
+    if (message.creatorSteamid !== "0") {
       writer.uint32(89).fixed64(message.creatorSteamid);
     }
-    if (message.lastUpdateSteamid !== 0) {
+    if (message.lastUpdateSteamid !== "0") {
       writer.uint32(97).fixed64(message.lastUpdateSteamid);
     }
     if (message.eventNotes !== "") {
@@ -2631,13 +2631,13 @@ export const CClanEventData = {
     if (message.ignoreCount !== 0) {
       writer.uint32(176).uint32(message.ignoreCount);
     }
-    if (message.forumTopicId !== 0) {
+    if (message.forumTopicId !== "0") {
       writer.uint32(185).fixed64(message.forumTopicId);
     }
     if (message.rtime32LastModified !== 0) {
       writer.uint32(192).uint32(message.rtime32LastModified);
     }
-    if (message.newsPostGid !== 0) {
+    if (message.newsPostGid !== "0") {
       writer.uint32(201).fixed64(message.newsPostGid);
     }
     if (message.rtimeModReviewed !== 0) {
@@ -2668,10 +2668,10 @@ export const CClanEventData = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gid = longToNumber(reader.fixed64() as Long);
+          message.gid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.clanSteamid = longToNumber(reader.fixed64() as Long);
+          message.clanSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.eventName = reader.string();
@@ -2698,10 +2698,10 @@ export const CClanEventData = {
           message.commentCount = reader.int32();
           break;
         case 11:
-          message.creatorSteamid = longToNumber(reader.fixed64() as Long);
+          message.creatorSteamid = longToString(reader.fixed64() as Long);
           break;
         case 12:
-          message.lastUpdateSteamid = longToNumber(reader.fixed64() as Long);
+          message.lastUpdateSteamid = longToString(reader.fixed64() as Long);
           break;
         case 13:
           message.eventNotes = reader.string();
@@ -2734,13 +2734,13 @@ export const CClanEventData = {
           message.ignoreCount = reader.uint32();
           break;
         case 23:
-          message.forumTopicId = longToNumber(reader.fixed64() as Long);
+          message.forumTopicId = longToString(reader.fixed64() as Long);
           break;
         case 24:
           message.rtime32LastModified = reader.uint32();
           break;
         case 25:
-          message.newsPostGid = longToNumber(reader.fixed64() as Long);
+          message.newsPostGid = longToString(reader.fixed64() as Long);
           break;
         case 26:
           message.rtimeModReviewed = reader.uint32();
@@ -2774,8 +2774,8 @@ export const CClanEventData = {
 
   fromJSON(object: any): CClanEventData {
     return {
-      gid: isSet(object.gid) ? Number(object.gid) : 0,
-      clanSteamid: isSet(object.clanSteamid) ? Number(object.clanSteamid) : 0,
+      gid: isSet(object.gid) ? String(object.gid) : "0",
+      clanSteamid: isSet(object.clanSteamid) ? String(object.clanSteamid) : "0",
       eventName: isSet(object.eventName) ? String(object.eventName) : "",
       eventType: isSet(object.eventType) ? eProtoClanEventTypeFromJSON(object.eventType) : 1,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
@@ -2784,8 +2784,8 @@ export const CClanEventData = {
       rtime32StartTime: isSet(object.rtime32StartTime) ? Number(object.rtime32StartTime) : 0,
       rtime32EndTime: isSet(object.rtime32EndTime) ? Number(object.rtime32EndTime) : 0,
       commentCount: isSet(object.commentCount) ? Number(object.commentCount) : 0,
-      creatorSteamid: isSet(object.creatorSteamid) ? Number(object.creatorSteamid) : 0,
-      lastUpdateSteamid: isSet(object.lastUpdateSteamid) ? Number(object.lastUpdateSteamid) : 0,
+      creatorSteamid: isSet(object.creatorSteamid) ? String(object.creatorSteamid) : "0",
+      lastUpdateSteamid: isSet(object.lastUpdateSteamid) ? String(object.lastUpdateSteamid) : "0",
       eventNotes: isSet(object.eventNotes) ? String(object.eventNotes) : "",
       jsondata: isSet(object.jsondata) ? String(object.jsondata) : "",
       announcementBody: isSet(object.announcementBody)
@@ -2798,9 +2798,9 @@ export const CClanEventData = {
       broadcasterAccountid: isSet(object.broadcasterAccountid) ? Number(object.broadcasterAccountid) : 0,
       followerCount: isSet(object.followerCount) ? Number(object.followerCount) : 0,
       ignoreCount: isSet(object.ignoreCount) ? Number(object.ignoreCount) : 0,
-      forumTopicId: isSet(object.forumTopicId) ? Number(object.forumTopicId) : 0,
+      forumTopicId: isSet(object.forumTopicId) ? String(object.forumTopicId) : "0",
       rtime32LastModified: isSet(object.rtime32LastModified) ? Number(object.rtime32LastModified) : 0,
-      newsPostGid: isSet(object.newsPostGid) ? Number(object.newsPostGid) : 0,
+      newsPostGid: isSet(object.newsPostGid) ? String(object.newsPostGid) : "0",
       rtimeModReviewed: isSet(object.rtimeModReviewed) ? Number(object.rtimeModReviewed) : 0,
       featuredAppTagid: isSet(object.featuredAppTagid) ? Number(object.featuredAppTagid) : 0,
       referencedAppids: Array.isArray(object?.referencedAppids)
@@ -2813,8 +2813,8 @@ export const CClanEventData = {
 
   toJSON(message: CClanEventData): unknown {
     const obj: any = {};
-    message.gid !== undefined && (obj.gid = Math.round(message.gid));
-    message.clanSteamid !== undefined && (obj.clanSteamid = Math.round(message.clanSteamid));
+    message.gid !== undefined && (obj.gid = message.gid);
+    message.clanSteamid !== undefined && (obj.clanSteamid = message.clanSteamid);
     message.eventName !== undefined && (obj.eventName = message.eventName);
     message.eventType !== undefined && (obj.eventType = eProtoClanEventTypeToJSON(message.eventType));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
@@ -2823,8 +2823,8 @@ export const CClanEventData = {
     message.rtime32StartTime !== undefined && (obj.rtime32StartTime = Math.round(message.rtime32StartTime));
     message.rtime32EndTime !== undefined && (obj.rtime32EndTime = Math.round(message.rtime32EndTime));
     message.commentCount !== undefined && (obj.commentCount = Math.round(message.commentCount));
-    message.creatorSteamid !== undefined && (obj.creatorSteamid = Math.round(message.creatorSteamid));
-    message.lastUpdateSteamid !== undefined && (obj.lastUpdateSteamid = Math.round(message.lastUpdateSteamid));
+    message.creatorSteamid !== undefined && (obj.creatorSteamid = message.creatorSteamid);
+    message.lastUpdateSteamid !== undefined && (obj.lastUpdateSteamid = message.lastUpdateSteamid);
     message.eventNotes !== undefined && (obj.eventNotes = message.eventNotes);
     message.jsondata !== undefined && (obj.jsondata = message.jsondata);
     message.announcementBody !== undefined && (obj.announcementBody = message.announcementBody
@@ -2838,9 +2838,9 @@ export const CClanEventData = {
     message.broadcasterAccountid !== undefined && (obj.broadcasterAccountid = Math.round(message.broadcasterAccountid));
     message.followerCount !== undefined && (obj.followerCount = Math.round(message.followerCount));
     message.ignoreCount !== undefined && (obj.ignoreCount = Math.round(message.ignoreCount));
-    message.forumTopicId !== undefined && (obj.forumTopicId = Math.round(message.forumTopicId));
+    message.forumTopicId !== undefined && (obj.forumTopicId = message.forumTopicId);
     message.rtime32LastModified !== undefined && (obj.rtime32LastModified = Math.round(message.rtime32LastModified));
-    message.newsPostGid !== undefined && (obj.newsPostGid = Math.round(message.newsPostGid));
+    message.newsPostGid !== undefined && (obj.newsPostGid = message.newsPostGid);
     message.rtimeModReviewed !== undefined && (obj.rtimeModReviewed = Math.round(message.rtimeModReviewed));
     message.featuredAppTagid !== undefined && (obj.featuredAppTagid = Math.round(message.featuredAppTagid));
     if (message.referencedAppids) {
@@ -2859,8 +2859,8 @@ export const CClanEventData = {
 
   fromPartial<I extends Exact<DeepPartial<CClanEventData>, I>>(object: I): CClanEventData {
     const message = createBaseCClanEventData();
-    message.gid = object.gid ?? 0;
-    message.clanSteamid = object.clanSteamid ?? 0;
+    message.gid = object.gid ?? "0";
+    message.clanSteamid = object.clanSteamid ?? "0";
     message.eventName = object.eventName ?? "";
     message.eventType = object.eventType ?? 1;
     message.appid = object.appid ?? 0;
@@ -2869,8 +2869,8 @@ export const CClanEventData = {
     message.rtime32StartTime = object.rtime32StartTime ?? 0;
     message.rtime32EndTime = object.rtime32EndTime ?? 0;
     message.commentCount = object.commentCount ?? 0;
-    message.creatorSteamid = object.creatorSteamid ?? 0;
-    message.lastUpdateSteamid = object.lastUpdateSteamid ?? 0;
+    message.creatorSteamid = object.creatorSteamid ?? "0";
+    message.lastUpdateSteamid = object.lastUpdateSteamid ?? "0";
     message.eventNotes = object.eventNotes ?? "";
     message.jsondata = object.jsondata ?? "";
     message.announcementBody = (object.announcementBody !== undefined && object.announcementBody !== null)
@@ -2883,9 +2883,9 @@ export const CClanEventData = {
     message.broadcasterAccountid = object.broadcasterAccountid ?? 0;
     message.followerCount = object.followerCount ?? 0;
     message.ignoreCount = object.ignoreCount ?? 0;
-    message.forumTopicId = object.forumTopicId ?? 0;
+    message.forumTopicId = object.forumTopicId ?? "0";
     message.rtime32LastModified = object.rtime32LastModified ?? 0;
-    message.newsPostGid = object.newsPostGid ?? 0;
+    message.newsPostGid = object.newsPostGid ?? "0";
     message.rtimeModReviewed = object.rtimeModReviewed ?? 0;
     message.featuredAppTagid = object.featuredAppTagid ?? 0;
     message.referencedAppids = object.referencedAppids?.map((e) => e) || [];
@@ -3337,11 +3337,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

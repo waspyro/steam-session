@@ -125,7 +125,7 @@ export function ePublishedFileForSaleStatusToJSON(object: EPublishedFileForSaleS
 }
 
 export interface CPublishedFileVoteRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   voteUp: boolean;
 }
 
@@ -133,7 +133,7 @@ export interface CPublishedFileVoteResponse {
 }
 
 export interface CPublishedFileSubscribeRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   listType: number;
   appid: number;
   notifyClient: boolean;
@@ -143,7 +143,7 @@ export interface CPublishedFileSubscribeResponse {
 }
 
 export interface CPublishedFileUnsubscribeRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   listType: number;
   appid: number;
   notifyClient: boolean;
@@ -153,7 +153,7 @@ export interface CPublishedFileUnsubscribeResponse {
 }
 
 export interface CPublishedFileCanSubscribeRequest {
-  publishedfileid: number;
+  publishedfileid: string;
 }
 
 export interface CPublishedFileCanSubscribeResponse {
@@ -161,14 +161,14 @@ export interface CPublishedFileCanSubscribeResponse {
 }
 
 export interface CPublishedFileGetSubSectionDataRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   forTableOfContents: boolean;
-  specificSectionid: number;
+  specificSectionid: string;
   desiredRevision: EPublishedFileRevision;
 }
 
 export interface PublishedFileSubSection {
-  sectionid: number;
+  sectionid: string;
   title: string;
   descriptionText: string;
   sortOrder: number;
@@ -198,12 +198,12 @@ export interface CPublishedFilePublishRequest {
 }
 
 export interface CPublishedFilePublishResponse {
-  publishedfileid: number;
+  publishedfileid: string;
   redirectUri: string;
 }
 
 export interface CPublishedFileGetDetailsRequest {
-  publishedfileids: number[];
+  publishedfileids: string[];
   includetags: boolean;
   includeadditionalpreviews: boolean;
   includechildren: boolean;
@@ -222,20 +222,20 @@ export interface CPublishedFileGetDetailsRequest {
 
 export interface PublishedFileDetails {
   result: number;
-  publishedfileid: number;
-  creator: number;
+  publishedfileid: string;
+  creator: string;
   creatorAppid: number;
   consumerAppid: number;
   consumerShortcutid: number;
   filename: string;
-  fileSize: number;
-  previewFileSize: number;
+  fileSize: string;
+  previewFileSize: string;
   fileUrl: string;
   previewUrl: string;
   youtubevideoid: string;
   url: string;
-  hcontentFile: number;
-  hcontentPreview: number;
+  hcontentFile: string;
+  hcontentPreview: string;
   title: string;
   fileDescription: string;
   shortDescription: string;
@@ -250,7 +250,7 @@ export interface PublishedFileDetails {
   numCommentsPublic: number;
   banned: boolean;
   banReason: string;
-  banner: number;
+  banner: string;
   canBeDeleted: boolean;
   incompatible: boolean;
   appName: string;
@@ -262,8 +262,8 @@ export interface PublishedFileDetails {
   lifetimeSubscriptions: number;
   lifetimeFavorited: number;
   lifetimeFollowers: number;
-  lifetimePlaytime: number;
-  lifetimePlaytimeSessions: number;
+  lifetimePlaytime: string;
+  lifetimePlaytimeSessions: string;
   views: number;
   imageWidth: number;
   imageHeight: number;
@@ -285,7 +285,7 @@ export interface PublishedFileDetails {
   language: number;
   maybeInappropriateSex: boolean;
   maybeInappropriateViolence: boolean;
-  revisionChangeNumber: number;
+  revisionChangeNumber: string;
   revision: EPublishedFileRevision;
   availableRevisions: EPublishedFileRevision[];
   reactions: PublishedFileDetails_Reaction[];
@@ -299,7 +299,7 @@ export interface PublishedFileDetails_Tag {
 }
 
 export interface PublishedFileDetails_Preview {
-  previewid: number;
+  previewid: string;
   sortorder: number;
   url: string;
   size: number;
@@ -310,7 +310,7 @@ export interface PublishedFileDetails_Preview {
 }
 
 export interface PublishedFileDetails_Child {
-  publishedfileid: number;
+  publishedfileid: string;
   sortorder: number;
   fileType: number;
 }
@@ -336,8 +336,8 @@ export interface PublishedFileDetails_ForSaleData {
 }
 
 export interface PublishedFileDetails_PlaytimeStats {
-  playtimeSeconds: number;
-  numSessions: number;
+  playtimeSeconds: string;
+  numSessions: string;
 }
 
 export interface PublishedFileDetails_Reaction {
@@ -356,7 +356,7 @@ export interface CPublishedFileGetItemInfoRequest {
 }
 
 export interface CPublishedFileGetItemInfoRequest_WorkshopItem {
-  publishedFileId: number;
+  publishedFileId: string;
   timeUpdated: number;
   desiredRevision: EPublishedFileRevision;
 }
@@ -364,18 +364,18 @@ export interface CPublishedFileGetItemInfoRequest_WorkshopItem {
 export interface CPublishedFileGetItemInfoResponse {
   updateTime: number;
   workshopItems: CPublishedFileGetItemInfoResponse_WorkshopItemInfo[];
-  privateItems: number[];
+  privateItems: string[];
 }
 
 export interface CPublishedFileGetItemInfoResponse_WorkshopItemInfo {
-  publishedFileId: number;
+  publishedFileId: string;
   timeUpdated: number;
-  manifestId: number;
+  manifestId: string;
   flags: number;
 }
 
 export interface CPublishedFileGetUserFilesRequest {
-  steamid: number;
+  steamid: string;
   appid: number;
   page: number;
   numperpage: number;
@@ -434,7 +434,7 @@ export interface CPublishedFileGetUserFilesResponse_App {
 
 export interface CPublishedFileAreFilesInSubscriptionListRequest {
   appid: number;
-  publishedfileids: number[];
+  publishedfileids: string[];
   listtype: number;
   filetype: number;
   workshopfiletype: number;
@@ -445,13 +445,13 @@ export interface CPublishedFileAreFilesInSubscriptionListResponse {
 }
 
 export interface CPublishedFileAreFilesInSubscriptionListResponse_InList {
-  publishedfileid: number;
+  publishedfileid: string;
   inlist: boolean;
 }
 
 export interface CPublishedFileUpdateRequest {
   appid: number;
-  publishedfileid: number;
+  publishedfileid: string;
   title: string;
   fileDescription: string;
   visibility: number;
@@ -467,14 +467,14 @@ export interface CPublishedFileUpdateResponse {
 }
 
 export interface CPublishedFileDeleteRequest {
-  publishedfileid: number;
+  publishedfileid: string;
 }
 
 export interface CPublishedFileDeleteResponse {
 }
 
 export interface CPublishedFileGetChangeHistoryEntryRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   timestamp: number;
   language: number;
 }
@@ -485,7 +485,7 @@ export interface CPublishedFileGetChangeHistoryEntryResponse {
 }
 
 export interface CPublishedFileGetChangeHistoryRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   totalOnly: boolean;
   startindex: number;
   count: number;
@@ -530,7 +530,7 @@ export interface CPublishedFileQueryFilesRequest {
   omittedFlags: string[];
   searchText: string;
   filetype: number;
-  childPublishedfileid: number;
+  childPublishedfileid: string;
   days: number;
   includeRecentVotesOnly: boolean;
   cacheMaxAgeSeconds: number;
@@ -577,7 +577,7 @@ export interface CPublishedFileQueryFilesResponse {
 }
 
 export interface CPublishedFileAddAppRelationshipRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   appid: number;
   relationship: number;
 }
@@ -586,7 +586,7 @@ export interface CPublishedFileAddAppRelationshipResponse {
 }
 
 export interface CPublishedFileRemoveAppRelationshipRequest {
-  publishedfileid: number;
+  publishedfileid: string;
   appid: number;
   relationship: number;
 }
@@ -595,7 +595,7 @@ export interface CPublishedFileRemoveAppRelationshipResponse {
 }
 
 export interface CPublishedFileGetAppRelationshipsRequest {
-  publishedfileid: number;
+  publishedfileid: string;
 }
 
 export interface CPublishedFileGetAppRelationshipsResponse {
@@ -608,7 +608,7 @@ export interface CPublishedFileGetAppRelationshipsResponse_AppRelationship {
 }
 
 export interface CPublishedFileGetAppRelationshipsBatchedRequest {
-  publishedfileids: number[];
+  publishedfileids: string[];
   filterRelationship: number;
 }
 
@@ -622,14 +622,14 @@ export interface CPublishedFileGetAppRelationshipsBatchedResponse_AppRelationshi
 }
 
 export interface CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship {
-  publishedfileid: number;
+  publishedfileid: string;
   result: number;
   appRelationships: CPublishedFileGetAppRelationshipsBatchedResponse_AppRelationship[];
 }
 
 export interface CPublishedFileStartPlaytimeTrackingRequest {
   appid: number;
-  publishedfileids: number[];
+  publishedfileids: string[];
 }
 
 export interface CPublishedFileStartPlaytimeTrackingResponse {
@@ -637,7 +637,7 @@ export interface CPublishedFileStartPlaytimeTrackingResponse {
 
 export interface CPublishedFileStopPlaytimeTrackingRequest {
   appid: number;
-  publishedfileids: number[];
+  publishedfileids: string[];
 }
 
 export interface CPublishedFileStopPlaytimeTrackingResponse {
@@ -656,7 +656,7 @@ export interface CPublishedFileSetPlaytimeForControllerConfigsRequest {
 }
 
 export interface CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage {
-  publishedfileid: number;
+  publishedfileid: string;
   secondsActive: number;
 }
 
@@ -664,23 +664,23 @@ export interface CPublishedFileSetPlaytimeForControllerConfigsResponse {
 }
 
 export interface CPublishedFileAddChildRequest {
-  publishedfileid: number;
-  childPublishedfileid: number;
+  publishedfileid: string;
+  childPublishedfileid: string;
 }
 
 export interface CPublishedFileAddChildResponse {
 }
 
 export interface CPublishedFileRemoveChildRequest {
-  publishedfileid: number;
-  childPublishedfileid: number;
+  publishedfileid: string;
+  childPublishedfileid: string;
 }
 
 export interface CPublishedFileRemoveChildResponse {
 }
 
 export interface CPublishedFileGetUserVoteSummaryRequest {
-  publishedfileids: number[];
+  publishedfileids: string[];
 }
 
 export interface CPublishedFileGetUserVoteSummaryResponse {
@@ -688,7 +688,7 @@ export interface CPublishedFileGetUserVoteSummaryResponse {
 }
 
 export interface CPublishedFileGetUserVoteSummaryResponse_VoteSummary {
-  publishedfileid: number;
+  publishedfileid: string;
   voteFor: boolean;
   voteAgainst: boolean;
   reported: boolean;
@@ -706,15 +706,15 @@ export interface CPublishedFileGetItemChangesResponse {
 }
 
 export interface CPublishedFileGetItemChangesResponse_WorkshopItemInfo {
-  publishedFileId: number;
+  publishedFileId: string;
   timeUpdated: number;
-  manifestId: number;
+  manifestId: string;
 }
 
 export interface CPublishedFileFileSubscribedNotification {
-  publishedFileId: number;
+  publishedFileId: string;
   appId: number;
-  fileHcontent: number;
+  fileHcontent: string;
   fileSize: number;
   rtimeSubscribed: number;
   isDepotContent: boolean;
@@ -724,27 +724,27 @@ export interface CPublishedFileFileSubscribedNotification {
 
 export interface CPublishedFileFileSubscribedNotification_RevisionData {
   revision: EPublishedFileRevision;
-  fileHcontent: number;
+  fileHcontent: string;
   rtimeUpdated: number;
 }
 
 export interface CPublishedFileFileUnsubscribedNotification {
-  publishedFileId: number;
+  publishedFileId: string;
   appId: number;
 }
 
 export interface CPublishedFileFileDeletedClientNotification {
-  publishedFileId: number;
+  publishedFileId: string;
   appId: number;
 }
 
 function createBaseCPublishedFileVoteRequest(): CPublishedFileVoteRequest {
-  return { publishedfileid: 0, voteUp: false };
+  return { publishedfileid: "0", voteUp: false };
 }
 
 export const CPublishedFileVoteRequest = {
   encode(message: CPublishedFileVoteRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.voteUp === true) {
@@ -761,7 +761,7 @@ export const CPublishedFileVoteRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.voteUp = reader.bool();
@@ -776,14 +776,14 @@ export const CPublishedFileVoteRequest = {
 
   fromJSON(object: any): CPublishedFileVoteRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       voteUp: isSet(object.voteUp) ? Boolean(object.voteUp) : false,
     };
   },
 
   toJSON(message: CPublishedFileVoteRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.voteUp !== undefined && (obj.voteUp = message.voteUp);
     return obj;
   },
@@ -794,7 +794,7 @@ export const CPublishedFileVoteRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPublishedFileVoteRequest>, I>>(object: I): CPublishedFileVoteRequest {
     const message = createBaseCPublishedFileVoteRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.voteUp = object.voteUp ?? false;
     return message;
   },
@@ -844,12 +844,12 @@ export const CPublishedFileVoteResponse = {
 };
 
 function createBaseCPublishedFileSubscribeRequest(): CPublishedFileSubscribeRequest {
-  return { publishedfileid: 0, listType: 0, appid: 0, notifyClient: false };
+  return { publishedfileid: "0", listType: 0, appid: 0, notifyClient: false };
 }
 
 export const CPublishedFileSubscribeRequest = {
   encode(message: CPublishedFileSubscribeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.listType !== 0) {
@@ -872,7 +872,7 @@ export const CPublishedFileSubscribeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.listType = reader.uint32();
@@ -893,7 +893,7 @@ export const CPublishedFileSubscribeRequest = {
 
   fromJSON(object: any): CPublishedFileSubscribeRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       listType: isSet(object.listType) ? Number(object.listType) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       notifyClient: isSet(object.notifyClient) ? Boolean(object.notifyClient) : false,
@@ -902,7 +902,7 @@ export const CPublishedFileSubscribeRequest = {
 
   toJSON(message: CPublishedFileSubscribeRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.listType !== undefined && (obj.listType = Math.round(message.listType));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.notifyClient !== undefined && (obj.notifyClient = message.notifyClient);
@@ -917,7 +917,7 @@ export const CPublishedFileSubscribeRequest = {
     object: I,
   ): CPublishedFileSubscribeRequest {
     const message = createBaseCPublishedFileSubscribeRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.listType = object.listType ?? 0;
     message.appid = object.appid ?? 0;
     message.notifyClient = object.notifyClient ?? false;
@@ -969,12 +969,12 @@ export const CPublishedFileSubscribeResponse = {
 };
 
 function createBaseCPublishedFileUnsubscribeRequest(): CPublishedFileUnsubscribeRequest {
-  return { publishedfileid: 0, listType: 0, appid: 0, notifyClient: false };
+  return { publishedfileid: "0", listType: 0, appid: 0, notifyClient: false };
 }
 
 export const CPublishedFileUnsubscribeRequest = {
   encode(message: CPublishedFileUnsubscribeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.listType !== 0) {
@@ -997,7 +997,7 @@ export const CPublishedFileUnsubscribeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.listType = reader.uint32();
@@ -1018,7 +1018,7 @@ export const CPublishedFileUnsubscribeRequest = {
 
   fromJSON(object: any): CPublishedFileUnsubscribeRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       listType: isSet(object.listType) ? Number(object.listType) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       notifyClient: isSet(object.notifyClient) ? Boolean(object.notifyClient) : false,
@@ -1027,7 +1027,7 @@ export const CPublishedFileUnsubscribeRequest = {
 
   toJSON(message: CPublishedFileUnsubscribeRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.listType !== undefined && (obj.listType = Math.round(message.listType));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.notifyClient !== undefined && (obj.notifyClient = message.notifyClient);
@@ -1044,7 +1044,7 @@ export const CPublishedFileUnsubscribeRequest = {
     object: I,
   ): CPublishedFileUnsubscribeRequest {
     const message = createBaseCPublishedFileUnsubscribeRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.listType = object.listType ?? 0;
     message.appid = object.appid ?? 0;
     message.notifyClient = object.notifyClient ?? false;
@@ -1100,12 +1100,12 @@ export const CPublishedFileUnsubscribeResponse = {
 };
 
 function createBaseCPublishedFileCanSubscribeRequest(): CPublishedFileCanSubscribeRequest {
-  return { publishedfileid: 0 };
+  return { publishedfileid: "0" };
 }
 
 export const CPublishedFileCanSubscribeRequest = {
   encode(message: CPublishedFileCanSubscribeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     return writer;
@@ -1119,7 +1119,7 @@ export const CPublishedFileCanSubscribeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1130,12 +1130,12 @@ export const CPublishedFileCanSubscribeRequest = {
   },
 
   fromJSON(object: any): CPublishedFileCanSubscribeRequest {
-    return { publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0 };
+    return { publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0" };
   },
 
   toJSON(message: CPublishedFileCanSubscribeRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     return obj;
   },
 
@@ -1149,7 +1149,7 @@ export const CPublishedFileCanSubscribeRequest = {
     object: I,
   ): CPublishedFileCanSubscribeRequest {
     const message = createBaseCPublishedFileCanSubscribeRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     return message;
   },
 };
@@ -1210,18 +1210,18 @@ export const CPublishedFileCanSubscribeResponse = {
 };
 
 function createBaseCPublishedFileGetSubSectionDataRequest(): CPublishedFileGetSubSectionDataRequest {
-  return { publishedfileid: 0, forTableOfContents: false, specificSectionid: 0, desiredRevision: 0 };
+  return { publishedfileid: "0", forTableOfContents: false, specificSectionid: "0", desiredRevision: 0 };
 }
 
 export const CPublishedFileGetSubSectionDataRequest = {
   encode(message: CPublishedFileGetSubSectionDataRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.forTableOfContents === true) {
       writer.uint32(16).bool(message.forTableOfContents);
     }
-    if (message.specificSectionid !== 0) {
+    if (message.specificSectionid !== "0") {
       writer.uint32(24).uint64(message.specificSectionid);
     }
     if (message.desiredRevision !== 0) {
@@ -1238,13 +1238,13 @@ export const CPublishedFileGetSubSectionDataRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.forTableOfContents = reader.bool();
           break;
         case 3:
-          message.specificSectionid = longToNumber(reader.uint64() as Long);
+          message.specificSectionid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.desiredRevision = reader.int32() as any;
@@ -1259,18 +1259,18 @@ export const CPublishedFileGetSubSectionDataRequest = {
 
   fromJSON(object: any): CPublishedFileGetSubSectionDataRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       forTableOfContents: isSet(object.forTableOfContents) ? Boolean(object.forTableOfContents) : false,
-      specificSectionid: isSet(object.specificSectionid) ? Number(object.specificSectionid) : 0,
+      specificSectionid: isSet(object.specificSectionid) ? String(object.specificSectionid) : "0",
       desiredRevision: isSet(object.desiredRevision) ? ePublishedFileRevisionFromJSON(object.desiredRevision) : 0,
     };
   },
 
   toJSON(message: CPublishedFileGetSubSectionDataRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.forTableOfContents !== undefined && (obj.forTableOfContents = message.forTableOfContents);
-    message.specificSectionid !== undefined && (obj.specificSectionid = Math.round(message.specificSectionid));
+    message.specificSectionid !== undefined && (obj.specificSectionid = message.specificSectionid);
     message.desiredRevision !== undefined &&
       (obj.desiredRevision = ePublishedFileRevisionToJSON(message.desiredRevision));
     return obj;
@@ -1286,21 +1286,21 @@ export const CPublishedFileGetSubSectionDataRequest = {
     object: I,
   ): CPublishedFileGetSubSectionDataRequest {
     const message = createBaseCPublishedFileGetSubSectionDataRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.forTableOfContents = object.forTableOfContents ?? false;
-    message.specificSectionid = object.specificSectionid ?? 0;
+    message.specificSectionid = object.specificSectionid ?? "0";
     message.desiredRevision = object.desiredRevision ?? 0;
     return message;
   },
 };
 
 function createBasePublishedFileSubSection(): PublishedFileSubSection {
-  return { sectionid: 0, title: "", descriptionText: "", sortOrder: 0 };
+  return { sectionid: "0", title: "", descriptionText: "", sortOrder: 0 };
 }
 
 export const PublishedFileSubSection = {
   encode(message: PublishedFileSubSection, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sectionid !== 0) {
+    if (message.sectionid !== "0") {
       writer.uint32(8).uint64(message.sectionid);
     }
     if (message.title !== "") {
@@ -1323,7 +1323,7 @@ export const PublishedFileSubSection = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sectionid = longToNumber(reader.uint64() as Long);
+          message.sectionid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.title = reader.string();
@@ -1344,7 +1344,7 @@ export const PublishedFileSubSection = {
 
   fromJSON(object: any): PublishedFileSubSection {
     return {
-      sectionid: isSet(object.sectionid) ? Number(object.sectionid) : 0,
+      sectionid: isSet(object.sectionid) ? String(object.sectionid) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       descriptionText: isSet(object.descriptionText) ? String(object.descriptionText) : "",
       sortOrder: isSet(object.sortOrder) ? Number(object.sortOrder) : 0,
@@ -1353,7 +1353,7 @@ export const PublishedFileSubSection = {
 
   toJSON(message: PublishedFileSubSection): unknown {
     const obj: any = {};
-    message.sectionid !== undefined && (obj.sectionid = Math.round(message.sectionid));
+    message.sectionid !== undefined && (obj.sectionid = message.sectionid);
     message.title !== undefined && (obj.title = message.title);
     message.descriptionText !== undefined && (obj.descriptionText = message.descriptionText);
     message.sortOrder !== undefined && (obj.sortOrder = Math.round(message.sortOrder));
@@ -1366,7 +1366,7 @@ export const PublishedFileSubSection = {
 
   fromPartial<I extends Exact<DeepPartial<PublishedFileSubSection>, I>>(object: I): PublishedFileSubSection {
     const message = createBasePublishedFileSubSection();
-    message.sectionid = object.sectionid ?? 0;
+    message.sectionid = object.sectionid ?? "0";
     message.title = object.title ?? "";
     message.descriptionText = object.descriptionText ?? "";
     message.sortOrder = object.sortOrder ?? 0;
@@ -1647,12 +1647,12 @@ export const CPublishedFilePublishRequest = {
 };
 
 function createBaseCPublishedFilePublishResponse(): CPublishedFilePublishResponse {
-  return { publishedfileid: 0, redirectUri: "" };
+  return { publishedfileid: "0", redirectUri: "" };
 }
 
 export const CPublishedFilePublishResponse = {
   encode(message: CPublishedFilePublishResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.redirectUri !== "") {
@@ -1669,7 +1669,7 @@ export const CPublishedFilePublishResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.redirectUri = reader.string();
@@ -1684,14 +1684,14 @@ export const CPublishedFilePublishResponse = {
 
   fromJSON(object: any): CPublishedFilePublishResponse {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       redirectUri: isSet(object.redirectUri) ? String(object.redirectUri) : "",
     };
   },
 
   toJSON(message: CPublishedFilePublishResponse): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.redirectUri !== undefined && (obj.redirectUri = message.redirectUri);
     return obj;
   },
@@ -1704,7 +1704,7 @@ export const CPublishedFilePublishResponse = {
     object: I,
   ): CPublishedFilePublishResponse {
     const message = createBaseCPublishedFilePublishResponse();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.redirectUri = object.redirectUri ?? "";
     return message;
   },
@@ -1793,10 +1793,10 @@ export const CPublishedFileGetDetailsRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.publishedfileids.push(longToNumber(reader.fixed64() as Long));
+              message.publishedfileids.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.publishedfileids.push(longToNumber(reader.fixed64() as Long));
+            message.publishedfileids.push(longToString(reader.fixed64() as Long));
           }
           break;
         case 2:
@@ -1852,7 +1852,7 @@ export const CPublishedFileGetDetailsRequest = {
   fromJSON(object: any): CPublishedFileGetDetailsRequest {
     return {
       publishedfileids: Array.isArray(object?.publishedfileids)
-        ? object.publishedfileids.map((e: any) => Number(e))
+        ? object.publishedfileids.map((e: any) => String(e))
         : [],
       includetags: isSet(object.includetags) ? Boolean(object.includetags) : false,
       includeadditionalpreviews: isSet(object.includeadditionalpreviews)
@@ -1876,7 +1876,7 @@ export const CPublishedFileGetDetailsRequest = {
   toJSON(message: CPublishedFileGetDetailsRequest): unknown {
     const obj: any = {};
     if (message.publishedfileids) {
-      obj.publishedfileids = message.publishedfileids.map((e) => Math.round(e));
+      obj.publishedfileids = message.publishedfileids.map((e) => e);
     } else {
       obj.publishedfileids = [];
     }
@@ -1929,20 +1929,20 @@ export const CPublishedFileGetDetailsRequest = {
 function createBasePublishedFileDetails(): PublishedFileDetails {
   return {
     result: 0,
-    publishedfileid: 0,
-    creator: 0,
+    publishedfileid: "0",
+    creator: "0",
     creatorAppid: 0,
     consumerAppid: 0,
     consumerShortcutid: 0,
     filename: "",
-    fileSize: 0,
-    previewFileSize: 0,
+    fileSize: "0",
+    previewFileSize: "0",
     fileUrl: "",
     previewUrl: "",
     youtubevideoid: "",
     url: "",
-    hcontentFile: 0,
-    hcontentPreview: 0,
+    hcontentFile: "0",
+    hcontentPreview: "0",
     title: "",
     fileDescription: "",
     shortDescription: "",
@@ -1957,7 +1957,7 @@ function createBasePublishedFileDetails(): PublishedFileDetails {
     numCommentsPublic: 0,
     banned: false,
     banReason: "",
-    banner: 0,
+    banner: "0",
     canBeDeleted: false,
     incompatible: false,
     appName: "",
@@ -1969,8 +1969,8 @@ function createBasePublishedFileDetails(): PublishedFileDetails {
     lifetimeSubscriptions: 0,
     lifetimeFavorited: 0,
     lifetimeFollowers: 0,
-    lifetimePlaytime: 0,
-    lifetimePlaytimeSessions: 0,
+    lifetimePlaytime: "0",
+    lifetimePlaytimeSessions: "0",
     views: 0,
     imageWidth: 0,
     imageHeight: 0,
@@ -1992,7 +1992,7 @@ function createBasePublishedFileDetails(): PublishedFileDetails {
     language: 0,
     maybeInappropriateSex: false,
     maybeInappropriateViolence: false,
-    revisionChangeNumber: 0,
+    revisionChangeNumber: "0",
     revision: 0,
     availableRevisions: [],
     reactions: [],
@@ -2005,10 +2005,10 @@ export const PublishedFileDetails = {
     if (message.result !== 0) {
       writer.uint32(8).uint32(message.result);
     }
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(16).uint64(message.publishedfileid);
     }
-    if (message.creator !== 0) {
+    if (message.creator !== "0") {
       writer.uint32(25).fixed64(message.creator);
     }
     if (message.creatorAppid !== 0) {
@@ -2023,10 +2023,10 @@ export const PublishedFileDetails = {
     if (message.filename !== "") {
       writer.uint32(58).string(message.filename);
     }
-    if (message.fileSize !== 0) {
+    if (message.fileSize !== "0") {
       writer.uint32(64).uint64(message.fileSize);
     }
-    if (message.previewFileSize !== 0) {
+    if (message.previewFileSize !== "0") {
       writer.uint32(72).uint64(message.previewFileSize);
     }
     if (message.fileUrl !== "") {
@@ -2041,10 +2041,10 @@ export const PublishedFileDetails = {
     if (message.url !== "") {
       writer.uint32(106).string(message.url);
     }
-    if (message.hcontentFile !== 0) {
+    if (message.hcontentFile !== "0") {
       writer.uint32(113).fixed64(message.hcontentFile);
     }
-    if (message.hcontentPreview !== 0) {
+    if (message.hcontentPreview !== "0") {
       writer.uint32(121).fixed64(message.hcontentPreview);
     }
     if (message.title !== "") {
@@ -2089,7 +2089,7 @@ export const PublishedFileDetails = {
     if (message.banReason !== "") {
       writer.uint32(234).string(message.banReason);
     }
-    if (message.banner !== 0) {
+    if (message.banner !== "0") {
       writer.uint32(241).fixed64(message.banner);
     }
     if (message.canBeDeleted === true) {
@@ -2125,10 +2125,10 @@ export const PublishedFileDetails = {
     if (message.lifetimeFollowers !== 0) {
       writer.uint32(328).uint32(message.lifetimeFollowers);
     }
-    if (message.lifetimePlaytime !== 0) {
+    if (message.lifetimePlaytime !== "0") {
       writer.uint32(496).uint64(message.lifetimePlaytime);
     }
-    if (message.lifetimePlaytimeSessions !== 0) {
+    if (message.lifetimePlaytimeSessions !== "0") {
       writer.uint32(504).uint64(message.lifetimePlaytimeSessions);
     }
     if (message.views !== 0) {
@@ -2194,7 +2194,7 @@ export const PublishedFileDetails = {
     if (message.maybeInappropriateViolence === true) {
       writer.uint32(528).bool(message.maybeInappropriateViolence);
     }
-    if (message.revisionChangeNumber !== 0) {
+    if (message.revisionChangeNumber !== "0") {
       writer.uint32(536).uint64(message.revisionChangeNumber);
     }
     if (message.revision !== 0) {
@@ -2225,10 +2225,10 @@ export const PublishedFileDetails = {
           message.result = reader.uint32();
           break;
         case 2:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.creator = longToNumber(reader.fixed64() as Long);
+          message.creator = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.creatorAppid = reader.uint32();
@@ -2243,10 +2243,10 @@ export const PublishedFileDetails = {
           message.filename = reader.string();
           break;
         case 8:
-          message.fileSize = longToNumber(reader.uint64() as Long);
+          message.fileSize = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.previewFileSize = longToNumber(reader.uint64() as Long);
+          message.previewFileSize = longToString(reader.uint64() as Long);
           break;
         case 10:
           message.fileUrl = reader.string();
@@ -2261,10 +2261,10 @@ export const PublishedFileDetails = {
           message.url = reader.string();
           break;
         case 14:
-          message.hcontentFile = longToNumber(reader.fixed64() as Long);
+          message.hcontentFile = longToString(reader.fixed64() as Long);
           break;
         case 15:
-          message.hcontentPreview = longToNumber(reader.fixed64() as Long);
+          message.hcontentPreview = longToString(reader.fixed64() as Long);
           break;
         case 16:
           message.title = reader.string();
@@ -2309,7 +2309,7 @@ export const PublishedFileDetails = {
           message.banReason = reader.string();
           break;
         case 30:
-          message.banner = longToNumber(reader.fixed64() as Long);
+          message.banner = longToString(reader.fixed64() as Long);
           break;
         case 31:
           message.canBeDeleted = reader.bool();
@@ -2345,10 +2345,10 @@ export const PublishedFileDetails = {
           message.lifetimeFollowers = reader.uint32();
           break;
         case 62:
-          message.lifetimePlaytime = longToNumber(reader.uint64() as Long);
+          message.lifetimePlaytime = longToString(reader.uint64() as Long);
           break;
         case 63:
-          message.lifetimePlaytimeSessions = longToNumber(reader.uint64() as Long);
+          message.lifetimePlaytimeSessions = longToString(reader.uint64() as Long);
           break;
         case 42:
           message.views = reader.uint32();
@@ -2414,7 +2414,7 @@ export const PublishedFileDetails = {
           message.maybeInappropriateViolence = reader.bool();
           break;
         case 67:
-          message.revisionChangeNumber = longToNumber(reader.uint64() as Long);
+          message.revisionChangeNumber = longToString(reader.uint64() as Long);
           break;
         case 68:
           message.revision = reader.int32() as any;
@@ -2446,20 +2446,20 @@ export const PublishedFileDetails = {
   fromJSON(object: any): PublishedFileDetails {
     return {
       result: isSet(object.result) ? Number(object.result) : 0,
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
-      creator: isSet(object.creator) ? Number(object.creator) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
+      creator: isSet(object.creator) ? String(object.creator) : "0",
       creatorAppid: isSet(object.creatorAppid) ? Number(object.creatorAppid) : 0,
       consumerAppid: isSet(object.consumerAppid) ? Number(object.consumerAppid) : 0,
       consumerShortcutid: isSet(object.consumerShortcutid) ? Number(object.consumerShortcutid) : 0,
       filename: isSet(object.filename) ? String(object.filename) : "",
-      fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
-      previewFileSize: isSet(object.previewFileSize) ? Number(object.previewFileSize) : 0,
+      fileSize: isSet(object.fileSize) ? String(object.fileSize) : "0",
+      previewFileSize: isSet(object.previewFileSize) ? String(object.previewFileSize) : "0",
       fileUrl: isSet(object.fileUrl) ? String(object.fileUrl) : "",
       previewUrl: isSet(object.previewUrl) ? String(object.previewUrl) : "",
       youtubevideoid: isSet(object.youtubevideoid) ? String(object.youtubevideoid) : "",
       url: isSet(object.url) ? String(object.url) : "",
-      hcontentFile: isSet(object.hcontentFile) ? Number(object.hcontentFile) : 0,
-      hcontentPreview: isSet(object.hcontentPreview) ? Number(object.hcontentPreview) : 0,
+      hcontentFile: isSet(object.hcontentFile) ? String(object.hcontentFile) : "0",
+      hcontentPreview: isSet(object.hcontentPreview) ? String(object.hcontentPreview) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       fileDescription: isSet(object.fileDescription) ? String(object.fileDescription) : "",
       shortDescription: isSet(object.shortDescription) ? String(object.shortDescription) : "",
@@ -2474,7 +2474,7 @@ export const PublishedFileDetails = {
       numCommentsPublic: isSet(object.numCommentsPublic) ? Number(object.numCommentsPublic) : 0,
       banned: isSet(object.banned) ? Boolean(object.banned) : false,
       banReason: isSet(object.banReason) ? String(object.banReason) : "",
-      banner: isSet(object.banner) ? Number(object.banner) : 0,
+      banner: isSet(object.banner) ? String(object.banner) : "0",
       canBeDeleted: isSet(object.canBeDeleted) ? Boolean(object.canBeDeleted) : false,
       incompatible: isSet(object.incompatible) ? Boolean(object.incompatible) : false,
       appName: isSet(object.appName) ? String(object.appName) : "",
@@ -2486,8 +2486,8 @@ export const PublishedFileDetails = {
       lifetimeSubscriptions: isSet(object.lifetimeSubscriptions) ? Number(object.lifetimeSubscriptions) : 0,
       lifetimeFavorited: isSet(object.lifetimeFavorited) ? Number(object.lifetimeFavorited) : 0,
       lifetimeFollowers: isSet(object.lifetimeFollowers) ? Number(object.lifetimeFollowers) : 0,
-      lifetimePlaytime: isSet(object.lifetimePlaytime) ? Number(object.lifetimePlaytime) : 0,
-      lifetimePlaytimeSessions: isSet(object.lifetimePlaytimeSessions) ? Number(object.lifetimePlaytimeSessions) : 0,
+      lifetimePlaytime: isSet(object.lifetimePlaytime) ? String(object.lifetimePlaytime) : "0",
+      lifetimePlaytimeSessions: isSet(object.lifetimePlaytimeSessions) ? String(object.lifetimePlaytimeSessions) : "0",
       views: isSet(object.views) ? Number(object.views) : 0,
       imageWidth: isSet(object.imageWidth) ? Number(object.imageWidth) : 0,
       imageHeight: isSet(object.imageHeight) ? Number(object.imageHeight) : 0,
@@ -2521,7 +2521,7 @@ export const PublishedFileDetails = {
       maybeInappropriateViolence: isSet(object.maybeInappropriateViolence)
         ? Boolean(object.maybeInappropriateViolence)
         : false,
-      revisionChangeNumber: isSet(object.revisionChangeNumber) ? Number(object.revisionChangeNumber) : 0,
+      revisionChangeNumber: isSet(object.revisionChangeNumber) ? String(object.revisionChangeNumber) : "0",
       revision: isSet(object.revision) ? ePublishedFileRevisionFromJSON(object.revision) : 0,
       availableRevisions: Array.isArray(object?.availableRevisions)
         ? object.availableRevisions.map((e: any) => ePublishedFileRevisionFromJSON(e))
@@ -2538,20 +2538,20 @@ export const PublishedFileDetails = {
   toJSON(message: PublishedFileDetails): unknown {
     const obj: any = {};
     message.result !== undefined && (obj.result = Math.round(message.result));
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
-    message.creator !== undefined && (obj.creator = Math.round(message.creator));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
+    message.creator !== undefined && (obj.creator = message.creator);
     message.creatorAppid !== undefined && (obj.creatorAppid = Math.round(message.creatorAppid));
     message.consumerAppid !== undefined && (obj.consumerAppid = Math.round(message.consumerAppid));
     message.consumerShortcutid !== undefined && (obj.consumerShortcutid = Math.round(message.consumerShortcutid));
     message.filename !== undefined && (obj.filename = message.filename);
-    message.fileSize !== undefined && (obj.fileSize = Math.round(message.fileSize));
-    message.previewFileSize !== undefined && (obj.previewFileSize = Math.round(message.previewFileSize));
+    message.fileSize !== undefined && (obj.fileSize = message.fileSize);
+    message.previewFileSize !== undefined && (obj.previewFileSize = message.previewFileSize);
     message.fileUrl !== undefined && (obj.fileUrl = message.fileUrl);
     message.previewUrl !== undefined && (obj.previewUrl = message.previewUrl);
     message.youtubevideoid !== undefined && (obj.youtubevideoid = message.youtubevideoid);
     message.url !== undefined && (obj.url = message.url);
-    message.hcontentFile !== undefined && (obj.hcontentFile = Math.round(message.hcontentFile));
-    message.hcontentPreview !== undefined && (obj.hcontentPreview = Math.round(message.hcontentPreview));
+    message.hcontentFile !== undefined && (obj.hcontentFile = message.hcontentFile);
+    message.hcontentPreview !== undefined && (obj.hcontentPreview = message.hcontentPreview);
     message.title !== undefined && (obj.title = message.title);
     message.fileDescription !== undefined && (obj.fileDescription = message.fileDescription);
     message.shortDescription !== undefined && (obj.shortDescription = message.shortDescription);
@@ -2566,7 +2566,7 @@ export const PublishedFileDetails = {
     message.numCommentsPublic !== undefined && (obj.numCommentsPublic = Math.round(message.numCommentsPublic));
     message.banned !== undefined && (obj.banned = message.banned);
     message.banReason !== undefined && (obj.banReason = message.banReason);
-    message.banner !== undefined && (obj.banner = Math.round(message.banner));
+    message.banner !== undefined && (obj.banner = message.banner);
     message.canBeDeleted !== undefined && (obj.canBeDeleted = message.canBeDeleted);
     message.incompatible !== undefined && (obj.incompatible = message.incompatible);
     message.appName !== undefined && (obj.appName = message.appName);
@@ -2579,9 +2579,8 @@ export const PublishedFileDetails = {
       (obj.lifetimeSubscriptions = Math.round(message.lifetimeSubscriptions));
     message.lifetimeFavorited !== undefined && (obj.lifetimeFavorited = Math.round(message.lifetimeFavorited));
     message.lifetimeFollowers !== undefined && (obj.lifetimeFollowers = Math.round(message.lifetimeFollowers));
-    message.lifetimePlaytime !== undefined && (obj.lifetimePlaytime = Math.round(message.lifetimePlaytime));
-    message.lifetimePlaytimeSessions !== undefined &&
-      (obj.lifetimePlaytimeSessions = Math.round(message.lifetimePlaytimeSessions));
+    message.lifetimePlaytime !== undefined && (obj.lifetimePlaytime = message.lifetimePlaytime);
+    message.lifetimePlaytimeSessions !== undefined && (obj.lifetimePlaytimeSessions = message.lifetimePlaytimeSessions);
     message.views !== undefined && (obj.views = Math.round(message.views));
     message.imageWidth !== undefined && (obj.imageWidth = Math.round(message.imageWidth));
     message.imageHeight !== undefined && (obj.imageHeight = Math.round(message.imageHeight));
@@ -2626,7 +2625,7 @@ export const PublishedFileDetails = {
     message.maybeInappropriateSex !== undefined && (obj.maybeInappropriateSex = message.maybeInappropriateSex);
     message.maybeInappropriateViolence !== undefined &&
       (obj.maybeInappropriateViolence = message.maybeInappropriateViolence);
-    message.revisionChangeNumber !== undefined && (obj.revisionChangeNumber = Math.round(message.revisionChangeNumber));
+    message.revisionChangeNumber !== undefined && (obj.revisionChangeNumber = message.revisionChangeNumber);
     message.revision !== undefined && (obj.revision = ePublishedFileRevisionToJSON(message.revision));
     if (message.availableRevisions) {
       obj.availableRevisions = message.availableRevisions.map((e) => ePublishedFileRevisionToJSON(e));
@@ -2650,20 +2649,20 @@ export const PublishedFileDetails = {
   fromPartial<I extends Exact<DeepPartial<PublishedFileDetails>, I>>(object: I): PublishedFileDetails {
     const message = createBasePublishedFileDetails();
     message.result = object.result ?? 0;
-    message.publishedfileid = object.publishedfileid ?? 0;
-    message.creator = object.creator ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
+    message.creator = object.creator ?? "0";
     message.creatorAppid = object.creatorAppid ?? 0;
     message.consumerAppid = object.consumerAppid ?? 0;
     message.consumerShortcutid = object.consumerShortcutid ?? 0;
     message.filename = object.filename ?? "";
-    message.fileSize = object.fileSize ?? 0;
-    message.previewFileSize = object.previewFileSize ?? 0;
+    message.fileSize = object.fileSize ?? "0";
+    message.previewFileSize = object.previewFileSize ?? "0";
     message.fileUrl = object.fileUrl ?? "";
     message.previewUrl = object.previewUrl ?? "";
     message.youtubevideoid = object.youtubevideoid ?? "";
     message.url = object.url ?? "";
-    message.hcontentFile = object.hcontentFile ?? 0;
-    message.hcontentPreview = object.hcontentPreview ?? 0;
+    message.hcontentFile = object.hcontentFile ?? "0";
+    message.hcontentPreview = object.hcontentPreview ?? "0";
     message.title = object.title ?? "";
     message.fileDescription = object.fileDescription ?? "";
     message.shortDescription = object.shortDescription ?? "";
@@ -2678,7 +2677,7 @@ export const PublishedFileDetails = {
     message.numCommentsPublic = object.numCommentsPublic ?? 0;
     message.banned = object.banned ?? false;
     message.banReason = object.banReason ?? "";
-    message.banner = object.banner ?? 0;
+    message.banner = object.banner ?? "0";
     message.canBeDeleted = object.canBeDeleted ?? false;
     message.incompatible = object.incompatible ?? false;
     message.appName = object.appName ?? "";
@@ -2690,8 +2689,8 @@ export const PublishedFileDetails = {
     message.lifetimeSubscriptions = object.lifetimeSubscriptions ?? 0;
     message.lifetimeFavorited = object.lifetimeFavorited ?? 0;
     message.lifetimeFollowers = object.lifetimeFollowers ?? 0;
-    message.lifetimePlaytime = object.lifetimePlaytime ?? 0;
-    message.lifetimePlaytimeSessions = object.lifetimePlaytimeSessions ?? 0;
+    message.lifetimePlaytime = object.lifetimePlaytime ?? "0";
+    message.lifetimePlaytimeSessions = object.lifetimePlaytimeSessions ?? "0";
     message.views = object.views ?? 0;
     message.imageWidth = object.imageWidth ?? 0;
     message.imageHeight = object.imageHeight ?? 0;
@@ -2719,7 +2718,7 @@ export const PublishedFileDetails = {
     message.language = object.language ?? 0;
     message.maybeInappropriateSex = object.maybeInappropriateSex ?? false;
     message.maybeInappropriateViolence = object.maybeInappropriateViolence ?? false;
-    message.revisionChangeNumber = object.revisionChangeNumber ?? 0;
+    message.revisionChangeNumber = object.revisionChangeNumber ?? "0";
     message.revision = object.revision ?? 0;
     message.availableRevisions = object.availableRevisions?.map((e) => e) || [];
     message.reactions = object.reactions?.map((e) => PublishedFileDetails_Reaction.fromPartial(e)) || [];
@@ -2801,7 +2800,7 @@ export const PublishedFileDetails_Tag = {
 
 function createBasePublishedFileDetails_Preview(): PublishedFileDetails_Preview {
   return {
-    previewid: 0,
+    previewid: "0",
     sortorder: 0,
     url: "",
     size: 0,
@@ -2814,7 +2813,7 @@ function createBasePublishedFileDetails_Preview(): PublishedFileDetails_Preview 
 
 export const PublishedFileDetails_Preview = {
   encode(message: PublishedFileDetails_Preview, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.previewid !== 0) {
+    if (message.previewid !== "0") {
       writer.uint32(8).uint64(message.previewid);
     }
     if (message.sortorder !== 0) {
@@ -2849,7 +2848,7 @@ export const PublishedFileDetails_Preview = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.previewid = longToNumber(reader.uint64() as Long);
+          message.previewid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.sortorder = reader.uint32();
@@ -2882,7 +2881,7 @@ export const PublishedFileDetails_Preview = {
 
   fromJSON(object: any): PublishedFileDetails_Preview {
     return {
-      previewid: isSet(object.previewid) ? Number(object.previewid) : 0,
+      previewid: isSet(object.previewid) ? String(object.previewid) : "0",
       sortorder: isSet(object.sortorder) ? Number(object.sortorder) : 0,
       url: isSet(object.url) ? String(object.url) : "",
       size: isSet(object.size) ? Number(object.size) : 0,
@@ -2895,7 +2894,7 @@ export const PublishedFileDetails_Preview = {
 
   toJSON(message: PublishedFileDetails_Preview): unknown {
     const obj: any = {};
-    message.previewid !== undefined && (obj.previewid = Math.round(message.previewid));
+    message.previewid !== undefined && (obj.previewid = message.previewid);
     message.sortorder !== undefined && (obj.sortorder = Math.round(message.sortorder));
     message.url !== undefined && (obj.url = message.url);
     message.size !== undefined && (obj.size = Math.round(message.size));
@@ -2912,7 +2911,7 @@ export const PublishedFileDetails_Preview = {
 
   fromPartial<I extends Exact<DeepPartial<PublishedFileDetails_Preview>, I>>(object: I): PublishedFileDetails_Preview {
     const message = createBasePublishedFileDetails_Preview();
-    message.previewid = object.previewid ?? 0;
+    message.previewid = object.previewid ?? "0";
     message.sortorder = object.sortorder ?? 0;
     message.url = object.url ?? "";
     message.size = object.size ?? 0;
@@ -2925,12 +2924,12 @@ export const PublishedFileDetails_Preview = {
 };
 
 function createBasePublishedFileDetails_Child(): PublishedFileDetails_Child {
-  return { publishedfileid: 0, sortorder: 0, fileType: 0 };
+  return { publishedfileid: "0", sortorder: 0, fileType: 0 };
 }
 
 export const PublishedFileDetails_Child = {
   encode(message: PublishedFileDetails_Child, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.sortorder !== 0) {
@@ -2950,7 +2949,7 @@ export const PublishedFileDetails_Child = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.sortorder = reader.uint32();
@@ -2968,7 +2967,7 @@ export const PublishedFileDetails_Child = {
 
   fromJSON(object: any): PublishedFileDetails_Child {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       sortorder: isSet(object.sortorder) ? Number(object.sortorder) : 0,
       fileType: isSet(object.fileType) ? Number(object.fileType) : 0,
     };
@@ -2976,7 +2975,7 @@ export const PublishedFileDetails_Child = {
 
   toJSON(message: PublishedFileDetails_Child): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.sortorder !== undefined && (obj.sortorder = Math.round(message.sortorder));
     message.fileType !== undefined && (obj.fileType = Math.round(message.fileType));
     return obj;
@@ -2988,7 +2987,7 @@ export const PublishedFileDetails_Child = {
 
   fromPartial<I extends Exact<DeepPartial<PublishedFileDetails_Child>, I>>(object: I): PublishedFileDetails_Child {
     const message = createBasePublishedFileDetails_Child();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.sortorder = object.sortorder ?? 0;
     message.fileType = object.fileType ?? 0;
     return message;
@@ -3237,15 +3236,15 @@ export const PublishedFileDetails_ForSaleData = {
 };
 
 function createBasePublishedFileDetails_PlaytimeStats(): PublishedFileDetails_PlaytimeStats {
-  return { playtimeSeconds: 0, numSessions: 0 };
+  return { playtimeSeconds: "0", numSessions: "0" };
 }
 
 export const PublishedFileDetails_PlaytimeStats = {
   encode(message: PublishedFileDetails_PlaytimeStats, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.playtimeSeconds !== 0) {
+    if (message.playtimeSeconds !== "0") {
       writer.uint32(8).uint64(message.playtimeSeconds);
     }
-    if (message.numSessions !== 0) {
+    if (message.numSessions !== "0") {
       writer.uint32(16).uint64(message.numSessions);
     }
     return writer;
@@ -3259,10 +3258,10 @@ export const PublishedFileDetails_PlaytimeStats = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.playtimeSeconds = longToNumber(reader.uint64() as Long);
+          message.playtimeSeconds = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.numSessions = longToNumber(reader.uint64() as Long);
+          message.numSessions = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3274,15 +3273,15 @@ export const PublishedFileDetails_PlaytimeStats = {
 
   fromJSON(object: any): PublishedFileDetails_PlaytimeStats {
     return {
-      playtimeSeconds: isSet(object.playtimeSeconds) ? Number(object.playtimeSeconds) : 0,
-      numSessions: isSet(object.numSessions) ? Number(object.numSessions) : 0,
+      playtimeSeconds: isSet(object.playtimeSeconds) ? String(object.playtimeSeconds) : "0",
+      numSessions: isSet(object.numSessions) ? String(object.numSessions) : "0",
     };
   },
 
   toJSON(message: PublishedFileDetails_PlaytimeStats): unknown {
     const obj: any = {};
-    message.playtimeSeconds !== undefined && (obj.playtimeSeconds = Math.round(message.playtimeSeconds));
-    message.numSessions !== undefined && (obj.numSessions = Math.round(message.numSessions));
+    message.playtimeSeconds !== undefined && (obj.playtimeSeconds = message.playtimeSeconds);
+    message.numSessions !== undefined && (obj.numSessions = message.numSessions);
     return obj;
   },
 
@@ -3296,8 +3295,8 @@ export const PublishedFileDetails_PlaytimeStats = {
     object: I,
   ): PublishedFileDetails_PlaytimeStats {
     const message = createBasePublishedFileDetails_PlaytimeStats();
-    message.playtimeSeconds = object.playtimeSeconds ?? 0;
-    message.numSessions = object.numSessions ?? 0;
+    message.playtimeSeconds = object.playtimeSeconds ?? "0";
+    message.numSessions = object.numSessions ?? "0";
     return message;
   },
 };
@@ -3516,12 +3515,12 @@ export const CPublishedFileGetItemInfoRequest = {
 };
 
 function createBaseCPublishedFileGetItemInfoRequest_WorkshopItem(): CPublishedFileGetItemInfoRequest_WorkshopItem {
-  return { publishedFileId: 0, timeUpdated: 0, desiredRevision: 0 };
+  return { publishedFileId: "0", timeUpdated: 0, desiredRevision: 0 };
 }
 
 export const CPublishedFileGetItemInfoRequest_WorkshopItem = {
   encode(message: CPublishedFileGetItemInfoRequest_WorkshopItem, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.timeUpdated !== 0) {
@@ -3541,7 +3540,7 @@ export const CPublishedFileGetItemInfoRequest_WorkshopItem = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timeUpdated = reader.uint32();
@@ -3559,7 +3558,7 @@ export const CPublishedFileGetItemInfoRequest_WorkshopItem = {
 
   fromJSON(object: any): CPublishedFileGetItemInfoRequest_WorkshopItem {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
       desiredRevision: isSet(object.desiredRevision) ? ePublishedFileRevisionFromJSON(object.desiredRevision) : 0,
     };
@@ -3567,7 +3566,7 @@ export const CPublishedFileGetItemInfoRequest_WorkshopItem = {
 
   toJSON(message: CPublishedFileGetItemInfoRequest_WorkshopItem): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.timeUpdated !== undefined && (obj.timeUpdated = Math.round(message.timeUpdated));
     message.desiredRevision !== undefined &&
       (obj.desiredRevision = ePublishedFileRevisionToJSON(message.desiredRevision));
@@ -3584,7 +3583,7 @@ export const CPublishedFileGetItemInfoRequest_WorkshopItem = {
     object: I,
   ): CPublishedFileGetItemInfoRequest_WorkshopItem {
     const message = createBaseCPublishedFileGetItemInfoRequest_WorkshopItem();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.timeUpdated = object.timeUpdated ?? 0;
     message.desiredRevision = object.desiredRevision ?? 0;
     return message;
@@ -3630,10 +3629,10 @@ export const CPublishedFileGetItemInfoResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.privateItems.push(longToNumber(reader.fixed64() as Long));
+              message.privateItems.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.privateItems.push(longToNumber(reader.fixed64() as Long));
+            message.privateItems.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -3650,7 +3649,7 @@ export const CPublishedFileGetItemInfoResponse = {
       workshopItems: Array.isArray(object?.workshopItems)
         ? object.workshopItems.map((e: any) => CPublishedFileGetItemInfoResponse_WorkshopItemInfo.fromJSON(e))
         : [],
-      privateItems: Array.isArray(object?.privateItems) ? object.privateItems.map((e: any) => Number(e)) : [],
+      privateItems: Array.isArray(object?.privateItems) ? object.privateItems.map((e: any) => String(e)) : [],
     };
   },
 
@@ -3665,7 +3664,7 @@ export const CPublishedFileGetItemInfoResponse = {
       obj.workshopItems = [];
     }
     if (message.privateItems) {
-      obj.privateItems = message.privateItems.map((e) => Math.round(e));
+      obj.privateItems = message.privateItems.map((e) => e);
     } else {
       obj.privateItems = [];
     }
@@ -3691,7 +3690,7 @@ export const CPublishedFileGetItemInfoResponse = {
 };
 
 function createBaseCPublishedFileGetItemInfoResponse_WorkshopItemInfo(): CPublishedFileGetItemInfoResponse_WorkshopItemInfo {
-  return { publishedFileId: 0, timeUpdated: 0, manifestId: 0, flags: 0 };
+  return { publishedFileId: "0", timeUpdated: 0, manifestId: "0", flags: 0 };
 }
 
 export const CPublishedFileGetItemInfoResponse_WorkshopItemInfo = {
@@ -3699,13 +3698,13 @@ export const CPublishedFileGetItemInfoResponse_WorkshopItemInfo = {
     message: CPublishedFileGetItemInfoResponse_WorkshopItemInfo,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.timeUpdated !== 0) {
       writer.uint32(16).uint32(message.timeUpdated);
     }
-    if (message.manifestId !== 0) {
+    if (message.manifestId !== "0") {
       writer.uint32(25).fixed64(message.manifestId);
     }
     if (message.flags !== 0) {
@@ -3722,13 +3721,13 @@ export const CPublishedFileGetItemInfoResponse_WorkshopItemInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timeUpdated = reader.uint32();
           break;
         case 3:
-          message.manifestId = longToNumber(reader.fixed64() as Long);
+          message.manifestId = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.flags = reader.uint32();
@@ -3743,18 +3742,18 @@ export const CPublishedFileGetItemInfoResponse_WorkshopItemInfo = {
 
   fromJSON(object: any): CPublishedFileGetItemInfoResponse_WorkshopItemInfo {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
-      manifestId: isSet(object.manifestId) ? Number(object.manifestId) : 0,
+      manifestId: isSet(object.manifestId) ? String(object.manifestId) : "0",
       flags: isSet(object.flags) ? Number(object.flags) : 0,
     };
   },
 
   toJSON(message: CPublishedFileGetItemInfoResponse_WorkshopItemInfo): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.timeUpdated !== undefined && (obj.timeUpdated = Math.round(message.timeUpdated));
-    message.manifestId !== undefined && (obj.manifestId = Math.round(message.manifestId));
+    message.manifestId !== undefined && (obj.manifestId = message.manifestId);
     message.flags !== undefined && (obj.flags = Math.round(message.flags));
     return obj;
   },
@@ -3769,9 +3768,9 @@ export const CPublishedFileGetItemInfoResponse_WorkshopItemInfo = {
     object: I,
   ): CPublishedFileGetItemInfoResponse_WorkshopItemInfo {
     const message = createBaseCPublishedFileGetItemInfoResponse_WorkshopItemInfo();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.timeUpdated = object.timeUpdated ?? 0;
-    message.manifestId = object.manifestId ?? 0;
+    message.manifestId = object.manifestId ?? "0";
     message.flags = object.flags ?? 0;
     return message;
   },
@@ -3779,7 +3778,7 @@ export const CPublishedFileGetItemInfoResponse_WorkshopItemInfo = {
 
 function createBaseCPublishedFileGetUserFilesRequest(): CPublishedFileGetUserFilesRequest {
   return {
-    steamid: 0,
+    steamid: "0",
     appid: 0,
     page: 0,
     numperpage: 0,
@@ -3816,7 +3815,7 @@ function createBaseCPublishedFileGetUserFilesRequest(): CPublishedFileGetUserFil
 
 export const CPublishedFileGetUserFilesRequest = {
   encode(message: CPublishedFileGetUserFilesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.appid !== 0) {
@@ -3923,7 +3922,7 @@ export const CPublishedFileGetUserFilesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -4028,7 +4027,7 @@ export const CPublishedFileGetUserFilesRequest = {
 
   fromJSON(object: any): CPublishedFileGetUserFilesRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       page: isSet(object.page) ? Number(object.page) : 0,
       numperpage: isSet(object.numperpage) ? Number(object.numperpage) : 0,
@@ -4069,7 +4068,7 @@ export const CPublishedFileGetUserFilesRequest = {
 
   toJSON(message: CPublishedFileGetUserFilesRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.page !== undefined && (obj.page = Math.round(message.page));
     message.numperpage !== undefined && (obj.numperpage = Math.round(message.numperpage));
@@ -4135,7 +4134,7 @@ export const CPublishedFileGetUserFilesRequest = {
     object: I,
   ): CPublishedFileGetUserFilesRequest {
     const message = createBaseCPublishedFileGetUserFilesRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.appid = object.appid ?? 0;
     message.page = object.page ?? 0;
     message.numperpage = object.numperpage ?? 0;
@@ -4519,10 +4518,10 @@ export const CPublishedFileAreFilesInSubscriptionListRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.publishedfileids.push(longToNumber(reader.fixed64() as Long));
+              message.publishedfileids.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.publishedfileids.push(longToNumber(reader.fixed64() as Long));
+            message.publishedfileids.push(longToString(reader.fixed64() as Long));
           }
           break;
         case 3:
@@ -4546,7 +4545,7 @@ export const CPublishedFileAreFilesInSubscriptionListRequest = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       publishedfileids: Array.isArray(object?.publishedfileids)
-        ? object.publishedfileids.map((e: any) => Number(e))
+        ? object.publishedfileids.map((e: any) => String(e))
         : [],
       listtype: isSet(object.listtype) ? Number(object.listtype) : 0,
       filetype: isSet(object.filetype) ? Number(object.filetype) : 0,
@@ -4558,7 +4557,7 @@ export const CPublishedFileAreFilesInSubscriptionListRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     if (message.publishedfileids) {
-      obj.publishedfileids = message.publishedfileids.map((e) => Math.round(e));
+      obj.publishedfileids = message.publishedfileids.map((e) => e);
     } else {
       obj.publishedfileids = [];
     }
@@ -4657,7 +4656,7 @@ export const CPublishedFileAreFilesInSubscriptionListResponse = {
 };
 
 function createBaseCPublishedFileAreFilesInSubscriptionListResponse_InList(): CPublishedFileAreFilesInSubscriptionListResponse_InList {
-  return { publishedfileid: 0, inlist: false };
+  return { publishedfileid: "0", inlist: false };
 }
 
 export const CPublishedFileAreFilesInSubscriptionListResponse_InList = {
@@ -4665,7 +4664,7 @@ export const CPublishedFileAreFilesInSubscriptionListResponse_InList = {
     message: CPublishedFileAreFilesInSubscriptionListResponse_InList,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(9).fixed64(message.publishedfileid);
     }
     if (message.inlist === true) {
@@ -4682,7 +4681,7 @@ export const CPublishedFileAreFilesInSubscriptionListResponse_InList = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.fixed64() as Long);
+          message.publishedfileid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.inlist = reader.bool();
@@ -4697,14 +4696,14 @@ export const CPublishedFileAreFilesInSubscriptionListResponse_InList = {
 
   fromJSON(object: any): CPublishedFileAreFilesInSubscriptionListResponse_InList {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       inlist: isSet(object.inlist) ? Boolean(object.inlist) : false,
     };
   },
 
   toJSON(message: CPublishedFileAreFilesInSubscriptionListResponse_InList): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.inlist !== undefined && (obj.inlist = message.inlist);
     return obj;
   },
@@ -4719,7 +4718,7 @@ export const CPublishedFileAreFilesInSubscriptionListResponse_InList = {
     object: I,
   ): CPublishedFileAreFilesInSubscriptionListResponse_InList {
     const message = createBaseCPublishedFileAreFilesInSubscriptionListResponse_InList();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.inlist = object.inlist ?? false;
     return message;
   },
@@ -4728,7 +4727,7 @@ export const CPublishedFileAreFilesInSubscriptionListResponse_InList = {
 function createBaseCPublishedFileUpdateRequest(): CPublishedFileUpdateRequest {
   return {
     appid: 0,
-    publishedfileid: 0,
+    publishedfileid: "0",
     title: "",
     fileDescription: "",
     visibility: 0,
@@ -4746,7 +4745,7 @@ export const CPublishedFileUpdateRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(17).fixed64(message.publishedfileid);
     }
     if (message.title !== "") {
@@ -4790,7 +4789,7 @@ export const CPublishedFileUpdateRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.publishedfileid = longToNumber(reader.fixed64() as Long);
+          message.publishedfileid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.title = reader.string();
@@ -4830,7 +4829,7 @@ export const CPublishedFileUpdateRequest = {
   fromJSON(object: any): CPublishedFileUpdateRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       title: isSet(object.title) ? String(object.title) : "",
       fileDescription: isSet(object.fileDescription) ? String(object.fileDescription) : "",
       visibility: isSet(object.visibility) ? Number(object.visibility) : 0,
@@ -4846,7 +4845,7 @@ export const CPublishedFileUpdateRequest = {
   toJSON(message: CPublishedFileUpdateRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.title !== undefined && (obj.title = message.title);
     message.fileDescription !== undefined && (obj.fileDescription = message.fileDescription);
     message.visibility !== undefined && (obj.visibility = Math.round(message.visibility));
@@ -4870,7 +4869,7 @@ export const CPublishedFileUpdateRequest = {
   fromPartial<I extends Exact<DeepPartial<CPublishedFileUpdateRequest>, I>>(object: I): CPublishedFileUpdateRequest {
     const message = createBaseCPublishedFileUpdateRequest();
     message.appid = object.appid ?? 0;
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.title = object.title ?? "";
     message.fileDescription = object.fileDescription ?? "";
     message.visibility = object.visibility ?? 0;
@@ -4928,12 +4927,12 @@ export const CPublishedFileUpdateResponse = {
 };
 
 function createBaseCPublishedFileDeleteRequest(): CPublishedFileDeleteRequest {
-  return { publishedfileid: 0 };
+  return { publishedfileid: "0" };
 }
 
 export const CPublishedFileDeleteRequest = {
   encode(message: CPublishedFileDeleteRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(9).fixed64(message.publishedfileid);
     }
     return writer;
@@ -4947,7 +4946,7 @@ export const CPublishedFileDeleteRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.fixed64() as Long);
+          message.publishedfileid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4958,12 +4957,12 @@ export const CPublishedFileDeleteRequest = {
   },
 
   fromJSON(object: any): CPublishedFileDeleteRequest {
-    return { publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0 };
+    return { publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0" };
   },
 
   toJSON(message: CPublishedFileDeleteRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     return obj;
   },
 
@@ -4973,7 +4972,7 @@ export const CPublishedFileDeleteRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPublishedFileDeleteRequest>, I>>(object: I): CPublishedFileDeleteRequest {
     const message = createBaseCPublishedFileDeleteRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     return message;
   },
 };
@@ -5022,12 +5021,12 @@ export const CPublishedFileDeleteResponse = {
 };
 
 function createBaseCPublishedFileGetChangeHistoryEntryRequest(): CPublishedFileGetChangeHistoryEntryRequest {
-  return { publishedfileid: 0, timestamp: 0, language: 0 };
+  return { publishedfileid: "0", timestamp: 0, language: 0 };
 }
 
 export const CPublishedFileGetChangeHistoryEntryRequest = {
   encode(message: CPublishedFileGetChangeHistoryEntryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(9).fixed64(message.publishedfileid);
     }
     if (message.timestamp !== 0) {
@@ -5047,7 +5046,7 @@ export const CPublishedFileGetChangeHistoryEntryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.fixed64() as Long);
+          message.publishedfileid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timestamp = reader.uint32();
@@ -5065,7 +5064,7 @@ export const CPublishedFileGetChangeHistoryEntryRequest = {
 
   fromJSON(object: any): CPublishedFileGetChangeHistoryEntryRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
       language: isSet(object.language) ? Number(object.language) : 0,
     };
@@ -5073,7 +5072,7 @@ export const CPublishedFileGetChangeHistoryEntryRequest = {
 
   toJSON(message: CPublishedFileGetChangeHistoryEntryRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
     message.language !== undefined && (obj.language = Math.round(message.language));
     return obj;
@@ -5089,7 +5088,7 @@ export const CPublishedFileGetChangeHistoryEntryRequest = {
     object: I,
   ): CPublishedFileGetChangeHistoryEntryRequest {
     const message = createBaseCPublishedFileGetChangeHistoryEntryRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.timestamp = object.timestamp ?? 0;
     message.language = object.language ?? 0;
     return message;
@@ -5163,12 +5162,12 @@ export const CPublishedFileGetChangeHistoryEntryResponse = {
 };
 
 function createBaseCPublishedFileGetChangeHistoryRequest(): CPublishedFileGetChangeHistoryRequest {
-  return { publishedfileid: 0, totalOnly: false, startindex: 0, count: 0, language: 0 };
+  return { publishedfileid: "0", totalOnly: false, startindex: 0, count: 0, language: 0 };
 }
 
 export const CPublishedFileGetChangeHistoryRequest = {
   encode(message: CPublishedFileGetChangeHistoryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(9).fixed64(message.publishedfileid);
     }
     if (message.totalOnly === true) {
@@ -5194,7 +5193,7 @@ export const CPublishedFileGetChangeHistoryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.fixed64() as Long);
+          message.publishedfileid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.totalOnly = reader.bool();
@@ -5218,7 +5217,7 @@ export const CPublishedFileGetChangeHistoryRequest = {
 
   fromJSON(object: any): CPublishedFileGetChangeHistoryRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       totalOnly: isSet(object.totalOnly) ? Boolean(object.totalOnly) : false,
       startindex: isSet(object.startindex) ? Number(object.startindex) : 0,
       count: isSet(object.count) ? Number(object.count) : 0,
@@ -5228,7 +5227,7 @@ export const CPublishedFileGetChangeHistoryRequest = {
 
   toJSON(message: CPublishedFileGetChangeHistoryRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.totalOnly !== undefined && (obj.totalOnly = message.totalOnly);
     message.startindex !== undefined && (obj.startindex = Math.round(message.startindex));
     message.count !== undefined && (obj.count = Math.round(message.count));
@@ -5246,7 +5245,7 @@ export const CPublishedFileGetChangeHistoryRequest = {
     object: I,
   ): CPublishedFileGetChangeHistoryRequest {
     const message = createBaseCPublishedFileGetChangeHistoryRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.totalOnly = object.totalOnly ?? false;
     message.startindex = object.startindex ?? 0;
     message.count = object.count ?? 0;
@@ -5597,7 +5596,7 @@ function createBaseCPublishedFileQueryFilesRequest(): CPublishedFileQueryFilesRe
     omittedFlags: [],
     searchText: "",
     filetype: 0,
-    childPublishedfileid: 0,
+    childPublishedfileid: "0",
     days: 0,
     includeRecentVotesOnly: false,
     cacheMaxAgeSeconds: 0,
@@ -5665,7 +5664,7 @@ export const CPublishedFileQueryFilesRequest = {
     if (message.filetype !== 0) {
       writer.uint32(96).uint32(message.filetype);
     }
-    if (message.childPublishedfileid !== 0) {
+    if (message.childPublishedfileid !== "0") {
       writer.uint32(105).fixed64(message.childPublishedfileid);
     }
     if (message.days !== 0) {
@@ -5787,7 +5786,7 @@ export const CPublishedFileQueryFilesRequest = {
           message.filetype = reader.uint32();
           break;
         case 13:
-          message.childPublishedfileid = longToNumber(reader.fixed64() as Long);
+          message.childPublishedfileid = longToString(reader.fixed64() as Long);
           break;
         case 14:
           message.days = reader.uint32();
@@ -5881,7 +5880,7 @@ export const CPublishedFileQueryFilesRequest = {
       omittedFlags: Array.isArray(object?.omittedFlags) ? object.omittedFlags.map((e: any) => String(e)) : [],
       searchText: isSet(object.searchText) ? String(object.searchText) : "",
       filetype: isSet(object.filetype) ? Number(object.filetype) : 0,
-      childPublishedfileid: isSet(object.childPublishedfileid) ? Number(object.childPublishedfileid) : 0,
+      childPublishedfileid: isSet(object.childPublishedfileid) ? String(object.childPublishedfileid) : "0",
       days: isSet(object.days) ? Number(object.days) : 0,
       includeRecentVotesOnly: isSet(object.includeRecentVotesOnly) ? Boolean(object.includeRecentVotesOnly) : false,
       cacheMaxAgeSeconds: isSet(object.cacheMaxAgeSeconds) ? Number(object.cacheMaxAgeSeconds) : 0,
@@ -5947,7 +5946,7 @@ export const CPublishedFileQueryFilesRequest = {
     }
     message.searchText !== undefined && (obj.searchText = message.searchText);
     message.filetype !== undefined && (obj.filetype = Math.round(message.filetype));
-    message.childPublishedfileid !== undefined && (obj.childPublishedfileid = Math.round(message.childPublishedfileid));
+    message.childPublishedfileid !== undefined && (obj.childPublishedfileid = message.childPublishedfileid);
     message.days !== undefined && (obj.days = Math.round(message.days));
     message.includeRecentVotesOnly !== undefined && (obj.includeRecentVotesOnly = message.includeRecentVotesOnly);
     message.cacheMaxAgeSeconds !== undefined && (obj.cacheMaxAgeSeconds = Math.round(message.cacheMaxAgeSeconds));
@@ -6010,7 +6009,7 @@ export const CPublishedFileQueryFilesRequest = {
     message.omittedFlags = object.omittedFlags?.map((e) => e) || [];
     message.searchText = object.searchText ?? "";
     message.filetype = object.filetype ?? 0;
-    message.childPublishedfileid = object.childPublishedfileid ?? 0;
+    message.childPublishedfileid = object.childPublishedfileid ?? "0";
     message.days = object.days ?? 0;
     message.includeRecentVotesOnly = object.includeRecentVotesOnly ?? false;
     message.cacheMaxAgeSeconds = object.cacheMaxAgeSeconds ?? 0;
@@ -6315,12 +6314,12 @@ export const CPublishedFileQueryFilesResponse = {
 };
 
 function createBaseCPublishedFileAddAppRelationshipRequest(): CPublishedFileAddAppRelationshipRequest {
-  return { publishedfileid: 0, appid: 0, relationship: 0 };
+  return { publishedfileid: "0", appid: 0, relationship: 0 };
 }
 
 export const CPublishedFileAddAppRelationshipRequest = {
   encode(message: CPublishedFileAddAppRelationshipRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.appid !== 0) {
@@ -6340,7 +6339,7 @@ export const CPublishedFileAddAppRelationshipRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -6358,7 +6357,7 @@ export const CPublishedFileAddAppRelationshipRequest = {
 
   fromJSON(object: any): CPublishedFileAddAppRelationshipRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       relationship: isSet(object.relationship) ? Number(object.relationship) : 0,
     };
@@ -6366,7 +6365,7 @@ export const CPublishedFileAddAppRelationshipRequest = {
 
   toJSON(message: CPublishedFileAddAppRelationshipRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.relationship !== undefined && (obj.relationship = Math.round(message.relationship));
     return obj;
@@ -6382,7 +6381,7 @@ export const CPublishedFileAddAppRelationshipRequest = {
     object: I,
   ): CPublishedFileAddAppRelationshipRequest {
     const message = createBaseCPublishedFileAddAppRelationshipRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.appid = object.appid ?? 0;
     message.relationship = object.relationship ?? 0;
     return message;
@@ -6437,12 +6436,12 @@ export const CPublishedFileAddAppRelationshipResponse = {
 };
 
 function createBaseCPublishedFileRemoveAppRelationshipRequest(): CPublishedFileRemoveAppRelationshipRequest {
-  return { publishedfileid: 0, appid: 0, relationship: 0 };
+  return { publishedfileid: "0", appid: 0, relationship: 0 };
 }
 
 export const CPublishedFileRemoveAppRelationshipRequest = {
   encode(message: CPublishedFileRemoveAppRelationshipRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.appid !== 0) {
@@ -6462,7 +6461,7 @@ export const CPublishedFileRemoveAppRelationshipRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -6480,7 +6479,7 @@ export const CPublishedFileRemoveAppRelationshipRequest = {
 
   fromJSON(object: any): CPublishedFileRemoveAppRelationshipRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       relationship: isSet(object.relationship) ? Number(object.relationship) : 0,
     };
@@ -6488,7 +6487,7 @@ export const CPublishedFileRemoveAppRelationshipRequest = {
 
   toJSON(message: CPublishedFileRemoveAppRelationshipRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.relationship !== undefined && (obj.relationship = Math.round(message.relationship));
     return obj;
@@ -6504,7 +6503,7 @@ export const CPublishedFileRemoveAppRelationshipRequest = {
     object: I,
   ): CPublishedFileRemoveAppRelationshipRequest {
     const message = createBaseCPublishedFileRemoveAppRelationshipRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.appid = object.appid ?? 0;
     message.relationship = object.relationship ?? 0;
     return message;
@@ -6559,12 +6558,12 @@ export const CPublishedFileRemoveAppRelationshipResponse = {
 };
 
 function createBaseCPublishedFileGetAppRelationshipsRequest(): CPublishedFileGetAppRelationshipsRequest {
-  return { publishedfileid: 0 };
+  return { publishedfileid: "0" };
 }
 
 export const CPublishedFileGetAppRelationshipsRequest = {
   encode(message: CPublishedFileGetAppRelationshipsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     return writer;
@@ -6578,7 +6577,7 @@ export const CPublishedFileGetAppRelationshipsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6589,12 +6588,12 @@ export const CPublishedFileGetAppRelationshipsRequest = {
   },
 
   fromJSON(object: any): CPublishedFileGetAppRelationshipsRequest {
-    return { publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0 };
+    return { publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0" };
   },
 
   toJSON(message: CPublishedFileGetAppRelationshipsRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     return obj;
   },
 
@@ -6608,7 +6607,7 @@ export const CPublishedFileGetAppRelationshipsRequest = {
     object: I,
   ): CPublishedFileGetAppRelationshipsRequest {
     const message = createBaseCPublishedFileGetAppRelationshipsRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     return message;
   },
 };
@@ -6782,10 +6781,10 @@ export const CPublishedFileGetAppRelationshipsBatchedRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.publishedfileids.push(longToNumber(reader.uint64() as Long));
+              message.publishedfileids.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.publishedfileids.push(longToNumber(reader.uint64() as Long));
+            message.publishedfileids.push(longToString(reader.uint64() as Long));
           }
           break;
         case 2:
@@ -6802,7 +6801,7 @@ export const CPublishedFileGetAppRelationshipsBatchedRequest = {
   fromJSON(object: any): CPublishedFileGetAppRelationshipsBatchedRequest {
     return {
       publishedfileids: Array.isArray(object?.publishedfileids)
-        ? object.publishedfileids.map((e: any) => Number(e))
+        ? object.publishedfileids.map((e: any) => String(e))
         : [],
       filterRelationship: isSet(object.filterRelationship) ? Number(object.filterRelationship) : 0,
     };
@@ -6811,7 +6810,7 @@ export const CPublishedFileGetAppRelationshipsBatchedRequest = {
   toJSON(message: CPublishedFileGetAppRelationshipsBatchedRequest): unknown {
     const obj: any = {};
     if (message.publishedfileids) {
-      obj.publishedfileids = message.publishedfileids.map((e) => Math.round(e));
+      obj.publishedfileids = message.publishedfileids.map((e) => e);
     } else {
       obj.publishedfileids = [];
     }
@@ -6987,7 +6986,7 @@ export const CPublishedFileGetAppRelationshipsBatchedResponse_AppRelationship = 
 };
 
 function createBaseCPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship(): CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship {
-  return { publishedfileid: 0, result: 0, appRelationships: [] };
+  return { publishedfileid: "0", result: 0, appRelationships: [] };
 }
 
 export const CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship = {
@@ -6995,7 +6994,7 @@ export const CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRe
     message: CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.result !== 0) {
@@ -7018,7 +7017,7 @@ export const CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRe
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.result = reader.uint32();
@@ -7038,7 +7037,7 @@ export const CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRe
 
   fromJSON(object: any): CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       result: isSet(object.result) ? Number(object.result) : 0,
       appRelationships: Array.isArray(object?.appRelationships)
         ? object.appRelationships.map((e: any) =>
@@ -7050,7 +7049,7 @@ export const CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRe
 
   toJSON(message: CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.result !== undefined && (obj.result = Math.round(message.result));
     if (message.appRelationships) {
       obj.appRelationships = message.appRelationships.map((e) =>
@@ -7072,7 +7071,7 @@ export const CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRe
     I extends Exact<DeepPartial<CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship>, I>,
   >(object: I): CPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship {
     const message = createBaseCPublishedFileGetAppRelationshipsBatchedResponse_PublishedFileAppRelationship();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.result = object.result ?? 0;
     message.appRelationships =
       object.appRelationships?.map((e) =>
@@ -7113,10 +7112,10 @@ export const CPublishedFileStartPlaytimeTrackingRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.publishedfileids.push(longToNumber(reader.uint64() as Long));
+              message.publishedfileids.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.publishedfileids.push(longToNumber(reader.uint64() as Long));
+            message.publishedfileids.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -7131,7 +7130,7 @@ export const CPublishedFileStartPlaytimeTrackingRequest = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       publishedfileids: Array.isArray(object?.publishedfileids)
-        ? object.publishedfileids.map((e: any) => Number(e))
+        ? object.publishedfileids.map((e: any) => String(e))
         : [],
     };
   },
@@ -7140,7 +7139,7 @@ export const CPublishedFileStartPlaytimeTrackingRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     if (message.publishedfileids) {
-      obj.publishedfileids = message.publishedfileids.map((e) => Math.round(e));
+      obj.publishedfileids = message.publishedfileids.map((e) => e);
     } else {
       obj.publishedfileids = [];
     }
@@ -7241,10 +7240,10 @@ export const CPublishedFileStopPlaytimeTrackingRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.publishedfileids.push(longToNumber(reader.uint64() as Long));
+              message.publishedfileids.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.publishedfileids.push(longToNumber(reader.uint64() as Long));
+            message.publishedfileids.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -7259,7 +7258,7 @@ export const CPublishedFileStopPlaytimeTrackingRequest = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       publishedfileids: Array.isArray(object?.publishedfileids)
-        ? object.publishedfileids.map((e: any) => Number(e))
+        ? object.publishedfileids.map((e: any) => String(e))
         : [],
     };
   },
@@ -7268,7 +7267,7 @@ export const CPublishedFileStopPlaytimeTrackingRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     if (message.publishedfileids) {
-      obj.publishedfileids = message.publishedfileids.map((e) => Math.round(e));
+      obj.publishedfileids = message.publishedfileids.map((e) => e);
     } else {
       obj.publishedfileids = [];
     }
@@ -7532,7 +7531,7 @@ export const CPublishedFileSetPlaytimeForControllerConfigsRequest = {
 };
 
 function createBaseCPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage(): CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage {
-  return { publishedfileid: 0, secondsActive: 0 };
+  return { publishedfileid: "0", secondsActive: 0 };
 }
 
 export const CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage = {
@@ -7540,7 +7539,7 @@ export const CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConf
     message: CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
     if (message.secondsActive !== 0) {
@@ -7560,7 +7559,7 @@ export const CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConf
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.secondsActive = reader.float();
@@ -7575,14 +7574,14 @@ export const CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConf
 
   fromJSON(object: any): CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       secondsActive: isSet(object.secondsActive) ? Number(object.secondsActive) : 0,
     };
   },
 
   toJSON(message: CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.secondsActive !== undefined && (obj.secondsActive = message.secondsActive);
     return obj;
   },
@@ -7597,7 +7596,7 @@ export const CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConf
     I extends Exact<DeepPartial<CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage>, I>,
   >(object: I): CPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage {
     const message = createBaseCPublishedFileSetPlaytimeForControllerConfigsRequest_ControllerConfigUsage();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.secondsActive = object.secondsActive ?? 0;
     return message;
   },
@@ -7654,15 +7653,15 @@ export const CPublishedFileSetPlaytimeForControllerConfigsResponse = {
 };
 
 function createBaseCPublishedFileAddChildRequest(): CPublishedFileAddChildRequest {
-  return { publishedfileid: 0, childPublishedfileid: 0 };
+  return { publishedfileid: "0", childPublishedfileid: "0" };
 }
 
 export const CPublishedFileAddChildRequest = {
   encode(message: CPublishedFileAddChildRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
-    if (message.childPublishedfileid !== 0) {
+    if (message.childPublishedfileid !== "0") {
       writer.uint32(16).uint64(message.childPublishedfileid);
     }
     return writer;
@@ -7676,10 +7675,10 @@ export const CPublishedFileAddChildRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.childPublishedfileid = longToNumber(reader.uint64() as Long);
+          message.childPublishedfileid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7691,15 +7690,15 @@ export const CPublishedFileAddChildRequest = {
 
   fromJSON(object: any): CPublishedFileAddChildRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
-      childPublishedfileid: isSet(object.childPublishedfileid) ? Number(object.childPublishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
+      childPublishedfileid: isSet(object.childPublishedfileid) ? String(object.childPublishedfileid) : "0",
     };
   },
 
   toJSON(message: CPublishedFileAddChildRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
-    message.childPublishedfileid !== undefined && (obj.childPublishedfileid = Math.round(message.childPublishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
+    message.childPublishedfileid !== undefined && (obj.childPublishedfileid = message.childPublishedfileid);
     return obj;
   },
 
@@ -7711,8 +7710,8 @@ export const CPublishedFileAddChildRequest = {
     object: I,
   ): CPublishedFileAddChildRequest {
     const message = createBaseCPublishedFileAddChildRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
-    message.childPublishedfileid = object.childPublishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
+    message.childPublishedfileid = object.childPublishedfileid ?? "0";
     return message;
   },
 };
@@ -7761,15 +7760,15 @@ export const CPublishedFileAddChildResponse = {
 };
 
 function createBaseCPublishedFileRemoveChildRequest(): CPublishedFileRemoveChildRequest {
-  return { publishedfileid: 0, childPublishedfileid: 0 };
+  return { publishedfileid: "0", childPublishedfileid: "0" };
 }
 
 export const CPublishedFileRemoveChildRequest = {
   encode(message: CPublishedFileRemoveChildRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(8).uint64(message.publishedfileid);
     }
-    if (message.childPublishedfileid !== 0) {
+    if (message.childPublishedfileid !== "0") {
       writer.uint32(16).uint64(message.childPublishedfileid);
     }
     return writer;
@@ -7783,10 +7782,10 @@ export const CPublishedFileRemoveChildRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.uint64() as Long);
+          message.publishedfileid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.childPublishedfileid = longToNumber(reader.uint64() as Long);
+          message.childPublishedfileid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7798,15 +7797,15 @@ export const CPublishedFileRemoveChildRequest = {
 
   fromJSON(object: any): CPublishedFileRemoveChildRequest {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
-      childPublishedfileid: isSet(object.childPublishedfileid) ? Number(object.childPublishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
+      childPublishedfileid: isSet(object.childPublishedfileid) ? String(object.childPublishedfileid) : "0",
     };
   },
 
   toJSON(message: CPublishedFileRemoveChildRequest): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
-    message.childPublishedfileid !== undefined && (obj.childPublishedfileid = Math.round(message.childPublishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
+    message.childPublishedfileid !== undefined && (obj.childPublishedfileid = message.childPublishedfileid);
     return obj;
   },
 
@@ -7820,8 +7819,8 @@ export const CPublishedFileRemoveChildRequest = {
     object: I,
   ): CPublishedFileRemoveChildRequest {
     const message = createBaseCPublishedFileRemoveChildRequest();
-    message.publishedfileid = object.publishedfileid ?? 0;
-    message.childPublishedfileid = object.childPublishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
+    message.childPublishedfileid = object.childPublishedfileid ?? "0";
     return message;
   },
 };
@@ -7898,10 +7897,10 @@ export const CPublishedFileGetUserVoteSummaryRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.publishedfileids.push(longToNumber(reader.fixed64() as Long));
+              message.publishedfileids.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.publishedfileids.push(longToNumber(reader.fixed64() as Long));
+            message.publishedfileids.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -7915,7 +7914,7 @@ export const CPublishedFileGetUserVoteSummaryRequest = {
   fromJSON(object: any): CPublishedFileGetUserVoteSummaryRequest {
     return {
       publishedfileids: Array.isArray(object?.publishedfileids)
-        ? object.publishedfileids.map((e: any) => Number(e))
+        ? object.publishedfileids.map((e: any) => String(e))
         : [],
     };
   },
@@ -7923,7 +7922,7 @@ export const CPublishedFileGetUserVoteSummaryRequest = {
   toJSON(message: CPublishedFileGetUserVoteSummaryRequest): unknown {
     const obj: any = {};
     if (message.publishedfileids) {
-      obj.publishedfileids = message.publishedfileids.map((e) => Math.round(e));
+      obj.publishedfileids = message.publishedfileids.map((e) => e);
     } else {
       obj.publishedfileids = [];
     }
@@ -8012,7 +8011,7 @@ export const CPublishedFileGetUserVoteSummaryResponse = {
 };
 
 function createBaseCPublishedFileGetUserVoteSummaryResponse_VoteSummary(): CPublishedFileGetUserVoteSummaryResponse_VoteSummary {
-  return { publishedfileid: 0, voteFor: false, voteAgainst: false, reported: false };
+  return { publishedfileid: "0", voteFor: false, voteAgainst: false, reported: false };
 }
 
 export const CPublishedFileGetUserVoteSummaryResponse_VoteSummary = {
@@ -8020,7 +8019,7 @@ export const CPublishedFileGetUserVoteSummaryResponse_VoteSummary = {
     message: CPublishedFileGetUserVoteSummaryResponse_VoteSummary,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedfileid !== 0) {
+    if (message.publishedfileid !== "0") {
       writer.uint32(9).fixed64(message.publishedfileid);
     }
     if (message.voteFor === true) {
@@ -8043,7 +8042,7 @@ export const CPublishedFileGetUserVoteSummaryResponse_VoteSummary = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedfileid = longToNumber(reader.fixed64() as Long);
+          message.publishedfileid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.voteFor = reader.bool();
@@ -8064,7 +8063,7 @@ export const CPublishedFileGetUserVoteSummaryResponse_VoteSummary = {
 
   fromJSON(object: any): CPublishedFileGetUserVoteSummaryResponse_VoteSummary {
     return {
-      publishedfileid: isSet(object.publishedfileid) ? Number(object.publishedfileid) : 0,
+      publishedfileid: isSet(object.publishedfileid) ? String(object.publishedfileid) : "0",
       voteFor: isSet(object.voteFor) ? Boolean(object.voteFor) : false,
       voteAgainst: isSet(object.voteAgainst) ? Boolean(object.voteAgainst) : false,
       reported: isSet(object.reported) ? Boolean(object.reported) : false,
@@ -8073,7 +8072,7 @@ export const CPublishedFileGetUserVoteSummaryResponse_VoteSummary = {
 
   toJSON(message: CPublishedFileGetUserVoteSummaryResponse_VoteSummary): unknown {
     const obj: any = {};
-    message.publishedfileid !== undefined && (obj.publishedfileid = Math.round(message.publishedfileid));
+    message.publishedfileid !== undefined && (obj.publishedfileid = message.publishedfileid);
     message.voteFor !== undefined && (obj.voteFor = message.voteFor);
     message.voteAgainst !== undefined && (obj.voteAgainst = message.voteAgainst);
     message.reported !== undefined && (obj.reported = message.reported);
@@ -8090,7 +8089,7 @@ export const CPublishedFileGetUserVoteSummaryResponse_VoteSummary = {
     object: I,
   ): CPublishedFileGetUserVoteSummaryResponse_VoteSummary {
     const message = createBaseCPublishedFileGetUserVoteSummaryResponse_VoteSummary();
-    message.publishedfileid = object.publishedfileid ?? 0;
+    message.publishedfileid = object.publishedfileid ?? "0";
     message.voteFor = object.voteFor ?? false;
     message.voteAgainst = object.voteAgainst ?? false;
     message.reported = object.reported ?? false;
@@ -8251,7 +8250,7 @@ export const CPublishedFileGetItemChangesResponse = {
 };
 
 function createBaseCPublishedFileGetItemChangesResponse_WorkshopItemInfo(): CPublishedFileGetItemChangesResponse_WorkshopItemInfo {
-  return { publishedFileId: 0, timeUpdated: 0, manifestId: 0 };
+  return { publishedFileId: "0", timeUpdated: 0, manifestId: "0" };
 }
 
 export const CPublishedFileGetItemChangesResponse_WorkshopItemInfo = {
@@ -8259,13 +8258,13 @@ export const CPublishedFileGetItemChangesResponse_WorkshopItemInfo = {
     message: CPublishedFileGetItemChangesResponse_WorkshopItemInfo,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.timeUpdated !== 0) {
       writer.uint32(16).uint32(message.timeUpdated);
     }
-    if (message.manifestId !== 0) {
+    if (message.manifestId !== "0") {
       writer.uint32(25).fixed64(message.manifestId);
     }
     return writer;
@@ -8279,13 +8278,13 @@ export const CPublishedFileGetItemChangesResponse_WorkshopItemInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timeUpdated = reader.uint32();
           break;
         case 3:
-          message.manifestId = longToNumber(reader.fixed64() as Long);
+          message.manifestId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8297,17 +8296,17 @@ export const CPublishedFileGetItemChangesResponse_WorkshopItemInfo = {
 
   fromJSON(object: any): CPublishedFileGetItemChangesResponse_WorkshopItemInfo {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
-      manifestId: isSet(object.manifestId) ? Number(object.manifestId) : 0,
+      manifestId: isSet(object.manifestId) ? String(object.manifestId) : "0",
     };
   },
 
   toJSON(message: CPublishedFileGetItemChangesResponse_WorkshopItemInfo): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.timeUpdated !== undefined && (obj.timeUpdated = Math.round(message.timeUpdated));
-    message.manifestId !== undefined && (obj.manifestId = Math.round(message.manifestId));
+    message.manifestId !== undefined && (obj.manifestId = message.manifestId);
     return obj;
   },
 
@@ -8321,18 +8320,18 @@ export const CPublishedFileGetItemChangesResponse_WorkshopItemInfo = {
     object: I,
   ): CPublishedFileGetItemChangesResponse_WorkshopItemInfo {
     const message = createBaseCPublishedFileGetItemChangesResponse_WorkshopItemInfo();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.timeUpdated = object.timeUpdated ?? 0;
-    message.manifestId = object.manifestId ?? 0;
+    message.manifestId = object.manifestId ?? "0";
     return message;
   },
 };
 
 function createBaseCPublishedFileFileSubscribedNotification(): CPublishedFileFileSubscribedNotification {
   return {
-    publishedFileId: 0,
+    publishedFileId: "0",
     appId: 0,
-    fileHcontent: 0,
+    fileHcontent: "0",
     fileSize: 0,
     rtimeSubscribed: 0,
     isDepotContent: false,
@@ -8343,13 +8342,13 @@ function createBaseCPublishedFileFileSubscribedNotification(): CPublishedFileFil
 
 export const CPublishedFileFileSubscribedNotification = {
   encode(message: CPublishedFileFileSubscribedNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.appId !== 0) {
       writer.uint32(16).uint32(message.appId);
     }
-    if (message.fileHcontent !== 0) {
+    if (message.fileHcontent !== "0") {
       writer.uint32(25).fixed64(message.fileHcontent);
     }
     if (message.fileSize !== 0) {
@@ -8378,13 +8377,13 @@ export const CPublishedFileFileSubscribedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appId = reader.uint32();
           break;
         case 3:
-          message.fileHcontent = longToNumber(reader.fixed64() as Long);
+          message.fileHcontent = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.fileSize = reader.uint32();
@@ -8411,9 +8410,9 @@ export const CPublishedFileFileSubscribedNotification = {
 
   fromJSON(object: any): CPublishedFileFileSubscribedNotification {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      fileHcontent: isSet(object.fileHcontent) ? Number(object.fileHcontent) : 0,
+      fileHcontent: isSet(object.fileHcontent) ? String(object.fileHcontent) : "0",
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       rtimeSubscribed: isSet(object.rtimeSubscribed) ? Number(object.rtimeSubscribed) : 0,
       isDepotContent: isSet(object.isDepotContent) ? Boolean(object.isDepotContent) : false,
@@ -8426,9 +8425,9 @@ export const CPublishedFileFileSubscribedNotification = {
 
   toJSON(message: CPublishedFileFileSubscribedNotification): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.fileHcontent !== undefined && (obj.fileHcontent = Math.round(message.fileHcontent));
+    message.fileHcontent !== undefined && (obj.fileHcontent = message.fileHcontent);
     message.fileSize !== undefined && (obj.fileSize = Math.round(message.fileSize));
     message.rtimeSubscribed !== undefined && (obj.rtimeSubscribed = Math.round(message.rtimeSubscribed));
     message.isDepotContent !== undefined && (obj.isDepotContent = message.isDepotContent);
@@ -8453,9 +8452,9 @@ export const CPublishedFileFileSubscribedNotification = {
     object: I,
   ): CPublishedFileFileSubscribedNotification {
     const message = createBaseCPublishedFileFileSubscribedNotification();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.appId = object.appId ?? 0;
-    message.fileHcontent = object.fileHcontent ?? 0;
+    message.fileHcontent = object.fileHcontent ?? "0";
     message.fileSize = object.fileSize ?? 0;
     message.rtimeSubscribed = object.rtimeSubscribed ?? 0;
     message.isDepotContent = object.isDepotContent ?? false;
@@ -8467,7 +8466,7 @@ export const CPublishedFileFileSubscribedNotification = {
 };
 
 function createBaseCPublishedFileFileSubscribedNotification_RevisionData(): CPublishedFileFileSubscribedNotification_RevisionData {
-  return { revision: 0, fileHcontent: 0, rtimeUpdated: 0 };
+  return { revision: 0, fileHcontent: "0", rtimeUpdated: 0 };
 }
 
 export const CPublishedFileFileSubscribedNotification_RevisionData = {
@@ -8478,7 +8477,7 @@ export const CPublishedFileFileSubscribedNotification_RevisionData = {
     if (message.revision !== 0) {
       writer.uint32(8).int32(message.revision);
     }
-    if (message.fileHcontent !== 0) {
+    if (message.fileHcontent !== "0") {
       writer.uint32(17).fixed64(message.fileHcontent);
     }
     if (message.rtimeUpdated !== 0) {
@@ -8498,7 +8497,7 @@ export const CPublishedFileFileSubscribedNotification_RevisionData = {
           message.revision = reader.int32() as any;
           break;
         case 2:
-          message.fileHcontent = longToNumber(reader.fixed64() as Long);
+          message.fileHcontent = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.rtimeUpdated = reader.uint32();
@@ -8514,7 +8513,7 @@ export const CPublishedFileFileSubscribedNotification_RevisionData = {
   fromJSON(object: any): CPublishedFileFileSubscribedNotification_RevisionData {
     return {
       revision: isSet(object.revision) ? ePublishedFileRevisionFromJSON(object.revision) : 0,
-      fileHcontent: isSet(object.fileHcontent) ? Number(object.fileHcontent) : 0,
+      fileHcontent: isSet(object.fileHcontent) ? String(object.fileHcontent) : "0",
       rtimeUpdated: isSet(object.rtimeUpdated) ? Number(object.rtimeUpdated) : 0,
     };
   },
@@ -8522,7 +8521,7 @@ export const CPublishedFileFileSubscribedNotification_RevisionData = {
   toJSON(message: CPublishedFileFileSubscribedNotification_RevisionData): unknown {
     const obj: any = {};
     message.revision !== undefined && (obj.revision = ePublishedFileRevisionToJSON(message.revision));
-    message.fileHcontent !== undefined && (obj.fileHcontent = Math.round(message.fileHcontent));
+    message.fileHcontent !== undefined && (obj.fileHcontent = message.fileHcontent);
     message.rtimeUpdated !== undefined && (obj.rtimeUpdated = Math.round(message.rtimeUpdated));
     return obj;
   },
@@ -8538,19 +8537,19 @@ export const CPublishedFileFileSubscribedNotification_RevisionData = {
   ): CPublishedFileFileSubscribedNotification_RevisionData {
     const message = createBaseCPublishedFileFileSubscribedNotification_RevisionData();
     message.revision = object.revision ?? 0;
-    message.fileHcontent = object.fileHcontent ?? 0;
+    message.fileHcontent = object.fileHcontent ?? "0";
     message.rtimeUpdated = object.rtimeUpdated ?? 0;
     return message;
   },
 };
 
 function createBaseCPublishedFileFileUnsubscribedNotification(): CPublishedFileFileUnsubscribedNotification {
-  return { publishedFileId: 0, appId: 0 };
+  return { publishedFileId: "0", appId: 0 };
 }
 
 export const CPublishedFileFileUnsubscribedNotification = {
   encode(message: CPublishedFileFileUnsubscribedNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.appId !== 0) {
@@ -8567,7 +8566,7 @@ export const CPublishedFileFileUnsubscribedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appId = reader.uint32();
@@ -8582,14 +8581,14 @@ export const CPublishedFileFileUnsubscribedNotification = {
 
   fromJSON(object: any): CPublishedFileFileUnsubscribedNotification {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
     };
   },
 
   toJSON(message: CPublishedFileFileUnsubscribedNotification): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     return obj;
   },
@@ -8604,19 +8603,19 @@ export const CPublishedFileFileUnsubscribedNotification = {
     object: I,
   ): CPublishedFileFileUnsubscribedNotification {
     const message = createBaseCPublishedFileFileUnsubscribedNotification();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.appId = object.appId ?? 0;
     return message;
   },
 };
 
 function createBaseCPublishedFileFileDeletedClientNotification(): CPublishedFileFileDeletedClientNotification {
-  return { publishedFileId: 0, appId: 0 };
+  return { publishedFileId: "0", appId: 0 };
 }
 
 export const CPublishedFileFileDeletedClientNotification = {
   encode(message: CPublishedFileFileDeletedClientNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.appId !== 0) {
@@ -8633,7 +8632,7 @@ export const CPublishedFileFileDeletedClientNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appId = reader.uint32();
@@ -8648,14 +8647,14 @@ export const CPublishedFileFileDeletedClientNotification = {
 
   fromJSON(object: any): CPublishedFileFileDeletedClientNotification {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
     };
   },
 
   toJSON(message: CPublishedFileFileDeletedClientNotification): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     return obj;
   },
@@ -8670,7 +8669,7 @@ export const CPublishedFileFileDeletedClientNotification = {
     object: I,
   ): CPublishedFileFileDeletedClientNotification {
     const message = createBaseCPublishedFileFileDeletedClientNotification();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.appId = object.appId ?? 0;
     return message;
   },
@@ -9008,25 +9007,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -9038,11 +9018,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

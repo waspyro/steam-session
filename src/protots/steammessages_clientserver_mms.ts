@@ -71,42 +71,42 @@ export interface CMsgClientMMSCreateLobby {
 
 export interface CMsgClientMMSCreateLobbyResponse {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   eresult: number;
 }
 
 export interface CMsgClientMMSJoinLobby {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   personaName: string;
 }
 
 export interface CMsgClientMMSJoinLobbyResponse {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   chatRoomEnterResponse: number;
   maxMembers: number;
   lobbyType: number;
   lobbyFlags: number;
-  steamIdOwner: number;
+  steamIdOwner: string;
   metadata: Buffer;
   members: CMsgClientMMSJoinLobbyResponse_Member[];
 }
 
 export interface CMsgClientMMSJoinLobbyResponse_Member {
-  steamId: number;
+  steamId: string;
   personaName: string;
   metadata: Buffer;
 }
 
 export interface CMsgClientMMSLeaveLobby {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
 }
 
 export interface CMsgClientMMSLeaveLobbyResponse {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   eresult: number;
 }
 
@@ -133,20 +133,20 @@ export interface CMsgClientMMSGetLobbyListResponse {
 }
 
 export interface CMsgClientMMSGetLobbyListResponse_Lobby {
-  steamId: number;
+  steamId: string;
   maxMembers: number;
   lobbyType: number;
   lobbyFlags: number;
   metadata: Buffer;
   numMembers: number;
   distance: number;
-  weight: number;
+  weight: string;
 }
 
 export interface CMsgClientMMSSetLobbyData {
   appId: number;
-  steamIdLobby: number;
-  steamIdMember: number;
+  steamIdLobby: string;
+  steamIdMember: string;
   maxMembers: number;
   lobbyType: number;
   lobbyFlags: number;
@@ -155,23 +155,23 @@ export interface CMsgClientMMSSetLobbyData {
 
 export interface CMsgClientMMSSetLobbyDataResponse {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   eresult: number;
 }
 
 export interface CMsgClientMMSGetLobbyData {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
 }
 
 export interface CMsgClientMMSLobbyData {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   numMembers: number;
   maxMembers: number;
   lobbyType: number;
   lobbyFlags: number;
-  steamIdOwner: number;
+  steamIdOwner: string;
   metadata: Buffer;
   members: CMsgClientMMSLobbyData_Member[];
   lobbyCellid: number;
@@ -179,91 +179,91 @@ export interface CMsgClientMMSLobbyData {
 }
 
 export interface CMsgClientMMSLobbyData_Member {
-  steamId: number;
+  steamId: string;
   personaName: string;
   metadata: Buffer;
 }
 
 export interface CMsgClientMMSSendLobbyChatMsg {
   appId: number;
-  steamIdLobby: number;
-  steamIdTarget: number;
+  steamIdLobby: string;
+  steamIdTarget: string;
   lobbyMessage: Buffer;
 }
 
 export interface CMsgClientMMSLobbyChatMsg {
   appId: number;
-  steamIdLobby: number;
-  steamIdSender: number;
+  steamIdLobby: string;
+  steamIdSender: string;
   lobbyMessage: Buffer;
 }
 
 export interface CMsgClientMMSSetLobbyOwner {
   appId: number;
-  steamIdLobby: number;
-  steamIdNewOwner: number;
+  steamIdLobby: string;
+  steamIdNewOwner: string;
 }
 
 export interface CMsgClientMMSSetLobbyOwnerResponse {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   eresult: number;
 }
 
 export interface CMsgClientMMSSetLobbyLinked {
   appId: number;
-  steamIdLobby: number;
-  steamIdLobby2: number;
+  steamIdLobby: string;
+  steamIdLobby2: string;
 }
 
 export interface CMsgClientMMSSetLobbyGameServer {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   deprecatedGameServerIp: number;
   gameServerPort: number;
-  gameServerSteamId: number;
+  gameServerSteamId: string;
   gameServerIp: CMsgIPAddress | undefined;
 }
 
 export interface CMsgClientMMSLobbyGameServerSet {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   deprecatedGameServerIp: number;
   gameServerPort: number;
-  gameServerSteamId: number;
+  gameServerSteamId: string;
   gameServerIp: CMsgIPAddress | undefined;
 }
 
 export interface CMsgClientMMSUserJoinedLobby {
   appId: number;
-  steamIdLobby: number;
-  steamIdUser: number;
+  steamIdLobby: string;
+  steamIdUser: string;
   personaName: string;
 }
 
 export interface CMsgClientMMSUserLeftLobby {
   appId: number;
-  steamIdLobby: number;
-  steamIdUser: number;
+  steamIdLobby: string;
+  steamIdUser: string;
   personaName: string;
 }
 
 export interface CMsgClientMMSInviteToLobby {
   appId: number;
-  steamIdLobby: number;
-  steamIdUserInvited: number;
+  steamIdLobby: string;
+  steamIdUserInvited: string;
 }
 
 export interface CMsgClientMMSGetLobbyStatus {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   claimMembership: boolean;
   claimOwnership: boolean;
 }
 
 export interface CMsgClientMMSGetLobbyStatusResponse {
   appId: number;
-  steamIdLobby: number;
+  steamIdLobby: string;
   lobbyStatus: EMMSLobbyStatus;
 }
 
@@ -492,7 +492,7 @@ export const CMsgClientMMSCreateLobby = {
 };
 
 function createBaseCMsgClientMMSCreateLobbyResponse(): CMsgClientMMSCreateLobbyResponse {
-  return { appId: 0, steamIdLobby: 0, eresult: 0 };
+  return { appId: 0, steamIdLobby: "0", eresult: 0 };
 }
 
 export const CMsgClientMMSCreateLobbyResponse = {
@@ -500,7 +500,7 @@ export const CMsgClientMMSCreateLobbyResponse = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.eresult !== 0) {
@@ -520,7 +520,7 @@ export const CMsgClientMMSCreateLobbyResponse = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.eresult = reader.int32();
@@ -536,7 +536,7 @@ export const CMsgClientMMSCreateLobbyResponse = {
   fromJSON(object: any): CMsgClientMMSCreateLobbyResponse {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
     };
   },
@@ -544,7 +544,7 @@ export const CMsgClientMMSCreateLobbyResponse = {
   toJSON(message: CMsgClientMMSCreateLobbyResponse): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     return obj;
   },
@@ -560,14 +560,14 @@ export const CMsgClientMMSCreateLobbyResponse = {
   ): CMsgClientMMSCreateLobbyResponse {
     const message = createBaseCMsgClientMMSCreateLobbyResponse();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.eresult = object.eresult ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgClientMMSJoinLobby(): CMsgClientMMSJoinLobby {
-  return { appId: 0, steamIdLobby: 0, personaName: "" };
+  return { appId: 0, steamIdLobby: "0", personaName: "" };
 }
 
 export const CMsgClientMMSJoinLobby = {
@@ -575,7 +575,7 @@ export const CMsgClientMMSJoinLobby = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.personaName !== "") {
@@ -595,7 +595,7 @@ export const CMsgClientMMSJoinLobby = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.personaName = reader.string();
@@ -611,7 +611,7 @@ export const CMsgClientMMSJoinLobby = {
   fromJSON(object: any): CMsgClientMMSJoinLobby {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       personaName: isSet(object.personaName) ? String(object.personaName) : "",
     };
   },
@@ -619,7 +619,7 @@ export const CMsgClientMMSJoinLobby = {
   toJSON(message: CMsgClientMMSJoinLobby): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.personaName !== undefined && (obj.personaName = message.personaName);
     return obj;
   },
@@ -631,7 +631,7 @@ export const CMsgClientMMSJoinLobby = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSJoinLobby>, I>>(object: I): CMsgClientMMSJoinLobby {
     const message = createBaseCMsgClientMMSJoinLobby();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.personaName = object.personaName ?? "";
     return message;
   },
@@ -640,12 +640,12 @@ export const CMsgClientMMSJoinLobby = {
 function createBaseCMsgClientMMSJoinLobbyResponse(): CMsgClientMMSJoinLobbyResponse {
   return {
     appId: 0,
-    steamIdLobby: 0,
+    steamIdLobby: "0",
     chatRoomEnterResponse: 0,
     maxMembers: 0,
     lobbyType: 0,
     lobbyFlags: 0,
-    steamIdOwner: 0,
+    steamIdOwner: "0",
     metadata: Buffer.alloc(0),
     members: [],
   };
@@ -656,7 +656,7 @@ export const CMsgClientMMSJoinLobbyResponse = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.chatRoomEnterResponse !== 0) {
@@ -671,7 +671,7 @@ export const CMsgClientMMSJoinLobbyResponse = {
     if (message.lobbyFlags !== 0) {
       writer.uint32(48).int32(message.lobbyFlags);
     }
-    if (message.steamIdOwner !== 0) {
+    if (message.steamIdOwner !== "0") {
       writer.uint32(57).fixed64(message.steamIdOwner);
     }
     if (message.metadata.length !== 0) {
@@ -694,7 +694,7 @@ export const CMsgClientMMSJoinLobbyResponse = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.chatRoomEnterResponse = reader.int32();
@@ -709,7 +709,7 @@ export const CMsgClientMMSJoinLobbyResponse = {
           message.lobbyFlags = reader.int32();
           break;
         case 7:
-          message.steamIdOwner = longToNumber(reader.fixed64() as Long);
+          message.steamIdOwner = longToString(reader.fixed64() as Long);
           break;
         case 8:
           message.metadata = reader.bytes() as Buffer;
@@ -728,12 +728,12 @@ export const CMsgClientMMSJoinLobbyResponse = {
   fromJSON(object: any): CMsgClientMMSJoinLobbyResponse {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       chatRoomEnterResponse: isSet(object.chatRoomEnterResponse) ? Number(object.chatRoomEnterResponse) : 0,
       maxMembers: isSet(object.maxMembers) ? Number(object.maxMembers) : 0,
       lobbyType: isSet(object.lobbyType) ? Number(object.lobbyType) : 0,
       lobbyFlags: isSet(object.lobbyFlags) ? Number(object.lobbyFlags) : 0,
-      steamIdOwner: isSet(object.steamIdOwner) ? Number(object.steamIdOwner) : 0,
+      steamIdOwner: isSet(object.steamIdOwner) ? String(object.steamIdOwner) : "0",
       metadata: isSet(object.metadata) ? Buffer.from(bytesFromBase64(object.metadata)) : Buffer.alloc(0),
       members: Array.isArray(object?.members)
         ? object.members.map((e: any) => CMsgClientMMSJoinLobbyResponse_Member.fromJSON(e))
@@ -744,13 +744,13 @@ export const CMsgClientMMSJoinLobbyResponse = {
   toJSON(message: CMsgClientMMSJoinLobbyResponse): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.chatRoomEnterResponse !== undefined &&
       (obj.chatRoomEnterResponse = Math.round(message.chatRoomEnterResponse));
     message.maxMembers !== undefined && (obj.maxMembers = Math.round(message.maxMembers));
     message.lobbyType !== undefined && (obj.lobbyType = Math.round(message.lobbyType));
     message.lobbyFlags !== undefined && (obj.lobbyFlags = Math.round(message.lobbyFlags));
-    message.steamIdOwner !== undefined && (obj.steamIdOwner = Math.round(message.steamIdOwner));
+    message.steamIdOwner !== undefined && (obj.steamIdOwner = message.steamIdOwner);
     message.metadata !== undefined &&
       (obj.metadata = base64FromBytes(message.metadata !== undefined ? message.metadata : Buffer.alloc(0)));
     if (message.members) {
@@ -770,12 +770,12 @@ export const CMsgClientMMSJoinLobbyResponse = {
   ): CMsgClientMMSJoinLobbyResponse {
     const message = createBaseCMsgClientMMSJoinLobbyResponse();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.chatRoomEnterResponse = object.chatRoomEnterResponse ?? 0;
     message.maxMembers = object.maxMembers ?? 0;
     message.lobbyType = object.lobbyType ?? 0;
     message.lobbyFlags = object.lobbyFlags ?? 0;
-    message.steamIdOwner = object.steamIdOwner ?? 0;
+    message.steamIdOwner = object.steamIdOwner ?? "0";
     message.metadata = object.metadata ?? Buffer.alloc(0);
     message.members = object.members?.map((e) => CMsgClientMMSJoinLobbyResponse_Member.fromPartial(e)) || [];
     return message;
@@ -783,12 +783,12 @@ export const CMsgClientMMSJoinLobbyResponse = {
 };
 
 function createBaseCMsgClientMMSJoinLobbyResponse_Member(): CMsgClientMMSJoinLobbyResponse_Member {
-  return { steamId: 0, personaName: "", metadata: Buffer.alloc(0) };
+  return { steamId: "0", personaName: "", metadata: Buffer.alloc(0) };
 }
 
 export const CMsgClientMMSJoinLobbyResponse_Member = {
   encode(message: CMsgClientMMSJoinLobbyResponse_Member, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     if (message.personaName !== "") {
@@ -808,7 +808,7 @@ export const CMsgClientMMSJoinLobbyResponse_Member = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.personaName = reader.string();
@@ -826,7 +826,7 @@ export const CMsgClientMMSJoinLobbyResponse_Member = {
 
   fromJSON(object: any): CMsgClientMMSJoinLobbyResponse_Member {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       personaName: isSet(object.personaName) ? String(object.personaName) : "",
       metadata: isSet(object.metadata) ? Buffer.from(bytesFromBase64(object.metadata)) : Buffer.alloc(0),
     };
@@ -834,7 +834,7 @@ export const CMsgClientMMSJoinLobbyResponse_Member = {
 
   toJSON(message: CMsgClientMMSJoinLobbyResponse_Member): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.personaName !== undefined && (obj.personaName = message.personaName);
     message.metadata !== undefined &&
       (obj.metadata = base64FromBytes(message.metadata !== undefined ? message.metadata : Buffer.alloc(0)));
@@ -851,7 +851,7 @@ export const CMsgClientMMSJoinLobbyResponse_Member = {
     object: I,
   ): CMsgClientMMSJoinLobbyResponse_Member {
     const message = createBaseCMsgClientMMSJoinLobbyResponse_Member();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.personaName = object.personaName ?? "";
     message.metadata = object.metadata ?? Buffer.alloc(0);
     return message;
@@ -859,7 +859,7 @@ export const CMsgClientMMSJoinLobbyResponse_Member = {
 };
 
 function createBaseCMsgClientMMSLeaveLobby(): CMsgClientMMSLeaveLobby {
-  return { appId: 0, steamIdLobby: 0 };
+  return { appId: 0, steamIdLobby: "0" };
 }
 
 export const CMsgClientMMSLeaveLobby = {
@@ -867,7 +867,7 @@ export const CMsgClientMMSLeaveLobby = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     return writer;
@@ -884,7 +884,7 @@ export const CMsgClientMMSLeaveLobby = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -897,14 +897,14 @@ export const CMsgClientMMSLeaveLobby = {
   fromJSON(object: any): CMsgClientMMSLeaveLobby {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
     };
   },
 
   toJSON(message: CMsgClientMMSLeaveLobby): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     return obj;
   },
 
@@ -915,13 +915,13 @@ export const CMsgClientMMSLeaveLobby = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSLeaveLobby>, I>>(object: I): CMsgClientMMSLeaveLobby {
     const message = createBaseCMsgClientMMSLeaveLobby();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientMMSLeaveLobbyResponse(): CMsgClientMMSLeaveLobbyResponse {
-  return { appId: 0, steamIdLobby: 0, eresult: 0 };
+  return { appId: 0, steamIdLobby: "0", eresult: 0 };
 }
 
 export const CMsgClientMMSLeaveLobbyResponse = {
@@ -929,7 +929,7 @@ export const CMsgClientMMSLeaveLobbyResponse = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.eresult !== 0) {
@@ -949,7 +949,7 @@ export const CMsgClientMMSLeaveLobbyResponse = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.eresult = reader.int32();
@@ -965,7 +965,7 @@ export const CMsgClientMMSLeaveLobbyResponse = {
   fromJSON(object: any): CMsgClientMMSLeaveLobbyResponse {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
     };
   },
@@ -973,7 +973,7 @@ export const CMsgClientMMSLeaveLobbyResponse = {
   toJSON(message: CMsgClientMMSLeaveLobbyResponse): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     return obj;
   },
@@ -987,7 +987,7 @@ export const CMsgClientMMSLeaveLobbyResponse = {
   ): CMsgClientMMSLeaveLobbyResponse {
     const message = createBaseCMsgClientMMSLeaveLobbyResponse();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.eresult = object.eresult ?? 0;
     return message;
   },
@@ -1267,20 +1267,20 @@ export const CMsgClientMMSGetLobbyListResponse = {
 
 function createBaseCMsgClientMMSGetLobbyListResponse_Lobby(): CMsgClientMMSGetLobbyListResponse_Lobby {
   return {
-    steamId: 0,
+    steamId: "0",
     maxMembers: 0,
     lobbyType: 0,
     lobbyFlags: 0,
     metadata: Buffer.alloc(0),
     numMembers: 0,
     distance: 0,
-    weight: 0,
+    weight: "0",
   };
 }
 
 export const CMsgClientMMSGetLobbyListResponse_Lobby = {
   encode(message: CMsgClientMMSGetLobbyListResponse_Lobby, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     if (message.maxMembers !== 0) {
@@ -1301,7 +1301,7 @@ export const CMsgClientMMSGetLobbyListResponse_Lobby = {
     if (message.distance !== 0) {
       writer.uint32(61).float(message.distance);
     }
-    if (message.weight !== 0) {
+    if (message.weight !== "0") {
       writer.uint32(64).int64(message.weight);
     }
     return writer;
@@ -1315,7 +1315,7 @@ export const CMsgClientMMSGetLobbyListResponse_Lobby = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.maxMembers = reader.int32();
@@ -1336,7 +1336,7 @@ export const CMsgClientMMSGetLobbyListResponse_Lobby = {
           message.distance = reader.float();
           break;
         case 8:
-          message.weight = longToNumber(reader.int64() as Long);
+          message.weight = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1348,20 +1348,20 @@ export const CMsgClientMMSGetLobbyListResponse_Lobby = {
 
   fromJSON(object: any): CMsgClientMMSGetLobbyListResponse_Lobby {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       maxMembers: isSet(object.maxMembers) ? Number(object.maxMembers) : 0,
       lobbyType: isSet(object.lobbyType) ? Number(object.lobbyType) : 0,
       lobbyFlags: isSet(object.lobbyFlags) ? Number(object.lobbyFlags) : 0,
       metadata: isSet(object.metadata) ? Buffer.from(bytesFromBase64(object.metadata)) : Buffer.alloc(0),
       numMembers: isSet(object.numMembers) ? Number(object.numMembers) : 0,
       distance: isSet(object.distance) ? Number(object.distance) : 0,
-      weight: isSet(object.weight) ? Number(object.weight) : 0,
+      weight: isSet(object.weight) ? String(object.weight) : "0",
     };
   },
 
   toJSON(message: CMsgClientMMSGetLobbyListResponse_Lobby): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.maxMembers !== undefined && (obj.maxMembers = Math.round(message.maxMembers));
     message.lobbyType !== undefined && (obj.lobbyType = Math.round(message.lobbyType));
     message.lobbyFlags !== undefined && (obj.lobbyFlags = Math.round(message.lobbyFlags));
@@ -1369,7 +1369,7 @@ export const CMsgClientMMSGetLobbyListResponse_Lobby = {
       (obj.metadata = base64FromBytes(message.metadata !== undefined ? message.metadata : Buffer.alloc(0)));
     message.numMembers !== undefined && (obj.numMembers = Math.round(message.numMembers));
     message.distance !== undefined && (obj.distance = message.distance);
-    message.weight !== undefined && (obj.weight = Math.round(message.weight));
+    message.weight !== undefined && (obj.weight = message.weight);
     return obj;
   },
 
@@ -1383,14 +1383,14 @@ export const CMsgClientMMSGetLobbyListResponse_Lobby = {
     object: I,
   ): CMsgClientMMSGetLobbyListResponse_Lobby {
     const message = createBaseCMsgClientMMSGetLobbyListResponse_Lobby();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.maxMembers = object.maxMembers ?? 0;
     message.lobbyType = object.lobbyType ?? 0;
     message.lobbyFlags = object.lobbyFlags ?? 0;
     message.metadata = object.metadata ?? Buffer.alloc(0);
     message.numMembers = object.numMembers ?? 0;
     message.distance = object.distance ?? 0;
-    message.weight = object.weight ?? 0;
+    message.weight = object.weight ?? "0";
     return message;
   },
 };
@@ -1398,8 +1398,8 @@ export const CMsgClientMMSGetLobbyListResponse_Lobby = {
 function createBaseCMsgClientMMSSetLobbyData(): CMsgClientMMSSetLobbyData {
   return {
     appId: 0,
-    steamIdLobby: 0,
-    steamIdMember: 0,
+    steamIdLobby: "0",
+    steamIdMember: "0",
     maxMembers: 0,
     lobbyType: 0,
     lobbyFlags: 0,
@@ -1412,10 +1412,10 @@ export const CMsgClientMMSSetLobbyData = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdMember !== 0) {
+    if (message.steamIdMember !== "0") {
       writer.uint32(25).fixed64(message.steamIdMember);
     }
     if (message.maxMembers !== 0) {
@@ -1444,10 +1444,10 @@ export const CMsgClientMMSSetLobbyData = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdMember = longToNumber(reader.fixed64() as Long);
+          message.steamIdMember = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.maxMembers = reader.int32();
@@ -1472,8 +1472,8 @@ export const CMsgClientMMSSetLobbyData = {
   fromJSON(object: any): CMsgClientMMSSetLobbyData {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdMember: isSet(object.steamIdMember) ? Number(object.steamIdMember) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdMember: isSet(object.steamIdMember) ? String(object.steamIdMember) : "0",
       maxMembers: isSet(object.maxMembers) ? Number(object.maxMembers) : 0,
       lobbyType: isSet(object.lobbyType) ? Number(object.lobbyType) : 0,
       lobbyFlags: isSet(object.lobbyFlags) ? Number(object.lobbyFlags) : 0,
@@ -1484,8 +1484,8 @@ export const CMsgClientMMSSetLobbyData = {
   toJSON(message: CMsgClientMMSSetLobbyData): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdMember !== undefined && (obj.steamIdMember = Math.round(message.steamIdMember));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdMember !== undefined && (obj.steamIdMember = message.steamIdMember);
     message.maxMembers !== undefined && (obj.maxMembers = Math.round(message.maxMembers));
     message.lobbyType !== undefined && (obj.lobbyType = Math.round(message.lobbyType));
     message.lobbyFlags !== undefined && (obj.lobbyFlags = Math.round(message.lobbyFlags));
@@ -1501,8 +1501,8 @@ export const CMsgClientMMSSetLobbyData = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSSetLobbyData>, I>>(object: I): CMsgClientMMSSetLobbyData {
     const message = createBaseCMsgClientMMSSetLobbyData();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdMember = object.steamIdMember ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdMember = object.steamIdMember ?? "0";
     message.maxMembers = object.maxMembers ?? 0;
     message.lobbyType = object.lobbyType ?? 0;
     message.lobbyFlags = object.lobbyFlags ?? 0;
@@ -1512,7 +1512,7 @@ export const CMsgClientMMSSetLobbyData = {
 };
 
 function createBaseCMsgClientMMSSetLobbyDataResponse(): CMsgClientMMSSetLobbyDataResponse {
-  return { appId: 0, steamIdLobby: 0, eresult: 0 };
+  return { appId: 0, steamIdLobby: "0", eresult: 0 };
 }
 
 export const CMsgClientMMSSetLobbyDataResponse = {
@@ -1520,7 +1520,7 @@ export const CMsgClientMMSSetLobbyDataResponse = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.eresult !== 0) {
@@ -1540,7 +1540,7 @@ export const CMsgClientMMSSetLobbyDataResponse = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.eresult = reader.int32();
@@ -1556,7 +1556,7 @@ export const CMsgClientMMSSetLobbyDataResponse = {
   fromJSON(object: any): CMsgClientMMSSetLobbyDataResponse {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
     };
   },
@@ -1564,7 +1564,7 @@ export const CMsgClientMMSSetLobbyDataResponse = {
   toJSON(message: CMsgClientMMSSetLobbyDataResponse): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     return obj;
   },
@@ -1580,14 +1580,14 @@ export const CMsgClientMMSSetLobbyDataResponse = {
   ): CMsgClientMMSSetLobbyDataResponse {
     const message = createBaseCMsgClientMMSSetLobbyDataResponse();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.eresult = object.eresult ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgClientMMSGetLobbyData(): CMsgClientMMSGetLobbyData {
-  return { appId: 0, steamIdLobby: 0 };
+  return { appId: 0, steamIdLobby: "0" };
 }
 
 export const CMsgClientMMSGetLobbyData = {
@@ -1595,7 +1595,7 @@ export const CMsgClientMMSGetLobbyData = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     return writer;
@@ -1612,7 +1612,7 @@ export const CMsgClientMMSGetLobbyData = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1625,14 +1625,14 @@ export const CMsgClientMMSGetLobbyData = {
   fromJSON(object: any): CMsgClientMMSGetLobbyData {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
     };
   },
 
   toJSON(message: CMsgClientMMSGetLobbyData): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     return obj;
   },
 
@@ -1643,7 +1643,7 @@ export const CMsgClientMMSGetLobbyData = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSGetLobbyData>, I>>(object: I): CMsgClientMMSGetLobbyData {
     const message = createBaseCMsgClientMMSGetLobbyData();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     return message;
   },
 };
@@ -1651,12 +1651,12 @@ export const CMsgClientMMSGetLobbyData = {
 function createBaseCMsgClientMMSLobbyData(): CMsgClientMMSLobbyData {
   return {
     appId: 0,
-    steamIdLobby: 0,
+    steamIdLobby: "0",
     numMembers: 0,
     maxMembers: 0,
     lobbyType: 0,
     lobbyFlags: 0,
-    steamIdOwner: 0,
+    steamIdOwner: "0",
     metadata: Buffer.alloc(0),
     members: [],
     lobbyCellid: 0,
@@ -1669,7 +1669,7 @@ export const CMsgClientMMSLobbyData = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.numMembers !== 0) {
@@ -1684,7 +1684,7 @@ export const CMsgClientMMSLobbyData = {
     if (message.lobbyFlags !== 0) {
       writer.uint32(48).int32(message.lobbyFlags);
     }
-    if (message.steamIdOwner !== 0) {
+    if (message.steamIdOwner !== "0") {
       writer.uint32(57).fixed64(message.steamIdOwner);
     }
     if (message.metadata.length !== 0) {
@@ -1713,7 +1713,7 @@ export const CMsgClientMMSLobbyData = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.numMembers = reader.int32();
@@ -1728,7 +1728,7 @@ export const CMsgClientMMSLobbyData = {
           message.lobbyFlags = reader.int32();
           break;
         case 7:
-          message.steamIdOwner = longToNumber(reader.fixed64() as Long);
+          message.steamIdOwner = longToString(reader.fixed64() as Long);
           break;
         case 8:
           message.metadata = reader.bytes() as Buffer;
@@ -1753,12 +1753,12 @@ export const CMsgClientMMSLobbyData = {
   fromJSON(object: any): CMsgClientMMSLobbyData {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       numMembers: isSet(object.numMembers) ? Number(object.numMembers) : 0,
       maxMembers: isSet(object.maxMembers) ? Number(object.maxMembers) : 0,
       lobbyType: isSet(object.lobbyType) ? Number(object.lobbyType) : 0,
       lobbyFlags: isSet(object.lobbyFlags) ? Number(object.lobbyFlags) : 0,
-      steamIdOwner: isSet(object.steamIdOwner) ? Number(object.steamIdOwner) : 0,
+      steamIdOwner: isSet(object.steamIdOwner) ? String(object.steamIdOwner) : "0",
       metadata: isSet(object.metadata) ? Buffer.from(bytesFromBase64(object.metadata)) : Buffer.alloc(0),
       members: Array.isArray(object?.members)
         ? object.members.map((e: any) => CMsgClientMMSLobbyData_Member.fromJSON(e))
@@ -1773,12 +1773,12 @@ export const CMsgClientMMSLobbyData = {
   toJSON(message: CMsgClientMMSLobbyData): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.numMembers !== undefined && (obj.numMembers = Math.round(message.numMembers));
     message.maxMembers !== undefined && (obj.maxMembers = Math.round(message.maxMembers));
     message.lobbyType !== undefined && (obj.lobbyType = Math.round(message.lobbyType));
     message.lobbyFlags !== undefined && (obj.lobbyFlags = Math.round(message.lobbyFlags));
-    message.steamIdOwner !== undefined && (obj.steamIdOwner = Math.round(message.steamIdOwner));
+    message.steamIdOwner !== undefined && (obj.steamIdOwner = message.steamIdOwner);
     message.metadata !== undefined &&
       (obj.metadata = base64FromBytes(message.metadata !== undefined ? message.metadata : Buffer.alloc(0)));
     if (message.members) {
@@ -1798,12 +1798,12 @@ export const CMsgClientMMSLobbyData = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSLobbyData>, I>>(object: I): CMsgClientMMSLobbyData {
     const message = createBaseCMsgClientMMSLobbyData();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.numMembers = object.numMembers ?? 0;
     message.maxMembers = object.maxMembers ?? 0;
     message.lobbyType = object.lobbyType ?? 0;
     message.lobbyFlags = object.lobbyFlags ?? 0;
-    message.steamIdOwner = object.steamIdOwner ?? 0;
+    message.steamIdOwner = object.steamIdOwner ?? "0";
     message.metadata = object.metadata ?? Buffer.alloc(0);
     message.members = object.members?.map((e) => CMsgClientMMSLobbyData_Member.fromPartial(e)) || [];
     message.lobbyCellid = object.lobbyCellid ?? 0;
@@ -1813,12 +1813,12 @@ export const CMsgClientMMSLobbyData = {
 };
 
 function createBaseCMsgClientMMSLobbyData_Member(): CMsgClientMMSLobbyData_Member {
-  return { steamId: 0, personaName: "", metadata: Buffer.alloc(0) };
+  return { steamId: "0", personaName: "", metadata: Buffer.alloc(0) };
 }
 
 export const CMsgClientMMSLobbyData_Member = {
   encode(message: CMsgClientMMSLobbyData_Member, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     if (message.personaName !== "") {
@@ -1838,7 +1838,7 @@ export const CMsgClientMMSLobbyData_Member = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.personaName = reader.string();
@@ -1856,7 +1856,7 @@ export const CMsgClientMMSLobbyData_Member = {
 
   fromJSON(object: any): CMsgClientMMSLobbyData_Member {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       personaName: isSet(object.personaName) ? String(object.personaName) : "",
       metadata: isSet(object.metadata) ? Buffer.from(bytesFromBase64(object.metadata)) : Buffer.alloc(0),
     };
@@ -1864,7 +1864,7 @@ export const CMsgClientMMSLobbyData_Member = {
 
   toJSON(message: CMsgClientMMSLobbyData_Member): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.personaName !== undefined && (obj.personaName = message.personaName);
     message.metadata !== undefined &&
       (obj.metadata = base64FromBytes(message.metadata !== undefined ? message.metadata : Buffer.alloc(0)));
@@ -1879,7 +1879,7 @@ export const CMsgClientMMSLobbyData_Member = {
     object: I,
   ): CMsgClientMMSLobbyData_Member {
     const message = createBaseCMsgClientMMSLobbyData_Member();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.personaName = object.personaName ?? "";
     message.metadata = object.metadata ?? Buffer.alloc(0);
     return message;
@@ -1887,7 +1887,7 @@ export const CMsgClientMMSLobbyData_Member = {
 };
 
 function createBaseCMsgClientMMSSendLobbyChatMsg(): CMsgClientMMSSendLobbyChatMsg {
-  return { appId: 0, steamIdLobby: 0, steamIdTarget: 0, lobbyMessage: Buffer.alloc(0) };
+  return { appId: 0, steamIdLobby: "0", steamIdTarget: "0", lobbyMessage: Buffer.alloc(0) };
 }
 
 export const CMsgClientMMSSendLobbyChatMsg = {
@@ -1895,10 +1895,10 @@ export const CMsgClientMMSSendLobbyChatMsg = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdTarget !== 0) {
+    if (message.steamIdTarget !== "0") {
       writer.uint32(25).fixed64(message.steamIdTarget);
     }
     if (message.lobbyMessage.length !== 0) {
@@ -1918,10 +1918,10 @@ export const CMsgClientMMSSendLobbyChatMsg = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdTarget = longToNumber(reader.fixed64() as Long);
+          message.steamIdTarget = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.lobbyMessage = reader.bytes() as Buffer;
@@ -1937,8 +1937,8 @@ export const CMsgClientMMSSendLobbyChatMsg = {
   fromJSON(object: any): CMsgClientMMSSendLobbyChatMsg {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdTarget: isSet(object.steamIdTarget) ? Number(object.steamIdTarget) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdTarget: isSet(object.steamIdTarget) ? String(object.steamIdTarget) : "0",
       lobbyMessage: isSet(object.lobbyMessage) ? Buffer.from(bytesFromBase64(object.lobbyMessage)) : Buffer.alloc(0),
     };
   },
@@ -1946,8 +1946,8 @@ export const CMsgClientMMSSendLobbyChatMsg = {
   toJSON(message: CMsgClientMMSSendLobbyChatMsg): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdTarget !== undefined && (obj.steamIdTarget = Math.round(message.steamIdTarget));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdTarget !== undefined && (obj.steamIdTarget = message.steamIdTarget);
     message.lobbyMessage !== undefined &&
       (obj.lobbyMessage = base64FromBytes(message.lobbyMessage !== undefined ? message.lobbyMessage : Buffer.alloc(0)));
     return obj;
@@ -1962,15 +1962,15 @@ export const CMsgClientMMSSendLobbyChatMsg = {
   ): CMsgClientMMSSendLobbyChatMsg {
     const message = createBaseCMsgClientMMSSendLobbyChatMsg();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdTarget = object.steamIdTarget ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdTarget = object.steamIdTarget ?? "0";
     message.lobbyMessage = object.lobbyMessage ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseCMsgClientMMSLobbyChatMsg(): CMsgClientMMSLobbyChatMsg {
-  return { appId: 0, steamIdLobby: 0, steamIdSender: 0, lobbyMessage: Buffer.alloc(0) };
+  return { appId: 0, steamIdLobby: "0", steamIdSender: "0", lobbyMessage: Buffer.alloc(0) };
 }
 
 export const CMsgClientMMSLobbyChatMsg = {
@@ -1978,10 +1978,10 @@ export const CMsgClientMMSLobbyChatMsg = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdSender !== 0) {
+    if (message.steamIdSender !== "0") {
       writer.uint32(25).fixed64(message.steamIdSender);
     }
     if (message.lobbyMessage.length !== 0) {
@@ -2001,10 +2001,10 @@ export const CMsgClientMMSLobbyChatMsg = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdSender = longToNumber(reader.fixed64() as Long);
+          message.steamIdSender = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.lobbyMessage = reader.bytes() as Buffer;
@@ -2020,8 +2020,8 @@ export const CMsgClientMMSLobbyChatMsg = {
   fromJSON(object: any): CMsgClientMMSLobbyChatMsg {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdSender: isSet(object.steamIdSender) ? Number(object.steamIdSender) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdSender: isSet(object.steamIdSender) ? String(object.steamIdSender) : "0",
       lobbyMessage: isSet(object.lobbyMessage) ? Buffer.from(bytesFromBase64(object.lobbyMessage)) : Buffer.alloc(0),
     };
   },
@@ -2029,8 +2029,8 @@ export const CMsgClientMMSLobbyChatMsg = {
   toJSON(message: CMsgClientMMSLobbyChatMsg): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdSender !== undefined && (obj.steamIdSender = Math.round(message.steamIdSender));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdSender !== undefined && (obj.steamIdSender = message.steamIdSender);
     message.lobbyMessage !== undefined &&
       (obj.lobbyMessage = base64FromBytes(message.lobbyMessage !== undefined ? message.lobbyMessage : Buffer.alloc(0)));
     return obj;
@@ -2043,15 +2043,15 @@ export const CMsgClientMMSLobbyChatMsg = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSLobbyChatMsg>, I>>(object: I): CMsgClientMMSLobbyChatMsg {
     const message = createBaseCMsgClientMMSLobbyChatMsg();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdSender = object.steamIdSender ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdSender = object.steamIdSender ?? "0";
     message.lobbyMessage = object.lobbyMessage ?? Buffer.alloc(0);
     return message;
   },
 };
 
 function createBaseCMsgClientMMSSetLobbyOwner(): CMsgClientMMSSetLobbyOwner {
-  return { appId: 0, steamIdLobby: 0, steamIdNewOwner: 0 };
+  return { appId: 0, steamIdLobby: "0", steamIdNewOwner: "0" };
 }
 
 export const CMsgClientMMSSetLobbyOwner = {
@@ -2059,10 +2059,10 @@ export const CMsgClientMMSSetLobbyOwner = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdNewOwner !== 0) {
+    if (message.steamIdNewOwner !== "0") {
       writer.uint32(25).fixed64(message.steamIdNewOwner);
     }
     return writer;
@@ -2079,10 +2079,10 @@ export const CMsgClientMMSSetLobbyOwner = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdNewOwner = longToNumber(reader.fixed64() as Long);
+          message.steamIdNewOwner = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2095,16 +2095,16 @@ export const CMsgClientMMSSetLobbyOwner = {
   fromJSON(object: any): CMsgClientMMSSetLobbyOwner {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdNewOwner: isSet(object.steamIdNewOwner) ? Number(object.steamIdNewOwner) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdNewOwner: isSet(object.steamIdNewOwner) ? String(object.steamIdNewOwner) : "0",
     };
   },
 
   toJSON(message: CMsgClientMMSSetLobbyOwner): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdNewOwner !== undefined && (obj.steamIdNewOwner = Math.round(message.steamIdNewOwner));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdNewOwner !== undefined && (obj.steamIdNewOwner = message.steamIdNewOwner);
     return obj;
   },
 
@@ -2115,14 +2115,14 @@ export const CMsgClientMMSSetLobbyOwner = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSSetLobbyOwner>, I>>(object: I): CMsgClientMMSSetLobbyOwner {
     const message = createBaseCMsgClientMMSSetLobbyOwner();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdNewOwner = object.steamIdNewOwner ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdNewOwner = object.steamIdNewOwner ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientMMSSetLobbyOwnerResponse(): CMsgClientMMSSetLobbyOwnerResponse {
-  return { appId: 0, steamIdLobby: 0, eresult: 0 };
+  return { appId: 0, steamIdLobby: "0", eresult: 0 };
 }
 
 export const CMsgClientMMSSetLobbyOwnerResponse = {
@@ -2130,7 +2130,7 @@ export const CMsgClientMMSSetLobbyOwnerResponse = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.eresult !== 0) {
@@ -2150,7 +2150,7 @@ export const CMsgClientMMSSetLobbyOwnerResponse = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.eresult = reader.int32();
@@ -2166,7 +2166,7 @@ export const CMsgClientMMSSetLobbyOwnerResponse = {
   fromJSON(object: any): CMsgClientMMSSetLobbyOwnerResponse {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
     };
   },
@@ -2174,7 +2174,7 @@ export const CMsgClientMMSSetLobbyOwnerResponse = {
   toJSON(message: CMsgClientMMSSetLobbyOwnerResponse): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     return obj;
   },
@@ -2190,14 +2190,14 @@ export const CMsgClientMMSSetLobbyOwnerResponse = {
   ): CMsgClientMMSSetLobbyOwnerResponse {
     const message = createBaseCMsgClientMMSSetLobbyOwnerResponse();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.eresult = object.eresult ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgClientMMSSetLobbyLinked(): CMsgClientMMSSetLobbyLinked {
-  return { appId: 0, steamIdLobby: 0, steamIdLobby2: 0 };
+  return { appId: 0, steamIdLobby: "0", steamIdLobby2: "0" };
 }
 
 export const CMsgClientMMSSetLobbyLinked = {
@@ -2205,10 +2205,10 @@ export const CMsgClientMMSSetLobbyLinked = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdLobby2 !== 0) {
+    if (message.steamIdLobby2 !== "0") {
       writer.uint32(25).fixed64(message.steamIdLobby2);
     }
     return writer;
@@ -2225,10 +2225,10 @@ export const CMsgClientMMSSetLobbyLinked = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdLobby2 = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby2 = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2241,16 +2241,16 @@ export const CMsgClientMMSSetLobbyLinked = {
   fromJSON(object: any): CMsgClientMMSSetLobbyLinked {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdLobby2: isSet(object.steamIdLobby2) ? Number(object.steamIdLobby2) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdLobby2: isSet(object.steamIdLobby2) ? String(object.steamIdLobby2) : "0",
     };
   },
 
   toJSON(message: CMsgClientMMSSetLobbyLinked): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdLobby2 !== undefined && (obj.steamIdLobby2 = Math.round(message.steamIdLobby2));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdLobby2 !== undefined && (obj.steamIdLobby2 = message.steamIdLobby2);
     return obj;
   },
 
@@ -2261,8 +2261,8 @@ export const CMsgClientMMSSetLobbyLinked = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSSetLobbyLinked>, I>>(object: I): CMsgClientMMSSetLobbyLinked {
     const message = createBaseCMsgClientMMSSetLobbyLinked();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdLobby2 = object.steamIdLobby2 ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdLobby2 = object.steamIdLobby2 ?? "0";
     return message;
   },
 };
@@ -2270,10 +2270,10 @@ export const CMsgClientMMSSetLobbyLinked = {
 function createBaseCMsgClientMMSSetLobbyGameServer(): CMsgClientMMSSetLobbyGameServer {
   return {
     appId: 0,
-    steamIdLobby: 0,
+    steamIdLobby: "0",
     deprecatedGameServerIp: 0,
     gameServerPort: 0,
-    gameServerSteamId: 0,
+    gameServerSteamId: "0",
     gameServerIp: undefined,
   };
 }
@@ -2283,7 +2283,7 @@ export const CMsgClientMMSSetLobbyGameServer = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.deprecatedGameServerIp !== 0) {
@@ -2292,7 +2292,7 @@ export const CMsgClientMMSSetLobbyGameServer = {
     if (message.gameServerPort !== 0) {
       writer.uint32(32).uint32(message.gameServerPort);
     }
-    if (message.gameServerSteamId !== 0) {
+    if (message.gameServerSteamId !== "0") {
       writer.uint32(41).fixed64(message.gameServerSteamId);
     }
     if (message.gameServerIp !== undefined) {
@@ -2312,7 +2312,7 @@ export const CMsgClientMMSSetLobbyGameServer = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.deprecatedGameServerIp = reader.uint32();
@@ -2321,7 +2321,7 @@ export const CMsgClientMMSSetLobbyGameServer = {
           message.gameServerPort = reader.uint32();
           break;
         case 5:
-          message.gameServerSteamId = longToNumber(reader.fixed64() as Long);
+          message.gameServerSteamId = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.gameServerIp = CMsgIPAddress.decode(reader, reader.uint32());
@@ -2337,10 +2337,10 @@ export const CMsgClientMMSSetLobbyGameServer = {
   fromJSON(object: any): CMsgClientMMSSetLobbyGameServer {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       deprecatedGameServerIp: isSet(object.deprecatedGameServerIp) ? Number(object.deprecatedGameServerIp) : 0,
       gameServerPort: isSet(object.gameServerPort) ? Number(object.gameServerPort) : 0,
-      gameServerSteamId: isSet(object.gameServerSteamId) ? Number(object.gameServerSteamId) : 0,
+      gameServerSteamId: isSet(object.gameServerSteamId) ? String(object.gameServerSteamId) : "0",
       gameServerIp: isSet(object.gameServerIp) ? CMsgIPAddress.fromJSON(object.gameServerIp) : undefined,
     };
   },
@@ -2348,11 +2348,11 @@ export const CMsgClientMMSSetLobbyGameServer = {
   toJSON(message: CMsgClientMMSSetLobbyGameServer): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.deprecatedGameServerIp !== undefined &&
       (obj.deprecatedGameServerIp = Math.round(message.deprecatedGameServerIp));
     message.gameServerPort !== undefined && (obj.gameServerPort = Math.round(message.gameServerPort));
-    message.gameServerSteamId !== undefined && (obj.gameServerSteamId = Math.round(message.gameServerSteamId));
+    message.gameServerSteamId !== undefined && (obj.gameServerSteamId = message.gameServerSteamId);
     message.gameServerIp !== undefined &&
       (obj.gameServerIp = message.gameServerIp ? CMsgIPAddress.toJSON(message.gameServerIp) : undefined);
     return obj;
@@ -2367,10 +2367,10 @@ export const CMsgClientMMSSetLobbyGameServer = {
   ): CMsgClientMMSSetLobbyGameServer {
     const message = createBaseCMsgClientMMSSetLobbyGameServer();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.deprecatedGameServerIp = object.deprecatedGameServerIp ?? 0;
     message.gameServerPort = object.gameServerPort ?? 0;
-    message.gameServerSteamId = object.gameServerSteamId ?? 0;
+    message.gameServerSteamId = object.gameServerSteamId ?? "0";
     message.gameServerIp = (object.gameServerIp !== undefined && object.gameServerIp !== null)
       ? CMsgIPAddress.fromPartial(object.gameServerIp)
       : undefined;
@@ -2381,10 +2381,10 @@ export const CMsgClientMMSSetLobbyGameServer = {
 function createBaseCMsgClientMMSLobbyGameServerSet(): CMsgClientMMSLobbyGameServerSet {
   return {
     appId: 0,
-    steamIdLobby: 0,
+    steamIdLobby: "0",
     deprecatedGameServerIp: 0,
     gameServerPort: 0,
-    gameServerSteamId: 0,
+    gameServerSteamId: "0",
     gameServerIp: undefined,
   };
 }
@@ -2394,7 +2394,7 @@ export const CMsgClientMMSLobbyGameServerSet = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.deprecatedGameServerIp !== 0) {
@@ -2403,7 +2403,7 @@ export const CMsgClientMMSLobbyGameServerSet = {
     if (message.gameServerPort !== 0) {
       writer.uint32(32).uint32(message.gameServerPort);
     }
-    if (message.gameServerSteamId !== 0) {
+    if (message.gameServerSteamId !== "0") {
       writer.uint32(41).fixed64(message.gameServerSteamId);
     }
     if (message.gameServerIp !== undefined) {
@@ -2423,7 +2423,7 @@ export const CMsgClientMMSLobbyGameServerSet = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.deprecatedGameServerIp = reader.uint32();
@@ -2432,7 +2432,7 @@ export const CMsgClientMMSLobbyGameServerSet = {
           message.gameServerPort = reader.uint32();
           break;
         case 5:
-          message.gameServerSteamId = longToNumber(reader.fixed64() as Long);
+          message.gameServerSteamId = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.gameServerIp = CMsgIPAddress.decode(reader, reader.uint32());
@@ -2448,10 +2448,10 @@ export const CMsgClientMMSLobbyGameServerSet = {
   fromJSON(object: any): CMsgClientMMSLobbyGameServerSet {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       deprecatedGameServerIp: isSet(object.deprecatedGameServerIp) ? Number(object.deprecatedGameServerIp) : 0,
       gameServerPort: isSet(object.gameServerPort) ? Number(object.gameServerPort) : 0,
-      gameServerSteamId: isSet(object.gameServerSteamId) ? Number(object.gameServerSteamId) : 0,
+      gameServerSteamId: isSet(object.gameServerSteamId) ? String(object.gameServerSteamId) : "0",
       gameServerIp: isSet(object.gameServerIp) ? CMsgIPAddress.fromJSON(object.gameServerIp) : undefined,
     };
   },
@@ -2459,11 +2459,11 @@ export const CMsgClientMMSLobbyGameServerSet = {
   toJSON(message: CMsgClientMMSLobbyGameServerSet): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.deprecatedGameServerIp !== undefined &&
       (obj.deprecatedGameServerIp = Math.round(message.deprecatedGameServerIp));
     message.gameServerPort !== undefined && (obj.gameServerPort = Math.round(message.gameServerPort));
-    message.gameServerSteamId !== undefined && (obj.gameServerSteamId = Math.round(message.gameServerSteamId));
+    message.gameServerSteamId !== undefined && (obj.gameServerSteamId = message.gameServerSteamId);
     message.gameServerIp !== undefined &&
       (obj.gameServerIp = message.gameServerIp ? CMsgIPAddress.toJSON(message.gameServerIp) : undefined);
     return obj;
@@ -2478,10 +2478,10 @@ export const CMsgClientMMSLobbyGameServerSet = {
   ): CMsgClientMMSLobbyGameServerSet {
     const message = createBaseCMsgClientMMSLobbyGameServerSet();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.deprecatedGameServerIp = object.deprecatedGameServerIp ?? 0;
     message.gameServerPort = object.gameServerPort ?? 0;
-    message.gameServerSteamId = object.gameServerSteamId ?? 0;
+    message.gameServerSteamId = object.gameServerSteamId ?? "0";
     message.gameServerIp = (object.gameServerIp !== undefined && object.gameServerIp !== null)
       ? CMsgIPAddress.fromPartial(object.gameServerIp)
       : undefined;
@@ -2490,7 +2490,7 @@ export const CMsgClientMMSLobbyGameServerSet = {
 };
 
 function createBaseCMsgClientMMSUserJoinedLobby(): CMsgClientMMSUserJoinedLobby {
-  return { appId: 0, steamIdLobby: 0, steamIdUser: 0, personaName: "" };
+  return { appId: 0, steamIdLobby: "0", steamIdUser: "0", personaName: "" };
 }
 
 export const CMsgClientMMSUserJoinedLobby = {
@@ -2498,10 +2498,10 @@ export const CMsgClientMMSUserJoinedLobby = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdUser !== 0) {
+    if (message.steamIdUser !== "0") {
       writer.uint32(25).fixed64(message.steamIdUser);
     }
     if (message.personaName !== "") {
@@ -2521,10 +2521,10 @@ export const CMsgClientMMSUserJoinedLobby = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdUser = longToNumber(reader.fixed64() as Long);
+          message.steamIdUser = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.personaName = reader.string();
@@ -2540,8 +2540,8 @@ export const CMsgClientMMSUserJoinedLobby = {
   fromJSON(object: any): CMsgClientMMSUserJoinedLobby {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdUser: isSet(object.steamIdUser) ? Number(object.steamIdUser) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdUser: isSet(object.steamIdUser) ? String(object.steamIdUser) : "0",
       personaName: isSet(object.personaName) ? String(object.personaName) : "",
     };
   },
@@ -2549,8 +2549,8 @@ export const CMsgClientMMSUserJoinedLobby = {
   toJSON(message: CMsgClientMMSUserJoinedLobby): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdUser !== undefined && (obj.steamIdUser = Math.round(message.steamIdUser));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdUser !== undefined && (obj.steamIdUser = message.steamIdUser);
     message.personaName !== undefined && (obj.personaName = message.personaName);
     return obj;
   },
@@ -2562,15 +2562,15 @@ export const CMsgClientMMSUserJoinedLobby = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSUserJoinedLobby>, I>>(object: I): CMsgClientMMSUserJoinedLobby {
     const message = createBaseCMsgClientMMSUserJoinedLobby();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdUser = object.steamIdUser ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdUser = object.steamIdUser ?? "0";
     message.personaName = object.personaName ?? "";
     return message;
   },
 };
 
 function createBaseCMsgClientMMSUserLeftLobby(): CMsgClientMMSUserLeftLobby {
-  return { appId: 0, steamIdLobby: 0, steamIdUser: 0, personaName: "" };
+  return { appId: 0, steamIdLobby: "0", steamIdUser: "0", personaName: "" };
 }
 
 export const CMsgClientMMSUserLeftLobby = {
@@ -2578,10 +2578,10 @@ export const CMsgClientMMSUserLeftLobby = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdUser !== 0) {
+    if (message.steamIdUser !== "0") {
       writer.uint32(25).fixed64(message.steamIdUser);
     }
     if (message.personaName !== "") {
@@ -2601,10 +2601,10 @@ export const CMsgClientMMSUserLeftLobby = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdUser = longToNumber(reader.fixed64() as Long);
+          message.steamIdUser = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.personaName = reader.string();
@@ -2620,8 +2620,8 @@ export const CMsgClientMMSUserLeftLobby = {
   fromJSON(object: any): CMsgClientMMSUserLeftLobby {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdUser: isSet(object.steamIdUser) ? Number(object.steamIdUser) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdUser: isSet(object.steamIdUser) ? String(object.steamIdUser) : "0",
       personaName: isSet(object.personaName) ? String(object.personaName) : "",
     };
   },
@@ -2629,8 +2629,8 @@ export const CMsgClientMMSUserLeftLobby = {
   toJSON(message: CMsgClientMMSUserLeftLobby): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdUser !== undefined && (obj.steamIdUser = Math.round(message.steamIdUser));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdUser !== undefined && (obj.steamIdUser = message.steamIdUser);
     message.personaName !== undefined && (obj.personaName = message.personaName);
     return obj;
   },
@@ -2642,15 +2642,15 @@ export const CMsgClientMMSUserLeftLobby = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSUserLeftLobby>, I>>(object: I): CMsgClientMMSUserLeftLobby {
     const message = createBaseCMsgClientMMSUserLeftLobby();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdUser = object.steamIdUser ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdUser = object.steamIdUser ?? "0";
     message.personaName = object.personaName ?? "";
     return message;
   },
 };
 
 function createBaseCMsgClientMMSInviteToLobby(): CMsgClientMMSInviteToLobby {
-  return { appId: 0, steamIdLobby: 0, steamIdUserInvited: 0 };
+  return { appId: 0, steamIdLobby: "0", steamIdUserInvited: "0" };
 }
 
 export const CMsgClientMMSInviteToLobby = {
@@ -2658,10 +2658,10 @@ export const CMsgClientMMSInviteToLobby = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
-    if (message.steamIdUserInvited !== 0) {
+    if (message.steamIdUserInvited !== "0") {
       writer.uint32(25).fixed64(message.steamIdUserInvited);
     }
     return writer;
@@ -2678,10 +2678,10 @@ export const CMsgClientMMSInviteToLobby = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.steamIdUserInvited = longToNumber(reader.fixed64() as Long);
+          message.steamIdUserInvited = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2694,16 +2694,16 @@ export const CMsgClientMMSInviteToLobby = {
   fromJSON(object: any): CMsgClientMMSInviteToLobby {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
-      steamIdUserInvited: isSet(object.steamIdUserInvited) ? Number(object.steamIdUserInvited) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
+      steamIdUserInvited: isSet(object.steamIdUserInvited) ? String(object.steamIdUserInvited) : "0",
     };
   },
 
   toJSON(message: CMsgClientMMSInviteToLobby): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
-    message.steamIdUserInvited !== undefined && (obj.steamIdUserInvited = Math.round(message.steamIdUserInvited));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
+    message.steamIdUserInvited !== undefined && (obj.steamIdUserInvited = message.steamIdUserInvited);
     return obj;
   },
 
@@ -2714,14 +2714,14 @@ export const CMsgClientMMSInviteToLobby = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSInviteToLobby>, I>>(object: I): CMsgClientMMSInviteToLobby {
     const message = createBaseCMsgClientMMSInviteToLobby();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
-    message.steamIdUserInvited = object.steamIdUserInvited ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
+    message.steamIdUserInvited = object.steamIdUserInvited ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientMMSGetLobbyStatus(): CMsgClientMMSGetLobbyStatus {
-  return { appId: 0, steamIdLobby: 0, claimMembership: false, claimOwnership: false };
+  return { appId: 0, steamIdLobby: "0", claimMembership: false, claimOwnership: false };
 }
 
 export const CMsgClientMMSGetLobbyStatus = {
@@ -2729,7 +2729,7 @@ export const CMsgClientMMSGetLobbyStatus = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.claimMembership === true) {
@@ -2752,7 +2752,7 @@ export const CMsgClientMMSGetLobbyStatus = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.claimMembership = reader.bool();
@@ -2771,7 +2771,7 @@ export const CMsgClientMMSGetLobbyStatus = {
   fromJSON(object: any): CMsgClientMMSGetLobbyStatus {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       claimMembership: isSet(object.claimMembership) ? Boolean(object.claimMembership) : false,
       claimOwnership: isSet(object.claimOwnership) ? Boolean(object.claimOwnership) : false,
     };
@@ -2780,7 +2780,7 @@ export const CMsgClientMMSGetLobbyStatus = {
   toJSON(message: CMsgClientMMSGetLobbyStatus): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.claimMembership !== undefined && (obj.claimMembership = message.claimMembership);
     message.claimOwnership !== undefined && (obj.claimOwnership = message.claimOwnership);
     return obj;
@@ -2793,7 +2793,7 @@ export const CMsgClientMMSGetLobbyStatus = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientMMSGetLobbyStatus>, I>>(object: I): CMsgClientMMSGetLobbyStatus {
     const message = createBaseCMsgClientMMSGetLobbyStatus();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.claimMembership = object.claimMembership ?? false;
     message.claimOwnership = object.claimOwnership ?? false;
     return message;
@@ -2801,7 +2801,7 @@ export const CMsgClientMMSGetLobbyStatus = {
 };
 
 function createBaseCMsgClientMMSGetLobbyStatusResponse(): CMsgClientMMSGetLobbyStatusResponse {
-  return { appId: 0, steamIdLobby: 0, lobbyStatus: 0 };
+  return { appId: 0, steamIdLobby: "0", lobbyStatus: 0 };
 }
 
 export const CMsgClientMMSGetLobbyStatusResponse = {
@@ -2809,7 +2809,7 @@ export const CMsgClientMMSGetLobbyStatusResponse = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamIdLobby !== 0) {
+    if (message.steamIdLobby !== "0") {
       writer.uint32(17).fixed64(message.steamIdLobby);
     }
     if (message.lobbyStatus !== 0) {
@@ -2829,7 +2829,7 @@ export const CMsgClientMMSGetLobbyStatusResponse = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamIdLobby = longToNumber(reader.fixed64() as Long);
+          message.steamIdLobby = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.lobbyStatus = reader.int32() as any;
@@ -2845,7 +2845,7 @@ export const CMsgClientMMSGetLobbyStatusResponse = {
   fromJSON(object: any): CMsgClientMMSGetLobbyStatusResponse {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamIdLobby: isSet(object.steamIdLobby) ? Number(object.steamIdLobby) : 0,
+      steamIdLobby: isSet(object.steamIdLobby) ? String(object.steamIdLobby) : "0",
       lobbyStatus: isSet(object.lobbyStatus) ? eMMSLobbyStatusFromJSON(object.lobbyStatus) : 0,
     };
   },
@@ -2853,7 +2853,7 @@ export const CMsgClientMMSGetLobbyStatusResponse = {
   toJSON(message: CMsgClientMMSGetLobbyStatusResponse): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamIdLobby !== undefined && (obj.steamIdLobby = Math.round(message.steamIdLobby));
+    message.steamIdLobby !== undefined && (obj.steamIdLobby = message.steamIdLobby);
     message.lobbyStatus !== undefined && (obj.lobbyStatus = eMMSLobbyStatusToJSON(message.lobbyStatus));
     return obj;
   },
@@ -2869,7 +2869,7 @@ export const CMsgClientMMSGetLobbyStatusResponse = {
   ): CMsgClientMMSGetLobbyStatusResponse {
     const message = createBaseCMsgClientMMSGetLobbyStatusResponse();
     message.appId = object.appId ?? 0;
-    message.steamIdLobby = object.steamIdLobby ?? 0;
+    message.steamIdLobby = object.steamIdLobby ?? "0";
     message.lobbyStatus = object.lobbyStatus ?? 0;
     return message;
   },
@@ -2930,11 +2930,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

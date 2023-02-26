@@ -216,16 +216,16 @@ export interface CStoreRegisterCDKeyRequest {
 }
 
 export interface CStorePurchaseReceiptInfo {
-  transactionid: number;
+  transactionid: string;
   packageid: number;
   purchaseStatus: number;
   resultDetail: number;
   transactionTime: number;
   paymentMethod: number;
-  basePrice: number;
-  totalDiscount: number;
-  tax: number;
-  shipping: number;
+  basePrice: string;
+  totalDiscount: string;
+  tax: string;
+  shipping: string;
   currencyCode: number;
   countryCode: string;
   errorHeadline: string;
@@ -365,7 +365,7 @@ export interface CStoreGetUserGameInterestStateResponse_InQueue {
 }
 
 export interface CStoreGetDiscoveryQueueSkippedAppsRequest {
-  steamid: number;
+  steamid: string;
   queueType: EStoreDiscoveryQueueType;
   storePageFilter: CStorePageFilter | undefined;
 }
@@ -427,7 +427,7 @@ export interface CStoreGetTrendingAppsAmongFriendsResponse {
 
 export interface CStoreGetTrendingAppsAmongFriendsResponse_TrendingAppData {
   appid: number;
-  steamidsTopFriends: number[];
+  steamidsTopFriends: string[];
   totalFriends: number;
 }
 
@@ -528,16 +528,16 @@ export const CStoreRegisterCDKeyRequest = {
 
 function createBaseCStorePurchaseReceiptInfo(): CStorePurchaseReceiptInfo {
   return {
-    transactionid: 0,
+    transactionid: "0",
     packageid: 0,
     purchaseStatus: 0,
     resultDetail: 0,
     transactionTime: 0,
     paymentMethod: 0,
-    basePrice: 0,
-    totalDiscount: 0,
-    tax: 0,
-    shipping: 0,
+    basePrice: "0",
+    totalDiscount: "0",
+    tax: "0",
+    shipping: "0",
     currencyCode: 0,
     countryCode: "",
     errorHeadline: "",
@@ -551,7 +551,7 @@ function createBaseCStorePurchaseReceiptInfo(): CStorePurchaseReceiptInfo {
 
 export const CStorePurchaseReceiptInfo = {
   encode(message: CStorePurchaseReceiptInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.transactionid !== 0) {
+    if (message.transactionid !== "0") {
       writer.uint32(8).uint64(message.transactionid);
     }
     if (message.packageid !== 0) {
@@ -569,16 +569,16 @@ export const CStorePurchaseReceiptInfo = {
     if (message.paymentMethod !== 0) {
       writer.uint32(48).uint32(message.paymentMethod);
     }
-    if (message.basePrice !== 0) {
+    if (message.basePrice !== "0") {
       writer.uint32(56).uint64(message.basePrice);
     }
-    if (message.totalDiscount !== 0) {
+    if (message.totalDiscount !== "0") {
       writer.uint32(64).uint64(message.totalDiscount);
     }
-    if (message.tax !== 0) {
+    if (message.tax !== "0") {
       writer.uint32(72).uint64(message.tax);
     }
-    if (message.shipping !== 0) {
+    if (message.shipping !== "0") {
       writer.uint32(80).uint64(message.shipping);
     }
     if (message.currencyCode !== 0) {
@@ -616,7 +616,7 @@ export const CStorePurchaseReceiptInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.transactionid = longToNumber(reader.uint64() as Long);
+          message.transactionid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.packageid = reader.uint32();
@@ -634,16 +634,16 @@ export const CStorePurchaseReceiptInfo = {
           message.paymentMethod = reader.uint32();
           break;
         case 7:
-          message.basePrice = longToNumber(reader.uint64() as Long);
+          message.basePrice = longToString(reader.uint64() as Long);
           break;
         case 8:
-          message.totalDiscount = longToNumber(reader.uint64() as Long);
+          message.totalDiscount = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.tax = longToNumber(reader.uint64() as Long);
+          message.tax = longToString(reader.uint64() as Long);
           break;
         case 10:
-          message.shipping = longToNumber(reader.uint64() as Long);
+          message.shipping = longToString(reader.uint64() as Long);
           break;
         case 11:
           message.currencyCode = reader.uint32();
@@ -679,16 +679,16 @@ export const CStorePurchaseReceiptInfo = {
 
   fromJSON(object: any): CStorePurchaseReceiptInfo {
     return {
-      transactionid: isSet(object.transactionid) ? Number(object.transactionid) : 0,
+      transactionid: isSet(object.transactionid) ? String(object.transactionid) : "0",
       packageid: isSet(object.packageid) ? Number(object.packageid) : 0,
       purchaseStatus: isSet(object.purchaseStatus) ? Number(object.purchaseStatus) : 0,
       resultDetail: isSet(object.resultDetail) ? Number(object.resultDetail) : 0,
       transactionTime: isSet(object.transactionTime) ? Number(object.transactionTime) : 0,
       paymentMethod: isSet(object.paymentMethod) ? Number(object.paymentMethod) : 0,
-      basePrice: isSet(object.basePrice) ? Number(object.basePrice) : 0,
-      totalDiscount: isSet(object.totalDiscount) ? Number(object.totalDiscount) : 0,
-      tax: isSet(object.tax) ? Number(object.tax) : 0,
-      shipping: isSet(object.shipping) ? Number(object.shipping) : 0,
+      basePrice: isSet(object.basePrice) ? String(object.basePrice) : "0",
+      totalDiscount: isSet(object.totalDiscount) ? String(object.totalDiscount) : "0",
+      tax: isSet(object.tax) ? String(object.tax) : "0",
+      shipping: isSet(object.shipping) ? String(object.shipping) : "0",
       currencyCode: isSet(object.currencyCode) ? Number(object.currencyCode) : 0,
       countryCode: isSet(object.countryCode) ? String(object.countryCode) : "",
       errorHeadline: isSet(object.errorHeadline) ? String(object.errorHeadline) : "",
@@ -704,16 +704,16 @@ export const CStorePurchaseReceiptInfo = {
 
   toJSON(message: CStorePurchaseReceiptInfo): unknown {
     const obj: any = {};
-    message.transactionid !== undefined && (obj.transactionid = Math.round(message.transactionid));
+    message.transactionid !== undefined && (obj.transactionid = message.transactionid);
     message.packageid !== undefined && (obj.packageid = Math.round(message.packageid));
     message.purchaseStatus !== undefined && (obj.purchaseStatus = Math.round(message.purchaseStatus));
     message.resultDetail !== undefined && (obj.resultDetail = Math.round(message.resultDetail));
     message.transactionTime !== undefined && (obj.transactionTime = Math.round(message.transactionTime));
     message.paymentMethod !== undefined && (obj.paymentMethod = Math.round(message.paymentMethod));
-    message.basePrice !== undefined && (obj.basePrice = Math.round(message.basePrice));
-    message.totalDiscount !== undefined && (obj.totalDiscount = Math.round(message.totalDiscount));
-    message.tax !== undefined && (obj.tax = Math.round(message.tax));
-    message.shipping !== undefined && (obj.shipping = Math.round(message.shipping));
+    message.basePrice !== undefined && (obj.basePrice = message.basePrice);
+    message.totalDiscount !== undefined && (obj.totalDiscount = message.totalDiscount);
+    message.tax !== undefined && (obj.tax = message.tax);
+    message.shipping !== undefined && (obj.shipping = message.shipping);
     message.currencyCode !== undefined && (obj.currencyCode = Math.round(message.currencyCode));
     message.countryCode !== undefined && (obj.countryCode = message.countryCode);
     message.errorHeadline !== undefined && (obj.errorHeadline = message.errorHeadline);
@@ -735,16 +735,16 @@ export const CStorePurchaseReceiptInfo = {
 
   fromPartial<I extends Exact<DeepPartial<CStorePurchaseReceiptInfo>, I>>(object: I): CStorePurchaseReceiptInfo {
     const message = createBaseCStorePurchaseReceiptInfo();
-    message.transactionid = object.transactionid ?? 0;
+    message.transactionid = object.transactionid ?? "0";
     message.packageid = object.packageid ?? 0;
     message.purchaseStatus = object.purchaseStatus ?? 0;
     message.resultDetail = object.resultDetail ?? 0;
     message.transactionTime = object.transactionTime ?? 0;
     message.paymentMethod = object.paymentMethod ?? 0;
-    message.basePrice = object.basePrice ?? 0;
-    message.totalDiscount = object.totalDiscount ?? 0;
-    message.tax = object.tax ?? 0;
-    message.shipping = object.shipping ?? 0;
+    message.basePrice = object.basePrice ?? "0";
+    message.totalDiscount = object.totalDiscount ?? "0";
+    message.tax = object.tax ?? "0";
+    message.shipping = object.shipping ?? "0";
     message.currencyCode = object.currencyCode ?? 0;
     message.countryCode = object.countryCode ?? "";
     message.errorHeadline = object.errorHeadline ?? "";
@@ -2476,12 +2476,12 @@ export const CStoreGetUserGameInterestStateResponse_InQueue = {
 };
 
 function createBaseCStoreGetDiscoveryQueueSkippedAppsRequest(): CStoreGetDiscoveryQueueSkippedAppsRequest {
-  return { steamid: 0, queueType: 0, storePageFilter: undefined };
+  return { steamid: "0", queueType: 0, storePageFilter: undefined };
 }
 
 export const CStoreGetDiscoveryQueueSkippedAppsRequest = {
   encode(message: CStoreGetDiscoveryQueueSkippedAppsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.queueType !== 0) {
@@ -2501,7 +2501,7 @@ export const CStoreGetDiscoveryQueueSkippedAppsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.queueType = reader.int32() as any;
@@ -2519,7 +2519,7 @@ export const CStoreGetDiscoveryQueueSkippedAppsRequest = {
 
   fromJSON(object: any): CStoreGetDiscoveryQueueSkippedAppsRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       queueType: isSet(object.queueType) ? eStoreDiscoveryQueueTypeFromJSON(object.queueType) : 0,
       storePageFilter: isSet(object.storePageFilter) ? CStorePageFilter.fromJSON(object.storePageFilter) : undefined,
     };
@@ -2527,7 +2527,7 @@ export const CStoreGetDiscoveryQueueSkippedAppsRequest = {
 
   toJSON(message: CStoreGetDiscoveryQueueSkippedAppsRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.queueType !== undefined && (obj.queueType = eStoreDiscoveryQueueTypeToJSON(message.queueType));
     message.storePageFilter !== undefined &&
       (obj.storePageFilter = message.storePageFilter ? CStorePageFilter.toJSON(message.storePageFilter) : undefined);
@@ -2544,7 +2544,7 @@ export const CStoreGetDiscoveryQueueSkippedAppsRequest = {
     object: I,
   ): CStoreGetDiscoveryQueueSkippedAppsRequest {
     const message = createBaseCStoreGetDiscoveryQueueSkippedAppsRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.queueType = object.queueType ?? 0;
     message.storePageFilter = (object.storePageFilter !== undefined && object.storePageFilter !== null)
       ? CStorePageFilter.fromPartial(object.storePageFilter)
@@ -3370,10 +3370,10 @@ export const CStoreGetTrendingAppsAmongFriendsResponse_TrendingAppData = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidsTopFriends.push(longToNumber(reader.uint64() as Long));
+              message.steamidsTopFriends.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.steamidsTopFriends.push(longToNumber(reader.uint64() as Long));
+            message.steamidsTopFriends.push(longToString(reader.uint64() as Long));
           }
           break;
         case 3:
@@ -3391,7 +3391,7 @@ export const CStoreGetTrendingAppsAmongFriendsResponse_TrendingAppData = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       steamidsTopFriends: Array.isArray(object?.steamidsTopFriends)
-        ? object.steamidsTopFriends.map((e: any) => Number(e))
+        ? object.steamidsTopFriends.map((e: any) => String(e))
         : [],
       totalFriends: isSet(object.totalFriends) ? Number(object.totalFriends) : 0,
     };
@@ -3401,7 +3401,7 @@ export const CStoreGetTrendingAppsAmongFriendsResponse_TrendingAppData = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     if (message.steamidsTopFriends) {
-      obj.steamidsTopFriends = message.steamidsTopFriends.map((e) => Math.round(e));
+      obj.steamidsTopFriends = message.steamidsTopFriends.map((e) => e);
     } else {
       obj.steamidsTopFriends = [];
     }
@@ -3924,25 +3924,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -3954,11 +3935,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

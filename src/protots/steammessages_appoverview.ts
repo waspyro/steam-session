@@ -609,14 +609,14 @@ export interface CAppOverviewAppAssociation {
 }
 
 export interface CAppOverviewPerClientData {
-  clientid: number;
+  clientid: string;
   clientName: string;
   displayStatus: EDisplayStatus;
   statusPercentage: number;
   activeBeta: string;
   installed: boolean;
-  bytesDownloaded: number;
-  bytesTotal: number;
+  bytesDownloaded: string;
+  bytesTotal: string;
   streamingToLocalClient: boolean;
   isAvailableOnCurrentPlatform: boolean;
   isInvalidOsType: boolean;
@@ -644,15 +644,15 @@ export interface CAppOverview {
   controllerSupport: EAppControllerSupportLevel;
   vrSupported: boolean;
   metacriticScore: number;
-  sizeOnDisk: number;
+  sizeOnDisk: string;
   thirdPartyMod: boolean;
   iconData: string;
   iconDataFormat: string;
   gameid: string;
   libraryCapsuleFilename: string;
   perClientData: CAppOverviewPerClientData[];
-  mostAvailableClientid: number;
-  selectedClientid: number;
+  mostAvailableClientid: string;
+  selectedClientid: string;
   rtStoreAssetMtime: number;
   rtCustomImageMtime: number;
   optionalParentAppId: number;
@@ -754,14 +754,14 @@ export const CAppOverviewAppAssociation = {
 
 function createBaseCAppOverviewPerClientData(): CAppOverviewPerClientData {
   return {
-    clientid: 0,
+    clientid: "0",
     clientName: "",
     displayStatus: 0,
     statusPercentage: 0,
     activeBeta: "",
     installed: false,
-    bytesDownloaded: 0,
-    bytesTotal: 0,
+    bytesDownloaded: "0",
+    bytesTotal: "0",
     streamingToLocalClient: false,
     isAvailableOnCurrentPlatform: false,
     isInvalidOsType: false,
@@ -772,7 +772,7 @@ function createBaseCAppOverviewPerClientData(): CAppOverviewPerClientData {
 
 export const CAppOverviewPerClientData = {
   encode(message: CAppOverviewPerClientData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientid !== 0) {
+    if (message.clientid !== "0") {
       writer.uint32(8).uint64(message.clientid);
     }
     if (message.clientName !== "") {
@@ -790,10 +790,10 @@ export const CAppOverviewPerClientData = {
     if (message.installed === true) {
       writer.uint32(48).bool(message.installed);
     }
-    if (message.bytesDownloaded !== 0) {
+    if (message.bytesDownloaded !== "0") {
       writer.uint32(56).uint64(message.bytesDownloaded);
     }
-    if (message.bytesTotal !== 0) {
+    if (message.bytesTotal !== "0") {
       writer.uint32(64).uint64(message.bytesTotal);
     }
     if (message.streamingToLocalClient === true) {
@@ -822,7 +822,7 @@ export const CAppOverviewPerClientData = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientid = longToNumber(reader.uint64() as Long);
+          message.clientid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.clientName = reader.string();
@@ -840,10 +840,10 @@ export const CAppOverviewPerClientData = {
           message.installed = reader.bool();
           break;
         case 7:
-          message.bytesDownloaded = longToNumber(reader.uint64() as Long);
+          message.bytesDownloaded = longToString(reader.uint64() as Long);
           break;
         case 8:
-          message.bytesTotal = longToNumber(reader.uint64() as Long);
+          message.bytesTotal = longToString(reader.uint64() as Long);
           break;
         case 9:
           message.streamingToLocalClient = reader.bool();
@@ -870,14 +870,14 @@ export const CAppOverviewPerClientData = {
 
   fromJSON(object: any): CAppOverviewPerClientData {
     return {
-      clientid: isSet(object.clientid) ? Number(object.clientid) : 0,
+      clientid: isSet(object.clientid) ? String(object.clientid) : "0",
       clientName: isSet(object.clientName) ? String(object.clientName) : "",
       displayStatus: isSet(object.displayStatus) ? eDisplayStatusFromJSON(object.displayStatus) : 0,
       statusPercentage: isSet(object.statusPercentage) ? Number(object.statusPercentage) : 0,
       activeBeta: isSet(object.activeBeta) ? String(object.activeBeta) : "",
       installed: isSet(object.installed) ? Boolean(object.installed) : false,
-      bytesDownloaded: isSet(object.bytesDownloaded) ? Number(object.bytesDownloaded) : 0,
-      bytesTotal: isSet(object.bytesTotal) ? Number(object.bytesTotal) : 0,
+      bytesDownloaded: isSet(object.bytesDownloaded) ? String(object.bytesDownloaded) : "0",
+      bytesTotal: isSet(object.bytesTotal) ? String(object.bytesTotal) : "0",
       streamingToLocalClient: isSet(object.streamingToLocalClient) ? Boolean(object.streamingToLocalClient) : false,
       isAvailableOnCurrentPlatform: isSet(object.isAvailableOnCurrentPlatform)
         ? Boolean(object.isAvailableOnCurrentPlatform)
@@ -890,14 +890,14 @@ export const CAppOverviewPerClientData = {
 
   toJSON(message: CAppOverviewPerClientData): unknown {
     const obj: any = {};
-    message.clientid !== undefined && (obj.clientid = Math.round(message.clientid));
+    message.clientid !== undefined && (obj.clientid = message.clientid);
     message.clientName !== undefined && (obj.clientName = message.clientName);
     message.displayStatus !== undefined && (obj.displayStatus = eDisplayStatusToJSON(message.displayStatus));
     message.statusPercentage !== undefined && (obj.statusPercentage = Math.round(message.statusPercentage));
     message.activeBeta !== undefined && (obj.activeBeta = message.activeBeta);
     message.installed !== undefined && (obj.installed = message.installed);
-    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = Math.round(message.bytesDownloaded));
-    message.bytesTotal !== undefined && (obj.bytesTotal = Math.round(message.bytesTotal));
+    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = message.bytesDownloaded);
+    message.bytesTotal !== undefined && (obj.bytesTotal = message.bytesTotal);
     message.streamingToLocalClient !== undefined && (obj.streamingToLocalClient = message.streamingToLocalClient);
     message.isAvailableOnCurrentPlatform !== undefined &&
       (obj.isAvailableOnCurrentPlatform = message.isAvailableOnCurrentPlatform);
@@ -913,14 +913,14 @@ export const CAppOverviewPerClientData = {
 
   fromPartial<I extends Exact<DeepPartial<CAppOverviewPerClientData>, I>>(object: I): CAppOverviewPerClientData {
     const message = createBaseCAppOverviewPerClientData();
-    message.clientid = object.clientid ?? 0;
+    message.clientid = object.clientid ?? "0";
     message.clientName = object.clientName ?? "";
     message.displayStatus = object.displayStatus ?? 0;
     message.statusPercentage = object.statusPercentage ?? 0;
     message.activeBeta = object.activeBeta ?? "";
     message.installed = object.installed ?? false;
-    message.bytesDownloaded = object.bytesDownloaded ?? 0;
-    message.bytesTotal = object.bytesTotal ?? 0;
+    message.bytesDownloaded = object.bytesDownloaded ?? "0";
+    message.bytesTotal = object.bytesTotal ?? "0";
     message.streamingToLocalClient = object.streamingToLocalClient ?? false;
     message.isAvailableOnCurrentPlatform = object.isAvailableOnCurrentPlatform ?? false;
     message.isInvalidOsType = object.isInvalidOsType ?? false;
@@ -951,15 +951,15 @@ function createBaseCAppOverview(): CAppOverview {
     controllerSupport: 0,
     vrSupported: false,
     metacriticScore: 0,
-    sizeOnDisk: 0,
+    sizeOnDisk: "0",
     thirdPartyMod: false,
     iconData: "",
     iconDataFormat: "",
     gameid: "",
     libraryCapsuleFilename: "",
     perClientData: [],
-    mostAvailableClientid: 0,
-    selectedClientid: 0,
+    mostAvailableClientid: "0",
+    selectedClientid: "0",
     rtStoreAssetMtime: 0,
     rtCustomImageMtime: 0,
     optionalParentAppId: 0,
@@ -1044,7 +1044,7 @@ export const CAppOverview = {
     if (message.metacriticScore !== 0) {
       writer.uint32(288).uint32(message.metacriticScore);
     }
-    if (message.sizeOnDisk !== 0) {
+    if (message.sizeOnDisk !== "0") {
       writer.uint32(296).uint64(message.sizeOnDisk);
     }
     if (message.thirdPartyMod === true) {
@@ -1065,10 +1065,10 @@ export const CAppOverview = {
     for (const v of message.perClientData) {
       CAppOverviewPerClientData.encode(v!, writer.uint32(346).fork()).ldelim();
     }
-    if (message.mostAvailableClientid !== 0) {
+    if (message.mostAvailableClientid !== "0") {
       writer.uint32(352).uint64(message.mostAvailableClientid);
     }
-    if (message.selectedClientid !== 0) {
+    if (message.selectedClientid !== "0") {
       writer.uint32(360).uint64(message.selectedClientid);
     }
     if (message.rtStoreAssetMtime !== 0) {
@@ -1207,7 +1207,7 @@ export const CAppOverview = {
           message.metacriticScore = reader.uint32();
           break;
         case 37:
-          message.sizeOnDisk = longToNumber(reader.uint64() as Long);
+          message.sizeOnDisk = longToString(reader.uint64() as Long);
           break;
         case 38:
           message.thirdPartyMod = reader.bool();
@@ -1228,10 +1228,10 @@ export const CAppOverview = {
           message.perClientData.push(CAppOverviewPerClientData.decode(reader, reader.uint32()));
           break;
         case 44:
-          message.mostAvailableClientid = longToNumber(reader.uint64() as Long);
+          message.mostAvailableClientid = longToString(reader.uint64() as Long);
           break;
         case 45:
-          message.selectedClientid = longToNumber(reader.uint64() as Long);
+          message.selectedClientid = longToString(reader.uint64() as Long);
           break;
         case 46:
           message.rtStoreAssetMtime = reader.uint32();
@@ -1322,7 +1322,7 @@ export const CAppOverview = {
         : 0,
       vrSupported: isSet(object.vrSupported) ? Boolean(object.vrSupported) : false,
       metacriticScore: isSet(object.metacriticScore) ? Number(object.metacriticScore) : 0,
-      sizeOnDisk: isSet(object.sizeOnDisk) ? Number(object.sizeOnDisk) : 0,
+      sizeOnDisk: isSet(object.sizeOnDisk) ? String(object.sizeOnDisk) : "0",
       thirdPartyMod: isSet(object.thirdPartyMod) ? Boolean(object.thirdPartyMod) : false,
       iconData: isSet(object.iconData) ? String(object.iconData) : "",
       iconDataFormat: isSet(object.iconDataFormat) ? String(object.iconDataFormat) : "",
@@ -1331,8 +1331,8 @@ export const CAppOverview = {
       perClientData: Array.isArray(object?.perClientData)
         ? object.perClientData.map((e: any) => CAppOverviewPerClientData.fromJSON(e))
         : [],
-      mostAvailableClientid: isSet(object.mostAvailableClientid) ? Number(object.mostAvailableClientid) : 0,
-      selectedClientid: isSet(object.selectedClientid) ? Number(object.selectedClientid) : 0,
+      mostAvailableClientid: isSet(object.mostAvailableClientid) ? String(object.mostAvailableClientid) : "0",
+      selectedClientid: isSet(object.selectedClientid) ? String(object.selectedClientid) : "0",
       rtStoreAssetMtime: isSet(object.rtStoreAssetMtime) ? Number(object.rtStoreAssetMtime) : 0,
       rtCustomImageMtime: isSet(object.rtCustomImageMtime) ? Number(object.rtCustomImageMtime) : 0,
       optionalParentAppId: isSet(object.optionalParentAppId) ? Number(object.optionalParentAppId) : 0,
@@ -1397,7 +1397,7 @@ export const CAppOverview = {
       (obj.controllerSupport = eAppControllerSupportLevelToJSON(message.controllerSupport));
     message.vrSupported !== undefined && (obj.vrSupported = message.vrSupported);
     message.metacriticScore !== undefined && (obj.metacriticScore = Math.round(message.metacriticScore));
-    message.sizeOnDisk !== undefined && (obj.sizeOnDisk = Math.round(message.sizeOnDisk));
+    message.sizeOnDisk !== undefined && (obj.sizeOnDisk = message.sizeOnDisk);
     message.thirdPartyMod !== undefined && (obj.thirdPartyMod = message.thirdPartyMod);
     message.iconData !== undefined && (obj.iconData = message.iconData);
     message.iconDataFormat !== undefined && (obj.iconDataFormat = message.iconDataFormat);
@@ -1408,9 +1408,8 @@ export const CAppOverview = {
     } else {
       obj.perClientData = [];
     }
-    message.mostAvailableClientid !== undefined &&
-      (obj.mostAvailableClientid = Math.round(message.mostAvailableClientid));
-    message.selectedClientid !== undefined && (obj.selectedClientid = Math.round(message.selectedClientid));
+    message.mostAvailableClientid !== undefined && (obj.mostAvailableClientid = message.mostAvailableClientid);
+    message.selectedClientid !== undefined && (obj.selectedClientid = message.selectedClientid);
     message.rtStoreAssetMtime !== undefined && (obj.rtStoreAssetMtime = Math.round(message.rtStoreAssetMtime));
     message.rtCustomImageMtime !== undefined && (obj.rtCustomImageMtime = Math.round(message.rtCustomImageMtime));
     message.optionalParentAppId !== undefined && (obj.optionalParentAppId = Math.round(message.optionalParentAppId));
@@ -1464,15 +1463,15 @@ export const CAppOverview = {
     message.controllerSupport = object.controllerSupport ?? 0;
     message.vrSupported = object.vrSupported ?? false;
     message.metacriticScore = object.metacriticScore ?? 0;
-    message.sizeOnDisk = object.sizeOnDisk ?? 0;
+    message.sizeOnDisk = object.sizeOnDisk ?? "0";
     message.thirdPartyMod = object.thirdPartyMod ?? false;
     message.iconData = object.iconData ?? "";
     message.iconDataFormat = object.iconDataFormat ?? "";
     message.gameid = object.gameid ?? "";
     message.libraryCapsuleFilename = object.libraryCapsuleFilename ?? "";
     message.perClientData = object.perClientData?.map((e) => CAppOverviewPerClientData.fromPartial(e)) || [];
-    message.mostAvailableClientid = object.mostAvailableClientid ?? 0;
-    message.selectedClientid = object.selectedClientid ?? 0;
+    message.mostAvailableClientid = object.mostAvailableClientid ?? "0";
+    message.selectedClientid = object.selectedClientid ?? "0";
     message.rtStoreAssetMtime = object.rtStoreAssetMtime ?? 0;
     message.rtCustomImageMtime = object.rtCustomImageMtime ?? 0;
     message.optionalParentAppId = object.optionalParentAppId ?? 0;
@@ -1726,25 +1725,6 @@ export const CLibraryBootstrapData = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1756,11 +1736,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

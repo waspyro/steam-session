@@ -259,7 +259,7 @@ export interface CMsgSteamDatagramRouterPingReply {
   yourPublicIp: number;
   yourPublicPort: number;
   serverTime: number;
-  challenge: number;
+  challenge: string;
   secondsUntilShutdown: number;
   clientCookie: number;
   scoringPenaltyRelayCluster: number;
@@ -356,8 +356,8 @@ export interface CMsgSteamDatagramGameserverPingRequestBody {
   relayPopid: number;
   yourPublicIp: CMsgSteamNetworkingIPAddress | undefined;
   yourPublicPort: number;
-  relayUnixTime: number;
-  routingSecret: number;
+  relayUnixTime: string;
+  routingSecret: string;
   myIps: CMsgSteamNetworkingIPAddress[];
   echo: Buffer;
 }
@@ -369,7 +369,7 @@ export interface CMsgSteamDatagramGameserverPingRequestEnvelope {
   legacyYourPublicIp: number;
   legacyYourPublicPort: number;
   legacyRelayUnixTime: number;
-  legacyChallenge: number;
+  legacyChallenge: string;
   legacyRouterTimestamp: number;
   dummyPad: Buffer;
 }
@@ -377,13 +377,13 @@ export interface CMsgSteamDatagramGameserverPingRequestEnvelope {
 export interface CMsgSteamDatagramGameserverPingReplyData {
   echoRelayUnixTime: number;
   echo: Buffer;
-  legacyChallenge: number;
+  legacyChallenge: string;
   legacyRouterTimestamp: number;
   dataCenterId: number;
   appid: number;
   protocolVersion: number;
   build: string;
-  networkConfigVersion: number;
+  networkConfigVersion: string;
   myUnixTime: number;
 }
 
@@ -392,7 +392,7 @@ export interface CMsgSteamDatagramNoSessionRelayToClient {
   yourPublicIp: number;
   yourPublicPort: number;
   serverTime: number;
-  challenge: number;
+  challenge: string;
   secondsUntilShutdown: number;
 }
 
@@ -400,7 +400,7 @@ export interface CMsgSteamDatagramNoSessionRelayToPeer {
   legacyRelaySessionId: number;
   fromRelaySessionId: number;
   fromConnectionId: number;
-  kludgePad: number;
+  kludgePad: string;
 }
 
 export interface CMsgSteamDatagramClientPingSampleRequest {
@@ -469,20 +469,20 @@ export interface CMsgSteamDatagramClientSwitchedPrimary_RouterQuality {
 
 export interface CMsgSteamDatagramConnectRequest {
   connectionId: number;
-  myTimestamp: number;
+  myTimestamp: string;
   pingEstMs: number;
   virtualPort: number;
   gameserverRelaySessionId: number;
   crypt: CMsgSteamDatagramSessionCryptInfoSigned | undefined;
   cert: CMsgSteamDatagramCertificateSigned | undefined;
-  routingSecret: number;
-  legacyClientSteamId: number;
+  routingSecret: string;
+  legacyClientSteamId: string;
 }
 
 export interface CMsgSteamDatagramConnectOK {
   clientConnectionId: number;
   serverConnectionId: number;
-  yourTimestamp: number;
+  yourTimestamp: string;
   delayTimeUsec: number;
   gameserverRelaySessionId: number;
   crypt: CMsgSteamDatagramSessionCryptInfoSigned | undefined;
@@ -517,7 +517,7 @@ export interface CMsgSteamDatagramConnectionClosed {
   fromConnectionId: number;
   fromIdentityString: string;
   legacyFromIdentityBinary: CMsgSteamNetworkingIdentityLegacyBinary | undefined;
-  legacyFromSteamId: number;
+  legacyFromSteamId: string;
   legacyGameserverRelaySessionId: number;
   toRelaySessionId: number;
   fromRelaySessionId: number;
@@ -526,7 +526,7 @@ export interface CMsgSteamDatagramConnectionClosed {
   relayMode: CMsgSteamDatagramConnectionClosed_ERelayMode;
   debug: string;
   reasonCode: number;
-  routingSecret: number;
+  routingSecret: string;
   notPrimarySession: boolean;
   notPrimaryTransport: boolean;
   qualityRelay: CMsgSteamDatagramConnectionQuality | undefined;
@@ -584,24 +584,24 @@ export interface CMsgSteamDatagramNoConnection {
   toRelaySessionId: number;
   fromRelaySessionId: number;
   fromIdentityString: string;
-  legacyFromSteamId: number;
+  legacyFromSteamId: string;
   endToEnd: boolean;
   notPrimarySession: boolean;
   notPrimaryTransport: boolean;
   qualityRelay: CMsgSteamDatagramConnectionQuality | undefined;
   qualityE2e: CMsgSteamDatagramConnectionQuality | undefined;
   p2pRoutingSummary: CMsgSteamDatagramP2PRoutingSummary | undefined;
-  routingSecret: number;
+  routingSecret: string;
   dummyPad: number;
 }
 
 export interface CMsgSteamDatagramGameserverSessionRequest {
   ticket: Buffer;
   challengeTime: number;
-  challenge: number;
+  challenge: string;
   clientConnectionId: number;
   serverConnectionId: number;
-  networkConfigVersion: number;
+  networkConfigVersion: string;
   protocolVersion: number;
   platform: string;
   build: string;
@@ -615,7 +615,7 @@ export interface CMsgSteamDatagramGameserverSessionEstablished {
   secondsUntilShutdown: number;
   seqNumR2c: number;
   dummyLegacyIdentityBinary: Buffer;
-  legacyGameserverSteamid: number;
+  legacyGameserverSteamid: string;
 }
 
 export interface CMsgSteamDatagramConnectionStatsClientToRouter {
@@ -745,11 +745,11 @@ export interface CMsgSteamDatagramConnectionStatsRouterToServer {
   seqNumR2s: number;
   seqNumE2e: number;
   clientIdentityString: string;
-  legacyClientSteamId: number;
+  legacyClientSteamId: string;
   relaySessionId: number;
   clientConnectionId: number;
   serverConnectionId: number;
-  routingSecret: number;
+  routingSecret: string;
 }
 
 export enum CMsgSteamDatagramConnectionStatsRouterToServer_Flags {
@@ -853,16 +853,16 @@ export function cMsgSteamDatagramConnectionStatsServerToRouter_FlagsToJSON(
 
 export interface CMsgSteamDatagramP2PSessionRequestBody {
   challengeTime: number;
-  challenge: number;
+  challenge: string;
   clientConnectionId: number;
-  legacyPeerSteamId: number;
+  legacyPeerSteamId: string;
   peerIdentityString: string;
   peerConnectionId: number;
   encryptedData: Buffer;
   encryptionYourPublicKeyLeadByte: number;
   encryptionMyEphemeralPublicKey: Buffer;
   protocolVersion: number;
-  networkConfigVersion: number;
+  networkConfigVersion: string;
   platform: string;
   build: string;
 }
@@ -1026,7 +1026,7 @@ export interface CMsgSteamDatagramP2PBadRouteRouterToClient {
   connectionId: number;
   failedRelayRoutingToken: Buffer;
   ackForwardTargetRevision: number;
-  kludgePad: number;
+  kludgePad: string;
 }
 
 export interface CMsgSteamDatagramP2PRoutes {
@@ -1225,7 +1225,7 @@ function createBaseCMsgSteamDatagramRouterPingReply(): CMsgSteamDatagramRouterPi
     yourPublicIp: 0,
     yourPublicPort: 0,
     serverTime: 0,
-    challenge: 0,
+    challenge: "0",
     secondsUntilShutdown: 0,
     clientCookie: 0,
     scoringPenaltyRelayCluster: 0,
@@ -1269,7 +1269,7 @@ export const CMsgSteamDatagramRouterPingReply = {
     if (message.serverTime !== 0) {
       writer.uint32(45).fixed32(message.serverTime);
     }
-    if (message.challenge !== 0) {
+    if (message.challenge !== "0") {
       writer.uint32(49).fixed64(message.challenge);
     }
     if (message.secondsUntilShutdown !== 0) {
@@ -1353,7 +1353,7 @@ export const CMsgSteamDatagramRouterPingReply = {
           message.serverTime = reader.fixed32();
           break;
         case 6:
-          message.challenge = longToNumber(reader.fixed64() as Long);
+          message.challenge = longToString(reader.fixed64() as Long);
           break;
         case 7:
           message.secondsUntilShutdown = reader.uint32();
@@ -1397,7 +1397,7 @@ export const CMsgSteamDatagramRouterPingReply = {
       yourPublicIp: isSet(object.yourPublicIp) ? Number(object.yourPublicIp) : 0,
       yourPublicPort: isSet(object.yourPublicPort) ? Number(object.yourPublicPort) : 0,
       serverTime: isSet(object.serverTime) ? Number(object.serverTime) : 0,
-      challenge: isSet(object.challenge) ? Number(object.challenge) : 0,
+      challenge: isSet(object.challenge) ? String(object.challenge) : "0",
       secondsUntilShutdown: isSet(object.secondsUntilShutdown) ? Number(object.secondsUntilShutdown) : 0,
       clientCookie: isSet(object.clientCookie) ? Number(object.clientCookie) : 0,
       scoringPenaltyRelayCluster: isSet(object.scoringPenaltyRelayCluster)
@@ -1439,7 +1439,7 @@ export const CMsgSteamDatagramRouterPingReply = {
     message.yourPublicIp !== undefined && (obj.yourPublicIp = Math.round(message.yourPublicIp));
     message.yourPublicPort !== undefined && (obj.yourPublicPort = Math.round(message.yourPublicPort));
     message.serverTime !== undefined && (obj.serverTime = Math.round(message.serverTime));
-    message.challenge !== undefined && (obj.challenge = Math.round(message.challenge));
+    message.challenge !== undefined && (obj.challenge = message.challenge);
     message.secondsUntilShutdown !== undefined && (obj.secondsUntilShutdown = Math.round(message.secondsUntilShutdown));
     message.clientCookie !== undefined && (obj.clientCookie = Math.round(message.clientCookie));
     message.scoringPenaltyRelayCluster !== undefined &&
@@ -1480,7 +1480,7 @@ export const CMsgSteamDatagramRouterPingReply = {
     message.yourPublicIp = object.yourPublicIp ?? 0;
     message.yourPublicPort = object.yourPublicPort ?? 0;
     message.serverTime = object.serverTime ?? 0;
-    message.challenge = object.challenge ?? 0;
+    message.challenge = object.challenge ?? "0";
     message.secondsUntilShutdown = object.secondsUntilShutdown ?? 0;
     message.clientCookie = object.clientCookie ?? 0;
     message.scoringPenaltyRelayCluster = object.scoringPenaltyRelayCluster ?? 0;
@@ -1672,8 +1672,8 @@ function createBaseCMsgSteamDatagramGameserverPingRequestBody(): CMsgSteamDatagr
     relayPopid: 0,
     yourPublicIp: undefined,
     yourPublicPort: 0,
-    relayUnixTime: 0,
-    routingSecret: 0,
+    relayUnixTime: "0",
+    routingSecret: "0",
     myIps: [],
     echo: Buffer.alloc(0),
   };
@@ -1690,10 +1690,10 @@ export const CMsgSteamDatagramGameserverPingRequestBody = {
     if (message.yourPublicPort !== 0) {
       writer.uint32(24).uint32(message.yourPublicPort);
     }
-    if (message.relayUnixTime !== 0) {
+    if (message.relayUnixTime !== "0") {
       writer.uint32(32).uint64(message.relayUnixTime);
     }
-    if (message.routingSecret !== 0) {
+    if (message.routingSecret !== "0") {
       writer.uint32(41).fixed64(message.routingSecret);
     }
     for (const v of message.myIps) {
@@ -1722,10 +1722,10 @@ export const CMsgSteamDatagramGameserverPingRequestBody = {
           message.yourPublicPort = reader.uint32();
           break;
         case 4:
-          message.relayUnixTime = longToNumber(reader.uint64() as Long);
+          message.relayUnixTime = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.routingSecret = longToNumber(reader.fixed64() as Long);
+          message.routingSecret = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.myIps.push(CMsgSteamNetworkingIPAddress.decode(reader, reader.uint32()));
@@ -1746,8 +1746,8 @@ export const CMsgSteamDatagramGameserverPingRequestBody = {
       relayPopid: isSet(object.relayPopid) ? Number(object.relayPopid) : 0,
       yourPublicIp: isSet(object.yourPublicIp) ? CMsgSteamNetworkingIPAddress.fromJSON(object.yourPublicIp) : undefined,
       yourPublicPort: isSet(object.yourPublicPort) ? Number(object.yourPublicPort) : 0,
-      relayUnixTime: isSet(object.relayUnixTime) ? Number(object.relayUnixTime) : 0,
-      routingSecret: isSet(object.routingSecret) ? Number(object.routingSecret) : 0,
+      relayUnixTime: isSet(object.relayUnixTime) ? String(object.relayUnixTime) : "0",
+      routingSecret: isSet(object.routingSecret) ? String(object.routingSecret) : "0",
       myIps: Array.isArray(object?.myIps) ? object.myIps.map((e: any) => CMsgSteamNetworkingIPAddress.fromJSON(e)) : [],
       echo: isSet(object.echo) ? Buffer.from(bytesFromBase64(object.echo)) : Buffer.alloc(0),
     };
@@ -1759,8 +1759,8 @@ export const CMsgSteamDatagramGameserverPingRequestBody = {
     message.yourPublicIp !== undefined &&
       (obj.yourPublicIp = message.yourPublicIp ? CMsgSteamNetworkingIPAddress.toJSON(message.yourPublicIp) : undefined);
     message.yourPublicPort !== undefined && (obj.yourPublicPort = Math.round(message.yourPublicPort));
-    message.relayUnixTime !== undefined && (obj.relayUnixTime = Math.round(message.relayUnixTime));
-    message.routingSecret !== undefined && (obj.routingSecret = Math.round(message.routingSecret));
+    message.relayUnixTime !== undefined && (obj.relayUnixTime = message.relayUnixTime);
+    message.routingSecret !== undefined && (obj.routingSecret = message.routingSecret);
     if (message.myIps) {
       obj.myIps = message.myIps.map((e) => e ? CMsgSteamNetworkingIPAddress.toJSON(e) : undefined);
     } else {
@@ -1786,8 +1786,8 @@ export const CMsgSteamDatagramGameserverPingRequestBody = {
       ? CMsgSteamNetworkingIPAddress.fromPartial(object.yourPublicIp)
       : undefined;
     message.yourPublicPort = object.yourPublicPort ?? 0;
-    message.relayUnixTime = object.relayUnixTime ?? 0;
-    message.routingSecret = object.routingSecret ?? 0;
+    message.relayUnixTime = object.relayUnixTime ?? "0";
+    message.routingSecret = object.routingSecret ?? "0";
     message.myIps = object.myIps?.map((e) => CMsgSteamNetworkingIPAddress.fromPartial(e)) || [];
     message.echo = object.echo ?? Buffer.alloc(0);
     return message;
@@ -1802,7 +1802,7 @@ function createBaseCMsgSteamDatagramGameserverPingRequestEnvelope(): CMsgSteamDa
     legacyYourPublicIp: 0,
     legacyYourPublicPort: 0,
     legacyRelayUnixTime: 0,
-    legacyChallenge: 0,
+    legacyChallenge: "0",
     legacyRouterTimestamp: 0,
     dummyPad: Buffer.alloc(0),
   };
@@ -1831,7 +1831,7 @@ export const CMsgSteamDatagramGameserverPingRequestEnvelope = {
     if (message.legacyRelayUnixTime !== 0) {
       writer.uint32(21).fixed32(message.legacyRelayUnixTime);
     }
-    if (message.legacyChallenge !== 0) {
+    if (message.legacyChallenge !== "0") {
       writer.uint32(25).fixed64(message.legacyChallenge);
     }
     if (message.legacyRouterTimestamp !== 0) {
@@ -1869,7 +1869,7 @@ export const CMsgSteamDatagramGameserverPingRequestEnvelope = {
           message.legacyRelayUnixTime = reader.fixed32();
           break;
         case 3:
-          message.legacyChallenge = longToNumber(reader.fixed64() as Long);
+          message.legacyChallenge = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.legacyRouterTimestamp = reader.fixed32();
@@ -1893,7 +1893,7 @@ export const CMsgSteamDatagramGameserverPingRequestEnvelope = {
       legacyYourPublicIp: isSet(object.legacyYourPublicIp) ? Number(object.legacyYourPublicIp) : 0,
       legacyYourPublicPort: isSet(object.legacyYourPublicPort) ? Number(object.legacyYourPublicPort) : 0,
       legacyRelayUnixTime: isSet(object.legacyRelayUnixTime) ? Number(object.legacyRelayUnixTime) : 0,
-      legacyChallenge: isSet(object.legacyChallenge) ? Number(object.legacyChallenge) : 0,
+      legacyChallenge: isSet(object.legacyChallenge) ? String(object.legacyChallenge) : "0",
       legacyRouterTimestamp: isSet(object.legacyRouterTimestamp) ? Number(object.legacyRouterTimestamp) : 0,
       dummyPad: isSet(object.dummyPad) ? Buffer.from(bytesFromBase64(object.dummyPad)) : Buffer.alloc(0),
     };
@@ -1910,7 +1910,7 @@ export const CMsgSteamDatagramGameserverPingRequestEnvelope = {
     message.legacyYourPublicIp !== undefined && (obj.legacyYourPublicIp = Math.round(message.legacyYourPublicIp));
     message.legacyYourPublicPort !== undefined && (obj.legacyYourPublicPort = Math.round(message.legacyYourPublicPort));
     message.legacyRelayUnixTime !== undefined && (obj.legacyRelayUnixTime = Math.round(message.legacyRelayUnixTime));
-    message.legacyChallenge !== undefined && (obj.legacyChallenge = Math.round(message.legacyChallenge));
+    message.legacyChallenge !== undefined && (obj.legacyChallenge = message.legacyChallenge);
     message.legacyRouterTimestamp !== undefined &&
       (obj.legacyRouterTimestamp = Math.round(message.legacyRouterTimestamp));
     message.dummyPad !== undefined &&
@@ -1936,7 +1936,7 @@ export const CMsgSteamDatagramGameserverPingRequestEnvelope = {
     message.legacyYourPublicIp = object.legacyYourPublicIp ?? 0;
     message.legacyYourPublicPort = object.legacyYourPublicPort ?? 0;
     message.legacyRelayUnixTime = object.legacyRelayUnixTime ?? 0;
-    message.legacyChallenge = object.legacyChallenge ?? 0;
+    message.legacyChallenge = object.legacyChallenge ?? "0";
     message.legacyRouterTimestamp = object.legacyRouterTimestamp ?? 0;
     message.dummyPad = object.dummyPad ?? Buffer.alloc(0);
     return message;
@@ -1947,13 +1947,13 @@ function createBaseCMsgSteamDatagramGameserverPingReplyData(): CMsgSteamDatagram
   return {
     echoRelayUnixTime: 0,
     echo: Buffer.alloc(0),
-    legacyChallenge: 0,
+    legacyChallenge: "0",
     legacyRouterTimestamp: 0,
     dataCenterId: 0,
     appid: 0,
     protocolVersion: 0,
     build: "",
-    networkConfigVersion: 0,
+    networkConfigVersion: "0",
     myUnixTime: 0,
   };
 }
@@ -1966,7 +1966,7 @@ export const CMsgSteamDatagramGameserverPingReplyData = {
     if (message.echo.length !== 0) {
       writer.uint32(66).bytes(message.echo);
     }
-    if (message.legacyChallenge !== 0) {
+    if (message.legacyChallenge !== "0") {
       writer.uint32(25).fixed64(message.legacyChallenge);
     }
     if (message.legacyRouterTimestamp !== 0) {
@@ -1984,7 +1984,7 @@ export const CMsgSteamDatagramGameserverPingReplyData = {
     if (message.build !== "") {
       writer.uint32(74).string(message.build);
     }
-    if (message.networkConfigVersion !== 0) {
+    if (message.networkConfigVersion !== "0") {
       writer.uint32(80).uint64(message.networkConfigVersion);
     }
     if (message.myUnixTime !== 0) {
@@ -2007,7 +2007,7 @@ export const CMsgSteamDatagramGameserverPingReplyData = {
           message.echo = reader.bytes() as Buffer;
           break;
         case 3:
-          message.legacyChallenge = longToNumber(reader.fixed64() as Long);
+          message.legacyChallenge = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.legacyRouterTimestamp = reader.fixed32();
@@ -2025,7 +2025,7 @@ export const CMsgSteamDatagramGameserverPingReplyData = {
           message.build = reader.string();
           break;
         case 10:
-          message.networkConfigVersion = longToNumber(reader.uint64() as Long);
+          message.networkConfigVersion = longToString(reader.uint64() as Long);
           break;
         case 11:
           message.myUnixTime = reader.fixed32();
@@ -2042,13 +2042,13 @@ export const CMsgSteamDatagramGameserverPingReplyData = {
     return {
       echoRelayUnixTime: isSet(object.echoRelayUnixTime) ? Number(object.echoRelayUnixTime) : 0,
       echo: isSet(object.echo) ? Buffer.from(bytesFromBase64(object.echo)) : Buffer.alloc(0),
-      legacyChallenge: isSet(object.legacyChallenge) ? Number(object.legacyChallenge) : 0,
+      legacyChallenge: isSet(object.legacyChallenge) ? String(object.legacyChallenge) : "0",
       legacyRouterTimestamp: isSet(object.legacyRouterTimestamp) ? Number(object.legacyRouterTimestamp) : 0,
       dataCenterId: isSet(object.dataCenterId) ? Number(object.dataCenterId) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
       build: isSet(object.build) ? String(object.build) : "",
-      networkConfigVersion: isSet(object.networkConfigVersion) ? Number(object.networkConfigVersion) : 0,
+      networkConfigVersion: isSet(object.networkConfigVersion) ? String(object.networkConfigVersion) : "0",
       myUnixTime: isSet(object.myUnixTime) ? Number(object.myUnixTime) : 0,
     };
   },
@@ -2058,14 +2058,14 @@ export const CMsgSteamDatagramGameserverPingReplyData = {
     message.echoRelayUnixTime !== undefined && (obj.echoRelayUnixTime = Math.round(message.echoRelayUnixTime));
     message.echo !== undefined &&
       (obj.echo = base64FromBytes(message.echo !== undefined ? message.echo : Buffer.alloc(0)));
-    message.legacyChallenge !== undefined && (obj.legacyChallenge = Math.round(message.legacyChallenge));
+    message.legacyChallenge !== undefined && (obj.legacyChallenge = message.legacyChallenge);
     message.legacyRouterTimestamp !== undefined &&
       (obj.legacyRouterTimestamp = Math.round(message.legacyRouterTimestamp));
     message.dataCenterId !== undefined && (obj.dataCenterId = Math.round(message.dataCenterId));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
     message.build !== undefined && (obj.build = message.build);
-    message.networkConfigVersion !== undefined && (obj.networkConfigVersion = Math.round(message.networkConfigVersion));
+    message.networkConfigVersion !== undefined && (obj.networkConfigVersion = message.networkConfigVersion);
     message.myUnixTime !== undefined && (obj.myUnixTime = Math.round(message.myUnixTime));
     return obj;
   },
@@ -2082,20 +2082,27 @@ export const CMsgSteamDatagramGameserverPingReplyData = {
     const message = createBaseCMsgSteamDatagramGameserverPingReplyData();
     message.echoRelayUnixTime = object.echoRelayUnixTime ?? 0;
     message.echo = object.echo ?? Buffer.alloc(0);
-    message.legacyChallenge = object.legacyChallenge ?? 0;
+    message.legacyChallenge = object.legacyChallenge ?? "0";
     message.legacyRouterTimestamp = object.legacyRouterTimestamp ?? 0;
     message.dataCenterId = object.dataCenterId ?? 0;
     message.appid = object.appid ?? 0;
     message.protocolVersion = object.protocolVersion ?? 0;
     message.build = object.build ?? "";
-    message.networkConfigVersion = object.networkConfigVersion ?? 0;
+    message.networkConfigVersion = object.networkConfigVersion ?? "0";
     message.myUnixTime = object.myUnixTime ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgSteamDatagramNoSessionRelayToClient(): CMsgSteamDatagramNoSessionRelayToClient {
-  return { connectionId: 0, yourPublicIp: 0, yourPublicPort: 0, serverTime: 0, challenge: 0, secondsUntilShutdown: 0 };
+  return {
+    connectionId: 0,
+    yourPublicIp: 0,
+    yourPublicPort: 0,
+    serverTime: 0,
+    challenge: "0",
+    secondsUntilShutdown: 0,
+  };
 }
 
 export const CMsgSteamDatagramNoSessionRelayToClient = {
@@ -2112,7 +2119,7 @@ export const CMsgSteamDatagramNoSessionRelayToClient = {
     if (message.serverTime !== 0) {
       writer.uint32(29).fixed32(message.serverTime);
     }
-    if (message.challenge !== 0) {
+    if (message.challenge !== "0") {
       writer.uint32(33).fixed64(message.challenge);
     }
     if (message.secondsUntilShutdown !== 0) {
@@ -2141,7 +2148,7 @@ export const CMsgSteamDatagramNoSessionRelayToClient = {
           message.serverTime = reader.fixed32();
           break;
         case 4:
-          message.challenge = longToNumber(reader.fixed64() as Long);
+          message.challenge = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.secondsUntilShutdown = reader.uint32();
@@ -2160,7 +2167,7 @@ export const CMsgSteamDatagramNoSessionRelayToClient = {
       yourPublicIp: isSet(object.yourPublicIp) ? Number(object.yourPublicIp) : 0,
       yourPublicPort: isSet(object.yourPublicPort) ? Number(object.yourPublicPort) : 0,
       serverTime: isSet(object.serverTime) ? Number(object.serverTime) : 0,
-      challenge: isSet(object.challenge) ? Number(object.challenge) : 0,
+      challenge: isSet(object.challenge) ? String(object.challenge) : "0",
       secondsUntilShutdown: isSet(object.secondsUntilShutdown) ? Number(object.secondsUntilShutdown) : 0,
     };
   },
@@ -2171,7 +2178,7 @@ export const CMsgSteamDatagramNoSessionRelayToClient = {
     message.yourPublicIp !== undefined && (obj.yourPublicIp = Math.round(message.yourPublicIp));
     message.yourPublicPort !== undefined && (obj.yourPublicPort = Math.round(message.yourPublicPort));
     message.serverTime !== undefined && (obj.serverTime = Math.round(message.serverTime));
-    message.challenge !== undefined && (obj.challenge = Math.round(message.challenge));
+    message.challenge !== undefined && (obj.challenge = message.challenge);
     message.secondsUntilShutdown !== undefined && (obj.secondsUntilShutdown = Math.round(message.secondsUntilShutdown));
     return obj;
   },
@@ -2190,14 +2197,14 @@ export const CMsgSteamDatagramNoSessionRelayToClient = {
     message.yourPublicIp = object.yourPublicIp ?? 0;
     message.yourPublicPort = object.yourPublicPort ?? 0;
     message.serverTime = object.serverTime ?? 0;
-    message.challenge = object.challenge ?? 0;
+    message.challenge = object.challenge ?? "0";
     message.secondsUntilShutdown = object.secondsUntilShutdown ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgSteamDatagramNoSessionRelayToPeer(): CMsgSteamDatagramNoSessionRelayToPeer {
-  return { legacyRelaySessionId: 0, fromRelaySessionId: 0, fromConnectionId: 0, kludgePad: 0 };
+  return { legacyRelaySessionId: 0, fromRelaySessionId: 0, fromConnectionId: 0, kludgePad: "0" };
 }
 
 export const CMsgSteamDatagramNoSessionRelayToPeer = {
@@ -2211,7 +2218,7 @@ export const CMsgSteamDatagramNoSessionRelayToPeer = {
     if (message.fromConnectionId !== 0) {
       writer.uint32(61).fixed32(message.fromConnectionId);
     }
-    if (message.kludgePad !== 0) {
+    if (message.kludgePad !== "0") {
       writer.uint32(793).fixed64(message.kludgePad);
     }
     return writer;
@@ -2234,7 +2241,7 @@ export const CMsgSteamDatagramNoSessionRelayToPeer = {
           message.fromConnectionId = reader.fixed32();
           break;
         case 99:
-          message.kludgePad = longToNumber(reader.fixed64() as Long);
+          message.kludgePad = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2249,7 +2256,7 @@ export const CMsgSteamDatagramNoSessionRelayToPeer = {
       legacyRelaySessionId: isSet(object.legacyRelaySessionId) ? Number(object.legacyRelaySessionId) : 0,
       fromRelaySessionId: isSet(object.fromRelaySessionId) ? Number(object.fromRelaySessionId) : 0,
       fromConnectionId: isSet(object.fromConnectionId) ? Number(object.fromConnectionId) : 0,
-      kludgePad: isSet(object.kludgePad) ? Number(object.kludgePad) : 0,
+      kludgePad: isSet(object.kludgePad) ? String(object.kludgePad) : "0",
     };
   },
 
@@ -2258,7 +2265,7 @@ export const CMsgSteamDatagramNoSessionRelayToPeer = {
     message.legacyRelaySessionId !== undefined && (obj.legacyRelaySessionId = Math.round(message.legacyRelaySessionId));
     message.fromRelaySessionId !== undefined && (obj.fromRelaySessionId = Math.round(message.fromRelaySessionId));
     message.fromConnectionId !== undefined && (obj.fromConnectionId = Math.round(message.fromConnectionId));
-    message.kludgePad !== undefined && (obj.kludgePad = Math.round(message.kludgePad));
+    message.kludgePad !== undefined && (obj.kludgePad = message.kludgePad);
     return obj;
   },
 
@@ -2275,7 +2282,7 @@ export const CMsgSteamDatagramNoSessionRelayToPeer = {
     message.legacyRelaySessionId = object.legacyRelaySessionId ?? 0;
     message.fromRelaySessionId = object.fromRelaySessionId ?? 0;
     message.fromConnectionId = object.fromConnectionId ?? 0;
-    message.kludgePad = object.kludgePad ?? 0;
+    message.kludgePad = object.kludgePad ?? "0";
     return message;
   },
 };
@@ -3105,14 +3112,14 @@ export const CMsgSteamDatagramClientSwitchedPrimary_RouterQuality = {
 function createBaseCMsgSteamDatagramConnectRequest(): CMsgSteamDatagramConnectRequest {
   return {
     connectionId: 0,
-    myTimestamp: 0,
+    myTimestamp: "0",
     pingEstMs: 0,
     virtualPort: 0,
     gameserverRelaySessionId: 0,
     crypt: undefined,
     cert: undefined,
-    routingSecret: 0,
-    legacyClientSteamId: 0,
+    routingSecret: "0",
+    legacyClientSteamId: "0",
   };
 }
 
@@ -3121,7 +3128,7 @@ export const CMsgSteamDatagramConnectRequest = {
     if (message.connectionId !== 0) {
       writer.uint32(13).fixed32(message.connectionId);
     }
-    if (message.myTimestamp !== 0) {
+    if (message.myTimestamp !== "0") {
       writer.uint32(33).fixed64(message.myTimestamp);
     }
     if (message.pingEstMs !== 0) {
@@ -3139,10 +3146,10 @@ export const CMsgSteamDatagramConnectRequest = {
     if (message.cert !== undefined) {
       CMsgSteamDatagramCertificateSigned.encode(message.cert, writer.uint32(58).fork()).ldelim();
     }
-    if (message.routingSecret !== 0) {
+    if (message.routingSecret !== "0") {
       writer.uint32(81).fixed64(message.routingSecret);
     }
-    if (message.legacyClientSteamId !== 0) {
+    if (message.legacyClientSteamId !== "0") {
       writer.uint32(25).fixed64(message.legacyClientSteamId);
     }
     return writer;
@@ -3159,7 +3166,7 @@ export const CMsgSteamDatagramConnectRequest = {
           message.connectionId = reader.fixed32();
           break;
         case 4:
-          message.myTimestamp = longToNumber(reader.fixed64() as Long);
+          message.myTimestamp = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.pingEstMs = reader.uint32();
@@ -3177,10 +3184,10 @@ export const CMsgSteamDatagramConnectRequest = {
           message.cert = CMsgSteamDatagramCertificateSigned.decode(reader, reader.uint32());
           break;
         case 10:
-          message.routingSecret = longToNumber(reader.fixed64() as Long);
+          message.routingSecret = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.legacyClientSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyClientSteamId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3193,21 +3200,21 @@ export const CMsgSteamDatagramConnectRequest = {
   fromJSON(object: any): CMsgSteamDatagramConnectRequest {
     return {
       connectionId: isSet(object.connectionId) ? Number(object.connectionId) : 0,
-      myTimestamp: isSet(object.myTimestamp) ? Number(object.myTimestamp) : 0,
+      myTimestamp: isSet(object.myTimestamp) ? String(object.myTimestamp) : "0",
       pingEstMs: isSet(object.pingEstMs) ? Number(object.pingEstMs) : 0,
       virtualPort: isSet(object.virtualPort) ? Number(object.virtualPort) : 0,
       gameserverRelaySessionId: isSet(object.gameserverRelaySessionId) ? Number(object.gameserverRelaySessionId) : 0,
       crypt: isSet(object.crypt) ? CMsgSteamDatagramSessionCryptInfoSigned.fromJSON(object.crypt) : undefined,
       cert: isSet(object.cert) ? CMsgSteamDatagramCertificateSigned.fromJSON(object.cert) : undefined,
-      routingSecret: isSet(object.routingSecret) ? Number(object.routingSecret) : 0,
-      legacyClientSteamId: isSet(object.legacyClientSteamId) ? Number(object.legacyClientSteamId) : 0,
+      routingSecret: isSet(object.routingSecret) ? String(object.routingSecret) : "0",
+      legacyClientSteamId: isSet(object.legacyClientSteamId) ? String(object.legacyClientSteamId) : "0",
     };
   },
 
   toJSON(message: CMsgSteamDatagramConnectRequest): unknown {
     const obj: any = {};
     message.connectionId !== undefined && (obj.connectionId = Math.round(message.connectionId));
-    message.myTimestamp !== undefined && (obj.myTimestamp = Math.round(message.myTimestamp));
+    message.myTimestamp !== undefined && (obj.myTimestamp = message.myTimestamp);
     message.pingEstMs !== undefined && (obj.pingEstMs = Math.round(message.pingEstMs));
     message.virtualPort !== undefined && (obj.virtualPort = Math.round(message.virtualPort));
     message.gameserverRelaySessionId !== undefined &&
@@ -3216,8 +3223,8 @@ export const CMsgSteamDatagramConnectRequest = {
       (obj.crypt = message.crypt ? CMsgSteamDatagramSessionCryptInfoSigned.toJSON(message.crypt) : undefined);
     message.cert !== undefined &&
       (obj.cert = message.cert ? CMsgSteamDatagramCertificateSigned.toJSON(message.cert) : undefined);
-    message.routingSecret !== undefined && (obj.routingSecret = Math.round(message.routingSecret));
-    message.legacyClientSteamId !== undefined && (obj.legacyClientSteamId = Math.round(message.legacyClientSteamId));
+    message.routingSecret !== undefined && (obj.routingSecret = message.routingSecret);
+    message.legacyClientSteamId !== undefined && (obj.legacyClientSteamId = message.legacyClientSteamId);
     return obj;
   },
 
@@ -3230,7 +3237,7 @@ export const CMsgSteamDatagramConnectRequest = {
   ): CMsgSteamDatagramConnectRequest {
     const message = createBaseCMsgSteamDatagramConnectRequest();
     message.connectionId = object.connectionId ?? 0;
-    message.myTimestamp = object.myTimestamp ?? 0;
+    message.myTimestamp = object.myTimestamp ?? "0";
     message.pingEstMs = object.pingEstMs ?? 0;
     message.virtualPort = object.virtualPort ?? 0;
     message.gameserverRelaySessionId = object.gameserverRelaySessionId ?? 0;
@@ -3240,8 +3247,8 @@ export const CMsgSteamDatagramConnectRequest = {
     message.cert = (object.cert !== undefined && object.cert !== null)
       ? CMsgSteamDatagramCertificateSigned.fromPartial(object.cert)
       : undefined;
-    message.routingSecret = object.routingSecret ?? 0;
-    message.legacyClientSteamId = object.legacyClientSteamId ?? 0;
+    message.routingSecret = object.routingSecret ?? "0";
+    message.legacyClientSteamId = object.legacyClientSteamId ?? "0";
     return message;
   },
 };
@@ -3250,7 +3257,7 @@ function createBaseCMsgSteamDatagramConnectOK(): CMsgSteamDatagramConnectOK {
   return {
     clientConnectionId: 0,
     serverConnectionId: 0,
-    yourTimestamp: 0,
+    yourTimestamp: "0",
     delayTimeUsec: 0,
     gameserverRelaySessionId: 0,
     crypt: undefined,
@@ -3266,7 +3273,7 @@ export const CMsgSteamDatagramConnectOK = {
     if (message.serverConnectionId !== 0) {
       writer.uint32(61).fixed32(message.serverConnectionId);
     }
-    if (message.yourTimestamp !== 0) {
+    if (message.yourTimestamp !== "0") {
       writer.uint32(25).fixed64(message.yourTimestamp);
     }
     if (message.delayTimeUsec !== 0) {
@@ -3298,7 +3305,7 @@ export const CMsgSteamDatagramConnectOK = {
           message.serverConnectionId = reader.fixed32();
           break;
         case 3:
-          message.yourTimestamp = longToNumber(reader.fixed64() as Long);
+          message.yourTimestamp = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.delayTimeUsec = reader.uint32();
@@ -3324,7 +3331,7 @@ export const CMsgSteamDatagramConnectOK = {
     return {
       clientConnectionId: isSet(object.clientConnectionId) ? Number(object.clientConnectionId) : 0,
       serverConnectionId: isSet(object.serverConnectionId) ? Number(object.serverConnectionId) : 0,
-      yourTimestamp: isSet(object.yourTimestamp) ? Number(object.yourTimestamp) : 0,
+      yourTimestamp: isSet(object.yourTimestamp) ? String(object.yourTimestamp) : "0",
       delayTimeUsec: isSet(object.delayTimeUsec) ? Number(object.delayTimeUsec) : 0,
       gameserverRelaySessionId: isSet(object.gameserverRelaySessionId) ? Number(object.gameserverRelaySessionId) : 0,
       crypt: isSet(object.crypt) ? CMsgSteamDatagramSessionCryptInfoSigned.fromJSON(object.crypt) : undefined,
@@ -3336,7 +3343,7 @@ export const CMsgSteamDatagramConnectOK = {
     const obj: any = {};
     message.clientConnectionId !== undefined && (obj.clientConnectionId = Math.round(message.clientConnectionId));
     message.serverConnectionId !== undefined && (obj.serverConnectionId = Math.round(message.serverConnectionId));
-    message.yourTimestamp !== undefined && (obj.yourTimestamp = Math.round(message.yourTimestamp));
+    message.yourTimestamp !== undefined && (obj.yourTimestamp = message.yourTimestamp);
     message.delayTimeUsec !== undefined && (obj.delayTimeUsec = Math.round(message.delayTimeUsec));
     message.gameserverRelaySessionId !== undefined &&
       (obj.gameserverRelaySessionId = Math.round(message.gameserverRelaySessionId));
@@ -3355,7 +3362,7 @@ export const CMsgSteamDatagramConnectOK = {
     const message = createBaseCMsgSteamDatagramConnectOK();
     message.clientConnectionId = object.clientConnectionId ?? 0;
     message.serverConnectionId = object.serverConnectionId ?? 0;
-    message.yourTimestamp = object.yourTimestamp ?? 0;
+    message.yourTimestamp = object.yourTimestamp ?? "0";
     message.delayTimeUsec = object.delayTimeUsec ?? 0;
     message.gameserverRelaySessionId = object.gameserverRelaySessionId ?? 0;
     message.crypt = (object.crypt !== undefined && object.crypt !== null)
@@ -3647,7 +3654,7 @@ function createBaseCMsgSteamDatagramConnectionClosed(): CMsgSteamDatagramConnect
     fromConnectionId: 0,
     fromIdentityString: "",
     legacyFromIdentityBinary: undefined,
-    legacyFromSteamId: 0,
+    legacyFromSteamId: "0",
     legacyGameserverRelaySessionId: 0,
     toRelaySessionId: 0,
     fromRelaySessionId: 0,
@@ -3656,7 +3663,7 @@ function createBaseCMsgSteamDatagramConnectionClosed(): CMsgSteamDatagramConnect
     relayMode: 0,
     debug: "",
     reasonCode: 0,
-    routingSecret: 0,
+    routingSecret: "0",
     notPrimarySession: false,
     notPrimaryTransport: false,
     qualityRelay: undefined,
@@ -3680,7 +3687,7 @@ export const CMsgSteamDatagramConnectionClosed = {
       CMsgSteamNetworkingIdentityLegacyBinary.encode(message.legacyFromIdentityBinary, writer.uint32(106).fork())
         .ldelim();
     }
-    if (message.legacyFromSteamId !== 0) {
+    if (message.legacyFromSteamId !== "0") {
       writer.uint32(25).fixed64(message.legacyFromSteamId);
     }
     if (message.legacyGameserverRelaySessionId !== 0) {
@@ -3707,7 +3714,7 @@ export const CMsgSteamDatagramConnectionClosed = {
     if (message.reasonCode !== 0) {
       writer.uint32(48).uint32(message.reasonCode);
     }
-    if (message.routingSecret !== 0) {
+    if (message.routingSecret !== "0") {
       writer.uint32(113).fixed64(message.routingSecret);
     }
     if (message.notPrimarySession === true) {
@@ -3748,7 +3755,7 @@ export const CMsgSteamDatagramConnectionClosed = {
           message.legacyFromIdentityBinary = CMsgSteamNetworkingIdentityLegacyBinary.decode(reader, reader.uint32());
           break;
         case 3:
-          message.legacyFromSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyFromSteamId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.legacyGameserverRelaySessionId = reader.uint32();
@@ -3775,7 +3782,7 @@ export const CMsgSteamDatagramConnectionClosed = {
           message.reasonCode = reader.uint32();
           break;
         case 14:
-          message.routingSecret = longToNumber(reader.fixed64() as Long);
+          message.routingSecret = longToString(reader.fixed64() as Long);
           break;
         case 16:
           message.notPrimarySession = reader.bool();
@@ -3808,7 +3815,7 @@ export const CMsgSteamDatagramConnectionClosed = {
       legacyFromIdentityBinary: isSet(object.legacyFromIdentityBinary)
         ? CMsgSteamNetworkingIdentityLegacyBinary.fromJSON(object.legacyFromIdentityBinary)
         : undefined,
-      legacyFromSteamId: isSet(object.legacyFromSteamId) ? Number(object.legacyFromSteamId) : 0,
+      legacyFromSteamId: isSet(object.legacyFromSteamId) ? String(object.legacyFromSteamId) : "0",
       legacyGameserverRelaySessionId: isSet(object.legacyGameserverRelaySessionId)
         ? Number(object.legacyGameserverRelaySessionId)
         : 0,
@@ -3821,7 +3828,7 @@ export const CMsgSteamDatagramConnectionClosed = {
       relayMode: isSet(object.relayMode) ? cMsgSteamDatagramConnectionClosed_ERelayModeFromJSON(object.relayMode) : 0,
       debug: isSet(object.debug) ? String(object.debug) : "",
       reasonCode: isSet(object.reasonCode) ? Number(object.reasonCode) : 0,
-      routingSecret: isSet(object.routingSecret) ? Number(object.routingSecret) : 0,
+      routingSecret: isSet(object.routingSecret) ? String(object.routingSecret) : "0",
       notPrimarySession: isSet(object.notPrimarySession) ? Boolean(object.notPrimarySession) : false,
       notPrimaryTransport: isSet(object.notPrimaryTransport) ? Boolean(object.notPrimaryTransport) : false,
       qualityRelay: isSet(object.qualityRelay)
@@ -3842,7 +3849,7 @@ export const CMsgSteamDatagramConnectionClosed = {
     message.legacyFromIdentityBinary !== undefined && (obj.legacyFromIdentityBinary = message.legacyFromIdentityBinary
       ? CMsgSteamNetworkingIdentityLegacyBinary.toJSON(message.legacyFromIdentityBinary)
       : undefined);
-    message.legacyFromSteamId !== undefined && (obj.legacyFromSteamId = Math.round(message.legacyFromSteamId));
+    message.legacyFromSteamId !== undefined && (obj.legacyFromSteamId = message.legacyFromSteamId);
     message.legacyGameserverRelaySessionId !== undefined &&
       (obj.legacyGameserverRelaySessionId = Math.round(message.legacyGameserverRelaySessionId));
     message.toRelaySessionId !== undefined && (obj.toRelaySessionId = Math.round(message.toRelaySessionId));
@@ -3857,7 +3864,7 @@ export const CMsgSteamDatagramConnectionClosed = {
       (obj.relayMode = cMsgSteamDatagramConnectionClosed_ERelayModeToJSON(message.relayMode));
     message.debug !== undefined && (obj.debug = message.debug);
     message.reasonCode !== undefined && (obj.reasonCode = Math.round(message.reasonCode));
-    message.routingSecret !== undefined && (obj.routingSecret = Math.round(message.routingSecret));
+    message.routingSecret !== undefined && (obj.routingSecret = message.routingSecret);
     message.notPrimarySession !== undefined && (obj.notPrimarySession = message.notPrimarySession);
     message.notPrimaryTransport !== undefined && (obj.notPrimaryTransport = message.notPrimaryTransport);
     message.qualityRelay !== undefined && (obj.qualityRelay = message.qualityRelay
@@ -3888,7 +3895,7 @@ export const CMsgSteamDatagramConnectionClosed = {
       (object.legacyFromIdentityBinary !== undefined && object.legacyFromIdentityBinary !== null)
         ? CMsgSteamNetworkingIdentityLegacyBinary.fromPartial(object.legacyFromIdentityBinary)
         : undefined;
-    message.legacyFromSteamId = object.legacyFromSteamId ?? 0;
+    message.legacyFromSteamId = object.legacyFromSteamId ?? "0";
     message.legacyGameserverRelaySessionId = object.legacyGameserverRelaySessionId ?? 0;
     message.toRelaySessionId = object.toRelaySessionId ?? 0;
     message.fromRelaySessionId = object.fromRelaySessionId ?? 0;
@@ -3897,7 +3904,7 @@ export const CMsgSteamDatagramConnectionClosed = {
     message.relayMode = object.relayMode ?? 0;
     message.debug = object.debug ?? "";
     message.reasonCode = object.reasonCode ?? 0;
-    message.routingSecret = object.routingSecret ?? 0;
+    message.routingSecret = object.routingSecret ?? "0";
     message.notPrimarySession = object.notPrimarySession ?? false;
     message.notPrimaryTransport = object.notPrimaryTransport ?? false;
     message.qualityRelay = (object.qualityRelay !== undefined && object.qualityRelay !== null)
@@ -3921,14 +3928,14 @@ function createBaseCMsgSteamDatagramNoConnection(): CMsgSteamDatagramNoConnectio
     toRelaySessionId: 0,
     fromRelaySessionId: 0,
     fromIdentityString: "",
-    legacyFromSteamId: 0,
+    legacyFromSteamId: "0",
     endToEnd: false,
     notPrimarySession: false,
     notPrimaryTransport: false,
     qualityRelay: undefined,
     qualityE2e: undefined,
     p2pRoutingSummary: undefined,
-    routingSecret: 0,
+    routingSecret: "0",
     dummyPad: 0,
   };
 }
@@ -3953,7 +3960,7 @@ export const CMsgSteamDatagramNoConnection = {
     if (message.fromIdentityString !== "") {
       writer.uint32(58).string(message.fromIdentityString);
     }
-    if (message.legacyFromSteamId !== 0) {
+    if (message.legacyFromSteamId !== "0") {
       writer.uint32(25).fixed64(message.legacyFromSteamId);
     }
     if (message.endToEnd === true) {
@@ -3974,7 +3981,7 @@ export const CMsgSteamDatagramNoConnection = {
     if (message.p2pRoutingSummary !== undefined) {
       CMsgSteamDatagramP2PRoutingSummary.encode(message.p2pRoutingSummary, writer.uint32(130).fork()).ldelim();
     }
-    if (message.routingSecret !== 0) {
+    if (message.routingSecret !== "0") {
       writer.uint32(89).fixed64(message.routingSecret);
     }
     if (message.dummyPad !== 0) {
@@ -4009,7 +4016,7 @@ export const CMsgSteamDatagramNoConnection = {
           message.fromIdentityString = reader.string();
           break;
         case 3:
-          message.legacyFromSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyFromSteamId = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.endToEnd = reader.bool();
@@ -4030,7 +4037,7 @@ export const CMsgSteamDatagramNoConnection = {
           message.p2pRoutingSummary = CMsgSteamDatagramP2PRoutingSummary.decode(reader, reader.uint32());
           break;
         case 11:
-          message.routingSecret = longToNumber(reader.fixed64() as Long);
+          message.routingSecret = longToString(reader.fixed64() as Long);
           break;
         case 1023:
           message.dummyPad = reader.fixed32();
@@ -4053,7 +4060,7 @@ export const CMsgSteamDatagramNoConnection = {
       toRelaySessionId: isSet(object.toRelaySessionId) ? Number(object.toRelaySessionId) : 0,
       fromRelaySessionId: isSet(object.fromRelaySessionId) ? Number(object.fromRelaySessionId) : 0,
       fromIdentityString: isSet(object.fromIdentityString) ? String(object.fromIdentityString) : "",
-      legacyFromSteamId: isSet(object.legacyFromSteamId) ? Number(object.legacyFromSteamId) : 0,
+      legacyFromSteamId: isSet(object.legacyFromSteamId) ? String(object.legacyFromSteamId) : "0",
       endToEnd: isSet(object.endToEnd) ? Boolean(object.endToEnd) : false,
       notPrimarySession: isSet(object.notPrimarySession) ? Boolean(object.notPrimarySession) : false,
       notPrimaryTransport: isSet(object.notPrimaryTransport) ? Boolean(object.notPrimaryTransport) : false,
@@ -4064,7 +4071,7 @@ export const CMsgSteamDatagramNoConnection = {
       p2pRoutingSummary: isSet(object.p2pRoutingSummary)
         ? CMsgSteamDatagramP2PRoutingSummary.fromJSON(object.p2pRoutingSummary)
         : undefined,
-      routingSecret: isSet(object.routingSecret) ? Number(object.routingSecret) : 0,
+      routingSecret: isSet(object.routingSecret) ? String(object.routingSecret) : "0",
       dummyPad: isSet(object.dummyPad) ? Number(object.dummyPad) : 0,
     };
   },
@@ -4078,7 +4085,7 @@ export const CMsgSteamDatagramNoConnection = {
     message.toRelaySessionId !== undefined && (obj.toRelaySessionId = Math.round(message.toRelaySessionId));
     message.fromRelaySessionId !== undefined && (obj.fromRelaySessionId = Math.round(message.fromRelaySessionId));
     message.fromIdentityString !== undefined && (obj.fromIdentityString = message.fromIdentityString);
-    message.legacyFromSteamId !== undefined && (obj.legacyFromSteamId = Math.round(message.legacyFromSteamId));
+    message.legacyFromSteamId !== undefined && (obj.legacyFromSteamId = message.legacyFromSteamId);
     message.endToEnd !== undefined && (obj.endToEnd = message.endToEnd);
     message.notPrimarySession !== undefined && (obj.notPrimarySession = message.notPrimarySession);
     message.notPrimaryTransport !== undefined && (obj.notPrimaryTransport = message.notPrimaryTransport);
@@ -4090,7 +4097,7 @@ export const CMsgSteamDatagramNoConnection = {
     message.p2pRoutingSummary !== undefined && (obj.p2pRoutingSummary = message.p2pRoutingSummary
       ? CMsgSteamDatagramP2PRoutingSummary.toJSON(message.p2pRoutingSummary)
       : undefined);
-    message.routingSecret !== undefined && (obj.routingSecret = Math.round(message.routingSecret));
+    message.routingSecret !== undefined && (obj.routingSecret = message.routingSecret);
     message.dummyPad !== undefined && (obj.dummyPad = Math.round(message.dummyPad));
     return obj;
   },
@@ -4109,7 +4116,7 @@ export const CMsgSteamDatagramNoConnection = {
     message.toRelaySessionId = object.toRelaySessionId ?? 0;
     message.fromRelaySessionId = object.fromRelaySessionId ?? 0;
     message.fromIdentityString = object.fromIdentityString ?? "";
-    message.legacyFromSteamId = object.legacyFromSteamId ?? 0;
+    message.legacyFromSteamId = object.legacyFromSteamId ?? "0";
     message.endToEnd = object.endToEnd ?? false;
     message.notPrimarySession = object.notPrimarySession ?? false;
     message.notPrimaryTransport = object.notPrimaryTransport ?? false;
@@ -4122,7 +4129,7 @@ export const CMsgSteamDatagramNoConnection = {
     message.p2pRoutingSummary = (object.p2pRoutingSummary !== undefined && object.p2pRoutingSummary !== null)
       ? CMsgSteamDatagramP2PRoutingSummary.fromPartial(object.p2pRoutingSummary)
       : undefined;
-    message.routingSecret = object.routingSecret ?? 0;
+    message.routingSecret = object.routingSecret ?? "0";
     message.dummyPad = object.dummyPad ?? 0;
     return message;
   },
@@ -4132,10 +4139,10 @@ function createBaseCMsgSteamDatagramGameserverSessionRequest(): CMsgSteamDatagra
   return {
     ticket: Buffer.alloc(0),
     challengeTime: 0,
-    challenge: 0,
+    challenge: "0",
     clientConnectionId: 0,
     serverConnectionId: 0,
-    networkConfigVersion: 0,
+    networkConfigVersion: "0",
     protocolVersion: 0,
     platform: "",
     build: "",
@@ -4152,7 +4159,7 @@ export const CMsgSteamDatagramGameserverSessionRequest = {
     if (message.challengeTime !== 0) {
       writer.uint32(29).fixed32(message.challengeTime);
     }
-    if (message.challenge !== 0) {
+    if (message.challenge !== "0") {
       writer.uint32(33).fixed64(message.challenge);
     }
     if (message.clientConnectionId !== 0) {
@@ -4161,7 +4168,7 @@ export const CMsgSteamDatagramGameserverSessionRequest = {
     if (message.serverConnectionId !== 0) {
       writer.uint32(69).fixed32(message.serverConnectionId);
     }
-    if (message.networkConfigVersion !== 0) {
+    if (message.networkConfigVersion !== "0") {
       writer.uint32(48).uint64(message.networkConfigVersion);
     }
     if (message.protocolVersion !== 0) {
@@ -4196,7 +4203,7 @@ export const CMsgSteamDatagramGameserverSessionRequest = {
           message.challengeTime = reader.fixed32();
           break;
         case 4:
-          message.challenge = longToNumber(reader.fixed64() as Long);
+          message.challenge = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.clientConnectionId = reader.fixed32();
@@ -4205,7 +4212,7 @@ export const CMsgSteamDatagramGameserverSessionRequest = {
           message.serverConnectionId = reader.fixed32();
           break;
         case 6:
-          message.networkConfigVersion = longToNumber(reader.uint64() as Long);
+          message.networkConfigVersion = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.protocolVersion = reader.uint32();
@@ -4234,10 +4241,10 @@ export const CMsgSteamDatagramGameserverSessionRequest = {
     return {
       ticket: isSet(object.ticket) ? Buffer.from(bytesFromBase64(object.ticket)) : Buffer.alloc(0),
       challengeTime: isSet(object.challengeTime) ? Number(object.challengeTime) : 0,
-      challenge: isSet(object.challenge) ? Number(object.challenge) : 0,
+      challenge: isSet(object.challenge) ? String(object.challenge) : "0",
       clientConnectionId: isSet(object.clientConnectionId) ? Number(object.clientConnectionId) : 0,
       serverConnectionId: isSet(object.serverConnectionId) ? Number(object.serverConnectionId) : 0,
-      networkConfigVersion: isSet(object.networkConfigVersion) ? Number(object.networkConfigVersion) : 0,
+      networkConfigVersion: isSet(object.networkConfigVersion) ? String(object.networkConfigVersion) : "0",
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
       platform: isSet(object.platform) ? String(object.platform) : "",
       build: isSet(object.build) ? String(object.build) : "",
@@ -4253,10 +4260,10 @@ export const CMsgSteamDatagramGameserverSessionRequest = {
     message.ticket !== undefined &&
       (obj.ticket = base64FromBytes(message.ticket !== undefined ? message.ticket : Buffer.alloc(0)));
     message.challengeTime !== undefined && (obj.challengeTime = Math.round(message.challengeTime));
-    message.challenge !== undefined && (obj.challenge = Math.round(message.challenge));
+    message.challenge !== undefined && (obj.challenge = message.challenge);
     message.clientConnectionId !== undefined && (obj.clientConnectionId = Math.round(message.clientConnectionId));
     message.serverConnectionId !== undefined && (obj.serverConnectionId = Math.round(message.serverConnectionId));
-    message.networkConfigVersion !== undefined && (obj.networkConfigVersion = Math.round(message.networkConfigVersion));
+    message.networkConfigVersion !== undefined && (obj.networkConfigVersion = message.networkConfigVersion);
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
     message.platform !== undefined && (obj.platform = message.platform);
     message.build !== undefined && (obj.build = message.build);
@@ -4279,10 +4286,10 @@ export const CMsgSteamDatagramGameserverSessionRequest = {
     const message = createBaseCMsgSteamDatagramGameserverSessionRequest();
     message.ticket = object.ticket ?? Buffer.alloc(0);
     message.challengeTime = object.challengeTime ?? 0;
-    message.challenge = object.challenge ?? 0;
+    message.challenge = object.challenge ?? "0";
     message.clientConnectionId = object.clientConnectionId ?? 0;
     message.serverConnectionId = object.serverConnectionId ?? 0;
-    message.networkConfigVersion = object.networkConfigVersion ?? 0;
+    message.networkConfigVersion = object.networkConfigVersion ?? "0";
     message.protocolVersion = object.protocolVersion ?? 0;
     message.platform = object.platform ?? "";
     message.build = object.build ?? "";
@@ -4301,7 +4308,7 @@ function createBaseCMsgSteamDatagramGameserverSessionEstablished(): CMsgSteamDat
     secondsUntilShutdown: 0,
     seqNumR2c: 0,
     dummyLegacyIdentityBinary: Buffer.alloc(0),
-    legacyGameserverSteamid: 0,
+    legacyGameserverSteamid: "0",
   };
 }
 
@@ -4322,7 +4329,7 @@ export const CMsgSteamDatagramGameserverSessionEstablished = {
     if (message.dummyLegacyIdentityBinary.length !== 0) {
       writer.uint32(58).bytes(message.dummyLegacyIdentityBinary);
     }
-    if (message.legacyGameserverSteamid !== 0) {
+    if (message.legacyGameserverSteamid !== "0") {
       writer.uint32(25).fixed64(message.legacyGameserverSteamid);
     }
     return writer;
@@ -4351,7 +4358,7 @@ export const CMsgSteamDatagramGameserverSessionEstablished = {
           message.dummyLegacyIdentityBinary = reader.bytes() as Buffer;
           break;
         case 3:
-          message.legacyGameserverSteamid = longToNumber(reader.fixed64() as Long);
+          message.legacyGameserverSteamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4370,7 +4377,7 @@ export const CMsgSteamDatagramGameserverSessionEstablished = {
       dummyLegacyIdentityBinary: isSet(object.dummyLegacyIdentityBinary)
         ? Buffer.from(bytesFromBase64(object.dummyLegacyIdentityBinary))
         : Buffer.alloc(0),
-      legacyGameserverSteamid: isSet(object.legacyGameserverSteamid) ? Number(object.legacyGameserverSteamid) : 0,
+      legacyGameserverSteamid: isSet(object.legacyGameserverSteamid) ? String(object.legacyGameserverSteamid) : "0",
     };
   },
 
@@ -4384,8 +4391,7 @@ export const CMsgSteamDatagramGameserverSessionEstablished = {
       (obj.dummyLegacyIdentityBinary = base64FromBytes(
         message.dummyLegacyIdentityBinary !== undefined ? message.dummyLegacyIdentityBinary : Buffer.alloc(0),
       ));
-    message.legacyGameserverSteamid !== undefined &&
-      (obj.legacyGameserverSteamid = Math.round(message.legacyGameserverSteamid));
+    message.legacyGameserverSteamid !== undefined && (obj.legacyGameserverSteamid = message.legacyGameserverSteamid);
     return obj;
   },
 
@@ -4404,7 +4410,7 @@ export const CMsgSteamDatagramGameserverSessionEstablished = {
     message.secondsUntilShutdown = object.secondsUntilShutdown ?? 0;
     message.seqNumR2c = object.seqNumR2c ?? 0;
     message.dummyLegacyIdentityBinary = object.dummyLegacyIdentityBinary ?? Buffer.alloc(0);
-    message.legacyGameserverSteamid = object.legacyGameserverSteamid ?? 0;
+    message.legacyGameserverSteamid = object.legacyGameserverSteamid ?? "0";
     return message;
   },
 };
@@ -4796,11 +4802,11 @@ function createBaseCMsgSteamDatagramConnectionStatsRouterToServer(): CMsgSteamDa
     seqNumR2s: 0,
     seqNumE2e: 0,
     clientIdentityString: "",
-    legacyClientSteamId: 0,
+    legacyClientSteamId: "0",
     relaySessionId: 0,
     clientConnectionId: 0,
     serverConnectionId: 0,
-    routingSecret: 0,
+    routingSecret: "0",
   };
 }
 
@@ -4837,7 +4843,7 @@ export const CMsgSteamDatagramConnectionStatsRouterToServer = {
     if (message.clientIdentityString !== "") {
       writer.uint32(122).string(message.clientIdentityString);
     }
-    if (message.legacyClientSteamId !== 0) {
+    if (message.legacyClientSteamId !== "0") {
       writer.uint32(57).fixed64(message.legacyClientSteamId);
     }
     if (message.relaySessionId !== 0) {
@@ -4849,7 +4855,7 @@ export const CMsgSteamDatagramConnectionStatsRouterToServer = {
     if (message.serverConnectionId !== 0) {
       writer.uint32(109).fixed32(message.serverConnectionId);
     }
-    if (message.routingSecret !== 0) {
+    if (message.routingSecret !== "0") {
       writer.uint32(113).fixed64(message.routingSecret);
     }
     return writer;
@@ -4901,7 +4907,7 @@ export const CMsgSteamDatagramConnectionStatsRouterToServer = {
           message.clientIdentityString = reader.string();
           break;
         case 7:
-          message.legacyClientSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyClientSteamId = longToString(reader.fixed64() as Long);
           break;
         case 8:
           message.relaySessionId = reader.uint32();
@@ -4913,7 +4919,7 @@ export const CMsgSteamDatagramConnectionStatsRouterToServer = {
           message.serverConnectionId = reader.fixed32();
           break;
         case 14:
-          message.routingSecret = longToNumber(reader.fixed64() as Long);
+          message.routingSecret = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4935,11 +4941,11 @@ export const CMsgSteamDatagramConnectionStatsRouterToServer = {
       seqNumR2s: isSet(object.seqNumR2s) ? Number(object.seqNumR2s) : 0,
       seqNumE2e: isSet(object.seqNumE2e) ? Number(object.seqNumE2e) : 0,
       clientIdentityString: isSet(object.clientIdentityString) ? String(object.clientIdentityString) : "",
-      legacyClientSteamId: isSet(object.legacyClientSteamId) ? Number(object.legacyClientSteamId) : 0,
+      legacyClientSteamId: isSet(object.legacyClientSteamId) ? String(object.legacyClientSteamId) : "0",
       relaySessionId: isSet(object.relaySessionId) ? Number(object.relaySessionId) : 0,
       clientConnectionId: isSet(object.clientConnectionId) ? Number(object.clientConnectionId) : 0,
       serverConnectionId: isSet(object.serverConnectionId) ? Number(object.serverConnectionId) : 0,
-      routingSecret: isSet(object.routingSecret) ? Number(object.routingSecret) : 0,
+      routingSecret: isSet(object.routingSecret) ? String(object.routingSecret) : "0",
     };
   },
 
@@ -4964,11 +4970,11 @@ export const CMsgSteamDatagramConnectionStatsRouterToServer = {
     message.seqNumR2s !== undefined && (obj.seqNumR2s = Math.round(message.seqNumR2s));
     message.seqNumE2e !== undefined && (obj.seqNumE2e = Math.round(message.seqNumE2e));
     message.clientIdentityString !== undefined && (obj.clientIdentityString = message.clientIdentityString);
-    message.legacyClientSteamId !== undefined && (obj.legacyClientSteamId = Math.round(message.legacyClientSteamId));
+    message.legacyClientSteamId !== undefined && (obj.legacyClientSteamId = message.legacyClientSteamId);
     message.relaySessionId !== undefined && (obj.relaySessionId = Math.round(message.relaySessionId));
     message.clientConnectionId !== undefined && (obj.clientConnectionId = Math.round(message.clientConnectionId));
     message.serverConnectionId !== undefined && (obj.serverConnectionId = Math.round(message.serverConnectionId));
-    message.routingSecret !== undefined && (obj.routingSecret = Math.round(message.routingSecret));
+    message.routingSecret !== undefined && (obj.routingSecret = message.routingSecret);
     return obj;
   },
 
@@ -4994,11 +5000,11 @@ export const CMsgSteamDatagramConnectionStatsRouterToServer = {
     message.seqNumR2s = object.seqNumR2s ?? 0;
     message.seqNumE2e = object.seqNumE2e ?? 0;
     message.clientIdentityString = object.clientIdentityString ?? "";
-    message.legacyClientSteamId = object.legacyClientSteamId ?? 0;
+    message.legacyClientSteamId = object.legacyClientSteamId ?? "0";
     message.relaySessionId = object.relaySessionId ?? 0;
     message.clientConnectionId = object.clientConnectionId ?? 0;
     message.serverConnectionId = object.serverConnectionId ?? 0;
-    message.routingSecret = object.routingSecret ?? 0;
+    message.routingSecret = object.routingSecret ?? "0";
     return message;
   },
 };
@@ -5193,16 +5199,16 @@ export const CMsgSteamDatagramConnectionStatsServerToRouter = {
 function createBaseCMsgSteamDatagramP2PSessionRequestBody(): CMsgSteamDatagramP2PSessionRequestBody {
   return {
     challengeTime: 0,
-    challenge: 0,
+    challenge: "0",
     clientConnectionId: 0,
-    legacyPeerSteamId: 0,
+    legacyPeerSteamId: "0",
     peerIdentityString: "",
     peerConnectionId: 0,
     encryptedData: Buffer.alloc(0),
     encryptionYourPublicKeyLeadByte: 0,
     encryptionMyEphemeralPublicKey: Buffer.alloc(0),
     protocolVersion: 0,
-    networkConfigVersion: 0,
+    networkConfigVersion: "0",
     platform: "",
     build: "",
   };
@@ -5213,13 +5219,13 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
     if (message.challengeTime !== 0) {
       writer.uint32(13).fixed32(message.challengeTime);
     }
-    if (message.challenge !== 0) {
+    if (message.challenge !== "0") {
       writer.uint32(17).fixed64(message.challenge);
     }
     if (message.clientConnectionId !== 0) {
       writer.uint32(29).fixed32(message.clientConnectionId);
     }
-    if (message.legacyPeerSteamId !== 0) {
+    if (message.legacyPeerSteamId !== "0") {
       writer.uint32(33).fixed64(message.legacyPeerSteamId);
     }
     if (message.peerIdentityString !== "") {
@@ -5240,7 +5246,7 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
     if (message.protocolVersion !== 0) {
       writer.uint32(64).uint32(message.protocolVersion);
     }
-    if (message.networkConfigVersion !== 0) {
+    if (message.networkConfigVersion !== "0") {
       writer.uint32(72).uint64(message.networkConfigVersion);
     }
     if (message.platform !== "") {
@@ -5263,13 +5269,13 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
           message.challengeTime = reader.fixed32();
           break;
         case 2:
-          message.challenge = longToNumber(reader.fixed64() as Long);
+          message.challenge = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.clientConnectionId = reader.fixed32();
           break;
         case 4:
-          message.legacyPeerSteamId = longToNumber(reader.fixed64() as Long);
+          message.legacyPeerSteamId = longToString(reader.fixed64() as Long);
           break;
         case 11:
           message.peerIdentityString = reader.string();
@@ -5290,7 +5296,7 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
           message.protocolVersion = reader.uint32();
           break;
         case 9:
-          message.networkConfigVersion = longToNumber(reader.uint64() as Long);
+          message.networkConfigVersion = longToString(reader.uint64() as Long);
           break;
         case 12:
           message.platform = reader.string();
@@ -5309,9 +5315,9 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
   fromJSON(object: any): CMsgSteamDatagramP2PSessionRequestBody {
     return {
       challengeTime: isSet(object.challengeTime) ? Number(object.challengeTime) : 0,
-      challenge: isSet(object.challenge) ? Number(object.challenge) : 0,
+      challenge: isSet(object.challenge) ? String(object.challenge) : "0",
       clientConnectionId: isSet(object.clientConnectionId) ? Number(object.clientConnectionId) : 0,
-      legacyPeerSteamId: isSet(object.legacyPeerSteamId) ? Number(object.legacyPeerSteamId) : 0,
+      legacyPeerSteamId: isSet(object.legacyPeerSteamId) ? String(object.legacyPeerSteamId) : "0",
       peerIdentityString: isSet(object.peerIdentityString) ? String(object.peerIdentityString) : "",
       peerConnectionId: isSet(object.peerConnectionId) ? Number(object.peerConnectionId) : 0,
       encryptedData: isSet(object.encryptedData) ? Buffer.from(bytesFromBase64(object.encryptedData)) : Buffer.alloc(0),
@@ -5322,7 +5328,7 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
         ? Buffer.from(bytesFromBase64(object.encryptionMyEphemeralPublicKey))
         : Buffer.alloc(0),
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
-      networkConfigVersion: isSet(object.networkConfigVersion) ? Number(object.networkConfigVersion) : 0,
+      networkConfigVersion: isSet(object.networkConfigVersion) ? String(object.networkConfigVersion) : "0",
       platform: isSet(object.platform) ? String(object.platform) : "",
       build: isSet(object.build) ? String(object.build) : "",
     };
@@ -5331,9 +5337,9 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
   toJSON(message: CMsgSteamDatagramP2PSessionRequestBody): unknown {
     const obj: any = {};
     message.challengeTime !== undefined && (obj.challengeTime = Math.round(message.challengeTime));
-    message.challenge !== undefined && (obj.challenge = Math.round(message.challenge));
+    message.challenge !== undefined && (obj.challenge = message.challenge);
     message.clientConnectionId !== undefined && (obj.clientConnectionId = Math.round(message.clientConnectionId));
-    message.legacyPeerSteamId !== undefined && (obj.legacyPeerSteamId = Math.round(message.legacyPeerSteamId));
+    message.legacyPeerSteamId !== undefined && (obj.legacyPeerSteamId = message.legacyPeerSteamId);
     message.peerIdentityString !== undefined && (obj.peerIdentityString = message.peerIdentityString);
     message.peerConnectionId !== undefined && (obj.peerConnectionId = Math.round(message.peerConnectionId));
     message.encryptedData !== undefined &&
@@ -5347,7 +5353,7 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
         message.encryptionMyEphemeralPublicKey !== undefined ? message.encryptionMyEphemeralPublicKey : Buffer.alloc(0),
       ));
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
-    message.networkConfigVersion !== undefined && (obj.networkConfigVersion = Math.round(message.networkConfigVersion));
+    message.networkConfigVersion !== undefined && (obj.networkConfigVersion = message.networkConfigVersion);
     message.platform !== undefined && (obj.platform = message.platform);
     message.build !== undefined && (obj.build = message.build);
     return obj;
@@ -5364,16 +5370,16 @@ export const CMsgSteamDatagramP2PSessionRequestBody = {
   ): CMsgSteamDatagramP2PSessionRequestBody {
     const message = createBaseCMsgSteamDatagramP2PSessionRequestBody();
     message.challengeTime = object.challengeTime ?? 0;
-    message.challenge = object.challenge ?? 0;
+    message.challenge = object.challenge ?? "0";
     message.clientConnectionId = object.clientConnectionId ?? 0;
-    message.legacyPeerSteamId = object.legacyPeerSteamId ?? 0;
+    message.legacyPeerSteamId = object.legacyPeerSteamId ?? "0";
     message.peerIdentityString = object.peerIdentityString ?? "";
     message.peerConnectionId = object.peerConnectionId ?? 0;
     message.encryptedData = object.encryptedData ?? Buffer.alloc(0);
     message.encryptionYourPublicKeyLeadByte = object.encryptionYourPublicKeyLeadByte ?? 0;
     message.encryptionMyEphemeralPublicKey = object.encryptionMyEphemeralPublicKey ?? Buffer.alloc(0);
     message.protocolVersion = object.protocolVersion ?? 0;
-    message.networkConfigVersion = object.networkConfigVersion ?? 0;
+    message.networkConfigVersion = object.networkConfigVersion ?? "0";
     message.platform = object.platform ?? "";
     message.build = object.build ?? "";
     return message;
@@ -6082,7 +6088,7 @@ export const CMsgSteamDatagramConnectionStatsP2PRouterToClient = {
 };
 
 function createBaseCMsgSteamDatagramP2PBadRouteRouterToClient(): CMsgSteamDatagramP2PBadRouteRouterToClient {
-  return { connectionId: 0, failedRelayRoutingToken: Buffer.alloc(0), ackForwardTargetRevision: 0, kludgePad: 0 };
+  return { connectionId: 0, failedRelayRoutingToken: Buffer.alloc(0), ackForwardTargetRevision: 0, kludgePad: "0" };
 }
 
 export const CMsgSteamDatagramP2PBadRouteRouterToClient = {
@@ -6096,7 +6102,7 @@ export const CMsgSteamDatagramP2PBadRouteRouterToClient = {
     if (message.ackForwardTargetRevision !== 0) {
       writer.uint32(24).uint32(message.ackForwardTargetRevision);
     }
-    if (message.kludgePad !== 0) {
+    if (message.kludgePad !== "0") {
       writer.uint32(793).fixed64(message.kludgePad);
     }
     return writer;
@@ -6119,7 +6125,7 @@ export const CMsgSteamDatagramP2PBadRouteRouterToClient = {
           message.ackForwardTargetRevision = reader.uint32();
           break;
         case 99:
-          message.kludgePad = longToNumber(reader.fixed64() as Long);
+          message.kludgePad = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6136,7 +6142,7 @@ export const CMsgSteamDatagramP2PBadRouteRouterToClient = {
         ? Buffer.from(bytesFromBase64(object.failedRelayRoutingToken))
         : Buffer.alloc(0),
       ackForwardTargetRevision: isSet(object.ackForwardTargetRevision) ? Number(object.ackForwardTargetRevision) : 0,
-      kludgePad: isSet(object.kludgePad) ? Number(object.kludgePad) : 0,
+      kludgePad: isSet(object.kludgePad) ? String(object.kludgePad) : "0",
     };
   },
 
@@ -6149,7 +6155,7 @@ export const CMsgSteamDatagramP2PBadRouteRouterToClient = {
       ));
     message.ackForwardTargetRevision !== undefined &&
       (obj.ackForwardTargetRevision = Math.round(message.ackForwardTargetRevision));
-    message.kludgePad !== undefined && (obj.kludgePad = Math.round(message.kludgePad));
+    message.kludgePad !== undefined && (obj.kludgePad = message.kludgePad);
     return obj;
   },
 
@@ -6166,7 +6172,7 @@ export const CMsgSteamDatagramP2PBadRouteRouterToClient = {
     message.connectionId = object.connectionId ?? 0;
     message.failedRelayRoutingToken = object.failedRelayRoutingToken ?? Buffer.alloc(0);
     message.ackForwardTargetRevision = object.ackForwardTargetRevision ?? 0;
-    message.kludgePad = object.kludgePad ?? 0;
+    message.kludgePad = object.kludgePad ?? "0";
     return message;
   },
 };
@@ -6661,11 +6667,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

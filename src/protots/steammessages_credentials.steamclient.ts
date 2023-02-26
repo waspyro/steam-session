@@ -28,7 +28,7 @@ export interface CCredentialsGetSteamGuardDetailsResponse {
   deprecatedMachineNameUserchosen: string;
   deprecatedTimestampMachineSteamguardEnabled: number;
   deprecatedAuthenticationExistsFromGeolocBeforeMintime: boolean;
-  deprecatedMachineId: number;
+  deprecatedMachineId: string;
   sessionData: CCredentialsGetSteamGuardDetailsResponse_SessionData[];
   isTwofactorEnabled: boolean;
   timestampTwofactorEnabled: number;
@@ -36,7 +36,7 @@ export interface CCredentialsGetSteamGuardDetailsResponse {
 }
 
 export interface CCredentialsGetSteamGuardDetailsResponse_SessionData {
-  machineId: number;
+  machineId: string;
   machineNameUserchosen: string;
   timestampMachineSteamguardEnabled: number;
   authenticationExistsFromGeolocBeforeMintime: boolean;
@@ -318,7 +318,7 @@ function createBaseCCredentialsGetSteamGuardDetailsResponse(): CCredentialsGetSt
     deprecatedMachineNameUserchosen: "",
     deprecatedTimestampMachineSteamguardEnabled: 0,
     deprecatedAuthenticationExistsFromGeolocBeforeMintime: false,
-    deprecatedMachineId: 0,
+    deprecatedMachineId: "0",
     sessionData: [],
     isTwofactorEnabled: false,
     timestampTwofactorEnabled: 0,
@@ -343,7 +343,7 @@ export const CCredentialsGetSteamGuardDetailsResponse = {
     if (message.deprecatedAuthenticationExistsFromGeolocBeforeMintime === true) {
       writer.uint32(48).bool(message.deprecatedAuthenticationExistsFromGeolocBeforeMintime);
     }
-    if (message.deprecatedMachineId !== 0) {
+    if (message.deprecatedMachineId !== "0") {
       writer.uint32(56).uint64(message.deprecatedMachineId);
     }
     for (const v of message.sessionData) {
@@ -384,7 +384,7 @@ export const CCredentialsGetSteamGuardDetailsResponse = {
           message.deprecatedAuthenticationExistsFromGeolocBeforeMintime = reader.bool();
           break;
         case 7:
-          message.deprecatedMachineId = longToNumber(reader.uint64() as Long);
+          message.deprecatedMachineId = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.sessionData.push(
@@ -424,7 +424,7 @@ export const CCredentialsGetSteamGuardDetailsResponse = {
         isSet(object.deprecatedAuthenticationExistsFromGeolocBeforeMintime)
           ? Boolean(object.deprecatedAuthenticationExistsFromGeolocBeforeMintime)
           : false,
-      deprecatedMachineId: isSet(object.deprecatedMachineId) ? Number(object.deprecatedMachineId) : 0,
+      deprecatedMachineId: isSet(object.deprecatedMachineId) ? String(object.deprecatedMachineId) : "0",
       sessionData: Array.isArray(object?.sessionData)
         ? object.sessionData.map((e: any) => CCredentialsGetSteamGuardDetailsResponse_SessionData.fromJSON(e))
         : [],
@@ -448,7 +448,7 @@ export const CCredentialsGetSteamGuardDetailsResponse = {
     message.deprecatedAuthenticationExistsFromGeolocBeforeMintime !== undefined &&
       (obj.deprecatedAuthenticationExistsFromGeolocBeforeMintime =
         message.deprecatedAuthenticationExistsFromGeolocBeforeMintime);
-    message.deprecatedMachineId !== undefined && (obj.deprecatedMachineId = Math.round(message.deprecatedMachineId));
+    message.deprecatedMachineId !== undefined && (obj.deprecatedMachineId = message.deprecatedMachineId);
     if (message.sessionData) {
       obj.sessionData = message.sessionData.map((e) =>
         e ? CCredentialsGetSteamGuardDetailsResponse_SessionData.toJSON(e) : undefined
@@ -479,7 +479,7 @@ export const CCredentialsGetSteamGuardDetailsResponse = {
     message.deprecatedTimestampMachineSteamguardEnabled = object.deprecatedTimestampMachineSteamguardEnabled ?? 0;
     message.deprecatedAuthenticationExistsFromGeolocBeforeMintime =
       object.deprecatedAuthenticationExistsFromGeolocBeforeMintime ?? false;
-    message.deprecatedMachineId = object.deprecatedMachineId ?? 0;
+    message.deprecatedMachineId = object.deprecatedMachineId ?? "0";
     message.sessionData =
       object.sessionData?.map((e) => CCredentialsGetSteamGuardDetailsResponse_SessionData.fromPartial(e)) || [];
     message.isTwofactorEnabled = object.isTwofactorEnabled ?? false;
@@ -491,7 +491,7 @@ export const CCredentialsGetSteamGuardDetailsResponse = {
 
 function createBaseCCredentialsGetSteamGuardDetailsResponse_SessionData(): CCredentialsGetSteamGuardDetailsResponse_SessionData {
   return {
-    machineId: 0,
+    machineId: "0",
     machineNameUserchosen: "",
     timestampMachineSteamguardEnabled: 0,
     authenticationExistsFromGeolocBeforeMintime: false,
@@ -506,7 +506,7 @@ export const CCredentialsGetSteamGuardDetailsResponse_SessionData = {
     message: CCredentialsGetSteamGuardDetailsResponse_SessionData,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.machineId !== 0) {
+    if (message.machineId !== "0") {
       writer.uint32(8).uint64(message.machineId);
     }
     if (message.machineNameUserchosen !== "") {
@@ -538,7 +538,7 @@ export const CCredentialsGetSteamGuardDetailsResponse_SessionData = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.machineId = longToNumber(reader.uint64() as Long);
+          message.machineId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.machineNameUserchosen = reader.string();
@@ -568,7 +568,7 @@ export const CCredentialsGetSteamGuardDetailsResponse_SessionData = {
 
   fromJSON(object: any): CCredentialsGetSteamGuardDetailsResponse_SessionData {
     return {
-      machineId: isSet(object.machineId) ? Number(object.machineId) : 0,
+      machineId: isSet(object.machineId) ? String(object.machineId) : "0",
       machineNameUserchosen: isSet(object.machineNameUserchosen) ? String(object.machineNameUserchosen) : "",
       timestampMachineSteamguardEnabled: isSet(object.timestampMachineSteamguardEnabled)
         ? Number(object.timestampMachineSteamguardEnabled)
@@ -586,7 +586,7 @@ export const CCredentialsGetSteamGuardDetailsResponse_SessionData = {
 
   toJSON(message: CCredentialsGetSteamGuardDetailsResponse_SessionData): unknown {
     const obj: any = {};
-    message.machineId !== undefined && (obj.machineId = Math.round(message.machineId));
+    message.machineId !== undefined && (obj.machineId = message.machineId);
     message.machineNameUserchosen !== undefined && (obj.machineNameUserchosen = message.machineNameUserchosen);
     message.timestampMachineSteamguardEnabled !== undefined &&
       (obj.timestampMachineSteamguardEnabled = Math.round(message.timestampMachineSteamguardEnabled));
@@ -609,7 +609,7 @@ export const CCredentialsGetSteamGuardDetailsResponse_SessionData = {
     object: I,
   ): CCredentialsGetSteamGuardDetailsResponse_SessionData {
     const message = createBaseCCredentialsGetSteamGuardDetailsResponse_SessionData();
-    message.machineId = object.machineId ?? 0;
+    message.machineId = object.machineId ?? "0";
     message.machineNameUserchosen = object.machineNameUserchosen ?? "";
     message.timestampMachineSteamguardEnabled = object.timestampMachineSteamguardEnabled ?? 0;
     message.authenticationExistsFromGeolocBeforeMintime = object.authenticationExistsFromGeolocBeforeMintime ?? false;
@@ -1328,11 +1328,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

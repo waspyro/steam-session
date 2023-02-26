@@ -15,5 +15,6 @@ protoc \
 	--ts_proto_opt=env=node \
 	--ts_proto_opt=outputEncodeMethods=true \
 	--ts_proto_out="$PROTOTS_DIR" \
+	--ts_proto_opt=forceLong=string \
 	-I="." \
 	*.proto

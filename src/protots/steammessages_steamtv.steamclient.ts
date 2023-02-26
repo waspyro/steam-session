@@ -237,7 +237,7 @@ export interface CSteamTVCreateBroadcastChannelRequest {
 }
 
 export interface CSteamTVCreateBroadcastChannelResponse {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVGetBroadcastChannelIDRequest {
@@ -245,13 +245,13 @@ export interface CSteamTVGetBroadcastChannelIDRequest {
 }
 
 export interface CSteamTVGetBroadcastChannelIDResponse {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   uniqueName: string;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CSteamTVSetBroadcastChannelProfileRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   name: string;
   language: string;
   headline: string;
@@ -266,12 +266,12 @@ export interface CSteamTVSetBroadcastChannelProfileResponse {
 }
 
 export interface CSteamTVGetBroadcastChannelProfileRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVGetBroadcastChannelProfileResponse {
   uniqueName: string;
-  ownerSteamid: number;
+  ownerSteamid: string;
   name: string;
   language: string;
   headline: string;
@@ -283,7 +283,7 @@ export interface CSteamTVGetBroadcastChannelProfileResponse {
 }
 
 export interface CSteamTVSetBroadcastChannelImageRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   imageType: EBroadcastImageType;
   imageIndex: number;
   imageWidth: number;
@@ -299,7 +299,7 @@ export interface CSteamTVSetBroadcastChannelImageResponse {
 }
 
 export interface CSteamTVGetBroadcastChannelImagesRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   imageTypes: EBroadcastImageType[];
 }
 
@@ -314,7 +314,7 @@ export interface CSteamTVGetBroadcastChannelImagesResponse_Images {
 }
 
 export interface CSteamTVSetBroadcastChannelLinkRegionsRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   links: CSteamTVSetBroadcastChannelLinkRegionsRequest_Links[];
 }
 
@@ -332,7 +332,7 @@ export interface CSteamTVSetBroadcastChannelLinkRegionsResponse {
 }
 
 export interface CSteamTVGetBroadcastChannelLinksRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVGetBroadcastChannelLinksResponse {
@@ -350,7 +350,7 @@ export interface CSteamTVGetBroadcastChannelLinksResponse_Links {
 }
 
 export interface CSteamTVGetBroadcastChannelBroadcastersRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVGetBroadcastChannelBroadcastersResponse {
@@ -358,7 +358,7 @@ export interface CSteamTVGetBroadcastChannelBroadcastersResponse {
 }
 
 export interface CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster {
-  steamid: number;
+  steamid: string;
   name: string;
   rtmpToken: string;
 }
@@ -367,18 +367,18 @@ export interface CSteamTVGetFollowedChannelsRequest {
 }
 
 export interface GetBroadcastChannelEntry {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   uniqueName: string;
   name: string;
   appid: number;
-  viewers: number;
-  views: number;
+  viewers: string;
+  views: string;
   thumbnailUrl: string;
-  followers: number;
+  followers: string;
   headline: string;
   avatarUrl: string;
-  broadcasterSteamid: number;
-  subscribers: number;
+  broadcasterSteamid: string;
+  subscribers: string;
   backgroundUrl: string;
   isFeatured: boolean;
   isDisabled: boolean;
@@ -400,25 +400,25 @@ export interface CSteamTVGetSubscribedChannelsResponse {
 }
 
 export interface CSteamTVGetBroadcastChannelStatusRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVGetBroadcastChannelStatusResponse {
   isLive: boolean;
   isDisabled: boolean;
   appid: number;
-  viewers: number;
-  views: number;
-  broadcasterSteamid: number;
+  viewers: string;
+  views: string;
+  broadcasterSteamid: string;
   thumbnailUrl: string;
-  followers: number;
-  subscribers: number;
+  followers: string;
+  subscribers: string;
   uniqueName: string;
-  broadcastSessionId: number;
+  broadcastSessionId: string;
 }
 
 export interface CSteamTVFollowBroadcastChannelRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   undo: boolean;
 }
 
@@ -427,7 +427,7 @@ export interface CSteamTVFollowBroadcastChannelResponse {
 }
 
 export interface CSteamTVSubscribeBroadcastChannelRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVSubscribeBroadcastChannelResponse {
@@ -435,15 +435,15 @@ export interface CSteamTVSubscribeBroadcastChannelResponse {
 }
 
 export interface CSteamTVGetBroadcastChannelClipsRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVBroadcastClipInfo {
-  broadcastClipId: number;
-  channelId: number;
+  broadcastClipId: string;
+  channelId: string;
   appId: number;
-  broadcasterSteamid: number;
-  creatorSteamid: number;
+  broadcasterSteamid: string;
+  creatorSteamid: string;
   videoDescription: string;
   liveTime: number;
   lengthMs: number;
@@ -456,7 +456,7 @@ export interface CSteamTVGetBroadcastChannelClipsResponse {
 }
 
 export interface CSteamTVReportBroadcastChannelRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   reason: string;
 }
 
@@ -464,7 +464,7 @@ export interface CSteamTVReportBroadcastChannelResponse {
 }
 
 export interface CSteamTVGetBroadcastChannelInteractionRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVGetBroadcastChannelInteractionResponse {
@@ -482,7 +482,7 @@ export interface CSteamTVGame {
   appid: number;
   name: string;
   image: string;
-  viewers: number;
+  viewers: string;
   channels: GetBroadcastChannelEntry[];
   releaseDate: string;
   developer: string;
@@ -504,8 +504,8 @@ export interface CSteamTVGetChannelsResponse {
 }
 
 export interface CSteamTVAddChatBanRequest {
-  broadcastChannelId: number;
-  chatterSteamid: number;
+  broadcastChannelId: string;
+  chatterSteamid: string;
   duration: number;
   permanent: boolean;
   undo: boolean;
@@ -515,12 +515,12 @@ export interface CSteamTVAddChatBanResponse {
 }
 
 export interface CSteamTVGetChatBansRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVChatBan {
-  issuerSteamid: number;
-  chatterSteamid: number;
+  issuerSteamid: string;
+  chatterSteamid: string;
   timeExpires: string;
   permanent: boolean;
   name: string;
@@ -531,8 +531,8 @@ export interface CSteamTVGetChatBansResponse {
 }
 
 export interface CSteamTVAddChatModeratorRequest {
-  broadcastChannelId: number;
-  moderatorSteamid: number;
+  broadcastChannelId: string;
+  moderatorSteamid: string;
   undo: boolean;
 }
 
@@ -540,11 +540,11 @@ export interface CSteamTVAddChatModeratorResponse {
 }
 
 export interface CSteamTVGetChatModeratorsRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVChatModerator {
-  steamid: number;
+  steamid: string;
   name: string;
 }
 
@@ -553,7 +553,7 @@ export interface CSteamTVGetChatModeratorsResponse {
 }
 
 export interface CSteamTVAddWordBanRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
   word: string;
   undo: boolean;
 }
@@ -562,7 +562,7 @@ export interface CSteamTVAddWordBanResponse {
 }
 
 export interface CSteamTVGetWordBansRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVGetWordBansResponse {
@@ -570,13 +570,13 @@ export interface CSteamTVGetWordBansResponse {
 }
 
 export interface CSteamTVJoinChatRequest {
-  broadcastChannelId: number;
+  broadcastChannelId: string;
 }
 
 export interface CSteamTVJoinChatResponse {
-  chatId: number;
+  chatId: string;
   viewUrlTemplate: string;
-  flairGroupIds: number[];
+  flairGroupIds: string[];
 }
 
 export interface CSteamTVSearchRequest {
@@ -647,7 +647,7 @@ export interface CSteamTVHomePageTemplateConveyorBelt {
 export interface CSteamTVHomePageTemplateWatchParty {
   broadcast: GetBroadcastChannelEntry | undefined;
   title: string;
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CSteamTVHomePageTemplateDeveloper {
@@ -682,7 +682,7 @@ export interface CSteamTVAppCheerSingleCheerType {
 
 export interface CSteamTVAppCheerRequest {
   appId: number;
-  cheerTargetId: number;
+  cheerTargetId: string;
   cheers: CSteamTVAppCheerSingleCheerType[];
 }
 
@@ -746,12 +746,12 @@ export const CSteamTVCreateBroadcastChannelRequest = {
 };
 
 function createBaseCSteamTVCreateBroadcastChannelResponse(): CSteamTVCreateBroadcastChannelResponse {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVCreateBroadcastChannelResponse = {
   encode(message: CSteamTVCreateBroadcastChannelResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -765,7 +765,7 @@ export const CSteamTVCreateBroadcastChannelResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -776,12 +776,12 @@ export const CSteamTVCreateBroadcastChannelResponse = {
   },
 
   fromJSON(object: any): CSteamTVCreateBroadcastChannelResponse {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVCreateBroadcastChannelResponse): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -795,7 +795,7 @@ export const CSteamTVCreateBroadcastChannelResponse = {
     object: I,
   ): CSteamTVCreateBroadcastChannelResponse {
     const message = createBaseCSteamTVCreateBroadcastChannelResponse();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -856,18 +856,18 @@ export const CSteamTVGetBroadcastChannelIDRequest = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelIDResponse(): CSteamTVGetBroadcastChannelIDResponse {
-  return { broadcastChannelId: 0, uniqueName: "", steamid: 0 };
+  return { broadcastChannelId: "0", uniqueName: "", steamid: "0" };
 }
 
 export const CSteamTVGetBroadcastChannelIDResponse = {
   encode(message: CSteamTVGetBroadcastChannelIDResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.uniqueName !== "") {
       writer.uint32(18).string(message.uniqueName);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(25).fixed64(message.steamid);
     }
     return writer;
@@ -881,13 +881,13 @@ export const CSteamTVGetBroadcastChannelIDResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.uniqueName = reader.string();
           break;
         case 3:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -899,17 +899,17 @@ export const CSteamTVGetBroadcastChannelIDResponse = {
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelIDResponse {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       uniqueName: isSet(object.uniqueName) ? String(object.uniqueName) : "",
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CSteamTVGetBroadcastChannelIDResponse): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.uniqueName !== undefined && (obj.uniqueName = message.uniqueName);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -923,16 +923,16 @@ export const CSteamTVGetBroadcastChannelIDResponse = {
     object: I,
   ): CSteamTVGetBroadcastChannelIDResponse {
     const message = createBaseCSteamTVGetBroadcastChannelIDResponse();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.uniqueName = object.uniqueName ?? "";
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
 
 function createBaseCSteamTVSetBroadcastChannelProfileRequest(): CSteamTVSetBroadcastChannelProfileRequest {
   return {
-    broadcastChannelId: 0,
+    broadcastChannelId: "0",
     name: "",
     language: "",
     headline: "",
@@ -946,7 +946,7 @@ function createBaseCSteamTVSetBroadcastChannelProfileRequest(): CSteamTVSetBroad
 
 export const CSteamTVSetBroadcastChannelProfileRequest = {
   encode(message: CSteamTVSetBroadcastChannelProfileRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.name !== "") {
@@ -984,7 +984,7 @@ export const CSteamTVSetBroadcastChannelProfileRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -1020,7 +1020,7 @@ export const CSteamTVSetBroadcastChannelProfileRequest = {
 
   fromJSON(object: any): CSteamTVSetBroadcastChannelProfileRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
       language: isSet(object.language) ? String(object.language) : "",
       headline: isSet(object.headline) ? String(object.headline) : "",
@@ -1034,7 +1034,7 @@ export const CSteamTVSetBroadcastChannelProfileRequest = {
 
   toJSON(message: CSteamTVSetBroadcastChannelProfileRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.name !== undefined && (obj.name = message.name);
     message.language !== undefined && (obj.language = message.language);
     message.headline !== undefined && (obj.headline = message.headline);
@@ -1056,7 +1056,7 @@ export const CSteamTVSetBroadcastChannelProfileRequest = {
     object: I,
   ): CSteamTVSetBroadcastChannelProfileRequest {
     const message = createBaseCSteamTVSetBroadcastChannelProfileRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.name = object.name ?? "";
     message.language = object.language ?? "";
     message.headline = object.headline ?? "";
@@ -1117,12 +1117,12 @@ export const CSteamTVSetBroadcastChannelProfileResponse = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelProfileRequest(): CSteamTVGetBroadcastChannelProfileRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetBroadcastChannelProfileRequest = {
   encode(message: CSteamTVGetBroadcastChannelProfileRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -1136,7 +1136,7 @@ export const CSteamTVGetBroadcastChannelProfileRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1147,12 +1147,12 @@ export const CSteamTVGetBroadcastChannelProfileRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelProfileRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetBroadcastChannelProfileRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -1166,7 +1166,7 @@ export const CSteamTVGetBroadcastChannelProfileRequest = {
     object: I,
   ): CSteamTVGetBroadcastChannelProfileRequest {
     const message = createBaseCSteamTVGetBroadcastChannelProfileRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -1174,7 +1174,7 @@ export const CSteamTVGetBroadcastChannelProfileRequest = {
 function createBaseCSteamTVGetBroadcastChannelProfileResponse(): CSteamTVGetBroadcastChannelProfileResponse {
   return {
     uniqueName: "",
-    ownerSteamid: 0,
+    ownerSteamid: "0",
     name: "",
     language: "",
     headline: "",
@@ -1191,7 +1191,7 @@ export const CSteamTVGetBroadcastChannelProfileResponse = {
     if (message.uniqueName !== "") {
       writer.uint32(10).string(message.uniqueName);
     }
-    if (message.ownerSteamid !== 0) {
+    if (message.ownerSteamid !== "0") {
       writer.uint32(17).fixed64(message.ownerSteamid);
     }
     if (message.name !== "") {
@@ -1232,7 +1232,7 @@ export const CSteamTVGetBroadcastChannelProfileResponse = {
           message.uniqueName = reader.string();
           break;
         case 2:
-          message.ownerSteamid = longToNumber(reader.fixed64() as Long);
+          message.ownerSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.name = reader.string();
@@ -1269,7 +1269,7 @@ export const CSteamTVGetBroadcastChannelProfileResponse = {
   fromJSON(object: any): CSteamTVGetBroadcastChannelProfileResponse {
     return {
       uniqueName: isSet(object.uniqueName) ? String(object.uniqueName) : "",
-      ownerSteamid: isSet(object.ownerSteamid) ? Number(object.ownerSteamid) : 0,
+      ownerSteamid: isSet(object.ownerSteamid) ? String(object.ownerSteamid) : "0",
       name: isSet(object.name) ? String(object.name) : "",
       language: isSet(object.language) ? String(object.language) : "",
       headline: isSet(object.headline) ? String(object.headline) : "",
@@ -1284,7 +1284,7 @@ export const CSteamTVGetBroadcastChannelProfileResponse = {
   toJSON(message: CSteamTVGetBroadcastChannelProfileResponse): unknown {
     const obj: any = {};
     message.uniqueName !== undefined && (obj.uniqueName = message.uniqueName);
-    message.ownerSteamid !== undefined && (obj.ownerSteamid = Math.round(message.ownerSteamid));
+    message.ownerSteamid !== undefined && (obj.ownerSteamid = message.ownerSteamid);
     message.name !== undefined && (obj.name = message.name);
     message.language !== undefined && (obj.language = message.language);
     message.headline !== undefined && (obj.headline = message.headline);
@@ -1307,7 +1307,7 @@ export const CSteamTVGetBroadcastChannelProfileResponse = {
   ): CSteamTVGetBroadcastChannelProfileResponse {
     const message = createBaseCSteamTVGetBroadcastChannelProfileResponse();
     message.uniqueName = object.uniqueName ?? "";
-    message.ownerSteamid = object.ownerSteamid ?? 0;
+    message.ownerSteamid = object.ownerSteamid ?? "0";
     message.name = object.name ?? "";
     message.language = object.language ?? "";
     message.headline = object.headline ?? "";
@@ -1322,7 +1322,7 @@ export const CSteamTVGetBroadcastChannelProfileResponse = {
 
 function createBaseCSteamTVSetBroadcastChannelImageRequest(): CSteamTVSetBroadcastChannelImageRequest {
   return {
-    broadcastChannelId: 0,
+    broadcastChannelId: "0",
     imageType: 0,
     imageIndex: 0,
     imageWidth: 0,
@@ -1336,7 +1336,7 @@ function createBaseCSteamTVSetBroadcastChannelImageRequest(): CSteamTVSetBroadca
 
 export const CSteamTVSetBroadcastChannelImageRequest = {
   encode(message: CSteamTVSetBroadcastChannelImageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.imageType !== 0) {
@@ -1374,7 +1374,7 @@ export const CSteamTVSetBroadcastChannelImageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.imageType = reader.int32() as any;
@@ -1410,7 +1410,7 @@ export const CSteamTVSetBroadcastChannelImageRequest = {
 
   fromJSON(object: any): CSteamTVSetBroadcastChannelImageRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       imageType: isSet(object.imageType) ? eBroadcastImageTypeFromJSON(object.imageType) : 0,
       imageIndex: isSet(object.imageIndex) ? Number(object.imageIndex) : 0,
       imageWidth: isSet(object.imageWidth) ? Number(object.imageWidth) : 0,
@@ -1424,7 +1424,7 @@ export const CSteamTVSetBroadcastChannelImageRequest = {
 
   toJSON(message: CSteamTVSetBroadcastChannelImageRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.imageType !== undefined && (obj.imageType = eBroadcastImageTypeToJSON(message.imageType));
     message.imageIndex !== undefined && (obj.imageIndex = Math.round(message.imageIndex));
     message.imageWidth !== undefined && (obj.imageWidth = Math.round(message.imageWidth));
@@ -1446,7 +1446,7 @@ export const CSteamTVSetBroadcastChannelImageRequest = {
     object: I,
   ): CSteamTVSetBroadcastChannelImageRequest {
     const message = createBaseCSteamTVSetBroadcastChannelImageRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.imageType = object.imageType ?? 0;
     message.imageIndex = object.imageIndex ?? 0;
     message.imageWidth = object.imageWidth ?? 0;
@@ -1515,12 +1515,12 @@ export const CSteamTVSetBroadcastChannelImageResponse = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelImagesRequest(): CSteamTVGetBroadcastChannelImagesRequest {
-  return { broadcastChannelId: 0, imageTypes: [] };
+  return { broadcastChannelId: "0", imageTypes: [] };
 }
 
 export const CSteamTVGetBroadcastChannelImagesRequest = {
   encode(message: CSteamTVGetBroadcastChannelImagesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     writer.uint32(18).fork();
@@ -1539,7 +1539,7 @@ export const CSteamTVGetBroadcastChannelImagesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           if ((tag & 7) === 2) {
@@ -1561,7 +1561,7 @@ export const CSteamTVGetBroadcastChannelImagesRequest = {
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelImagesRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       imageTypes: Array.isArray(object?.imageTypes)
         ? object.imageTypes.map((e: any) => eBroadcastImageTypeFromJSON(e))
         : [],
@@ -1570,7 +1570,7 @@ export const CSteamTVGetBroadcastChannelImagesRequest = {
 
   toJSON(message: CSteamTVGetBroadcastChannelImagesRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     if (message.imageTypes) {
       obj.imageTypes = message.imageTypes.map((e) => eBroadcastImageTypeToJSON(e));
     } else {
@@ -1589,7 +1589,7 @@ export const CSteamTVGetBroadcastChannelImagesRequest = {
     object: I,
   ): CSteamTVGetBroadcastChannelImagesRequest {
     const message = createBaseCSteamTVGetBroadcastChannelImagesRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.imageTypes = object.imageTypes?.map((e) => e) || [];
     return message;
   },
@@ -1739,12 +1739,12 @@ export const CSteamTVGetBroadcastChannelImagesResponse_Images = {
 };
 
 function createBaseCSteamTVSetBroadcastChannelLinkRegionsRequest(): CSteamTVSetBroadcastChannelLinkRegionsRequest {
-  return { broadcastChannelId: 0, links: [] };
+  return { broadcastChannelId: "0", links: [] };
 }
 
 export const CSteamTVSetBroadcastChannelLinkRegionsRequest = {
   encode(message: CSteamTVSetBroadcastChannelLinkRegionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     for (const v of message.links) {
@@ -1761,7 +1761,7 @@ export const CSteamTVSetBroadcastChannelLinkRegionsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.links.push(CSteamTVSetBroadcastChannelLinkRegionsRequest_Links.decode(reader, reader.uint32()));
@@ -1776,7 +1776,7 @@ export const CSteamTVSetBroadcastChannelLinkRegionsRequest = {
 
   fromJSON(object: any): CSteamTVSetBroadcastChannelLinkRegionsRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       links: Array.isArray(object?.links)
         ? object.links.map((e: any) => CSteamTVSetBroadcastChannelLinkRegionsRequest_Links.fromJSON(e))
         : [],
@@ -1785,7 +1785,7 @@ export const CSteamTVSetBroadcastChannelLinkRegionsRequest = {
 
   toJSON(message: CSteamTVSetBroadcastChannelLinkRegionsRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     if (message.links) {
       obj.links = message.links.map((e) =>
         e ? CSteamTVSetBroadcastChannelLinkRegionsRequest_Links.toJSON(e) : undefined
@@ -1806,7 +1806,7 @@ export const CSteamTVSetBroadcastChannelLinkRegionsRequest = {
     object: I,
   ): CSteamTVSetBroadcastChannelLinkRegionsRequest {
     const message = createBaseCSteamTVSetBroadcastChannelLinkRegionsRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.links = object.links?.map((e) => CSteamTVSetBroadcastChannelLinkRegionsRequest_Links.fromPartial(e)) || [];
     return message;
   },
@@ -1974,12 +1974,12 @@ export const CSteamTVSetBroadcastChannelLinkRegionsResponse = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelLinksRequest(): CSteamTVGetBroadcastChannelLinksRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetBroadcastChannelLinksRequest = {
   encode(message: CSteamTVGetBroadcastChannelLinksRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -1993,7 +1993,7 @@ export const CSteamTVGetBroadcastChannelLinksRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2004,12 +2004,12 @@ export const CSteamTVGetBroadcastChannelLinksRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelLinksRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetBroadcastChannelLinksRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -2023,7 +2023,7 @@ export const CSteamTVGetBroadcastChannelLinksRequest = {
     object: I,
   ): CSteamTVGetBroadcastChannelLinksRequest {
     const message = createBaseCSteamTVGetBroadcastChannelLinksRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -2206,7 +2206,7 @@ export const CSteamTVGetBroadcastChannelLinksResponse_Links = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelBroadcastersRequest(): CSteamTVGetBroadcastChannelBroadcastersRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetBroadcastChannelBroadcastersRequest = {
@@ -2214,7 +2214,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersRequest = {
     message: CSteamTVGetBroadcastChannelBroadcastersRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -2228,7 +2228,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2239,12 +2239,12 @@ export const CSteamTVGetBroadcastChannelBroadcastersRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelBroadcastersRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetBroadcastChannelBroadcastersRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -2258,7 +2258,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersRequest = {
     object: I,
   ): CSteamTVGetBroadcastChannelBroadcastersRequest {
     const message = createBaseCSteamTVGetBroadcastChannelBroadcastersRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -2335,7 +2335,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersResponse = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster(): CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster {
-  return { steamid: 0, name: "", rtmpToken: "" };
+  return { steamid: "0", name: "", rtmpToken: "" };
 }
 
 export const CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster = {
@@ -2343,7 +2343,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster = {
     message: CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.name !== "") {
@@ -2363,7 +2363,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -2381,7 +2381,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster = {
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       name: isSet(object.name) ? String(object.name) : "",
       rtmpToken: isSet(object.rtmpToken) ? String(object.rtmpToken) : "",
     };
@@ -2389,7 +2389,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster = {
 
   toJSON(message: CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.name !== undefined && (obj.name = message.name);
     message.rtmpToken !== undefined && (obj.rtmpToken = message.rtmpToken);
     return obj;
@@ -2405,7 +2405,7 @@ export const CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster = {
     object: I,
   ): CSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster {
     const message = createBaseCSteamTVGetBroadcastChannelBroadcastersResponse_Broadcaster();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.name = object.name ?? "";
     message.rtmpToken = object.rtmpToken ?? "";
     return message;
@@ -2461,18 +2461,18 @@ export const CSteamTVGetFollowedChannelsRequest = {
 
 function createBaseGetBroadcastChannelEntry(): GetBroadcastChannelEntry {
   return {
-    broadcastChannelId: 0,
+    broadcastChannelId: "0",
     uniqueName: "",
     name: "",
     appid: 0,
-    viewers: 0,
-    views: 0,
+    viewers: "0",
+    views: "0",
     thumbnailUrl: "",
-    followers: 0,
+    followers: "0",
     headline: "",
     avatarUrl: "",
-    broadcasterSteamid: 0,
-    subscribers: 0,
+    broadcasterSteamid: "0",
+    subscribers: "0",
     backgroundUrl: "",
     isFeatured: false,
     isDisabled: false,
@@ -2485,7 +2485,7 @@ function createBaseGetBroadcastChannelEntry(): GetBroadcastChannelEntry {
 
 export const GetBroadcastChannelEntry = {
   encode(message: GetBroadcastChannelEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.uniqueName !== "") {
@@ -2497,16 +2497,16 @@ export const GetBroadcastChannelEntry = {
     if (message.appid !== 0) {
       writer.uint32(32).uint32(message.appid);
     }
-    if (message.viewers !== 0) {
+    if (message.viewers !== "0") {
       writer.uint32(40).uint64(message.viewers);
     }
-    if (message.views !== 0) {
+    if (message.views !== "0") {
       writer.uint32(48).uint64(message.views);
     }
     if (message.thumbnailUrl !== "") {
       writer.uint32(58).string(message.thumbnailUrl);
     }
-    if (message.followers !== 0) {
+    if (message.followers !== "0") {
       writer.uint32(64).uint64(message.followers);
     }
     if (message.headline !== "") {
@@ -2515,10 +2515,10 @@ export const GetBroadcastChannelEntry = {
     if (message.avatarUrl !== "") {
       writer.uint32(82).string(message.avatarUrl);
     }
-    if (message.broadcasterSteamid !== 0) {
+    if (message.broadcasterSteamid !== "0") {
       writer.uint32(89).fixed64(message.broadcasterSteamid);
     }
-    if (message.subscribers !== 0) {
+    if (message.subscribers !== "0") {
       writer.uint32(96).uint64(message.subscribers);
     }
     if (message.backgroundUrl !== "") {
@@ -2553,7 +2553,7 @@ export const GetBroadcastChannelEntry = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.uniqueName = reader.string();
@@ -2565,16 +2565,16 @@ export const GetBroadcastChannelEntry = {
           message.appid = reader.uint32();
           break;
         case 5:
-          message.viewers = longToNumber(reader.uint64() as Long);
+          message.viewers = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.views = longToNumber(reader.uint64() as Long);
+          message.views = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.thumbnailUrl = reader.string();
           break;
         case 8:
-          message.followers = longToNumber(reader.uint64() as Long);
+          message.followers = longToString(reader.uint64() as Long);
           break;
         case 9:
           message.headline = reader.string();
@@ -2583,10 +2583,10 @@ export const GetBroadcastChannelEntry = {
           message.avatarUrl = reader.string();
           break;
         case 11:
-          message.broadcasterSteamid = longToNumber(reader.fixed64() as Long);
+          message.broadcasterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 12:
-          message.subscribers = longToNumber(reader.uint64() as Long);
+          message.subscribers = longToString(reader.uint64() as Long);
           break;
         case 13:
           message.backgroundUrl = reader.string();
@@ -2619,18 +2619,18 @@ export const GetBroadcastChannelEntry = {
 
   fromJSON(object: any): GetBroadcastChannelEntry {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       uniqueName: isSet(object.uniqueName) ? String(object.uniqueName) : "",
       name: isSet(object.name) ? String(object.name) : "",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      viewers: isSet(object.viewers) ? Number(object.viewers) : 0,
-      views: isSet(object.views) ? Number(object.views) : 0,
+      viewers: isSet(object.viewers) ? String(object.viewers) : "0",
+      views: isSet(object.views) ? String(object.views) : "0",
       thumbnailUrl: isSet(object.thumbnailUrl) ? String(object.thumbnailUrl) : "",
-      followers: isSet(object.followers) ? Number(object.followers) : 0,
+      followers: isSet(object.followers) ? String(object.followers) : "0",
       headline: isSet(object.headline) ? String(object.headline) : "",
       avatarUrl: isSet(object.avatarUrl) ? String(object.avatarUrl) : "",
-      broadcasterSteamid: isSet(object.broadcasterSteamid) ? Number(object.broadcasterSteamid) : 0,
-      subscribers: isSet(object.subscribers) ? Number(object.subscribers) : 0,
+      broadcasterSteamid: isSet(object.broadcasterSteamid) ? String(object.broadcasterSteamid) : "0",
+      subscribers: isSet(object.subscribers) ? String(object.subscribers) : "0",
       backgroundUrl: isSet(object.backgroundUrl) ? String(object.backgroundUrl) : "",
       isFeatured: isSet(object.isFeatured) ? Boolean(object.isFeatured) : false,
       isDisabled: isSet(object.isDisabled) ? Boolean(object.isDisabled) : false,
@@ -2643,18 +2643,18 @@ export const GetBroadcastChannelEntry = {
 
   toJSON(message: GetBroadcastChannelEntry): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.uniqueName !== undefined && (obj.uniqueName = message.uniqueName);
     message.name !== undefined && (obj.name = message.name);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.viewers !== undefined && (obj.viewers = Math.round(message.viewers));
-    message.views !== undefined && (obj.views = Math.round(message.views));
+    message.viewers !== undefined && (obj.viewers = message.viewers);
+    message.views !== undefined && (obj.views = message.views);
     message.thumbnailUrl !== undefined && (obj.thumbnailUrl = message.thumbnailUrl);
-    message.followers !== undefined && (obj.followers = Math.round(message.followers));
+    message.followers !== undefined && (obj.followers = message.followers);
     message.headline !== undefined && (obj.headline = message.headline);
     message.avatarUrl !== undefined && (obj.avatarUrl = message.avatarUrl);
-    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = Math.round(message.broadcasterSteamid));
-    message.subscribers !== undefined && (obj.subscribers = Math.round(message.subscribers));
+    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = message.broadcasterSteamid);
+    message.subscribers !== undefined && (obj.subscribers = message.subscribers);
     message.backgroundUrl !== undefined && (obj.backgroundUrl = message.backgroundUrl);
     message.isFeatured !== undefined && (obj.isFeatured = message.isFeatured);
     message.isDisabled !== undefined && (obj.isDisabled = message.isDisabled);
@@ -2671,18 +2671,18 @@ export const GetBroadcastChannelEntry = {
 
   fromPartial<I extends Exact<DeepPartial<GetBroadcastChannelEntry>, I>>(object: I): GetBroadcastChannelEntry {
     const message = createBaseGetBroadcastChannelEntry();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.uniqueName = object.uniqueName ?? "";
     message.name = object.name ?? "";
     message.appid = object.appid ?? 0;
-    message.viewers = object.viewers ?? 0;
-    message.views = object.views ?? 0;
+    message.viewers = object.viewers ?? "0";
+    message.views = object.views ?? "0";
     message.thumbnailUrl = object.thumbnailUrl ?? "";
-    message.followers = object.followers ?? 0;
+    message.followers = object.followers ?? "0";
     message.headline = object.headline ?? "";
     message.avatarUrl = object.avatarUrl ?? "";
-    message.broadcasterSteamid = object.broadcasterSteamid ?? 0;
-    message.subscribers = object.subscribers ?? 0;
+    message.broadcasterSteamid = object.broadcasterSteamid ?? "0";
+    message.subscribers = object.subscribers ?? "0";
     message.backgroundUrl = object.backgroundUrl ?? "";
     message.isFeatured = object.isFeatured ?? false;
     message.isDisabled = object.isDisabled ?? false;
@@ -2868,12 +2868,12 @@ export const CSteamTVGetSubscribedChannelsResponse = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelStatusRequest(): CSteamTVGetBroadcastChannelStatusRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetBroadcastChannelStatusRequest = {
   encode(message: CSteamTVGetBroadcastChannelStatusRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -2887,7 +2887,7 @@ export const CSteamTVGetBroadcastChannelStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2898,12 +2898,12 @@ export const CSteamTVGetBroadcastChannelStatusRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelStatusRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetBroadcastChannelStatusRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -2917,7 +2917,7 @@ export const CSteamTVGetBroadcastChannelStatusRequest = {
     object: I,
   ): CSteamTVGetBroadcastChannelStatusRequest {
     const message = createBaseCSteamTVGetBroadcastChannelStatusRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -2927,14 +2927,14 @@ function createBaseCSteamTVGetBroadcastChannelStatusResponse(): CSteamTVGetBroad
     isLive: false,
     isDisabled: false,
     appid: 0,
-    viewers: 0,
-    views: 0,
-    broadcasterSteamid: 0,
+    viewers: "0",
+    views: "0",
+    broadcasterSteamid: "0",
     thumbnailUrl: "",
-    followers: 0,
-    subscribers: 0,
+    followers: "0",
+    subscribers: "0",
     uniqueName: "",
-    broadcastSessionId: 0,
+    broadcastSessionId: "0",
   };
 }
 
@@ -2949,28 +2949,28 @@ export const CSteamTVGetBroadcastChannelStatusResponse = {
     if (message.appid !== 0) {
       writer.uint32(24).uint32(message.appid);
     }
-    if (message.viewers !== 0) {
+    if (message.viewers !== "0") {
       writer.uint32(32).uint64(message.viewers);
     }
-    if (message.views !== 0) {
+    if (message.views !== "0") {
       writer.uint32(40).uint64(message.views);
     }
-    if (message.broadcasterSteamid !== 0) {
+    if (message.broadcasterSteamid !== "0") {
       writer.uint32(49).fixed64(message.broadcasterSteamid);
     }
     if (message.thumbnailUrl !== "") {
       writer.uint32(58).string(message.thumbnailUrl);
     }
-    if (message.followers !== 0) {
+    if (message.followers !== "0") {
       writer.uint32(64).uint64(message.followers);
     }
-    if (message.subscribers !== 0) {
+    if (message.subscribers !== "0") {
       writer.uint32(72).uint64(message.subscribers);
     }
     if (message.uniqueName !== "") {
       writer.uint32(82).string(message.uniqueName);
     }
-    if (message.broadcastSessionId !== 0) {
+    if (message.broadcastSessionId !== "0") {
       writer.uint32(88).uint64(message.broadcastSessionId);
     }
     return writer;
@@ -2993,28 +2993,28 @@ export const CSteamTVGetBroadcastChannelStatusResponse = {
           message.appid = reader.uint32();
           break;
         case 4:
-          message.viewers = longToNumber(reader.uint64() as Long);
+          message.viewers = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.views = longToNumber(reader.uint64() as Long);
+          message.views = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.broadcasterSteamid = longToNumber(reader.fixed64() as Long);
+          message.broadcasterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 7:
           message.thumbnailUrl = reader.string();
           break;
         case 8:
-          message.followers = longToNumber(reader.uint64() as Long);
+          message.followers = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.subscribers = longToNumber(reader.uint64() as Long);
+          message.subscribers = longToString(reader.uint64() as Long);
           break;
         case 10:
           message.uniqueName = reader.string();
           break;
         case 11:
-          message.broadcastSessionId = longToNumber(reader.uint64() as Long);
+          message.broadcastSessionId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3029,14 +3029,14 @@ export const CSteamTVGetBroadcastChannelStatusResponse = {
       isLive: isSet(object.isLive) ? Boolean(object.isLive) : false,
       isDisabled: isSet(object.isDisabled) ? Boolean(object.isDisabled) : false,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      viewers: isSet(object.viewers) ? Number(object.viewers) : 0,
-      views: isSet(object.views) ? Number(object.views) : 0,
-      broadcasterSteamid: isSet(object.broadcasterSteamid) ? Number(object.broadcasterSteamid) : 0,
+      viewers: isSet(object.viewers) ? String(object.viewers) : "0",
+      views: isSet(object.views) ? String(object.views) : "0",
+      broadcasterSteamid: isSet(object.broadcasterSteamid) ? String(object.broadcasterSteamid) : "0",
       thumbnailUrl: isSet(object.thumbnailUrl) ? String(object.thumbnailUrl) : "",
-      followers: isSet(object.followers) ? Number(object.followers) : 0,
-      subscribers: isSet(object.subscribers) ? Number(object.subscribers) : 0,
+      followers: isSet(object.followers) ? String(object.followers) : "0",
+      subscribers: isSet(object.subscribers) ? String(object.subscribers) : "0",
       uniqueName: isSet(object.uniqueName) ? String(object.uniqueName) : "",
-      broadcastSessionId: isSet(object.broadcastSessionId) ? Number(object.broadcastSessionId) : 0,
+      broadcastSessionId: isSet(object.broadcastSessionId) ? String(object.broadcastSessionId) : "0",
     };
   },
 
@@ -3045,14 +3045,14 @@ export const CSteamTVGetBroadcastChannelStatusResponse = {
     message.isLive !== undefined && (obj.isLive = message.isLive);
     message.isDisabled !== undefined && (obj.isDisabled = message.isDisabled);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.viewers !== undefined && (obj.viewers = Math.round(message.viewers));
-    message.views !== undefined && (obj.views = Math.round(message.views));
-    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = Math.round(message.broadcasterSteamid));
+    message.viewers !== undefined && (obj.viewers = message.viewers);
+    message.views !== undefined && (obj.views = message.views);
+    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = message.broadcasterSteamid);
     message.thumbnailUrl !== undefined && (obj.thumbnailUrl = message.thumbnailUrl);
-    message.followers !== undefined && (obj.followers = Math.round(message.followers));
-    message.subscribers !== undefined && (obj.subscribers = Math.round(message.subscribers));
+    message.followers !== undefined && (obj.followers = message.followers);
+    message.subscribers !== undefined && (obj.subscribers = message.subscribers);
     message.uniqueName !== undefined && (obj.uniqueName = message.uniqueName);
-    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = Math.round(message.broadcastSessionId));
+    message.broadcastSessionId !== undefined && (obj.broadcastSessionId = message.broadcastSessionId);
     return obj;
   },
 
@@ -3069,25 +3069,25 @@ export const CSteamTVGetBroadcastChannelStatusResponse = {
     message.isLive = object.isLive ?? false;
     message.isDisabled = object.isDisabled ?? false;
     message.appid = object.appid ?? 0;
-    message.viewers = object.viewers ?? 0;
-    message.views = object.views ?? 0;
-    message.broadcasterSteamid = object.broadcasterSteamid ?? 0;
+    message.viewers = object.viewers ?? "0";
+    message.views = object.views ?? "0";
+    message.broadcasterSteamid = object.broadcasterSteamid ?? "0";
     message.thumbnailUrl = object.thumbnailUrl ?? "";
-    message.followers = object.followers ?? 0;
-    message.subscribers = object.subscribers ?? 0;
+    message.followers = object.followers ?? "0";
+    message.subscribers = object.subscribers ?? "0";
     message.uniqueName = object.uniqueName ?? "";
-    message.broadcastSessionId = object.broadcastSessionId ?? 0;
+    message.broadcastSessionId = object.broadcastSessionId ?? "0";
     return message;
   },
 };
 
 function createBaseCSteamTVFollowBroadcastChannelRequest(): CSteamTVFollowBroadcastChannelRequest {
-  return { broadcastChannelId: 0, undo: false };
+  return { broadcastChannelId: "0", undo: false };
 }
 
 export const CSteamTVFollowBroadcastChannelRequest = {
   encode(message: CSteamTVFollowBroadcastChannelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.undo === true) {
@@ -3104,7 +3104,7 @@ export const CSteamTVFollowBroadcastChannelRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.undo = reader.bool();
@@ -3119,14 +3119,14 @@ export const CSteamTVFollowBroadcastChannelRequest = {
 
   fromJSON(object: any): CSteamTVFollowBroadcastChannelRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       undo: isSet(object.undo) ? Boolean(object.undo) : false,
     };
   },
 
   toJSON(message: CSteamTVFollowBroadcastChannelRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.undo !== undefined && (obj.undo = message.undo);
     return obj;
   },
@@ -3141,7 +3141,7 @@ export const CSteamTVFollowBroadcastChannelRequest = {
     object: I,
   ): CSteamTVFollowBroadcastChannelRequest {
     const message = createBaseCSteamTVFollowBroadcastChannelRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.undo = object.undo ?? false;
     return message;
   },
@@ -3203,12 +3203,12 @@ export const CSteamTVFollowBroadcastChannelResponse = {
 };
 
 function createBaseCSteamTVSubscribeBroadcastChannelRequest(): CSteamTVSubscribeBroadcastChannelRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVSubscribeBroadcastChannelRequest = {
   encode(message: CSteamTVSubscribeBroadcastChannelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -3222,7 +3222,7 @@ export const CSteamTVSubscribeBroadcastChannelRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3233,12 +3233,12 @@ export const CSteamTVSubscribeBroadcastChannelRequest = {
   },
 
   fromJSON(object: any): CSteamTVSubscribeBroadcastChannelRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVSubscribeBroadcastChannelRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -3252,7 +3252,7 @@ export const CSteamTVSubscribeBroadcastChannelRequest = {
     object: I,
   ): CSteamTVSubscribeBroadcastChannelRequest {
     const message = createBaseCSteamTVSubscribeBroadcastChannelRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -3313,12 +3313,12 @@ export const CSteamTVSubscribeBroadcastChannelResponse = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelClipsRequest(): CSteamTVGetBroadcastChannelClipsRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetBroadcastChannelClipsRequest = {
   encode(message: CSteamTVGetBroadcastChannelClipsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -3332,7 +3332,7 @@ export const CSteamTVGetBroadcastChannelClipsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3343,12 +3343,12 @@ export const CSteamTVGetBroadcastChannelClipsRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelClipsRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetBroadcastChannelClipsRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -3362,18 +3362,18 @@ export const CSteamTVGetBroadcastChannelClipsRequest = {
     object: I,
   ): CSteamTVGetBroadcastChannelClipsRequest {
     const message = createBaseCSteamTVGetBroadcastChannelClipsRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
 
 function createBaseCSteamTVBroadcastClipInfo(): CSteamTVBroadcastClipInfo {
   return {
-    broadcastClipId: 0,
-    channelId: 0,
+    broadcastClipId: "0",
+    channelId: "0",
     appId: 0,
-    broadcasterSteamid: 0,
-    creatorSteamid: 0,
+    broadcasterSteamid: "0",
+    creatorSteamid: "0",
     videoDescription: "",
     liveTime: 0,
     lengthMs: 0,
@@ -3383,19 +3383,19 @@ function createBaseCSteamTVBroadcastClipInfo(): CSteamTVBroadcastClipInfo {
 
 export const CSteamTVBroadcastClipInfo = {
   encode(message: CSteamTVBroadcastClipInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastClipId !== 0) {
+    if (message.broadcastClipId !== "0") {
       writer.uint32(8).uint64(message.broadcastClipId);
     }
-    if (message.channelId !== 0) {
+    if (message.channelId !== "0") {
       writer.uint32(16).uint64(message.channelId);
     }
     if (message.appId !== 0) {
       writer.uint32(24).uint32(message.appId);
     }
-    if (message.broadcasterSteamid !== 0) {
+    if (message.broadcasterSteamid !== "0") {
       writer.uint32(33).fixed64(message.broadcasterSteamid);
     }
-    if (message.creatorSteamid !== 0) {
+    if (message.creatorSteamid !== "0") {
       writer.uint32(41).fixed64(message.creatorSteamid);
     }
     if (message.videoDescription !== "") {
@@ -3421,19 +3421,19 @@ export const CSteamTVBroadcastClipInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastClipId = longToNumber(reader.uint64() as Long);
+          message.broadcastClipId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.channelId = longToNumber(reader.uint64() as Long);
+          message.channelId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.appId = reader.uint32();
           break;
         case 4:
-          message.broadcasterSteamid = longToNumber(reader.fixed64() as Long);
+          message.broadcasterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 5:
-          message.creatorSteamid = longToNumber(reader.fixed64() as Long);
+          message.creatorSteamid = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.videoDescription = reader.string();
@@ -3457,11 +3457,11 @@ export const CSteamTVBroadcastClipInfo = {
 
   fromJSON(object: any): CSteamTVBroadcastClipInfo {
     return {
-      broadcastClipId: isSet(object.broadcastClipId) ? Number(object.broadcastClipId) : 0,
-      channelId: isSet(object.channelId) ? Number(object.channelId) : 0,
+      broadcastClipId: isSet(object.broadcastClipId) ? String(object.broadcastClipId) : "0",
+      channelId: isSet(object.channelId) ? String(object.channelId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      broadcasterSteamid: isSet(object.broadcasterSteamid) ? Number(object.broadcasterSteamid) : 0,
-      creatorSteamid: isSet(object.creatorSteamid) ? Number(object.creatorSteamid) : 0,
+      broadcasterSteamid: isSet(object.broadcasterSteamid) ? String(object.broadcasterSteamid) : "0",
+      creatorSteamid: isSet(object.creatorSteamid) ? String(object.creatorSteamid) : "0",
       videoDescription: isSet(object.videoDescription) ? String(object.videoDescription) : "",
       liveTime: isSet(object.liveTime) ? Number(object.liveTime) : 0,
       lengthMs: isSet(object.lengthMs) ? Number(object.lengthMs) : 0,
@@ -3471,11 +3471,11 @@ export const CSteamTVBroadcastClipInfo = {
 
   toJSON(message: CSteamTVBroadcastClipInfo): unknown {
     const obj: any = {};
-    message.broadcastClipId !== undefined && (obj.broadcastClipId = Math.round(message.broadcastClipId));
-    message.channelId !== undefined && (obj.channelId = Math.round(message.channelId));
+    message.broadcastClipId !== undefined && (obj.broadcastClipId = message.broadcastClipId);
+    message.channelId !== undefined && (obj.channelId = message.channelId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = Math.round(message.broadcasterSteamid));
-    message.creatorSteamid !== undefined && (obj.creatorSteamid = Math.round(message.creatorSteamid));
+    message.broadcasterSteamid !== undefined && (obj.broadcasterSteamid = message.broadcasterSteamid);
+    message.creatorSteamid !== undefined && (obj.creatorSteamid = message.creatorSteamid);
     message.videoDescription !== undefined && (obj.videoDescription = message.videoDescription);
     message.liveTime !== undefined && (obj.liveTime = Math.round(message.liveTime));
     message.lengthMs !== undefined && (obj.lengthMs = Math.round(message.lengthMs));
@@ -3489,11 +3489,11 @@ export const CSteamTVBroadcastClipInfo = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVBroadcastClipInfo>, I>>(object: I): CSteamTVBroadcastClipInfo {
     const message = createBaseCSteamTVBroadcastClipInfo();
-    message.broadcastClipId = object.broadcastClipId ?? 0;
-    message.channelId = object.channelId ?? 0;
+    message.broadcastClipId = object.broadcastClipId ?? "0";
+    message.channelId = object.channelId ?? "0";
     message.appId = object.appId ?? 0;
-    message.broadcasterSteamid = object.broadcasterSteamid ?? 0;
-    message.creatorSteamid = object.creatorSteamid ?? 0;
+    message.broadcasterSteamid = object.broadcasterSteamid ?? "0";
+    message.creatorSteamid = object.creatorSteamid ?? "0";
     message.videoDescription = object.videoDescription ?? "";
     message.liveTime = object.liveTime ?? 0;
     message.lengthMs = object.lengthMs ?? 0;
@@ -3573,12 +3573,12 @@ export const CSteamTVGetBroadcastChannelClipsResponse = {
 };
 
 function createBaseCSteamTVReportBroadcastChannelRequest(): CSteamTVReportBroadcastChannelRequest {
-  return { broadcastChannelId: 0, reason: "" };
+  return { broadcastChannelId: "0", reason: "" };
 }
 
 export const CSteamTVReportBroadcastChannelRequest = {
   encode(message: CSteamTVReportBroadcastChannelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.reason !== "") {
@@ -3595,7 +3595,7 @@ export const CSteamTVReportBroadcastChannelRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.reason = reader.string();
@@ -3610,14 +3610,14 @@ export const CSteamTVReportBroadcastChannelRequest = {
 
   fromJSON(object: any): CSteamTVReportBroadcastChannelRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       reason: isSet(object.reason) ? String(object.reason) : "",
     };
   },
 
   toJSON(message: CSteamTVReportBroadcastChannelRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.reason !== undefined && (obj.reason = message.reason);
     return obj;
   },
@@ -3632,7 +3632,7 @@ export const CSteamTVReportBroadcastChannelRequest = {
     object: I,
   ): CSteamTVReportBroadcastChannelRequest {
     const message = createBaseCSteamTVReportBroadcastChannelRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.reason = object.reason ?? "";
     return message;
   },
@@ -3686,12 +3686,12 @@ export const CSteamTVReportBroadcastChannelResponse = {
 };
 
 function createBaseCSteamTVGetBroadcastChannelInteractionRequest(): CSteamTVGetBroadcastChannelInteractionRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetBroadcastChannelInteractionRequest = {
   encode(message: CSteamTVGetBroadcastChannelInteractionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -3705,7 +3705,7 @@ export const CSteamTVGetBroadcastChannelInteractionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3716,12 +3716,12 @@ export const CSteamTVGetBroadcastChannelInteractionRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetBroadcastChannelInteractionRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetBroadcastChannelInteractionRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -3735,7 +3735,7 @@ export const CSteamTVGetBroadcastChannelInteractionRequest = {
     object: I,
   ): CSteamTVGetBroadcastChannelInteractionRequest {
     const message = createBaseCSteamTVGetBroadcastChannelInteractionRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -3881,7 +3881,7 @@ export const CSteamTVGetGamesRequest = {
 };
 
 function createBaseCSteamTVGame(): CSteamTVGame {
-  return { appid: 0, name: "", image: "", viewers: 0, channels: [], releaseDate: "", developer: "", publisher: "" };
+  return { appid: 0, name: "", image: "", viewers: "0", channels: [], releaseDate: "", developer: "", publisher: "" };
 }
 
 export const CSteamTVGame = {
@@ -3895,7 +3895,7 @@ export const CSteamTVGame = {
     if (message.image !== "") {
       writer.uint32(26).string(message.image);
     }
-    if (message.viewers !== 0) {
+    if (message.viewers !== "0") {
       writer.uint32(32).uint64(message.viewers);
     }
     for (const v of message.channels) {
@@ -3930,7 +3930,7 @@ export const CSteamTVGame = {
           message.image = reader.string();
           break;
         case 4:
-          message.viewers = longToNumber(reader.uint64() as Long);
+          message.viewers = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.channels.push(GetBroadcastChannelEntry.decode(reader, reader.uint32()));
@@ -3957,7 +3957,7 @@ export const CSteamTVGame = {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       name: isSet(object.name) ? String(object.name) : "",
       image: isSet(object.image) ? String(object.image) : "",
-      viewers: isSet(object.viewers) ? Number(object.viewers) : 0,
+      viewers: isSet(object.viewers) ? String(object.viewers) : "0",
       channels: Array.isArray(object?.channels)
         ? object.channels.map((e: any) => GetBroadcastChannelEntry.fromJSON(e))
         : [],
@@ -3972,7 +3972,7 @@ export const CSteamTVGame = {
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.name !== undefined && (obj.name = message.name);
     message.image !== undefined && (obj.image = message.image);
-    message.viewers !== undefined && (obj.viewers = Math.round(message.viewers));
+    message.viewers !== undefined && (obj.viewers = message.viewers);
     if (message.channels) {
       obj.channels = message.channels.map((e) => e ? GetBroadcastChannelEntry.toJSON(e) : undefined);
     } else {
@@ -3993,7 +3993,7 @@ export const CSteamTVGame = {
     message.appid = object.appid ?? 0;
     message.name = object.name ?? "";
     message.image = object.image ?? "";
-    message.viewers = object.viewers ?? 0;
+    message.viewers = object.viewers ?? "0";
     message.channels = object.channels?.map((e) => GetBroadcastChannelEntry.fromPartial(e)) || [];
     message.releaseDate = object.releaseDate ?? "";
     message.developer = object.developer ?? "";
@@ -4188,15 +4188,15 @@ export const CSteamTVGetChannelsResponse = {
 };
 
 function createBaseCSteamTVAddChatBanRequest(): CSteamTVAddChatBanRequest {
-  return { broadcastChannelId: 0, chatterSteamid: 0, duration: 0, permanent: false, undo: false };
+  return { broadcastChannelId: "0", chatterSteamid: "0", duration: 0, permanent: false, undo: false };
 }
 
 export const CSteamTVAddChatBanRequest = {
   encode(message: CSteamTVAddChatBanRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
-    if (message.chatterSteamid !== 0) {
+    if (message.chatterSteamid !== "0") {
       writer.uint32(17).fixed64(message.chatterSteamid);
     }
     if (message.duration !== 0) {
@@ -4219,10 +4219,10 @@ export const CSteamTVAddChatBanRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.chatterSteamid = longToNumber(reader.fixed64() as Long);
+          message.chatterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.duration = reader.uint32();
@@ -4243,8 +4243,8 @@ export const CSteamTVAddChatBanRequest = {
 
   fromJSON(object: any): CSteamTVAddChatBanRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
-      chatterSteamid: isSet(object.chatterSteamid) ? Number(object.chatterSteamid) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
+      chatterSteamid: isSet(object.chatterSteamid) ? String(object.chatterSteamid) : "0",
       duration: isSet(object.duration) ? Number(object.duration) : 0,
       permanent: isSet(object.permanent) ? Boolean(object.permanent) : false,
       undo: isSet(object.undo) ? Boolean(object.undo) : false,
@@ -4253,8 +4253,8 @@ export const CSteamTVAddChatBanRequest = {
 
   toJSON(message: CSteamTVAddChatBanRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
-    message.chatterSteamid !== undefined && (obj.chatterSteamid = Math.round(message.chatterSteamid));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
+    message.chatterSteamid !== undefined && (obj.chatterSteamid = message.chatterSteamid);
     message.duration !== undefined && (obj.duration = Math.round(message.duration));
     message.permanent !== undefined && (obj.permanent = message.permanent);
     message.undo !== undefined && (obj.undo = message.undo);
@@ -4267,8 +4267,8 @@ export const CSteamTVAddChatBanRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVAddChatBanRequest>, I>>(object: I): CSteamTVAddChatBanRequest {
     const message = createBaseCSteamTVAddChatBanRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
-    message.chatterSteamid = object.chatterSteamid ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
+    message.chatterSteamid = object.chatterSteamid ?? "0";
     message.duration = object.duration ?? 0;
     message.permanent = object.permanent ?? false;
     message.undo = object.undo ?? false;
@@ -4320,12 +4320,12 @@ export const CSteamTVAddChatBanResponse = {
 };
 
 function createBaseCSteamTVGetChatBansRequest(): CSteamTVGetChatBansRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetChatBansRequest = {
   encode(message: CSteamTVGetChatBansRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -4339,7 +4339,7 @@ export const CSteamTVGetChatBansRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4350,12 +4350,12 @@ export const CSteamTVGetChatBansRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetChatBansRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetChatBansRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -4365,21 +4365,21 @@ export const CSteamTVGetChatBansRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVGetChatBansRequest>, I>>(object: I): CSteamTVGetChatBansRequest {
     const message = createBaseCSteamTVGetChatBansRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
 
 function createBaseCSteamTVChatBan(): CSteamTVChatBan {
-  return { issuerSteamid: 0, chatterSteamid: 0, timeExpires: "", permanent: false, name: "" };
+  return { issuerSteamid: "0", chatterSteamid: "0", timeExpires: "", permanent: false, name: "" };
 }
 
 export const CSteamTVChatBan = {
   encode(message: CSteamTVChatBan, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.issuerSteamid !== 0) {
+    if (message.issuerSteamid !== "0") {
       writer.uint32(9).fixed64(message.issuerSteamid);
     }
-    if (message.chatterSteamid !== 0) {
+    if (message.chatterSteamid !== "0") {
       writer.uint32(17).fixed64(message.chatterSteamid);
     }
     if (message.timeExpires !== "") {
@@ -4402,10 +4402,10 @@ export const CSteamTVChatBan = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.issuerSteamid = longToNumber(reader.fixed64() as Long);
+          message.issuerSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.chatterSteamid = longToNumber(reader.fixed64() as Long);
+          message.chatterSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.timeExpires = reader.string();
@@ -4426,8 +4426,8 @@ export const CSteamTVChatBan = {
 
   fromJSON(object: any): CSteamTVChatBan {
     return {
-      issuerSteamid: isSet(object.issuerSteamid) ? Number(object.issuerSteamid) : 0,
-      chatterSteamid: isSet(object.chatterSteamid) ? Number(object.chatterSteamid) : 0,
+      issuerSteamid: isSet(object.issuerSteamid) ? String(object.issuerSteamid) : "0",
+      chatterSteamid: isSet(object.chatterSteamid) ? String(object.chatterSteamid) : "0",
       timeExpires: isSet(object.timeExpires) ? String(object.timeExpires) : "",
       permanent: isSet(object.permanent) ? Boolean(object.permanent) : false,
       name: isSet(object.name) ? String(object.name) : "",
@@ -4436,8 +4436,8 @@ export const CSteamTVChatBan = {
 
   toJSON(message: CSteamTVChatBan): unknown {
     const obj: any = {};
-    message.issuerSteamid !== undefined && (obj.issuerSteamid = Math.round(message.issuerSteamid));
-    message.chatterSteamid !== undefined && (obj.chatterSteamid = Math.round(message.chatterSteamid));
+    message.issuerSteamid !== undefined && (obj.issuerSteamid = message.issuerSteamid);
+    message.chatterSteamid !== undefined && (obj.chatterSteamid = message.chatterSteamid);
     message.timeExpires !== undefined && (obj.timeExpires = message.timeExpires);
     message.permanent !== undefined && (obj.permanent = message.permanent);
     message.name !== undefined && (obj.name = message.name);
@@ -4450,8 +4450,8 @@ export const CSteamTVChatBan = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVChatBan>, I>>(object: I): CSteamTVChatBan {
     const message = createBaseCSteamTVChatBan();
-    message.issuerSteamid = object.issuerSteamid ?? 0;
-    message.chatterSteamid = object.chatterSteamid ?? 0;
+    message.issuerSteamid = object.issuerSteamid ?? "0";
+    message.chatterSteamid = object.chatterSteamid ?? "0";
     message.timeExpires = object.timeExpires ?? "";
     message.permanent = object.permanent ?? false;
     message.name = object.name ?? "";
@@ -4517,15 +4517,15 @@ export const CSteamTVGetChatBansResponse = {
 };
 
 function createBaseCSteamTVAddChatModeratorRequest(): CSteamTVAddChatModeratorRequest {
-  return { broadcastChannelId: 0, moderatorSteamid: 0, undo: false };
+  return { broadcastChannelId: "0", moderatorSteamid: "0", undo: false };
 }
 
 export const CSteamTVAddChatModeratorRequest = {
   encode(message: CSteamTVAddChatModeratorRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
-    if (message.moderatorSteamid !== 0) {
+    if (message.moderatorSteamid !== "0") {
       writer.uint32(17).fixed64(message.moderatorSteamid);
     }
     if (message.undo === true) {
@@ -4542,10 +4542,10 @@ export const CSteamTVAddChatModeratorRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.moderatorSteamid = longToNumber(reader.fixed64() as Long);
+          message.moderatorSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.undo = reader.bool();
@@ -4560,16 +4560,16 @@ export const CSteamTVAddChatModeratorRequest = {
 
   fromJSON(object: any): CSteamTVAddChatModeratorRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
-      moderatorSteamid: isSet(object.moderatorSteamid) ? Number(object.moderatorSteamid) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
+      moderatorSteamid: isSet(object.moderatorSteamid) ? String(object.moderatorSteamid) : "0",
       undo: isSet(object.undo) ? Boolean(object.undo) : false,
     };
   },
 
   toJSON(message: CSteamTVAddChatModeratorRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
-    message.moderatorSteamid !== undefined && (obj.moderatorSteamid = Math.round(message.moderatorSteamid));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
+    message.moderatorSteamid !== undefined && (obj.moderatorSteamid = message.moderatorSteamid);
     message.undo !== undefined && (obj.undo = message.undo);
     return obj;
   },
@@ -4582,8 +4582,8 @@ export const CSteamTVAddChatModeratorRequest = {
     object: I,
   ): CSteamTVAddChatModeratorRequest {
     const message = createBaseCSteamTVAddChatModeratorRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
-    message.moderatorSteamid = object.moderatorSteamid ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
+    message.moderatorSteamid = object.moderatorSteamid ?? "0";
     message.undo = object.undo ?? false;
     return message;
   },
@@ -4637,12 +4637,12 @@ export const CSteamTVAddChatModeratorResponse = {
 };
 
 function createBaseCSteamTVGetChatModeratorsRequest(): CSteamTVGetChatModeratorsRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetChatModeratorsRequest = {
   encode(message: CSteamTVGetChatModeratorsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -4656,7 +4656,7 @@ export const CSteamTVGetChatModeratorsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4667,12 +4667,12 @@ export const CSteamTVGetChatModeratorsRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetChatModeratorsRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetChatModeratorsRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -4686,18 +4686,18 @@ export const CSteamTVGetChatModeratorsRequest = {
     object: I,
   ): CSteamTVGetChatModeratorsRequest {
     const message = createBaseCSteamTVGetChatModeratorsRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
 
 function createBaseCSteamTVChatModerator(): CSteamTVChatModerator {
-  return { steamid: 0, name: "" };
+  return { steamid: "0", name: "" };
 }
 
 export const CSteamTVChatModerator = {
   encode(message: CSteamTVChatModerator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.name !== "") {
@@ -4714,7 +4714,7 @@ export const CSteamTVChatModerator = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -4729,14 +4729,14 @@ export const CSteamTVChatModerator = {
 
   fromJSON(object: any): CSteamTVChatModerator {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
   toJSON(message: CSteamTVChatModerator): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
@@ -4747,7 +4747,7 @@ export const CSteamTVChatModerator = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVChatModerator>, I>>(object: I): CSteamTVChatModerator {
     const message = createBaseCSteamTVChatModerator();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.name = object.name ?? "";
     return message;
   },
@@ -4815,12 +4815,12 @@ export const CSteamTVGetChatModeratorsResponse = {
 };
 
 function createBaseCSteamTVAddWordBanRequest(): CSteamTVAddWordBanRequest {
-  return { broadcastChannelId: 0, word: "", undo: false };
+  return { broadcastChannelId: "0", word: "", undo: false };
 }
 
 export const CSteamTVAddWordBanRequest = {
   encode(message: CSteamTVAddWordBanRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     if (message.word !== "") {
@@ -4840,7 +4840,7 @@ export const CSteamTVAddWordBanRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.word = reader.string();
@@ -4858,7 +4858,7 @@ export const CSteamTVAddWordBanRequest = {
 
   fromJSON(object: any): CSteamTVAddWordBanRequest {
     return {
-      broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0,
+      broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0",
       word: isSet(object.word) ? String(object.word) : "",
       undo: isSet(object.undo) ? Boolean(object.undo) : false,
     };
@@ -4866,7 +4866,7 @@ export const CSteamTVAddWordBanRequest = {
 
   toJSON(message: CSteamTVAddWordBanRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     message.word !== undefined && (obj.word = message.word);
     message.undo !== undefined && (obj.undo = message.undo);
     return obj;
@@ -4878,7 +4878,7 @@ export const CSteamTVAddWordBanRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVAddWordBanRequest>, I>>(object: I): CSteamTVAddWordBanRequest {
     const message = createBaseCSteamTVAddWordBanRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     message.word = object.word ?? "";
     message.undo = object.undo ?? false;
     return message;
@@ -4929,12 +4929,12 @@ export const CSteamTVAddWordBanResponse = {
 };
 
 function createBaseCSteamTVGetWordBansRequest(): CSteamTVGetWordBansRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVGetWordBansRequest = {
   encode(message: CSteamTVGetWordBansRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -4948,7 +4948,7 @@ export const CSteamTVGetWordBansRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4959,12 +4959,12 @@ export const CSteamTVGetWordBansRequest = {
   },
 
   fromJSON(object: any): CSteamTVGetWordBansRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVGetWordBansRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -4974,7 +4974,7 @@ export const CSteamTVGetWordBansRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVGetWordBansRequest>, I>>(object: I): CSteamTVGetWordBansRequest {
     const message = createBaseCSteamTVGetWordBansRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
@@ -5035,12 +5035,12 @@ export const CSteamTVGetWordBansResponse = {
 };
 
 function createBaseCSteamTVJoinChatRequest(): CSteamTVJoinChatRequest {
-  return { broadcastChannelId: 0 };
+  return { broadcastChannelId: "0" };
 }
 
 export const CSteamTVJoinChatRequest = {
   encode(message: CSteamTVJoinChatRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.broadcastChannelId !== 0) {
+    if (message.broadcastChannelId !== "0") {
       writer.uint32(9).fixed64(message.broadcastChannelId);
     }
     return writer;
@@ -5054,7 +5054,7 @@ export const CSteamTVJoinChatRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.broadcastChannelId = longToNumber(reader.fixed64() as Long);
+          message.broadcastChannelId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5065,12 +5065,12 @@ export const CSteamTVJoinChatRequest = {
   },
 
   fromJSON(object: any): CSteamTVJoinChatRequest {
-    return { broadcastChannelId: isSet(object.broadcastChannelId) ? Number(object.broadcastChannelId) : 0 };
+    return { broadcastChannelId: isSet(object.broadcastChannelId) ? String(object.broadcastChannelId) : "0" };
   },
 
   toJSON(message: CSteamTVJoinChatRequest): unknown {
     const obj: any = {};
-    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = Math.round(message.broadcastChannelId));
+    message.broadcastChannelId !== undefined && (obj.broadcastChannelId = message.broadcastChannelId);
     return obj;
   },
 
@@ -5080,18 +5080,18 @@ export const CSteamTVJoinChatRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVJoinChatRequest>, I>>(object: I): CSteamTVJoinChatRequest {
     const message = createBaseCSteamTVJoinChatRequest();
-    message.broadcastChannelId = object.broadcastChannelId ?? 0;
+    message.broadcastChannelId = object.broadcastChannelId ?? "0";
     return message;
   },
 };
 
 function createBaseCSteamTVJoinChatResponse(): CSteamTVJoinChatResponse {
-  return { chatId: 0, viewUrlTemplate: "", flairGroupIds: [] };
+  return { chatId: "0", viewUrlTemplate: "", flairGroupIds: [] };
 }
 
 export const CSteamTVJoinChatResponse = {
   encode(message: CSteamTVJoinChatResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(9).fixed64(message.chatId);
     }
     if (message.viewUrlTemplate !== "") {
@@ -5113,7 +5113,7 @@ export const CSteamTVJoinChatResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.fixed64() as Long);
+          message.chatId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.viewUrlTemplate = reader.string();
@@ -5122,10 +5122,10 @@ export const CSteamTVJoinChatResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.flairGroupIds.push(longToNumber(reader.uint64() as Long));
+              message.flairGroupIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.flairGroupIds.push(longToNumber(reader.uint64() as Long));
+            message.flairGroupIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -5138,18 +5138,18 @@ export const CSteamTVJoinChatResponse = {
 
   fromJSON(object: any): CSteamTVJoinChatResponse {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       viewUrlTemplate: isSet(object.viewUrlTemplate) ? String(object.viewUrlTemplate) : "",
-      flairGroupIds: Array.isArray(object?.flairGroupIds) ? object.flairGroupIds.map((e: any) => Number(e)) : [],
+      flairGroupIds: Array.isArray(object?.flairGroupIds) ? object.flairGroupIds.map((e: any) => String(e)) : [],
     };
   },
 
   toJSON(message: CSteamTVJoinChatResponse): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.viewUrlTemplate !== undefined && (obj.viewUrlTemplate = message.viewUrlTemplate);
     if (message.flairGroupIds) {
-      obj.flairGroupIds = message.flairGroupIds.map((e) => Math.round(e));
+      obj.flairGroupIds = message.flairGroupIds.map((e) => e);
     } else {
       obj.flairGroupIds = [];
     }
@@ -5162,7 +5162,7 @@ export const CSteamTVJoinChatResponse = {
 
   fromPartial<I extends Exact<DeepPartial<CSteamTVJoinChatResponse>, I>>(object: I): CSteamTVJoinChatResponse {
     const message = createBaseCSteamTVJoinChatResponse();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.viewUrlTemplate = object.viewUrlTemplate ?? "";
     message.flairGroupIds = object.flairGroupIds?.map((e) => e) || [];
     return message;
@@ -6095,7 +6095,7 @@ export const CSteamTVHomePageTemplateConveyorBelt = {
 };
 
 function createBaseCSteamTVHomePageTemplateWatchParty(): CSteamTVHomePageTemplateWatchParty {
-  return { broadcast: undefined, title: "", chatGroupId: 0 };
+  return { broadcast: undefined, title: "", chatGroupId: "0" };
 }
 
 export const CSteamTVHomePageTemplateWatchParty = {
@@ -6106,7 +6106,7 @@ export const CSteamTVHomePageTemplateWatchParty = {
     if (message.title !== "") {
       writer.uint32(18).string(message.title);
     }
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(24).uint64(message.chatGroupId);
     }
     return writer;
@@ -6126,7 +6126,7 @@ export const CSteamTVHomePageTemplateWatchParty = {
           message.title = reader.string();
           break;
         case 3:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6140,7 +6140,7 @@ export const CSteamTVHomePageTemplateWatchParty = {
     return {
       broadcast: isSet(object.broadcast) ? GetBroadcastChannelEntry.fromJSON(object.broadcast) : undefined,
       title: isSet(object.title) ? String(object.title) : "",
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
     };
   },
 
@@ -6149,7 +6149,7 @@ export const CSteamTVHomePageTemplateWatchParty = {
     message.broadcast !== undefined &&
       (obj.broadcast = message.broadcast ? GetBroadcastChannelEntry.toJSON(message.broadcast) : undefined);
     message.title !== undefined && (obj.title = message.title);
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -6167,7 +6167,7 @@ export const CSteamTVHomePageTemplateWatchParty = {
       ? GetBroadcastChannelEntry.fromPartial(object.broadcast)
       : undefined;
     message.title = object.title ?? "";
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -6585,7 +6585,7 @@ export const CSteamTVAppCheerSingleCheerType = {
 };
 
 function createBaseCSteamTVAppCheerRequest(): CSteamTVAppCheerRequest {
-  return { appId: 0, cheerTargetId: 0, cheers: [] };
+  return { appId: 0, cheerTargetId: "0", cheers: [] };
 }
 
 export const CSteamTVAppCheerRequest = {
@@ -6593,7 +6593,7 @@ export const CSteamTVAppCheerRequest = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.cheerTargetId !== 0) {
+    if (message.cheerTargetId !== "0") {
       writer.uint32(17).fixed64(message.cheerTargetId);
     }
     for (const v of message.cheers) {
@@ -6613,7 +6613,7 @@ export const CSteamTVAppCheerRequest = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.cheerTargetId = longToNumber(reader.fixed64() as Long);
+          message.cheerTargetId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.cheers.push(CSteamTVAppCheerSingleCheerType.decode(reader, reader.uint32()));
@@ -6629,7 +6629,7 @@ export const CSteamTVAppCheerRequest = {
   fromJSON(object: any): CSteamTVAppCheerRequest {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      cheerTargetId: isSet(object.cheerTargetId) ? Number(object.cheerTargetId) : 0,
+      cheerTargetId: isSet(object.cheerTargetId) ? String(object.cheerTargetId) : "0",
       cheers: Array.isArray(object?.cheers)
         ? object.cheers.map((e: any) => CSteamTVAppCheerSingleCheerType.fromJSON(e))
         : [],
@@ -6639,7 +6639,7 @@ export const CSteamTVAppCheerRequest = {
   toJSON(message: CSteamTVAppCheerRequest): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.cheerTargetId !== undefined && (obj.cheerTargetId = Math.round(message.cheerTargetId));
+    message.cheerTargetId !== undefined && (obj.cheerTargetId = message.cheerTargetId);
     if (message.cheers) {
       obj.cheers = message.cheers.map((e) => e ? CSteamTVAppCheerSingleCheerType.toJSON(e) : undefined);
     } else {
@@ -6655,7 +6655,7 @@ export const CSteamTVAppCheerRequest = {
   fromPartial<I extends Exact<DeepPartial<CSteamTVAppCheerRequest>, I>>(object: I): CSteamTVAppCheerRequest {
     const message = createBaseCSteamTVAppCheerRequest();
     message.appId = object.appId ?? 0;
-    message.cheerTargetId = object.cheerTargetId ?? 0;
+    message.cheerTargetId = object.cheerTargetId ?? "0";
     message.cheers = object.cheers?.map((e) => CSteamTVAppCheerSingleCheerType.fromPartial(e)) || [];
     return message;
   },
@@ -7051,25 +7051,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -7081,11 +7062,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

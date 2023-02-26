@@ -15,12 +15,12 @@ import { NoResponse } from "./steammessages_unified_base.steamclient";
 export const protobufPackage = "";
 
 export interface CCloudClientLogUploadCheckNotification {
-  clientId: number;
+  clientId: string;
 }
 
 export interface CCloudClientLogUploadCompleteNotification {
-  clientId: number;
-  requestId: number;
+  clientId: string;
+  requestId: string;
 }
 
 export interface CCloudGetUploadServerInfoRequest {
@@ -40,11 +40,11 @@ export interface CCloudBeginHTTPUploadRequest {
   platformsToSync: string[];
   requestHeadersNames: string[];
   requestHeadersValues: string[];
-  uploadBatchId: number;
+  uploadBatchId: string;
 }
 
 export interface CCloudBeginHTTPUploadResponse {
-  ugcid: number;
+  ugcid: string;
   timestamp: number;
   urlHost: string;
   urlPath: string;
@@ -78,7 +78,7 @@ export interface CCloudBeginUGCUploadRequest {
 
 export interface CCloudBeginUGCUploadResponse {
   storageSystem: EPublishedFileStorageSystem;
-  ugcid: number;
+  ugcid: string;
   timestamp: number;
   urlHost: string;
   urlPath: string;
@@ -94,7 +94,7 @@ export interface CCloudBeginUGCUploadResponse_HTTPHeaders {
 export interface CCloudCommitUGCUploadRequest {
   transferSucceeded: boolean;
   appid: number;
-  ugcid: number;
+  ugcid: string;
 }
 
 export interface CCloudCommitUGCUploadResponse {
@@ -102,18 +102,18 @@ export interface CCloudCommitUGCUploadResponse {
 }
 
 export interface CCloudGetFileDetailsRequest {
-  ugcid: number;
+  ugcid: string;
   appid: number;
 }
 
 export interface CCloudUserFile {
   appid: number;
-  ugcid: number;
+  ugcid: string;
   filename: string;
-  timestamp: number;
+  timestamp: string;
   fileSize: number;
   url: string;
-  steamidCreator: number;
+  steamidCreator: string;
   flags: number;
   platformsToSync: string[];
   fileSha: string;
@@ -138,7 +138,7 @@ export interface CCloudEnumerateUserFilesResponse {
 export interface CCloudDeleteRequest {
   filename: string;
   appid: number;
-  uploadBatchId: number;
+  uploadBatchId: string;
 }
 
 export interface CCloudDeleteResponse {
@@ -153,12 +153,12 @@ export interface CCloudGetClientEncryptionKeyResponse {
 }
 
 export interface CCloudCDNReportNotification {
-  steamid: number;
+  steamid: string;
   url: string;
   success: boolean;
   httpStatusCode: number;
-  expectedBytes: number;
-  receivedBytes: number;
+  expectedBytes: string;
+  receivedBytes: string;
   duration: number;
 }
 
@@ -168,8 +168,8 @@ export interface CCloudExternalStorageTransferReportNotification {
   isUpload: boolean;
   success: boolean;
   httpStatusCode: number;
-  bytesExpected: number;
-  bytesActual: number;
+  bytesExpected: string;
+  bytesActual: string;
   durationMs: number;
   cellid: number;
   proxied: boolean;
@@ -186,24 +186,24 @@ export interface CCloudBeginAppUploadBatchRequest {
   machineName: string;
   filesToUpload: string[];
   filesToDelete: string[];
-  clientId: number;
-  appBuildId: number;
+  clientId: string;
+  appBuildId: string;
 }
 
 export interface CCloudBeginAppUploadBatchResponse {
-  batchId: number;
-  appChangeNumber: number;
+  batchId: string;
+  appChangeNumber: string;
 }
 
 export interface CCloudCompleteAppUploadBatchNotification {
   appid: number;
-  batchId: number;
+  batchId: string;
   batchEresult: number;
 }
 
 export interface CCloudCompleteAppUploadBatchRequest {
   appid: number;
-  batchId: number;
+  batchId: string;
   batchEresult: number;
 }
 
@@ -215,14 +215,14 @@ export interface CCloudClientBeginFileUploadRequest {
   fileSize: number;
   rawFileSize: number;
   fileSha: Buffer;
-  timeStamp: number;
+  timeStamp: string;
   filename: string;
   platformsToSync: number;
   cellId: number;
   canEncrypt: boolean;
   isSharedFile: boolean;
   deprecatedRealm: number;
-  uploadBatchId: number;
+  uploadBatchId: string;
 }
 
 export interface ClientCloudFileUploadBlockDetails {
@@ -231,7 +231,7 @@ export interface ClientCloudFileUploadBlockDetails {
   useHttps: boolean;
   httpMethod: number;
   requestHeaders: ClientCloudFileUploadBlockDetails_HTTPHeaders[];
-  blockOffset: number;
+  blockOffset: string;
   blockLength: number;
   explicitBodyData: Buffer;
   mayParallelize: boolean;
@@ -269,7 +269,7 @@ export interface CCloudClientFileDownloadResponse {
   fileSize: number;
   rawFileSize: number;
   shaFile: Buffer;
-  timeStamp: number;
+  timeStamp: string;
   isExplicitDelete: boolean;
   urlHost: string;
   urlPath: string;
@@ -287,7 +287,7 @@ export interface CCloudClientDeleteFileRequest {
   appid: number;
   filename: string;
   isExplicitDelete: boolean;
-  uploadBatchId: number;
+  uploadBatchId: string;
 }
 
 export interface CCloudClientDeleteFileResponse {
@@ -308,18 +308,18 @@ export interface CCloudEnumerateUserAppsResponse {
 export interface CCloudEnumerateUserAppsResponse_Apps {
   appid: number;
   totalcount: number;
-  totalsize: number;
+  totalsize: string;
 }
 
 export interface CCloudGetAppFileChangelistRequest {
   appid: number;
-  syncedChangeNumber: number;
+  syncedChangeNumber: string;
 }
 
 export interface CCloudAppFileInfo {
   fileName: string;
   shaFile: Buffer;
-  timeStamp: number;
+  timeStamp: string;
   rawFileSize: number;
   persistState: ECloudStoragePersistState;
   platformsToSync: number;
@@ -328,17 +328,17 @@ export interface CCloudAppFileInfo {
 }
 
 export interface CCloudGetAppFileChangelistResponse {
-  currentChangeNumber: number;
+  currentChangeNumber: string;
   files: CCloudAppFileInfo[];
   isOnlyDelta: boolean;
   pathPrefixes: string[];
   machineNames: string[];
-  appBuildidHwm: number;
+  appBuildidHwm: string;
 }
 
 export interface CCloudAppSessionSuspendRequest {
   appid: number;
-  clientId: number;
+  clientId: string;
   machineName: string;
   cloudSyncCompleted: boolean;
 }
@@ -348,7 +348,7 @@ export interface CCloudAppSessionSuspendResponse {
 
 export interface CCloudAppSessionResumeRequest {
   appid: number;
-  clientId: number;
+  clientId: string;
 }
 
 export interface CCloudAppSessionResumeResponse {
@@ -356,7 +356,7 @@ export interface CCloudAppSessionResumeResponse {
 
 export interface CCloudAppLaunchIntentRequest {
   appid: number;
-  clientId: number;
+  clientId: string;
   machineName: string;
   ignorePendingOperations: boolean;
 }
@@ -367,7 +367,7 @@ export interface CCloudAppLaunchIntentResponse {
 
 export interface CCloudAppExitSyncDoneNotification {
   appid: number;
-  clientId: number;
+  clientId: string;
   uploadsCompleted: boolean;
   uploadsRequired: boolean;
 }
@@ -378,27 +378,27 @@ export interface CCloudClientGetAppQuotaUsageRequest {
 
 export interface CCloudClientGetAppQuotaUsageResponse {
   existingFiles: number;
-  existingBytes: number;
+  existingBytes: string;
   maxNumFiles: number;
-  maxNumBytes: number;
+  maxNumBytes: string;
 }
 
 export interface CCloudAppCloudStateChangeNotification {
   appid: number;
-  appChangeNumber: number;
+  appChangeNumber: string;
 }
 
 export interface CCloudClientLogUploadRequestNotification {
-  requestId: number;
+  requestId: string;
 }
 
 function createBaseCCloudClientLogUploadCheckNotification(): CCloudClientLogUploadCheckNotification {
-  return { clientId: 0 };
+  return { clientId: "0" };
 }
 
 export const CCloudClientLogUploadCheckNotification = {
   encode(message: CCloudClientLogUploadCheckNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
     return writer;
@@ -412,7 +412,7 @@ export const CCloudClientLogUploadCheckNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -423,12 +423,12 @@ export const CCloudClientLogUploadCheckNotification = {
   },
 
   fromJSON(object: any): CCloudClientLogUploadCheckNotification {
-    return { clientId: isSet(object.clientId) ? Number(object.clientId) : 0 };
+    return { clientId: isSet(object.clientId) ? String(object.clientId) : "0" };
   },
 
   toJSON(message: CCloudClientLogUploadCheckNotification): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     return obj;
   },
 
@@ -442,21 +442,21 @@ export const CCloudClientLogUploadCheckNotification = {
     object: I,
   ): CCloudClientLogUploadCheckNotification {
     const message = createBaseCCloudClientLogUploadCheckNotification();
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudClientLogUploadCompleteNotification(): CCloudClientLogUploadCompleteNotification {
-  return { clientId: 0, requestId: 0 };
+  return { clientId: "0", requestId: "0" };
 }
 
 export const CCloudClientLogUploadCompleteNotification = {
   encode(message: CCloudClientLogUploadCompleteNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
-    if (message.requestId !== 0) {
+    if (message.requestId !== "0") {
       writer.uint32(16).uint64(message.requestId);
     }
     return writer;
@@ -470,10 +470,10 @@ export const CCloudClientLogUploadCompleteNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.requestId = longToNumber(reader.uint64() as Long);
+          message.requestId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -485,15 +485,15 @@ export const CCloudClientLogUploadCompleteNotification = {
 
   fromJSON(object: any): CCloudClientLogUploadCompleteNotification {
     return {
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
-      requestId: isSet(object.requestId) ? Number(object.requestId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
+      requestId: isSet(object.requestId) ? String(object.requestId) : "0",
     };
   },
 
   toJSON(message: CCloudClientLogUploadCompleteNotification): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
-    message.requestId !== undefined && (obj.requestId = Math.round(message.requestId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
+    message.requestId !== undefined && (obj.requestId = message.requestId);
     return obj;
   },
 
@@ -507,8 +507,8 @@ export const CCloudClientLogUploadCompleteNotification = {
     object: I,
   ): CCloudClientLogUploadCompleteNotification {
     const message = createBaseCCloudClientLogUploadCompleteNotification();
-    message.clientId = object.clientId ?? 0;
-    message.requestId = object.requestId ?? 0;
+    message.clientId = object.clientId ?? "0";
+    message.requestId = object.requestId ?? "0";
     return message;
   },
 };
@@ -633,7 +633,7 @@ function createBaseCCloudBeginHTTPUploadRequest(): CCloudBeginHTTPUploadRequest 
     platformsToSync: [],
     requestHeadersNames: [],
     requestHeadersValues: [],
-    uploadBatchId: 0,
+    uploadBatchId: "0",
   };
 }
 
@@ -663,7 +663,7 @@ export const CCloudBeginHTTPUploadRequest = {
     for (const v of message.requestHeadersValues) {
       writer.uint32(66).string(v!);
     }
-    if (message.uploadBatchId !== 0) {
+    if (message.uploadBatchId !== "0") {
       writer.uint32(72).uint64(message.uploadBatchId);
     }
     return writer;
@@ -701,7 +701,7 @@ export const CCloudBeginHTTPUploadRequest = {
           message.requestHeadersValues.push(reader.string());
           break;
         case 9:
-          message.uploadBatchId = longToNumber(reader.uint64() as Long);
+          message.uploadBatchId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -725,7 +725,7 @@ export const CCloudBeginHTTPUploadRequest = {
       requestHeadersValues: Array.isArray(object?.requestHeadersValues)
         ? object.requestHeadersValues.map((e: any) => String(e))
         : [],
-      uploadBatchId: isSet(object.uploadBatchId) ? Number(object.uploadBatchId) : 0,
+      uploadBatchId: isSet(object.uploadBatchId) ? String(object.uploadBatchId) : "0",
     };
   },
 
@@ -751,7 +751,7 @@ export const CCloudBeginHTTPUploadRequest = {
     } else {
       obj.requestHeadersValues = [];
     }
-    message.uploadBatchId !== undefined && (obj.uploadBatchId = Math.round(message.uploadBatchId));
+    message.uploadBatchId !== undefined && (obj.uploadBatchId = message.uploadBatchId);
     return obj;
   },
 
@@ -769,18 +769,18 @@ export const CCloudBeginHTTPUploadRequest = {
     message.platformsToSync = object.platformsToSync?.map((e) => e) || [];
     message.requestHeadersNames = object.requestHeadersNames?.map((e) => e) || [];
     message.requestHeadersValues = object.requestHeadersValues?.map((e) => e) || [];
-    message.uploadBatchId = object.uploadBatchId ?? 0;
+    message.uploadBatchId = object.uploadBatchId ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudBeginHTTPUploadResponse(): CCloudBeginHTTPUploadResponse {
-  return { ugcid: 0, timestamp: 0, urlHost: "", urlPath: "", useHttps: false, requestHeaders: [] };
+  return { ugcid: "0", timestamp: 0, urlHost: "", urlPath: "", useHttps: false, requestHeaders: [] };
 }
 
 export const CCloudBeginHTTPUploadResponse = {
   encode(message: CCloudBeginHTTPUploadResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.ugcid !== 0) {
+    if (message.ugcid !== "0") {
       writer.uint32(9).fixed64(message.ugcid);
     }
     if (message.timestamp !== 0) {
@@ -809,7 +809,7 @@ export const CCloudBeginHTTPUploadResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ugcid = longToNumber(reader.fixed64() as Long);
+          message.ugcid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timestamp = reader.fixed32();
@@ -836,7 +836,7 @@ export const CCloudBeginHTTPUploadResponse = {
 
   fromJSON(object: any): CCloudBeginHTTPUploadResponse {
     return {
-      ugcid: isSet(object.ugcid) ? Number(object.ugcid) : 0,
+      ugcid: isSet(object.ugcid) ? String(object.ugcid) : "0",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
       urlHost: isSet(object.urlHost) ? String(object.urlHost) : "",
       urlPath: isSet(object.urlPath) ? String(object.urlPath) : "",
@@ -849,7 +849,7 @@ export const CCloudBeginHTTPUploadResponse = {
 
   toJSON(message: CCloudBeginHTTPUploadResponse): unknown {
     const obj: any = {};
-    message.ugcid !== undefined && (obj.ugcid = Math.round(message.ugcid));
+    message.ugcid !== undefined && (obj.ugcid = message.ugcid);
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
     message.urlHost !== undefined && (obj.urlHost = message.urlHost);
     message.urlPath !== undefined && (obj.urlPath = message.urlPath);
@@ -872,7 +872,7 @@ export const CCloudBeginHTTPUploadResponse = {
     object: I,
   ): CCloudBeginHTTPUploadResponse {
     const message = createBaseCCloudBeginHTTPUploadResponse();
-    message.ugcid = object.ugcid ?? 0;
+    message.ugcid = object.ugcid ?? "0";
     message.timestamp = object.timestamp ?? 0;
     message.urlHost = object.urlHost ?? "";
     message.urlPath = object.urlPath ?? "";
@@ -1174,7 +1174,7 @@ export const CCloudBeginUGCUploadRequest = {
 };
 
 function createBaseCCloudBeginUGCUploadResponse(): CCloudBeginUGCUploadResponse {
-  return { storageSystem: 0, ugcid: 0, timestamp: 0, urlHost: "", urlPath: "", useHttps: false, requestHeaders: [] };
+  return { storageSystem: 0, ugcid: "0", timestamp: 0, urlHost: "", urlPath: "", useHttps: false, requestHeaders: [] };
 }
 
 export const CCloudBeginUGCUploadResponse = {
@@ -1182,7 +1182,7 @@ export const CCloudBeginUGCUploadResponse = {
     if (message.storageSystem !== 0) {
       writer.uint32(8).int32(message.storageSystem);
     }
-    if (message.ugcid !== 0) {
+    if (message.ugcid !== "0") {
       writer.uint32(17).fixed64(message.ugcid);
     }
     if (message.timestamp !== 0) {
@@ -1214,7 +1214,7 @@ export const CCloudBeginUGCUploadResponse = {
           message.storageSystem = reader.int32() as any;
           break;
         case 2:
-          message.ugcid = longToNumber(reader.fixed64() as Long);
+          message.ugcid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.timestamp = reader.fixed32();
@@ -1242,7 +1242,7 @@ export const CCloudBeginUGCUploadResponse = {
   fromJSON(object: any): CCloudBeginUGCUploadResponse {
     return {
       storageSystem: isSet(object.storageSystem) ? ePublishedFileStorageSystemFromJSON(object.storageSystem) : 0,
-      ugcid: isSet(object.ugcid) ? Number(object.ugcid) : 0,
+      ugcid: isSet(object.ugcid) ? String(object.ugcid) : "0",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
       urlHost: isSet(object.urlHost) ? String(object.urlHost) : "",
       urlPath: isSet(object.urlPath) ? String(object.urlPath) : "",
@@ -1257,7 +1257,7 @@ export const CCloudBeginUGCUploadResponse = {
     const obj: any = {};
     message.storageSystem !== undefined &&
       (obj.storageSystem = ePublishedFileStorageSystemToJSON(message.storageSystem));
-    message.ugcid !== undefined && (obj.ugcid = Math.round(message.ugcid));
+    message.ugcid !== undefined && (obj.ugcid = message.ugcid);
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
     message.urlHost !== undefined && (obj.urlHost = message.urlHost);
     message.urlPath !== undefined && (obj.urlPath = message.urlPath);
@@ -1279,7 +1279,7 @@ export const CCloudBeginUGCUploadResponse = {
   fromPartial<I extends Exact<DeepPartial<CCloudBeginUGCUploadResponse>, I>>(object: I): CCloudBeginUGCUploadResponse {
     const message = createBaseCCloudBeginUGCUploadResponse();
     message.storageSystem = object.storageSystem ?? 0;
-    message.ugcid = object.ugcid ?? 0;
+    message.ugcid = object.ugcid ?? "0";
     message.timestamp = object.timestamp ?? 0;
     message.urlHost = object.urlHost ?? "";
     message.urlPath = object.urlPath ?? "";
@@ -1357,7 +1357,7 @@ export const CCloudBeginUGCUploadResponse_HTTPHeaders = {
 };
 
 function createBaseCCloudCommitUGCUploadRequest(): CCloudCommitUGCUploadRequest {
-  return { transferSucceeded: false, appid: 0, ugcid: 0 };
+  return { transferSucceeded: false, appid: 0, ugcid: "0" };
 }
 
 export const CCloudCommitUGCUploadRequest = {
@@ -1368,7 +1368,7 @@ export const CCloudCommitUGCUploadRequest = {
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.ugcid !== 0) {
+    if (message.ugcid !== "0") {
       writer.uint32(25).fixed64(message.ugcid);
     }
     return writer;
@@ -1388,7 +1388,7 @@ export const CCloudCommitUGCUploadRequest = {
           message.appid = reader.uint32();
           break;
         case 3:
-          message.ugcid = longToNumber(reader.fixed64() as Long);
+          message.ugcid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1402,7 +1402,7 @@ export const CCloudCommitUGCUploadRequest = {
     return {
       transferSucceeded: isSet(object.transferSucceeded) ? Boolean(object.transferSucceeded) : false,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      ugcid: isSet(object.ugcid) ? Number(object.ugcid) : 0,
+      ugcid: isSet(object.ugcid) ? String(object.ugcid) : "0",
     };
   },
 
@@ -1410,7 +1410,7 @@ export const CCloudCommitUGCUploadRequest = {
     const obj: any = {};
     message.transferSucceeded !== undefined && (obj.transferSucceeded = message.transferSucceeded);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.ugcid !== undefined && (obj.ugcid = Math.round(message.ugcid));
+    message.ugcid !== undefined && (obj.ugcid = message.ugcid);
     return obj;
   },
 
@@ -1422,7 +1422,7 @@ export const CCloudCommitUGCUploadRequest = {
     const message = createBaseCCloudCommitUGCUploadRequest();
     message.transferSucceeded = object.transferSucceeded ?? false;
     message.appid = object.appid ?? 0;
-    message.ugcid = object.ugcid ?? 0;
+    message.ugcid = object.ugcid ?? "0";
     return message;
   },
 };
@@ -1481,12 +1481,12 @@ export const CCloudCommitUGCUploadResponse = {
 };
 
 function createBaseCCloudGetFileDetailsRequest(): CCloudGetFileDetailsRequest {
-  return { ugcid: 0, appid: 0 };
+  return { ugcid: "0", appid: 0 };
 }
 
 export const CCloudGetFileDetailsRequest = {
   encode(message: CCloudGetFileDetailsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.ugcid !== 0) {
+    if (message.ugcid !== "0") {
       writer.uint32(8).uint64(message.ugcid);
     }
     if (message.appid !== 0) {
@@ -1503,7 +1503,7 @@ export const CCloudGetFileDetailsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ugcid = longToNumber(reader.uint64() as Long);
+          message.ugcid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -1518,14 +1518,14 @@ export const CCloudGetFileDetailsRequest = {
 
   fromJSON(object: any): CCloudGetFileDetailsRequest {
     return {
-      ugcid: isSet(object.ugcid) ? Number(object.ugcid) : 0,
+      ugcid: isSet(object.ugcid) ? String(object.ugcid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
     };
   },
 
   toJSON(message: CCloudGetFileDetailsRequest): unknown {
     const obj: any = {};
-    message.ugcid !== undefined && (obj.ugcid = Math.round(message.ugcid));
+    message.ugcid !== undefined && (obj.ugcid = message.ugcid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     return obj;
   },
@@ -1536,7 +1536,7 @@ export const CCloudGetFileDetailsRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CCloudGetFileDetailsRequest>, I>>(object: I): CCloudGetFileDetailsRequest {
     const message = createBaseCCloudGetFileDetailsRequest();
-    message.ugcid = object.ugcid ?? 0;
+    message.ugcid = object.ugcid ?? "0";
     message.appid = object.appid ?? 0;
     return message;
   },
@@ -1545,12 +1545,12 @@ export const CCloudGetFileDetailsRequest = {
 function createBaseCCloudUserFile(): CCloudUserFile {
   return {
     appid: 0,
-    ugcid: 0,
+    ugcid: "0",
     filename: "",
-    timestamp: 0,
+    timestamp: "0",
     fileSize: 0,
     url: "",
-    steamidCreator: 0,
+    steamidCreator: "0",
     flags: 0,
     platformsToSync: [],
     fileSha: "",
@@ -1562,13 +1562,13 @@ export const CCloudUserFile = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.ugcid !== 0) {
+    if (message.ugcid !== "0") {
       writer.uint32(16).uint64(message.ugcid);
     }
     if (message.filename !== "") {
       writer.uint32(26).string(message.filename);
     }
-    if (message.timestamp !== 0) {
+    if (message.timestamp !== "0") {
       writer.uint32(32).uint64(message.timestamp);
     }
     if (message.fileSize !== 0) {
@@ -1577,7 +1577,7 @@ export const CCloudUserFile = {
     if (message.url !== "") {
       writer.uint32(50).string(message.url);
     }
-    if (message.steamidCreator !== 0) {
+    if (message.steamidCreator !== "0") {
       writer.uint32(57).fixed64(message.steamidCreator);
     }
     if (message.flags !== 0) {
@@ -1603,13 +1603,13 @@ export const CCloudUserFile = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.ugcid = longToNumber(reader.uint64() as Long);
+          message.ugcid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.filename = reader.string();
           break;
         case 4:
-          message.timestamp = longToNumber(reader.uint64() as Long);
+          message.timestamp = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.fileSize = reader.uint32();
@@ -1618,7 +1618,7 @@ export const CCloudUserFile = {
           message.url = reader.string();
           break;
         case 7:
-          message.steamidCreator = longToNumber(reader.fixed64() as Long);
+          message.steamidCreator = longToString(reader.fixed64() as Long);
           break;
         case 8:
           message.flags = reader.uint32();
@@ -1640,12 +1640,12 @@ export const CCloudUserFile = {
   fromJSON(object: any): CCloudUserFile {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      ugcid: isSet(object.ugcid) ? Number(object.ugcid) : 0,
+      ugcid: isSet(object.ugcid) ? String(object.ugcid) : "0",
       filename: isSet(object.filename) ? String(object.filename) : "",
-      timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : "0",
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       url: isSet(object.url) ? String(object.url) : "",
-      steamidCreator: isSet(object.steamidCreator) ? Number(object.steamidCreator) : 0,
+      steamidCreator: isSet(object.steamidCreator) ? String(object.steamidCreator) : "0",
       flags: isSet(object.flags) ? Number(object.flags) : 0,
       platformsToSync: Array.isArray(object?.platformsToSync) ? object.platformsToSync.map((e: any) => String(e)) : [],
       fileSha: isSet(object.fileSha) ? String(object.fileSha) : "",
@@ -1655,12 +1655,12 @@ export const CCloudUserFile = {
   toJSON(message: CCloudUserFile): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.ugcid !== undefined && (obj.ugcid = Math.round(message.ugcid));
+    message.ugcid !== undefined && (obj.ugcid = message.ugcid);
     message.filename !== undefined && (obj.filename = message.filename);
-    message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
     message.fileSize !== undefined && (obj.fileSize = Math.round(message.fileSize));
     message.url !== undefined && (obj.url = message.url);
-    message.steamidCreator !== undefined && (obj.steamidCreator = Math.round(message.steamidCreator));
+    message.steamidCreator !== undefined && (obj.steamidCreator = message.steamidCreator);
     message.flags !== undefined && (obj.flags = Math.round(message.flags));
     if (message.platformsToSync) {
       obj.platformsToSync = message.platformsToSync.map((e) => e);
@@ -1678,12 +1678,12 @@ export const CCloudUserFile = {
   fromPartial<I extends Exact<DeepPartial<CCloudUserFile>, I>>(object: I): CCloudUserFile {
     const message = createBaseCCloudUserFile();
     message.appid = object.appid ?? 0;
-    message.ugcid = object.ugcid ?? 0;
+    message.ugcid = object.ugcid ?? "0";
     message.filename = object.filename ?? "";
-    message.timestamp = object.timestamp ?? 0;
+    message.timestamp = object.timestamp ?? "0";
     message.fileSize = object.fileSize ?? 0;
     message.url = object.url ?? "";
-    message.steamidCreator = object.steamidCreator ?? 0;
+    message.steamidCreator = object.steamidCreator ?? "0";
     message.flags = object.flags ?? 0;
     message.platformsToSync = object.platformsToSync?.map((e) => e) || [];
     message.fileSha = object.fileSha ?? "";
@@ -1898,7 +1898,7 @@ export const CCloudEnumerateUserFilesResponse = {
 };
 
 function createBaseCCloudDeleteRequest(): CCloudDeleteRequest {
-  return { filename: "", appid: 0, uploadBatchId: 0 };
+  return { filename: "", appid: 0, uploadBatchId: "0" };
 }
 
 export const CCloudDeleteRequest = {
@@ -1909,7 +1909,7 @@ export const CCloudDeleteRequest = {
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.uploadBatchId !== 0) {
+    if (message.uploadBatchId !== "0") {
       writer.uint32(24).uint64(message.uploadBatchId);
     }
     return writer;
@@ -1929,7 +1929,7 @@ export const CCloudDeleteRequest = {
           message.appid = reader.uint32();
           break;
         case 3:
-          message.uploadBatchId = longToNumber(reader.uint64() as Long);
+          message.uploadBatchId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1943,7 +1943,7 @@ export const CCloudDeleteRequest = {
     return {
       filename: isSet(object.filename) ? String(object.filename) : "",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      uploadBatchId: isSet(object.uploadBatchId) ? Number(object.uploadBatchId) : 0,
+      uploadBatchId: isSet(object.uploadBatchId) ? String(object.uploadBatchId) : "0",
     };
   },
 
@@ -1951,7 +1951,7 @@ export const CCloudDeleteRequest = {
     const obj: any = {};
     message.filename !== undefined && (obj.filename = message.filename);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.uploadBatchId !== undefined && (obj.uploadBatchId = Math.round(message.uploadBatchId));
+    message.uploadBatchId !== undefined && (obj.uploadBatchId = message.uploadBatchId);
     return obj;
   },
 
@@ -1963,7 +1963,7 @@ export const CCloudDeleteRequest = {
     const message = createBaseCCloudDeleteRequest();
     message.filename = object.filename ?? "";
     message.appid = object.appid ?? 0;
-    message.uploadBatchId = object.uploadBatchId ?? 0;
+    message.uploadBatchId = object.uploadBatchId ?? "0";
     return message;
   },
 };
@@ -2125,12 +2125,20 @@ export const CCloudGetClientEncryptionKeyResponse = {
 };
 
 function createBaseCCloudCDNReportNotification(): CCloudCDNReportNotification {
-  return { steamid: 0, url: "", success: false, httpStatusCode: 0, expectedBytes: 0, receivedBytes: 0, duration: 0 };
+  return {
+    steamid: "0",
+    url: "",
+    success: false,
+    httpStatusCode: 0,
+    expectedBytes: "0",
+    receivedBytes: "0",
+    duration: 0,
+  };
 }
 
 export const CCloudCDNReportNotification = {
   encode(message: CCloudCDNReportNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.url !== "") {
@@ -2142,10 +2150,10 @@ export const CCloudCDNReportNotification = {
     if (message.httpStatusCode !== 0) {
       writer.uint32(32).uint32(message.httpStatusCode);
     }
-    if (message.expectedBytes !== 0) {
+    if (message.expectedBytes !== "0") {
       writer.uint32(40).uint64(message.expectedBytes);
     }
-    if (message.receivedBytes !== 0) {
+    if (message.receivedBytes !== "0") {
       writer.uint32(48).uint64(message.receivedBytes);
     }
     if (message.duration !== 0) {
@@ -2162,7 +2170,7 @@ export const CCloudCDNReportNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.url = reader.string();
@@ -2174,10 +2182,10 @@ export const CCloudCDNReportNotification = {
           message.httpStatusCode = reader.uint32();
           break;
         case 5:
-          message.expectedBytes = longToNumber(reader.uint64() as Long);
+          message.expectedBytes = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.receivedBytes = longToNumber(reader.uint64() as Long);
+          message.receivedBytes = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.duration = reader.uint32();
@@ -2192,24 +2200,24 @@ export const CCloudCDNReportNotification = {
 
   fromJSON(object: any): CCloudCDNReportNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       url: isSet(object.url) ? String(object.url) : "",
       success: isSet(object.success) ? Boolean(object.success) : false,
       httpStatusCode: isSet(object.httpStatusCode) ? Number(object.httpStatusCode) : 0,
-      expectedBytes: isSet(object.expectedBytes) ? Number(object.expectedBytes) : 0,
-      receivedBytes: isSet(object.receivedBytes) ? Number(object.receivedBytes) : 0,
+      expectedBytes: isSet(object.expectedBytes) ? String(object.expectedBytes) : "0",
+      receivedBytes: isSet(object.receivedBytes) ? String(object.receivedBytes) : "0",
       duration: isSet(object.duration) ? Number(object.duration) : 0,
     };
   },
 
   toJSON(message: CCloudCDNReportNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.url !== undefined && (obj.url = message.url);
     message.success !== undefined && (obj.success = message.success);
     message.httpStatusCode !== undefined && (obj.httpStatusCode = Math.round(message.httpStatusCode));
-    message.expectedBytes !== undefined && (obj.expectedBytes = Math.round(message.expectedBytes));
-    message.receivedBytes !== undefined && (obj.receivedBytes = Math.round(message.receivedBytes));
+    message.expectedBytes !== undefined && (obj.expectedBytes = message.expectedBytes);
+    message.receivedBytes !== undefined && (obj.receivedBytes = message.receivedBytes);
     message.duration !== undefined && (obj.duration = Math.round(message.duration));
     return obj;
   },
@@ -2220,12 +2228,12 @@ export const CCloudCDNReportNotification = {
 
   fromPartial<I extends Exact<DeepPartial<CCloudCDNReportNotification>, I>>(object: I): CCloudCDNReportNotification {
     const message = createBaseCCloudCDNReportNotification();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.url = object.url ?? "";
     message.success = object.success ?? false;
     message.httpStatusCode = object.httpStatusCode ?? 0;
-    message.expectedBytes = object.expectedBytes ?? 0;
-    message.receivedBytes = object.receivedBytes ?? 0;
+    message.expectedBytes = object.expectedBytes ?? "0";
+    message.receivedBytes = object.receivedBytes ?? "0";
     message.duration = object.duration ?? 0;
     return message;
   },
@@ -2238,8 +2246,8 @@ function createBaseCCloudExternalStorageTransferReportNotification(): CCloudExte
     isUpload: false,
     success: false,
     httpStatusCode: 0,
-    bytesExpected: 0,
-    bytesActual: 0,
+    bytesExpected: "0",
+    bytesActual: "0",
     durationMs: 0,
     cellid: 0,
     proxied: false,
@@ -2272,10 +2280,10 @@ export const CCloudExternalStorageTransferReportNotification = {
     if (message.httpStatusCode !== 0) {
       writer.uint32(40).uint32(message.httpStatusCode);
     }
-    if (message.bytesExpected !== 0) {
+    if (message.bytesExpected !== "0") {
       writer.uint32(48).uint64(message.bytesExpected);
     }
-    if (message.bytesActual !== 0) {
+    if (message.bytesActual !== "0") {
       writer.uint32(56).uint64(message.bytesActual);
     }
     if (message.durationMs !== 0) {
@@ -2331,10 +2339,10 @@ export const CCloudExternalStorageTransferReportNotification = {
           message.httpStatusCode = reader.uint32();
           break;
         case 6:
-          message.bytesExpected = longToNumber(reader.uint64() as Long);
+          message.bytesExpected = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.bytesActual = longToNumber(reader.uint64() as Long);
+          message.bytesActual = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.durationMs = reader.uint32();
@@ -2378,8 +2386,8 @@ export const CCloudExternalStorageTransferReportNotification = {
       isUpload: isSet(object.isUpload) ? Boolean(object.isUpload) : false,
       success: isSet(object.success) ? Boolean(object.success) : false,
       httpStatusCode: isSet(object.httpStatusCode) ? Number(object.httpStatusCode) : 0,
-      bytesExpected: isSet(object.bytesExpected) ? Number(object.bytesExpected) : 0,
-      bytesActual: isSet(object.bytesActual) ? Number(object.bytesActual) : 0,
+      bytesExpected: isSet(object.bytesExpected) ? String(object.bytesExpected) : "0",
+      bytesActual: isSet(object.bytesActual) ? String(object.bytesActual) : "0",
       durationMs: isSet(object.durationMs) ? Number(object.durationMs) : 0,
       cellid: isSet(object.cellid) ? Number(object.cellid) : 0,
       proxied: isSet(object.proxied) ? Boolean(object.proxied) : false,
@@ -2399,8 +2407,8 @@ export const CCloudExternalStorageTransferReportNotification = {
     message.isUpload !== undefined && (obj.isUpload = message.isUpload);
     message.success !== undefined && (obj.success = message.success);
     message.httpStatusCode !== undefined && (obj.httpStatusCode = Math.round(message.httpStatusCode));
-    message.bytesExpected !== undefined && (obj.bytesExpected = Math.round(message.bytesExpected));
-    message.bytesActual !== undefined && (obj.bytesActual = Math.round(message.bytesActual));
+    message.bytesExpected !== undefined && (obj.bytesExpected = message.bytesExpected);
+    message.bytesActual !== undefined && (obj.bytesActual = message.bytesActual);
     message.durationMs !== undefined && (obj.durationMs = Math.round(message.durationMs));
     message.cellid !== undefined && (obj.cellid = Math.round(message.cellid));
     message.proxied !== undefined && (obj.proxied = message.proxied);
@@ -2428,8 +2436,8 @@ export const CCloudExternalStorageTransferReportNotification = {
     message.isUpload = object.isUpload ?? false;
     message.success = object.success ?? false;
     message.httpStatusCode = object.httpStatusCode ?? 0;
-    message.bytesExpected = object.bytesExpected ?? 0;
-    message.bytesActual = object.bytesActual ?? 0;
+    message.bytesExpected = object.bytesExpected ?? "0";
+    message.bytesActual = object.bytesActual ?? "0";
     message.durationMs = object.durationMs ?? 0;
     message.cellid = object.cellid ?? 0;
     message.proxied = object.proxied ?? false;
@@ -2444,7 +2452,7 @@ export const CCloudExternalStorageTransferReportNotification = {
 };
 
 function createBaseCCloudBeginAppUploadBatchRequest(): CCloudBeginAppUploadBatchRequest {
-  return { appid: 0, machineName: "", filesToUpload: [], filesToDelete: [], clientId: 0, appBuildId: 0 };
+  return { appid: 0, machineName: "", filesToUpload: [], filesToDelete: [], clientId: "0", appBuildId: "0" };
 }
 
 export const CCloudBeginAppUploadBatchRequest = {
@@ -2461,10 +2469,10 @@ export const CCloudBeginAppUploadBatchRequest = {
     for (const v of message.filesToDelete) {
       writer.uint32(34).string(v!);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(40).uint64(message.clientId);
     }
-    if (message.appBuildId !== 0) {
+    if (message.appBuildId !== "0") {
       writer.uint32(48).uint64(message.appBuildId);
     }
     return writer;
@@ -2490,10 +2498,10 @@ export const CCloudBeginAppUploadBatchRequest = {
           message.filesToDelete.push(reader.string());
           break;
         case 5:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.appBuildId = longToNumber(reader.uint64() as Long);
+          message.appBuildId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2509,8 +2517,8 @@ export const CCloudBeginAppUploadBatchRequest = {
       machineName: isSet(object.machineName) ? String(object.machineName) : "",
       filesToUpload: Array.isArray(object?.filesToUpload) ? object.filesToUpload.map((e: any) => String(e)) : [],
       filesToDelete: Array.isArray(object?.filesToDelete) ? object.filesToDelete.map((e: any) => String(e)) : [],
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
-      appBuildId: isSet(object.appBuildId) ? Number(object.appBuildId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
+      appBuildId: isSet(object.appBuildId) ? String(object.appBuildId) : "0",
     };
   },
 
@@ -2528,8 +2536,8 @@ export const CCloudBeginAppUploadBatchRequest = {
     } else {
       obj.filesToDelete = [];
     }
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
-    message.appBuildId !== undefined && (obj.appBuildId = Math.round(message.appBuildId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
+    message.appBuildId !== undefined && (obj.appBuildId = message.appBuildId);
     return obj;
   },
 
@@ -2547,22 +2555,22 @@ export const CCloudBeginAppUploadBatchRequest = {
     message.machineName = object.machineName ?? "";
     message.filesToUpload = object.filesToUpload?.map((e) => e) || [];
     message.filesToDelete = object.filesToDelete?.map((e) => e) || [];
-    message.clientId = object.clientId ?? 0;
-    message.appBuildId = object.appBuildId ?? 0;
+    message.clientId = object.clientId ?? "0";
+    message.appBuildId = object.appBuildId ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudBeginAppUploadBatchResponse(): CCloudBeginAppUploadBatchResponse {
-  return { batchId: 0, appChangeNumber: 0 };
+  return { batchId: "0", appChangeNumber: "0" };
 }
 
 export const CCloudBeginAppUploadBatchResponse = {
   encode(message: CCloudBeginAppUploadBatchResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.batchId !== 0) {
+    if (message.batchId !== "0") {
       writer.uint32(8).uint64(message.batchId);
     }
-    if (message.appChangeNumber !== 0) {
+    if (message.appChangeNumber !== "0") {
       writer.uint32(32).uint64(message.appChangeNumber);
     }
     return writer;
@@ -2576,10 +2584,10 @@ export const CCloudBeginAppUploadBatchResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.batchId = longToNumber(reader.uint64() as Long);
+          message.batchId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.appChangeNumber = longToNumber(reader.uint64() as Long);
+          message.appChangeNumber = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2591,15 +2599,15 @@ export const CCloudBeginAppUploadBatchResponse = {
 
   fromJSON(object: any): CCloudBeginAppUploadBatchResponse {
     return {
-      batchId: isSet(object.batchId) ? Number(object.batchId) : 0,
-      appChangeNumber: isSet(object.appChangeNumber) ? Number(object.appChangeNumber) : 0,
+      batchId: isSet(object.batchId) ? String(object.batchId) : "0",
+      appChangeNumber: isSet(object.appChangeNumber) ? String(object.appChangeNumber) : "0",
     };
   },
 
   toJSON(message: CCloudBeginAppUploadBatchResponse): unknown {
     const obj: any = {};
-    message.batchId !== undefined && (obj.batchId = Math.round(message.batchId));
-    message.appChangeNumber !== undefined && (obj.appChangeNumber = Math.round(message.appChangeNumber));
+    message.batchId !== undefined && (obj.batchId = message.batchId);
+    message.appChangeNumber !== undefined && (obj.appChangeNumber = message.appChangeNumber);
     return obj;
   },
 
@@ -2613,14 +2621,14 @@ export const CCloudBeginAppUploadBatchResponse = {
     object: I,
   ): CCloudBeginAppUploadBatchResponse {
     const message = createBaseCCloudBeginAppUploadBatchResponse();
-    message.batchId = object.batchId ?? 0;
-    message.appChangeNumber = object.appChangeNumber ?? 0;
+    message.batchId = object.batchId ?? "0";
+    message.appChangeNumber = object.appChangeNumber ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudCompleteAppUploadBatchNotification(): CCloudCompleteAppUploadBatchNotification {
-  return { appid: 0, batchId: 0, batchEresult: 0 };
+  return { appid: 0, batchId: "0", batchEresult: 0 };
 }
 
 export const CCloudCompleteAppUploadBatchNotification = {
@@ -2628,7 +2636,7 @@ export const CCloudCompleteAppUploadBatchNotification = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.batchId !== 0) {
+    if (message.batchId !== "0") {
       writer.uint32(16).uint64(message.batchId);
     }
     if (message.batchEresult !== 0) {
@@ -2648,7 +2656,7 @@ export const CCloudCompleteAppUploadBatchNotification = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.batchId = longToNumber(reader.uint64() as Long);
+          message.batchId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.batchEresult = reader.uint32();
@@ -2664,7 +2672,7 @@ export const CCloudCompleteAppUploadBatchNotification = {
   fromJSON(object: any): CCloudCompleteAppUploadBatchNotification {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      batchId: isSet(object.batchId) ? Number(object.batchId) : 0,
+      batchId: isSet(object.batchId) ? String(object.batchId) : "0",
       batchEresult: isSet(object.batchEresult) ? Number(object.batchEresult) : 0,
     };
   },
@@ -2672,7 +2680,7 @@ export const CCloudCompleteAppUploadBatchNotification = {
   toJSON(message: CCloudCompleteAppUploadBatchNotification): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.batchId !== undefined && (obj.batchId = Math.round(message.batchId));
+    message.batchId !== undefined && (obj.batchId = message.batchId);
     message.batchEresult !== undefined && (obj.batchEresult = Math.round(message.batchEresult));
     return obj;
   },
@@ -2688,14 +2696,14 @@ export const CCloudCompleteAppUploadBatchNotification = {
   ): CCloudCompleteAppUploadBatchNotification {
     const message = createBaseCCloudCompleteAppUploadBatchNotification();
     message.appid = object.appid ?? 0;
-    message.batchId = object.batchId ?? 0;
+    message.batchId = object.batchId ?? "0";
     message.batchEresult = object.batchEresult ?? 0;
     return message;
   },
 };
 
 function createBaseCCloudCompleteAppUploadBatchRequest(): CCloudCompleteAppUploadBatchRequest {
-  return { appid: 0, batchId: 0, batchEresult: 0 };
+  return { appid: 0, batchId: "0", batchEresult: 0 };
 }
 
 export const CCloudCompleteAppUploadBatchRequest = {
@@ -2703,7 +2711,7 @@ export const CCloudCompleteAppUploadBatchRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.batchId !== 0) {
+    if (message.batchId !== "0") {
       writer.uint32(16).uint64(message.batchId);
     }
     if (message.batchEresult !== 0) {
@@ -2723,7 +2731,7 @@ export const CCloudCompleteAppUploadBatchRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.batchId = longToNumber(reader.uint64() as Long);
+          message.batchId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.batchEresult = reader.uint32();
@@ -2739,7 +2747,7 @@ export const CCloudCompleteAppUploadBatchRequest = {
   fromJSON(object: any): CCloudCompleteAppUploadBatchRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      batchId: isSet(object.batchId) ? Number(object.batchId) : 0,
+      batchId: isSet(object.batchId) ? String(object.batchId) : "0",
       batchEresult: isSet(object.batchEresult) ? Number(object.batchEresult) : 0,
     };
   },
@@ -2747,7 +2755,7 @@ export const CCloudCompleteAppUploadBatchRequest = {
   toJSON(message: CCloudCompleteAppUploadBatchRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.batchId !== undefined && (obj.batchId = Math.round(message.batchId));
+    message.batchId !== undefined && (obj.batchId = message.batchId);
     message.batchEresult !== undefined && (obj.batchEresult = Math.round(message.batchEresult));
     return obj;
   },
@@ -2763,7 +2771,7 @@ export const CCloudCompleteAppUploadBatchRequest = {
   ): CCloudCompleteAppUploadBatchRequest {
     const message = createBaseCCloudCompleteAppUploadBatchRequest();
     message.appid = object.appid ?? 0;
-    message.batchId = object.batchId ?? 0;
+    message.batchId = object.batchId ?? "0";
     message.batchEresult = object.batchEresult ?? 0;
     return message;
   },
@@ -2822,14 +2830,14 @@ function createBaseCCloudClientBeginFileUploadRequest(): CCloudClientBeginFileUp
     fileSize: 0,
     rawFileSize: 0,
     fileSha: Buffer.alloc(0),
-    timeStamp: 0,
+    timeStamp: "0",
     filename: "",
     platformsToSync: 0,
     cellId: 0,
     canEncrypt: false,
     isSharedFile: false,
     deprecatedRealm: 0,
-    uploadBatchId: 0,
+    uploadBatchId: "0",
   };
 }
 
@@ -2847,7 +2855,7 @@ export const CCloudClientBeginFileUploadRequest = {
     if (message.fileSha.length !== 0) {
       writer.uint32(34).bytes(message.fileSha);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(40).uint64(message.timeStamp);
     }
     if (message.filename !== "") {
@@ -2868,7 +2876,7 @@ export const CCloudClientBeginFileUploadRequest = {
     if (message.deprecatedRealm !== 0) {
       writer.uint32(96).uint32(message.deprecatedRealm);
     }
-    if (message.uploadBatchId !== 0) {
+    if (message.uploadBatchId !== "0") {
       writer.uint32(104).uint64(message.uploadBatchId);
     }
     return writer;
@@ -2894,7 +2902,7 @@ export const CCloudClientBeginFileUploadRequest = {
           message.fileSha = reader.bytes() as Buffer;
           break;
         case 5:
-          message.timeStamp = longToNumber(reader.uint64() as Long);
+          message.timeStamp = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.filename = reader.string();
@@ -2915,7 +2923,7 @@ export const CCloudClientBeginFileUploadRequest = {
           message.deprecatedRealm = reader.uint32();
           break;
         case 13:
-          message.uploadBatchId = longToNumber(reader.uint64() as Long);
+          message.uploadBatchId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2931,14 +2939,14 @@ export const CCloudClientBeginFileUploadRequest = {
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       rawFileSize: isSet(object.rawFileSize) ? Number(object.rawFileSize) : 0,
       fileSha: isSet(object.fileSha) ? Buffer.from(bytesFromBase64(object.fileSha)) : Buffer.alloc(0),
-      timeStamp: isSet(object.timeStamp) ? Number(object.timeStamp) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
       filename: isSet(object.filename) ? String(object.filename) : "",
       platformsToSync: isSet(object.platformsToSync) ? Number(object.platformsToSync) : 0,
       cellId: isSet(object.cellId) ? Number(object.cellId) : 0,
       canEncrypt: isSet(object.canEncrypt) ? Boolean(object.canEncrypt) : false,
       isSharedFile: isSet(object.isSharedFile) ? Boolean(object.isSharedFile) : false,
       deprecatedRealm: isSet(object.deprecatedRealm) ? Number(object.deprecatedRealm) : 0,
-      uploadBatchId: isSet(object.uploadBatchId) ? Number(object.uploadBatchId) : 0,
+      uploadBatchId: isSet(object.uploadBatchId) ? String(object.uploadBatchId) : "0",
     };
   },
 
@@ -2949,14 +2957,14 @@ export const CCloudClientBeginFileUploadRequest = {
     message.rawFileSize !== undefined && (obj.rawFileSize = Math.round(message.rawFileSize));
     message.fileSha !== undefined &&
       (obj.fileSha = base64FromBytes(message.fileSha !== undefined ? message.fileSha : Buffer.alloc(0)));
-    message.timeStamp !== undefined && (obj.timeStamp = Math.round(message.timeStamp));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.filename !== undefined && (obj.filename = message.filename);
     message.platformsToSync !== undefined && (obj.platformsToSync = Math.round(message.platformsToSync));
     message.cellId !== undefined && (obj.cellId = Math.round(message.cellId));
     message.canEncrypt !== undefined && (obj.canEncrypt = message.canEncrypt);
     message.isSharedFile !== undefined && (obj.isSharedFile = message.isSharedFile);
     message.deprecatedRealm !== undefined && (obj.deprecatedRealm = Math.round(message.deprecatedRealm));
-    message.uploadBatchId !== undefined && (obj.uploadBatchId = Math.round(message.uploadBatchId));
+    message.uploadBatchId !== undefined && (obj.uploadBatchId = message.uploadBatchId);
     return obj;
   },
 
@@ -2974,14 +2982,14 @@ export const CCloudClientBeginFileUploadRequest = {
     message.fileSize = object.fileSize ?? 0;
     message.rawFileSize = object.rawFileSize ?? 0;
     message.fileSha = object.fileSha ?? Buffer.alloc(0);
-    message.timeStamp = object.timeStamp ?? 0;
+    message.timeStamp = object.timeStamp ?? "0";
     message.filename = object.filename ?? "";
     message.platformsToSync = object.platformsToSync ?? 0;
     message.cellId = object.cellId ?? 0;
     message.canEncrypt = object.canEncrypt ?? false;
     message.isSharedFile = object.isSharedFile ?? false;
     message.deprecatedRealm = object.deprecatedRealm ?? 0;
-    message.uploadBatchId = object.uploadBatchId ?? 0;
+    message.uploadBatchId = object.uploadBatchId ?? "0";
     return message;
   },
 };
@@ -2993,7 +3001,7 @@ function createBaseClientCloudFileUploadBlockDetails(): ClientCloudFileUploadBlo
     useHttps: false,
     httpMethod: 0,
     requestHeaders: [],
-    blockOffset: 0,
+    blockOffset: "0",
     blockLength: 0,
     explicitBodyData: Buffer.alloc(0),
     mayParallelize: false,
@@ -3017,7 +3025,7 @@ export const ClientCloudFileUploadBlockDetails = {
     for (const v of message.requestHeaders) {
       ClientCloudFileUploadBlockDetails_HTTPHeaders.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    if (message.blockOffset !== 0) {
+    if (message.blockOffset !== "0") {
       writer.uint32(48).uint64(message.blockOffset);
     }
     if (message.blockLength !== 0) {
@@ -3055,7 +3063,7 @@ export const ClientCloudFileUploadBlockDetails = {
           message.requestHeaders.push(ClientCloudFileUploadBlockDetails_HTTPHeaders.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.blockOffset = longToNumber(reader.uint64() as Long);
+          message.blockOffset = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.blockLength = reader.uint32();
@@ -3083,7 +3091,7 @@ export const ClientCloudFileUploadBlockDetails = {
       requestHeaders: Array.isArray(object?.requestHeaders)
         ? object.requestHeaders.map((e: any) => ClientCloudFileUploadBlockDetails_HTTPHeaders.fromJSON(e))
         : [],
-      blockOffset: isSet(object.blockOffset) ? Number(object.blockOffset) : 0,
+      blockOffset: isSet(object.blockOffset) ? String(object.blockOffset) : "0",
       blockLength: isSet(object.blockLength) ? Number(object.blockLength) : 0,
       explicitBodyData: isSet(object.explicitBodyData)
         ? Buffer.from(bytesFromBase64(object.explicitBodyData))
@@ -3105,7 +3113,7 @@ export const ClientCloudFileUploadBlockDetails = {
     } else {
       obj.requestHeaders = [];
     }
-    message.blockOffset !== undefined && (obj.blockOffset = Math.round(message.blockOffset));
+    message.blockOffset !== undefined && (obj.blockOffset = message.blockOffset);
     message.blockLength !== undefined && (obj.blockLength = Math.round(message.blockLength));
     message.explicitBodyData !== undefined &&
       (obj.explicitBodyData = base64FromBytes(
@@ -3131,7 +3139,7 @@ export const ClientCloudFileUploadBlockDetails = {
     message.httpMethod = object.httpMethod ?? 0;
     message.requestHeaders =
       object.requestHeaders?.map((e) => ClientCloudFileUploadBlockDetails_HTTPHeaders.fromPartial(e)) || [];
-    message.blockOffset = object.blockOffset ?? 0;
+    message.blockOffset = object.blockOffset ?? "0";
     message.blockLength = object.blockLength ?? 0;
     message.explicitBodyData = object.explicitBodyData ?? Buffer.alloc(0);
     message.mayParallelize = object.mayParallelize ?? false;
@@ -3496,7 +3504,7 @@ function createBaseCCloudClientFileDownloadResponse(): CCloudClientFileDownloadR
     fileSize: 0,
     rawFileSize: 0,
     shaFile: Buffer.alloc(0),
-    timeStamp: 0,
+    timeStamp: "0",
     isExplicitDelete: false,
     urlHost: "",
     urlPath: "",
@@ -3520,7 +3528,7 @@ export const CCloudClientFileDownloadResponse = {
     if (message.shaFile.length !== 0) {
       writer.uint32(34).bytes(message.shaFile);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(40).uint64(message.timeStamp);
     }
     if (message.isExplicitDelete === true) {
@@ -3564,7 +3572,7 @@ export const CCloudClientFileDownloadResponse = {
           message.shaFile = reader.bytes() as Buffer;
           break;
         case 5:
-          message.timeStamp = longToNumber(reader.uint64() as Long);
+          message.timeStamp = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.isExplicitDelete = reader.bool();
@@ -3598,7 +3606,7 @@ export const CCloudClientFileDownloadResponse = {
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       rawFileSize: isSet(object.rawFileSize) ? Number(object.rawFileSize) : 0,
       shaFile: isSet(object.shaFile) ? Buffer.from(bytesFromBase64(object.shaFile)) : Buffer.alloc(0),
-      timeStamp: isSet(object.timeStamp) ? Number(object.timeStamp) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
       isExplicitDelete: isSet(object.isExplicitDelete) ? Boolean(object.isExplicitDelete) : false,
       urlHost: isSet(object.urlHost) ? String(object.urlHost) : "",
       urlPath: isSet(object.urlPath) ? String(object.urlPath) : "",
@@ -3617,7 +3625,7 @@ export const CCloudClientFileDownloadResponse = {
     message.rawFileSize !== undefined && (obj.rawFileSize = Math.round(message.rawFileSize));
     message.shaFile !== undefined &&
       (obj.shaFile = base64FromBytes(message.shaFile !== undefined ? message.shaFile : Buffer.alloc(0)));
-    message.timeStamp !== undefined && (obj.timeStamp = Math.round(message.timeStamp));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.isExplicitDelete !== undefined && (obj.isExplicitDelete = message.isExplicitDelete);
     message.urlHost !== undefined && (obj.urlHost = message.urlHost);
     message.urlPath !== undefined && (obj.urlPath = message.urlPath);
@@ -3647,7 +3655,7 @@ export const CCloudClientFileDownloadResponse = {
     message.fileSize = object.fileSize ?? 0;
     message.rawFileSize = object.rawFileSize ?? 0;
     message.shaFile = object.shaFile ?? Buffer.alloc(0);
-    message.timeStamp = object.timeStamp ?? 0;
+    message.timeStamp = object.timeStamp ?? "0";
     message.isExplicitDelete = object.isExplicitDelete ?? false;
     message.urlHost = object.urlHost ?? "";
     message.urlPath = object.urlPath ?? "";
@@ -3726,7 +3734,7 @@ export const CCloudClientFileDownloadResponse_HTTPHeaders = {
 };
 
 function createBaseCCloudClientDeleteFileRequest(): CCloudClientDeleteFileRequest {
-  return { appid: 0, filename: "", isExplicitDelete: false, uploadBatchId: 0 };
+  return { appid: 0, filename: "", isExplicitDelete: false, uploadBatchId: "0" };
 }
 
 export const CCloudClientDeleteFileRequest = {
@@ -3740,7 +3748,7 @@ export const CCloudClientDeleteFileRequest = {
     if (message.isExplicitDelete === true) {
       writer.uint32(24).bool(message.isExplicitDelete);
     }
-    if (message.uploadBatchId !== 0) {
+    if (message.uploadBatchId !== "0") {
       writer.uint32(32).uint64(message.uploadBatchId);
     }
     return writer;
@@ -3763,7 +3771,7 @@ export const CCloudClientDeleteFileRequest = {
           message.isExplicitDelete = reader.bool();
           break;
         case 4:
-          message.uploadBatchId = longToNumber(reader.uint64() as Long);
+          message.uploadBatchId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3778,7 +3786,7 @@ export const CCloudClientDeleteFileRequest = {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       filename: isSet(object.filename) ? String(object.filename) : "",
       isExplicitDelete: isSet(object.isExplicitDelete) ? Boolean(object.isExplicitDelete) : false,
-      uploadBatchId: isSet(object.uploadBatchId) ? Number(object.uploadBatchId) : 0,
+      uploadBatchId: isSet(object.uploadBatchId) ? String(object.uploadBatchId) : "0",
     };
   },
 
@@ -3787,7 +3795,7 @@ export const CCloudClientDeleteFileRequest = {
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.filename !== undefined && (obj.filename = message.filename);
     message.isExplicitDelete !== undefined && (obj.isExplicitDelete = message.isExplicitDelete);
-    message.uploadBatchId !== undefined && (obj.uploadBatchId = Math.round(message.uploadBatchId));
+    message.uploadBatchId !== undefined && (obj.uploadBatchId = message.uploadBatchId);
     return obj;
   },
 
@@ -3802,7 +3810,7 @@ export const CCloudClientDeleteFileRequest = {
     message.appid = object.appid ?? 0;
     message.filename = object.filename ?? "";
     message.isExplicitDelete = object.isExplicitDelete ?? false;
-    message.uploadBatchId = object.uploadBatchId ?? 0;
+    message.uploadBatchId = object.uploadBatchId ?? "0";
     return message;
   },
 };
@@ -4021,7 +4029,7 @@ export const CCloudEnumerateUserAppsResponse = {
 };
 
 function createBaseCCloudEnumerateUserAppsResponse_Apps(): CCloudEnumerateUserAppsResponse_Apps {
-  return { appid: 0, totalcount: 0, totalsize: 0 };
+  return { appid: 0, totalcount: 0, totalsize: "0" };
 }
 
 export const CCloudEnumerateUserAppsResponse_Apps = {
@@ -4032,7 +4040,7 @@ export const CCloudEnumerateUserAppsResponse_Apps = {
     if (message.totalcount !== 0) {
       writer.uint32(16).int32(message.totalcount);
     }
-    if (message.totalsize !== 0) {
+    if (message.totalsize !== "0") {
       writer.uint32(24).int64(message.totalsize);
     }
     return writer;
@@ -4052,7 +4060,7 @@ export const CCloudEnumerateUserAppsResponse_Apps = {
           message.totalcount = reader.int32();
           break;
         case 3:
-          message.totalsize = longToNumber(reader.int64() as Long);
+          message.totalsize = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4066,7 +4074,7 @@ export const CCloudEnumerateUserAppsResponse_Apps = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       totalcount: isSet(object.totalcount) ? Number(object.totalcount) : 0,
-      totalsize: isSet(object.totalsize) ? Number(object.totalsize) : 0,
+      totalsize: isSet(object.totalsize) ? String(object.totalsize) : "0",
     };
   },
 
@@ -4074,7 +4082,7 @@ export const CCloudEnumerateUserAppsResponse_Apps = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.totalcount !== undefined && (obj.totalcount = Math.round(message.totalcount));
-    message.totalsize !== undefined && (obj.totalsize = Math.round(message.totalsize));
+    message.totalsize !== undefined && (obj.totalsize = message.totalsize);
     return obj;
   },
 
@@ -4090,13 +4098,13 @@ export const CCloudEnumerateUserAppsResponse_Apps = {
     const message = createBaseCCloudEnumerateUserAppsResponse_Apps();
     message.appid = object.appid ?? 0;
     message.totalcount = object.totalcount ?? 0;
-    message.totalsize = object.totalsize ?? 0;
+    message.totalsize = object.totalsize ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudGetAppFileChangelistRequest(): CCloudGetAppFileChangelistRequest {
-  return { appid: 0, syncedChangeNumber: 0 };
+  return { appid: 0, syncedChangeNumber: "0" };
 }
 
 export const CCloudGetAppFileChangelistRequest = {
@@ -4104,7 +4112,7 @@ export const CCloudGetAppFileChangelistRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.syncedChangeNumber !== 0) {
+    if (message.syncedChangeNumber !== "0") {
       writer.uint32(16).uint64(message.syncedChangeNumber);
     }
     return writer;
@@ -4121,7 +4129,7 @@ export const CCloudGetAppFileChangelistRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.syncedChangeNumber = longToNumber(reader.uint64() as Long);
+          message.syncedChangeNumber = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4134,14 +4142,14 @@ export const CCloudGetAppFileChangelistRequest = {
   fromJSON(object: any): CCloudGetAppFileChangelistRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      syncedChangeNumber: isSet(object.syncedChangeNumber) ? Number(object.syncedChangeNumber) : 0,
+      syncedChangeNumber: isSet(object.syncedChangeNumber) ? String(object.syncedChangeNumber) : "0",
     };
   },
 
   toJSON(message: CCloudGetAppFileChangelistRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.syncedChangeNumber !== undefined && (obj.syncedChangeNumber = Math.round(message.syncedChangeNumber));
+    message.syncedChangeNumber !== undefined && (obj.syncedChangeNumber = message.syncedChangeNumber);
     return obj;
   },
 
@@ -4156,7 +4164,7 @@ export const CCloudGetAppFileChangelistRequest = {
   ): CCloudGetAppFileChangelistRequest {
     const message = createBaseCCloudGetAppFileChangelistRequest();
     message.appid = object.appid ?? 0;
-    message.syncedChangeNumber = object.syncedChangeNumber ?? 0;
+    message.syncedChangeNumber = object.syncedChangeNumber ?? "0";
     return message;
   },
 };
@@ -4165,7 +4173,7 @@ function createBaseCCloudAppFileInfo(): CCloudAppFileInfo {
   return {
     fileName: "",
     shaFile: Buffer.alloc(0),
-    timeStamp: 0,
+    timeStamp: "0",
     rawFileSize: 0,
     persistState: 0,
     platformsToSync: 0,
@@ -4182,7 +4190,7 @@ export const CCloudAppFileInfo = {
     if (message.shaFile.length !== 0) {
       writer.uint32(18).bytes(message.shaFile);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(24).uint64(message.timeStamp);
     }
     if (message.rawFileSize !== 0) {
@@ -4217,7 +4225,7 @@ export const CCloudAppFileInfo = {
           message.shaFile = reader.bytes() as Buffer;
           break;
         case 3:
-          message.timeStamp = longToNumber(reader.uint64() as Long);
+          message.timeStamp = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.rawFileSize = reader.uint32();
@@ -4246,7 +4254,7 @@ export const CCloudAppFileInfo = {
     return {
       fileName: isSet(object.fileName) ? String(object.fileName) : "",
       shaFile: isSet(object.shaFile) ? Buffer.from(bytesFromBase64(object.shaFile)) : Buffer.alloc(0),
-      timeStamp: isSet(object.timeStamp) ? Number(object.timeStamp) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
       rawFileSize: isSet(object.rawFileSize) ? Number(object.rawFileSize) : 0,
       persistState: isSet(object.persistState) ? eCloudStoragePersistStateFromJSON(object.persistState) : 0,
       platformsToSync: isSet(object.platformsToSync) ? Number(object.platformsToSync) : 0,
@@ -4260,7 +4268,7 @@ export const CCloudAppFileInfo = {
     message.fileName !== undefined && (obj.fileName = message.fileName);
     message.shaFile !== undefined &&
       (obj.shaFile = base64FromBytes(message.shaFile !== undefined ? message.shaFile : Buffer.alloc(0)));
-    message.timeStamp !== undefined && (obj.timeStamp = Math.round(message.timeStamp));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.rawFileSize !== undefined && (obj.rawFileSize = Math.round(message.rawFileSize));
     message.persistState !== undefined && (obj.persistState = eCloudStoragePersistStateToJSON(message.persistState));
     message.platformsToSync !== undefined && (obj.platformsToSync = Math.round(message.platformsToSync));
@@ -4277,7 +4285,7 @@ export const CCloudAppFileInfo = {
     const message = createBaseCCloudAppFileInfo();
     message.fileName = object.fileName ?? "";
     message.shaFile = object.shaFile ?? Buffer.alloc(0);
-    message.timeStamp = object.timeStamp ?? 0;
+    message.timeStamp = object.timeStamp ?? "0";
     message.rawFileSize = object.rawFileSize ?? 0;
     message.persistState = object.persistState ?? 0;
     message.platformsToSync = object.platformsToSync ?? 0;
@@ -4289,18 +4297,18 @@ export const CCloudAppFileInfo = {
 
 function createBaseCCloudGetAppFileChangelistResponse(): CCloudGetAppFileChangelistResponse {
   return {
-    currentChangeNumber: 0,
+    currentChangeNumber: "0",
     files: [],
     isOnlyDelta: false,
     pathPrefixes: [],
     machineNames: [],
-    appBuildidHwm: 0,
+    appBuildidHwm: "0",
   };
 }
 
 export const CCloudGetAppFileChangelistResponse = {
   encode(message: CCloudGetAppFileChangelistResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.currentChangeNumber !== 0) {
+    if (message.currentChangeNumber !== "0") {
       writer.uint32(8).uint64(message.currentChangeNumber);
     }
     for (const v of message.files) {
@@ -4315,7 +4323,7 @@ export const CCloudGetAppFileChangelistResponse = {
     for (const v of message.machineNames) {
       writer.uint32(42).string(v!);
     }
-    if (message.appBuildidHwm !== 0) {
+    if (message.appBuildidHwm !== "0") {
       writer.uint32(48).uint64(message.appBuildidHwm);
     }
     return writer;
@@ -4329,7 +4337,7 @@ export const CCloudGetAppFileChangelistResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.currentChangeNumber = longToNumber(reader.uint64() as Long);
+          message.currentChangeNumber = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.files.push(CCloudAppFileInfo.decode(reader, reader.uint32()));
@@ -4344,7 +4352,7 @@ export const CCloudGetAppFileChangelistResponse = {
           message.machineNames.push(reader.string());
           break;
         case 6:
-          message.appBuildidHwm = longToNumber(reader.uint64() as Long);
+          message.appBuildidHwm = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4356,18 +4364,18 @@ export const CCloudGetAppFileChangelistResponse = {
 
   fromJSON(object: any): CCloudGetAppFileChangelistResponse {
     return {
-      currentChangeNumber: isSet(object.currentChangeNumber) ? Number(object.currentChangeNumber) : 0,
+      currentChangeNumber: isSet(object.currentChangeNumber) ? String(object.currentChangeNumber) : "0",
       files: Array.isArray(object?.files) ? object.files.map((e: any) => CCloudAppFileInfo.fromJSON(e)) : [],
       isOnlyDelta: isSet(object.isOnlyDelta) ? Boolean(object.isOnlyDelta) : false,
       pathPrefixes: Array.isArray(object?.pathPrefixes) ? object.pathPrefixes.map((e: any) => String(e)) : [],
       machineNames: Array.isArray(object?.machineNames) ? object.machineNames.map((e: any) => String(e)) : [],
-      appBuildidHwm: isSet(object.appBuildidHwm) ? Number(object.appBuildidHwm) : 0,
+      appBuildidHwm: isSet(object.appBuildidHwm) ? String(object.appBuildidHwm) : "0",
     };
   },
 
   toJSON(message: CCloudGetAppFileChangelistResponse): unknown {
     const obj: any = {};
-    message.currentChangeNumber !== undefined && (obj.currentChangeNumber = Math.round(message.currentChangeNumber));
+    message.currentChangeNumber !== undefined && (obj.currentChangeNumber = message.currentChangeNumber);
     if (message.files) {
       obj.files = message.files.map((e) => e ? CCloudAppFileInfo.toJSON(e) : undefined);
     } else {
@@ -4384,7 +4392,7 @@ export const CCloudGetAppFileChangelistResponse = {
     } else {
       obj.machineNames = [];
     }
-    message.appBuildidHwm !== undefined && (obj.appBuildidHwm = Math.round(message.appBuildidHwm));
+    message.appBuildidHwm !== undefined && (obj.appBuildidHwm = message.appBuildidHwm);
     return obj;
   },
 
@@ -4398,18 +4406,18 @@ export const CCloudGetAppFileChangelistResponse = {
     object: I,
   ): CCloudGetAppFileChangelistResponse {
     const message = createBaseCCloudGetAppFileChangelistResponse();
-    message.currentChangeNumber = object.currentChangeNumber ?? 0;
+    message.currentChangeNumber = object.currentChangeNumber ?? "0";
     message.files = object.files?.map((e) => CCloudAppFileInfo.fromPartial(e)) || [];
     message.isOnlyDelta = object.isOnlyDelta ?? false;
     message.pathPrefixes = object.pathPrefixes?.map((e) => e) || [];
     message.machineNames = object.machineNames?.map((e) => e) || [];
-    message.appBuildidHwm = object.appBuildidHwm ?? 0;
+    message.appBuildidHwm = object.appBuildidHwm ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudAppSessionSuspendRequest(): CCloudAppSessionSuspendRequest {
-  return { appid: 0, clientId: 0, machineName: "", cloudSyncCompleted: false };
+  return { appid: 0, clientId: "0", machineName: "", cloudSyncCompleted: false };
 }
 
 export const CCloudAppSessionSuspendRequest = {
@@ -4417,7 +4425,7 @@ export const CCloudAppSessionSuspendRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(16).uint64(message.clientId);
     }
     if (message.machineName !== "") {
@@ -4440,7 +4448,7 @@ export const CCloudAppSessionSuspendRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.machineName = reader.string();
@@ -4459,7 +4467,7 @@ export const CCloudAppSessionSuspendRequest = {
   fromJSON(object: any): CCloudAppSessionSuspendRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       machineName: isSet(object.machineName) ? String(object.machineName) : "",
       cloudSyncCompleted: isSet(object.cloudSyncCompleted) ? Boolean(object.cloudSyncCompleted) : false,
     };
@@ -4468,7 +4476,7 @@ export const CCloudAppSessionSuspendRequest = {
   toJSON(message: CCloudAppSessionSuspendRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.machineName !== undefined && (obj.machineName = message.machineName);
     message.cloudSyncCompleted !== undefined && (obj.cloudSyncCompleted = message.cloudSyncCompleted);
     return obj;
@@ -4483,7 +4491,7 @@ export const CCloudAppSessionSuspendRequest = {
   ): CCloudAppSessionSuspendRequest {
     const message = createBaseCCloudAppSessionSuspendRequest();
     message.appid = object.appid ?? 0;
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.machineName = object.machineName ?? "";
     message.cloudSyncCompleted = object.cloudSyncCompleted ?? false;
     return message;
@@ -4534,7 +4542,7 @@ export const CCloudAppSessionSuspendResponse = {
 };
 
 function createBaseCCloudAppSessionResumeRequest(): CCloudAppSessionResumeRequest {
-  return { appid: 0, clientId: 0 };
+  return { appid: 0, clientId: "0" };
 }
 
 export const CCloudAppSessionResumeRequest = {
@@ -4542,7 +4550,7 @@ export const CCloudAppSessionResumeRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(16).uint64(message.clientId);
     }
     return writer;
@@ -4559,7 +4567,7 @@ export const CCloudAppSessionResumeRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4572,14 +4580,14 @@ export const CCloudAppSessionResumeRequest = {
   fromJSON(object: any): CCloudAppSessionResumeRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
     };
   },
 
   toJSON(message: CCloudAppSessionResumeRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     return obj;
   },
 
@@ -4592,7 +4600,7 @@ export const CCloudAppSessionResumeRequest = {
   ): CCloudAppSessionResumeRequest {
     const message = createBaseCCloudAppSessionResumeRequest();
     message.appid = object.appid ?? 0;
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     return message;
   },
 };
@@ -4641,7 +4649,7 @@ export const CCloudAppSessionResumeResponse = {
 };
 
 function createBaseCCloudAppLaunchIntentRequest(): CCloudAppLaunchIntentRequest {
-  return { appid: 0, clientId: 0, machineName: "", ignorePendingOperations: false };
+  return { appid: 0, clientId: "0", machineName: "", ignorePendingOperations: false };
 }
 
 export const CCloudAppLaunchIntentRequest = {
@@ -4649,7 +4657,7 @@ export const CCloudAppLaunchIntentRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(16).uint64(message.clientId);
     }
     if (message.machineName !== "") {
@@ -4672,7 +4680,7 @@ export const CCloudAppLaunchIntentRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.machineName = reader.string();
@@ -4691,7 +4699,7 @@ export const CCloudAppLaunchIntentRequest = {
   fromJSON(object: any): CCloudAppLaunchIntentRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       machineName: isSet(object.machineName) ? String(object.machineName) : "",
       ignorePendingOperations: isSet(object.ignorePendingOperations) ? Boolean(object.ignorePendingOperations) : false,
     };
@@ -4700,7 +4708,7 @@ export const CCloudAppLaunchIntentRequest = {
   toJSON(message: CCloudAppLaunchIntentRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.machineName !== undefined && (obj.machineName = message.machineName);
     message.ignorePendingOperations !== undefined && (obj.ignorePendingOperations = message.ignorePendingOperations);
     return obj;
@@ -4713,7 +4721,7 @@ export const CCloudAppLaunchIntentRequest = {
   fromPartial<I extends Exact<DeepPartial<CCloudAppLaunchIntentRequest>, I>>(object: I): CCloudAppLaunchIntentRequest {
     const message = createBaseCCloudAppLaunchIntentRequest();
     message.appid = object.appid ?? 0;
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.machineName = object.machineName ?? "";
     message.ignorePendingOperations = object.ignorePendingOperations ?? false;
     return message;
@@ -4785,7 +4793,7 @@ export const CCloudAppLaunchIntentResponse = {
 };
 
 function createBaseCCloudAppExitSyncDoneNotification(): CCloudAppExitSyncDoneNotification {
-  return { appid: 0, clientId: 0, uploadsCompleted: false, uploadsRequired: false };
+  return { appid: 0, clientId: "0", uploadsCompleted: false, uploadsRequired: false };
 }
 
 export const CCloudAppExitSyncDoneNotification = {
@@ -4793,7 +4801,7 @@ export const CCloudAppExitSyncDoneNotification = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(16).uint64(message.clientId);
     }
     if (message.uploadsCompleted === true) {
@@ -4816,7 +4824,7 @@ export const CCloudAppExitSyncDoneNotification = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.uploadsCompleted = reader.bool();
@@ -4835,7 +4843,7 @@ export const CCloudAppExitSyncDoneNotification = {
   fromJSON(object: any): CCloudAppExitSyncDoneNotification {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       uploadsCompleted: isSet(object.uploadsCompleted) ? Boolean(object.uploadsCompleted) : false,
       uploadsRequired: isSet(object.uploadsRequired) ? Boolean(object.uploadsRequired) : false,
     };
@@ -4844,7 +4852,7 @@ export const CCloudAppExitSyncDoneNotification = {
   toJSON(message: CCloudAppExitSyncDoneNotification): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.uploadsCompleted !== undefined && (obj.uploadsCompleted = message.uploadsCompleted);
     message.uploadsRequired !== undefined && (obj.uploadsRequired = message.uploadsRequired);
     return obj;
@@ -4861,7 +4869,7 @@ export const CCloudAppExitSyncDoneNotification = {
   ): CCloudAppExitSyncDoneNotification {
     const message = createBaseCCloudAppExitSyncDoneNotification();
     message.appid = object.appid ?? 0;
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.uploadsCompleted = object.uploadsCompleted ?? false;
     message.uploadsRequired = object.uploadsRequired ?? false;
     return message;
@@ -4924,7 +4932,7 @@ export const CCloudClientGetAppQuotaUsageRequest = {
 };
 
 function createBaseCCloudClientGetAppQuotaUsageResponse(): CCloudClientGetAppQuotaUsageResponse {
-  return { existingFiles: 0, existingBytes: 0, maxNumFiles: 0, maxNumBytes: 0 };
+  return { existingFiles: 0, existingBytes: "0", maxNumFiles: 0, maxNumBytes: "0" };
 }
 
 export const CCloudClientGetAppQuotaUsageResponse = {
@@ -4932,13 +4940,13 @@ export const CCloudClientGetAppQuotaUsageResponse = {
     if (message.existingFiles !== 0) {
       writer.uint32(8).uint32(message.existingFiles);
     }
-    if (message.existingBytes !== 0) {
+    if (message.existingBytes !== "0") {
       writer.uint32(16).uint64(message.existingBytes);
     }
     if (message.maxNumFiles !== 0) {
       writer.uint32(24).uint32(message.maxNumFiles);
     }
-    if (message.maxNumBytes !== 0) {
+    if (message.maxNumBytes !== "0") {
       writer.uint32(32).uint64(message.maxNumBytes);
     }
     return writer;
@@ -4955,13 +4963,13 @@ export const CCloudClientGetAppQuotaUsageResponse = {
           message.existingFiles = reader.uint32();
           break;
         case 2:
-          message.existingBytes = longToNumber(reader.uint64() as Long);
+          message.existingBytes = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.maxNumFiles = reader.uint32();
           break;
         case 4:
-          message.maxNumBytes = longToNumber(reader.uint64() as Long);
+          message.maxNumBytes = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4974,18 +4982,18 @@ export const CCloudClientGetAppQuotaUsageResponse = {
   fromJSON(object: any): CCloudClientGetAppQuotaUsageResponse {
     return {
       existingFiles: isSet(object.existingFiles) ? Number(object.existingFiles) : 0,
-      existingBytes: isSet(object.existingBytes) ? Number(object.existingBytes) : 0,
+      existingBytes: isSet(object.existingBytes) ? String(object.existingBytes) : "0",
       maxNumFiles: isSet(object.maxNumFiles) ? Number(object.maxNumFiles) : 0,
-      maxNumBytes: isSet(object.maxNumBytes) ? Number(object.maxNumBytes) : 0,
+      maxNumBytes: isSet(object.maxNumBytes) ? String(object.maxNumBytes) : "0",
     };
   },
 
   toJSON(message: CCloudClientGetAppQuotaUsageResponse): unknown {
     const obj: any = {};
     message.existingFiles !== undefined && (obj.existingFiles = Math.round(message.existingFiles));
-    message.existingBytes !== undefined && (obj.existingBytes = Math.round(message.existingBytes));
+    message.existingBytes !== undefined && (obj.existingBytes = message.existingBytes);
     message.maxNumFiles !== undefined && (obj.maxNumFiles = Math.round(message.maxNumFiles));
-    message.maxNumBytes !== undefined && (obj.maxNumBytes = Math.round(message.maxNumBytes));
+    message.maxNumBytes !== undefined && (obj.maxNumBytes = message.maxNumBytes);
     return obj;
   },
 
@@ -5000,15 +5008,15 @@ export const CCloudClientGetAppQuotaUsageResponse = {
   ): CCloudClientGetAppQuotaUsageResponse {
     const message = createBaseCCloudClientGetAppQuotaUsageResponse();
     message.existingFiles = object.existingFiles ?? 0;
-    message.existingBytes = object.existingBytes ?? 0;
+    message.existingBytes = object.existingBytes ?? "0";
     message.maxNumFiles = object.maxNumFiles ?? 0;
-    message.maxNumBytes = object.maxNumBytes ?? 0;
+    message.maxNumBytes = object.maxNumBytes ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudAppCloudStateChangeNotification(): CCloudAppCloudStateChangeNotification {
-  return { appid: 0, appChangeNumber: 0 };
+  return { appid: 0, appChangeNumber: "0" };
 }
 
 export const CCloudAppCloudStateChangeNotification = {
@@ -5016,7 +5024,7 @@ export const CCloudAppCloudStateChangeNotification = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.appChangeNumber !== 0) {
+    if (message.appChangeNumber !== "0") {
       writer.uint32(16).uint64(message.appChangeNumber);
     }
     return writer;
@@ -5033,7 +5041,7 @@ export const CCloudAppCloudStateChangeNotification = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.appChangeNumber = longToNumber(reader.uint64() as Long);
+          message.appChangeNumber = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5046,14 +5054,14 @@ export const CCloudAppCloudStateChangeNotification = {
   fromJSON(object: any): CCloudAppCloudStateChangeNotification {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      appChangeNumber: isSet(object.appChangeNumber) ? Number(object.appChangeNumber) : 0,
+      appChangeNumber: isSet(object.appChangeNumber) ? String(object.appChangeNumber) : "0",
     };
   },
 
   toJSON(message: CCloudAppCloudStateChangeNotification): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.appChangeNumber !== undefined && (obj.appChangeNumber = Math.round(message.appChangeNumber));
+    message.appChangeNumber !== undefined && (obj.appChangeNumber = message.appChangeNumber);
     return obj;
   },
 
@@ -5068,18 +5076,18 @@ export const CCloudAppCloudStateChangeNotification = {
   ): CCloudAppCloudStateChangeNotification {
     const message = createBaseCCloudAppCloudStateChangeNotification();
     message.appid = object.appid ?? 0;
-    message.appChangeNumber = object.appChangeNumber ?? 0;
+    message.appChangeNumber = object.appChangeNumber ?? "0";
     return message;
   },
 };
 
 function createBaseCCloudClientLogUploadRequestNotification(): CCloudClientLogUploadRequestNotification {
-  return { requestId: 0 };
+  return { requestId: "0" };
 }
 
 export const CCloudClientLogUploadRequestNotification = {
   encode(message: CCloudClientLogUploadRequestNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.requestId !== 0) {
+    if (message.requestId !== "0") {
       writer.uint32(8).uint64(message.requestId);
     }
     return writer;
@@ -5093,7 +5101,7 @@ export const CCloudClientLogUploadRequestNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.requestId = longToNumber(reader.uint64() as Long);
+          message.requestId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5104,12 +5112,12 @@ export const CCloudClientLogUploadRequestNotification = {
   },
 
   fromJSON(object: any): CCloudClientLogUploadRequestNotification {
-    return { requestId: isSet(object.requestId) ? Number(object.requestId) : 0 };
+    return { requestId: isSet(object.requestId) ? String(object.requestId) : "0" };
   },
 
   toJSON(message: CCloudClientLogUploadRequestNotification): unknown {
     const obj: any = {};
-    message.requestId !== undefined && (obj.requestId = Math.round(message.requestId));
+    message.requestId !== undefined && (obj.requestId = message.requestId);
     return obj;
   },
 
@@ -5123,7 +5131,7 @@ export const CCloudClientLogUploadRequestNotification = {
     object: I,
   ): CCloudClientLogUploadRequestNotification {
     const message = createBaseCCloudClientLogUploadRequestNotification();
-    message.requestId = object.requestId ?? 0;
+    message.requestId = object.requestId ?? "0";
     return message;
   },
 };
@@ -5453,11 +5461,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

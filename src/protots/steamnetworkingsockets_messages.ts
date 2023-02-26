@@ -47,7 +47,7 @@ export function eSteamNetworkingSocketsCipherToJSON(object: ESteamNetworkingSock
 export interface CMsgSteamDatagramSessionCryptInfo {
   keyType: CMsgSteamDatagramSessionCryptInfo_EKeyType;
   keyData: Buffer;
-  nonce: number;
+  nonce: string;
   protocolVersion: number;
   ciphers: ESteamNetworkingSocketsCipher[];
 }
@@ -112,17 +112,17 @@ export interface CMsgSteamDatagramLinkInstantaneousStats {
 
 export interface CMsgSteamDatagramLinkLifetimeStats {
   connectedSeconds: number;
-  packetsSent: number;
-  kbSent: number;
-  packetsRecv: number;
-  kbRecv: number;
-  packetsRecvSequenced: number;
-  packetsRecvDropped: number;
-  packetsRecvOutOfOrder: number;
-  packetsRecvDuplicate: number;
-  packetsRecvLurch: number;
-  multipathPacketsRecvSequenced: number[];
-  multipathPacketsRecvLater: number[];
+  packetsSent: string;
+  kbSent: string;
+  packetsRecv: string;
+  kbRecv: string;
+  packetsRecvSequenced: string;
+  packetsRecvDropped: string;
+  packetsRecvOutOfOrder: string;
+  packetsRecvDuplicate: string;
+  packetsRecvLurch: string;
+  multipathPacketsRecvSequenced: string[];
+  multipathPacketsRecvLater: string[];
   multipathSendEnabled: number;
   qualityHistogram100: number;
   qualityHistogram99: number;
@@ -247,7 +247,7 @@ export interface CMsgSteamNetworkingP2PRendezvous_ReliableMessage {
 
 export interface CMsgSteamNetworkingP2PRendezvous_ApplicationMessage {
   data: Buffer;
-  msgNum: number;
+  msgNum: string;
   flags: number;
   laneIdx: number;
 }
@@ -271,7 +271,7 @@ export interface CMsgSteamNetworkingICESessionSummary {
 }
 
 function createBaseCMsgSteamDatagramSessionCryptInfo(): CMsgSteamDatagramSessionCryptInfo {
-  return { keyType: 0, keyData: Buffer.alloc(0), nonce: 0, protocolVersion: 0, ciphers: [] };
+  return { keyType: 0, keyData: Buffer.alloc(0), nonce: "0", protocolVersion: 0, ciphers: [] };
 }
 
 export const CMsgSteamDatagramSessionCryptInfo = {
@@ -282,7 +282,7 @@ export const CMsgSteamDatagramSessionCryptInfo = {
     if (message.keyData.length !== 0) {
       writer.uint32(18).bytes(message.keyData);
     }
-    if (message.nonce !== 0) {
+    if (message.nonce !== "0") {
       writer.uint32(25).fixed64(message.nonce);
     }
     if (message.protocolVersion !== 0) {
@@ -310,7 +310,7 @@ export const CMsgSteamDatagramSessionCryptInfo = {
           message.keyData = reader.bytes() as Buffer;
           break;
         case 3:
-          message.nonce = longToNumber(reader.fixed64() as Long);
+          message.nonce = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.protocolVersion = reader.uint32();
@@ -337,7 +337,7 @@ export const CMsgSteamDatagramSessionCryptInfo = {
     return {
       keyType: isSet(object.keyType) ? cMsgSteamDatagramSessionCryptInfo_EKeyTypeFromJSON(object.keyType) : 0,
       keyData: isSet(object.keyData) ? Buffer.from(bytesFromBase64(object.keyData)) : Buffer.alloc(0),
-      nonce: isSet(object.nonce) ? Number(object.nonce) : 0,
+      nonce: isSet(object.nonce) ? String(object.nonce) : "0",
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
       ciphers: Array.isArray(object?.ciphers)
         ? object.ciphers.map((e: any) => eSteamNetworkingSocketsCipherFromJSON(e))
@@ -350,7 +350,7 @@ export const CMsgSteamDatagramSessionCryptInfo = {
     message.keyType !== undefined && (obj.keyType = cMsgSteamDatagramSessionCryptInfo_EKeyTypeToJSON(message.keyType));
     message.keyData !== undefined &&
       (obj.keyData = base64FromBytes(message.keyData !== undefined ? message.keyData : Buffer.alloc(0)));
-    message.nonce !== undefined && (obj.nonce = Math.round(message.nonce));
+    message.nonce !== undefined && (obj.nonce = message.nonce);
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
     if (message.ciphers) {
       obj.ciphers = message.ciphers.map((e) => eSteamNetworkingSocketsCipherToJSON(e));
@@ -372,7 +372,7 @@ export const CMsgSteamDatagramSessionCryptInfo = {
     const message = createBaseCMsgSteamDatagramSessionCryptInfo();
     message.keyType = object.keyType ?? 0;
     message.keyData = object.keyData ?? Buffer.alloc(0);
-    message.nonce = object.nonce ?? 0;
+    message.nonce = object.nonce ?? "0";
     message.protocolVersion = object.protocolVersion ?? 0;
     message.ciphers = object.ciphers?.map((e) => e) || [];
     return message;
@@ -642,15 +642,15 @@ export const CMsgSteamDatagramLinkInstantaneousStats = {
 function createBaseCMsgSteamDatagramLinkLifetimeStats(): CMsgSteamDatagramLinkLifetimeStats {
   return {
     connectedSeconds: 0,
-    packetsSent: 0,
-    kbSent: 0,
-    packetsRecv: 0,
-    kbRecv: 0,
-    packetsRecvSequenced: 0,
-    packetsRecvDropped: 0,
-    packetsRecvOutOfOrder: 0,
-    packetsRecvDuplicate: 0,
-    packetsRecvLurch: 0,
+    packetsSent: "0",
+    kbSent: "0",
+    packetsRecv: "0",
+    kbRecv: "0",
+    packetsRecvSequenced: "0",
+    packetsRecvDropped: "0",
+    packetsRecvOutOfOrder: "0",
+    packetsRecvDuplicate: "0",
+    packetsRecvLurch: "0",
     multipathPacketsRecvSequenced: [],
     multipathPacketsRecvLater: [],
     multipathSendEnabled: 0,
@@ -723,31 +723,31 @@ export const CMsgSteamDatagramLinkLifetimeStats = {
     if (message.connectedSeconds !== 0) {
       writer.uint32(16).uint32(message.connectedSeconds);
     }
-    if (message.packetsSent !== 0) {
+    if (message.packetsSent !== "0") {
       writer.uint32(24).uint64(message.packetsSent);
     }
-    if (message.kbSent !== 0) {
+    if (message.kbSent !== "0") {
       writer.uint32(32).uint64(message.kbSent);
     }
-    if (message.packetsRecv !== 0) {
+    if (message.packetsRecv !== "0") {
       writer.uint32(40).uint64(message.packetsRecv);
     }
-    if (message.kbRecv !== 0) {
+    if (message.kbRecv !== "0") {
       writer.uint32(48).uint64(message.kbRecv);
     }
-    if (message.packetsRecvSequenced !== 0) {
+    if (message.packetsRecvSequenced !== "0") {
       writer.uint32(56).uint64(message.packetsRecvSequenced);
     }
-    if (message.packetsRecvDropped !== 0) {
+    if (message.packetsRecvDropped !== "0") {
       writer.uint32(64).uint64(message.packetsRecvDropped);
     }
-    if (message.packetsRecvOutOfOrder !== 0) {
+    if (message.packetsRecvOutOfOrder !== "0") {
       writer.uint32(72).uint64(message.packetsRecvOutOfOrder);
     }
-    if (message.packetsRecvDuplicate !== 0) {
+    if (message.packetsRecvDuplicate !== "0") {
       writer.uint32(80).uint64(message.packetsRecvDuplicate);
     }
-    if (message.packetsRecvLurch !== 0) {
+    if (message.packetsRecvLurch !== "0") {
       writer.uint32(88).uint64(message.packetsRecvLurch);
     }
     writer.uint32(98).fork();
@@ -960,50 +960,50 @@ export const CMsgSteamDatagramLinkLifetimeStats = {
           message.connectedSeconds = reader.uint32();
           break;
         case 3:
-          message.packetsSent = longToNumber(reader.uint64() as Long);
+          message.packetsSent = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.kbSent = longToNumber(reader.uint64() as Long);
+          message.kbSent = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.packetsRecv = longToNumber(reader.uint64() as Long);
+          message.packetsRecv = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.kbRecv = longToNumber(reader.uint64() as Long);
+          message.kbRecv = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.packetsRecvSequenced = longToNumber(reader.uint64() as Long);
+          message.packetsRecvSequenced = longToString(reader.uint64() as Long);
           break;
         case 8:
-          message.packetsRecvDropped = longToNumber(reader.uint64() as Long);
+          message.packetsRecvDropped = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.packetsRecvOutOfOrder = longToNumber(reader.uint64() as Long);
+          message.packetsRecvOutOfOrder = longToString(reader.uint64() as Long);
           break;
         case 10:
-          message.packetsRecvDuplicate = longToNumber(reader.uint64() as Long);
+          message.packetsRecvDuplicate = longToString(reader.uint64() as Long);
           break;
         case 11:
-          message.packetsRecvLurch = longToNumber(reader.uint64() as Long);
+          message.packetsRecvLurch = longToString(reader.uint64() as Long);
           break;
         case 12:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.multipathPacketsRecvSequenced.push(longToNumber(reader.uint64() as Long));
+              message.multipathPacketsRecvSequenced.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.multipathPacketsRecvSequenced.push(longToNumber(reader.uint64() as Long));
+            message.multipathPacketsRecvSequenced.push(longToString(reader.uint64() as Long));
           }
           break;
         case 13:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.multipathPacketsRecvLater.push(longToNumber(reader.uint64() as Long));
+              message.multipathPacketsRecvLater.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.multipathPacketsRecvLater.push(longToNumber(reader.uint64() as Long));
+            message.multipathPacketsRecvLater.push(longToString(reader.uint64() as Long));
           }
           break;
         case 14:
@@ -1203,20 +1203,20 @@ export const CMsgSteamDatagramLinkLifetimeStats = {
   fromJSON(object: any): CMsgSteamDatagramLinkLifetimeStats {
     return {
       connectedSeconds: isSet(object.connectedSeconds) ? Number(object.connectedSeconds) : 0,
-      packetsSent: isSet(object.packetsSent) ? Number(object.packetsSent) : 0,
-      kbSent: isSet(object.kbSent) ? Number(object.kbSent) : 0,
-      packetsRecv: isSet(object.packetsRecv) ? Number(object.packetsRecv) : 0,
-      kbRecv: isSet(object.kbRecv) ? Number(object.kbRecv) : 0,
-      packetsRecvSequenced: isSet(object.packetsRecvSequenced) ? Number(object.packetsRecvSequenced) : 0,
-      packetsRecvDropped: isSet(object.packetsRecvDropped) ? Number(object.packetsRecvDropped) : 0,
-      packetsRecvOutOfOrder: isSet(object.packetsRecvOutOfOrder) ? Number(object.packetsRecvOutOfOrder) : 0,
-      packetsRecvDuplicate: isSet(object.packetsRecvDuplicate) ? Number(object.packetsRecvDuplicate) : 0,
-      packetsRecvLurch: isSet(object.packetsRecvLurch) ? Number(object.packetsRecvLurch) : 0,
+      packetsSent: isSet(object.packetsSent) ? String(object.packetsSent) : "0",
+      kbSent: isSet(object.kbSent) ? String(object.kbSent) : "0",
+      packetsRecv: isSet(object.packetsRecv) ? String(object.packetsRecv) : "0",
+      kbRecv: isSet(object.kbRecv) ? String(object.kbRecv) : "0",
+      packetsRecvSequenced: isSet(object.packetsRecvSequenced) ? String(object.packetsRecvSequenced) : "0",
+      packetsRecvDropped: isSet(object.packetsRecvDropped) ? String(object.packetsRecvDropped) : "0",
+      packetsRecvOutOfOrder: isSet(object.packetsRecvOutOfOrder) ? String(object.packetsRecvOutOfOrder) : "0",
+      packetsRecvDuplicate: isSet(object.packetsRecvDuplicate) ? String(object.packetsRecvDuplicate) : "0",
+      packetsRecvLurch: isSet(object.packetsRecvLurch) ? String(object.packetsRecvLurch) : "0",
       multipathPacketsRecvSequenced: Array.isArray(object?.multipathPacketsRecvSequenced)
-        ? object.multipathPacketsRecvSequenced.map((e: any) => Number(e))
+        ? object.multipathPacketsRecvSequenced.map((e: any) => String(e))
         : [],
       multipathPacketsRecvLater: Array.isArray(object?.multipathPacketsRecvLater)
-        ? object.multipathPacketsRecvLater.map((e: any) => Number(e))
+        ? object.multipathPacketsRecvLater.map((e: any) => String(e))
         : [],
       multipathSendEnabled: isSet(object.multipathSendEnabled) ? Number(object.multipathSendEnabled) : 0,
       qualityHistogram100: isSet(object.qualityHistogram100) ? Number(object.qualityHistogram100) : 0,
@@ -1286,23 +1286,22 @@ export const CMsgSteamDatagramLinkLifetimeStats = {
   toJSON(message: CMsgSteamDatagramLinkLifetimeStats): unknown {
     const obj: any = {};
     message.connectedSeconds !== undefined && (obj.connectedSeconds = Math.round(message.connectedSeconds));
-    message.packetsSent !== undefined && (obj.packetsSent = Math.round(message.packetsSent));
-    message.kbSent !== undefined && (obj.kbSent = Math.round(message.kbSent));
-    message.packetsRecv !== undefined && (obj.packetsRecv = Math.round(message.packetsRecv));
-    message.kbRecv !== undefined && (obj.kbRecv = Math.round(message.kbRecv));
-    message.packetsRecvSequenced !== undefined && (obj.packetsRecvSequenced = Math.round(message.packetsRecvSequenced));
-    message.packetsRecvDropped !== undefined && (obj.packetsRecvDropped = Math.round(message.packetsRecvDropped));
-    message.packetsRecvOutOfOrder !== undefined &&
-      (obj.packetsRecvOutOfOrder = Math.round(message.packetsRecvOutOfOrder));
-    message.packetsRecvDuplicate !== undefined && (obj.packetsRecvDuplicate = Math.round(message.packetsRecvDuplicate));
-    message.packetsRecvLurch !== undefined && (obj.packetsRecvLurch = Math.round(message.packetsRecvLurch));
+    message.packetsSent !== undefined && (obj.packetsSent = message.packetsSent);
+    message.kbSent !== undefined && (obj.kbSent = message.kbSent);
+    message.packetsRecv !== undefined && (obj.packetsRecv = message.packetsRecv);
+    message.kbRecv !== undefined && (obj.kbRecv = message.kbRecv);
+    message.packetsRecvSequenced !== undefined && (obj.packetsRecvSequenced = message.packetsRecvSequenced);
+    message.packetsRecvDropped !== undefined && (obj.packetsRecvDropped = message.packetsRecvDropped);
+    message.packetsRecvOutOfOrder !== undefined && (obj.packetsRecvOutOfOrder = message.packetsRecvOutOfOrder);
+    message.packetsRecvDuplicate !== undefined && (obj.packetsRecvDuplicate = message.packetsRecvDuplicate);
+    message.packetsRecvLurch !== undefined && (obj.packetsRecvLurch = message.packetsRecvLurch);
     if (message.multipathPacketsRecvSequenced) {
-      obj.multipathPacketsRecvSequenced = message.multipathPacketsRecvSequenced.map((e) => Math.round(e));
+      obj.multipathPacketsRecvSequenced = message.multipathPacketsRecvSequenced.map((e) => e);
     } else {
       obj.multipathPacketsRecvSequenced = [];
     }
     if (message.multipathPacketsRecvLater) {
-      obj.multipathPacketsRecvLater = message.multipathPacketsRecvLater.map((e) => Math.round(e));
+      obj.multipathPacketsRecvLater = message.multipathPacketsRecvLater.map((e) => e);
     } else {
       obj.multipathPacketsRecvLater = [];
     }
@@ -1383,15 +1382,15 @@ export const CMsgSteamDatagramLinkLifetimeStats = {
   ): CMsgSteamDatagramLinkLifetimeStats {
     const message = createBaseCMsgSteamDatagramLinkLifetimeStats();
     message.connectedSeconds = object.connectedSeconds ?? 0;
-    message.packetsSent = object.packetsSent ?? 0;
-    message.kbSent = object.kbSent ?? 0;
-    message.packetsRecv = object.packetsRecv ?? 0;
-    message.kbRecv = object.kbRecv ?? 0;
-    message.packetsRecvSequenced = object.packetsRecvSequenced ?? 0;
-    message.packetsRecvDropped = object.packetsRecvDropped ?? 0;
-    message.packetsRecvOutOfOrder = object.packetsRecvOutOfOrder ?? 0;
-    message.packetsRecvDuplicate = object.packetsRecvDuplicate ?? 0;
-    message.packetsRecvLurch = object.packetsRecvLurch ?? 0;
+    message.packetsSent = object.packetsSent ?? "0";
+    message.kbSent = object.kbSent ?? "0";
+    message.packetsRecv = object.packetsRecv ?? "0";
+    message.kbRecv = object.kbRecv ?? "0";
+    message.packetsRecvSequenced = object.packetsRecvSequenced ?? "0";
+    message.packetsRecvDropped = object.packetsRecvDropped ?? "0";
+    message.packetsRecvOutOfOrder = object.packetsRecvOutOfOrder ?? "0";
+    message.packetsRecvDuplicate = object.packetsRecvDuplicate ?? "0";
+    message.packetsRecvLurch = object.packetsRecvLurch ?? "0";
     message.multipathPacketsRecvSequenced = object.multipathPacketsRecvSequenced?.map((e) => e) || [];
     message.multipathPacketsRecvLater = object.multipathPacketsRecvLater?.map((e) => e) || [];
     message.multipathSendEnabled = object.multipathSendEnabled ?? 0;
@@ -2255,7 +2254,7 @@ export const CMsgSteamNetworkingP2PRendezvous_ReliableMessage = {
 };
 
 function createBaseCMsgSteamNetworkingP2PRendezvous_ApplicationMessage(): CMsgSteamNetworkingP2PRendezvous_ApplicationMessage {
-  return { data: Buffer.alloc(0), msgNum: 0, flags: 0, laneIdx: 0 };
+  return { data: Buffer.alloc(0), msgNum: "0", flags: 0, laneIdx: 0 };
 }
 
 export const CMsgSteamNetworkingP2PRendezvous_ApplicationMessage = {
@@ -2266,7 +2265,7 @@ export const CMsgSteamNetworkingP2PRendezvous_ApplicationMessage = {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
     }
-    if (message.msgNum !== 0) {
+    if (message.msgNum !== "0") {
       writer.uint32(16).uint64(message.msgNum);
     }
     if (message.flags !== 0) {
@@ -2289,7 +2288,7 @@ export const CMsgSteamNetworkingP2PRendezvous_ApplicationMessage = {
           message.data = reader.bytes() as Buffer;
           break;
         case 2:
-          message.msgNum = longToNumber(reader.uint64() as Long);
+          message.msgNum = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.flags = reader.uint32();
@@ -2308,7 +2307,7 @@ export const CMsgSteamNetworkingP2PRendezvous_ApplicationMessage = {
   fromJSON(object: any): CMsgSteamNetworkingP2PRendezvous_ApplicationMessage {
     return {
       data: isSet(object.data) ? Buffer.from(bytesFromBase64(object.data)) : Buffer.alloc(0),
-      msgNum: isSet(object.msgNum) ? Number(object.msgNum) : 0,
+      msgNum: isSet(object.msgNum) ? String(object.msgNum) : "0",
       flags: isSet(object.flags) ? Number(object.flags) : 0,
       laneIdx: isSet(object.laneIdx) ? Number(object.laneIdx) : 0,
     };
@@ -2318,7 +2317,7 @@ export const CMsgSteamNetworkingP2PRendezvous_ApplicationMessage = {
     const obj: any = {};
     message.data !== undefined &&
       (obj.data = base64FromBytes(message.data !== undefined ? message.data : Buffer.alloc(0)));
-    message.msgNum !== undefined && (obj.msgNum = Math.round(message.msgNum));
+    message.msgNum !== undefined && (obj.msgNum = message.msgNum);
     message.flags !== undefined && (obj.flags = Math.round(message.flags));
     message.laneIdx !== undefined && (obj.laneIdx = Math.round(message.laneIdx));
     return obj;
@@ -2335,7 +2334,7 @@ export const CMsgSteamNetworkingP2PRendezvous_ApplicationMessage = {
   ): CMsgSteamNetworkingP2PRendezvous_ApplicationMessage {
     const message = createBaseCMsgSteamNetworkingP2PRendezvous_ApplicationMessage();
     message.data = object.data ?? Buffer.alloc(0);
-    message.msgNum = object.msgNum ?? 0;
+    message.msgNum = object.msgNum ?? "0";
     message.flags = object.flags ?? 0;
     message.laneIdx = object.laneIdx ?? 0;
     return message;
@@ -2599,11 +2598,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

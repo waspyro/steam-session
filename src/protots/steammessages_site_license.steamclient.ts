@@ -6,8 +6,8 @@ import { NoResponse } from "./steammessages_unified_base.steamclient";
 export const protobufPackage = "";
 
 export interface CSiteManagerClientIncomingClientRequest {
-  siteInstanceid: number;
-  clientSteamid: number;
+  siteInstanceid: string;
+  clientSteamid: string;
   clientLocalIp: number;
   connectionKey: Buffer;
 }
@@ -21,14 +21,14 @@ export interface CSiteLicenseClientSeatCheckoutNotification {
 }
 
 export interface CSiteManagerClientTrackedPaymentsNotification {
-  siteId: number;
+  siteId: string;
   payments: CSiteManagerClientTrackedPaymentsNotification_Payment[];
 }
 
 export interface CSiteManagerClientTrackedPaymentsNotification_Payment {
-  transid: number;
-  steamid: number;
-  amount: number;
+  transid: string;
+  steamid: string;
+  amount: string;
   ecurrency: number;
   timeCreated: number;
   purchaseStatus: number;
@@ -39,8 +39,8 @@ export interface CSiteManagerClientTrackedPaymentsNotification_Payment {
 }
 
 export interface CSiteLicenseInitiateAssociationRequest {
-  siteSteamid: number;
-  siteInstanceid: number;
+  siteSteamid: string;
+  siteInstanceid: string;
   clientLocalIp: number;
 }
 
@@ -49,20 +49,20 @@ export interface CSiteLicenseInitiateAssociationResponse {
 }
 
 export interface CSiteLicenseLCSAuthenticateRequest {
-  instanceid: number;
+  instanceid: string;
 }
 
 export interface CSiteLicenseLCSAuthenticateResponse {
-  siteId: number;
+  siteId: string;
   siteName: string;
   newSession: boolean;
   noSiteLicenses: boolean;
 }
 
 export interface CSiteLicenseLCSAssociateUserRequest {
-  steamid: number;
+  steamid: string;
   localIp: number;
-  instanceid: number;
+  instanceid: string;
   machineName: string;
 }
 
@@ -70,8 +70,8 @@ export interface CSiteLicenseLCSAssociateUserResponse {
 }
 
 export interface CSiteLicenseClientSeatCheckoutRequest {
-  steamid: number;
-  instanceid: number;
+  steamid: string;
+  instanceid: string;
   appid: number;
 }
 
@@ -79,8 +79,8 @@ export interface CSiteLicenseClientSeatCheckoutResponse {
 }
 
 export interface CSiteLicenseClientGetAvailableSeatsRequest {
-  steamid: number;
-  instanceid: number;
+  steamid: string;
+  instanceid: string;
   appid: number;
 }
 
@@ -89,15 +89,15 @@ export interface CSiteLicenseClientGetAvailableSeatsResponse {
 }
 
 function createBaseCSiteManagerClientIncomingClientRequest(): CSiteManagerClientIncomingClientRequest {
-  return { siteInstanceid: 0, clientSteamid: 0, clientLocalIp: 0, connectionKey: Buffer.alloc(0) };
+  return { siteInstanceid: "0", clientSteamid: "0", clientLocalIp: 0, connectionKey: Buffer.alloc(0) };
 }
 
 export const CSiteManagerClientIncomingClientRequest = {
   encode(message: CSiteManagerClientIncomingClientRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.siteInstanceid !== 0) {
+    if (message.siteInstanceid !== "0") {
       writer.uint32(9).fixed64(message.siteInstanceid);
     }
-    if (message.clientSteamid !== 0) {
+    if (message.clientSteamid !== "0") {
       writer.uint32(17).fixed64(message.clientSteamid);
     }
     if (message.clientLocalIp !== 0) {
@@ -117,10 +117,10 @@ export const CSiteManagerClientIncomingClientRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.siteInstanceid = longToNumber(reader.fixed64() as Long);
+          message.siteInstanceid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.clientSteamid = longToNumber(reader.fixed64() as Long);
+          message.clientSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.clientLocalIp = reader.fixed32();
@@ -138,8 +138,8 @@ export const CSiteManagerClientIncomingClientRequest = {
 
   fromJSON(object: any): CSiteManagerClientIncomingClientRequest {
     return {
-      siteInstanceid: isSet(object.siteInstanceid) ? Number(object.siteInstanceid) : 0,
-      clientSteamid: isSet(object.clientSteamid) ? Number(object.clientSteamid) : 0,
+      siteInstanceid: isSet(object.siteInstanceid) ? String(object.siteInstanceid) : "0",
+      clientSteamid: isSet(object.clientSteamid) ? String(object.clientSteamid) : "0",
       clientLocalIp: isSet(object.clientLocalIp) ? Number(object.clientLocalIp) : 0,
       connectionKey: isSet(object.connectionKey) ? Buffer.from(bytesFromBase64(object.connectionKey)) : Buffer.alloc(0),
     };
@@ -147,8 +147,8 @@ export const CSiteManagerClientIncomingClientRequest = {
 
   toJSON(message: CSiteManagerClientIncomingClientRequest): unknown {
     const obj: any = {};
-    message.siteInstanceid !== undefined && (obj.siteInstanceid = Math.round(message.siteInstanceid));
-    message.clientSteamid !== undefined && (obj.clientSteamid = Math.round(message.clientSteamid));
+    message.siteInstanceid !== undefined && (obj.siteInstanceid = message.siteInstanceid);
+    message.clientSteamid !== undefined && (obj.clientSteamid = message.clientSteamid);
     message.clientLocalIp !== undefined && (obj.clientLocalIp = Math.round(message.clientLocalIp));
     message.connectionKey !== undefined &&
       (obj.connectionKey = base64FromBytes(
@@ -167,8 +167,8 @@ export const CSiteManagerClientIncomingClientRequest = {
     object: I,
   ): CSiteManagerClientIncomingClientRequest {
     const message = createBaseCSiteManagerClientIncomingClientRequest();
-    message.siteInstanceid = object.siteInstanceid ?? 0;
-    message.clientSteamid = object.clientSteamid ?? 0;
+    message.siteInstanceid = object.siteInstanceid ?? "0";
+    message.clientSteamid = object.clientSteamid ?? "0";
     message.clientLocalIp = object.clientLocalIp ?? 0;
     message.connectionKey = object.connectionKey ?? Buffer.alloc(0);
     return message;
@@ -289,12 +289,12 @@ export const CSiteLicenseClientSeatCheckoutNotification = {
 };
 
 function createBaseCSiteManagerClientTrackedPaymentsNotification(): CSiteManagerClientTrackedPaymentsNotification {
-  return { siteId: 0, payments: [] };
+  return { siteId: "0", payments: [] };
 }
 
 export const CSiteManagerClientTrackedPaymentsNotification = {
   encode(message: CSiteManagerClientTrackedPaymentsNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.siteId !== 0) {
+    if (message.siteId !== "0") {
       writer.uint32(9).fixed64(message.siteId);
     }
     for (const v of message.payments) {
@@ -311,7 +311,7 @@ export const CSiteManagerClientTrackedPaymentsNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.siteId = longToNumber(reader.fixed64() as Long);
+          message.siteId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.payments.push(CSiteManagerClientTrackedPaymentsNotification_Payment.decode(reader, reader.uint32()));
@@ -326,7 +326,7 @@ export const CSiteManagerClientTrackedPaymentsNotification = {
 
   fromJSON(object: any): CSiteManagerClientTrackedPaymentsNotification {
     return {
-      siteId: isSet(object.siteId) ? Number(object.siteId) : 0,
+      siteId: isSet(object.siteId) ? String(object.siteId) : "0",
       payments: Array.isArray(object?.payments)
         ? object.payments.map((e: any) => CSiteManagerClientTrackedPaymentsNotification_Payment.fromJSON(e))
         : [],
@@ -335,7 +335,7 @@ export const CSiteManagerClientTrackedPaymentsNotification = {
 
   toJSON(message: CSiteManagerClientTrackedPaymentsNotification): unknown {
     const obj: any = {};
-    message.siteId !== undefined && (obj.siteId = Math.round(message.siteId));
+    message.siteId !== undefined && (obj.siteId = message.siteId);
     if (message.payments) {
       obj.payments = message.payments.map((e) =>
         e ? CSiteManagerClientTrackedPaymentsNotification_Payment.toJSON(e) : undefined
@@ -356,7 +356,7 @@ export const CSiteManagerClientTrackedPaymentsNotification = {
     object: I,
   ): CSiteManagerClientTrackedPaymentsNotification {
     const message = createBaseCSiteManagerClientTrackedPaymentsNotification();
-    message.siteId = object.siteId ?? 0;
+    message.siteId = object.siteId ?? "0";
     message.payments =
       object.payments?.map((e) => CSiteManagerClientTrackedPaymentsNotification_Payment.fromPartial(e)) || [];
     return message;
@@ -365,9 +365,9 @@ export const CSiteManagerClientTrackedPaymentsNotification = {
 
 function createBaseCSiteManagerClientTrackedPaymentsNotification_Payment(): CSiteManagerClientTrackedPaymentsNotification_Payment {
   return {
-    transid: 0,
-    steamid: 0,
-    amount: 0,
+    transid: "0",
+    steamid: "0",
+    amount: "0",
     ecurrency: 0,
     timeCreated: 0,
     purchaseStatus: 0,
@@ -383,13 +383,13 @@ export const CSiteManagerClientTrackedPaymentsNotification_Payment = {
     message: CSiteManagerClientTrackedPaymentsNotification_Payment,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.transid !== 0) {
+    if (message.transid !== "0") {
       writer.uint32(8).uint64(message.transid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
-    if (message.amount !== 0) {
+    if (message.amount !== "0") {
       writer.uint32(24).int64(message.amount);
     }
     if (message.ecurrency !== 0) {
@@ -424,13 +424,13 @@ export const CSiteManagerClientTrackedPaymentsNotification_Payment = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.transid = longToNumber(reader.uint64() as Long);
+          message.transid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.amount = longToNumber(reader.int64() as Long);
+          message.amount = longToString(reader.int64() as Long);
           break;
         case 4:
           message.ecurrency = reader.uint32();
@@ -463,9 +463,9 @@ export const CSiteManagerClientTrackedPaymentsNotification_Payment = {
 
   fromJSON(object: any): CSiteManagerClientTrackedPaymentsNotification_Payment {
     return {
-      transid: isSet(object.transid) ? Number(object.transid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      amount: isSet(object.amount) ? Number(object.amount) : 0,
+      transid: isSet(object.transid) ? String(object.transid) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      amount: isSet(object.amount) ? String(object.amount) : "0",
       ecurrency: isSet(object.ecurrency) ? Number(object.ecurrency) : 0,
       timeCreated: isSet(object.timeCreated) ? Number(object.timeCreated) : 0,
       purchaseStatus: isSet(object.purchaseStatus) ? Number(object.purchaseStatus) : 0,
@@ -478,9 +478,9 @@ export const CSiteManagerClientTrackedPaymentsNotification_Payment = {
 
   toJSON(message: CSiteManagerClientTrackedPaymentsNotification_Payment): unknown {
     const obj: any = {};
-    message.transid !== undefined && (obj.transid = Math.round(message.transid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.amount !== undefined && (obj.amount = Math.round(message.amount));
+    message.transid !== undefined && (obj.transid = message.transid);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.amount !== undefined && (obj.amount = message.amount);
     message.ecurrency !== undefined && (obj.ecurrency = Math.round(message.ecurrency));
     message.timeCreated !== undefined && (obj.timeCreated = Math.round(message.timeCreated));
     message.purchaseStatus !== undefined && (obj.purchaseStatus = Math.round(message.purchaseStatus));
@@ -501,9 +501,9 @@ export const CSiteManagerClientTrackedPaymentsNotification_Payment = {
     object: I,
   ): CSiteManagerClientTrackedPaymentsNotification_Payment {
     const message = createBaseCSiteManagerClientTrackedPaymentsNotification_Payment();
-    message.transid = object.transid ?? 0;
-    message.steamid = object.steamid ?? 0;
-    message.amount = object.amount ?? 0;
+    message.transid = object.transid ?? "0";
+    message.steamid = object.steamid ?? "0";
+    message.amount = object.amount ?? "0";
     message.ecurrency = object.ecurrency ?? 0;
     message.timeCreated = object.timeCreated ?? 0;
     message.purchaseStatus = object.purchaseStatus ?? 0;
@@ -516,15 +516,15 @@ export const CSiteManagerClientTrackedPaymentsNotification_Payment = {
 };
 
 function createBaseCSiteLicenseInitiateAssociationRequest(): CSiteLicenseInitiateAssociationRequest {
-  return { siteSteamid: 0, siteInstanceid: 0, clientLocalIp: 0 };
+  return { siteSteamid: "0", siteInstanceid: "0", clientLocalIp: 0 };
 }
 
 export const CSiteLicenseInitiateAssociationRequest = {
   encode(message: CSiteLicenseInitiateAssociationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.siteSteamid !== 0) {
+    if (message.siteSteamid !== "0") {
       writer.uint32(9).fixed64(message.siteSteamid);
     }
-    if (message.siteInstanceid !== 0) {
+    if (message.siteInstanceid !== "0") {
       writer.uint32(17).fixed64(message.siteInstanceid);
     }
     if (message.clientLocalIp !== 0) {
@@ -541,10 +541,10 @@ export const CSiteLicenseInitiateAssociationRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.siteSteamid = longToNumber(reader.fixed64() as Long);
+          message.siteSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.siteInstanceid = longToNumber(reader.fixed64() as Long);
+          message.siteInstanceid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.clientLocalIp = reader.fixed32();
@@ -559,16 +559,16 @@ export const CSiteLicenseInitiateAssociationRequest = {
 
   fromJSON(object: any): CSiteLicenseInitiateAssociationRequest {
     return {
-      siteSteamid: isSet(object.siteSteamid) ? Number(object.siteSteamid) : 0,
-      siteInstanceid: isSet(object.siteInstanceid) ? Number(object.siteInstanceid) : 0,
+      siteSteamid: isSet(object.siteSteamid) ? String(object.siteSteamid) : "0",
+      siteInstanceid: isSet(object.siteInstanceid) ? String(object.siteInstanceid) : "0",
       clientLocalIp: isSet(object.clientLocalIp) ? Number(object.clientLocalIp) : 0,
     };
   },
 
   toJSON(message: CSiteLicenseInitiateAssociationRequest): unknown {
     const obj: any = {};
-    message.siteSteamid !== undefined && (obj.siteSteamid = Math.round(message.siteSteamid));
-    message.siteInstanceid !== undefined && (obj.siteInstanceid = Math.round(message.siteInstanceid));
+    message.siteSteamid !== undefined && (obj.siteSteamid = message.siteSteamid);
+    message.siteInstanceid !== undefined && (obj.siteInstanceid = message.siteInstanceid);
     message.clientLocalIp !== undefined && (obj.clientLocalIp = Math.round(message.clientLocalIp));
     return obj;
   },
@@ -583,8 +583,8 @@ export const CSiteLicenseInitiateAssociationRequest = {
     object: I,
   ): CSiteLicenseInitiateAssociationRequest {
     const message = createBaseCSiteLicenseInitiateAssociationRequest();
-    message.siteSteamid = object.siteSteamid ?? 0;
-    message.siteInstanceid = object.siteInstanceid ?? 0;
+    message.siteSteamid = object.siteSteamid ?? "0";
+    message.siteInstanceid = object.siteInstanceid ?? "0";
     message.clientLocalIp = object.clientLocalIp ?? 0;
     return message;
   },
@@ -651,12 +651,12 @@ export const CSiteLicenseInitiateAssociationResponse = {
 };
 
 function createBaseCSiteLicenseLCSAuthenticateRequest(): CSiteLicenseLCSAuthenticateRequest {
-  return { instanceid: 0 };
+  return { instanceid: "0" };
 }
 
 export const CSiteLicenseLCSAuthenticateRequest = {
   encode(message: CSiteLicenseLCSAuthenticateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.instanceid !== 0) {
+    if (message.instanceid !== "0") {
       writer.uint32(9).fixed64(message.instanceid);
     }
     return writer;
@@ -670,7 +670,7 @@ export const CSiteLicenseLCSAuthenticateRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.instanceid = longToNumber(reader.fixed64() as Long);
+          message.instanceid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -681,12 +681,12 @@ export const CSiteLicenseLCSAuthenticateRequest = {
   },
 
   fromJSON(object: any): CSiteLicenseLCSAuthenticateRequest {
-    return { instanceid: isSet(object.instanceid) ? Number(object.instanceid) : 0 };
+    return { instanceid: isSet(object.instanceid) ? String(object.instanceid) : "0" };
   },
 
   toJSON(message: CSiteLicenseLCSAuthenticateRequest): unknown {
     const obj: any = {};
-    message.instanceid !== undefined && (obj.instanceid = Math.round(message.instanceid));
+    message.instanceid !== undefined && (obj.instanceid = message.instanceid);
     return obj;
   },
 
@@ -700,18 +700,18 @@ export const CSiteLicenseLCSAuthenticateRequest = {
     object: I,
   ): CSiteLicenseLCSAuthenticateRequest {
     const message = createBaseCSiteLicenseLCSAuthenticateRequest();
-    message.instanceid = object.instanceid ?? 0;
+    message.instanceid = object.instanceid ?? "0";
     return message;
   },
 };
 
 function createBaseCSiteLicenseLCSAuthenticateResponse(): CSiteLicenseLCSAuthenticateResponse {
-  return { siteId: 0, siteName: "", newSession: false, noSiteLicenses: false };
+  return { siteId: "0", siteName: "", newSession: false, noSiteLicenses: false };
 }
 
 export const CSiteLicenseLCSAuthenticateResponse = {
   encode(message: CSiteLicenseLCSAuthenticateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.siteId !== 0) {
+    if (message.siteId !== "0") {
       writer.uint32(8).uint64(message.siteId);
     }
     if (message.siteName !== "") {
@@ -734,7 +734,7 @@ export const CSiteLicenseLCSAuthenticateResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.siteId = longToNumber(reader.uint64() as Long);
+          message.siteId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.siteName = reader.string();
@@ -755,7 +755,7 @@ export const CSiteLicenseLCSAuthenticateResponse = {
 
   fromJSON(object: any): CSiteLicenseLCSAuthenticateResponse {
     return {
-      siteId: isSet(object.siteId) ? Number(object.siteId) : 0,
+      siteId: isSet(object.siteId) ? String(object.siteId) : "0",
       siteName: isSet(object.siteName) ? String(object.siteName) : "",
       newSession: isSet(object.newSession) ? Boolean(object.newSession) : false,
       noSiteLicenses: isSet(object.noSiteLicenses) ? Boolean(object.noSiteLicenses) : false,
@@ -764,7 +764,7 @@ export const CSiteLicenseLCSAuthenticateResponse = {
 
   toJSON(message: CSiteLicenseLCSAuthenticateResponse): unknown {
     const obj: any = {};
-    message.siteId !== undefined && (obj.siteId = Math.round(message.siteId));
+    message.siteId !== undefined && (obj.siteId = message.siteId);
     message.siteName !== undefined && (obj.siteName = message.siteName);
     message.newSession !== undefined && (obj.newSession = message.newSession);
     message.noSiteLicenses !== undefined && (obj.noSiteLicenses = message.noSiteLicenses);
@@ -781,7 +781,7 @@ export const CSiteLicenseLCSAuthenticateResponse = {
     object: I,
   ): CSiteLicenseLCSAuthenticateResponse {
     const message = createBaseCSiteLicenseLCSAuthenticateResponse();
-    message.siteId = object.siteId ?? 0;
+    message.siteId = object.siteId ?? "0";
     message.siteName = object.siteName ?? "";
     message.newSession = object.newSession ?? false;
     message.noSiteLicenses = object.noSiteLicenses ?? false;
@@ -790,18 +790,18 @@ export const CSiteLicenseLCSAuthenticateResponse = {
 };
 
 function createBaseCSiteLicenseLCSAssociateUserRequest(): CSiteLicenseLCSAssociateUserRequest {
-  return { steamid: 0, localIp: 0, instanceid: 0, machineName: "" };
+  return { steamid: "0", localIp: 0, instanceid: "0", machineName: "" };
 }
 
 export const CSiteLicenseLCSAssociateUserRequest = {
   encode(message: CSiteLicenseLCSAssociateUserRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.localIp !== 0) {
       writer.uint32(21).fixed32(message.localIp);
     }
-    if (message.instanceid !== 0) {
+    if (message.instanceid !== "0") {
       writer.uint32(25).fixed64(message.instanceid);
     }
     if (message.machineName !== "") {
@@ -818,13 +818,13 @@ export const CSiteLicenseLCSAssociateUserRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.localIp = reader.fixed32();
           break;
         case 3:
-          message.instanceid = longToNumber(reader.fixed64() as Long);
+          message.instanceid = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.machineName = reader.string();
@@ -839,18 +839,18 @@ export const CSiteLicenseLCSAssociateUserRequest = {
 
   fromJSON(object: any): CSiteLicenseLCSAssociateUserRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       localIp: isSet(object.localIp) ? Number(object.localIp) : 0,
-      instanceid: isSet(object.instanceid) ? Number(object.instanceid) : 0,
+      instanceid: isSet(object.instanceid) ? String(object.instanceid) : "0",
       machineName: isSet(object.machineName) ? String(object.machineName) : "",
     };
   },
 
   toJSON(message: CSiteLicenseLCSAssociateUserRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.localIp !== undefined && (obj.localIp = Math.round(message.localIp));
-    message.instanceid !== undefined && (obj.instanceid = Math.round(message.instanceid));
+    message.instanceid !== undefined && (obj.instanceid = message.instanceid);
     message.machineName !== undefined && (obj.machineName = message.machineName);
     return obj;
   },
@@ -865,9 +865,9 @@ export const CSiteLicenseLCSAssociateUserRequest = {
     object: I,
   ): CSiteLicenseLCSAssociateUserRequest {
     const message = createBaseCSiteLicenseLCSAssociateUserRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.localIp = object.localIp ?? 0;
-    message.instanceid = object.instanceid ?? 0;
+    message.instanceid = object.instanceid ?? "0";
     message.machineName = object.machineName ?? "";
     return message;
   },
@@ -921,15 +921,15 @@ export const CSiteLicenseLCSAssociateUserResponse = {
 };
 
 function createBaseCSiteLicenseClientSeatCheckoutRequest(): CSiteLicenseClientSeatCheckoutRequest {
-  return { steamid: 0, instanceid: 0, appid: 0 };
+  return { steamid: "0", instanceid: "0", appid: 0 };
 }
 
 export const CSiteLicenseClientSeatCheckoutRequest = {
   encode(message: CSiteLicenseClientSeatCheckoutRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.instanceid !== 0) {
+    if (message.instanceid !== "0") {
       writer.uint32(17).fixed64(message.instanceid);
     }
     if (message.appid !== 0) {
@@ -946,10 +946,10 @@ export const CSiteLicenseClientSeatCheckoutRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.instanceid = longToNumber(reader.fixed64() as Long);
+          message.instanceid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.appid = reader.uint32();
@@ -964,16 +964,16 @@ export const CSiteLicenseClientSeatCheckoutRequest = {
 
   fromJSON(object: any): CSiteLicenseClientSeatCheckoutRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      instanceid: isSet(object.instanceid) ? Number(object.instanceid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      instanceid: isSet(object.instanceid) ? String(object.instanceid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
     };
   },
 
   toJSON(message: CSiteLicenseClientSeatCheckoutRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.instanceid !== undefined && (obj.instanceid = Math.round(message.instanceid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.instanceid !== undefined && (obj.instanceid = message.instanceid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     return obj;
   },
@@ -988,8 +988,8 @@ export const CSiteLicenseClientSeatCheckoutRequest = {
     object: I,
   ): CSiteLicenseClientSeatCheckoutRequest {
     const message = createBaseCSiteLicenseClientSeatCheckoutRequest();
-    message.steamid = object.steamid ?? 0;
-    message.instanceid = object.instanceid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.instanceid = object.instanceid ?? "0";
     message.appid = object.appid ?? 0;
     return message;
   },
@@ -1043,15 +1043,15 @@ export const CSiteLicenseClientSeatCheckoutResponse = {
 };
 
 function createBaseCSiteLicenseClientGetAvailableSeatsRequest(): CSiteLicenseClientGetAvailableSeatsRequest {
-  return { steamid: 0, instanceid: 0, appid: 0 };
+  return { steamid: "0", instanceid: "0", appid: 0 };
 }
 
 export const CSiteLicenseClientGetAvailableSeatsRequest = {
   encode(message: CSiteLicenseClientGetAvailableSeatsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.instanceid !== 0) {
+    if (message.instanceid !== "0") {
       writer.uint32(17).fixed64(message.instanceid);
     }
     if (message.appid !== 0) {
@@ -1068,10 +1068,10 @@ export const CSiteLicenseClientGetAvailableSeatsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.instanceid = longToNumber(reader.fixed64() as Long);
+          message.instanceid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.appid = reader.uint32();
@@ -1086,16 +1086,16 @@ export const CSiteLicenseClientGetAvailableSeatsRequest = {
 
   fromJSON(object: any): CSiteLicenseClientGetAvailableSeatsRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      instanceid: isSet(object.instanceid) ? Number(object.instanceid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      instanceid: isSet(object.instanceid) ? String(object.instanceid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
     };
   },
 
   toJSON(message: CSiteLicenseClientGetAvailableSeatsRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.instanceid !== undefined && (obj.instanceid = Math.round(message.instanceid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.instanceid !== undefined && (obj.instanceid = message.instanceid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     return obj;
   },
@@ -1110,8 +1110,8 @@ export const CSiteLicenseClientGetAvailableSeatsRequest = {
     object: I,
   ): CSiteLicenseClientGetAvailableSeatsRequest {
     const message = createBaseCSiteLicenseClientGetAvailableSeatsRequest();
-    message.steamid = object.steamid ?? 0;
-    message.instanceid = object.instanceid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.instanceid = object.instanceid ?? "0";
     message.appid = object.appid ?? 0;
     return message;
   },
@@ -1325,11 +1325,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

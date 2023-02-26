@@ -7,13 +7,13 @@ export const protobufPackage = "";
 export interface CContentBuilderInitDepotBuildRequest {
   appid: number;
   depotid: number;
-  workshopItemid: number;
+  workshopItemid: string;
   forLocalCs: boolean;
   targetBranch: string;
 }
 
 export interface CContentBuilderInitDepotBuildResponse {
-  baselineManifestid: number;
+  baselineManifestid: string;
   chunkSize: number;
   aesKey: Buffer;
   rsaKey: Buffer;
@@ -29,25 +29,25 @@ export interface CContentBuilderInitDepotBuildResponse {
 export interface CContentBuilderStartDepotUploadRequest {
   appid: number;
   depotid: number;
-  workshopItemid: number;
+  workshopItemid: string;
   forLocalCs: boolean;
-  baselineManifestid: number;
+  baselineManifestid: string;
   manifestSize: number;
 }
 
 export interface CContentBuilderStartDepotUploadResponse {
-  depotBuildHandle: number;
+  depotBuildHandle: string;
 }
 
 export interface CContentBuilderGetMissingDepotChunksRequest {
   appid: number;
-  depotBuildHandle: number;
+  depotBuildHandle: string;
 }
 
 export interface CContentBuilderGetMissingDepotChunksResponse {
   missingChunks: CContentBuilderGetMissingDepotChunksResponse_Chunks[];
   totalMissingChunks: number;
-  totalMissingBytes: number;
+  totalMissingBytes: string;
 }
 
 export interface CContentBuilderGetMissingDepotChunksResponse_Chunks {
@@ -56,11 +56,11 @@ export interface CContentBuilderGetMissingDepotChunksResponse_Chunks {
 
 export interface CContentBuilderFinishDepotUploadRequest {
   appid: number;
-  depotBuildHandle: number;
+  depotBuildHandle: string;
 }
 
 export interface CContentBuilderFinishDepotUploadResponse {
-  manifestid: number;
+  manifestid: string;
   prevReused: boolean;
 }
 
@@ -73,7 +73,7 @@ export interface CContentBuilderCommitAppBuildRequest {
 
 export interface CContentBuilderCommitAppBuildRequest_Depots {
   depotid: number;
-  manifestid: number;
+  manifestid: string;
 }
 
 export interface CContentBuilderCommitAppBuildResponse {
@@ -91,7 +91,7 @@ export interface CContentBuilderSignInstallScriptResponse {
 }
 
 function createBaseCContentBuilderInitDepotBuildRequest(): CContentBuilderInitDepotBuildRequest {
-  return { appid: 0, depotid: 0, workshopItemid: 0, forLocalCs: false, targetBranch: "" };
+  return { appid: 0, depotid: 0, workshopItemid: "0", forLocalCs: false, targetBranch: "" };
 }
 
 export const CContentBuilderInitDepotBuildRequest = {
@@ -102,7 +102,7 @@ export const CContentBuilderInitDepotBuildRequest = {
     if (message.depotid !== 0) {
       writer.uint32(16).uint32(message.depotid);
     }
-    if (message.workshopItemid !== 0) {
+    if (message.workshopItemid !== "0") {
       writer.uint32(24).uint64(message.workshopItemid);
     }
     if (message.forLocalCs === true) {
@@ -128,7 +128,7 @@ export const CContentBuilderInitDepotBuildRequest = {
           message.depotid = reader.uint32();
           break;
         case 3:
-          message.workshopItemid = longToNumber(reader.uint64() as Long);
+          message.workshopItemid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.forLocalCs = reader.bool();
@@ -148,7 +148,7 @@ export const CContentBuilderInitDepotBuildRequest = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       depotid: isSet(object.depotid) ? Number(object.depotid) : 0,
-      workshopItemid: isSet(object.workshopItemid) ? Number(object.workshopItemid) : 0,
+      workshopItemid: isSet(object.workshopItemid) ? String(object.workshopItemid) : "0",
       forLocalCs: isSet(object.forLocalCs) ? Boolean(object.forLocalCs) : false,
       targetBranch: isSet(object.targetBranch) ? String(object.targetBranch) : "",
     };
@@ -158,7 +158,7 @@ export const CContentBuilderInitDepotBuildRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.depotid !== undefined && (obj.depotid = Math.round(message.depotid));
-    message.workshopItemid !== undefined && (obj.workshopItemid = Math.round(message.workshopItemid));
+    message.workshopItemid !== undefined && (obj.workshopItemid = message.workshopItemid);
     message.forLocalCs !== undefined && (obj.forLocalCs = message.forLocalCs);
     message.targetBranch !== undefined && (obj.targetBranch = message.targetBranch);
     return obj;
@@ -176,7 +176,7 @@ export const CContentBuilderInitDepotBuildRequest = {
     const message = createBaseCContentBuilderInitDepotBuildRequest();
     message.appid = object.appid ?? 0;
     message.depotid = object.depotid ?? 0;
-    message.workshopItemid = object.workshopItemid ?? 0;
+    message.workshopItemid = object.workshopItemid ?? "0";
     message.forLocalCs = object.forLocalCs ?? false;
     message.targetBranch = object.targetBranch ?? "";
     return message;
@@ -185,7 +185,7 @@ export const CContentBuilderInitDepotBuildRequest = {
 
 function createBaseCContentBuilderInitDepotBuildResponse(): CContentBuilderInitDepotBuildResponse {
   return {
-    baselineManifestid: 0,
+    baselineManifestid: "0",
     chunkSize: 0,
     aesKey: Buffer.alloc(0),
     rsaKey: Buffer.alloc(0),
@@ -201,7 +201,7 @@ function createBaseCContentBuilderInitDepotBuildResponse(): CContentBuilderInitD
 
 export const CContentBuilderInitDepotBuildResponse = {
   encode(message: CContentBuilderInitDepotBuildResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.baselineManifestid !== 0) {
+    if (message.baselineManifestid !== "0") {
       writer.uint32(8).uint64(message.baselineManifestid);
     }
     if (message.chunkSize !== 0) {
@@ -245,7 +245,7 @@ export const CContentBuilderInitDepotBuildResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.baselineManifestid = longToNumber(reader.uint64() as Long);
+          message.baselineManifestid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.chunkSize = reader.uint32();
@@ -287,7 +287,7 @@ export const CContentBuilderInitDepotBuildResponse = {
 
   fromJSON(object: any): CContentBuilderInitDepotBuildResponse {
     return {
-      baselineManifestid: isSet(object.baselineManifestid) ? Number(object.baselineManifestid) : 0,
+      baselineManifestid: isSet(object.baselineManifestid) ? String(object.baselineManifestid) : "0",
       chunkSize: isSet(object.chunkSize) ? Number(object.chunkSize) : 0,
       aesKey: isSet(object.aesKey) ? Buffer.from(bytesFromBase64(object.aesKey)) : Buffer.alloc(0),
       rsaKey: isSet(object.rsaKey) ? Buffer.from(bytesFromBase64(object.rsaKey)) : Buffer.alloc(0),
@@ -313,7 +313,7 @@ export const CContentBuilderInitDepotBuildResponse = {
 
   toJSON(message: CContentBuilderInitDepotBuildResponse): unknown {
     const obj: any = {};
-    message.baselineManifestid !== undefined && (obj.baselineManifestid = Math.round(message.baselineManifestid));
+    message.baselineManifestid !== undefined && (obj.baselineManifestid = message.baselineManifestid);
     message.chunkSize !== undefined && (obj.chunkSize = Math.round(message.chunkSize));
     message.aesKey !== undefined &&
       (obj.aesKey = base64FromBytes(message.aesKey !== undefined ? message.aesKey : Buffer.alloc(0)));
@@ -344,7 +344,7 @@ export const CContentBuilderInitDepotBuildResponse = {
     object: I,
   ): CContentBuilderInitDepotBuildResponse {
     const message = createBaseCContentBuilderInitDepotBuildResponse();
-    message.baselineManifestid = object.baselineManifestid ?? 0;
+    message.baselineManifestid = object.baselineManifestid ?? "0";
     message.chunkSize = object.chunkSize ?? 0;
     message.aesKey = object.aesKey ?? Buffer.alloc(0);
     message.rsaKey = object.rsaKey ?? Buffer.alloc(0);
@@ -360,7 +360,7 @@ export const CContentBuilderInitDepotBuildResponse = {
 };
 
 function createBaseCContentBuilderStartDepotUploadRequest(): CContentBuilderStartDepotUploadRequest {
-  return { appid: 0, depotid: 0, workshopItemid: 0, forLocalCs: false, baselineManifestid: 0, manifestSize: 0 };
+  return { appid: 0, depotid: 0, workshopItemid: "0", forLocalCs: false, baselineManifestid: "0", manifestSize: 0 };
 }
 
 export const CContentBuilderStartDepotUploadRequest = {
@@ -371,13 +371,13 @@ export const CContentBuilderStartDepotUploadRequest = {
     if (message.depotid !== 0) {
       writer.uint32(16).uint32(message.depotid);
     }
-    if (message.workshopItemid !== 0) {
+    if (message.workshopItemid !== "0") {
       writer.uint32(24).uint64(message.workshopItemid);
     }
     if (message.forLocalCs === true) {
       writer.uint32(32).bool(message.forLocalCs);
     }
-    if (message.baselineManifestid !== 0) {
+    if (message.baselineManifestid !== "0") {
       writer.uint32(40).uint64(message.baselineManifestid);
     }
     if (message.manifestSize !== 0) {
@@ -400,13 +400,13 @@ export const CContentBuilderStartDepotUploadRequest = {
           message.depotid = reader.uint32();
           break;
         case 3:
-          message.workshopItemid = longToNumber(reader.uint64() as Long);
+          message.workshopItemid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.forLocalCs = reader.bool();
           break;
         case 5:
-          message.baselineManifestid = longToNumber(reader.uint64() as Long);
+          message.baselineManifestid = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.manifestSize = reader.uint32();
@@ -423,9 +423,9 @@ export const CContentBuilderStartDepotUploadRequest = {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       depotid: isSet(object.depotid) ? Number(object.depotid) : 0,
-      workshopItemid: isSet(object.workshopItemid) ? Number(object.workshopItemid) : 0,
+      workshopItemid: isSet(object.workshopItemid) ? String(object.workshopItemid) : "0",
       forLocalCs: isSet(object.forLocalCs) ? Boolean(object.forLocalCs) : false,
-      baselineManifestid: isSet(object.baselineManifestid) ? Number(object.baselineManifestid) : 0,
+      baselineManifestid: isSet(object.baselineManifestid) ? String(object.baselineManifestid) : "0",
       manifestSize: isSet(object.manifestSize) ? Number(object.manifestSize) : 0,
     };
   },
@@ -434,9 +434,9 @@ export const CContentBuilderStartDepotUploadRequest = {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.depotid !== undefined && (obj.depotid = Math.round(message.depotid));
-    message.workshopItemid !== undefined && (obj.workshopItemid = Math.round(message.workshopItemid));
+    message.workshopItemid !== undefined && (obj.workshopItemid = message.workshopItemid);
     message.forLocalCs !== undefined && (obj.forLocalCs = message.forLocalCs);
-    message.baselineManifestid !== undefined && (obj.baselineManifestid = Math.round(message.baselineManifestid));
+    message.baselineManifestid !== undefined && (obj.baselineManifestid = message.baselineManifestid);
     message.manifestSize !== undefined && (obj.manifestSize = Math.round(message.manifestSize));
     return obj;
   },
@@ -453,21 +453,21 @@ export const CContentBuilderStartDepotUploadRequest = {
     const message = createBaseCContentBuilderStartDepotUploadRequest();
     message.appid = object.appid ?? 0;
     message.depotid = object.depotid ?? 0;
-    message.workshopItemid = object.workshopItemid ?? 0;
+    message.workshopItemid = object.workshopItemid ?? "0";
     message.forLocalCs = object.forLocalCs ?? false;
-    message.baselineManifestid = object.baselineManifestid ?? 0;
+    message.baselineManifestid = object.baselineManifestid ?? "0";
     message.manifestSize = object.manifestSize ?? 0;
     return message;
   },
 };
 
 function createBaseCContentBuilderStartDepotUploadResponse(): CContentBuilderStartDepotUploadResponse {
-  return { depotBuildHandle: 0 };
+  return { depotBuildHandle: "0" };
 }
 
 export const CContentBuilderStartDepotUploadResponse = {
   encode(message: CContentBuilderStartDepotUploadResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.depotBuildHandle !== 0) {
+    if (message.depotBuildHandle !== "0") {
       writer.uint32(8).uint64(message.depotBuildHandle);
     }
     return writer;
@@ -481,7 +481,7 @@ export const CContentBuilderStartDepotUploadResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.depotBuildHandle = longToNumber(reader.uint64() as Long);
+          message.depotBuildHandle = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -492,12 +492,12 @@ export const CContentBuilderStartDepotUploadResponse = {
   },
 
   fromJSON(object: any): CContentBuilderStartDepotUploadResponse {
-    return { depotBuildHandle: isSet(object.depotBuildHandle) ? Number(object.depotBuildHandle) : 0 };
+    return { depotBuildHandle: isSet(object.depotBuildHandle) ? String(object.depotBuildHandle) : "0" };
   },
 
   toJSON(message: CContentBuilderStartDepotUploadResponse): unknown {
     const obj: any = {};
-    message.depotBuildHandle !== undefined && (obj.depotBuildHandle = Math.round(message.depotBuildHandle));
+    message.depotBuildHandle !== undefined && (obj.depotBuildHandle = message.depotBuildHandle);
     return obj;
   },
 
@@ -511,13 +511,13 @@ export const CContentBuilderStartDepotUploadResponse = {
     object: I,
   ): CContentBuilderStartDepotUploadResponse {
     const message = createBaseCContentBuilderStartDepotUploadResponse();
-    message.depotBuildHandle = object.depotBuildHandle ?? 0;
+    message.depotBuildHandle = object.depotBuildHandle ?? "0";
     return message;
   },
 };
 
 function createBaseCContentBuilderGetMissingDepotChunksRequest(): CContentBuilderGetMissingDepotChunksRequest {
-  return { appid: 0, depotBuildHandle: 0 };
+  return { appid: 0, depotBuildHandle: "0" };
 }
 
 export const CContentBuilderGetMissingDepotChunksRequest = {
@@ -525,7 +525,7 @@ export const CContentBuilderGetMissingDepotChunksRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.depotBuildHandle !== 0) {
+    if (message.depotBuildHandle !== "0") {
       writer.uint32(16).uint64(message.depotBuildHandle);
     }
     return writer;
@@ -542,7 +542,7 @@ export const CContentBuilderGetMissingDepotChunksRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.depotBuildHandle = longToNumber(reader.uint64() as Long);
+          message.depotBuildHandle = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -555,14 +555,14 @@ export const CContentBuilderGetMissingDepotChunksRequest = {
   fromJSON(object: any): CContentBuilderGetMissingDepotChunksRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      depotBuildHandle: isSet(object.depotBuildHandle) ? Number(object.depotBuildHandle) : 0,
+      depotBuildHandle: isSet(object.depotBuildHandle) ? String(object.depotBuildHandle) : "0",
     };
   },
 
   toJSON(message: CContentBuilderGetMissingDepotChunksRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.depotBuildHandle !== undefined && (obj.depotBuildHandle = Math.round(message.depotBuildHandle));
+    message.depotBuildHandle !== undefined && (obj.depotBuildHandle = message.depotBuildHandle);
     return obj;
   },
 
@@ -577,13 +577,13 @@ export const CContentBuilderGetMissingDepotChunksRequest = {
   ): CContentBuilderGetMissingDepotChunksRequest {
     const message = createBaseCContentBuilderGetMissingDepotChunksRequest();
     message.appid = object.appid ?? 0;
-    message.depotBuildHandle = object.depotBuildHandle ?? 0;
+    message.depotBuildHandle = object.depotBuildHandle ?? "0";
     return message;
   },
 };
 
 function createBaseCContentBuilderGetMissingDepotChunksResponse(): CContentBuilderGetMissingDepotChunksResponse {
-  return { missingChunks: [], totalMissingChunks: 0, totalMissingBytes: 0 };
+  return { missingChunks: [], totalMissingChunks: 0, totalMissingBytes: "0" };
 }
 
 export const CContentBuilderGetMissingDepotChunksResponse = {
@@ -594,7 +594,7 @@ export const CContentBuilderGetMissingDepotChunksResponse = {
     if (message.totalMissingChunks !== 0) {
       writer.uint32(16).uint32(message.totalMissingChunks);
     }
-    if (message.totalMissingBytes !== 0) {
+    if (message.totalMissingBytes !== "0") {
       writer.uint32(24).uint64(message.totalMissingBytes);
     }
     return writer;
@@ -616,7 +616,7 @@ export const CContentBuilderGetMissingDepotChunksResponse = {
           message.totalMissingChunks = reader.uint32();
           break;
         case 3:
-          message.totalMissingBytes = longToNumber(reader.uint64() as Long);
+          message.totalMissingBytes = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -632,7 +632,7 @@ export const CContentBuilderGetMissingDepotChunksResponse = {
         ? object.missingChunks.map((e: any) => CContentBuilderGetMissingDepotChunksResponse_Chunks.fromJSON(e))
         : [],
       totalMissingChunks: isSet(object.totalMissingChunks) ? Number(object.totalMissingChunks) : 0,
-      totalMissingBytes: isSet(object.totalMissingBytes) ? Number(object.totalMissingBytes) : 0,
+      totalMissingBytes: isSet(object.totalMissingBytes) ? String(object.totalMissingBytes) : "0",
     };
   },
 
@@ -646,7 +646,7 @@ export const CContentBuilderGetMissingDepotChunksResponse = {
       obj.missingChunks = [];
     }
     message.totalMissingChunks !== undefined && (obj.totalMissingChunks = Math.round(message.totalMissingChunks));
-    message.totalMissingBytes !== undefined && (obj.totalMissingBytes = Math.round(message.totalMissingBytes));
+    message.totalMissingBytes !== undefined && (obj.totalMissingBytes = message.totalMissingBytes);
     return obj;
   },
 
@@ -663,7 +663,7 @@ export const CContentBuilderGetMissingDepotChunksResponse = {
     message.missingChunks =
       object.missingChunks?.map((e) => CContentBuilderGetMissingDepotChunksResponse_Chunks.fromPartial(e)) || [];
     message.totalMissingChunks = object.totalMissingChunks ?? 0;
-    message.totalMissingBytes = object.totalMissingBytes ?? 0;
+    message.totalMissingBytes = object.totalMissingBytes ?? "0";
     return message;
   },
 };
@@ -727,7 +727,7 @@ export const CContentBuilderGetMissingDepotChunksResponse_Chunks = {
 };
 
 function createBaseCContentBuilderFinishDepotUploadRequest(): CContentBuilderFinishDepotUploadRequest {
-  return { appid: 0, depotBuildHandle: 0 };
+  return { appid: 0, depotBuildHandle: "0" };
 }
 
 export const CContentBuilderFinishDepotUploadRequest = {
@@ -735,7 +735,7 @@ export const CContentBuilderFinishDepotUploadRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.depotBuildHandle !== 0) {
+    if (message.depotBuildHandle !== "0") {
       writer.uint32(16).uint64(message.depotBuildHandle);
     }
     return writer;
@@ -752,7 +752,7 @@ export const CContentBuilderFinishDepotUploadRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.depotBuildHandle = longToNumber(reader.uint64() as Long);
+          message.depotBuildHandle = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -765,14 +765,14 @@ export const CContentBuilderFinishDepotUploadRequest = {
   fromJSON(object: any): CContentBuilderFinishDepotUploadRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      depotBuildHandle: isSet(object.depotBuildHandle) ? Number(object.depotBuildHandle) : 0,
+      depotBuildHandle: isSet(object.depotBuildHandle) ? String(object.depotBuildHandle) : "0",
     };
   },
 
   toJSON(message: CContentBuilderFinishDepotUploadRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.depotBuildHandle !== undefined && (obj.depotBuildHandle = Math.round(message.depotBuildHandle));
+    message.depotBuildHandle !== undefined && (obj.depotBuildHandle = message.depotBuildHandle);
     return obj;
   },
 
@@ -787,18 +787,18 @@ export const CContentBuilderFinishDepotUploadRequest = {
   ): CContentBuilderFinishDepotUploadRequest {
     const message = createBaseCContentBuilderFinishDepotUploadRequest();
     message.appid = object.appid ?? 0;
-    message.depotBuildHandle = object.depotBuildHandle ?? 0;
+    message.depotBuildHandle = object.depotBuildHandle ?? "0";
     return message;
   },
 };
 
 function createBaseCContentBuilderFinishDepotUploadResponse(): CContentBuilderFinishDepotUploadResponse {
-  return { manifestid: 0, prevReused: false };
+  return { manifestid: "0", prevReused: false };
 }
 
 export const CContentBuilderFinishDepotUploadResponse = {
   encode(message: CContentBuilderFinishDepotUploadResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.manifestid !== 0) {
+    if (message.manifestid !== "0") {
       writer.uint32(8).uint64(message.manifestid);
     }
     if (message.prevReused === true) {
@@ -815,7 +815,7 @@ export const CContentBuilderFinishDepotUploadResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.manifestid = longToNumber(reader.uint64() as Long);
+          message.manifestid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.prevReused = reader.bool();
@@ -830,14 +830,14 @@ export const CContentBuilderFinishDepotUploadResponse = {
 
   fromJSON(object: any): CContentBuilderFinishDepotUploadResponse {
     return {
-      manifestid: isSet(object.manifestid) ? Number(object.manifestid) : 0,
+      manifestid: isSet(object.manifestid) ? String(object.manifestid) : "0",
       prevReused: isSet(object.prevReused) ? Boolean(object.prevReused) : false,
     };
   },
 
   toJSON(message: CContentBuilderFinishDepotUploadResponse): unknown {
     const obj: any = {};
-    message.manifestid !== undefined && (obj.manifestid = Math.round(message.manifestid));
+    message.manifestid !== undefined && (obj.manifestid = message.manifestid);
     message.prevReused !== undefined && (obj.prevReused = message.prevReused);
     return obj;
   },
@@ -852,7 +852,7 @@ export const CContentBuilderFinishDepotUploadResponse = {
     object: I,
   ): CContentBuilderFinishDepotUploadResponse {
     const message = createBaseCContentBuilderFinishDepotUploadResponse();
-    message.manifestid = object.manifestid ?? 0;
+    message.manifestid = object.manifestid ?? "0";
     message.prevReused = object.prevReused ?? false;
     return message;
   },
@@ -952,7 +952,7 @@ export const CContentBuilderCommitAppBuildRequest = {
 };
 
 function createBaseCContentBuilderCommitAppBuildRequest_Depots(): CContentBuilderCommitAppBuildRequest_Depots {
-  return { depotid: 0, manifestid: 0 };
+  return { depotid: 0, manifestid: "0" };
 }
 
 export const CContentBuilderCommitAppBuildRequest_Depots = {
@@ -960,7 +960,7 @@ export const CContentBuilderCommitAppBuildRequest_Depots = {
     if (message.depotid !== 0) {
       writer.uint32(8).uint32(message.depotid);
     }
-    if (message.manifestid !== 0) {
+    if (message.manifestid !== "0") {
       writer.uint32(16).uint64(message.manifestid);
     }
     return writer;
@@ -977,7 +977,7 @@ export const CContentBuilderCommitAppBuildRequest_Depots = {
           message.depotid = reader.uint32();
           break;
         case 2:
-          message.manifestid = longToNumber(reader.uint64() as Long);
+          message.manifestid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -990,14 +990,14 @@ export const CContentBuilderCommitAppBuildRequest_Depots = {
   fromJSON(object: any): CContentBuilderCommitAppBuildRequest_Depots {
     return {
       depotid: isSet(object.depotid) ? Number(object.depotid) : 0,
-      manifestid: isSet(object.manifestid) ? Number(object.manifestid) : 0,
+      manifestid: isSet(object.manifestid) ? String(object.manifestid) : "0",
     };
   },
 
   toJSON(message: CContentBuilderCommitAppBuildRequest_Depots): unknown {
     const obj: any = {};
     message.depotid !== undefined && (obj.depotid = Math.round(message.depotid));
-    message.manifestid !== undefined && (obj.manifestid = Math.round(message.manifestid));
+    message.manifestid !== undefined && (obj.manifestid = message.manifestid);
     return obj;
   },
 
@@ -1012,7 +1012,7 @@ export const CContentBuilderCommitAppBuildRequest_Depots = {
   ): CContentBuilderCommitAppBuildRequest_Depots {
     const message = createBaseCContentBuilderCommitAppBuildRequest_Depots();
     message.depotid = object.depotid ?? 0;
-    message.manifestid = object.manifestid ?? 0;
+    message.manifestid = object.manifestid ?? "0";
     return message;
   },
 };
@@ -1332,11 +1332,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

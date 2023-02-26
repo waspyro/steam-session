@@ -412,7 +412,7 @@ export interface CVirtualControllerConfig_ActionSet {
 
 export interface CVirtualControllerLayoutPackage {
   appid: number;
-  creator: number;
+  creator: string;
   initialRevision: number;
   savedRevision: number;
   config: CVirtualControllerConfig | undefined;
@@ -1215,7 +1215,7 @@ export const CVirtualControllerConfig_ActionSet = {
 };
 
 function createBaseCVirtualControllerLayoutPackage(): CVirtualControllerLayoutPackage {
-  return { appid: 0, creator: 0, initialRevision: 0, savedRevision: 0, config: undefined, layouts: undefined };
+  return { appid: 0, creator: "0", initialRevision: 0, savedRevision: 0, config: undefined, layouts: undefined };
 }
 
 export const CVirtualControllerLayoutPackage = {
@@ -1223,7 +1223,7 @@ export const CVirtualControllerLayoutPackage = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.creator !== 0) {
+    if (message.creator !== "0") {
       writer.uint32(16).uint64(message.creator);
     }
     if (message.initialRevision !== 0) {
@@ -1252,7 +1252,7 @@ export const CVirtualControllerLayoutPackage = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.creator = longToNumber(reader.uint64() as Long);
+          message.creator = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.initialRevision = reader.uint32();
@@ -1277,7 +1277,7 @@ export const CVirtualControllerLayoutPackage = {
   fromJSON(object: any): CVirtualControllerLayoutPackage {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      creator: isSet(object.creator) ? Number(object.creator) : 0,
+      creator: isSet(object.creator) ? String(object.creator) : "0",
       initialRevision: isSet(object.initialRevision) ? Number(object.initialRevision) : 0,
       savedRevision: isSet(object.savedRevision) ? Number(object.savedRevision) : 0,
       config: isSet(object.config) ? CVirtualControllerConfig.fromJSON(object.config) : undefined,
@@ -1288,7 +1288,7 @@ export const CVirtualControllerLayoutPackage = {
   toJSON(message: CVirtualControllerLayoutPackage): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.creator !== undefined && (obj.creator = Math.round(message.creator));
+    message.creator !== undefined && (obj.creator = message.creator);
     message.initialRevision !== undefined && (obj.initialRevision = Math.round(message.initialRevision));
     message.savedRevision !== undefined && (obj.savedRevision = Math.round(message.savedRevision));
     message.config !== undefined &&
@@ -1307,7 +1307,7 @@ export const CVirtualControllerLayoutPackage = {
   ): CVirtualControllerLayoutPackage {
     const message = createBaseCVirtualControllerLayoutPackage();
     message.appid = object.appid ?? 0;
-    message.creator = object.creator ?? 0;
+    message.creator = object.creator ?? "0";
     message.initialRevision = object.initialRevision ?? 0;
     message.savedRevision = object.savedRevision ?? 0;
     message.config = (object.config !== undefined && object.config !== null)
@@ -1417,25 +1417,6 @@ export const CVirtualControllerGlobalConfig = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1447,11 +1428,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

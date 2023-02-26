@@ -86,12 +86,12 @@ export interface SiteServerUIClientStatusResponse_ClientInfo {
   ip: number;
   hostname: string;
   connected: boolean;
-  instanceId: number;
+  instanceId: string;
 }
 
 export interface SiteServerUIClientStatusResponse_Payment {
-  transid: number;
-  steamid: number;
+  transid: string;
+  steamid: string;
   amount: string;
   timeCreated: number;
   purchaseStatus: number;
@@ -113,8 +113,8 @@ export interface SiteServerUIContentCacheStatusResponse {
   explicitIpAddress: string;
   externalProcess: boolean;
   currentSizeGb: number;
-  currentBw: number;
-  totalBytesServed: number;
+  currentBw: string;
+  totalBytesServed: string;
 }
 
 export interface SiteServerUIContentCacheConfigRequest {
@@ -1149,7 +1149,7 @@ export const SiteServerUIClientStatusResponse = {
 };
 
 function createBaseSiteServerUIClientStatusResponse_ClientInfo(): SiteServerUIClientStatusResponse_ClientInfo {
-  return { ip: 0, hostname: "", connected: false, instanceId: 0 };
+  return { ip: 0, hostname: "", connected: false, instanceId: "0" };
 }
 
 export const SiteServerUIClientStatusResponse_ClientInfo = {
@@ -1163,7 +1163,7 @@ export const SiteServerUIClientStatusResponse_ClientInfo = {
     if (message.connected === true) {
       writer.uint32(24).bool(message.connected);
     }
-    if (message.instanceId !== 0) {
+    if (message.instanceId !== "0") {
       writer.uint32(32).uint64(message.instanceId);
     }
     return writer;
@@ -1186,7 +1186,7 @@ export const SiteServerUIClientStatusResponse_ClientInfo = {
           message.connected = reader.bool();
           break;
         case 4:
-          message.instanceId = longToNumber(reader.uint64() as Long);
+          message.instanceId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1201,7 +1201,7 @@ export const SiteServerUIClientStatusResponse_ClientInfo = {
       ip: isSet(object.ip) ? Number(object.ip) : 0,
       hostname: isSet(object.hostname) ? String(object.hostname) : "",
       connected: isSet(object.connected) ? Boolean(object.connected) : false,
-      instanceId: isSet(object.instanceId) ? Number(object.instanceId) : 0,
+      instanceId: isSet(object.instanceId) ? String(object.instanceId) : "0",
     };
   },
 
@@ -1210,7 +1210,7 @@ export const SiteServerUIClientStatusResponse_ClientInfo = {
     message.ip !== undefined && (obj.ip = Math.round(message.ip));
     message.hostname !== undefined && (obj.hostname = message.hostname);
     message.connected !== undefined && (obj.connected = message.connected);
-    message.instanceId !== undefined && (obj.instanceId = Math.round(message.instanceId));
+    message.instanceId !== undefined && (obj.instanceId = message.instanceId);
     return obj;
   },
 
@@ -1227,15 +1227,15 @@ export const SiteServerUIClientStatusResponse_ClientInfo = {
     message.ip = object.ip ?? 0;
     message.hostname = object.hostname ?? "";
     message.connected = object.connected ?? false;
-    message.instanceId = object.instanceId ?? 0;
+    message.instanceId = object.instanceId ?? "0";
     return message;
   },
 };
 
 function createBaseSiteServerUIClientStatusResponse_Payment(): SiteServerUIClientStatusResponse_Payment {
   return {
-    transid: 0,
-    steamid: 0,
+    transid: "0",
+    steamid: "0",
     amount: "",
     timeCreated: 0,
     purchaseStatus: 0,
@@ -1248,10 +1248,10 @@ function createBaseSiteServerUIClientStatusResponse_Payment(): SiteServerUIClien
 
 export const SiteServerUIClientStatusResponse_Payment = {
   encode(message: SiteServerUIClientStatusResponse_Payment, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.transid !== 0) {
+    if (message.transid !== "0") {
       writer.uint32(8).uint64(message.transid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
     if (message.amount !== "") {
@@ -1286,10 +1286,10 @@ export const SiteServerUIClientStatusResponse_Payment = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.transid = longToNumber(reader.uint64() as Long);
+          message.transid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.amount = reader.string();
@@ -1322,8 +1322,8 @@ export const SiteServerUIClientStatusResponse_Payment = {
 
   fromJSON(object: any): SiteServerUIClientStatusResponse_Payment {
     return {
-      transid: isSet(object.transid) ? Number(object.transid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      transid: isSet(object.transid) ? String(object.transid) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       amount: isSet(object.amount) ? String(object.amount) : "",
       timeCreated: isSet(object.timeCreated) ? Number(object.timeCreated) : 0,
       purchaseStatus: isSet(object.purchaseStatus) ? Number(object.purchaseStatus) : 0,
@@ -1336,8 +1336,8 @@ export const SiteServerUIClientStatusResponse_Payment = {
 
   toJSON(message: SiteServerUIClientStatusResponse_Payment): unknown {
     const obj: any = {};
-    message.transid !== undefined && (obj.transid = Math.round(message.transid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.transid !== undefined && (obj.transid = message.transid);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.amount !== undefined && (obj.amount = message.amount);
     message.timeCreated !== undefined && (obj.timeCreated = Math.round(message.timeCreated));
     message.purchaseStatus !== undefined && (obj.purchaseStatus = Math.round(message.purchaseStatus));
@@ -1358,8 +1358,8 @@ export const SiteServerUIClientStatusResponse_Payment = {
     object: I,
   ): SiteServerUIClientStatusResponse_Payment {
     const message = createBaseSiteServerUIClientStatusResponse_Payment();
-    message.transid = object.transid ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.transid = object.transid ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.amount = object.amount ?? "";
     message.timeCreated = object.timeCreated ?? 0;
     message.purchaseStatus = object.purchaseStatus ?? 0;
@@ -1428,8 +1428,8 @@ function createBaseSiteServerUIContentCacheStatusResponse(): SiteServerUIContent
     explicitIpAddress: "",
     externalProcess: false,
     currentSizeGb: 0,
-    currentBw: 0,
-    totalBytesServed: 0,
+    currentBw: "0",
+    totalBytesServed: "0",
   };
 }
 
@@ -1459,10 +1459,10 @@ export const SiteServerUIContentCacheStatusResponse = {
     if (message.currentSizeGb !== 0) {
       writer.uint32(48).uint32(message.currentSizeGb);
     }
-    if (message.currentBw !== 0) {
+    if (message.currentBw !== "0") {
       writer.uint32(56).uint64(message.currentBw);
     }
-    if (message.totalBytesServed !== 0) {
+    if (message.totalBytesServed !== "0") {
       writer.uint32(64).uint64(message.totalBytesServed);
     }
     return writer;
@@ -1500,10 +1500,10 @@ export const SiteServerUIContentCacheStatusResponse = {
           message.currentSizeGb = reader.uint32();
           break;
         case 7:
-          message.currentBw = longToNumber(reader.uint64() as Long);
+          message.currentBw = longToString(reader.uint64() as Long);
           break;
         case 8:
-          message.totalBytesServed = longToNumber(reader.uint64() as Long);
+          message.totalBytesServed = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1523,8 +1523,8 @@ export const SiteServerUIContentCacheStatusResponse = {
       explicitIpAddress: isSet(object.explicitIpAddress) ? String(object.explicitIpAddress) : "",
       externalProcess: isSet(object.externalProcess) ? Boolean(object.externalProcess) : false,
       currentSizeGb: isSet(object.currentSizeGb) ? Number(object.currentSizeGb) : 0,
-      currentBw: isSet(object.currentBw) ? Number(object.currentBw) : 0,
-      totalBytesServed: isSet(object.totalBytesServed) ? Number(object.totalBytesServed) : 0,
+      currentBw: isSet(object.currentBw) ? String(object.currentBw) : "0",
+      totalBytesServed: isSet(object.totalBytesServed) ? String(object.totalBytesServed) : "0",
     };
   },
 
@@ -1538,8 +1538,8 @@ export const SiteServerUIContentCacheStatusResponse = {
     message.explicitIpAddress !== undefined && (obj.explicitIpAddress = message.explicitIpAddress);
     message.externalProcess !== undefined && (obj.externalProcess = message.externalProcess);
     message.currentSizeGb !== undefined && (obj.currentSizeGb = Math.round(message.currentSizeGb));
-    message.currentBw !== undefined && (obj.currentBw = Math.round(message.currentBw));
-    message.totalBytesServed !== undefined && (obj.totalBytesServed = Math.round(message.totalBytesServed));
+    message.currentBw !== undefined && (obj.currentBw = message.currentBw);
+    message.totalBytesServed !== undefined && (obj.totalBytesServed = message.totalBytesServed);
     return obj;
   },
 
@@ -1561,8 +1561,8 @@ export const SiteServerUIContentCacheStatusResponse = {
     message.explicitIpAddress = object.explicitIpAddress ?? "";
     message.externalProcess = object.externalProcess ?? false;
     message.currentSizeGb = object.currentSizeGb ?? 0;
-    message.currentBw = object.currentBw ?? 0;
-    message.totalBytesServed = object.totalBytesServed ?? 0;
+    message.currentBw = object.currentBw ?? "0";
+    message.totalBytesServed = object.totalBytesServed ?? "0";
     return message;
   },
 };
@@ -1733,25 +1733,6 @@ export const SiteServerUIContentCacheConfigResponse = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1763,11 +1744,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

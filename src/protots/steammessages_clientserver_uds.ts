@@ -5,12 +5,12 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CMsgClientUDSP2PSessionStarted {
-  steamidRemote: number;
+  steamidRemote: string;
   appid: number;
 }
 
 export interface CMsgClientUDSP2PSessionEnded {
-  steamidRemote: number;
+  steamidRemote: string;
   appid: number;
   sessionLengthSec: number;
   sessionError: number;
@@ -32,7 +32,7 @@ export interface CMsgClientGetClientDetailsResponse {
   ipPublic: string;
   ipPrivate: string;
   gamesRunning: CMsgClientGetClientDetailsResponse_Game[];
-  bytesAvailable: number;
+  bytesAvailable: string;
   protocolVersion: number;
   clientcommVersion: number;
 }
@@ -55,7 +55,7 @@ export interface CMsgClientGetClientAppList {
 
 export interface CMsgClientGetClientAppListResponse {
   apps: CMsgClientGetClientAppListResponse_App[];
-  bytesAvailable: number;
+  bytesAvailable: string;
   clientInfo: CMsgClientGetClientDetailsResponse | undefined;
 }
 
@@ -66,8 +66,8 @@ export interface CMsgClientGetClientAppListResponse_App {
   favorite: boolean;
   installed: boolean;
   autoUpdate: boolean;
-  bytesDownloaded: number;
-  bytesToDownload: number;
+  bytesDownloaded: string;
+  bytesToDownload: string;
   bytesDownloadRate: number;
   dlcs: CMsgClientGetClientAppListResponse_App_DLC[];
   downloadPaused: boolean;
@@ -75,9 +75,9 @@ export interface CMsgClientGetClientAppListResponse_App {
   numPaused: number;
   changing: boolean;
   availableOnPlatform: boolean;
-  bytesStaged: number;
-  bytesToStage: number;
-  bytesRequired: number;
+  bytesStaged: string;
+  bytesToStage: string;
+  bytesRequired: string;
   sourceBuildid: number;
   targetBuildid: number;
   estimatedSecondsRemaining: number;
@@ -125,12 +125,12 @@ export interface CMsgClientEnableOrDisableDownloadsResponse {
 }
 
 function createBaseCMsgClientUDSP2PSessionStarted(): CMsgClientUDSP2PSessionStarted {
-  return { steamidRemote: 0, appid: 0 };
+  return { steamidRemote: "0", appid: 0 };
 }
 
 export const CMsgClientUDSP2PSessionStarted = {
   encode(message: CMsgClientUDSP2PSessionStarted, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidRemote !== 0) {
+    if (message.steamidRemote !== "0") {
       writer.uint32(9).fixed64(message.steamidRemote);
     }
     if (message.appid !== 0) {
@@ -147,7 +147,7 @@ export const CMsgClientUDSP2PSessionStarted = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidRemote = longToNumber(reader.fixed64() as Long);
+          message.steamidRemote = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.int32();
@@ -162,14 +162,14 @@ export const CMsgClientUDSP2PSessionStarted = {
 
   fromJSON(object: any): CMsgClientUDSP2PSessionStarted {
     return {
-      steamidRemote: isSet(object.steamidRemote) ? Number(object.steamidRemote) : 0,
+      steamidRemote: isSet(object.steamidRemote) ? String(object.steamidRemote) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
     };
   },
 
   toJSON(message: CMsgClientUDSP2PSessionStarted): unknown {
     const obj: any = {};
-    message.steamidRemote !== undefined && (obj.steamidRemote = Math.round(message.steamidRemote));
+    message.steamidRemote !== undefined && (obj.steamidRemote = message.steamidRemote);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     return obj;
   },
@@ -182,7 +182,7 @@ export const CMsgClientUDSP2PSessionStarted = {
     object: I,
   ): CMsgClientUDSP2PSessionStarted {
     const message = createBaseCMsgClientUDSP2PSessionStarted();
-    message.steamidRemote = object.steamidRemote ?? 0;
+    message.steamidRemote = object.steamidRemote ?? "0";
     message.appid = object.appid ?? 0;
     return message;
   },
@@ -190,7 +190,7 @@ export const CMsgClientUDSP2PSessionStarted = {
 
 function createBaseCMsgClientUDSP2PSessionEnded(): CMsgClientUDSP2PSessionEnded {
   return {
-    steamidRemote: 0,
+    steamidRemote: "0",
     appid: 0,
     sessionLengthSec: 0,
     sessionError: 0,
@@ -205,7 +205,7 @@ function createBaseCMsgClientUDSP2PSessionEnded(): CMsgClientUDSP2PSessionEnded 
 
 export const CMsgClientUDSP2PSessionEnded = {
   encode(message: CMsgClientUDSP2PSessionEnded, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidRemote !== 0) {
+    if (message.steamidRemote !== "0") {
       writer.uint32(9).fixed64(message.steamidRemote);
     }
     if (message.appid !== 0) {
@@ -246,7 +246,7 @@ export const CMsgClientUDSP2PSessionEnded = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidRemote = longToNumber(reader.fixed64() as Long);
+          message.steamidRemote = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.int32();
@@ -285,7 +285,7 @@ export const CMsgClientUDSP2PSessionEnded = {
 
   fromJSON(object: any): CMsgClientUDSP2PSessionEnded {
     return {
-      steamidRemote: isSet(object.steamidRemote) ? Number(object.steamidRemote) : 0,
+      steamidRemote: isSet(object.steamidRemote) ? String(object.steamidRemote) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       sessionLengthSec: isSet(object.sessionLengthSec) ? Number(object.sessionLengthSec) : 0,
       sessionError: isSet(object.sessionError) ? Number(object.sessionError) : 0,
@@ -300,7 +300,7 @@ export const CMsgClientUDSP2PSessionEnded = {
 
   toJSON(message: CMsgClientUDSP2PSessionEnded): unknown {
     const obj: any = {};
-    message.steamidRemote !== undefined && (obj.steamidRemote = Math.round(message.steamidRemote));
+    message.steamidRemote !== undefined && (obj.steamidRemote = message.steamidRemote);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.sessionLengthSec !== undefined && (obj.sessionLengthSec = Math.round(message.sessionLengthSec));
     message.sessionError !== undefined && (obj.sessionError = Math.round(message.sessionError));
@@ -319,7 +319,7 @@ export const CMsgClientUDSP2PSessionEnded = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientUDSP2PSessionEnded>, I>>(object: I): CMsgClientUDSP2PSessionEnded {
     const message = createBaseCMsgClientUDSP2PSessionEnded();
-    message.steamidRemote = object.steamidRemote ?? 0;
+    message.steamidRemote = object.steamidRemote ?? "0";
     message.appid = object.appid ?? 0;
     message.sessionLengthSec = object.sessionLengthSec ?? 0;
     message.sessionError = object.sessionError ?? 0;
@@ -384,7 +384,7 @@ function createBaseCMsgClientGetClientDetailsResponse(): CMsgClientGetClientDeta
     ipPublic: "",
     ipPrivate: "",
     gamesRunning: [],
-    bytesAvailable: 0,
+    bytesAvailable: "0",
     protocolVersion: 0,
     clientcommVersion: 0,
   };
@@ -410,7 +410,7 @@ export const CMsgClientGetClientDetailsResponse = {
     for (const v of message.gamesRunning) {
       CMsgClientGetClientDetailsResponse_Game.encode(v!, writer.uint32(50).fork()).ldelim();
     }
-    if (message.bytesAvailable !== 0) {
+    if (message.bytesAvailable !== "0") {
       writer.uint32(56).uint64(message.bytesAvailable);
     }
     if (message.protocolVersion !== 0) {
@@ -448,7 +448,7 @@ export const CMsgClientGetClientDetailsResponse = {
           message.gamesRunning.push(CMsgClientGetClientDetailsResponse_Game.decode(reader, reader.uint32()));
           break;
         case 7:
-          message.bytesAvailable = longToNumber(reader.uint64() as Long);
+          message.bytesAvailable = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.protocolVersion = reader.uint32();
@@ -474,7 +474,7 @@ export const CMsgClientGetClientDetailsResponse = {
       gamesRunning: Array.isArray(object?.gamesRunning)
         ? object.gamesRunning.map((e: any) => CMsgClientGetClientDetailsResponse_Game.fromJSON(e))
         : [],
-      bytesAvailable: isSet(object.bytesAvailable) ? Number(object.bytesAvailable) : 0,
+      bytesAvailable: isSet(object.bytesAvailable) ? String(object.bytesAvailable) : "0",
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
       clientcommVersion: isSet(object.clientcommVersion) ? Number(object.clientcommVersion) : 0,
     };
@@ -494,7 +494,7 @@ export const CMsgClientGetClientDetailsResponse = {
     } else {
       obj.gamesRunning = [];
     }
-    message.bytesAvailable !== undefined && (obj.bytesAvailable = Math.round(message.bytesAvailable));
+    message.bytesAvailable !== undefined && (obj.bytesAvailable = message.bytesAvailable);
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
     message.clientcommVersion !== undefined && (obj.clientcommVersion = Math.round(message.clientcommVersion));
     return obj;
@@ -517,7 +517,7 @@ export const CMsgClientGetClientDetailsResponse = {
     message.ipPrivate = object.ipPrivate ?? "";
     message.gamesRunning = object.gamesRunning?.map((e) => CMsgClientGetClientDetailsResponse_Game.fromPartial(e)) ||
       [];
-    message.bytesAvailable = object.bytesAvailable ?? 0;
+    message.bytesAvailable = object.bytesAvailable ?? "0";
     message.protocolVersion = object.protocolVersion ?? 0;
     message.clientcommVersion = object.clientcommVersion ?? 0;
     return message;
@@ -715,7 +715,7 @@ export const CMsgClientGetClientAppList = {
 };
 
 function createBaseCMsgClientGetClientAppListResponse(): CMsgClientGetClientAppListResponse {
-  return { apps: [], bytesAvailable: 0, clientInfo: undefined };
+  return { apps: [], bytesAvailable: "0", clientInfo: undefined };
 }
 
 export const CMsgClientGetClientAppListResponse = {
@@ -723,7 +723,7 @@ export const CMsgClientGetClientAppListResponse = {
     for (const v of message.apps) {
       CMsgClientGetClientAppListResponse_App.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.bytesAvailable !== 0) {
+    if (message.bytesAvailable !== "0") {
       writer.uint32(16).uint64(message.bytesAvailable);
     }
     if (message.clientInfo !== undefined) {
@@ -743,7 +743,7 @@ export const CMsgClientGetClientAppListResponse = {
           message.apps.push(CMsgClientGetClientAppListResponse_App.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.bytesAvailable = longToNumber(reader.uint64() as Long);
+          message.bytesAvailable = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.clientInfo = CMsgClientGetClientDetailsResponse.decode(reader, reader.uint32());
@@ -761,7 +761,7 @@ export const CMsgClientGetClientAppListResponse = {
       apps: Array.isArray(object?.apps)
         ? object.apps.map((e: any) => CMsgClientGetClientAppListResponse_App.fromJSON(e))
         : [],
-      bytesAvailable: isSet(object.bytesAvailable) ? Number(object.bytesAvailable) : 0,
+      bytesAvailable: isSet(object.bytesAvailable) ? String(object.bytesAvailable) : "0",
       clientInfo: isSet(object.clientInfo) ? CMsgClientGetClientDetailsResponse.fromJSON(object.clientInfo) : undefined,
     };
   },
@@ -773,7 +773,7 @@ export const CMsgClientGetClientAppListResponse = {
     } else {
       obj.apps = [];
     }
-    message.bytesAvailable !== undefined && (obj.bytesAvailable = Math.round(message.bytesAvailable));
+    message.bytesAvailable !== undefined && (obj.bytesAvailable = message.bytesAvailable);
     message.clientInfo !== undefined &&
       (obj.clientInfo = message.clientInfo ? CMsgClientGetClientDetailsResponse.toJSON(message.clientInfo) : undefined);
     return obj;
@@ -790,7 +790,7 @@ export const CMsgClientGetClientAppListResponse = {
   ): CMsgClientGetClientAppListResponse {
     const message = createBaseCMsgClientGetClientAppListResponse();
     message.apps = object.apps?.map((e) => CMsgClientGetClientAppListResponse_App.fromPartial(e)) || [];
-    message.bytesAvailable = object.bytesAvailable ?? 0;
+    message.bytesAvailable = object.bytesAvailable ?? "0";
     message.clientInfo = (object.clientInfo !== undefined && object.clientInfo !== null)
       ? CMsgClientGetClientDetailsResponse.fromPartial(object.clientInfo)
       : undefined;
@@ -806,8 +806,8 @@ function createBaseCMsgClientGetClientAppListResponse_App(): CMsgClientGetClient
     favorite: false,
     installed: false,
     autoUpdate: false,
-    bytesDownloaded: 0,
-    bytesToDownload: 0,
+    bytesDownloaded: "0",
+    bytesToDownload: "0",
     bytesDownloadRate: 0,
     dlcs: [],
     downloadPaused: false,
@@ -815,9 +815,9 @@ function createBaseCMsgClientGetClientAppListResponse_App(): CMsgClientGetClient
     numPaused: 0,
     changing: false,
     availableOnPlatform: false,
-    bytesStaged: 0,
-    bytesToStage: 0,
-    bytesRequired: 0,
+    bytesStaged: "0",
+    bytesToStage: "0",
+    bytesRequired: "0",
     sourceBuildid: 0,
     targetBuildid: 0,
     estimatedSecondsRemaining: 0,
@@ -847,10 +847,10 @@ export const CMsgClientGetClientAppListResponse_App = {
     if (message.autoUpdate === true) {
       writer.uint32(40).bool(message.autoUpdate);
     }
-    if (message.bytesDownloaded !== 0) {
+    if (message.bytesDownloaded !== "0") {
       writer.uint32(48).uint64(message.bytesDownloaded);
     }
-    if (message.bytesToDownload !== 0) {
+    if (message.bytesToDownload !== "0") {
       writer.uint32(56).uint64(message.bytesToDownload);
     }
     if (message.bytesDownloadRate !== 0) {
@@ -874,13 +874,13 @@ export const CMsgClientGetClientAppListResponse_App = {
     if (message.availableOnPlatform === true) {
       writer.uint32(120).bool(message.availableOnPlatform);
     }
-    if (message.bytesStaged !== 0) {
+    if (message.bytesStaged !== "0") {
       writer.uint32(128).uint64(message.bytesStaged);
     }
-    if (message.bytesToStage !== 0) {
+    if (message.bytesToStage !== "0") {
       writer.uint32(136).uint64(message.bytesToStage);
     }
-    if (message.bytesRequired !== 0) {
+    if (message.bytesRequired !== "0") {
       writer.uint32(144).uint64(message.bytesRequired);
     }
     if (message.sourceBuildid !== 0) {
@@ -930,10 +930,10 @@ export const CMsgClientGetClientAppListResponse_App = {
           message.autoUpdate = reader.bool();
           break;
         case 6:
-          message.bytesDownloaded = longToNumber(reader.uint64() as Long);
+          message.bytesDownloaded = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.bytesToDownload = longToNumber(reader.uint64() as Long);
+          message.bytesToDownload = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.bytesDownloadRate = reader.uint32();
@@ -957,13 +957,13 @@ export const CMsgClientGetClientAppListResponse_App = {
           message.availableOnPlatform = reader.bool();
           break;
         case 16:
-          message.bytesStaged = longToNumber(reader.uint64() as Long);
+          message.bytesStaged = longToString(reader.uint64() as Long);
           break;
         case 17:
-          message.bytesToStage = longToNumber(reader.uint64() as Long);
+          message.bytesToStage = longToString(reader.uint64() as Long);
           break;
         case 18:
-          message.bytesRequired = longToNumber(reader.uint64() as Long);
+          message.bytesRequired = longToString(reader.uint64() as Long);
           break;
         case 19:
           message.sourceBuildid = reader.uint32();
@@ -999,8 +999,8 @@ export const CMsgClientGetClientAppListResponse_App = {
       favorite: isSet(object.favorite) ? Boolean(object.favorite) : false,
       installed: isSet(object.installed) ? Boolean(object.installed) : false,
       autoUpdate: isSet(object.autoUpdate) ? Boolean(object.autoUpdate) : false,
-      bytesDownloaded: isSet(object.bytesDownloaded) ? Number(object.bytesDownloaded) : 0,
-      bytesToDownload: isSet(object.bytesToDownload) ? Number(object.bytesToDownload) : 0,
+      bytesDownloaded: isSet(object.bytesDownloaded) ? String(object.bytesDownloaded) : "0",
+      bytesToDownload: isSet(object.bytesToDownload) ? String(object.bytesToDownload) : "0",
       bytesDownloadRate: isSet(object.bytesDownloadRate) ? Number(object.bytesDownloadRate) : 0,
       dlcs: Array.isArray(object?.dlcs)
         ? object.dlcs.map((e: any) => CMsgClientGetClientAppListResponse_App_DLC.fromJSON(e))
@@ -1010,9 +1010,9 @@ export const CMsgClientGetClientAppListResponse_App = {
       numPaused: isSet(object.numPaused) ? Number(object.numPaused) : 0,
       changing: isSet(object.changing) ? Boolean(object.changing) : false,
       availableOnPlatform: isSet(object.availableOnPlatform) ? Boolean(object.availableOnPlatform) : false,
-      bytesStaged: isSet(object.bytesStaged) ? Number(object.bytesStaged) : 0,
-      bytesToStage: isSet(object.bytesToStage) ? Number(object.bytesToStage) : 0,
-      bytesRequired: isSet(object.bytesRequired) ? Number(object.bytesRequired) : 0,
+      bytesStaged: isSet(object.bytesStaged) ? String(object.bytesStaged) : "0",
+      bytesToStage: isSet(object.bytesToStage) ? String(object.bytesToStage) : "0",
+      bytesRequired: isSet(object.bytesRequired) ? String(object.bytesRequired) : "0",
       sourceBuildid: isSet(object.sourceBuildid) ? Number(object.sourceBuildid) : 0,
       targetBuildid: isSet(object.targetBuildid) ? Number(object.targetBuildid) : 0,
       estimatedSecondsRemaining: isSet(object.estimatedSecondsRemaining) ? Number(object.estimatedSecondsRemaining) : 0,
@@ -1030,8 +1030,8 @@ export const CMsgClientGetClientAppListResponse_App = {
     message.favorite !== undefined && (obj.favorite = message.favorite);
     message.installed !== undefined && (obj.installed = message.installed);
     message.autoUpdate !== undefined && (obj.autoUpdate = message.autoUpdate);
-    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = Math.round(message.bytesDownloaded));
-    message.bytesToDownload !== undefined && (obj.bytesToDownload = Math.round(message.bytesToDownload));
+    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = message.bytesDownloaded);
+    message.bytesToDownload !== undefined && (obj.bytesToDownload = message.bytesToDownload);
     message.bytesDownloadRate !== undefined && (obj.bytesDownloadRate = Math.round(message.bytesDownloadRate));
     if (message.dlcs) {
       obj.dlcs = message.dlcs.map((e) => e ? CMsgClientGetClientAppListResponse_App_DLC.toJSON(e) : undefined);
@@ -1043,9 +1043,9 @@ export const CMsgClientGetClientAppListResponse_App = {
     message.numPaused !== undefined && (obj.numPaused = Math.round(message.numPaused));
     message.changing !== undefined && (obj.changing = message.changing);
     message.availableOnPlatform !== undefined && (obj.availableOnPlatform = message.availableOnPlatform);
-    message.bytesStaged !== undefined && (obj.bytesStaged = Math.round(message.bytesStaged));
-    message.bytesToStage !== undefined && (obj.bytesToStage = Math.round(message.bytesToStage));
-    message.bytesRequired !== undefined && (obj.bytesRequired = Math.round(message.bytesRequired));
+    message.bytesStaged !== undefined && (obj.bytesStaged = message.bytesStaged);
+    message.bytesToStage !== undefined && (obj.bytesToStage = message.bytesToStage);
+    message.bytesRequired !== undefined && (obj.bytesRequired = message.bytesRequired);
     message.sourceBuildid !== undefined && (obj.sourceBuildid = Math.round(message.sourceBuildid));
     message.targetBuildid !== undefined && (obj.targetBuildid = Math.round(message.targetBuildid));
     message.estimatedSecondsRemaining !== undefined &&
@@ -1072,8 +1072,8 @@ export const CMsgClientGetClientAppListResponse_App = {
     message.favorite = object.favorite ?? false;
     message.installed = object.installed ?? false;
     message.autoUpdate = object.autoUpdate ?? false;
-    message.bytesDownloaded = object.bytesDownloaded ?? 0;
-    message.bytesToDownload = object.bytesToDownload ?? 0;
+    message.bytesDownloaded = object.bytesDownloaded ?? "0";
+    message.bytesToDownload = object.bytesToDownload ?? "0";
     message.bytesDownloadRate = object.bytesDownloadRate ?? 0;
     message.dlcs = object.dlcs?.map((e) => CMsgClientGetClientAppListResponse_App_DLC.fromPartial(e)) || [];
     message.downloadPaused = object.downloadPaused ?? false;
@@ -1081,9 +1081,9 @@ export const CMsgClientGetClientAppListResponse_App = {
     message.numPaused = object.numPaused ?? 0;
     message.changing = object.changing ?? false;
     message.availableOnPlatform = object.availableOnPlatform ?? false;
-    message.bytesStaged = object.bytesStaged ?? 0;
-    message.bytesToStage = object.bytesToStage ?? 0;
-    message.bytesRequired = object.bytesRequired ?? 0;
+    message.bytesStaged = object.bytesStaged ?? "0";
+    message.bytesToStage = object.bytesToStage ?? "0";
+    message.bytesRequired = object.bytesRequired ?? "0";
     message.sourceBuildid = object.sourceBuildid ?? 0;
     message.targetBuildid = object.targetBuildid ?? 0;
     message.estimatedSecondsRemaining = object.estimatedSecondsRemaining ?? 0;
@@ -1603,25 +1603,6 @@ export const CMsgClientEnableOrDisableDownloadsResponse = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1633,11 +1614,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

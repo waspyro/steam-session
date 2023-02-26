@@ -379,22 +379,22 @@ export interface CChatRequestFriendPersonaStatesResponse {
 }
 
 export interface CChatRoomCreateChatRoomGroupRequest {
-  steamidPartner: number;
-  steamidInvited: number;
+  steamidPartner: string;
+  steamidInvited: string;
   name: string;
-  steamidInvitees: number[];
+  steamidInvitees: string[];
   watchingBroadcastAccountid: number;
-  watchingBroadcastChannelId: number;
+  watchingBroadcastChannelId: string;
 }
 
 export interface CChatRole {
-  roleId: number;
+  roleId: string;
   name: string;
   ordinal: number;
 }
 
 export interface CChatRoleActions {
-  roleId: number;
+  roleId: string;
   canCreateRenameDeleteChannel: boolean;
   canKick: boolean;
   canBan: boolean;
@@ -410,26 +410,26 @@ export interface CChatRoleActions {
 
 export interface CChatPartyBeacon {
   appId: number;
-  steamidOwner: number;
-  beaconId: number;
+  steamidOwner: string;
+  beaconId: string;
   gameMetadata: string;
 }
 
 export interface CChatRoomGroupHeaderState {
-  chatGroupId: number;
+  chatGroupId: string;
   chatName: string;
   clanid: number;
   accountidOwner: number;
   appid: number;
   tagline: string;
   avatarSha: Buffer;
-  defaultRoleId: number;
+  defaultRoleId: string;
   roles: CChatRole[];
   roleActions: CChatRoleActions[];
   watchingBroadcastAccountid: number;
   partyBeacons: CChatPartyBeacon[];
-  watchingBroadcastChannelId: number;
-  activeMinigameId: number;
+  watchingBroadcastChannelId: string;
+  activeMinigameId: string;
   avatarUgcUrl: string;
   disabled: boolean;
 }
@@ -439,11 +439,11 @@ export interface CChatRoomMember {
   state: EChatRoomJoinState;
   rank: EChatRoomGroupRank;
   timeKickExpire: number;
-  roleIds: number[];
+  roleIds: string[];
 }
 
 export interface CChatRoomState {
-  chatId: number;
+  chatId: string;
   chatName: string;
   voiceAllowed: boolean;
   membersInVoice: number[];
@@ -456,13 +456,13 @@ export interface CChatRoomState {
 export interface CChatRoomGroupState {
   headerState: CChatRoomGroupHeaderState | undefined;
   members: CChatRoomMember[];
-  defaultChatId: number;
+  defaultChatId: string;
   chatRooms: CChatRoomState[];
   kicked: CChatRoomMember[];
 }
 
 export interface CUserChatRoomState {
-  chatId: number;
+  chatId: string;
   timeJoined: number;
   timeLastAck: number;
   desktopNotificationLevel: EChatRoomNotificationLevel;
@@ -473,7 +473,7 @@ export interface CUserChatRoomState {
 }
 
 export interface CUserChatRoomGroupState {
-  chatGroupId: number;
+  chatGroupId: string;
   timeJoined: number;
   userChatRoomState: CUserChatRoomState[];
   desktopNotificationLevel: EChatRoomNotificationLevel;
@@ -483,13 +483,13 @@ export interface CUserChatRoomGroupState {
 }
 
 export interface CChatRoomCreateChatRoomGroupResponse {
-  chatGroupId: number;
+  chatGroupId: string;
   state: CChatRoomGroupState | undefined;
   userChatState: CUserChatRoomGroupState | undefined;
 }
 
 export interface CChatRoomSaveChatRoomGroupRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   name: string;
 }
 
@@ -497,7 +497,7 @@ export interface CChatRoomSaveChatRoomGroupResponse {
 }
 
 export interface CChatRoomRenameChatRoomGroupRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   name: string;
 }
 
@@ -506,7 +506,7 @@ export interface CChatRoomRenameChatRoomGroupResponse {
 }
 
 export interface CChatRoomSetChatRoomGroupTaglineRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   tagline: string;
 }
 
@@ -514,7 +514,7 @@ export interface CChatRoomSetChatRoomGroupTaglineResponse {
 }
 
 export interface CChatRoomSetChatRoomGroupAvatarRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   avatarSha: Buffer;
 }
 
@@ -522,35 +522,35 @@ export interface CChatRoomSetChatRoomGroupAvatarResponse {
 }
 
 export interface CChatRoomSetChatRoomGroupWatchingBroadcastRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   watchingBroadcastAccountid: number;
-  watchingBroadcastChannelId: number;
+  watchingBroadcastChannelId: string;
 }
 
 export interface CChatRoomSetChatRoomGroupWatchingBroadcastResponse {
 }
 
 export interface CChatRoomJoinMiniGameForChatRoomGroupRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
 }
 
 export interface CChatRoomJoinMiniGameForChatRoomGroupResponse {
-  minigameId: number;
+  minigameId: string;
 }
 
 export interface CChatRoomEndMiniGameForChatRoomGroupRequest {
-  chatGroupId: number;
-  chatId: number;
-  minigameId: number;
+  chatGroupId: string;
+  chatId: string;
+  minigameId: string;
 }
 
 export interface CChatRoomEndMiniGameForChatRoomGroupResponse {
 }
 
 export interface CChatRoomMuteUserRequest {
-  chatGroupId: number;
-  steamid: number;
+  chatGroupId: string;
+  steamid: string;
   expiration: number;
 }
 
@@ -558,8 +558,8 @@ export interface CChatRoomMuteUserResponse {
 }
 
 export interface CChatRoomKickUserRequest {
-  chatGroupId: number;
-  steamid: number;
+  chatGroupId: string;
+  steamid: string;
   expiration: number;
 }
 
@@ -567,8 +567,8 @@ export interface CChatRoomKickUserResponse {
 }
 
 export interface CChatRoomSetUserBanStateRequest {
-  chatGroupId: number;
-  steamid: number;
+  chatGroupId: string;
+  steamid: string;
   banState: boolean;
 }
 
@@ -576,15 +576,15 @@ export interface CChatRoomSetUserBanStateResponse {
 }
 
 export interface CChatRoomRevokeInviteRequest {
-  chatGroupId: number;
-  steamid: number;
+  chatGroupId: string;
+  steamid: string;
 }
 
 export interface CChatRoomRevokeInviteResponse {
 }
 
 export interface CChatRoomCreateRoleRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   name: string;
 }
 
@@ -593,7 +593,7 @@ export interface CChatRoomCreateRoleResponse {
 }
 
 export interface CChatRoomGetRolesRequest {
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CChatRoomGetRolesResponse {
@@ -601,8 +601,8 @@ export interface CChatRoomGetRolesResponse {
 }
 
 export interface CChatRoomRenameRoleRequest {
-  chatGroupId: number;
-  roleId: number;
+  chatGroupId: string;
+  roleId: string;
   name: string;
 }
 
@@ -610,8 +610,8 @@ export interface CChatRoomRenameRoleResponse {
 }
 
 export interface CChatRoomReorderRoleRequest {
-  chatGroupId: number;
-  roleId: number;
+  chatGroupId: string;
+  roleId: string;
   ordinal: number;
 }
 
@@ -619,16 +619,16 @@ export interface CChatRoomReorderRoleResponse {
 }
 
 export interface CChatRoomDeleteRoleRequest {
-  chatGroupId: number;
-  roleId: number;
+  chatGroupId: string;
+  roleId: string;
 }
 
 export interface CChatRoomDeleteRoleResponse {
 }
 
 export interface CChatRoomGetRoleActionsRequest {
-  chatGroupId: number;
-  roleId: number;
+  chatGroupId: string;
+  roleId: string;
 }
 
 export interface CChatRoomGetRoleActionsResponse {
@@ -636,8 +636,8 @@ export interface CChatRoomGetRoleActionsResponse {
 }
 
 export interface CChatRoomReplaceRoleActionsRequest {
-  chatGroupId: number;
-  roleId: number;
+  chatGroupId: string;
+  roleId: string;
   actions: CChatRoleActions | undefined;
 }
 
@@ -645,49 +645,49 @@ export interface CChatRoomReplaceRoleActionsResponse {
 }
 
 export interface CChatRoomAddRoleToUserRequest {
-  chatGroupId: number;
-  roleId: number;
-  steamid: number;
+  chatGroupId: string;
+  roleId: string;
+  steamid: string;
 }
 
 export interface CChatRoomAddRoleToUserResponse {
 }
 
 export interface CChatRoomGetRolesForUserRequest {
-  chatGroupId: number;
-  steamid: number;
+  chatGroupId: string;
+  steamid: string;
 }
 
 export interface CChatRoomGetRolesForUserResponse {
-  roleIds: number[];
+  roleIds: string[];
 }
 
 export interface CChatRoomDeleteRoleFromUserRequest {
-  chatGroupId: number;
-  roleId: number;
-  steamid: number;
+  chatGroupId: string;
+  roleId: string;
+  steamid: string;
 }
 
 export interface CChatRoomDeleteRoleFromUserResponse {
 }
 
 export interface CChatRoomJoinChatRoomGroupRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   inviteCode: string;
-  chatId: number;
+  chatId: string;
 }
 
 export interface CChatRoomJoinChatRoomGroupResponse {
   state: CChatRoomGroupState | undefined;
   userChatState: CUserChatRoomGroupState | undefined;
-  joinChatId: number;
+  joinChatId: string;
   timeExpire: number;
 }
 
 export interface CChatRoomInviteFriendToChatRoomGroupRequest {
-  chatGroupId: number;
-  steamid: number;
-  chatId: number;
+  chatGroupId: string;
+  steamid: string;
+  chatId: string;
   skipFriendsuiCheck: boolean;
 }
 
@@ -695,14 +695,14 @@ export interface CChatRoomInviteFriendToChatRoomGroupResponse {
 }
 
 export interface CChatRoomLeaveChatRoomGroupRequest {
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CChatRoomLeaveChatRoomGroupResponse {
 }
 
 export interface CChatRoomCreateChatRoomRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   name: string;
   allowVoice: boolean;
 }
@@ -712,16 +712,16 @@ export interface CChatRoomCreateChatRoomResponse {
 }
 
 export interface CChatRoomDeleteChatRoomRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
 }
 
 export interface CChatRoomDeleteChatRoomResponse {
 }
 
 export interface CChatRoomRenameChatRoomRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   name: string;
 }
 
@@ -729,17 +729,17 @@ export interface CChatRoomRenameChatRoomResponse {
 }
 
 export interface CChatRoomReorderChatRoomRequest {
-  chatGroupId: number;
-  chatId: number;
-  moveAfterChatId: number;
+  chatGroupId: string;
+  chatId: string;
+  moveAfterChatId: string;
 }
 
 export interface CChatRoomReorderChatRoomResponse {
 }
 
 export interface CChatRoomSendChatMessageRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   message: string;
   echoToSender: boolean;
 }
@@ -752,25 +752,25 @@ export interface CChatRoomSendChatMessageResponse {
 }
 
 export interface CChatRoomJoinVoiceChatRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
 }
 
 export interface CChatRoomJoinVoiceChatResponse {
-  voiceChatid: number;
+  voiceChatid: string;
 }
 
 export interface CChatRoomLeaveVoiceChatRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
 }
 
 export interface CChatRoomLeaveVoiceChatResponse {
 }
 
 export interface CChatRoomGetMessageHistoryRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   lastTime: number;
   lastOrdinal: number;
   startTime: number;
@@ -810,11 +810,11 @@ export interface CChatRoomGetMyChatRoomGroupsRequest {
 }
 
 export interface CChatRoomGetChatRoomGroupSummaryResponse {
-  chatGroupId: number;
+  chatGroupId: string;
   chatGroupName: string;
   activeMemberCount: number;
   activeVoiceMemberCount: number;
-  defaultChatId: number;
+  defaultChatId: string;
   chatRooms: CChatRoomState[];
   clanid: number;
   chatGroupTagline: string;
@@ -822,14 +822,14 @@ export interface CChatRoomGetChatRoomGroupSummaryResponse {
   topMembers: number[];
   chatGroupAvatarSha: Buffer;
   rank: EChatRoomGroupRank;
-  defaultRoleId: number;
-  roleIds: number[];
+  defaultRoleId: string;
+  roleIds: string[];
   roleActions: CChatRoleActions[];
   watchingBroadcastAccountid: number;
   appid: number;
   partyBeacons: CChatPartyBeacon[];
-  watchingBroadcastChannelId: number;
-  activeMinigameId: number;
+  watchingBroadcastChannelId: string;
+  activeMinigameId: string;
   avatarUgcUrl: string;
   disabled: boolean;
 }
@@ -844,7 +844,7 @@ export interface CChatRoomGetMyChatRoomGroupsResponse {
 }
 
 export interface CChatRoomGetChatRoomGroupStateRequest {
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CChatRoomGetChatRoomGroupStateResponse {
@@ -852,11 +852,11 @@ export interface CChatRoomGetChatRoomGroupStateResponse {
 }
 
 export interface CChatRoomGetChatRoomGroupSummaryRequest {
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CChatRoomSetAppChatRoomGroupForceActiveRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   requestingAppId: number;
 }
 
@@ -866,20 +866,20 @@ export interface CChatRoomSetAppChatRoomGroupForceActiveResponse {
 }
 
 export interface CChatRoomSetAppChatRoomGroupStopForceActiveNotification {
-  chatGroupId: number;
+  chatGroupId: string;
   requestingAppId: number;
 }
 
 export interface CChatRoomAckChatMessageNotification {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   timestamp: number;
 }
 
 export interface CChatRoomCreateInviteLinkRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   secondsValid: number;
-  chatId: number;
+  chatId: string;
 }
 
 export interface CChatRoomCreateInviteLinkResponse {
@@ -892,9 +892,9 @@ export interface CChatRoomGetInviteLinkInfoRequest {
 }
 
 export interface CChatRoomGetInviteLinkInfoResponse {
-  steamidSender: number;
+  steamidSender: string;
   timeExpires: number;
-  chatId: number;
+  chatId: string;
   groupSummary: CChatRoomGetChatRoomGroupSummaryResponse | undefined;
   userChatGroupState: CUserChatRoomGroupState | undefined;
   timeKickExpire: number;
@@ -902,9 +902,9 @@ export interface CChatRoomGetInviteLinkInfoResponse {
 }
 
 export interface CChatRoomGetInviteInfoRequest {
-  steamidInvitee: number;
-  chatGroupId: number;
-  chatId: number;
+  steamidInvitee: string;
+  chatGroupId: string;
+  chatId: string;
   inviteCode: string;
 }
 
@@ -915,7 +915,7 @@ export interface CChatRoomGetInviteInfoResponse {
 }
 
 export interface CChatRoomGetInviteLinksForGroupRequest {
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CChatRoomGetInviteLinksForGroupResponse {
@@ -924,13 +924,13 @@ export interface CChatRoomGetInviteLinksForGroupResponse {
 
 export interface CChatRoomGetInviteLinksForGroupResponse_LinkInfo {
   inviteCode: string;
-  steamidCreator: number;
+  steamidCreator: string;
   timeExpires: number;
-  chatId: number;
+  chatId: string;
 }
 
 export interface CChatRoomGetBanListRequest {
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CChatRoomGetBanListResponse {
@@ -945,7 +945,7 @@ export interface CChatRoomGetBanListResponse_BanInfo {
 }
 
 export interface CChatRoomGetInviteListRequest {
-  chatGroupId: number;
+  chatGroupId: string;
 }
 
 export interface CChatRoomGroupInvite {
@@ -959,7 +959,7 @@ export interface CChatRoomGetInviteListResponse {
 }
 
 export interface CChatRoomDeleteInviteLinkRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   inviteCode: string;
 }
 
@@ -967,18 +967,18 @@ export interface CChatRoomDeleteInviteLinkResponse {
 }
 
 export interface CChatRoomSetSessionActiveChatRoomGroupsRequest {
-  chatGroupIds: number[];
-  chatGroupsDataRequested: number[];
+  chatGroupIds: string[];
+  chatGroupsDataRequested: string[];
   virtualizeMembersThreshold: number;
 }
 
 export interface CChatRoomSetSessionActiveChatRoomGroupsResponse {
   chatStates: CChatRoomGroupState[];
-  virtualizeMembersChatGroupIds: number[];
+  virtualizeMembersChatGroupIds: string[];
 }
 
 export interface CChatRoomSetUserChatGroupPreferencesRequest {
-  chatGroupId: number;
+  chatGroupId: string;
   chatGroupPreferences: CChatRoomSetUserChatGroupPreferencesRequest_ChatGroupPreferences | undefined;
   chatRoomPreferences: CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences[];
 }
@@ -990,7 +990,7 @@ export interface CChatRoomSetUserChatGroupPreferencesRequest_ChatGroupPreference
 }
 
 export interface CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences {
-  chatId: number;
+  chatId: string;
   desktopNotificationLevel: EChatRoomNotificationLevel;
   mobileNotificationLevel: EChatRoomNotificationLevel;
   unreadIndicatorMuted: boolean;
@@ -1000,8 +1000,8 @@ export interface CChatRoomSetUserChatGroupPreferencesResponse {
 }
 
 export interface CChatRoomDeleteChatMessagesRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   messages: CChatRoomDeleteChatMessagesRequest_Message[];
 }
 
@@ -1014,8 +1014,8 @@ export interface CChatRoomDeleteChatMessagesResponse {
 }
 
 export interface CChatRoomUpdateMemberListViewNotification {
-  chatGroupId: number;
-  viewId: number;
+  chatGroupId: string;
+  viewId: string;
   start: number;
   end: number;
   clientChangenumber: number;
@@ -1025,8 +1025,8 @@ export interface CChatRoomUpdateMemberListViewNotification {
 }
 
 export interface CChatRoomSearchMembersRequest {
-  chatGroupId: number;
-  searchId: number;
+  chatGroupId: string;
+  searchId: string;
   searchText: string;
   maxResults: number;
 }
@@ -1042,8 +1042,8 @@ export interface CChatRoomSearchMembersResponse_MemberMatch {
 }
 
 export interface CChatRoomUpdateMessageReactionRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   serverTimestamp: number;
   ordinal: number;
   reactionType: EChatRoomMessageReactionType;
@@ -1056,8 +1056,8 @@ export interface CChatRoomUpdateMessageReactionResponse {
 }
 
 export interface CChatRoomGetMessageReactionReactorsRequest {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   serverTimestamp: number;
   ordinal: number;
   reactionType: EChatRoomMessageReactionType;
@@ -1070,7 +1070,7 @@ export interface CChatRoomGetMessageReactionReactorsResponse {
 }
 
 export interface CClanChatRoomsGetClanChatRoomInfoRequest {
-  steamid: number;
+  steamid: string;
   autocreate: boolean;
 }
 
@@ -1079,7 +1079,7 @@ export interface CClanChatRoomsGetClanChatRoomInfoResponse {
 }
 
 export interface CClanChatRoomsSetClanChatRoomPrivateRequest {
-  steamid: number;
+  steamid: string;
   chatRoomPrivate: boolean;
 }
 
@@ -1094,9 +1094,9 @@ export interface CChatMentions {
 }
 
 export interface CChatRoomIncomingChatMessageNotification {
-  chatGroupId: number;
-  chatId: number;
-  steamidSender: number;
+  chatGroupId: string;
+  chatId: string;
+  steamidSender: string;
   message: string;
   timestamp: number;
   mentions: CChatMentions | undefined;
@@ -1107,8 +1107,8 @@ export interface CChatRoomIncomingChatMessageNotification {
 }
 
 export interface CChatRoomChatMessageModifiedNotification {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   messages: CChatRoomChatMessageModifiedNotification_ChatMessage[];
 }
 
@@ -1119,7 +1119,7 @@ export interface CChatRoomChatMessageModifiedNotification_ChatMessage {
 }
 
 export interface CChatRoomMemberStateChangeNotification {
-  chatGroupId: number;
+  chatGroupId: string;
   member: CChatRoomMember | undefined;
   change: EChatRoomMemberStateChange;
 }
@@ -1129,25 +1129,25 @@ export interface CChatRoomChatRoomHeaderStateNotification {
 }
 
 export interface CChatRoomChatRoomGroupRoomsChangeNotification {
-  chatGroupId: number;
-  defaultChatId: number;
+  chatGroupId: string;
+  defaultChatId: string;
   chatRooms: CChatRoomState[];
 }
 
 export interface CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification {
-  chatId: number;
-  chatGroupId: number;
+  chatId: string;
+  chatGroupId: string;
 }
 
 export interface ChatRoomClientNotifyChatGroupUserStateChangedNotification {
-  chatGroupId: number;
+  chatGroupId: string;
   userChatGroupState: CUserChatRoomGroupState | undefined;
   groupSummary: CChatRoomGetChatRoomGroupSummaryResponse | undefined;
   userAction: EChatRoomMemberStateChange;
 }
 
 export interface ChatRoomClientNotifyChatRoomDisconnectNotification {
-  chatGroupIds: number[];
+  chatGroupIds: string[];
 }
 
 export interface CChatRoomMemberListView {
@@ -1165,8 +1165,8 @@ export interface CChatRoomMemberSummaryCounts {
 }
 
 export interface CChatRoomClientMemberListViewUpdatedNotification {
-  chatGroupId: number;
-  viewId: number;
+  chatGroupId: string;
+  viewId: string;
   view: CChatRoomMemberListView | undefined;
   members: CChatRoomClientMemberListViewUpdatedNotification_MemberListViewEntry[];
   statusFlags: number;
@@ -1181,11 +1181,11 @@ export interface CChatRoomClientMemberListViewUpdatedNotification_MemberListView
 }
 
 export interface CChatRoomMessageReactionNotification {
-  chatGroupId: number;
-  chatId: number;
+  chatGroupId: string;
+  chatId: string;
   serverTimestamp: number;
   ordinal: number;
-  reactor: number;
+  reactor: string;
   reactionType: EChatRoomMessageReactionType;
   reaction: string;
   isAdd: boolean;
@@ -1384,21 +1384,21 @@ export const CChatRequestFriendPersonaStatesResponse = {
 
 function createBaseCChatRoomCreateChatRoomGroupRequest(): CChatRoomCreateChatRoomGroupRequest {
   return {
-    steamidPartner: 0,
-    steamidInvited: 0,
+    steamidPartner: "0",
+    steamidInvited: "0",
     name: "",
     steamidInvitees: [],
     watchingBroadcastAccountid: 0,
-    watchingBroadcastChannelId: 0,
+    watchingBroadcastChannelId: "0",
   };
 }
 
 export const CChatRoomCreateChatRoomGroupRequest = {
   encode(message: CChatRoomCreateChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidPartner !== 0) {
+    if (message.steamidPartner !== "0") {
       writer.uint32(9).fixed64(message.steamidPartner);
     }
-    if (message.steamidInvited !== 0) {
+    if (message.steamidInvited !== "0") {
       writer.uint32(17).fixed64(message.steamidInvited);
     }
     if (message.name !== "") {
@@ -1412,7 +1412,7 @@ export const CChatRoomCreateChatRoomGroupRequest = {
     if (message.watchingBroadcastAccountid !== 0) {
       writer.uint32(48).uint32(message.watchingBroadcastAccountid);
     }
-    if (message.watchingBroadcastChannelId !== 0) {
+    if (message.watchingBroadcastChannelId !== "0") {
       writer.uint32(56).uint64(message.watchingBroadcastChannelId);
     }
     return writer;
@@ -1426,10 +1426,10 @@ export const CChatRoomCreateChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidPartner = longToNumber(reader.fixed64() as Long);
+          message.steamidPartner = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.steamidInvited = longToNumber(reader.fixed64() as Long);
+          message.steamidInvited = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.name = reader.string();
@@ -1438,17 +1438,17 @@ export const CChatRoomCreateChatRoomGroupRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidInvitees.push(longToNumber(reader.fixed64() as Long));
+              message.steamidInvitees.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidInvitees.push(longToNumber(reader.fixed64() as Long));
+            message.steamidInvitees.push(longToString(reader.fixed64() as Long));
           }
           break;
         case 6:
           message.watchingBroadcastAccountid = reader.uint32();
           break;
         case 7:
-          message.watchingBroadcastChannelId = longToNumber(reader.uint64() as Long);
+          message.watchingBroadcastChannelId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1460,33 +1460,33 @@ export const CChatRoomCreateChatRoomGroupRequest = {
 
   fromJSON(object: any): CChatRoomCreateChatRoomGroupRequest {
     return {
-      steamidPartner: isSet(object.steamidPartner) ? Number(object.steamidPartner) : 0,
-      steamidInvited: isSet(object.steamidInvited) ? Number(object.steamidInvited) : 0,
+      steamidPartner: isSet(object.steamidPartner) ? String(object.steamidPartner) : "0",
+      steamidInvited: isSet(object.steamidInvited) ? String(object.steamidInvited) : "0",
       name: isSet(object.name) ? String(object.name) : "",
-      steamidInvitees: Array.isArray(object?.steamidInvitees) ? object.steamidInvitees.map((e: any) => Number(e)) : [],
+      steamidInvitees: Array.isArray(object?.steamidInvitees) ? object.steamidInvitees.map((e: any) => String(e)) : [],
       watchingBroadcastAccountid: isSet(object.watchingBroadcastAccountid)
         ? Number(object.watchingBroadcastAccountid)
         : 0,
       watchingBroadcastChannelId: isSet(object.watchingBroadcastChannelId)
-        ? Number(object.watchingBroadcastChannelId)
-        : 0,
+        ? String(object.watchingBroadcastChannelId)
+        : "0",
     };
   },
 
   toJSON(message: CChatRoomCreateChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.steamidPartner !== undefined && (obj.steamidPartner = Math.round(message.steamidPartner));
-    message.steamidInvited !== undefined && (obj.steamidInvited = Math.round(message.steamidInvited));
+    message.steamidPartner !== undefined && (obj.steamidPartner = message.steamidPartner);
+    message.steamidInvited !== undefined && (obj.steamidInvited = message.steamidInvited);
     message.name !== undefined && (obj.name = message.name);
     if (message.steamidInvitees) {
-      obj.steamidInvitees = message.steamidInvitees.map((e) => Math.round(e));
+      obj.steamidInvitees = message.steamidInvitees.map((e) => e);
     } else {
       obj.steamidInvitees = [];
     }
     message.watchingBroadcastAccountid !== undefined &&
       (obj.watchingBroadcastAccountid = Math.round(message.watchingBroadcastAccountid));
     message.watchingBroadcastChannelId !== undefined &&
-      (obj.watchingBroadcastChannelId = Math.round(message.watchingBroadcastChannelId));
+      (obj.watchingBroadcastChannelId = message.watchingBroadcastChannelId);
     return obj;
   },
 
@@ -1500,23 +1500,23 @@ export const CChatRoomCreateChatRoomGroupRequest = {
     object: I,
   ): CChatRoomCreateChatRoomGroupRequest {
     const message = createBaseCChatRoomCreateChatRoomGroupRequest();
-    message.steamidPartner = object.steamidPartner ?? 0;
-    message.steamidInvited = object.steamidInvited ?? 0;
+    message.steamidPartner = object.steamidPartner ?? "0";
+    message.steamidInvited = object.steamidInvited ?? "0";
     message.name = object.name ?? "";
     message.steamidInvitees = object.steamidInvitees?.map((e) => e) || [];
     message.watchingBroadcastAccountid = object.watchingBroadcastAccountid ?? 0;
-    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? 0;
+    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRole(): CChatRole {
-  return { roleId: 0, name: "", ordinal: 0 };
+  return { roleId: "0", name: "", ordinal: 0 };
 }
 
 export const CChatRole = {
   encode(message: CChatRole, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(8).uint64(message.roleId);
     }
     if (message.name !== "") {
@@ -1536,7 +1536,7 @@ export const CChatRole = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -1554,7 +1554,7 @@ export const CChatRole = {
 
   fromJSON(object: any): CChatRole {
     return {
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
       ordinal: isSet(object.ordinal) ? Number(object.ordinal) : 0,
     };
@@ -1562,7 +1562,7 @@ export const CChatRole = {
 
   toJSON(message: CChatRole): unknown {
     const obj: any = {};
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
+    message.roleId !== undefined && (obj.roleId = message.roleId);
     message.name !== undefined && (obj.name = message.name);
     message.ordinal !== undefined && (obj.ordinal = Math.round(message.ordinal));
     return obj;
@@ -1574,7 +1574,7 @@ export const CChatRole = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRole>, I>>(object: I): CChatRole {
     const message = createBaseCChatRole();
-    message.roleId = object.roleId ?? 0;
+    message.roleId = object.roleId ?? "0";
     message.name = object.name ?? "";
     message.ordinal = object.ordinal ?? 0;
     return message;
@@ -1583,7 +1583,7 @@ export const CChatRole = {
 
 function createBaseCChatRoleActions(): CChatRoleActions {
   return {
-    roleId: 0,
+    roleId: "0",
     canCreateRenameDeleteChannel: false,
     canKick: false,
     canBan: false,
@@ -1600,7 +1600,7 @@ function createBaseCChatRoleActions(): CChatRoleActions {
 
 export const CChatRoleActions = {
   encode(message: CChatRoleActions, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(8).uint64(message.roleId);
     }
     if (message.canCreateRenameDeleteChannel === true) {
@@ -1647,7 +1647,7 @@ export const CChatRoleActions = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.canCreateRenameDeleteChannel = reader.bool();
@@ -1692,7 +1692,7 @@ export const CChatRoleActions = {
 
   fromJSON(object: any): CChatRoleActions {
     return {
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
       canCreateRenameDeleteChannel: isSet(object.canCreateRenameDeleteChannel)
         ? Boolean(object.canCreateRenameDeleteChannel)
         : false,
@@ -1713,7 +1713,7 @@ export const CChatRoleActions = {
 
   toJSON(message: CChatRoleActions): unknown {
     const obj: any = {};
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
+    message.roleId !== undefined && (obj.roleId = message.roleId);
     message.canCreateRenameDeleteChannel !== undefined &&
       (obj.canCreateRenameDeleteChannel = message.canCreateRenameDeleteChannel);
     message.canKick !== undefined && (obj.canKick = message.canKick);
@@ -1736,7 +1736,7 @@ export const CChatRoleActions = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoleActions>, I>>(object: I): CChatRoleActions {
     const message = createBaseCChatRoleActions();
-    message.roleId = object.roleId ?? 0;
+    message.roleId = object.roleId ?? "0";
     message.canCreateRenameDeleteChannel = object.canCreateRenameDeleteChannel ?? false;
     message.canKick = object.canKick ?? false;
     message.canBan = object.canBan ?? false;
@@ -1753,7 +1753,7 @@ export const CChatRoleActions = {
 };
 
 function createBaseCChatPartyBeacon(): CChatPartyBeacon {
-  return { appId: 0, steamidOwner: 0, beaconId: 0, gameMetadata: "" };
+  return { appId: 0, steamidOwner: "0", beaconId: "0", gameMetadata: "" };
 }
 
 export const CChatPartyBeacon = {
@@ -1761,10 +1761,10 @@ export const CChatPartyBeacon = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.steamidOwner !== 0) {
+    if (message.steamidOwner !== "0") {
       writer.uint32(17).fixed64(message.steamidOwner);
     }
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(25).fixed64(message.beaconId);
     }
     if (message.gameMetadata !== "") {
@@ -1784,10 +1784,10 @@ export const CChatPartyBeacon = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.steamidOwner = longToNumber(reader.fixed64() as Long);
+          message.steamidOwner = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.beaconId = longToNumber(reader.fixed64() as Long);
+          message.beaconId = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.gameMetadata = reader.string();
@@ -1803,8 +1803,8 @@ export const CChatPartyBeacon = {
   fromJSON(object: any): CChatPartyBeacon {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      steamidOwner: isSet(object.steamidOwner) ? Number(object.steamidOwner) : 0,
-      beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0,
+      steamidOwner: isSet(object.steamidOwner) ? String(object.steamidOwner) : "0",
+      beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0",
       gameMetadata: isSet(object.gameMetadata) ? String(object.gameMetadata) : "",
     };
   },
@@ -1812,8 +1812,8 @@ export const CChatPartyBeacon = {
   toJSON(message: CChatPartyBeacon): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.steamidOwner !== undefined && (obj.steamidOwner = Math.round(message.steamidOwner));
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.steamidOwner !== undefined && (obj.steamidOwner = message.steamidOwner);
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     message.gameMetadata !== undefined && (obj.gameMetadata = message.gameMetadata);
     return obj;
   },
@@ -1825,8 +1825,8 @@ export const CChatPartyBeacon = {
   fromPartial<I extends Exact<DeepPartial<CChatPartyBeacon>, I>>(object: I): CChatPartyBeacon {
     const message = createBaseCChatPartyBeacon();
     message.appId = object.appId ?? 0;
-    message.steamidOwner = object.steamidOwner ?? 0;
-    message.beaconId = object.beaconId ?? 0;
+    message.steamidOwner = object.steamidOwner ?? "0";
+    message.beaconId = object.beaconId ?? "0";
     message.gameMetadata = object.gameMetadata ?? "";
     return message;
   },
@@ -1834,20 +1834,20 @@ export const CChatPartyBeacon = {
 
 function createBaseCChatRoomGroupHeaderState(): CChatRoomGroupHeaderState {
   return {
-    chatGroupId: 0,
+    chatGroupId: "0",
     chatName: "",
     clanid: 0,
     accountidOwner: 0,
     appid: 0,
     tagline: "",
     avatarSha: Buffer.alloc(0),
-    defaultRoleId: 0,
+    defaultRoleId: "0",
     roles: [],
     roleActions: [],
     watchingBroadcastAccountid: 0,
     partyBeacons: [],
-    watchingBroadcastChannelId: 0,
-    activeMinigameId: 0,
+    watchingBroadcastChannelId: "0",
+    activeMinigameId: "0",
     avatarUgcUrl: "",
     disabled: false,
   };
@@ -1855,7 +1855,7 @@ function createBaseCChatRoomGroupHeaderState(): CChatRoomGroupHeaderState {
 
 export const CChatRoomGroupHeaderState = {
   encode(message: CChatRoomGroupHeaderState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.chatName !== "") {
@@ -1876,7 +1876,7 @@ export const CChatRoomGroupHeaderState = {
     if (message.avatarSha.length !== 0) {
       writer.uint32(130).bytes(message.avatarSha);
     }
-    if (message.defaultRoleId !== 0) {
+    if (message.defaultRoleId !== "0") {
       writer.uint32(136).uint64(message.defaultRoleId);
     }
     for (const v of message.roles) {
@@ -1891,10 +1891,10 @@ export const CChatRoomGroupHeaderState = {
     for (const v of message.partyBeacons) {
       CChatPartyBeacon.encode(v!, writer.uint32(178).fork()).ldelim();
     }
-    if (message.watchingBroadcastChannelId !== 0) {
+    if (message.watchingBroadcastChannelId !== "0") {
       writer.uint32(184).uint64(message.watchingBroadcastChannelId);
     }
-    if (message.activeMinigameId !== 0) {
+    if (message.activeMinigameId !== "0") {
       writer.uint32(192).uint64(message.activeMinigameId);
     }
     if (message.avatarUgcUrl !== "") {
@@ -1914,7 +1914,7 @@ export const CChatRoomGroupHeaderState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.chatName = reader.string();
@@ -1935,7 +1935,7 @@ export const CChatRoomGroupHeaderState = {
           message.avatarSha = reader.bytes() as Buffer;
           break;
         case 17:
-          message.defaultRoleId = longToNumber(reader.uint64() as Long);
+          message.defaultRoleId = longToString(reader.uint64() as Long);
           break;
         case 18:
           message.roles.push(CChatRole.decode(reader, reader.uint32()));
@@ -1950,10 +1950,10 @@ export const CChatRoomGroupHeaderState = {
           message.partyBeacons.push(CChatPartyBeacon.decode(reader, reader.uint32()));
           break;
         case 23:
-          message.watchingBroadcastChannelId = longToNumber(reader.uint64() as Long);
+          message.watchingBroadcastChannelId = longToString(reader.uint64() as Long);
           break;
         case 24:
-          message.activeMinigameId = longToNumber(reader.uint64() as Long);
+          message.activeMinigameId = longToString(reader.uint64() as Long);
           break;
         case 25:
           message.avatarUgcUrl = reader.string();
@@ -1971,14 +1971,14 @@ export const CChatRoomGroupHeaderState = {
 
   fromJSON(object: any): CChatRoomGroupHeaderState {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       chatName: isSet(object.chatName) ? String(object.chatName) : "",
       clanid: isSet(object.clanid) ? Number(object.clanid) : 0,
       accountidOwner: isSet(object.accountidOwner) ? Number(object.accountidOwner) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       tagline: isSet(object.tagline) ? String(object.tagline) : "",
       avatarSha: isSet(object.avatarSha) ? Buffer.from(bytesFromBase64(object.avatarSha)) : Buffer.alloc(0),
-      defaultRoleId: isSet(object.defaultRoleId) ? Number(object.defaultRoleId) : 0,
+      defaultRoleId: isSet(object.defaultRoleId) ? String(object.defaultRoleId) : "0",
       roles: Array.isArray(object?.roles) ? object.roles.map((e: any) => CChatRole.fromJSON(e)) : [],
       roleActions: Array.isArray(object?.roleActions)
         ? object.roleActions.map((e: any) => CChatRoleActions.fromJSON(e))
@@ -1990,9 +1990,9 @@ export const CChatRoomGroupHeaderState = {
         ? object.partyBeacons.map((e: any) => CChatPartyBeacon.fromJSON(e))
         : [],
       watchingBroadcastChannelId: isSet(object.watchingBroadcastChannelId)
-        ? Number(object.watchingBroadcastChannelId)
-        : 0,
-      activeMinigameId: isSet(object.activeMinigameId) ? Number(object.activeMinigameId) : 0,
+        ? String(object.watchingBroadcastChannelId)
+        : "0",
+      activeMinigameId: isSet(object.activeMinigameId) ? String(object.activeMinigameId) : "0",
       avatarUgcUrl: isSet(object.avatarUgcUrl) ? String(object.avatarUgcUrl) : "",
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
     };
@@ -2000,7 +2000,7 @@ export const CChatRoomGroupHeaderState = {
 
   toJSON(message: CChatRoomGroupHeaderState): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.chatName !== undefined && (obj.chatName = message.chatName);
     message.clanid !== undefined && (obj.clanid = Math.round(message.clanid));
     message.accountidOwner !== undefined && (obj.accountidOwner = Math.round(message.accountidOwner));
@@ -2008,7 +2008,7 @@ export const CChatRoomGroupHeaderState = {
     message.tagline !== undefined && (obj.tagline = message.tagline);
     message.avatarSha !== undefined &&
       (obj.avatarSha = base64FromBytes(message.avatarSha !== undefined ? message.avatarSha : Buffer.alloc(0)));
-    message.defaultRoleId !== undefined && (obj.defaultRoleId = Math.round(message.defaultRoleId));
+    message.defaultRoleId !== undefined && (obj.defaultRoleId = message.defaultRoleId);
     if (message.roles) {
       obj.roles = message.roles.map((e) => e ? CChatRole.toJSON(e) : undefined);
     } else {
@@ -2027,8 +2027,8 @@ export const CChatRoomGroupHeaderState = {
       obj.partyBeacons = [];
     }
     message.watchingBroadcastChannelId !== undefined &&
-      (obj.watchingBroadcastChannelId = Math.round(message.watchingBroadcastChannelId));
-    message.activeMinigameId !== undefined && (obj.activeMinigameId = Math.round(message.activeMinigameId));
+      (obj.watchingBroadcastChannelId = message.watchingBroadcastChannelId);
+    message.activeMinigameId !== undefined && (obj.activeMinigameId = message.activeMinigameId);
     message.avatarUgcUrl !== undefined && (obj.avatarUgcUrl = message.avatarUgcUrl);
     message.disabled !== undefined && (obj.disabled = message.disabled);
     return obj;
@@ -2040,20 +2040,20 @@ export const CChatRoomGroupHeaderState = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomGroupHeaderState>, I>>(object: I): CChatRoomGroupHeaderState {
     const message = createBaseCChatRoomGroupHeaderState();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.chatName = object.chatName ?? "";
     message.clanid = object.clanid ?? 0;
     message.accountidOwner = object.accountidOwner ?? 0;
     message.appid = object.appid ?? 0;
     message.tagline = object.tagline ?? "";
     message.avatarSha = object.avatarSha ?? Buffer.alloc(0);
-    message.defaultRoleId = object.defaultRoleId ?? 0;
+    message.defaultRoleId = object.defaultRoleId ?? "0";
     message.roles = object.roles?.map((e) => CChatRole.fromPartial(e)) || [];
     message.roleActions = object.roleActions?.map((e) => CChatRoleActions.fromPartial(e)) || [];
     message.watchingBroadcastAccountid = object.watchingBroadcastAccountid ?? 0;
     message.partyBeacons = object.partyBeacons?.map((e) => CChatPartyBeacon.fromPartial(e)) || [];
-    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? 0;
-    message.activeMinigameId = object.activeMinigameId ?? 0;
+    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? "0";
+    message.activeMinigameId = object.activeMinigameId ?? "0";
     message.avatarUgcUrl = object.avatarUgcUrl ?? "";
     message.disabled = object.disabled ?? false;
     return message;
@@ -2109,10 +2109,10 @@ export const CChatRoomMember = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.roleIds.push(longToNumber(reader.uint64() as Long));
+              message.roleIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.roleIds.push(longToNumber(reader.uint64() as Long));
+            message.roleIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -2129,7 +2129,7 @@ export const CChatRoomMember = {
       state: isSet(object.state) ? eChatRoomJoinStateFromJSON(object.state) : 0,
       rank: isSet(object.rank) ? eChatRoomGroupRankFromJSON(object.rank) : 0,
       timeKickExpire: isSet(object.timeKickExpire) ? Number(object.timeKickExpire) : 0,
-      roleIds: Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => Number(e)) : [],
+      roleIds: Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => String(e)) : [],
     };
   },
 
@@ -2140,7 +2140,7 @@ export const CChatRoomMember = {
     message.rank !== undefined && (obj.rank = eChatRoomGroupRankToJSON(message.rank));
     message.timeKickExpire !== undefined && (obj.timeKickExpire = Math.round(message.timeKickExpire));
     if (message.roleIds) {
-      obj.roleIds = message.roleIds.map((e) => Math.round(e));
+      obj.roleIds = message.roleIds.map((e) => e);
     } else {
       obj.roleIds = [];
     }
@@ -2164,7 +2164,7 @@ export const CChatRoomMember = {
 
 function createBaseCChatRoomState(): CChatRoomState {
   return {
-    chatId: 0,
+    chatId: "0",
     chatName: "",
     voiceAllowed: false,
     membersInVoice: [],
@@ -2177,7 +2177,7 @@ function createBaseCChatRoomState(): CChatRoomState {
 
 export const CChatRoomState = {
   encode(message: CChatRoomState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(8).uint64(message.chatId);
     }
     if (message.chatName !== "") {
@@ -2214,7 +2214,7 @@ export const CChatRoomState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.chatName = reader.string();
@@ -2254,7 +2254,7 @@ export const CChatRoomState = {
 
   fromJSON(object: any): CChatRoomState {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       chatName: isSet(object.chatName) ? String(object.chatName) : "",
       voiceAllowed: isSet(object.voiceAllowed) ? Boolean(object.voiceAllowed) : false,
       membersInVoice: Array.isArray(object?.membersInVoice) ? object.membersInVoice.map((e: any) => Number(e)) : [],
@@ -2267,7 +2267,7 @@ export const CChatRoomState = {
 
   toJSON(message: CChatRoomState): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.chatName !== undefined && (obj.chatName = message.chatName);
     message.voiceAllowed !== undefined && (obj.voiceAllowed = message.voiceAllowed);
     if (message.membersInVoice) {
@@ -2288,7 +2288,7 @@ export const CChatRoomState = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomState>, I>>(object: I): CChatRoomState {
     const message = createBaseCChatRoomState();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.chatName = object.chatName ?? "";
     message.voiceAllowed = object.voiceAllowed ?? false;
     message.membersInVoice = object.membersInVoice?.map((e) => e) || [];
@@ -2301,7 +2301,7 @@ export const CChatRoomState = {
 };
 
 function createBaseCChatRoomGroupState(): CChatRoomGroupState {
-  return { headerState: undefined, members: [], defaultChatId: 0, chatRooms: [], kicked: [] };
+  return { headerState: undefined, members: [], defaultChatId: "0", chatRooms: [], kicked: [] };
 }
 
 export const CChatRoomGroupState = {
@@ -2312,7 +2312,7 @@ export const CChatRoomGroupState = {
     for (const v of message.members) {
       CChatRoomMember.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.defaultChatId !== 0) {
+    if (message.defaultChatId !== "0") {
       writer.uint32(32).uint64(message.defaultChatId);
     }
     for (const v of message.chatRooms) {
@@ -2338,7 +2338,7 @@ export const CChatRoomGroupState = {
           message.members.push(CChatRoomMember.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.defaultChatId = longToNumber(reader.uint64() as Long);
+          message.defaultChatId = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.chatRooms.push(CChatRoomState.decode(reader, reader.uint32()));
@@ -2358,7 +2358,7 @@ export const CChatRoomGroupState = {
     return {
       headerState: isSet(object.headerState) ? CChatRoomGroupHeaderState.fromJSON(object.headerState) : undefined,
       members: Array.isArray(object?.members) ? object.members.map((e: any) => CChatRoomMember.fromJSON(e)) : [],
-      defaultChatId: isSet(object.defaultChatId) ? Number(object.defaultChatId) : 0,
+      defaultChatId: isSet(object.defaultChatId) ? String(object.defaultChatId) : "0",
       chatRooms: Array.isArray(object?.chatRooms) ? object.chatRooms.map((e: any) => CChatRoomState.fromJSON(e)) : [],
       kicked: Array.isArray(object?.kicked) ? object.kicked.map((e: any) => CChatRoomMember.fromJSON(e)) : [],
     };
@@ -2373,7 +2373,7 @@ export const CChatRoomGroupState = {
     } else {
       obj.members = [];
     }
-    message.defaultChatId !== undefined && (obj.defaultChatId = Math.round(message.defaultChatId));
+    message.defaultChatId !== undefined && (obj.defaultChatId = message.defaultChatId);
     if (message.chatRooms) {
       obj.chatRooms = message.chatRooms.map((e) => e ? CChatRoomState.toJSON(e) : undefined);
     } else {
@@ -2397,7 +2397,7 @@ export const CChatRoomGroupState = {
       ? CChatRoomGroupHeaderState.fromPartial(object.headerState)
       : undefined;
     message.members = object.members?.map((e) => CChatRoomMember.fromPartial(e)) || [];
-    message.defaultChatId = object.defaultChatId ?? 0;
+    message.defaultChatId = object.defaultChatId ?? "0";
     message.chatRooms = object.chatRooms?.map((e) => CChatRoomState.fromPartial(e)) || [];
     message.kicked = object.kicked?.map((e) => CChatRoomMember.fromPartial(e)) || [];
     return message;
@@ -2406,7 +2406,7 @@ export const CChatRoomGroupState = {
 
 function createBaseCUserChatRoomState(): CUserChatRoomState {
   return {
-    chatId: 0,
+    chatId: "0",
     timeJoined: 0,
     timeLastAck: 0,
     desktopNotificationLevel: 0,
@@ -2419,7 +2419,7 @@ function createBaseCUserChatRoomState(): CUserChatRoomState {
 
 export const CUserChatRoomState = {
   encode(message: CUserChatRoomState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(8).uint64(message.chatId);
     }
     if (message.timeJoined !== 0) {
@@ -2454,7 +2454,7 @@ export const CUserChatRoomState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.timeJoined = reader.uint32();
@@ -2487,7 +2487,7 @@ export const CUserChatRoomState = {
 
   fromJSON(object: any): CUserChatRoomState {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       timeJoined: isSet(object.timeJoined) ? Number(object.timeJoined) : 0,
       timeLastAck: isSet(object.timeLastAck) ? Number(object.timeLastAck) : 0,
       desktopNotificationLevel: isSet(object.desktopNotificationLevel)
@@ -2504,7 +2504,7 @@ export const CUserChatRoomState = {
 
   toJSON(message: CUserChatRoomState): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.timeJoined !== undefined && (obj.timeJoined = Math.round(message.timeJoined));
     message.timeLastAck !== undefined && (obj.timeLastAck = Math.round(message.timeLastAck));
     message.desktopNotificationLevel !== undefined &&
@@ -2523,7 +2523,7 @@ export const CUserChatRoomState = {
 
   fromPartial<I extends Exact<DeepPartial<CUserChatRoomState>, I>>(object: I): CUserChatRoomState {
     const message = createBaseCUserChatRoomState();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.timeJoined = object.timeJoined ?? 0;
     message.timeLastAck = object.timeLastAck ?? 0;
     message.desktopNotificationLevel = object.desktopNotificationLevel ?? 0;
@@ -2537,7 +2537,7 @@ export const CUserChatRoomState = {
 
 function createBaseCUserChatRoomGroupState(): CUserChatRoomGroupState {
   return {
-    chatGroupId: 0,
+    chatGroupId: "0",
     timeJoined: 0,
     userChatRoomState: [],
     desktopNotificationLevel: 0,
@@ -2549,7 +2549,7 @@ function createBaseCUserChatRoomGroupState(): CUserChatRoomGroupState {
 
 export const CUserChatRoomGroupState = {
   encode(message: CUserChatRoomGroupState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.timeJoined !== 0) {
@@ -2581,7 +2581,7 @@ export const CUserChatRoomGroupState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.timeJoined = reader.uint32();
@@ -2611,7 +2611,7 @@ export const CUserChatRoomGroupState = {
 
   fromJSON(object: any): CUserChatRoomGroupState {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       timeJoined: isSet(object.timeJoined) ? Number(object.timeJoined) : 0,
       userChatRoomState: Array.isArray(object?.userChatRoomState)
         ? object.userChatRoomState.map((e: any) => CUserChatRoomState.fromJSON(e))
@@ -2629,7 +2629,7 @@ export const CUserChatRoomGroupState = {
 
   toJSON(message: CUserChatRoomGroupState): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.timeJoined !== undefined && (obj.timeJoined = Math.round(message.timeJoined));
     if (message.userChatRoomState) {
       obj.userChatRoomState = message.userChatRoomState.map((e) => e ? CUserChatRoomState.toJSON(e) : undefined);
@@ -2651,7 +2651,7 @@ export const CUserChatRoomGroupState = {
 
   fromPartial<I extends Exact<DeepPartial<CUserChatRoomGroupState>, I>>(object: I): CUserChatRoomGroupState {
     const message = createBaseCUserChatRoomGroupState();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.timeJoined = object.timeJoined ?? 0;
     message.userChatRoomState = object.userChatRoomState?.map((e) => CUserChatRoomState.fromPartial(e)) || [];
     message.desktopNotificationLevel = object.desktopNotificationLevel ?? 0;
@@ -2663,12 +2663,12 @@ export const CUserChatRoomGroupState = {
 };
 
 function createBaseCChatRoomCreateChatRoomGroupResponse(): CChatRoomCreateChatRoomGroupResponse {
-  return { chatGroupId: 0, state: undefined, userChatState: undefined };
+  return { chatGroupId: "0", state: undefined, userChatState: undefined };
 }
 
 export const CChatRoomCreateChatRoomGroupResponse = {
   encode(message: CChatRoomCreateChatRoomGroupResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.state !== undefined) {
@@ -2688,7 +2688,7 @@ export const CChatRoomCreateChatRoomGroupResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.state = CChatRoomGroupState.decode(reader, reader.uint32());
@@ -2706,7 +2706,7 @@ export const CChatRoomCreateChatRoomGroupResponse = {
 
   fromJSON(object: any): CChatRoomCreateChatRoomGroupResponse {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       state: isSet(object.state) ? CChatRoomGroupState.fromJSON(object.state) : undefined,
       userChatState: isSet(object.userChatState) ? CUserChatRoomGroupState.fromJSON(object.userChatState) : undefined,
     };
@@ -2714,7 +2714,7 @@ export const CChatRoomCreateChatRoomGroupResponse = {
 
   toJSON(message: CChatRoomCreateChatRoomGroupResponse): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.state !== undefined && (obj.state = message.state ? CChatRoomGroupState.toJSON(message.state) : undefined);
     message.userChatState !== undefined &&
       (obj.userChatState = message.userChatState ? CUserChatRoomGroupState.toJSON(message.userChatState) : undefined);
@@ -2731,7 +2731,7 @@ export const CChatRoomCreateChatRoomGroupResponse = {
     object: I,
   ): CChatRoomCreateChatRoomGroupResponse {
     const message = createBaseCChatRoomCreateChatRoomGroupResponse();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.state = (object.state !== undefined && object.state !== null)
       ? CChatRoomGroupState.fromPartial(object.state)
       : undefined;
@@ -2743,12 +2743,12 @@ export const CChatRoomCreateChatRoomGroupResponse = {
 };
 
 function createBaseCChatRoomSaveChatRoomGroupRequest(): CChatRoomSaveChatRoomGroupRequest {
-  return { chatGroupId: 0, name: "" };
+  return { chatGroupId: "0", name: "" };
 }
 
 export const CChatRoomSaveChatRoomGroupRequest = {
   encode(message: CChatRoomSaveChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.name !== "") {
@@ -2765,7 +2765,7 @@ export const CChatRoomSaveChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -2780,14 +2780,14 @@ export const CChatRoomSaveChatRoomGroupRequest = {
 
   fromJSON(object: any): CChatRoomSaveChatRoomGroupRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
   toJSON(message: CChatRoomSaveChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
@@ -2802,7 +2802,7 @@ export const CChatRoomSaveChatRoomGroupRequest = {
     object: I,
   ): CChatRoomSaveChatRoomGroupRequest {
     const message = createBaseCChatRoomSaveChatRoomGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.name = object.name ?? "";
     return message;
   },
@@ -2856,12 +2856,12 @@ export const CChatRoomSaveChatRoomGroupResponse = {
 };
 
 function createBaseCChatRoomRenameChatRoomGroupRequest(): CChatRoomRenameChatRoomGroupRequest {
-  return { chatGroupId: 0, name: "" };
+  return { chatGroupId: "0", name: "" };
 }
 
 export const CChatRoomRenameChatRoomGroupRequest = {
   encode(message: CChatRoomRenameChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.name !== "") {
@@ -2878,7 +2878,7 @@ export const CChatRoomRenameChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -2893,14 +2893,14 @@ export const CChatRoomRenameChatRoomGroupRequest = {
 
   fromJSON(object: any): CChatRoomRenameChatRoomGroupRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
   toJSON(message: CChatRoomRenameChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
@@ -2915,7 +2915,7 @@ export const CChatRoomRenameChatRoomGroupRequest = {
     object: I,
   ): CChatRoomRenameChatRoomGroupRequest {
     const message = createBaseCChatRoomRenameChatRoomGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.name = object.name ?? "";
     return message;
   },
@@ -2977,12 +2977,12 @@ export const CChatRoomRenameChatRoomGroupResponse = {
 };
 
 function createBaseCChatRoomSetChatRoomGroupTaglineRequest(): CChatRoomSetChatRoomGroupTaglineRequest {
-  return { chatGroupId: 0, tagline: "" };
+  return { chatGroupId: "0", tagline: "" };
 }
 
 export const CChatRoomSetChatRoomGroupTaglineRequest = {
   encode(message: CChatRoomSetChatRoomGroupTaglineRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.tagline !== "") {
@@ -2999,7 +2999,7 @@ export const CChatRoomSetChatRoomGroupTaglineRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.tagline = reader.string();
@@ -3014,14 +3014,14 @@ export const CChatRoomSetChatRoomGroupTaglineRequest = {
 
   fromJSON(object: any): CChatRoomSetChatRoomGroupTaglineRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       tagline: isSet(object.tagline) ? String(object.tagline) : "",
     };
   },
 
   toJSON(message: CChatRoomSetChatRoomGroupTaglineRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.tagline !== undefined && (obj.tagline = message.tagline);
     return obj;
   },
@@ -3036,7 +3036,7 @@ export const CChatRoomSetChatRoomGroupTaglineRequest = {
     object: I,
   ): CChatRoomSetChatRoomGroupTaglineRequest {
     const message = createBaseCChatRoomSetChatRoomGroupTaglineRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.tagline = object.tagline ?? "";
     return message;
   },
@@ -3090,12 +3090,12 @@ export const CChatRoomSetChatRoomGroupTaglineResponse = {
 };
 
 function createBaseCChatRoomSetChatRoomGroupAvatarRequest(): CChatRoomSetChatRoomGroupAvatarRequest {
-  return { chatGroupId: 0, avatarSha: Buffer.alloc(0) };
+  return { chatGroupId: "0", avatarSha: Buffer.alloc(0) };
 }
 
 export const CChatRoomSetChatRoomGroupAvatarRequest = {
   encode(message: CChatRoomSetChatRoomGroupAvatarRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.avatarSha.length !== 0) {
@@ -3112,7 +3112,7 @@ export const CChatRoomSetChatRoomGroupAvatarRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.avatarSha = reader.bytes() as Buffer;
@@ -3127,14 +3127,14 @@ export const CChatRoomSetChatRoomGroupAvatarRequest = {
 
   fromJSON(object: any): CChatRoomSetChatRoomGroupAvatarRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       avatarSha: isSet(object.avatarSha) ? Buffer.from(bytesFromBase64(object.avatarSha)) : Buffer.alloc(0),
     };
   },
 
   toJSON(message: CChatRoomSetChatRoomGroupAvatarRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.avatarSha !== undefined &&
       (obj.avatarSha = base64FromBytes(message.avatarSha !== undefined ? message.avatarSha : Buffer.alloc(0)));
     return obj;
@@ -3150,7 +3150,7 @@ export const CChatRoomSetChatRoomGroupAvatarRequest = {
     object: I,
   ): CChatRoomSetChatRoomGroupAvatarRequest {
     const message = createBaseCChatRoomSetChatRoomGroupAvatarRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.avatarSha = object.avatarSha ?? Buffer.alloc(0);
     return message;
   },
@@ -3204,7 +3204,7 @@ export const CChatRoomSetChatRoomGroupAvatarResponse = {
 };
 
 function createBaseCChatRoomSetChatRoomGroupWatchingBroadcastRequest(): CChatRoomSetChatRoomGroupWatchingBroadcastRequest {
-  return { chatGroupId: 0, watchingBroadcastAccountid: 0, watchingBroadcastChannelId: 0 };
+  return { chatGroupId: "0", watchingBroadcastAccountid: 0, watchingBroadcastChannelId: "0" };
 }
 
 export const CChatRoomSetChatRoomGroupWatchingBroadcastRequest = {
@@ -3212,13 +3212,13 @@ export const CChatRoomSetChatRoomGroupWatchingBroadcastRequest = {
     message: CChatRoomSetChatRoomGroupWatchingBroadcastRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.watchingBroadcastAccountid !== 0) {
       writer.uint32(16).uint32(message.watchingBroadcastAccountid);
     }
-    if (message.watchingBroadcastChannelId !== 0) {
+    if (message.watchingBroadcastChannelId !== "0") {
       writer.uint32(24).uint64(message.watchingBroadcastChannelId);
     }
     return writer;
@@ -3232,13 +3232,13 @@ export const CChatRoomSetChatRoomGroupWatchingBroadcastRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.watchingBroadcastAccountid = reader.uint32();
           break;
         case 3:
-          message.watchingBroadcastChannelId = longToNumber(reader.uint64() as Long);
+          message.watchingBroadcastChannelId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3250,23 +3250,23 @@ export const CChatRoomSetChatRoomGroupWatchingBroadcastRequest = {
 
   fromJSON(object: any): CChatRoomSetChatRoomGroupWatchingBroadcastRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       watchingBroadcastAccountid: isSet(object.watchingBroadcastAccountid)
         ? Number(object.watchingBroadcastAccountid)
         : 0,
       watchingBroadcastChannelId: isSet(object.watchingBroadcastChannelId)
-        ? Number(object.watchingBroadcastChannelId)
-        : 0,
+        ? String(object.watchingBroadcastChannelId)
+        : "0",
     };
   },
 
   toJSON(message: CChatRoomSetChatRoomGroupWatchingBroadcastRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.watchingBroadcastAccountid !== undefined &&
       (obj.watchingBroadcastAccountid = Math.round(message.watchingBroadcastAccountid));
     message.watchingBroadcastChannelId !== undefined &&
-      (obj.watchingBroadcastChannelId = Math.round(message.watchingBroadcastChannelId));
+      (obj.watchingBroadcastChannelId = message.watchingBroadcastChannelId);
     return obj;
   },
 
@@ -3280,9 +3280,9 @@ export const CChatRoomSetChatRoomGroupWatchingBroadcastRequest = {
     object: I,
   ): CChatRoomSetChatRoomGroupWatchingBroadcastRequest {
     const message = createBaseCChatRoomSetChatRoomGroupWatchingBroadcastRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.watchingBroadcastAccountid = object.watchingBroadcastAccountid ?? 0;
-    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? 0;
+    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? "0";
     return message;
   },
 };
@@ -3335,15 +3335,15 @@ export const CChatRoomSetChatRoomGroupWatchingBroadcastResponse = {
 };
 
 function createBaseCChatRoomJoinMiniGameForChatRoomGroupRequest(): CChatRoomJoinMiniGameForChatRoomGroupRequest {
-  return { chatGroupId: 0, chatId: 0 };
+  return { chatGroupId: "0", chatId: "0" };
 }
 
 export const CChatRoomJoinMiniGameForChatRoomGroupRequest = {
   encode(message: CChatRoomJoinMiniGameForChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     return writer;
@@ -3357,10 +3357,10 @@ export const CChatRoomJoinMiniGameForChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3372,15 +3372,15 @@ export const CChatRoomJoinMiniGameForChatRoomGroupRequest = {
 
   fromJSON(object: any): CChatRoomJoinMiniGameForChatRoomGroupRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomJoinMiniGameForChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     return obj;
   },
 
@@ -3394,19 +3394,19 @@ export const CChatRoomJoinMiniGameForChatRoomGroupRequest = {
     object: I,
   ): CChatRoomJoinMiniGameForChatRoomGroupRequest {
     const message = createBaseCChatRoomJoinMiniGameForChatRoomGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRoomJoinMiniGameForChatRoomGroupResponse(): CChatRoomJoinMiniGameForChatRoomGroupResponse {
-  return { minigameId: 0 };
+  return { minigameId: "0" };
 }
 
 export const CChatRoomJoinMiniGameForChatRoomGroupResponse = {
   encode(message: CChatRoomJoinMiniGameForChatRoomGroupResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.minigameId !== 0) {
+    if (message.minigameId !== "0") {
       writer.uint32(8).uint64(message.minigameId);
     }
     return writer;
@@ -3420,7 +3420,7 @@ export const CChatRoomJoinMiniGameForChatRoomGroupResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.minigameId = longToNumber(reader.uint64() as Long);
+          message.minigameId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3431,12 +3431,12 @@ export const CChatRoomJoinMiniGameForChatRoomGroupResponse = {
   },
 
   fromJSON(object: any): CChatRoomJoinMiniGameForChatRoomGroupResponse {
-    return { minigameId: isSet(object.minigameId) ? Number(object.minigameId) : 0 };
+    return { minigameId: isSet(object.minigameId) ? String(object.minigameId) : "0" };
   },
 
   toJSON(message: CChatRoomJoinMiniGameForChatRoomGroupResponse): unknown {
     const obj: any = {};
-    message.minigameId !== undefined && (obj.minigameId = Math.round(message.minigameId));
+    message.minigameId !== undefined && (obj.minigameId = message.minigameId);
     return obj;
   },
 
@@ -3450,24 +3450,24 @@ export const CChatRoomJoinMiniGameForChatRoomGroupResponse = {
     object: I,
   ): CChatRoomJoinMiniGameForChatRoomGroupResponse {
     const message = createBaseCChatRoomJoinMiniGameForChatRoomGroupResponse();
-    message.minigameId = object.minigameId ?? 0;
+    message.minigameId = object.minigameId ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRoomEndMiniGameForChatRoomGroupRequest(): CChatRoomEndMiniGameForChatRoomGroupRequest {
-  return { chatGroupId: 0, chatId: 0, minigameId: 0 };
+  return { chatGroupId: "0", chatId: "0", minigameId: "0" };
 }
 
 export const CChatRoomEndMiniGameForChatRoomGroupRequest = {
   encode(message: CChatRoomEndMiniGameForChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
-    if (message.minigameId !== 0) {
+    if (message.minigameId !== "0") {
       writer.uint32(24).uint64(message.minigameId);
     }
     return writer;
@@ -3481,13 +3481,13 @@ export const CChatRoomEndMiniGameForChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.minigameId = longToNumber(reader.uint64() as Long);
+          message.minigameId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3499,17 +3499,17 @@ export const CChatRoomEndMiniGameForChatRoomGroupRequest = {
 
   fromJSON(object: any): CChatRoomEndMiniGameForChatRoomGroupRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
-      minigameId: isSet(object.minigameId) ? Number(object.minigameId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
+      minigameId: isSet(object.minigameId) ? String(object.minigameId) : "0",
     };
   },
 
   toJSON(message: CChatRoomEndMiniGameForChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
-    message.minigameId !== undefined && (obj.minigameId = Math.round(message.minigameId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
+    message.minigameId !== undefined && (obj.minigameId = message.minigameId);
     return obj;
   },
 
@@ -3523,9 +3523,9 @@ export const CChatRoomEndMiniGameForChatRoomGroupRequest = {
     object: I,
   ): CChatRoomEndMiniGameForChatRoomGroupRequest {
     const message = createBaseCChatRoomEndMiniGameForChatRoomGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
-    message.minigameId = object.minigameId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
+    message.minigameId = object.minigameId ?? "0";
     return message;
   },
 };
@@ -3578,15 +3578,15 @@ export const CChatRoomEndMiniGameForChatRoomGroupResponse = {
 };
 
 function createBaseCChatRoomMuteUserRequest(): CChatRoomMuteUserRequest {
-  return { chatGroupId: 0, steamid: 0, expiration: 0 };
+  return { chatGroupId: "0", steamid: "0", expiration: 0 };
 }
 
 export const CChatRoomMuteUserRequest = {
   encode(message: CChatRoomMuteUserRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     if (message.expiration !== 0) {
@@ -3603,10 +3603,10 @@ export const CChatRoomMuteUserRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.expiration = reader.int32();
@@ -3621,16 +3621,16 @@ export const CChatRoomMuteUserRequest = {
 
   fromJSON(object: any): CChatRoomMuteUserRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       expiration: isSet(object.expiration) ? Number(object.expiration) : 0,
     };
   },
 
   toJSON(message: CChatRoomMuteUserRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.expiration !== undefined && (obj.expiration = Math.round(message.expiration));
     return obj;
   },
@@ -3641,8 +3641,8 @@ export const CChatRoomMuteUserRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomMuteUserRequest>, I>>(object: I): CChatRoomMuteUserRequest {
     const message = createBaseCChatRoomMuteUserRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.expiration = object.expiration ?? 0;
     return message;
   },
@@ -3692,15 +3692,15 @@ export const CChatRoomMuteUserResponse = {
 };
 
 function createBaseCChatRoomKickUserRequest(): CChatRoomKickUserRequest {
-  return { chatGroupId: 0, steamid: 0, expiration: 0 };
+  return { chatGroupId: "0", steamid: "0", expiration: 0 };
 }
 
 export const CChatRoomKickUserRequest = {
   encode(message: CChatRoomKickUserRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     if (message.expiration !== 0) {
@@ -3717,10 +3717,10 @@ export const CChatRoomKickUserRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.expiration = reader.int32();
@@ -3735,16 +3735,16 @@ export const CChatRoomKickUserRequest = {
 
   fromJSON(object: any): CChatRoomKickUserRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       expiration: isSet(object.expiration) ? Number(object.expiration) : 0,
     };
   },
 
   toJSON(message: CChatRoomKickUserRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.expiration !== undefined && (obj.expiration = Math.round(message.expiration));
     return obj;
   },
@@ -3755,8 +3755,8 @@ export const CChatRoomKickUserRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomKickUserRequest>, I>>(object: I): CChatRoomKickUserRequest {
     const message = createBaseCChatRoomKickUserRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.expiration = object.expiration ?? 0;
     return message;
   },
@@ -3806,15 +3806,15 @@ export const CChatRoomKickUserResponse = {
 };
 
 function createBaseCChatRoomSetUserBanStateRequest(): CChatRoomSetUserBanStateRequest {
-  return { chatGroupId: 0, steamid: 0, banState: false };
+  return { chatGroupId: "0", steamid: "0", banState: false };
 }
 
 export const CChatRoomSetUserBanStateRequest = {
   encode(message: CChatRoomSetUserBanStateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     if (message.banState === true) {
@@ -3831,10 +3831,10 @@ export const CChatRoomSetUserBanStateRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.banState = reader.bool();
@@ -3849,16 +3849,16 @@ export const CChatRoomSetUserBanStateRequest = {
 
   fromJSON(object: any): CChatRoomSetUserBanStateRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       banState: isSet(object.banState) ? Boolean(object.banState) : false,
     };
   },
 
   toJSON(message: CChatRoomSetUserBanStateRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.banState !== undefined && (obj.banState = message.banState);
     return obj;
   },
@@ -3871,8 +3871,8 @@ export const CChatRoomSetUserBanStateRequest = {
     object: I,
   ): CChatRoomSetUserBanStateRequest {
     const message = createBaseCChatRoomSetUserBanStateRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.steamid = object.steamid ?? "0";
     message.banState = object.banState ?? false;
     return message;
   },
@@ -3926,15 +3926,15 @@ export const CChatRoomSetUserBanStateResponse = {
 };
 
 function createBaseCChatRoomRevokeInviteRequest(): CChatRoomRevokeInviteRequest {
-  return { chatGroupId: 0, steamid: 0 };
+  return { chatGroupId: "0", steamid: "0" };
 }
 
 export const CChatRoomRevokeInviteRequest = {
   encode(message: CChatRoomRevokeInviteRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     return writer;
@@ -3948,10 +3948,10 @@ export const CChatRoomRevokeInviteRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3963,15 +3963,15 @@ export const CChatRoomRevokeInviteRequest = {
 
   fromJSON(object: any): CChatRoomRevokeInviteRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CChatRoomRevokeInviteRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -3981,8 +3981,8 @@ export const CChatRoomRevokeInviteRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomRevokeInviteRequest>, I>>(object: I): CChatRoomRevokeInviteRequest {
     const message = createBaseCChatRoomRevokeInviteRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -4031,12 +4031,12 @@ export const CChatRoomRevokeInviteResponse = {
 };
 
 function createBaseCChatRoomCreateRoleRequest(): CChatRoomCreateRoleRequest {
-  return { chatGroupId: 0, name: "" };
+  return { chatGroupId: "0", name: "" };
 }
 
 export const CChatRoomCreateRoleRequest = {
   encode(message: CChatRoomCreateRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.name !== "") {
@@ -4053,7 +4053,7 @@ export const CChatRoomCreateRoleRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -4068,14 +4068,14 @@ export const CChatRoomCreateRoleRequest = {
 
   fromJSON(object: any): CChatRoomCreateRoleRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
   toJSON(message: CChatRoomCreateRoleRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
@@ -4086,7 +4086,7 @@ export const CChatRoomCreateRoleRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomCreateRoleRequest>, I>>(object: I): CChatRoomCreateRoleRequest {
     const message = createBaseCChatRoomCreateRoleRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.name = object.name ?? "";
     return message;
   },
@@ -4147,12 +4147,12 @@ export const CChatRoomCreateRoleResponse = {
 };
 
 function createBaseCChatRoomGetRolesRequest(): CChatRoomGetRolesRequest {
-  return { chatGroupId: 0 };
+  return { chatGroupId: "0" };
 }
 
 export const CChatRoomGetRolesRequest = {
   encode(message: CChatRoomGetRolesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     return writer;
@@ -4166,7 +4166,7 @@ export const CChatRoomGetRolesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4177,12 +4177,12 @@ export const CChatRoomGetRolesRequest = {
   },
 
   fromJSON(object: any): CChatRoomGetRolesRequest {
-    return { chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0 };
+    return { chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0" };
   },
 
   toJSON(message: CChatRoomGetRolesRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -4192,7 +4192,7 @@ export const CChatRoomGetRolesRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomGetRolesRequest>, I>>(object: I): CChatRoomGetRolesRequest {
     const message = createBaseCChatRoomGetRolesRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -4253,15 +4253,15 @@ export const CChatRoomGetRolesResponse = {
 };
 
 function createBaseCChatRoomRenameRoleRequest(): CChatRoomRenameRoleRequest {
-  return { chatGroupId: 0, roleId: 0, name: "" };
+  return { chatGroupId: "0", roleId: "0", name: "" };
 }
 
 export const CChatRoomRenameRoleRequest = {
   encode(message: CChatRoomRenameRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(16).uint64(message.roleId);
     }
     if (message.name !== "") {
@@ -4278,10 +4278,10 @@ export const CChatRoomRenameRoleRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.name = reader.string();
@@ -4296,16 +4296,16 @@ export const CChatRoomRenameRoleRequest = {
 
   fromJSON(object: any): CChatRoomRenameRoleRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
   toJSON(message: CChatRoomRenameRoleRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.roleId !== undefined && (obj.roleId = message.roleId);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
@@ -4316,8 +4316,8 @@ export const CChatRoomRenameRoleRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomRenameRoleRequest>, I>>(object: I): CChatRoomRenameRoleRequest {
     const message = createBaseCChatRoomRenameRoleRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.roleId = object.roleId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.roleId = object.roleId ?? "0";
     message.name = object.name ?? "";
     return message;
   },
@@ -4367,15 +4367,15 @@ export const CChatRoomRenameRoleResponse = {
 };
 
 function createBaseCChatRoomReorderRoleRequest(): CChatRoomReorderRoleRequest {
-  return { chatGroupId: 0, roleId: 0, ordinal: 0 };
+  return { chatGroupId: "0", roleId: "0", ordinal: 0 };
 }
 
 export const CChatRoomReorderRoleRequest = {
   encode(message: CChatRoomReorderRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(16).uint64(message.roleId);
     }
     if (message.ordinal !== 0) {
@@ -4392,10 +4392,10 @@ export const CChatRoomReorderRoleRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.ordinal = reader.uint32();
@@ -4410,16 +4410,16 @@ export const CChatRoomReorderRoleRequest = {
 
   fromJSON(object: any): CChatRoomReorderRoleRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
       ordinal: isSet(object.ordinal) ? Number(object.ordinal) : 0,
     };
   },
 
   toJSON(message: CChatRoomReorderRoleRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.roleId !== undefined && (obj.roleId = message.roleId);
     message.ordinal !== undefined && (obj.ordinal = Math.round(message.ordinal));
     return obj;
   },
@@ -4430,8 +4430,8 @@ export const CChatRoomReorderRoleRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomReorderRoleRequest>, I>>(object: I): CChatRoomReorderRoleRequest {
     const message = createBaseCChatRoomReorderRoleRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.roleId = object.roleId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.roleId = object.roleId ?? "0";
     message.ordinal = object.ordinal ?? 0;
     return message;
   },
@@ -4481,15 +4481,15 @@ export const CChatRoomReorderRoleResponse = {
 };
 
 function createBaseCChatRoomDeleteRoleRequest(): CChatRoomDeleteRoleRequest {
-  return { chatGroupId: 0, roleId: 0 };
+  return { chatGroupId: "0", roleId: "0" };
 }
 
 export const CChatRoomDeleteRoleRequest = {
   encode(message: CChatRoomDeleteRoleRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(16).uint64(message.roleId);
     }
     return writer;
@@ -4503,10 +4503,10 @@ export const CChatRoomDeleteRoleRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4518,15 +4518,15 @@ export const CChatRoomDeleteRoleRequest = {
 
   fromJSON(object: any): CChatRoomDeleteRoleRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
     };
   },
 
   toJSON(message: CChatRoomDeleteRoleRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.roleId !== undefined && (obj.roleId = message.roleId);
     return obj;
   },
 
@@ -4536,8 +4536,8 @@ export const CChatRoomDeleteRoleRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomDeleteRoleRequest>, I>>(object: I): CChatRoomDeleteRoleRequest {
     const message = createBaseCChatRoomDeleteRoleRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.roleId = object.roleId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.roleId = object.roleId ?? "0";
     return message;
   },
 };
@@ -4586,15 +4586,15 @@ export const CChatRoomDeleteRoleResponse = {
 };
 
 function createBaseCChatRoomGetRoleActionsRequest(): CChatRoomGetRoleActionsRequest {
-  return { chatGroupId: 0, roleId: 0 };
+  return { chatGroupId: "0", roleId: "0" };
 }
 
 export const CChatRoomGetRoleActionsRequest = {
   encode(message: CChatRoomGetRoleActionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(16).uint64(message.roleId);
     }
     return writer;
@@ -4608,10 +4608,10 @@ export const CChatRoomGetRoleActionsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4623,15 +4623,15 @@ export const CChatRoomGetRoleActionsRequest = {
 
   fromJSON(object: any): CChatRoomGetRoleActionsRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
     };
   },
 
   toJSON(message: CChatRoomGetRoleActionsRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.roleId !== undefined && (obj.roleId = message.roleId);
     return obj;
   },
 
@@ -4643,8 +4643,8 @@ export const CChatRoomGetRoleActionsRequest = {
     object: I,
   ): CChatRoomGetRoleActionsRequest {
     const message = createBaseCChatRoomGetRoleActionsRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.roleId = object.roleId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.roleId = object.roleId ?? "0";
     return message;
   },
 };
@@ -4709,15 +4709,15 @@ export const CChatRoomGetRoleActionsResponse = {
 };
 
 function createBaseCChatRoomReplaceRoleActionsRequest(): CChatRoomReplaceRoleActionsRequest {
-  return { chatGroupId: 0, roleId: 0, actions: undefined };
+  return { chatGroupId: "0", roleId: "0", actions: undefined };
 }
 
 export const CChatRoomReplaceRoleActionsRequest = {
   encode(message: CChatRoomReplaceRoleActionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(16).uint64(message.roleId);
     }
     if (message.actions !== undefined) {
@@ -4734,10 +4734,10 @@ export const CChatRoomReplaceRoleActionsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.actions = CChatRoleActions.decode(reader, reader.uint32());
@@ -4752,16 +4752,16 @@ export const CChatRoomReplaceRoleActionsRequest = {
 
   fromJSON(object: any): CChatRoomReplaceRoleActionsRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
       actions: isSet(object.actions) ? CChatRoleActions.fromJSON(object.actions) : undefined,
     };
   },
 
   toJSON(message: CChatRoomReplaceRoleActionsRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.roleId !== undefined && (obj.roleId = message.roleId);
     message.actions !== undefined &&
       (obj.actions = message.actions ? CChatRoleActions.toJSON(message.actions) : undefined);
     return obj;
@@ -4777,8 +4777,8 @@ export const CChatRoomReplaceRoleActionsRequest = {
     object: I,
   ): CChatRoomReplaceRoleActionsRequest {
     const message = createBaseCChatRoomReplaceRoleActionsRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.roleId = object.roleId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.roleId = object.roleId ?? "0";
     message.actions = (object.actions !== undefined && object.actions !== null)
       ? CChatRoleActions.fromPartial(object.actions)
       : undefined;
@@ -4834,18 +4834,18 @@ export const CChatRoomReplaceRoleActionsResponse = {
 };
 
 function createBaseCChatRoomAddRoleToUserRequest(): CChatRoomAddRoleToUserRequest {
-  return { chatGroupId: 0, roleId: 0, steamid: 0 };
+  return { chatGroupId: "0", roleId: "0", steamid: "0" };
 }
 
 export const CChatRoomAddRoleToUserRequest = {
   encode(message: CChatRoomAddRoleToUserRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(24).uint64(message.roleId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(33).fixed64(message.steamid);
     }
     return writer;
@@ -4859,13 +4859,13 @@ export const CChatRoomAddRoleToUserRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4877,17 +4877,17 @@ export const CChatRoomAddRoleToUserRequest = {
 
   fromJSON(object: any): CChatRoomAddRoleToUserRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CChatRoomAddRoleToUserRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.roleId !== undefined && (obj.roleId = message.roleId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -4899,9 +4899,9 @@ export const CChatRoomAddRoleToUserRequest = {
     object: I,
   ): CChatRoomAddRoleToUserRequest {
     const message = createBaseCChatRoomAddRoleToUserRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.roleId = object.roleId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.roleId = object.roleId ?? "0";
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -4950,15 +4950,15 @@ export const CChatRoomAddRoleToUserResponse = {
 };
 
 function createBaseCChatRoomGetRolesForUserRequest(): CChatRoomGetRolesForUserRequest {
-  return { chatGroupId: 0, steamid: 0 };
+  return { chatGroupId: "0", steamid: "0" };
 }
 
 export const CChatRoomGetRolesForUserRequest = {
   encode(message: CChatRoomGetRolesForUserRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(25).fixed64(message.steamid);
     }
     return writer;
@@ -4972,10 +4972,10 @@ export const CChatRoomGetRolesForUserRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4987,15 +4987,15 @@ export const CChatRoomGetRolesForUserRequest = {
 
   fromJSON(object: any): CChatRoomGetRolesForUserRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CChatRoomGetRolesForUserRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -5007,8 +5007,8 @@ export const CChatRoomGetRolesForUserRequest = {
     object: I,
   ): CChatRoomGetRolesForUserRequest {
     const message = createBaseCChatRoomGetRolesForUserRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -5038,10 +5038,10 @@ export const CChatRoomGetRolesForUserResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.roleIds.push(longToNumber(reader.uint64() as Long));
+              message.roleIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.roleIds.push(longToNumber(reader.uint64() as Long));
+            message.roleIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -5053,13 +5053,13 @@ export const CChatRoomGetRolesForUserResponse = {
   },
 
   fromJSON(object: any): CChatRoomGetRolesForUserResponse {
-    return { roleIds: Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => Number(e)) : [] };
+    return { roleIds: Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: CChatRoomGetRolesForUserResponse): unknown {
     const obj: any = {};
     if (message.roleIds) {
-      obj.roleIds = message.roleIds.map((e) => Math.round(e));
+      obj.roleIds = message.roleIds.map((e) => e);
     } else {
       obj.roleIds = [];
     }
@@ -5082,18 +5082,18 @@ export const CChatRoomGetRolesForUserResponse = {
 };
 
 function createBaseCChatRoomDeleteRoleFromUserRequest(): CChatRoomDeleteRoleFromUserRequest {
-  return { chatGroupId: 0, roleId: 0, steamid: 0 };
+  return { chatGroupId: "0", roleId: "0", steamid: "0" };
 }
 
 export const CChatRoomDeleteRoleFromUserRequest = {
   encode(message: CChatRoomDeleteRoleFromUserRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.roleId !== 0) {
+    if (message.roleId !== "0") {
       writer.uint32(24).uint64(message.roleId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(33).fixed64(message.steamid);
     }
     return writer;
@@ -5107,13 +5107,13 @@ export const CChatRoomDeleteRoleFromUserRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.roleId = longToNumber(reader.uint64() as Long);
+          message.roleId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5125,17 +5125,17 @@ export const CChatRoomDeleteRoleFromUserRequest = {
 
   fromJSON(object: any): CChatRoomDeleteRoleFromUserRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      roleId: isSet(object.roleId) ? Number(object.roleId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      roleId: isSet(object.roleId) ? String(object.roleId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CChatRoomDeleteRoleFromUserRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.roleId !== undefined && (obj.roleId = Math.round(message.roleId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.roleId !== undefined && (obj.roleId = message.roleId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -5149,9 +5149,9 @@ export const CChatRoomDeleteRoleFromUserRequest = {
     object: I,
   ): CChatRoomDeleteRoleFromUserRequest {
     const message = createBaseCChatRoomDeleteRoleFromUserRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.roleId = object.roleId ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.roleId = object.roleId ?? "0";
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -5204,18 +5204,18 @@ export const CChatRoomDeleteRoleFromUserResponse = {
 };
 
 function createBaseCChatRoomJoinChatRoomGroupRequest(): CChatRoomJoinChatRoomGroupRequest {
-  return { chatGroupId: 0, inviteCode: "", chatId: 0 };
+  return { chatGroupId: "0", inviteCode: "", chatId: "0" };
 }
 
 export const CChatRoomJoinChatRoomGroupRequest = {
   encode(message: CChatRoomJoinChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.inviteCode !== "") {
       writer.uint32(18).string(message.inviteCode);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(24).uint64(message.chatId);
     }
     return writer;
@@ -5229,13 +5229,13 @@ export const CChatRoomJoinChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.inviteCode = reader.string();
           break;
         case 3:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5247,17 +5247,17 @@ export const CChatRoomJoinChatRoomGroupRequest = {
 
   fromJSON(object: any): CChatRoomJoinChatRoomGroupRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       inviteCode: isSet(object.inviteCode) ? String(object.inviteCode) : "",
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomJoinChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.inviteCode !== undefined && (obj.inviteCode = message.inviteCode);
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     return obj;
   },
 
@@ -5271,15 +5271,15 @@ export const CChatRoomJoinChatRoomGroupRequest = {
     object: I,
   ): CChatRoomJoinChatRoomGroupRequest {
     const message = createBaseCChatRoomJoinChatRoomGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.inviteCode = object.inviteCode ?? "";
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRoomJoinChatRoomGroupResponse(): CChatRoomJoinChatRoomGroupResponse {
-  return { state: undefined, userChatState: undefined, joinChatId: 0, timeExpire: 0 };
+  return { state: undefined, userChatState: undefined, joinChatId: "0", timeExpire: 0 };
 }
 
 export const CChatRoomJoinChatRoomGroupResponse = {
@@ -5290,7 +5290,7 @@ export const CChatRoomJoinChatRoomGroupResponse = {
     if (message.userChatState !== undefined) {
       CUserChatRoomGroupState.encode(message.userChatState, writer.uint32(26).fork()).ldelim();
     }
-    if (message.joinChatId !== 0) {
+    if (message.joinChatId !== "0") {
       writer.uint32(32).uint64(message.joinChatId);
     }
     if (message.timeExpire !== 0) {
@@ -5313,7 +5313,7 @@ export const CChatRoomJoinChatRoomGroupResponse = {
           message.userChatState = CUserChatRoomGroupState.decode(reader, reader.uint32());
           break;
         case 4:
-          message.joinChatId = longToNumber(reader.uint64() as Long);
+          message.joinChatId = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.timeExpire = reader.uint32();
@@ -5330,7 +5330,7 @@ export const CChatRoomJoinChatRoomGroupResponse = {
     return {
       state: isSet(object.state) ? CChatRoomGroupState.fromJSON(object.state) : undefined,
       userChatState: isSet(object.userChatState) ? CUserChatRoomGroupState.fromJSON(object.userChatState) : undefined,
-      joinChatId: isSet(object.joinChatId) ? Number(object.joinChatId) : 0,
+      joinChatId: isSet(object.joinChatId) ? String(object.joinChatId) : "0",
       timeExpire: isSet(object.timeExpire) ? Number(object.timeExpire) : 0,
     };
   },
@@ -5340,7 +5340,7 @@ export const CChatRoomJoinChatRoomGroupResponse = {
     message.state !== undefined && (obj.state = message.state ? CChatRoomGroupState.toJSON(message.state) : undefined);
     message.userChatState !== undefined &&
       (obj.userChatState = message.userChatState ? CUserChatRoomGroupState.toJSON(message.userChatState) : undefined);
-    message.joinChatId !== undefined && (obj.joinChatId = Math.round(message.joinChatId));
+    message.joinChatId !== undefined && (obj.joinChatId = message.joinChatId);
     message.timeExpire !== undefined && (obj.timeExpire = Math.round(message.timeExpire));
     return obj;
   },
@@ -5361,25 +5361,25 @@ export const CChatRoomJoinChatRoomGroupResponse = {
     message.userChatState = (object.userChatState !== undefined && object.userChatState !== null)
       ? CUserChatRoomGroupState.fromPartial(object.userChatState)
       : undefined;
-    message.joinChatId = object.joinChatId ?? 0;
+    message.joinChatId = object.joinChatId ?? "0";
     message.timeExpire = object.timeExpire ?? 0;
     return message;
   },
 };
 
 function createBaseCChatRoomInviteFriendToChatRoomGroupRequest(): CChatRoomInviteFriendToChatRoomGroupRequest {
-  return { chatGroupId: 0, steamid: 0, chatId: 0, skipFriendsuiCheck: false };
+  return { chatGroupId: "0", steamid: "0", chatId: "0", skipFriendsuiCheck: false };
 }
 
 export const CChatRoomInviteFriendToChatRoomGroupRequest = {
   encode(message: CChatRoomInviteFriendToChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(24).uint64(message.chatId);
     }
     if (message.skipFriendsuiCheck === true) {
@@ -5396,13 +5396,13 @@ export const CChatRoomInviteFriendToChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.skipFriendsuiCheck = reader.bool();
@@ -5417,18 +5417,18 @@ export const CChatRoomInviteFriendToChatRoomGroupRequest = {
 
   fromJSON(object: any): CChatRoomInviteFriendToChatRoomGroupRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       skipFriendsuiCheck: isSet(object.skipFriendsuiCheck) ? Boolean(object.skipFriendsuiCheck) : false,
     };
   },
 
   toJSON(message: CChatRoomInviteFriendToChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.skipFriendsuiCheck !== undefined && (obj.skipFriendsuiCheck = message.skipFriendsuiCheck);
     return obj;
   },
@@ -5443,9 +5443,9 @@ export const CChatRoomInviteFriendToChatRoomGroupRequest = {
     object: I,
   ): CChatRoomInviteFriendToChatRoomGroupRequest {
     const message = createBaseCChatRoomInviteFriendToChatRoomGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.steamid = object.steamid ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.steamid = object.steamid ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.skipFriendsuiCheck = object.skipFriendsuiCheck ?? false;
     return message;
   },
@@ -5499,12 +5499,12 @@ export const CChatRoomInviteFriendToChatRoomGroupResponse = {
 };
 
 function createBaseCChatRoomLeaveChatRoomGroupRequest(): CChatRoomLeaveChatRoomGroupRequest {
-  return { chatGroupId: 0 };
+  return { chatGroupId: "0" };
 }
 
 export const CChatRoomLeaveChatRoomGroupRequest = {
   encode(message: CChatRoomLeaveChatRoomGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     return writer;
@@ -5518,7 +5518,7 @@ export const CChatRoomLeaveChatRoomGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5529,12 +5529,12 @@ export const CChatRoomLeaveChatRoomGroupRequest = {
   },
 
   fromJSON(object: any): CChatRoomLeaveChatRoomGroupRequest {
-    return { chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0 };
+    return { chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0" };
   },
 
   toJSON(message: CChatRoomLeaveChatRoomGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -5548,7 +5548,7 @@ export const CChatRoomLeaveChatRoomGroupRequest = {
     object: I,
   ): CChatRoomLeaveChatRoomGroupRequest {
     const message = createBaseCChatRoomLeaveChatRoomGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -5601,12 +5601,12 @@ export const CChatRoomLeaveChatRoomGroupResponse = {
 };
 
 function createBaseCChatRoomCreateChatRoomRequest(): CChatRoomCreateChatRoomRequest {
-  return { chatGroupId: 0, name: "", allowVoice: false };
+  return { chatGroupId: "0", name: "", allowVoice: false };
 }
 
 export const CChatRoomCreateChatRoomRequest = {
   encode(message: CChatRoomCreateChatRoomRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.name !== "") {
@@ -5626,7 +5626,7 @@ export const CChatRoomCreateChatRoomRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.name = reader.string();
@@ -5644,7 +5644,7 @@ export const CChatRoomCreateChatRoomRequest = {
 
   fromJSON(object: any): CChatRoomCreateChatRoomRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
       allowVoice: isSet(object.allowVoice) ? Boolean(object.allowVoice) : false,
     };
@@ -5652,7 +5652,7 @@ export const CChatRoomCreateChatRoomRequest = {
 
   toJSON(message: CChatRoomCreateChatRoomRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.name !== undefined && (obj.name = message.name);
     message.allowVoice !== undefined && (obj.allowVoice = message.allowVoice);
     return obj;
@@ -5666,7 +5666,7 @@ export const CChatRoomCreateChatRoomRequest = {
     object: I,
   ): CChatRoomCreateChatRoomRequest {
     const message = createBaseCChatRoomCreateChatRoomRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.name = object.name ?? "";
     message.allowVoice = object.allowVoice ?? false;
     return message;
@@ -5730,15 +5730,15 @@ export const CChatRoomCreateChatRoomResponse = {
 };
 
 function createBaseCChatRoomDeleteChatRoomRequest(): CChatRoomDeleteChatRoomRequest {
-  return { chatGroupId: 0, chatId: 0 };
+  return { chatGroupId: "0", chatId: "0" };
 }
 
 export const CChatRoomDeleteChatRoomRequest = {
   encode(message: CChatRoomDeleteChatRoomRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     return writer;
@@ -5752,10 +5752,10 @@ export const CChatRoomDeleteChatRoomRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5767,15 +5767,15 @@ export const CChatRoomDeleteChatRoomRequest = {
 
   fromJSON(object: any): CChatRoomDeleteChatRoomRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomDeleteChatRoomRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     return obj;
   },
 
@@ -5787,8 +5787,8 @@ export const CChatRoomDeleteChatRoomRequest = {
     object: I,
   ): CChatRoomDeleteChatRoomRequest {
     const message = createBaseCChatRoomDeleteChatRoomRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     return message;
   },
 };
@@ -5837,15 +5837,15 @@ export const CChatRoomDeleteChatRoomResponse = {
 };
 
 function createBaseCChatRoomRenameChatRoomRequest(): CChatRoomRenameChatRoomRequest {
-  return { chatGroupId: 0, chatId: 0, name: "" };
+  return { chatGroupId: "0", chatId: "0", name: "" };
 }
 
 export const CChatRoomRenameChatRoomRequest = {
   encode(message: CChatRoomRenameChatRoomRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     if (message.name !== "") {
@@ -5862,10 +5862,10 @@ export const CChatRoomRenameChatRoomRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.name = reader.string();
@@ -5880,16 +5880,16 @@ export const CChatRoomRenameChatRoomRequest = {
 
   fromJSON(object: any): CChatRoomRenameChatRoomRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       name: isSet(object.name) ? String(object.name) : "",
     };
   },
 
   toJSON(message: CChatRoomRenameChatRoomRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.name !== undefined && (obj.name = message.name);
     return obj;
   },
@@ -5902,8 +5902,8 @@ export const CChatRoomRenameChatRoomRequest = {
     object: I,
   ): CChatRoomRenameChatRoomRequest {
     const message = createBaseCChatRoomRenameChatRoomRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.name = object.name ?? "";
     return message;
   },
@@ -5953,18 +5953,18 @@ export const CChatRoomRenameChatRoomResponse = {
 };
 
 function createBaseCChatRoomReorderChatRoomRequest(): CChatRoomReorderChatRoomRequest {
-  return { chatGroupId: 0, chatId: 0, moveAfterChatId: 0 };
+  return { chatGroupId: "0", chatId: "0", moveAfterChatId: "0" };
 }
 
 export const CChatRoomReorderChatRoomRequest = {
   encode(message: CChatRoomReorderChatRoomRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
-    if (message.moveAfterChatId !== 0) {
+    if (message.moveAfterChatId !== "0") {
       writer.uint32(24).uint64(message.moveAfterChatId);
     }
     return writer;
@@ -5978,13 +5978,13 @@ export const CChatRoomReorderChatRoomRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.moveAfterChatId = longToNumber(reader.uint64() as Long);
+          message.moveAfterChatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -5996,17 +5996,17 @@ export const CChatRoomReorderChatRoomRequest = {
 
   fromJSON(object: any): CChatRoomReorderChatRoomRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
-      moveAfterChatId: isSet(object.moveAfterChatId) ? Number(object.moveAfterChatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
+      moveAfterChatId: isSet(object.moveAfterChatId) ? String(object.moveAfterChatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomReorderChatRoomRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
-    message.moveAfterChatId !== undefined && (obj.moveAfterChatId = Math.round(message.moveAfterChatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
+    message.moveAfterChatId !== undefined && (obj.moveAfterChatId = message.moveAfterChatId);
     return obj;
   },
 
@@ -6018,9 +6018,9 @@ export const CChatRoomReorderChatRoomRequest = {
     object: I,
   ): CChatRoomReorderChatRoomRequest {
     const message = createBaseCChatRoomReorderChatRoomRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
-    message.moveAfterChatId = object.moveAfterChatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
+    message.moveAfterChatId = object.moveAfterChatId ?? "0";
     return message;
   },
 };
@@ -6073,15 +6073,15 @@ export const CChatRoomReorderChatRoomResponse = {
 };
 
 function createBaseCChatRoomSendChatMessageRequest(): CChatRoomSendChatMessageRequest {
-  return { chatGroupId: 0, chatId: 0, message: "", echoToSender: false };
+  return { chatGroupId: "0", chatId: "0", message: "", echoToSender: false };
 }
 
 export const CChatRoomSendChatMessageRequest = {
   encode(message: CChatRoomSendChatMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     if (message.message !== "") {
@@ -6101,10 +6101,10 @@ export const CChatRoomSendChatMessageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.message = reader.string();
@@ -6122,8 +6122,8 @@ export const CChatRoomSendChatMessageRequest = {
 
   fromJSON(object: any): CChatRoomSendChatMessageRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       message: isSet(object.message) ? String(object.message) : "",
       echoToSender: isSet(object.echoToSender) ? Boolean(object.echoToSender) : false,
     };
@@ -6131,8 +6131,8 @@ export const CChatRoomSendChatMessageRequest = {
 
   toJSON(message: CChatRoomSendChatMessageRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.message !== undefined && (obj.message = message.message);
     message.echoToSender !== undefined && (obj.echoToSender = message.echoToSender);
     return obj;
@@ -6146,8 +6146,8 @@ export const CChatRoomSendChatMessageRequest = {
     object: I,
   ): CChatRoomSendChatMessageRequest {
     const message = createBaseCChatRoomSendChatMessageRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.message = object.message ?? "";
     message.echoToSender = object.echoToSender ?? false;
     return message;
@@ -6239,15 +6239,15 @@ export const CChatRoomSendChatMessageResponse = {
 };
 
 function createBaseCChatRoomJoinVoiceChatRequest(): CChatRoomJoinVoiceChatRequest {
-  return { chatGroupId: 0, chatId: 0 };
+  return { chatGroupId: "0", chatId: "0" };
 }
 
 export const CChatRoomJoinVoiceChatRequest = {
   encode(message: CChatRoomJoinVoiceChatRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     return writer;
@@ -6261,10 +6261,10 @@ export const CChatRoomJoinVoiceChatRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6276,15 +6276,15 @@ export const CChatRoomJoinVoiceChatRequest = {
 
   fromJSON(object: any): CChatRoomJoinVoiceChatRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomJoinVoiceChatRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     return obj;
   },
 
@@ -6296,19 +6296,19 @@ export const CChatRoomJoinVoiceChatRequest = {
     object: I,
   ): CChatRoomJoinVoiceChatRequest {
     const message = createBaseCChatRoomJoinVoiceChatRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRoomJoinVoiceChatResponse(): CChatRoomJoinVoiceChatResponse {
-  return { voiceChatid: 0 };
+  return { voiceChatid: "0" };
 }
 
 export const CChatRoomJoinVoiceChatResponse = {
   encode(message: CChatRoomJoinVoiceChatResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.voiceChatid !== 0) {
+    if (message.voiceChatid !== "0") {
       writer.uint32(8).uint64(message.voiceChatid);
     }
     return writer;
@@ -6322,7 +6322,7 @@ export const CChatRoomJoinVoiceChatResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.voiceChatid = longToNumber(reader.uint64() as Long);
+          message.voiceChatid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6333,12 +6333,12 @@ export const CChatRoomJoinVoiceChatResponse = {
   },
 
   fromJSON(object: any): CChatRoomJoinVoiceChatResponse {
-    return { voiceChatid: isSet(object.voiceChatid) ? Number(object.voiceChatid) : 0 };
+    return { voiceChatid: isSet(object.voiceChatid) ? String(object.voiceChatid) : "0" };
   },
 
   toJSON(message: CChatRoomJoinVoiceChatResponse): unknown {
     const obj: any = {};
-    message.voiceChatid !== undefined && (obj.voiceChatid = Math.round(message.voiceChatid));
+    message.voiceChatid !== undefined && (obj.voiceChatid = message.voiceChatid);
     return obj;
   },
 
@@ -6350,21 +6350,21 @@ export const CChatRoomJoinVoiceChatResponse = {
     object: I,
   ): CChatRoomJoinVoiceChatResponse {
     const message = createBaseCChatRoomJoinVoiceChatResponse();
-    message.voiceChatid = object.voiceChatid ?? 0;
+    message.voiceChatid = object.voiceChatid ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRoomLeaveVoiceChatRequest(): CChatRoomLeaveVoiceChatRequest {
-  return { chatGroupId: 0, chatId: 0 };
+  return { chatGroupId: "0", chatId: "0" };
 }
 
 export const CChatRoomLeaveVoiceChatRequest = {
   encode(message: CChatRoomLeaveVoiceChatRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     return writer;
@@ -6378,10 +6378,10 @@ export const CChatRoomLeaveVoiceChatRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6393,15 +6393,15 @@ export const CChatRoomLeaveVoiceChatRequest = {
 
   fromJSON(object: any): CChatRoomLeaveVoiceChatRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomLeaveVoiceChatRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     return obj;
   },
 
@@ -6413,8 +6413,8 @@ export const CChatRoomLeaveVoiceChatRequest = {
     object: I,
   ): CChatRoomLeaveVoiceChatRequest {
     const message = createBaseCChatRoomLeaveVoiceChatRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     return message;
   },
 };
@@ -6463,15 +6463,15 @@ export const CChatRoomLeaveVoiceChatResponse = {
 };
 
 function createBaseCChatRoomGetMessageHistoryRequest(): CChatRoomGetMessageHistoryRequest {
-  return { chatGroupId: 0, chatId: 0, lastTime: 0, lastOrdinal: 0, startTime: 0, startOrdinal: 0, maxCount: 0 };
+  return { chatGroupId: "0", chatId: "0", lastTime: 0, lastOrdinal: 0, startTime: 0, startOrdinal: 0, maxCount: 0 };
 }
 
 export const CChatRoomGetMessageHistoryRequest = {
   encode(message: CChatRoomGetMessageHistoryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     if (message.lastTime !== 0) {
@@ -6500,10 +6500,10 @@ export const CChatRoomGetMessageHistoryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.lastTime = reader.uint32();
@@ -6530,8 +6530,8 @@ export const CChatRoomGetMessageHistoryRequest = {
 
   fromJSON(object: any): CChatRoomGetMessageHistoryRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       lastTime: isSet(object.lastTime) ? Number(object.lastTime) : 0,
       lastOrdinal: isSet(object.lastOrdinal) ? Number(object.lastOrdinal) : 0,
       startTime: isSet(object.startTime) ? Number(object.startTime) : 0,
@@ -6542,8 +6542,8 @@ export const CChatRoomGetMessageHistoryRequest = {
 
   toJSON(message: CChatRoomGetMessageHistoryRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.lastTime !== undefined && (obj.lastTime = Math.round(message.lastTime));
     message.lastOrdinal !== undefined && (obj.lastOrdinal = Math.round(message.lastOrdinal));
     message.startTime !== undefined && (obj.startTime = Math.round(message.startTime));
@@ -6562,8 +6562,8 @@ export const CChatRoomGetMessageHistoryRequest = {
     object: I,
   ): CChatRoomGetMessageHistoryRequest {
     const message = createBaseCChatRoomGetMessageHistoryRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.lastTime = object.lastTime ?? 0;
     message.lastOrdinal = object.lastOrdinal ?? 0;
     message.startTime = object.startTime ?? 0;
@@ -6993,11 +6993,11 @@ export const CChatRoomGetMyChatRoomGroupsRequest = {
 
 function createBaseCChatRoomGetChatRoomGroupSummaryResponse(): CChatRoomGetChatRoomGroupSummaryResponse {
   return {
-    chatGroupId: 0,
+    chatGroupId: "0",
     chatGroupName: "",
     activeMemberCount: 0,
     activeVoiceMemberCount: 0,
-    defaultChatId: 0,
+    defaultChatId: "0",
     chatRooms: [],
     clanid: 0,
     chatGroupTagline: "",
@@ -7005,14 +7005,14 @@ function createBaseCChatRoomGetChatRoomGroupSummaryResponse(): CChatRoomGetChatR
     topMembers: [],
     chatGroupAvatarSha: Buffer.alloc(0),
     rank: 0,
-    defaultRoleId: 0,
+    defaultRoleId: "0",
     roleIds: [],
     roleActions: [],
     watchingBroadcastAccountid: 0,
     appid: 0,
     partyBeacons: [],
-    watchingBroadcastChannelId: 0,
-    activeMinigameId: 0,
+    watchingBroadcastChannelId: "0",
+    activeMinigameId: "0",
     avatarUgcUrl: "",
     disabled: false,
   };
@@ -7020,7 +7020,7 @@ function createBaseCChatRoomGetChatRoomGroupSummaryResponse(): CChatRoomGetChatR
 
 export const CChatRoomGetChatRoomGroupSummaryResponse = {
   encode(message: CChatRoomGetChatRoomGroupSummaryResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.chatGroupName !== "") {
@@ -7032,7 +7032,7 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
     if (message.activeVoiceMemberCount !== 0) {
       writer.uint32(32).uint32(message.activeVoiceMemberCount);
     }
-    if (message.defaultChatId !== 0) {
+    if (message.defaultChatId !== "0") {
       writer.uint32(40).uint64(message.defaultChatId);
     }
     for (const v of message.chatRooms) {
@@ -7058,7 +7058,7 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
     if (message.rank !== 0) {
       writer.uint32(96).int32(message.rank);
     }
-    if (message.defaultRoleId !== 0) {
+    if (message.defaultRoleId !== "0") {
       writer.uint32(104).uint64(message.defaultRoleId);
     }
     writer.uint32(114).fork();
@@ -7078,10 +7078,10 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
     for (const v of message.partyBeacons) {
       CChatPartyBeacon.encode(v!, writer.uint32(146).fork()).ldelim();
     }
-    if (message.watchingBroadcastChannelId !== 0) {
+    if (message.watchingBroadcastChannelId !== "0") {
       writer.uint32(152).uint64(message.watchingBroadcastChannelId);
     }
-    if (message.activeMinigameId !== 0) {
+    if (message.activeMinigameId !== "0") {
       writer.uint32(160).uint64(message.activeMinigameId);
     }
     if (message.avatarUgcUrl !== "") {
@@ -7101,7 +7101,7 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.chatGroupName = reader.string();
@@ -7113,7 +7113,7 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
           message.activeVoiceMemberCount = reader.uint32();
           break;
         case 5:
-          message.defaultChatId = longToNumber(reader.uint64() as Long);
+          message.defaultChatId = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.chatRooms.push(CChatRoomState.decode(reader, reader.uint32()));
@@ -7144,16 +7144,16 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
           message.rank = reader.int32() as any;
           break;
         case 13:
-          message.defaultRoleId = longToNumber(reader.uint64() as Long);
+          message.defaultRoleId = longToString(reader.uint64() as Long);
           break;
         case 14:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.roleIds.push(longToNumber(reader.uint64() as Long));
+              message.roleIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.roleIds.push(longToNumber(reader.uint64() as Long));
+            message.roleIds.push(longToString(reader.uint64() as Long));
           }
           break;
         case 15:
@@ -7169,10 +7169,10 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
           message.partyBeacons.push(CChatPartyBeacon.decode(reader, reader.uint32()));
           break;
         case 19:
-          message.watchingBroadcastChannelId = longToNumber(reader.uint64() as Long);
+          message.watchingBroadcastChannelId = longToString(reader.uint64() as Long);
           break;
         case 20:
-          message.activeMinigameId = longToNumber(reader.uint64() as Long);
+          message.activeMinigameId = longToString(reader.uint64() as Long);
           break;
         case 21:
           message.avatarUgcUrl = reader.string();
@@ -7190,11 +7190,11 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
 
   fromJSON(object: any): CChatRoomGetChatRoomGroupSummaryResponse {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       chatGroupName: isSet(object.chatGroupName) ? String(object.chatGroupName) : "",
       activeMemberCount: isSet(object.activeMemberCount) ? Number(object.activeMemberCount) : 0,
       activeVoiceMemberCount: isSet(object.activeVoiceMemberCount) ? Number(object.activeVoiceMemberCount) : 0,
-      defaultChatId: isSet(object.defaultChatId) ? Number(object.defaultChatId) : 0,
+      defaultChatId: isSet(object.defaultChatId) ? String(object.defaultChatId) : "0",
       chatRooms: Array.isArray(object?.chatRooms) ? object.chatRooms.map((e: any) => CChatRoomState.fromJSON(e)) : [],
       clanid: isSet(object.clanid) ? Number(object.clanid) : 0,
       chatGroupTagline: isSet(object.chatGroupTagline) ? String(object.chatGroupTagline) : "",
@@ -7204,8 +7204,8 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
         ? Buffer.from(bytesFromBase64(object.chatGroupAvatarSha))
         : Buffer.alloc(0),
       rank: isSet(object.rank) ? eChatRoomGroupRankFromJSON(object.rank) : 0,
-      defaultRoleId: isSet(object.defaultRoleId) ? Number(object.defaultRoleId) : 0,
-      roleIds: Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => Number(e)) : [],
+      defaultRoleId: isSet(object.defaultRoleId) ? String(object.defaultRoleId) : "0",
+      roleIds: Array.isArray(object?.roleIds) ? object.roleIds.map((e: any) => String(e)) : [],
       roleActions: Array.isArray(object?.roleActions)
         ? object.roleActions.map((e: any) => CChatRoleActions.fromJSON(e))
         : [],
@@ -7217,9 +7217,9 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
         ? object.partyBeacons.map((e: any) => CChatPartyBeacon.fromJSON(e))
         : [],
       watchingBroadcastChannelId: isSet(object.watchingBroadcastChannelId)
-        ? Number(object.watchingBroadcastChannelId)
-        : 0,
-      activeMinigameId: isSet(object.activeMinigameId) ? Number(object.activeMinigameId) : 0,
+        ? String(object.watchingBroadcastChannelId)
+        : "0",
+      activeMinigameId: isSet(object.activeMinigameId) ? String(object.activeMinigameId) : "0",
       avatarUgcUrl: isSet(object.avatarUgcUrl) ? String(object.avatarUgcUrl) : "",
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
     };
@@ -7227,12 +7227,12 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
 
   toJSON(message: CChatRoomGetChatRoomGroupSummaryResponse): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.chatGroupName !== undefined && (obj.chatGroupName = message.chatGroupName);
     message.activeMemberCount !== undefined && (obj.activeMemberCount = Math.round(message.activeMemberCount));
     message.activeVoiceMemberCount !== undefined &&
       (obj.activeVoiceMemberCount = Math.round(message.activeVoiceMemberCount));
-    message.defaultChatId !== undefined && (obj.defaultChatId = Math.round(message.defaultChatId));
+    message.defaultChatId !== undefined && (obj.defaultChatId = message.defaultChatId);
     if (message.chatRooms) {
       obj.chatRooms = message.chatRooms.map((e) => e ? CChatRoomState.toJSON(e) : undefined);
     } else {
@@ -7251,9 +7251,9 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
         message.chatGroupAvatarSha !== undefined ? message.chatGroupAvatarSha : Buffer.alloc(0),
       ));
     message.rank !== undefined && (obj.rank = eChatRoomGroupRankToJSON(message.rank));
-    message.defaultRoleId !== undefined && (obj.defaultRoleId = Math.round(message.defaultRoleId));
+    message.defaultRoleId !== undefined && (obj.defaultRoleId = message.defaultRoleId);
     if (message.roleIds) {
-      obj.roleIds = message.roleIds.map((e) => Math.round(e));
+      obj.roleIds = message.roleIds.map((e) => e);
     } else {
       obj.roleIds = [];
     }
@@ -7271,8 +7271,8 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
       obj.partyBeacons = [];
     }
     message.watchingBroadcastChannelId !== undefined &&
-      (obj.watchingBroadcastChannelId = Math.round(message.watchingBroadcastChannelId));
-    message.activeMinigameId !== undefined && (obj.activeMinigameId = Math.round(message.activeMinigameId));
+      (obj.watchingBroadcastChannelId = message.watchingBroadcastChannelId);
+    message.activeMinigameId !== undefined && (obj.activeMinigameId = message.activeMinigameId);
     message.avatarUgcUrl !== undefined && (obj.avatarUgcUrl = message.avatarUgcUrl);
     message.disabled !== undefined && (obj.disabled = message.disabled);
     return obj;
@@ -7288,11 +7288,11 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
     object: I,
   ): CChatRoomGetChatRoomGroupSummaryResponse {
     const message = createBaseCChatRoomGetChatRoomGroupSummaryResponse();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.chatGroupName = object.chatGroupName ?? "";
     message.activeMemberCount = object.activeMemberCount ?? 0;
     message.activeVoiceMemberCount = object.activeVoiceMemberCount ?? 0;
-    message.defaultChatId = object.defaultChatId ?? 0;
+    message.defaultChatId = object.defaultChatId ?? "0";
     message.chatRooms = object.chatRooms?.map((e) => CChatRoomState.fromPartial(e)) || [];
     message.clanid = object.clanid ?? 0;
     message.chatGroupTagline = object.chatGroupTagline ?? "";
@@ -7300,14 +7300,14 @@ export const CChatRoomGetChatRoomGroupSummaryResponse = {
     message.topMembers = object.topMembers?.map((e) => e) || [];
     message.chatGroupAvatarSha = object.chatGroupAvatarSha ?? Buffer.alloc(0);
     message.rank = object.rank ?? 0;
-    message.defaultRoleId = object.defaultRoleId ?? 0;
+    message.defaultRoleId = object.defaultRoleId ?? "0";
     message.roleIds = object.roleIds?.map((e) => e) || [];
     message.roleActions = object.roleActions?.map((e) => CChatRoleActions.fromPartial(e)) || [];
     message.watchingBroadcastAccountid = object.watchingBroadcastAccountid ?? 0;
     message.appid = object.appid ?? 0;
     message.partyBeacons = object.partyBeacons?.map((e) => CChatPartyBeacon.fromPartial(e)) || [];
-    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? 0;
-    message.activeMinigameId = object.activeMinigameId ?? 0;
+    message.watchingBroadcastChannelId = object.watchingBroadcastChannelId ?? "0";
+    message.activeMinigameId = object.activeMinigameId ?? "0";
     message.avatarUgcUrl = object.avatarUgcUrl ?? "";
     message.disabled = object.disabled ?? false;
     return message;
@@ -7452,12 +7452,12 @@ export const CChatRoomGetMyChatRoomGroupsResponse = {
 };
 
 function createBaseCChatRoomGetChatRoomGroupStateRequest(): CChatRoomGetChatRoomGroupStateRequest {
-  return { chatGroupId: 0 };
+  return { chatGroupId: "0" };
 }
 
 export const CChatRoomGetChatRoomGroupStateRequest = {
   encode(message: CChatRoomGetChatRoomGroupStateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     return writer;
@@ -7471,7 +7471,7 @@ export const CChatRoomGetChatRoomGroupStateRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7482,12 +7482,12 @@ export const CChatRoomGetChatRoomGroupStateRequest = {
   },
 
   fromJSON(object: any): CChatRoomGetChatRoomGroupStateRequest {
-    return { chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0 };
+    return { chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0" };
   },
 
   toJSON(message: CChatRoomGetChatRoomGroupStateRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -7501,7 +7501,7 @@ export const CChatRoomGetChatRoomGroupStateRequest = {
     object: I,
   ): CChatRoomGetChatRoomGroupStateRequest {
     const message = createBaseCChatRoomGetChatRoomGroupStateRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -7564,12 +7564,12 @@ export const CChatRoomGetChatRoomGroupStateResponse = {
 };
 
 function createBaseCChatRoomGetChatRoomGroupSummaryRequest(): CChatRoomGetChatRoomGroupSummaryRequest {
-  return { chatGroupId: 0 };
+  return { chatGroupId: "0" };
 }
 
 export const CChatRoomGetChatRoomGroupSummaryRequest = {
   encode(message: CChatRoomGetChatRoomGroupSummaryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     return writer;
@@ -7583,7 +7583,7 @@ export const CChatRoomGetChatRoomGroupSummaryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7594,12 +7594,12 @@ export const CChatRoomGetChatRoomGroupSummaryRequest = {
   },
 
   fromJSON(object: any): CChatRoomGetChatRoomGroupSummaryRequest {
-    return { chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0 };
+    return { chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0" };
   },
 
   toJSON(message: CChatRoomGetChatRoomGroupSummaryRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -7613,13 +7613,13 @@ export const CChatRoomGetChatRoomGroupSummaryRequest = {
     object: I,
   ): CChatRoomGetChatRoomGroupSummaryRequest {
     const message = createBaseCChatRoomGetChatRoomGroupSummaryRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRoomSetAppChatRoomGroupForceActiveRequest(): CChatRoomSetAppChatRoomGroupForceActiveRequest {
-  return { chatGroupId: 0, requestingAppId: 0 };
+  return { chatGroupId: "0", requestingAppId: 0 };
 }
 
 export const CChatRoomSetAppChatRoomGroupForceActiveRequest = {
@@ -7627,7 +7627,7 @@ export const CChatRoomSetAppChatRoomGroupForceActiveRequest = {
     message: CChatRoomSetAppChatRoomGroupForceActiveRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.requestingAppId !== 0) {
@@ -7644,7 +7644,7 @@ export const CChatRoomSetAppChatRoomGroupForceActiveRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.requestingAppId = reader.uint32();
@@ -7659,14 +7659,14 @@ export const CChatRoomSetAppChatRoomGroupForceActiveRequest = {
 
   fromJSON(object: any): CChatRoomSetAppChatRoomGroupForceActiveRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       requestingAppId: isSet(object.requestingAppId) ? Number(object.requestingAppId) : 0,
     };
   },
 
   toJSON(message: CChatRoomSetAppChatRoomGroupForceActiveRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.requestingAppId !== undefined && (obj.requestingAppId = Math.round(message.requestingAppId));
     return obj;
   },
@@ -7681,7 +7681,7 @@ export const CChatRoomSetAppChatRoomGroupForceActiveRequest = {
     object: I,
   ): CChatRoomSetAppChatRoomGroupForceActiveRequest {
     const message = createBaseCChatRoomSetAppChatRoomGroupForceActiveRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.requestingAppId = object.requestingAppId ?? 0;
     return message;
   },
@@ -7772,7 +7772,7 @@ export const CChatRoomSetAppChatRoomGroupForceActiveResponse = {
 };
 
 function createBaseCChatRoomSetAppChatRoomGroupStopForceActiveNotification(): CChatRoomSetAppChatRoomGroupStopForceActiveNotification {
-  return { chatGroupId: 0, requestingAppId: 0 };
+  return { chatGroupId: "0", requestingAppId: 0 };
 }
 
 export const CChatRoomSetAppChatRoomGroupStopForceActiveNotification = {
@@ -7780,7 +7780,7 @@ export const CChatRoomSetAppChatRoomGroupStopForceActiveNotification = {
     message: CChatRoomSetAppChatRoomGroupStopForceActiveNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.requestingAppId !== 0) {
@@ -7797,7 +7797,7 @@ export const CChatRoomSetAppChatRoomGroupStopForceActiveNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.requestingAppId = reader.uint32();
@@ -7812,14 +7812,14 @@ export const CChatRoomSetAppChatRoomGroupStopForceActiveNotification = {
 
   fromJSON(object: any): CChatRoomSetAppChatRoomGroupStopForceActiveNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       requestingAppId: isSet(object.requestingAppId) ? Number(object.requestingAppId) : 0,
     };
   },
 
   toJSON(message: CChatRoomSetAppChatRoomGroupStopForceActiveNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.requestingAppId !== undefined && (obj.requestingAppId = Math.round(message.requestingAppId));
     return obj;
   },
@@ -7834,22 +7834,22 @@ export const CChatRoomSetAppChatRoomGroupStopForceActiveNotification = {
     object: I,
   ): CChatRoomSetAppChatRoomGroupStopForceActiveNotification {
     const message = createBaseCChatRoomSetAppChatRoomGroupStopForceActiveNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.requestingAppId = object.requestingAppId ?? 0;
     return message;
   },
 };
 
 function createBaseCChatRoomAckChatMessageNotification(): CChatRoomAckChatMessageNotification {
-  return { chatGroupId: 0, chatId: 0, timestamp: 0 };
+  return { chatGroupId: "0", chatId: "0", timestamp: 0 };
 }
 
 export const CChatRoomAckChatMessageNotification = {
   encode(message: CChatRoomAckChatMessageNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     if (message.timestamp !== 0) {
@@ -7866,10 +7866,10 @@ export const CChatRoomAckChatMessageNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.timestamp = reader.uint32();
@@ -7884,16 +7884,16 @@ export const CChatRoomAckChatMessageNotification = {
 
   fromJSON(object: any): CChatRoomAckChatMessageNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
     };
   },
 
   toJSON(message: CChatRoomAckChatMessageNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
     return obj;
   },
@@ -7908,26 +7908,26 @@ export const CChatRoomAckChatMessageNotification = {
     object: I,
   ): CChatRoomAckChatMessageNotification {
     const message = createBaseCChatRoomAckChatMessageNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.timestamp = object.timestamp ?? 0;
     return message;
   },
 };
 
 function createBaseCChatRoomCreateInviteLinkRequest(): CChatRoomCreateInviteLinkRequest {
-  return { chatGroupId: 0, secondsValid: 0, chatId: 0 };
+  return { chatGroupId: "0", secondsValid: 0, chatId: "0" };
 }
 
 export const CChatRoomCreateInviteLinkRequest = {
   encode(message: CChatRoomCreateInviteLinkRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.secondsValid !== 0) {
       writer.uint32(16).uint32(message.secondsValid);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(24).uint64(message.chatId);
     }
     return writer;
@@ -7941,13 +7941,13 @@ export const CChatRoomCreateInviteLinkRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.secondsValid = reader.uint32();
           break;
         case 3:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7959,17 +7959,17 @@ export const CChatRoomCreateInviteLinkRequest = {
 
   fromJSON(object: any): CChatRoomCreateInviteLinkRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       secondsValid: isSet(object.secondsValid) ? Number(object.secondsValid) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomCreateInviteLinkRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.secondsValid !== undefined && (obj.secondsValid = Math.round(message.secondsValid));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     return obj;
   },
 
@@ -7983,9 +7983,9 @@ export const CChatRoomCreateInviteLinkRequest = {
     object: I,
   ): CChatRoomCreateInviteLinkRequest {
     const message = createBaseCChatRoomCreateInviteLinkRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.secondsValid = object.secondsValid ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     return message;
   },
 };
@@ -8113,9 +8113,9 @@ export const CChatRoomGetInviteLinkInfoRequest = {
 
 function createBaseCChatRoomGetInviteLinkInfoResponse(): CChatRoomGetInviteLinkInfoResponse {
   return {
-    steamidSender: 0,
+    steamidSender: "0",
     timeExpires: 0,
-    chatId: 0,
+    chatId: "0",
     groupSummary: undefined,
     userChatGroupState: undefined,
     timeKickExpire: 0,
@@ -8125,13 +8125,13 @@ function createBaseCChatRoomGetInviteLinkInfoResponse(): CChatRoomGetInviteLinkI
 
 export const CChatRoomGetInviteLinkInfoResponse = {
   encode(message: CChatRoomGetInviteLinkInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidSender !== 0) {
+    if (message.steamidSender !== "0") {
       writer.uint32(25).fixed64(message.steamidSender);
     }
     if (message.timeExpires !== 0) {
       writer.uint32(32).uint32(message.timeExpires);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(48).uint64(message.chatId);
     }
     if (message.groupSummary !== undefined) {
@@ -8157,13 +8157,13 @@ export const CChatRoomGetInviteLinkInfoResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 3:
-          message.steamidSender = longToNumber(reader.fixed64() as Long);
+          message.steamidSender = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.timeExpires = reader.uint32();
           break;
         case 6:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.groupSummary = CChatRoomGetChatRoomGroupSummaryResponse.decode(reader, reader.uint32());
@@ -8187,9 +8187,9 @@ export const CChatRoomGetInviteLinkInfoResponse = {
 
   fromJSON(object: any): CChatRoomGetInviteLinkInfoResponse {
     return {
-      steamidSender: isSet(object.steamidSender) ? Number(object.steamidSender) : 0,
+      steamidSender: isSet(object.steamidSender) ? String(object.steamidSender) : "0",
       timeExpires: isSet(object.timeExpires) ? Number(object.timeExpires) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       groupSummary: isSet(object.groupSummary)
         ? CChatRoomGetChatRoomGroupSummaryResponse.fromJSON(object.groupSummary)
         : undefined,
@@ -8203,9 +8203,9 @@ export const CChatRoomGetInviteLinkInfoResponse = {
 
   toJSON(message: CChatRoomGetInviteLinkInfoResponse): unknown {
     const obj: any = {};
-    message.steamidSender !== undefined && (obj.steamidSender = Math.round(message.steamidSender));
+    message.steamidSender !== undefined && (obj.steamidSender = message.steamidSender);
     message.timeExpires !== undefined && (obj.timeExpires = Math.round(message.timeExpires));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.groupSummary !== undefined && (obj.groupSummary = message.groupSummary
       ? CChatRoomGetChatRoomGroupSummaryResponse.toJSON(message.groupSummary)
       : undefined);
@@ -8227,9 +8227,9 @@ export const CChatRoomGetInviteLinkInfoResponse = {
     object: I,
   ): CChatRoomGetInviteLinkInfoResponse {
     const message = createBaseCChatRoomGetInviteLinkInfoResponse();
-    message.steamidSender = object.steamidSender ?? 0;
+    message.steamidSender = object.steamidSender ?? "0";
     message.timeExpires = object.timeExpires ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.groupSummary = (object.groupSummary !== undefined && object.groupSummary !== null)
       ? CChatRoomGetChatRoomGroupSummaryResponse.fromPartial(object.groupSummary)
       : undefined;
@@ -8243,18 +8243,18 @@ export const CChatRoomGetInviteLinkInfoResponse = {
 };
 
 function createBaseCChatRoomGetInviteInfoRequest(): CChatRoomGetInviteInfoRequest {
-  return { steamidInvitee: 0, chatGroupId: 0, chatId: 0, inviteCode: "" };
+  return { steamidInvitee: "0", chatGroupId: "0", chatId: "0", inviteCode: "" };
 }
 
 export const CChatRoomGetInviteInfoRequest = {
   encode(message: CChatRoomGetInviteInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidInvitee !== 0) {
+    if (message.steamidInvitee !== "0") {
       writer.uint32(9).fixed64(message.steamidInvitee);
     }
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(16).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(24).uint64(message.chatId);
     }
     if (message.inviteCode !== "") {
@@ -8271,13 +8271,13 @@ export const CChatRoomGetInviteInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidInvitee = longToNumber(reader.fixed64() as Long);
+          message.steamidInvitee = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.inviteCode = reader.string();
@@ -8292,18 +8292,18 @@ export const CChatRoomGetInviteInfoRequest = {
 
   fromJSON(object: any): CChatRoomGetInviteInfoRequest {
     return {
-      steamidInvitee: isSet(object.steamidInvitee) ? Number(object.steamidInvitee) : 0,
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      steamidInvitee: isSet(object.steamidInvitee) ? String(object.steamidInvitee) : "0",
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       inviteCode: isSet(object.inviteCode) ? String(object.inviteCode) : "",
     };
   },
 
   toJSON(message: CChatRoomGetInviteInfoRequest): unknown {
     const obj: any = {};
-    message.steamidInvitee !== undefined && (obj.steamidInvitee = Math.round(message.steamidInvitee));
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.steamidInvitee !== undefined && (obj.steamidInvitee = message.steamidInvitee);
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.inviteCode !== undefined && (obj.inviteCode = message.inviteCode);
     return obj;
   },
@@ -8316,9 +8316,9 @@ export const CChatRoomGetInviteInfoRequest = {
     object: I,
   ): CChatRoomGetInviteInfoRequest {
     const message = createBaseCChatRoomGetInviteInfoRequest();
-    message.steamidInvitee = object.steamidInvitee ?? 0;
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.steamidInvitee = object.steamidInvitee ?? "0";
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.inviteCode = object.inviteCode ?? "";
     return message;
   },
@@ -8404,12 +8404,12 @@ export const CChatRoomGetInviteInfoResponse = {
 };
 
 function createBaseCChatRoomGetInviteLinksForGroupRequest(): CChatRoomGetInviteLinksForGroupRequest {
-  return { chatGroupId: 0 };
+  return { chatGroupId: "0" };
 }
 
 export const CChatRoomGetInviteLinksForGroupRequest = {
   encode(message: CChatRoomGetInviteLinksForGroupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     return writer;
@@ -8423,7 +8423,7 @@ export const CChatRoomGetInviteLinksForGroupRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8434,12 +8434,12 @@ export const CChatRoomGetInviteLinksForGroupRequest = {
   },
 
   fromJSON(object: any): CChatRoomGetInviteLinksForGroupRequest {
-    return { chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0 };
+    return { chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0" };
   },
 
   toJSON(message: CChatRoomGetInviteLinksForGroupRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -8453,7 +8453,7 @@ export const CChatRoomGetInviteLinksForGroupRequest = {
     object: I,
   ): CChatRoomGetInviteLinksForGroupRequest {
     const message = createBaseCChatRoomGetInviteLinksForGroupRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -8525,7 +8525,7 @@ export const CChatRoomGetInviteLinksForGroupResponse = {
 };
 
 function createBaseCChatRoomGetInviteLinksForGroupResponse_LinkInfo(): CChatRoomGetInviteLinksForGroupResponse_LinkInfo {
-  return { inviteCode: "", steamidCreator: 0, timeExpires: 0, chatId: 0 };
+  return { inviteCode: "", steamidCreator: "0", timeExpires: 0, chatId: "0" };
 }
 
 export const CChatRoomGetInviteLinksForGroupResponse_LinkInfo = {
@@ -8536,13 +8536,13 @@ export const CChatRoomGetInviteLinksForGroupResponse_LinkInfo = {
     if (message.inviteCode !== "") {
       writer.uint32(10).string(message.inviteCode);
     }
-    if (message.steamidCreator !== 0) {
+    if (message.steamidCreator !== "0") {
       writer.uint32(17).fixed64(message.steamidCreator);
     }
     if (message.timeExpires !== 0) {
       writer.uint32(24).uint32(message.timeExpires);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(32).uint64(message.chatId);
     }
     return writer;
@@ -8559,13 +8559,13 @@ export const CChatRoomGetInviteLinksForGroupResponse_LinkInfo = {
           message.inviteCode = reader.string();
           break;
         case 2:
-          message.steamidCreator = longToNumber(reader.fixed64() as Long);
+          message.steamidCreator = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.timeExpires = reader.uint32();
           break;
         case 4:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8578,18 +8578,18 @@ export const CChatRoomGetInviteLinksForGroupResponse_LinkInfo = {
   fromJSON(object: any): CChatRoomGetInviteLinksForGroupResponse_LinkInfo {
     return {
       inviteCode: isSet(object.inviteCode) ? String(object.inviteCode) : "",
-      steamidCreator: isSet(object.steamidCreator) ? Number(object.steamidCreator) : 0,
+      steamidCreator: isSet(object.steamidCreator) ? String(object.steamidCreator) : "0",
       timeExpires: isSet(object.timeExpires) ? Number(object.timeExpires) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
     };
   },
 
   toJSON(message: CChatRoomGetInviteLinksForGroupResponse_LinkInfo): unknown {
     const obj: any = {};
     message.inviteCode !== undefined && (obj.inviteCode = message.inviteCode);
-    message.steamidCreator !== undefined && (obj.steamidCreator = Math.round(message.steamidCreator));
+    message.steamidCreator !== undefined && (obj.steamidCreator = message.steamidCreator);
     message.timeExpires !== undefined && (obj.timeExpires = Math.round(message.timeExpires));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     return obj;
   },
 
@@ -8604,20 +8604,20 @@ export const CChatRoomGetInviteLinksForGroupResponse_LinkInfo = {
   ): CChatRoomGetInviteLinksForGroupResponse_LinkInfo {
     const message = createBaseCChatRoomGetInviteLinksForGroupResponse_LinkInfo();
     message.inviteCode = object.inviteCode ?? "";
-    message.steamidCreator = object.steamidCreator ?? 0;
+    message.steamidCreator = object.steamidCreator ?? "0";
     message.timeExpires = object.timeExpires ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     return message;
   },
 };
 
 function createBaseCChatRoomGetBanListRequest(): CChatRoomGetBanListRequest {
-  return { chatGroupId: 0 };
+  return { chatGroupId: "0" };
 }
 
 export const CChatRoomGetBanListRequest = {
   encode(message: CChatRoomGetBanListRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     return writer;
@@ -8631,7 +8631,7 @@ export const CChatRoomGetBanListRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8642,12 +8642,12 @@ export const CChatRoomGetBanListRequest = {
   },
 
   fromJSON(object: any): CChatRoomGetBanListRequest {
-    return { chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0 };
+    return { chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0" };
   },
 
   toJSON(message: CChatRoomGetBanListRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -8657,7 +8657,7 @@ export const CChatRoomGetBanListRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CChatRoomGetBanListRequest>, I>>(object: I): CChatRoomGetBanListRequest {
     const message = createBaseCChatRoomGetBanListRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -8806,12 +8806,12 @@ export const CChatRoomGetBanListResponse_BanInfo = {
 };
 
 function createBaseCChatRoomGetInviteListRequest(): CChatRoomGetInviteListRequest {
-  return { chatGroupId: 0 };
+  return { chatGroupId: "0" };
 }
 
 export const CChatRoomGetInviteListRequest = {
   encode(message: CChatRoomGetInviteListRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     return writer;
@@ -8825,7 +8825,7 @@ export const CChatRoomGetInviteListRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8836,12 +8836,12 @@ export const CChatRoomGetInviteListRequest = {
   },
 
   fromJSON(object: any): CChatRoomGetInviteListRequest {
-    return { chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0 };
+    return { chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0" };
   },
 
   toJSON(message: CChatRoomGetInviteListRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -8853,7 +8853,7 @@ export const CChatRoomGetInviteListRequest = {
     object: I,
   ): CChatRoomGetInviteListRequest {
     const message = createBaseCChatRoomGetInviteListRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
@@ -8989,12 +8989,12 @@ export const CChatRoomGetInviteListResponse = {
 };
 
 function createBaseCChatRoomDeleteInviteLinkRequest(): CChatRoomDeleteInviteLinkRequest {
-  return { chatGroupId: 0, inviteCode: "" };
+  return { chatGroupId: "0", inviteCode: "" };
 }
 
 export const CChatRoomDeleteInviteLinkRequest = {
   encode(message: CChatRoomDeleteInviteLinkRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.inviteCode !== "") {
@@ -9011,7 +9011,7 @@ export const CChatRoomDeleteInviteLinkRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.inviteCode = reader.string();
@@ -9026,14 +9026,14 @@ export const CChatRoomDeleteInviteLinkRequest = {
 
   fromJSON(object: any): CChatRoomDeleteInviteLinkRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       inviteCode: isSet(object.inviteCode) ? String(object.inviteCode) : "",
     };
   },
 
   toJSON(message: CChatRoomDeleteInviteLinkRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.inviteCode !== undefined && (obj.inviteCode = message.inviteCode);
     return obj;
   },
@@ -9048,7 +9048,7 @@ export const CChatRoomDeleteInviteLinkRequest = {
     object: I,
   ): CChatRoomDeleteInviteLinkRequest {
     const message = createBaseCChatRoomDeleteInviteLinkRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.inviteCode = object.inviteCode ?? "";
     return message;
   },
@@ -9137,20 +9137,20 @@ export const CChatRoomSetSessionActiveChatRoomGroupsRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.chatGroupIds.push(longToNumber(reader.uint64() as Long));
+              message.chatGroupIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.chatGroupIds.push(longToNumber(reader.uint64() as Long));
+            message.chatGroupIds.push(longToString(reader.uint64() as Long));
           }
           break;
         case 2:
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.chatGroupsDataRequested.push(longToNumber(reader.uint64() as Long));
+              message.chatGroupsDataRequested.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.chatGroupsDataRequested.push(longToNumber(reader.uint64() as Long));
+            message.chatGroupsDataRequested.push(longToString(reader.uint64() as Long));
           }
           break;
         case 3:
@@ -9166,9 +9166,9 @@ export const CChatRoomSetSessionActiveChatRoomGroupsRequest = {
 
   fromJSON(object: any): CChatRoomSetSessionActiveChatRoomGroupsRequest {
     return {
-      chatGroupIds: Array.isArray(object?.chatGroupIds) ? object.chatGroupIds.map((e: any) => Number(e)) : [],
+      chatGroupIds: Array.isArray(object?.chatGroupIds) ? object.chatGroupIds.map((e: any) => String(e)) : [],
       chatGroupsDataRequested: Array.isArray(object?.chatGroupsDataRequested)
-        ? object.chatGroupsDataRequested.map((e: any) => Number(e))
+        ? object.chatGroupsDataRequested.map((e: any) => String(e))
         : [],
       virtualizeMembersThreshold: isSet(object.virtualizeMembersThreshold)
         ? Number(object.virtualizeMembersThreshold)
@@ -9179,12 +9179,12 @@ export const CChatRoomSetSessionActiveChatRoomGroupsRequest = {
   toJSON(message: CChatRoomSetSessionActiveChatRoomGroupsRequest): unknown {
     const obj: any = {};
     if (message.chatGroupIds) {
-      obj.chatGroupIds = message.chatGroupIds.map((e) => Math.round(e));
+      obj.chatGroupIds = message.chatGroupIds.map((e) => e);
     } else {
       obj.chatGroupIds = [];
     }
     if (message.chatGroupsDataRequested) {
-      obj.chatGroupsDataRequested = message.chatGroupsDataRequested.map((e) => Math.round(e));
+      obj.chatGroupsDataRequested = message.chatGroupsDataRequested.map((e) => e);
     } else {
       obj.chatGroupsDataRequested = [];
     }
@@ -9244,10 +9244,10 @@ export const CChatRoomSetSessionActiveChatRoomGroupsResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.virtualizeMembersChatGroupIds.push(longToNumber(reader.uint64() as Long));
+              message.virtualizeMembersChatGroupIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.virtualizeMembersChatGroupIds.push(longToNumber(reader.uint64() as Long));
+            message.virtualizeMembersChatGroupIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -9264,7 +9264,7 @@ export const CChatRoomSetSessionActiveChatRoomGroupsResponse = {
         ? object.chatStates.map((e: any) => CChatRoomGroupState.fromJSON(e))
         : [],
       virtualizeMembersChatGroupIds: Array.isArray(object?.virtualizeMembersChatGroupIds)
-        ? object.virtualizeMembersChatGroupIds.map((e: any) => Number(e))
+        ? object.virtualizeMembersChatGroupIds.map((e: any) => String(e))
         : [],
     };
   },
@@ -9277,7 +9277,7 @@ export const CChatRoomSetSessionActiveChatRoomGroupsResponse = {
       obj.chatStates = [];
     }
     if (message.virtualizeMembersChatGroupIds) {
-      obj.virtualizeMembersChatGroupIds = message.virtualizeMembersChatGroupIds.map((e) => Math.round(e));
+      obj.virtualizeMembersChatGroupIds = message.virtualizeMembersChatGroupIds.map((e) => e);
     } else {
       obj.virtualizeMembersChatGroupIds = [];
     }
@@ -9301,12 +9301,12 @@ export const CChatRoomSetSessionActiveChatRoomGroupsResponse = {
 };
 
 function createBaseCChatRoomSetUserChatGroupPreferencesRequest(): CChatRoomSetUserChatGroupPreferencesRequest {
-  return { chatGroupId: 0, chatGroupPreferences: undefined, chatRoomPreferences: [] };
+  return { chatGroupId: "0", chatGroupPreferences: undefined, chatRoomPreferences: [] };
 }
 
 export const CChatRoomSetUserChatGroupPreferencesRequest = {
   encode(message: CChatRoomSetUserChatGroupPreferencesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.chatGroupPreferences !== undefined) {
@@ -9329,7 +9329,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.chatGroupPreferences = CChatRoomSetUserChatGroupPreferencesRequest_ChatGroupPreferences.decode(
@@ -9352,7 +9352,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest = {
 
   fromJSON(object: any): CChatRoomSetUserChatGroupPreferencesRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       chatGroupPreferences: isSet(object.chatGroupPreferences)
         ? CChatRoomSetUserChatGroupPreferencesRequest_ChatGroupPreferences.fromJSON(object.chatGroupPreferences)
         : undefined,
@@ -9366,7 +9366,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest = {
 
   toJSON(message: CChatRoomSetUserChatGroupPreferencesRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.chatGroupPreferences !== undefined && (obj.chatGroupPreferences = message.chatGroupPreferences
       ? CChatRoomSetUserChatGroupPreferencesRequest_ChatGroupPreferences.toJSON(message.chatGroupPreferences)
       : undefined);
@@ -9390,7 +9390,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest = {
     object: I,
   ): CChatRoomSetUserChatGroupPreferencesRequest {
     const message = createBaseCChatRoomSetUserChatGroupPreferencesRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.chatGroupPreferences = (object.chatGroupPreferences !== undefined && object.chatGroupPreferences !== null)
       ? CChatRoomSetUserChatGroupPreferencesRequest_ChatGroupPreferences.fromPartial(object.chatGroupPreferences)
       : undefined;
@@ -9490,7 +9490,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest_ChatGroupPreferences = 
 };
 
 function createBaseCChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences(): CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences {
-  return { chatId: 0, desktopNotificationLevel: 0, mobileNotificationLevel: 0, unreadIndicatorMuted: false };
+  return { chatId: "0", desktopNotificationLevel: 0, mobileNotificationLevel: 0, unreadIndicatorMuted: false };
 }
 
 export const CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences = {
@@ -9498,7 +9498,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences = {
     message: CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(8).uint64(message.chatId);
     }
     if (message.desktopNotificationLevel !== 0) {
@@ -9524,7 +9524,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.desktopNotificationLevel = reader.int32() as any;
@@ -9545,7 +9545,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences = {
 
   fromJSON(object: any): CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       desktopNotificationLevel: isSet(object.desktopNotificationLevel)
         ? eChatRoomNotificationLevelFromJSON(object.desktopNotificationLevel)
         : 0,
@@ -9558,7 +9558,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences = {
 
   toJSON(message: CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.desktopNotificationLevel !== undefined &&
       (obj.desktopNotificationLevel = eChatRoomNotificationLevelToJSON(message.desktopNotificationLevel));
     message.mobileNotificationLevel !== undefined &&
@@ -9577,7 +9577,7 @@ export const CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences = {
     object: I,
   ): CChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences {
     const message = createBaseCChatRoomSetUserChatGroupPreferencesRequest_ChatRoomPreferences();
-    message.chatId = object.chatId ?? 0;
+    message.chatId = object.chatId ?? "0";
     message.desktopNotificationLevel = object.desktopNotificationLevel ?? 0;
     message.mobileNotificationLevel = object.mobileNotificationLevel ?? 0;
     message.unreadIndicatorMuted = object.unreadIndicatorMuted ?? false;
@@ -9633,15 +9633,15 @@ export const CChatRoomSetUserChatGroupPreferencesResponse = {
 };
 
 function createBaseCChatRoomDeleteChatMessagesRequest(): CChatRoomDeleteChatMessagesRequest {
-  return { chatGroupId: 0, chatId: 0, messages: [] };
+  return { chatGroupId: "0", chatId: "0", messages: [] };
 }
 
 export const CChatRoomDeleteChatMessagesRequest = {
   encode(message: CChatRoomDeleteChatMessagesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     for (const v of message.messages) {
@@ -9658,10 +9658,10 @@ export const CChatRoomDeleteChatMessagesRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.messages.push(CChatRoomDeleteChatMessagesRequest_Message.decode(reader, reader.uint32()));
@@ -9676,8 +9676,8 @@ export const CChatRoomDeleteChatMessagesRequest = {
 
   fromJSON(object: any): CChatRoomDeleteChatMessagesRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       messages: Array.isArray(object?.messages)
         ? object.messages.map((e: any) => CChatRoomDeleteChatMessagesRequest_Message.fromJSON(e))
         : [],
@@ -9686,8 +9686,8 @@ export const CChatRoomDeleteChatMessagesRequest = {
 
   toJSON(message: CChatRoomDeleteChatMessagesRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     if (message.messages) {
       obj.messages = message.messages.map((e) => e ? CChatRoomDeleteChatMessagesRequest_Message.toJSON(e) : undefined);
     } else {
@@ -9706,8 +9706,8 @@ export const CChatRoomDeleteChatMessagesRequest = {
     object: I,
   ): CChatRoomDeleteChatMessagesRequest {
     const message = createBaseCChatRoomDeleteChatMessagesRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.messages = object.messages?.map((e) => CChatRoomDeleteChatMessagesRequest_Message.fromPartial(e)) || [];
     return message;
   },
@@ -9828,8 +9828,8 @@ export const CChatRoomDeleteChatMessagesResponse = {
 
 function createBaseCChatRoomUpdateMemberListViewNotification(): CChatRoomUpdateMemberListViewNotification {
   return {
-    chatGroupId: 0,
-    viewId: 0,
+    chatGroupId: "0",
+    viewId: "0",
     start: 0,
     end: 0,
     clientChangenumber: 0,
@@ -9841,10 +9841,10 @@ function createBaseCChatRoomUpdateMemberListViewNotification(): CChatRoomUpdateM
 
 export const CChatRoomUpdateMemberListViewNotification = {
   encode(message: CChatRoomUpdateMemberListViewNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.viewId !== 0) {
+    if (message.viewId !== "0") {
       writer.uint32(16).uint64(message.viewId);
     }
     if (message.start !== 0) {
@@ -9880,10 +9880,10 @@ export const CChatRoomUpdateMemberListViewNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.viewId = longToNumber(reader.uint64() as Long);
+          message.viewId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.start = reader.int32();
@@ -9927,8 +9927,8 @@ export const CChatRoomUpdateMemberListViewNotification = {
 
   fromJSON(object: any): CChatRoomUpdateMemberListViewNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      viewId: isSet(object.viewId) ? Number(object.viewId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      viewId: isSet(object.viewId) ? String(object.viewId) : "0",
       start: isSet(object.start) ? Number(object.start) : 0,
       end: isSet(object.end) ? Number(object.end) : 0,
       clientChangenumber: isSet(object.clientChangenumber) ? Number(object.clientChangenumber) : 0,
@@ -9944,8 +9944,8 @@ export const CChatRoomUpdateMemberListViewNotification = {
 
   toJSON(message: CChatRoomUpdateMemberListViewNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.viewId !== undefined && (obj.viewId = Math.round(message.viewId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.viewId !== undefined && (obj.viewId = message.viewId);
     message.start !== undefined && (obj.start = Math.round(message.start));
     message.end !== undefined && (obj.end = Math.round(message.end));
     message.clientChangenumber !== undefined && (obj.clientChangenumber = Math.round(message.clientChangenumber));
@@ -9973,8 +9973,8 @@ export const CChatRoomUpdateMemberListViewNotification = {
     object: I,
   ): CChatRoomUpdateMemberListViewNotification {
     const message = createBaseCChatRoomUpdateMemberListViewNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.viewId = object.viewId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.viewId = object.viewId ?? "0";
     message.start = object.start ?? 0;
     message.end = object.end ?? 0;
     message.clientChangenumber = object.clientChangenumber ?? 0;
@@ -9986,15 +9986,15 @@ export const CChatRoomUpdateMemberListViewNotification = {
 };
 
 function createBaseCChatRoomSearchMembersRequest(): CChatRoomSearchMembersRequest {
-  return { chatGroupId: 0, searchId: 0, searchText: "", maxResults: 0 };
+  return { chatGroupId: "0", searchId: "0", searchText: "", maxResults: 0 };
 }
 
 export const CChatRoomSearchMembersRequest = {
   encode(message: CChatRoomSearchMembersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.searchId !== 0) {
+    if (message.searchId !== "0") {
       writer.uint32(16).uint64(message.searchId);
     }
     if (message.searchText !== "") {
@@ -10014,10 +10014,10 @@ export const CChatRoomSearchMembersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.searchId = longToNumber(reader.uint64() as Long);
+          message.searchId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.searchText = reader.string();
@@ -10035,8 +10035,8 @@ export const CChatRoomSearchMembersRequest = {
 
   fromJSON(object: any): CChatRoomSearchMembersRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      searchId: isSet(object.searchId) ? Number(object.searchId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      searchId: isSet(object.searchId) ? String(object.searchId) : "0",
       searchText: isSet(object.searchText) ? String(object.searchText) : "",
       maxResults: isSet(object.maxResults) ? Number(object.maxResults) : 0,
     };
@@ -10044,8 +10044,8 @@ export const CChatRoomSearchMembersRequest = {
 
   toJSON(message: CChatRoomSearchMembersRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.searchId !== undefined && (obj.searchId = Math.round(message.searchId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.searchId !== undefined && (obj.searchId = message.searchId);
     message.searchText !== undefined && (obj.searchText = message.searchText);
     message.maxResults !== undefined && (obj.maxResults = Math.round(message.maxResults));
     return obj;
@@ -10059,8 +10059,8 @@ export const CChatRoomSearchMembersRequest = {
     object: I,
   ): CChatRoomSearchMembersRequest {
     const message = createBaseCChatRoomSearchMembersRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.searchId = object.searchId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.searchId = object.searchId ?? "0";
     message.searchText = object.searchText ?? "";
     message.maxResults = object.maxResults ?? 0;
     return message;
@@ -10210,15 +10210,15 @@ export const CChatRoomSearchMembersResponse_MemberMatch = {
 };
 
 function createBaseCChatRoomUpdateMessageReactionRequest(): CChatRoomUpdateMessageReactionRequest {
-  return { chatGroupId: 0, chatId: 0, serverTimestamp: 0, ordinal: 0, reactionType: 0, reaction: "", isAdd: false };
+  return { chatGroupId: "0", chatId: "0", serverTimestamp: 0, ordinal: 0, reactionType: 0, reaction: "", isAdd: false };
 }
 
 export const CChatRoomUpdateMessageReactionRequest = {
   encode(message: CChatRoomUpdateMessageReactionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     if (message.serverTimestamp !== 0) {
@@ -10247,10 +10247,10 @@ export const CChatRoomUpdateMessageReactionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.serverTimestamp = reader.uint32();
@@ -10277,8 +10277,8 @@ export const CChatRoomUpdateMessageReactionRequest = {
 
   fromJSON(object: any): CChatRoomUpdateMessageReactionRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       serverTimestamp: isSet(object.serverTimestamp) ? Number(object.serverTimestamp) : 0,
       ordinal: isSet(object.ordinal) ? Number(object.ordinal) : 0,
       reactionType: isSet(object.reactionType) ? eChatRoomMessageReactionTypeFromJSON(object.reactionType) : 0,
@@ -10289,8 +10289,8 @@ export const CChatRoomUpdateMessageReactionRequest = {
 
   toJSON(message: CChatRoomUpdateMessageReactionRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.serverTimestamp !== undefined && (obj.serverTimestamp = Math.round(message.serverTimestamp));
     message.ordinal !== undefined && (obj.ordinal = Math.round(message.ordinal));
     message.reactionType !== undefined && (obj.reactionType = eChatRoomMessageReactionTypeToJSON(message.reactionType));
@@ -10309,8 +10309,8 @@ export const CChatRoomUpdateMessageReactionRequest = {
     object: I,
   ): CChatRoomUpdateMessageReactionRequest {
     const message = createBaseCChatRoomUpdateMessageReactionRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.serverTimestamp = object.serverTimestamp ?? 0;
     message.ordinal = object.ordinal ?? 0;
     message.reactionType = object.reactionType ?? 0;
@@ -10376,15 +10376,15 @@ export const CChatRoomUpdateMessageReactionResponse = {
 };
 
 function createBaseCChatRoomGetMessageReactionReactorsRequest(): CChatRoomGetMessageReactionReactorsRequest {
-  return { chatGroupId: 0, chatId: 0, serverTimestamp: 0, ordinal: 0, reactionType: 0, reaction: "", limit: 0 };
+  return { chatGroupId: "0", chatId: "0", serverTimestamp: 0, ordinal: 0, reactionType: 0, reaction: "", limit: 0 };
 }
 
 export const CChatRoomGetMessageReactionReactorsRequest = {
   encode(message: CChatRoomGetMessageReactionReactorsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     if (message.serverTimestamp !== 0) {
@@ -10413,10 +10413,10 @@ export const CChatRoomGetMessageReactionReactorsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.serverTimestamp = reader.uint32();
@@ -10443,8 +10443,8 @@ export const CChatRoomGetMessageReactionReactorsRequest = {
 
   fromJSON(object: any): CChatRoomGetMessageReactionReactorsRequest {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       serverTimestamp: isSet(object.serverTimestamp) ? Number(object.serverTimestamp) : 0,
       ordinal: isSet(object.ordinal) ? Number(object.ordinal) : 0,
       reactionType: isSet(object.reactionType) ? eChatRoomMessageReactionTypeFromJSON(object.reactionType) : 0,
@@ -10455,8 +10455,8 @@ export const CChatRoomGetMessageReactionReactorsRequest = {
 
   toJSON(message: CChatRoomGetMessageReactionReactorsRequest): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.serverTimestamp !== undefined && (obj.serverTimestamp = Math.round(message.serverTimestamp));
     message.ordinal !== undefined && (obj.ordinal = Math.round(message.ordinal));
     message.reactionType !== undefined && (obj.reactionType = eChatRoomMessageReactionTypeToJSON(message.reactionType));
@@ -10475,8 +10475,8 @@ export const CChatRoomGetMessageReactionReactorsRequest = {
     object: I,
   ): CChatRoomGetMessageReactionReactorsRequest {
     const message = createBaseCChatRoomGetMessageReactionReactorsRequest();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.serverTimestamp = object.serverTimestamp ?? 0;
     message.ordinal = object.ordinal ?? 0;
     message.reactionType = object.reactionType ?? 0;
@@ -10555,12 +10555,12 @@ export const CChatRoomGetMessageReactionReactorsResponse = {
 };
 
 function createBaseCClanChatRoomsGetClanChatRoomInfoRequest(): CClanChatRoomsGetClanChatRoomInfoRequest {
-  return { steamid: 0, autocreate: false };
+  return { steamid: "0", autocreate: false };
 }
 
 export const CClanChatRoomsGetClanChatRoomInfoRequest = {
   encode(message: CClanChatRoomsGetClanChatRoomInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.autocreate === true) {
@@ -10577,7 +10577,7 @@ export const CClanChatRoomsGetClanChatRoomInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.autocreate = reader.bool();
@@ -10592,14 +10592,14 @@ export const CClanChatRoomsGetClanChatRoomInfoRequest = {
 
   fromJSON(object: any): CClanChatRoomsGetClanChatRoomInfoRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       autocreate: isSet(object.autocreate) ? Boolean(object.autocreate) : false,
     };
   },
 
   toJSON(message: CClanChatRoomsGetClanChatRoomInfoRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.autocreate !== undefined && (obj.autocreate = message.autocreate);
     return obj;
   },
@@ -10614,7 +10614,7 @@ export const CClanChatRoomsGetClanChatRoomInfoRequest = {
     object: I,
   ): CClanChatRoomsGetClanChatRoomInfoRequest {
     const message = createBaseCClanChatRoomsGetClanChatRoomInfoRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.autocreate = object.autocreate ?? false;
     return message;
   },
@@ -10684,12 +10684,12 @@ export const CClanChatRoomsGetClanChatRoomInfoResponse = {
 };
 
 function createBaseCClanChatRoomsSetClanChatRoomPrivateRequest(): CClanChatRoomsSetClanChatRoomPrivateRequest {
-  return { steamid: 0, chatRoomPrivate: false };
+  return { steamid: "0", chatRoomPrivate: false };
 }
 
 export const CClanChatRoomsSetClanChatRoomPrivateRequest = {
   encode(message: CClanChatRoomsSetClanChatRoomPrivateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.chatRoomPrivate === true) {
@@ -10706,7 +10706,7 @@ export const CClanChatRoomsSetClanChatRoomPrivateRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.chatRoomPrivate = reader.bool();
@@ -10721,14 +10721,14 @@ export const CClanChatRoomsSetClanChatRoomPrivateRequest = {
 
   fromJSON(object: any): CClanChatRoomsSetClanChatRoomPrivateRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       chatRoomPrivate: isSet(object.chatRoomPrivate) ? Boolean(object.chatRoomPrivate) : false,
     };
   },
 
   toJSON(message: CClanChatRoomsSetClanChatRoomPrivateRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.chatRoomPrivate !== undefined && (obj.chatRoomPrivate = message.chatRoomPrivate);
     return obj;
   },
@@ -10743,7 +10743,7 @@ export const CClanChatRoomsSetClanChatRoomPrivateRequest = {
     object: I,
   ): CClanChatRoomsSetClanChatRoomPrivateRequest {
     const message = createBaseCClanChatRoomsSetClanChatRoomPrivateRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.chatRoomPrivate = object.chatRoomPrivate ?? false;
     return message;
   },
@@ -10892,9 +10892,9 @@ export const CChatMentions = {
 
 function createBaseCChatRoomIncomingChatMessageNotification(): CChatRoomIncomingChatMessageNotification {
   return {
-    chatGroupId: 0,
-    chatId: 0,
-    steamidSender: 0,
+    chatGroupId: "0",
+    chatId: "0",
+    steamidSender: "0",
     message: "",
     timestamp: 0,
     mentions: undefined,
@@ -10907,13 +10907,13 @@ function createBaseCChatRoomIncomingChatMessageNotification(): CChatRoomIncoming
 
 export const CChatRoomIncomingChatMessageNotification = {
   encode(message: CChatRoomIncomingChatMessageNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
-    if (message.steamidSender !== 0) {
+    if (message.steamidSender !== "0") {
       writer.uint32(25).fixed64(message.steamidSender);
     }
     if (message.message !== "") {
@@ -10948,13 +10948,13 @@ export const CChatRoomIncomingChatMessageNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.steamidSender = longToNumber(reader.fixed64() as Long);
+          message.steamidSender = longToString(reader.fixed64() as Long);
           break;
         case 4:
           message.message = reader.string();
@@ -10987,9 +10987,9 @@ export const CChatRoomIncomingChatMessageNotification = {
 
   fromJSON(object: any): CChatRoomIncomingChatMessageNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
-      steamidSender: isSet(object.steamidSender) ? Number(object.steamidSender) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
+      steamidSender: isSet(object.steamidSender) ? String(object.steamidSender) : "0",
       message: isSet(object.message) ? String(object.message) : "",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
       mentions: isSet(object.mentions) ? CChatMentions.fromJSON(object.mentions) : undefined,
@@ -11002,9 +11002,9 @@ export const CChatRoomIncomingChatMessageNotification = {
 
   toJSON(message: CChatRoomIncomingChatMessageNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
-    message.steamidSender !== undefined && (obj.steamidSender = Math.round(message.steamidSender));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
+    message.steamidSender !== undefined && (obj.steamidSender = message.steamidSender);
     message.message !== undefined && (obj.message = message.message);
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
     message.mentions !== undefined &&
@@ -11027,9 +11027,9 @@ export const CChatRoomIncomingChatMessageNotification = {
     object: I,
   ): CChatRoomIncomingChatMessageNotification {
     const message = createBaseCChatRoomIncomingChatMessageNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
-    message.steamidSender = object.steamidSender ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
+    message.steamidSender = object.steamidSender ?? "0";
     message.message = object.message ?? "";
     message.timestamp = object.timestamp ?? 0;
     message.mentions = (object.mentions !== undefined && object.mentions !== null)
@@ -11046,15 +11046,15 @@ export const CChatRoomIncomingChatMessageNotification = {
 };
 
 function createBaseCChatRoomChatMessageModifiedNotification(): CChatRoomChatMessageModifiedNotification {
-  return { chatGroupId: 0, chatId: 0, messages: [] };
+  return { chatGroupId: "0", chatId: "0", messages: [] };
 }
 
 export const CChatRoomChatMessageModifiedNotification = {
   encode(message: CChatRoomChatMessageModifiedNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     for (const v of message.messages) {
@@ -11071,10 +11071,10 @@ export const CChatRoomChatMessageModifiedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.messages.push(CChatRoomChatMessageModifiedNotification_ChatMessage.decode(reader, reader.uint32()));
@@ -11089,8 +11089,8 @@ export const CChatRoomChatMessageModifiedNotification = {
 
   fromJSON(object: any): CChatRoomChatMessageModifiedNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       messages: Array.isArray(object?.messages)
         ? object.messages.map((e: any) => CChatRoomChatMessageModifiedNotification_ChatMessage.fromJSON(e))
         : [],
@@ -11099,8 +11099,8 @@ export const CChatRoomChatMessageModifiedNotification = {
 
   toJSON(message: CChatRoomChatMessageModifiedNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     if (message.messages) {
       obj.messages = message.messages.map((e) =>
         e ? CChatRoomChatMessageModifiedNotification_ChatMessage.toJSON(e) : undefined
@@ -11121,8 +11121,8 @@ export const CChatRoomChatMessageModifiedNotification = {
     object: I,
   ): CChatRoomChatMessageModifiedNotification {
     const message = createBaseCChatRoomChatMessageModifiedNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.messages =
       object.messages?.map((e) => CChatRoomChatMessageModifiedNotification_ChatMessage.fromPartial(e)) || [];
     return message;
@@ -11208,12 +11208,12 @@ export const CChatRoomChatMessageModifiedNotification_ChatMessage = {
 };
 
 function createBaseCChatRoomMemberStateChangeNotification(): CChatRoomMemberStateChangeNotification {
-  return { chatGroupId: 0, member: undefined, change: 0 };
+  return { chatGroupId: "0", member: undefined, change: 0 };
 }
 
 export const CChatRoomMemberStateChangeNotification = {
   encode(message: CChatRoomMemberStateChangeNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.member !== undefined) {
@@ -11233,7 +11233,7 @@ export const CChatRoomMemberStateChangeNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.member = CChatRoomMember.decode(reader, reader.uint32());
@@ -11251,7 +11251,7 @@ export const CChatRoomMemberStateChangeNotification = {
 
   fromJSON(object: any): CChatRoomMemberStateChangeNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       member: isSet(object.member) ? CChatRoomMember.fromJSON(object.member) : undefined,
       change: isSet(object.change) ? eChatRoomMemberStateChangeFromJSON(object.change) : 0,
     };
@@ -11259,7 +11259,7 @@ export const CChatRoomMemberStateChangeNotification = {
 
   toJSON(message: CChatRoomMemberStateChangeNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.member !== undefined && (obj.member = message.member ? CChatRoomMember.toJSON(message.member) : undefined);
     message.change !== undefined && (obj.change = eChatRoomMemberStateChangeToJSON(message.change));
     return obj;
@@ -11275,7 +11275,7 @@ export const CChatRoomMemberStateChangeNotification = {
     object: I,
   ): CChatRoomMemberStateChangeNotification {
     const message = createBaseCChatRoomMemberStateChangeNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.member = (object.member !== undefined && object.member !== null)
       ? CChatRoomMember.fromPartial(object.member)
       : undefined;
@@ -11345,15 +11345,15 @@ export const CChatRoomChatRoomHeaderStateNotification = {
 };
 
 function createBaseCChatRoomChatRoomGroupRoomsChangeNotification(): CChatRoomChatRoomGroupRoomsChangeNotification {
-  return { chatGroupId: 0, defaultChatId: 0, chatRooms: [] };
+  return { chatGroupId: "0", defaultChatId: "0", chatRooms: [] };
 }
 
 export const CChatRoomChatRoomGroupRoomsChangeNotification = {
   encode(message: CChatRoomChatRoomGroupRoomsChangeNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.defaultChatId !== 0) {
+    if (message.defaultChatId !== "0") {
       writer.uint32(16).uint64(message.defaultChatId);
     }
     for (const v of message.chatRooms) {
@@ -11370,10 +11370,10 @@ export const CChatRoomChatRoomGroupRoomsChangeNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.defaultChatId = longToNumber(reader.uint64() as Long);
+          message.defaultChatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.chatRooms.push(CChatRoomState.decode(reader, reader.uint32()));
@@ -11388,16 +11388,16 @@ export const CChatRoomChatRoomGroupRoomsChangeNotification = {
 
   fromJSON(object: any): CChatRoomChatRoomGroupRoomsChangeNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      defaultChatId: isSet(object.defaultChatId) ? Number(object.defaultChatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      defaultChatId: isSet(object.defaultChatId) ? String(object.defaultChatId) : "0",
       chatRooms: Array.isArray(object?.chatRooms) ? object.chatRooms.map((e: any) => CChatRoomState.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: CChatRoomChatRoomGroupRoomsChangeNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.defaultChatId !== undefined && (obj.defaultChatId = Math.round(message.defaultChatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.defaultChatId !== undefined && (obj.defaultChatId = message.defaultChatId);
     if (message.chatRooms) {
       obj.chatRooms = message.chatRooms.map((e) => e ? CChatRoomState.toJSON(e) : undefined);
     } else {
@@ -11416,15 +11416,15 @@ export const CChatRoomChatRoomGroupRoomsChangeNotification = {
     object: I,
   ): CChatRoomChatRoomGroupRoomsChangeNotification {
     const message = createBaseCChatRoomChatRoomGroupRoomsChangeNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.defaultChatId = object.defaultChatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.defaultChatId = object.defaultChatId ?? "0";
     message.chatRooms = object.chatRooms?.map((e) => CChatRoomState.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseCChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification(): CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification {
-  return { chatId: 0, chatGroupId: 0 };
+  return { chatId: "0", chatGroupId: "0" };
 }
 
 export const CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification = {
@@ -11432,10 +11432,10 @@ export const CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification = {
     message: CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(8).uint64(message.chatId);
     }
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(16).uint64(message.chatGroupId);
     }
     return writer;
@@ -11449,10 +11449,10 @@ export const CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -11464,15 +11464,15 @@ export const CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification = {
 
   fromJSON(object: any): CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification {
     return {
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
     };
   },
 
   toJSON(message: CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification): unknown {
     const obj: any = {};
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatId !== undefined && (obj.chatId = message.chatId);
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     return obj;
   },
 
@@ -11486,14 +11486,14 @@ export const CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification = {
     object: I,
   ): CChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification {
     const message = createBaseCChatRoomNotifyShouldRejoinChatRoomVoiceChatNotification();
-    message.chatId = object.chatId ?? 0;
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatId = object.chatId ?? "0";
+    message.chatGroupId = object.chatGroupId ?? "0";
     return message;
   },
 };
 
 function createBaseChatRoomClientNotifyChatGroupUserStateChangedNotification(): ChatRoomClientNotifyChatGroupUserStateChangedNotification {
-  return { chatGroupId: 0, userChatGroupState: undefined, groupSummary: undefined, userAction: 0 };
+  return { chatGroupId: "0", userChatGroupState: undefined, groupSummary: undefined, userAction: 0 };
 }
 
 export const ChatRoomClientNotifyChatGroupUserStateChangedNotification = {
@@ -11501,7 +11501,7 @@ export const ChatRoomClientNotifyChatGroupUserStateChangedNotification = {
     message: ChatRoomClientNotifyChatGroupUserStateChangedNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
     if (message.userChatGroupState !== undefined) {
@@ -11524,7 +11524,7 @@ export const ChatRoomClientNotifyChatGroupUserStateChangedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.userChatGroupState = CUserChatRoomGroupState.decode(reader, reader.uint32());
@@ -11545,7 +11545,7 @@ export const ChatRoomClientNotifyChatGroupUserStateChangedNotification = {
 
   fromJSON(object: any): ChatRoomClientNotifyChatGroupUserStateChangedNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
       userChatGroupState: isSet(object.userChatGroupState)
         ? CUserChatRoomGroupState.fromJSON(object.userChatGroupState)
         : undefined,
@@ -11558,7 +11558,7 @@ export const ChatRoomClientNotifyChatGroupUserStateChangedNotification = {
 
   toJSON(message: ChatRoomClientNotifyChatGroupUserStateChangedNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
     message.userChatGroupState !== undefined && (obj.userChatGroupState = message.userChatGroupState
       ? CUserChatRoomGroupState.toJSON(message.userChatGroupState)
       : undefined);
@@ -11579,7 +11579,7 @@ export const ChatRoomClientNotifyChatGroupUserStateChangedNotification = {
     object: I,
   ): ChatRoomClientNotifyChatGroupUserStateChangedNotification {
     const message = createBaseChatRoomClientNotifyChatGroupUserStateChangedNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
     message.userChatGroupState = (object.userChatGroupState !== undefined && object.userChatGroupState !== null)
       ? CUserChatRoomGroupState.fromPartial(object.userChatGroupState)
       : undefined;
@@ -11619,10 +11619,10 @@ export const ChatRoomClientNotifyChatRoomDisconnectNotification = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.chatGroupIds.push(longToNumber(reader.uint64() as Long));
+              message.chatGroupIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.chatGroupIds.push(longToNumber(reader.uint64() as Long));
+            message.chatGroupIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -11634,13 +11634,13 @@ export const ChatRoomClientNotifyChatRoomDisconnectNotification = {
   },
 
   fromJSON(object: any): ChatRoomClientNotifyChatRoomDisconnectNotification {
-    return { chatGroupIds: Array.isArray(object?.chatGroupIds) ? object.chatGroupIds.map((e: any) => Number(e)) : [] };
+    return { chatGroupIds: Array.isArray(object?.chatGroupIds) ? object.chatGroupIds.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: ChatRoomClientNotifyChatRoomDisconnectNotification): unknown {
     const obj: any = {};
     if (message.chatGroupIds) {
-      obj.chatGroupIds = message.chatGroupIds.map((e) => Math.round(e));
+      obj.chatGroupIds = message.chatGroupIds.map((e) => e);
     } else {
       obj.chatGroupIds = [];
     }
@@ -11824,8 +11824,8 @@ export const CChatRoomMemberSummaryCounts = {
 
 function createBaseCChatRoomClientMemberListViewUpdatedNotification(): CChatRoomClientMemberListViewUpdatedNotification {
   return {
-    chatGroupId: 0,
-    viewId: 0,
+    chatGroupId: "0",
+    viewId: "0",
     view: undefined,
     members: [],
     statusFlags: 0,
@@ -11839,10 +11839,10 @@ export const CChatRoomClientMemberListViewUpdatedNotification = {
     message: CChatRoomClientMemberListViewUpdatedNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.viewId !== 0) {
+    if (message.viewId !== "0") {
       writer.uint32(16).uint64(message.viewId);
     }
     if (message.view !== undefined) {
@@ -11872,10 +11872,10 @@ export const CChatRoomClientMemberListViewUpdatedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.viewId = longToNumber(reader.uint64() as Long);
+          message.viewId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.view = CChatRoomMemberListView.decode(reader, reader.uint32());
@@ -11904,8 +11904,8 @@ export const CChatRoomClientMemberListViewUpdatedNotification = {
 
   fromJSON(object: any): CChatRoomClientMemberListViewUpdatedNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      viewId: isSet(object.viewId) ? Number(object.viewId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      viewId: isSet(object.viewId) ? String(object.viewId) : "0",
       view: isSet(object.view) ? CChatRoomMemberListView.fromJSON(object.view) : undefined,
       members: Array.isArray(object?.members)
         ? object.members.map((e: any) =>
@@ -11924,8 +11924,8 @@ export const CChatRoomClientMemberListViewUpdatedNotification = {
 
   toJSON(message: CChatRoomClientMemberListViewUpdatedNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.viewId !== undefined && (obj.viewId = Math.round(message.viewId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.viewId !== undefined && (obj.viewId = message.viewId);
     message.view !== undefined && (obj.view = message.view ? CChatRoomMemberListView.toJSON(message.view) : undefined);
     if (message.members) {
       obj.members = message.members.map((e) =>
@@ -11958,8 +11958,8 @@ export const CChatRoomClientMemberListViewUpdatedNotification = {
     object: I,
   ): CChatRoomClientMemberListViewUpdatedNotification {
     const message = createBaseCChatRoomClientMemberListViewUpdatedNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.viewId = object.viewId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.viewId = object.viewId ?? "0";
     message.view = (object.view !== undefined && object.view !== null)
       ? CChatRoomMemberListView.fromPartial(object.view)
       : undefined;
@@ -12062,11 +12062,11 @@ export const CChatRoomClientMemberListViewUpdatedNotification_MemberListViewEntr
 
 function createBaseCChatRoomMessageReactionNotification(): CChatRoomMessageReactionNotification {
   return {
-    chatGroupId: 0,
-    chatId: 0,
+    chatGroupId: "0",
+    chatId: "0",
     serverTimestamp: 0,
     ordinal: 0,
-    reactor: 0,
+    reactor: "0",
     reactionType: 0,
     reaction: "",
     isAdd: false,
@@ -12075,10 +12075,10 @@ function createBaseCChatRoomMessageReactionNotification(): CChatRoomMessageReact
 
 export const CChatRoomMessageReactionNotification = {
   encode(message: CChatRoomMessageReactionNotification, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chatGroupId !== 0) {
+    if (message.chatGroupId !== "0") {
       writer.uint32(8).uint64(message.chatGroupId);
     }
-    if (message.chatId !== 0) {
+    if (message.chatId !== "0") {
       writer.uint32(16).uint64(message.chatId);
     }
     if (message.serverTimestamp !== 0) {
@@ -12087,7 +12087,7 @@ export const CChatRoomMessageReactionNotification = {
     if (message.ordinal !== 0) {
       writer.uint32(32).uint32(message.ordinal);
     }
-    if (message.reactor !== 0) {
+    if (message.reactor !== "0") {
       writer.uint32(41).fixed64(message.reactor);
     }
     if (message.reactionType !== 0) {
@@ -12110,10 +12110,10 @@ export const CChatRoomMessageReactionNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chatGroupId = longToNumber(reader.uint64() as Long);
+          message.chatGroupId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chatId = longToNumber(reader.uint64() as Long);
+          message.chatId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.serverTimestamp = reader.uint32();
@@ -12122,7 +12122,7 @@ export const CChatRoomMessageReactionNotification = {
           message.ordinal = reader.uint32();
           break;
         case 5:
-          message.reactor = longToNumber(reader.fixed64() as Long);
+          message.reactor = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.reactionType = reader.int32() as any;
@@ -12143,11 +12143,11 @@ export const CChatRoomMessageReactionNotification = {
 
   fromJSON(object: any): CChatRoomMessageReactionNotification {
     return {
-      chatGroupId: isSet(object.chatGroupId) ? Number(object.chatGroupId) : 0,
-      chatId: isSet(object.chatId) ? Number(object.chatId) : 0,
+      chatGroupId: isSet(object.chatGroupId) ? String(object.chatGroupId) : "0",
+      chatId: isSet(object.chatId) ? String(object.chatId) : "0",
       serverTimestamp: isSet(object.serverTimestamp) ? Number(object.serverTimestamp) : 0,
       ordinal: isSet(object.ordinal) ? Number(object.ordinal) : 0,
-      reactor: isSet(object.reactor) ? Number(object.reactor) : 0,
+      reactor: isSet(object.reactor) ? String(object.reactor) : "0",
       reactionType: isSet(object.reactionType) ? eChatRoomMessageReactionTypeFromJSON(object.reactionType) : 0,
       reaction: isSet(object.reaction) ? String(object.reaction) : "",
       isAdd: isSet(object.isAdd) ? Boolean(object.isAdd) : false,
@@ -12156,11 +12156,11 @@ export const CChatRoomMessageReactionNotification = {
 
   toJSON(message: CChatRoomMessageReactionNotification): unknown {
     const obj: any = {};
-    message.chatGroupId !== undefined && (obj.chatGroupId = Math.round(message.chatGroupId));
-    message.chatId !== undefined && (obj.chatId = Math.round(message.chatId));
+    message.chatGroupId !== undefined && (obj.chatGroupId = message.chatGroupId);
+    message.chatId !== undefined && (obj.chatId = message.chatId);
     message.serverTimestamp !== undefined && (obj.serverTimestamp = Math.round(message.serverTimestamp));
     message.ordinal !== undefined && (obj.ordinal = Math.round(message.ordinal));
-    message.reactor !== undefined && (obj.reactor = Math.round(message.reactor));
+    message.reactor !== undefined && (obj.reactor = message.reactor);
     message.reactionType !== undefined && (obj.reactionType = eChatRoomMessageReactionTypeToJSON(message.reactionType));
     message.reaction !== undefined && (obj.reaction = message.reaction);
     message.isAdd !== undefined && (obj.isAdd = message.isAdd);
@@ -12177,11 +12177,11 @@ export const CChatRoomMessageReactionNotification = {
     object: I,
   ): CChatRoomMessageReactionNotification {
     const message = createBaseCChatRoomMessageReactionNotification();
-    message.chatGroupId = object.chatGroupId ?? 0;
-    message.chatId = object.chatId ?? 0;
+    message.chatGroupId = object.chatGroupId ?? "0";
+    message.chatId = object.chatId ?? "0";
     message.serverTimestamp = object.serverTimestamp ?? 0;
     message.ordinal = object.ordinal ?? 0;
-    message.reactor = object.reactor ?? 0;
+    message.reactor = object.reactor ?? "0";
     message.reactionType = object.reactionType ?? 0;
     message.reaction = object.reaction ?? "";
     message.isAdd = object.isAdd ?? false;
@@ -14165,11 +14165,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

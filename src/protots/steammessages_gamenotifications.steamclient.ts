@@ -17,7 +17,7 @@ export interface CGameNotificationsLocalizedText {
 }
 
 export interface CGameNotificationsUserStatus {
-  steamid: number;
+  steamid: string;
   state: string;
   title: CGameNotificationsLocalizedText | undefined;
   message: CGameNotificationsLocalizedText | undefined;
@@ -25,31 +25,31 @@ export interface CGameNotificationsUserStatus {
 
 export interface CGameNotificationsCreateSessionRequest {
   appid: number;
-  context: number;
+  context: string;
   title: CGameNotificationsLocalizedText | undefined;
   users: CGameNotificationsUserStatus[];
-  steamid: number;
+  steamid: string;
 }
 
 export interface CGameNotificationsCreateSessionResponse {
-  sessionid: number;
+  sessionid: string;
 }
 
 export interface CGameNotificationsDeleteSessionRequest {
-  sessionid: number;
+  sessionid: string;
   appid: number;
-  steamid: number;
+  steamid: string;
 }
 
 export interface CGameNotificationsDeleteSessionResponse {
 }
 
 export interface CGameNotificationsUpdateSessionRequest {
-  sessionid: number;
+  sessionid: string;
   appid: number;
   title: CGameNotificationsLocalizedText | undefined;
   users: CGameNotificationsUserStatus[];
-  steamid: number;
+  steamid: string;
 }
 
 export interface CGameNotificationsUpdateSessionResponse {
@@ -63,9 +63,9 @@ export interface CGameNotificationsEnumerateSessionsRequest {
 }
 
 export interface CGameNotificationsSession {
-  sessionid: number;
-  appid: number;
-  context: number;
+  sessionid: string;
+  appid: string;
+  context: string;
   title: CGameNotificationsLocalizedText | undefined;
   timeCreated: number;
   timeUpdated: number;
@@ -83,7 +83,7 @@ export interface CGameNotificationsGetSessionDetailsRequest {
 }
 
 export interface CGameNotificationsGetSessionDetailsRequest_RequestedSession {
-  sessionid: number;
+  sessionid: string;
   includeAuthUserMessage: boolean;
 }
 
@@ -104,13 +104,13 @@ export interface CGameNotificationsUpdateNotificationSettingsResponse {
 }
 
 export interface CGameNotificationsOnNotificationsRequestedNotification {
-  steamid: number;
+  steamid: string;
   appid: number;
 }
 
 export interface CGameNotificationsOnUserStatusChangedNotification {
-  steamid: number;
-  sessionid: number;
+  steamid: string;
+  sessionid: string;
   appid: number;
   status: CGameNotificationsUserStatus | undefined;
   removed: boolean;
@@ -255,12 +255,12 @@ export const CGameNotificationsLocalizedText = {
 };
 
 function createBaseCGameNotificationsUserStatus(): CGameNotificationsUserStatus {
-  return { steamid: 0, state: "", title: undefined, message: undefined };
+  return { steamid: "0", state: "", title: undefined, message: undefined };
 }
 
 export const CGameNotificationsUserStatus = {
   encode(message: CGameNotificationsUserStatus, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.state !== "") {
@@ -283,7 +283,7 @@ export const CGameNotificationsUserStatus = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.state = reader.string();
@@ -304,7 +304,7 @@ export const CGameNotificationsUserStatus = {
 
   fromJSON(object: any): CGameNotificationsUserStatus {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       state: isSet(object.state) ? String(object.state) : "",
       title: isSet(object.title) ? CGameNotificationsLocalizedText.fromJSON(object.title) : undefined,
       message: isSet(object.message) ? CGameNotificationsLocalizedText.fromJSON(object.message) : undefined,
@@ -313,7 +313,7 @@ export const CGameNotificationsUserStatus = {
 
   toJSON(message: CGameNotificationsUserStatus): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.state !== undefined && (obj.state = message.state);
     message.title !== undefined &&
       (obj.title = message.title ? CGameNotificationsLocalizedText.toJSON(message.title) : undefined);
@@ -328,7 +328,7 @@ export const CGameNotificationsUserStatus = {
 
   fromPartial<I extends Exact<DeepPartial<CGameNotificationsUserStatus>, I>>(object: I): CGameNotificationsUserStatus {
     const message = createBaseCGameNotificationsUserStatus();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.state = object.state ?? "";
     message.title = (object.title !== undefined && object.title !== null)
       ? CGameNotificationsLocalizedText.fromPartial(object.title)
@@ -341,7 +341,7 @@ export const CGameNotificationsUserStatus = {
 };
 
 function createBaseCGameNotificationsCreateSessionRequest(): CGameNotificationsCreateSessionRequest {
-  return { appid: 0, context: 0, title: undefined, users: [], steamid: 0 };
+  return { appid: 0, context: "0", title: undefined, users: [], steamid: "0" };
 }
 
 export const CGameNotificationsCreateSessionRequest = {
@@ -349,7 +349,7 @@ export const CGameNotificationsCreateSessionRequest = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.context !== 0) {
+    if (message.context !== "0") {
       writer.uint32(16).uint64(message.context);
     }
     if (message.title !== undefined) {
@@ -358,7 +358,7 @@ export const CGameNotificationsCreateSessionRequest = {
     for (const v of message.users) {
       CGameNotificationsUserStatus.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(41).fixed64(message.steamid);
     }
     return writer;
@@ -375,7 +375,7 @@ export const CGameNotificationsCreateSessionRequest = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.context = longToNumber(reader.uint64() as Long);
+          message.context = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.title = CGameNotificationsLocalizedText.decode(reader, reader.uint32());
@@ -384,7 +384,7 @@ export const CGameNotificationsCreateSessionRequest = {
           message.users.push(CGameNotificationsUserStatus.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -397,17 +397,17 @@ export const CGameNotificationsCreateSessionRequest = {
   fromJSON(object: any): CGameNotificationsCreateSessionRequest {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      context: isSet(object.context) ? Number(object.context) : 0,
+      context: isSet(object.context) ? String(object.context) : "0",
       title: isSet(object.title) ? CGameNotificationsLocalizedText.fromJSON(object.title) : undefined,
       users: Array.isArray(object?.users) ? object.users.map((e: any) => CGameNotificationsUserStatus.fromJSON(e)) : [],
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CGameNotificationsCreateSessionRequest): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.context !== undefined && (obj.context = Math.round(message.context));
+    message.context !== undefined && (obj.context = message.context);
     message.title !== undefined &&
       (obj.title = message.title ? CGameNotificationsLocalizedText.toJSON(message.title) : undefined);
     if (message.users) {
@@ -415,7 +415,7 @@ export const CGameNotificationsCreateSessionRequest = {
     } else {
       obj.users = [];
     }
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -430,23 +430,23 @@ export const CGameNotificationsCreateSessionRequest = {
   ): CGameNotificationsCreateSessionRequest {
     const message = createBaseCGameNotificationsCreateSessionRequest();
     message.appid = object.appid ?? 0;
-    message.context = object.context ?? 0;
+    message.context = object.context ?? "0";
     message.title = (object.title !== undefined && object.title !== null)
       ? CGameNotificationsLocalizedText.fromPartial(object.title)
       : undefined;
     message.users = object.users?.map((e) => CGameNotificationsUserStatus.fromPartial(e)) || [];
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
 
 function createBaseCGameNotificationsCreateSessionResponse(): CGameNotificationsCreateSessionResponse {
-  return { sessionid: 0 };
+  return { sessionid: "0" };
 }
 
 export const CGameNotificationsCreateSessionResponse = {
   encode(message: CGameNotificationsCreateSessionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(8).uint64(message.sessionid);
     }
     return writer;
@@ -460,7 +460,7 @@ export const CGameNotificationsCreateSessionResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -471,12 +471,12 @@ export const CGameNotificationsCreateSessionResponse = {
   },
 
   fromJSON(object: any): CGameNotificationsCreateSessionResponse {
-    return { sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0 };
+    return { sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0" };
   },
 
   toJSON(message: CGameNotificationsCreateSessionResponse): unknown {
     const obj: any = {};
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     return obj;
   },
 
@@ -490,24 +490,24 @@ export const CGameNotificationsCreateSessionResponse = {
     object: I,
   ): CGameNotificationsCreateSessionResponse {
     const message = createBaseCGameNotificationsCreateSessionResponse();
-    message.sessionid = object.sessionid ?? 0;
+    message.sessionid = object.sessionid ?? "0";
     return message;
   },
 };
 
 function createBaseCGameNotificationsDeleteSessionRequest(): CGameNotificationsDeleteSessionRequest {
-  return { sessionid: 0, appid: 0, steamid: 0 };
+  return { sessionid: "0", appid: 0, steamid: "0" };
 }
 
 export const CGameNotificationsDeleteSessionRequest = {
   encode(message: CGameNotificationsDeleteSessionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(8).uint64(message.sessionid);
     }
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(25).fixed64(message.steamid);
     }
     return writer;
@@ -521,13 +521,13 @@ export const CGameNotificationsDeleteSessionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
           break;
         case 3:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -539,17 +539,17 @@ export const CGameNotificationsDeleteSessionRequest = {
 
   fromJSON(object: any): CGameNotificationsDeleteSessionRequest {
     return {
-      sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0,
+      sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CGameNotificationsDeleteSessionRequest): unknown {
     const obj: any = {};
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -563,9 +563,9 @@ export const CGameNotificationsDeleteSessionRequest = {
     object: I,
   ): CGameNotificationsDeleteSessionRequest {
     const message = createBaseCGameNotificationsDeleteSessionRequest();
-    message.sessionid = object.sessionid ?? 0;
+    message.sessionid = object.sessionid ?? "0";
     message.appid = object.appid ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -618,12 +618,12 @@ export const CGameNotificationsDeleteSessionResponse = {
 };
 
 function createBaseCGameNotificationsUpdateSessionRequest(): CGameNotificationsUpdateSessionRequest {
-  return { sessionid: 0, appid: 0, title: undefined, users: [], steamid: 0 };
+  return { sessionid: "0", appid: 0, title: undefined, users: [], steamid: "0" };
 }
 
 export const CGameNotificationsUpdateSessionRequest = {
   encode(message: CGameNotificationsUpdateSessionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(8).uint64(message.sessionid);
     }
     if (message.appid !== 0) {
@@ -635,7 +635,7 @@ export const CGameNotificationsUpdateSessionRequest = {
     for (const v of message.users) {
       CGameNotificationsUserStatus.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(49).fixed64(message.steamid);
     }
     return writer;
@@ -649,7 +649,7 @@ export const CGameNotificationsUpdateSessionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -661,7 +661,7 @@ export const CGameNotificationsUpdateSessionRequest = {
           message.users.push(CGameNotificationsUserStatus.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -673,17 +673,17 @@ export const CGameNotificationsUpdateSessionRequest = {
 
   fromJSON(object: any): CGameNotificationsUpdateSessionRequest {
     return {
-      sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0,
+      sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       title: isSet(object.title) ? CGameNotificationsLocalizedText.fromJSON(object.title) : undefined,
       users: Array.isArray(object?.users) ? object.users.map((e: any) => CGameNotificationsUserStatus.fromJSON(e)) : [],
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
     };
   },
 
   toJSON(message: CGameNotificationsUpdateSessionRequest): unknown {
     const obj: any = {};
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.title !== undefined &&
       (obj.title = message.title ? CGameNotificationsLocalizedText.toJSON(message.title) : undefined);
@@ -692,7 +692,7 @@ export const CGameNotificationsUpdateSessionRequest = {
     } else {
       obj.users = [];
     }
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -706,13 +706,13 @@ export const CGameNotificationsUpdateSessionRequest = {
     object: I,
   ): CGameNotificationsUpdateSessionRequest {
     const message = createBaseCGameNotificationsUpdateSessionRequest();
-    message.sessionid = object.sessionid ?? 0;
+    message.sessionid = object.sessionid ?? "0";
     message.appid = object.appid ?? 0;
     message.title = (object.title !== undefined && object.title !== null)
       ? CGameNotificationsLocalizedText.fromPartial(object.title)
       : undefined;
     message.users = object.users?.map((e) => CGameNotificationsUserStatus.fromPartial(e)) || [];
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -849,18 +849,18 @@ export const CGameNotificationsEnumerateSessionsRequest = {
 };
 
 function createBaseCGameNotificationsSession(): CGameNotificationsSession {
-  return { sessionid: 0, appid: 0, context: 0, title: undefined, timeCreated: 0, timeUpdated: 0, userStatus: [] };
+  return { sessionid: "0", appid: "0", context: "0", title: undefined, timeCreated: 0, timeUpdated: 0, userStatus: [] };
 }
 
 export const CGameNotificationsSession = {
   encode(message: CGameNotificationsSession, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(8).uint64(message.sessionid);
     }
-    if (message.appid !== 0) {
+    if (message.appid !== "0") {
       writer.uint32(16).uint64(message.appid);
     }
-    if (message.context !== 0) {
+    if (message.context !== "0") {
       writer.uint32(24).uint64(message.context);
     }
     if (message.title !== undefined) {
@@ -886,13 +886,13 @@ export const CGameNotificationsSession = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.appid = longToNumber(reader.uint64() as Long);
+          message.appid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.context = longToNumber(reader.uint64() as Long);
+          message.context = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.title = CGameNotificationsLocalizedText.decode(reader, reader.uint32());
@@ -916,9 +916,9 @@ export const CGameNotificationsSession = {
 
   fromJSON(object: any): CGameNotificationsSession {
     return {
-      sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0,
-      appid: isSet(object.appid) ? Number(object.appid) : 0,
-      context: isSet(object.context) ? Number(object.context) : 0,
+      sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0",
+      appid: isSet(object.appid) ? String(object.appid) : "0",
+      context: isSet(object.context) ? String(object.context) : "0",
       title: isSet(object.title) ? CGameNotificationsLocalizedText.fromJSON(object.title) : undefined,
       timeCreated: isSet(object.timeCreated) ? Number(object.timeCreated) : 0,
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
@@ -930,9 +930,9 @@ export const CGameNotificationsSession = {
 
   toJSON(message: CGameNotificationsSession): unknown {
     const obj: any = {};
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
-    message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.context !== undefined && (obj.context = Math.round(message.context));
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
+    message.appid !== undefined && (obj.appid = message.appid);
+    message.context !== undefined && (obj.context = message.context);
     message.title !== undefined &&
       (obj.title = message.title ? CGameNotificationsLocalizedText.toJSON(message.title) : undefined);
     message.timeCreated !== undefined && (obj.timeCreated = Math.round(message.timeCreated));
@@ -951,9 +951,9 @@ export const CGameNotificationsSession = {
 
   fromPartial<I extends Exact<DeepPartial<CGameNotificationsSession>, I>>(object: I): CGameNotificationsSession {
     const message = createBaseCGameNotificationsSession();
-    message.sessionid = object.sessionid ?? 0;
-    message.appid = object.appid ?? 0;
-    message.context = object.context ?? 0;
+    message.sessionid = object.sessionid ?? "0";
+    message.appid = object.appid ?? "0";
+    message.context = object.context ?? "0";
     message.title = (object.title !== undefined && object.title !== null)
       ? CGameNotificationsLocalizedText.fromPartial(object.title)
       : undefined;
@@ -1114,7 +1114,7 @@ export const CGameNotificationsGetSessionDetailsRequest = {
 };
 
 function createBaseCGameNotificationsGetSessionDetailsRequest_RequestedSession(): CGameNotificationsGetSessionDetailsRequest_RequestedSession {
-  return { sessionid: 0, includeAuthUserMessage: false };
+  return { sessionid: "0", includeAuthUserMessage: false };
 }
 
 export const CGameNotificationsGetSessionDetailsRequest_RequestedSession = {
@@ -1122,7 +1122,7 @@ export const CGameNotificationsGetSessionDetailsRequest_RequestedSession = {
     message: CGameNotificationsGetSessionDetailsRequest_RequestedSession,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(8).uint64(message.sessionid);
     }
     if (message.includeAuthUserMessage === true) {
@@ -1139,7 +1139,7 @@ export const CGameNotificationsGetSessionDetailsRequest_RequestedSession = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.includeAuthUserMessage = reader.bool();
@@ -1154,14 +1154,14 @@ export const CGameNotificationsGetSessionDetailsRequest_RequestedSession = {
 
   fromJSON(object: any): CGameNotificationsGetSessionDetailsRequest_RequestedSession {
     return {
-      sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0,
+      sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0",
       includeAuthUserMessage: isSet(object.includeAuthUserMessage) ? Boolean(object.includeAuthUserMessage) : false,
     };
   },
 
   toJSON(message: CGameNotificationsGetSessionDetailsRequest_RequestedSession): unknown {
     const obj: any = {};
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     message.includeAuthUserMessage !== undefined && (obj.includeAuthUserMessage = message.includeAuthUserMessage);
     return obj;
   },
@@ -1176,7 +1176,7 @@ export const CGameNotificationsGetSessionDetailsRequest_RequestedSession = {
     object: I,
   ): CGameNotificationsGetSessionDetailsRequest_RequestedSession {
     const message = createBaseCGameNotificationsGetSessionDetailsRequest_RequestedSession();
-    message.sessionid = object.sessionid ?? 0;
+    message.sessionid = object.sessionid ?? "0";
     message.includeAuthUserMessage = object.includeAuthUserMessage ?? false;
     return message;
   },
@@ -1427,7 +1427,7 @@ export const CGameNotificationsUpdateNotificationSettingsResponse = {
 };
 
 function createBaseCGameNotificationsOnNotificationsRequestedNotification(): CGameNotificationsOnNotificationsRequestedNotification {
-  return { steamid: 0, appid: 0 };
+  return { steamid: "0", appid: 0 };
 }
 
 export const CGameNotificationsOnNotificationsRequestedNotification = {
@@ -1435,7 +1435,7 @@ export const CGameNotificationsOnNotificationsRequestedNotification = {
     message: CGameNotificationsOnNotificationsRequestedNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.appid !== 0) {
@@ -1452,7 +1452,7 @@ export const CGameNotificationsOnNotificationsRequestedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -1467,14 +1467,14 @@ export const CGameNotificationsOnNotificationsRequestedNotification = {
 
   fromJSON(object: any): CGameNotificationsOnNotificationsRequestedNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
     };
   },
 
   toJSON(message: CGameNotificationsOnNotificationsRequestedNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     return obj;
   },
@@ -1489,14 +1489,14 @@ export const CGameNotificationsOnNotificationsRequestedNotification = {
     object: I,
   ): CGameNotificationsOnNotificationsRequestedNotification {
     const message = createBaseCGameNotificationsOnNotificationsRequestedNotification();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.appid = object.appid ?? 0;
     return message;
   },
 };
 
 function createBaseCGameNotificationsOnUserStatusChangedNotification(): CGameNotificationsOnUserStatusChangedNotification {
-  return { steamid: 0, sessionid: 0, appid: 0, status: undefined, removed: false };
+  return { steamid: "0", sessionid: "0", appid: 0, status: undefined, removed: false };
 }
 
 export const CGameNotificationsOnUserStatusChangedNotification = {
@@ -1504,10 +1504,10 @@ export const CGameNotificationsOnUserStatusChangedNotification = {
     message: CGameNotificationsOnUserStatusChangedNotification,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(16).uint64(message.sessionid);
     }
     if (message.appid !== 0) {
@@ -1530,10 +1530,10 @@ export const CGameNotificationsOnUserStatusChangedNotification = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.appid = reader.uint32();
@@ -1554,8 +1554,8 @@ export const CGameNotificationsOnUserStatusChangedNotification = {
 
   fromJSON(object: any): CGameNotificationsOnUserStatusChangedNotification {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       status: isSet(object.status) ? CGameNotificationsUserStatus.fromJSON(object.status) : undefined,
       removed: isSet(object.removed) ? Boolean(object.removed) : false,
@@ -1564,8 +1564,8 @@ export const CGameNotificationsOnUserStatusChangedNotification = {
 
   toJSON(message: CGameNotificationsOnUserStatusChangedNotification): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.status !== undefined &&
       (obj.status = message.status ? CGameNotificationsUserStatus.toJSON(message.status) : undefined);
@@ -1583,8 +1583,8 @@ export const CGameNotificationsOnUserStatusChangedNotification = {
     object: I,
   ): CGameNotificationsOnUserStatusChangedNotification {
     const message = createBaseCGameNotificationsOnUserStatusChangedNotification();
-    message.steamid = object.steamid ?? 0;
-    message.sessionid = object.sessionid ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.sessionid = object.sessionid ?? "0";
     message.appid = object.appid ?? 0;
     message.status = (object.status !== undefined && object.status !== null)
       ? CGameNotificationsUserStatus.fromPartial(object.status)
@@ -1696,25 +1696,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1726,11 +1707,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

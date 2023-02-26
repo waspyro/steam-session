@@ -20,7 +20,9 @@
     "protobufjs": "^7.1.2"
   },
   "devDependencies": {
+    "@types/steam-totp": "^2.1.0",
     "cryptowrap": "github:waspyro/cryptowrap",
+    "steam-totp": "^2.1.2",
     "ts-proto": "^1.140.0"
   }
 }

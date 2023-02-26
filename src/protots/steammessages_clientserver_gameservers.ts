@@ -27,21 +27,21 @@ export interface CMsgGSPlayerList {
 }
 
 export interface CMsgGSPlayerList_Player {
-  steamId: number;
+  steamId: string;
   deprecatedPublicIp: number;
   token: Buffer;
   publicIp: CMsgIPAddress | undefined;
 }
 
 export interface CMsgGSUserPlaying {
-  steamId: number;
+  steamId: string;
   deprecatedPublicIp: number;
   token: Buffer;
   publicIp: CMsgIPAddress | undefined;
 }
 
 export interface CMsgGSDisconnectNotice {
-  steamId: number;
+  steamId: string;
 }
 
 export interface CMsgGameServerData {
@@ -72,11 +72,11 @@ export interface CMsgGameServerData {
 }
 
 export interface CMsgGameServerData_Player {
-  steamId: number;
+  steamId: string;
 }
 
 export interface CMsgGameServerRemove {
-  legacySteamIdGs: number;
+  legacySteamIdGs: string;
   legacyQueryPort: number;
 }
 
@@ -133,7 +133,7 @@ export interface CMsgGMSClientServerQueryResponse_Server {
   queryPort: number;
   authPlayers: number;
   serverIp: CMsgIPAddress | undefined;
-  steamId: number;
+  steamId: string;
   revision: number;
   players: number;
   gamePort: number;
@@ -161,26 +161,26 @@ export interface CMsgGMSClientServerQueryResponse_Server {
 }
 
 export interface CMsgGameServerOutOfDate {
-  steamIdGs: number;
+  steamIdGs: string;
   reject: boolean;
   message: string;
 }
 
 export interface CMsgGSAssociateWithClan {
-  steamIdClan: number;
+  steamIdClan: string;
 }
 
 export interface CMsgGSAssociateWithClanResponse {
-  steamIdClan: number;
+  steamIdClan: string;
   eresult: number;
 }
 
 export interface CMsgGSComputeNewPlayerCompatibility {
-  steamIdCandidate: number;
+  steamIdCandidate: string;
 }
 
 export interface CMsgGSComputeNewPlayerCompatibilityResponse {
-  steamIdCandidate: number;
+  steamIdCandidate: string;
   eresult: number;
   isClanMember: boolean;
   ctDontLikeYou: number;
@@ -446,12 +446,12 @@ export const CMsgGSPlayerList = {
 };
 
 function createBaseCMsgGSPlayerList_Player(): CMsgGSPlayerList_Player {
-  return { steamId: 0, deprecatedPublicIp: 0, token: Buffer.alloc(0), publicIp: undefined };
+  return { steamId: "0", deprecatedPublicIp: 0, token: Buffer.alloc(0), publicIp: undefined };
 }
 
 export const CMsgGSPlayerList_Player = {
   encode(message: CMsgGSPlayerList_Player, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(8).uint64(message.steamId);
     }
     if (message.deprecatedPublicIp !== 0) {
@@ -474,7 +474,7 @@ export const CMsgGSPlayerList_Player = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.uint64() as Long);
+          message.steamId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.deprecatedPublicIp = reader.uint32();
@@ -495,7 +495,7 @@ export const CMsgGSPlayerList_Player = {
 
   fromJSON(object: any): CMsgGSPlayerList_Player {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       deprecatedPublicIp: isSet(object.deprecatedPublicIp) ? Number(object.deprecatedPublicIp) : 0,
       token: isSet(object.token) ? Buffer.from(bytesFromBase64(object.token)) : Buffer.alloc(0),
       publicIp: isSet(object.publicIp) ? CMsgIPAddress.fromJSON(object.publicIp) : undefined,
@@ -504,7 +504,7 @@ export const CMsgGSPlayerList_Player = {
 
   toJSON(message: CMsgGSPlayerList_Player): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.deprecatedPublicIp !== undefined && (obj.deprecatedPublicIp = Math.round(message.deprecatedPublicIp));
     message.token !== undefined &&
       (obj.token = base64FromBytes(message.token !== undefined ? message.token : Buffer.alloc(0)));
@@ -519,7 +519,7 @@ export const CMsgGSPlayerList_Player = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGSPlayerList_Player>, I>>(object: I): CMsgGSPlayerList_Player {
     const message = createBaseCMsgGSPlayerList_Player();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.deprecatedPublicIp = object.deprecatedPublicIp ?? 0;
     message.token = object.token ?? Buffer.alloc(0);
     message.publicIp = (object.publicIp !== undefined && object.publicIp !== null)
@@ -530,12 +530,12 @@ export const CMsgGSPlayerList_Player = {
 };
 
 function createBaseCMsgGSUserPlaying(): CMsgGSUserPlaying {
-  return { steamId: 0, deprecatedPublicIp: 0, token: Buffer.alloc(0), publicIp: undefined };
+  return { steamId: "0", deprecatedPublicIp: 0, token: Buffer.alloc(0), publicIp: undefined };
 }
 
 export const CMsgGSUserPlaying = {
   encode(message: CMsgGSUserPlaying, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     if (message.deprecatedPublicIp !== 0) {
@@ -558,7 +558,7 @@ export const CMsgGSUserPlaying = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.deprecatedPublicIp = reader.uint32();
@@ -579,7 +579,7 @@ export const CMsgGSUserPlaying = {
 
   fromJSON(object: any): CMsgGSUserPlaying {
     return {
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       deprecatedPublicIp: isSet(object.deprecatedPublicIp) ? Number(object.deprecatedPublicIp) : 0,
       token: isSet(object.token) ? Buffer.from(bytesFromBase64(object.token)) : Buffer.alloc(0),
       publicIp: isSet(object.publicIp) ? CMsgIPAddress.fromJSON(object.publicIp) : undefined,
@@ -588,7 +588,7 @@ export const CMsgGSUserPlaying = {
 
   toJSON(message: CMsgGSUserPlaying): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.deprecatedPublicIp !== undefined && (obj.deprecatedPublicIp = Math.round(message.deprecatedPublicIp));
     message.token !== undefined &&
       (obj.token = base64FromBytes(message.token !== undefined ? message.token : Buffer.alloc(0)));
@@ -603,7 +603,7 @@ export const CMsgGSUserPlaying = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGSUserPlaying>, I>>(object: I): CMsgGSUserPlaying {
     const message = createBaseCMsgGSUserPlaying();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.deprecatedPublicIp = object.deprecatedPublicIp ?? 0;
     message.token = object.token ?? Buffer.alloc(0);
     message.publicIp = (object.publicIp !== undefined && object.publicIp !== null)
@@ -614,12 +614,12 @@ export const CMsgGSUserPlaying = {
 };
 
 function createBaseCMsgGSDisconnectNotice(): CMsgGSDisconnectNotice {
-  return { steamId: 0 };
+  return { steamId: "0" };
 }
 
 export const CMsgGSDisconnectNotice = {
   encode(message: CMsgGSDisconnectNotice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     return writer;
@@ -633,7 +633,7 @@ export const CMsgGSDisconnectNotice = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -644,12 +644,12 @@ export const CMsgGSDisconnectNotice = {
   },
 
   fromJSON(object: any): CMsgGSDisconnectNotice {
-    return { steamId: isSet(object.steamId) ? Number(object.steamId) : 0 };
+    return { steamId: isSet(object.steamId) ? String(object.steamId) : "0" };
   },
 
   toJSON(message: CMsgGSDisconnectNotice): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     return obj;
   },
 
@@ -659,7 +659,7 @@ export const CMsgGSDisconnectNotice = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGSDisconnectNotice>, I>>(object: I): CMsgGSDisconnectNotice {
     const message = createBaseCMsgGSDisconnectNotice();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     return message;
   },
 };
@@ -956,12 +956,12 @@ export const CMsgGameServerData = {
 };
 
 function createBaseCMsgGameServerData_Player(): CMsgGameServerData_Player {
-  return { steamId: 0 };
+  return { steamId: "0" };
 }
 
 export const CMsgGameServerData_Player = {
   encode(message: CMsgGameServerData_Player, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     return writer;
@@ -975,7 +975,7 @@ export const CMsgGameServerData_Player = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -986,12 +986,12 @@ export const CMsgGameServerData_Player = {
   },
 
   fromJSON(object: any): CMsgGameServerData_Player {
-    return { steamId: isSet(object.steamId) ? Number(object.steamId) : 0 };
+    return { steamId: isSet(object.steamId) ? String(object.steamId) : "0" };
   },
 
   toJSON(message: CMsgGameServerData_Player): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     return obj;
   },
 
@@ -1001,18 +1001,18 @@ export const CMsgGameServerData_Player = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGameServerData_Player>, I>>(object: I): CMsgGameServerData_Player {
     const message = createBaseCMsgGameServerData_Player();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgGameServerRemove(): CMsgGameServerRemove {
-  return { legacySteamIdGs: 0, legacyQueryPort: 0 };
+  return { legacySteamIdGs: "0", legacyQueryPort: 0 };
 }
 
 export const CMsgGameServerRemove = {
   encode(message: CMsgGameServerRemove, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.legacySteamIdGs !== 0) {
+    if (message.legacySteamIdGs !== "0") {
       writer.uint32(9).fixed64(message.legacySteamIdGs);
     }
     if (message.legacyQueryPort !== 0) {
@@ -1029,7 +1029,7 @@ export const CMsgGameServerRemove = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.legacySteamIdGs = longToNumber(reader.fixed64() as Long);
+          message.legacySteamIdGs = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.legacyQueryPort = reader.uint32();
@@ -1044,14 +1044,14 @@ export const CMsgGameServerRemove = {
 
   fromJSON(object: any): CMsgGameServerRemove {
     return {
-      legacySteamIdGs: isSet(object.legacySteamIdGs) ? Number(object.legacySteamIdGs) : 0,
+      legacySteamIdGs: isSet(object.legacySteamIdGs) ? String(object.legacySteamIdGs) : "0",
       legacyQueryPort: isSet(object.legacyQueryPort) ? Number(object.legacyQueryPort) : 0,
     };
   },
 
   toJSON(message: CMsgGameServerRemove): unknown {
     const obj: any = {};
-    message.legacySteamIdGs !== undefined && (obj.legacySteamIdGs = Math.round(message.legacySteamIdGs));
+    message.legacySteamIdGs !== undefined && (obj.legacySteamIdGs = message.legacySteamIdGs);
     message.legacyQueryPort !== undefined && (obj.legacyQueryPort = Math.round(message.legacyQueryPort));
     return obj;
   },
@@ -1062,7 +1062,7 @@ export const CMsgGameServerRemove = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGameServerRemove>, I>>(object: I): CMsgGameServerRemove {
     const message = createBaseCMsgGameServerRemove();
-    message.legacySteamIdGs = object.legacySteamIdGs ?? 0;
+    message.legacySteamIdGs = object.legacySteamIdGs ?? "0";
     message.legacyQueryPort = object.legacyQueryPort ?? 0;
     return message;
   },
@@ -1263,7 +1263,7 @@ function createBaseCMsgGMSClientServerQueryResponse_Server(): CMsgGMSClientServe
     queryPort: 0,
     authPlayers: 0,
     serverIp: undefined,
-    steamId: 0,
+    steamId: "0",
     revision: 0,
     players: 0,
     gamePort: 0,
@@ -1305,7 +1305,7 @@ export const CMsgGMSClientServerQueryResponse_Server = {
     if (message.serverIp !== undefined) {
       CMsgIPAddress.encode(message.serverIp, writer.uint32(34).fork()).ldelim();
     }
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(49).fixed64(message.steamId);
     }
     if (message.revision !== 0) {
@@ -1403,7 +1403,7 @@ export const CMsgGMSClientServerQueryResponse_Server = {
           message.serverIp = CMsgIPAddress.decode(reader, reader.uint32());
           break;
         case 6:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         case 7:
           message.revision = reader.uint32();
@@ -1491,7 +1491,7 @@ export const CMsgGMSClientServerQueryResponse_Server = {
       queryPort: isSet(object.queryPort) ? Number(object.queryPort) : 0,
       authPlayers: isSet(object.authPlayers) ? Number(object.authPlayers) : 0,
       serverIp: isSet(object.serverIp) ? CMsgIPAddress.fromJSON(object.serverIp) : undefined,
-      steamId: isSet(object.steamId) ? Number(object.steamId) : 0,
+      steamId: isSet(object.steamId) ? String(object.steamId) : "0",
       revision: isSet(object.revision) ? Number(object.revision) : 0,
       players: isSet(object.players) ? Number(object.players) : 0,
       gamePort: isSet(object.gamePort) ? Number(object.gamePort) : 0,
@@ -1526,7 +1526,7 @@ export const CMsgGMSClientServerQueryResponse_Server = {
     message.authPlayers !== undefined && (obj.authPlayers = Math.round(message.authPlayers));
     message.serverIp !== undefined &&
       (obj.serverIp = message.serverIp ? CMsgIPAddress.toJSON(message.serverIp) : undefined);
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     message.revision !== undefined && (obj.revision = Math.round(message.revision));
     message.players !== undefined && (obj.players = Math.round(message.players));
     message.gamePort !== undefined && (obj.gamePort = Math.round(message.gamePort));
@@ -1572,7 +1572,7 @@ export const CMsgGMSClientServerQueryResponse_Server = {
     message.serverIp = (object.serverIp !== undefined && object.serverIp !== null)
       ? CMsgIPAddress.fromPartial(object.serverIp)
       : undefined;
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     message.revision = object.revision ?? 0;
     message.players = object.players ?? 0;
     message.gamePort = object.gamePort ?? 0;
@@ -1602,12 +1602,12 @@ export const CMsgGMSClientServerQueryResponse_Server = {
 };
 
 function createBaseCMsgGameServerOutOfDate(): CMsgGameServerOutOfDate {
-  return { steamIdGs: 0, reject: false, message: "" };
+  return { steamIdGs: "0", reject: false, message: "" };
 }
 
 export const CMsgGameServerOutOfDate = {
   encode(message: CMsgGameServerOutOfDate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamIdGs !== 0) {
+    if (message.steamIdGs !== "0") {
       writer.uint32(9).fixed64(message.steamIdGs);
     }
     if (message.reject === true) {
@@ -1627,7 +1627,7 @@ export const CMsgGameServerOutOfDate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamIdGs = longToNumber(reader.fixed64() as Long);
+          message.steamIdGs = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.reject = reader.bool();
@@ -1645,7 +1645,7 @@ export const CMsgGameServerOutOfDate = {
 
   fromJSON(object: any): CMsgGameServerOutOfDate {
     return {
-      steamIdGs: isSet(object.steamIdGs) ? Number(object.steamIdGs) : 0,
+      steamIdGs: isSet(object.steamIdGs) ? String(object.steamIdGs) : "0",
       reject: isSet(object.reject) ? Boolean(object.reject) : false,
       message: isSet(object.message) ? String(object.message) : "",
     };
@@ -1653,7 +1653,7 @@ export const CMsgGameServerOutOfDate = {
 
   toJSON(message: CMsgGameServerOutOfDate): unknown {
     const obj: any = {};
-    message.steamIdGs !== undefined && (obj.steamIdGs = Math.round(message.steamIdGs));
+    message.steamIdGs !== undefined && (obj.steamIdGs = message.steamIdGs);
     message.reject !== undefined && (obj.reject = message.reject);
     message.message !== undefined && (obj.message = message.message);
     return obj;
@@ -1665,7 +1665,7 @@ export const CMsgGameServerOutOfDate = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGameServerOutOfDate>, I>>(object: I): CMsgGameServerOutOfDate {
     const message = createBaseCMsgGameServerOutOfDate();
-    message.steamIdGs = object.steamIdGs ?? 0;
+    message.steamIdGs = object.steamIdGs ?? "0";
     message.reject = object.reject ?? false;
     message.message = object.message ?? "";
     return message;
@@ -1673,12 +1673,12 @@ export const CMsgGameServerOutOfDate = {
 };
 
 function createBaseCMsgGSAssociateWithClan(): CMsgGSAssociateWithClan {
-  return { steamIdClan: 0 };
+  return { steamIdClan: "0" };
 }
 
 export const CMsgGSAssociateWithClan = {
   encode(message: CMsgGSAssociateWithClan, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamIdClan !== 0) {
+    if (message.steamIdClan !== "0") {
       writer.uint32(9).fixed64(message.steamIdClan);
     }
     return writer;
@@ -1692,7 +1692,7 @@ export const CMsgGSAssociateWithClan = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamIdClan = longToNumber(reader.fixed64() as Long);
+          message.steamIdClan = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1703,12 +1703,12 @@ export const CMsgGSAssociateWithClan = {
   },
 
   fromJSON(object: any): CMsgGSAssociateWithClan {
-    return { steamIdClan: isSet(object.steamIdClan) ? Number(object.steamIdClan) : 0 };
+    return { steamIdClan: isSet(object.steamIdClan) ? String(object.steamIdClan) : "0" };
   },
 
   toJSON(message: CMsgGSAssociateWithClan): unknown {
     const obj: any = {};
-    message.steamIdClan !== undefined && (obj.steamIdClan = Math.round(message.steamIdClan));
+    message.steamIdClan !== undefined && (obj.steamIdClan = message.steamIdClan);
     return obj;
   },
 
@@ -1718,18 +1718,18 @@ export const CMsgGSAssociateWithClan = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgGSAssociateWithClan>, I>>(object: I): CMsgGSAssociateWithClan {
     const message = createBaseCMsgGSAssociateWithClan();
-    message.steamIdClan = object.steamIdClan ?? 0;
+    message.steamIdClan = object.steamIdClan ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgGSAssociateWithClanResponse(): CMsgGSAssociateWithClanResponse {
-  return { steamIdClan: 0, eresult: 0 };
+  return { steamIdClan: "0", eresult: 0 };
 }
 
 export const CMsgGSAssociateWithClanResponse = {
   encode(message: CMsgGSAssociateWithClanResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamIdClan !== 0) {
+    if (message.steamIdClan !== "0") {
       writer.uint32(9).fixed64(message.steamIdClan);
     }
     if (message.eresult !== 0) {
@@ -1746,7 +1746,7 @@ export const CMsgGSAssociateWithClanResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamIdClan = longToNumber(reader.fixed64() as Long);
+          message.steamIdClan = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.eresult = reader.uint32();
@@ -1761,14 +1761,14 @@ export const CMsgGSAssociateWithClanResponse = {
 
   fromJSON(object: any): CMsgGSAssociateWithClanResponse {
     return {
-      steamIdClan: isSet(object.steamIdClan) ? Number(object.steamIdClan) : 0,
+      steamIdClan: isSet(object.steamIdClan) ? String(object.steamIdClan) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
     };
   },
 
   toJSON(message: CMsgGSAssociateWithClanResponse): unknown {
     const obj: any = {};
-    message.steamIdClan !== undefined && (obj.steamIdClan = Math.round(message.steamIdClan));
+    message.steamIdClan !== undefined && (obj.steamIdClan = message.steamIdClan);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     return obj;
   },
@@ -1781,19 +1781,19 @@ export const CMsgGSAssociateWithClanResponse = {
     object: I,
   ): CMsgGSAssociateWithClanResponse {
     const message = createBaseCMsgGSAssociateWithClanResponse();
-    message.steamIdClan = object.steamIdClan ?? 0;
+    message.steamIdClan = object.steamIdClan ?? "0";
     message.eresult = object.eresult ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgGSComputeNewPlayerCompatibility(): CMsgGSComputeNewPlayerCompatibility {
-  return { steamIdCandidate: 0 };
+  return { steamIdCandidate: "0" };
 }
 
 export const CMsgGSComputeNewPlayerCompatibility = {
   encode(message: CMsgGSComputeNewPlayerCompatibility, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamIdCandidate !== 0) {
+    if (message.steamIdCandidate !== "0") {
       writer.uint32(9).fixed64(message.steamIdCandidate);
     }
     return writer;
@@ -1807,7 +1807,7 @@ export const CMsgGSComputeNewPlayerCompatibility = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamIdCandidate = longToNumber(reader.fixed64() as Long);
+          message.steamIdCandidate = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1818,12 +1818,12 @@ export const CMsgGSComputeNewPlayerCompatibility = {
   },
 
   fromJSON(object: any): CMsgGSComputeNewPlayerCompatibility {
-    return { steamIdCandidate: isSet(object.steamIdCandidate) ? Number(object.steamIdCandidate) : 0 };
+    return { steamIdCandidate: isSet(object.steamIdCandidate) ? String(object.steamIdCandidate) : "0" };
   },
 
   toJSON(message: CMsgGSComputeNewPlayerCompatibility): unknown {
     const obj: any = {};
-    message.steamIdCandidate !== undefined && (obj.steamIdCandidate = Math.round(message.steamIdCandidate));
+    message.steamIdCandidate !== undefined && (obj.steamIdCandidate = message.steamIdCandidate);
     return obj;
   },
 
@@ -1837,14 +1837,14 @@ export const CMsgGSComputeNewPlayerCompatibility = {
     object: I,
   ): CMsgGSComputeNewPlayerCompatibility {
     const message = createBaseCMsgGSComputeNewPlayerCompatibility();
-    message.steamIdCandidate = object.steamIdCandidate ?? 0;
+    message.steamIdCandidate = object.steamIdCandidate ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgGSComputeNewPlayerCompatibilityResponse(): CMsgGSComputeNewPlayerCompatibilityResponse {
   return {
-    steamIdCandidate: 0,
+    steamIdCandidate: "0",
     eresult: 0,
     isClanMember: false,
     ctDontLikeYou: 0,
@@ -1855,7 +1855,7 @@ function createBaseCMsgGSComputeNewPlayerCompatibilityResponse(): CMsgGSComputeN
 
 export const CMsgGSComputeNewPlayerCompatibilityResponse = {
   encode(message: CMsgGSComputeNewPlayerCompatibilityResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamIdCandidate !== 0) {
+    if (message.steamIdCandidate !== "0") {
       writer.uint32(9).fixed64(message.steamIdCandidate);
     }
     if (message.eresult !== 0) {
@@ -1884,7 +1884,7 @@ export const CMsgGSComputeNewPlayerCompatibilityResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamIdCandidate = longToNumber(reader.fixed64() as Long);
+          message.steamIdCandidate = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.eresult = reader.uint32();
@@ -1911,7 +1911,7 @@ export const CMsgGSComputeNewPlayerCompatibilityResponse = {
 
   fromJSON(object: any): CMsgGSComputeNewPlayerCompatibilityResponse {
     return {
-      steamIdCandidate: isSet(object.steamIdCandidate) ? Number(object.steamIdCandidate) : 0,
+      steamIdCandidate: isSet(object.steamIdCandidate) ? String(object.steamIdCandidate) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
       isClanMember: isSet(object.isClanMember) ? Boolean(object.isClanMember) : false,
       ctDontLikeYou: isSet(object.ctDontLikeYou) ? Number(object.ctDontLikeYou) : 0,
@@ -1922,7 +1922,7 @@ export const CMsgGSComputeNewPlayerCompatibilityResponse = {
 
   toJSON(message: CMsgGSComputeNewPlayerCompatibilityResponse): unknown {
     const obj: any = {};
-    message.steamIdCandidate !== undefined && (obj.steamIdCandidate = Math.round(message.steamIdCandidate));
+    message.steamIdCandidate !== undefined && (obj.steamIdCandidate = message.steamIdCandidate);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     message.isClanMember !== undefined && (obj.isClanMember = message.isClanMember);
     message.ctDontLikeYou !== undefined && (obj.ctDontLikeYou = Math.round(message.ctDontLikeYou));
@@ -1942,7 +1942,7 @@ export const CMsgGSComputeNewPlayerCompatibilityResponse = {
     object: I,
   ): CMsgGSComputeNewPlayerCompatibilityResponse {
     const message = createBaseCMsgGSComputeNewPlayerCompatibilityResponse();
-    message.steamIdCandidate = object.steamIdCandidate ?? 0;
+    message.steamIdCandidate = object.steamIdCandidate ?? "0";
     message.eresult = object.eresult ?? 0;
     message.isClanMember = object.isClanMember ?? false;
     message.ctDontLikeYou = object.ctDontLikeYou ?? 0;
@@ -2007,11 +2007,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

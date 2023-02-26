@@ -518,10 +518,10 @@ export function eRemoteDeviceStreamingResultToJSON(object: ERemoteDeviceStreamin
 }
 
 export interface CMsgRemoteClientBroadcastHeader {
-  clientId: number;
+  clientId: string;
   msgType: ERemoteClientBroadcastMsg;
-  instanceId: number;
-  deviceId: number;
+  instanceId: string;
+  deviceId: string;
   deviceToken: Buffer;
 }
 
@@ -548,21 +548,21 @@ export interface CMsgRemoteClientBroadcastStatus {
   remoteplayActive: boolean;
   supportedServices: number;
   steamDeck: boolean;
-  steamVersion: number;
+  steamVersion: string;
 }
 
 export interface CMsgRemoteClientBroadcastStatus_User {
-  steamid: number;
+  steamid: string;
   authKeyId: number;
 }
 
 export interface CMsgRemoteClientBroadcastDiscovery {
   seqNum: number;
-  clientIds: number[];
+  clientIds: string[];
 }
 
 export interface CMsgRemoteClientBroadcastClientIDDeconflict {
-  clientIds: number[];
+  clientIds: string[];
 }
 
 export interface CMsgRemoteDeviceAuthorizationRequest {
@@ -605,7 +605,7 @@ export function cMsgRemoteDeviceAuthorizationRequest_EKeyEscrowUsageToJSON(
 
 export interface CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket {
   password: Buffer;
-  identifier: number;
+  identifier: string;
   payload: Buffer;
   timestamp: number;
   usage: CMsgRemoteDeviceAuthorizationRequest_EKeyEscrowUsage;
@@ -620,7 +620,7 @@ export interface CMsgRemoteDeviceAuthorizationCancelRequest {
 
 export interface CMsgRemoteDeviceAuthorizationResponse {
   result: ERemoteDeviceAuthorizationResult;
-  steamid: number;
+  steamid: string;
   authKey: Buffer;
   deviceToken: Buffer;
 }
@@ -642,13 +642,13 @@ export interface CMsgRemoteDeviceStreamingRequest {
   enableAudioStreaming: boolean;
   enableInputStreaming: boolean;
   networkTest: boolean;
-  clientId: number;
+  clientId: string;
   supportedTransport: EStreamTransport[];
   restricted: boolean;
   formFactor: EStreamDeviceFormFactor;
   gamepadCount: number;
   gamepads: CMsgRemoteDeviceStreamingRequest_ReservedGamepad[];
-  gameid: number;
+  gameid: string;
   streamInterface: EStreamInterface;
 }
 
@@ -694,21 +694,21 @@ export interface CMsgRemoteDeviceStreamTransportSignal {
 }
 
 function createBaseCMsgRemoteClientBroadcastHeader(): CMsgRemoteClientBroadcastHeader {
-  return { clientId: 0, msgType: 0, instanceId: 0, deviceId: 0, deviceToken: Buffer.alloc(0) };
+  return { clientId: "0", msgType: 0, instanceId: "0", deviceId: "0", deviceToken: Buffer.alloc(0) };
 }
 
 export const CMsgRemoteClientBroadcastHeader = {
   encode(message: CMsgRemoteClientBroadcastHeader, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
     if (message.msgType !== 0) {
       writer.uint32(16).int32(message.msgType);
     }
-    if (message.instanceId !== 0) {
+    if (message.instanceId !== "0") {
       writer.uint32(24).uint64(message.instanceId);
     }
-    if (message.deviceId !== 0) {
+    if (message.deviceId !== "0") {
       writer.uint32(32).uint64(message.deviceId);
     }
     if (message.deviceToken.length !== 0) {
@@ -725,16 +725,16 @@ export const CMsgRemoteClientBroadcastHeader = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.msgType = reader.int32() as any;
           break;
         case 3:
-          message.instanceId = longToNumber(reader.uint64() as Long);
+          message.instanceId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.deviceId = longToNumber(reader.uint64() as Long);
+          message.deviceId = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.deviceToken = reader.bytes() as Buffer;
@@ -749,20 +749,20 @@ export const CMsgRemoteClientBroadcastHeader = {
 
   fromJSON(object: any): CMsgRemoteClientBroadcastHeader {
     return {
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       msgType: isSet(object.msgType) ? eRemoteClientBroadcastMsgFromJSON(object.msgType) : 0,
-      instanceId: isSet(object.instanceId) ? Number(object.instanceId) : 0,
-      deviceId: isSet(object.deviceId) ? Number(object.deviceId) : 0,
+      instanceId: isSet(object.instanceId) ? String(object.instanceId) : "0",
+      deviceId: isSet(object.deviceId) ? String(object.deviceId) : "0",
       deviceToken: isSet(object.deviceToken) ? Buffer.from(bytesFromBase64(object.deviceToken)) : Buffer.alloc(0),
     };
   },
 
   toJSON(message: CMsgRemoteClientBroadcastHeader): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     message.msgType !== undefined && (obj.msgType = eRemoteClientBroadcastMsgToJSON(message.msgType));
-    message.instanceId !== undefined && (obj.instanceId = Math.round(message.instanceId));
-    message.deviceId !== undefined && (obj.deviceId = Math.round(message.deviceId));
+    message.instanceId !== undefined && (obj.instanceId = message.instanceId);
+    message.deviceId !== undefined && (obj.deviceId = message.deviceId);
     message.deviceToken !== undefined &&
       (obj.deviceToken = base64FromBytes(message.deviceToken !== undefined ? message.deviceToken : Buffer.alloc(0)));
     return obj;
@@ -776,10 +776,10 @@ export const CMsgRemoteClientBroadcastHeader = {
     object: I,
   ): CMsgRemoteClientBroadcastHeader {
     const message = createBaseCMsgRemoteClientBroadcastHeader();
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.msgType = object.msgType ?? 0;
-    message.instanceId = object.instanceId ?? 0;
-    message.deviceId = object.deviceId ?? 0;
+    message.instanceId = object.instanceId ?? "0";
+    message.deviceId = object.deviceId ?? "0";
     message.deviceToken = object.deviceToken ?? Buffer.alloc(0);
     return message;
   },
@@ -809,7 +809,7 @@ function createBaseCMsgRemoteClientBroadcastStatus(): CMsgRemoteClientBroadcastS
     remoteplayActive: false,
     supportedServices: 0,
     steamDeck: false,
-    steamVersion: 0,
+    steamVersion: "0",
   };
 }
 
@@ -881,7 +881,7 @@ export const CMsgRemoteClientBroadcastStatus = {
     if (message.steamDeck === true) {
       writer.uint32(192).bool(message.steamDeck);
     }
-    if (message.steamVersion !== 0) {
+    if (message.steamVersion !== "0") {
       writer.uint32(200).uint64(message.steamVersion);
     }
     return writer;
@@ -961,7 +961,7 @@ export const CMsgRemoteClientBroadcastStatus = {
           message.steamDeck = reader.bool();
           break;
         case 25:
-          message.steamVersion = longToNumber(reader.uint64() as Long);
+          message.steamVersion = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -997,7 +997,7 @@ export const CMsgRemoteClientBroadcastStatus = {
       remoteplayActive: isSet(object.remoteplayActive) ? Boolean(object.remoteplayActive) : false,
       supportedServices: isSet(object.supportedServices) ? Number(object.supportedServices) : 0,
       steamDeck: isSet(object.steamDeck) ? Boolean(object.steamDeck) : false,
-      steamVersion: isSet(object.steamVersion) ? Number(object.steamVersion) : 0,
+      steamVersion: isSet(object.steamVersion) ? String(object.steamVersion) : "0",
     };
   },
 
@@ -1037,7 +1037,7 @@ export const CMsgRemoteClientBroadcastStatus = {
     message.remoteplayActive !== undefined && (obj.remoteplayActive = message.remoteplayActive);
     message.supportedServices !== undefined && (obj.supportedServices = Math.round(message.supportedServices));
     message.steamDeck !== undefined && (obj.steamDeck = message.steamDeck);
-    message.steamVersion !== undefined && (obj.steamVersion = Math.round(message.steamVersion));
+    message.steamVersion !== undefined && (obj.steamVersion = message.steamVersion);
     return obj;
   },
 
@@ -1071,18 +1071,18 @@ export const CMsgRemoteClientBroadcastStatus = {
     message.remoteplayActive = object.remoteplayActive ?? false;
     message.supportedServices = object.supportedServices ?? 0;
     message.steamDeck = object.steamDeck ?? false;
-    message.steamVersion = object.steamVersion ?? 0;
+    message.steamVersion = object.steamVersion ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgRemoteClientBroadcastStatus_User(): CMsgRemoteClientBroadcastStatus_User {
-  return { steamid: 0, authKeyId: 0 };
+  return { steamid: "0", authKeyId: 0 };
 }
 
 export const CMsgRemoteClientBroadcastStatus_User = {
   encode(message: CMsgRemoteClientBroadcastStatus_User, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.authKeyId !== 0) {
@@ -1099,7 +1099,7 @@ export const CMsgRemoteClientBroadcastStatus_User = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.authKeyId = reader.uint32();
@@ -1114,14 +1114,14 @@ export const CMsgRemoteClientBroadcastStatus_User = {
 
   fromJSON(object: any): CMsgRemoteClientBroadcastStatus_User {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       authKeyId: isSet(object.authKeyId) ? Number(object.authKeyId) : 0,
     };
   },
 
   toJSON(message: CMsgRemoteClientBroadcastStatus_User): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.authKeyId !== undefined && (obj.authKeyId = Math.round(message.authKeyId));
     return obj;
   },
@@ -1136,7 +1136,7 @@ export const CMsgRemoteClientBroadcastStatus_User = {
     object: I,
   ): CMsgRemoteClientBroadcastStatus_User {
     const message = createBaseCMsgRemoteClientBroadcastStatus_User();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.authKeyId = object.authKeyId ?? 0;
     return message;
   },
@@ -1173,10 +1173,10 @@ export const CMsgRemoteClientBroadcastDiscovery = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.clientIds.push(longToNumber(reader.uint64() as Long));
+              message.clientIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.clientIds.push(longToNumber(reader.uint64() as Long));
+            message.clientIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -1190,7 +1190,7 @@ export const CMsgRemoteClientBroadcastDiscovery = {
   fromJSON(object: any): CMsgRemoteClientBroadcastDiscovery {
     return {
       seqNum: isSet(object.seqNum) ? Number(object.seqNum) : 0,
-      clientIds: Array.isArray(object?.clientIds) ? object.clientIds.map((e: any) => Number(e)) : [],
+      clientIds: Array.isArray(object?.clientIds) ? object.clientIds.map((e: any) => String(e)) : [],
     };
   },
 
@@ -1198,7 +1198,7 @@ export const CMsgRemoteClientBroadcastDiscovery = {
     const obj: any = {};
     message.seqNum !== undefined && (obj.seqNum = Math.round(message.seqNum));
     if (message.clientIds) {
-      obj.clientIds = message.clientIds.map((e) => Math.round(e));
+      obj.clientIds = message.clientIds.map((e) => e);
     } else {
       obj.clientIds = [];
     }
@@ -1246,10 +1246,10 @@ export const CMsgRemoteClientBroadcastClientIDDeconflict = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.clientIds.push(longToNumber(reader.uint64() as Long));
+              message.clientIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.clientIds.push(longToNumber(reader.uint64() as Long));
+            message.clientIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -1261,13 +1261,13 @@ export const CMsgRemoteClientBroadcastClientIDDeconflict = {
   },
 
   fromJSON(object: any): CMsgRemoteClientBroadcastClientIDDeconflict {
-    return { clientIds: Array.isArray(object?.clientIds) ? object.clientIds.map((e: any) => Number(e)) : [] };
+    return { clientIds: Array.isArray(object?.clientIds) ? object.clientIds.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: CMsgRemoteClientBroadcastClientIDDeconflict): unknown {
     const obj: any = {};
     if (message.clientIds) {
-      obj.clientIds = message.clientIds.map((e) => Math.round(e));
+      obj.clientIds = message.clientIds.map((e) => e);
     } else {
       obj.clientIds = [];
     }
@@ -1383,7 +1383,7 @@ export const CMsgRemoteDeviceAuthorizationRequest = {
 function createBaseCMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket(): CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket {
   return {
     password: Buffer.alloc(0),
-    identifier: 0,
+    identifier: "0",
     payload: Buffer.alloc(0),
     timestamp: 0,
     usage: 0,
@@ -1402,7 +1402,7 @@ export const CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket = {
     if (message.password.length !== 0) {
       writer.uint32(10).bytes(message.password);
     }
-    if (message.identifier !== 0) {
+    if (message.identifier !== "0") {
       writer.uint32(16).uint64(message.identifier);
     }
     if (message.payload.length !== 0) {
@@ -1440,7 +1440,7 @@ export const CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket = {
           message.password = reader.bytes() as Buffer;
           break;
         case 2:
-          message.identifier = longToNumber(reader.uint64() as Long);
+          message.identifier = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.payload = reader.bytes() as Buffer;
@@ -1474,7 +1474,7 @@ export const CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket = {
   fromJSON(object: any): CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket {
     return {
       password: isSet(object.password) ? Buffer.from(bytesFromBase64(object.password)) : Buffer.alloc(0),
-      identifier: isSet(object.identifier) ? Number(object.identifier) : 0,
+      identifier: isSet(object.identifier) ? String(object.identifier) : "0",
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
       usage: isSet(object.usage) ? cMsgRemoteDeviceAuthorizationRequest_EKeyEscrowUsageFromJSON(object.usage) : 0,
@@ -1489,7 +1489,7 @@ export const CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket = {
     const obj: any = {};
     message.password !== undefined &&
       (obj.password = base64FromBytes(message.password !== undefined ? message.password : Buffer.alloc(0)));
-    message.identifier !== undefined && (obj.identifier = Math.round(message.identifier));
+    message.identifier !== undefined && (obj.identifier = message.identifier);
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : Buffer.alloc(0)));
     message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
@@ -1513,7 +1513,7 @@ export const CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket = {
   ): CMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket {
     const message = createBaseCMsgRemoteDeviceAuthorizationRequest_CKeyEscrowTicket();
     message.password = object.password ?? Buffer.alloc(0);
-    message.identifier = object.identifier ?? 0;
+    message.identifier = object.identifier ?? "0";
     message.payload = object.payload ?? Buffer.alloc(0);
     message.timestamp = object.timestamp ?? 0;
     message.usage = object.usage ?? 0;
@@ -1573,7 +1573,7 @@ export const CMsgRemoteDeviceAuthorizationCancelRequest = {
 };
 
 function createBaseCMsgRemoteDeviceAuthorizationResponse(): CMsgRemoteDeviceAuthorizationResponse {
-  return { result: 0, steamid: 0, authKey: Buffer.alloc(0), deviceToken: Buffer.alloc(0) };
+  return { result: 0, steamid: "0", authKey: Buffer.alloc(0), deviceToken: Buffer.alloc(0) };
 }
 
 export const CMsgRemoteDeviceAuthorizationResponse = {
@@ -1581,7 +1581,7 @@ export const CMsgRemoteDeviceAuthorizationResponse = {
     if (message.result !== 0) {
       writer.uint32(8).int32(message.result);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
     if (message.authKey.length !== 0) {
@@ -1604,7 +1604,7 @@ export const CMsgRemoteDeviceAuthorizationResponse = {
           message.result = reader.int32() as any;
           break;
         case 2:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.authKey = reader.bytes() as Buffer;
@@ -1623,7 +1623,7 @@ export const CMsgRemoteDeviceAuthorizationResponse = {
   fromJSON(object: any): CMsgRemoteDeviceAuthorizationResponse {
     return {
       result: isSet(object.result) ? eRemoteDeviceAuthorizationResultFromJSON(object.result) : 0,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       authKey: isSet(object.authKey) ? Buffer.from(bytesFromBase64(object.authKey)) : Buffer.alloc(0),
       deviceToken: isSet(object.deviceToken) ? Buffer.from(bytesFromBase64(object.deviceToken)) : Buffer.alloc(0),
     };
@@ -1632,7 +1632,7 @@ export const CMsgRemoteDeviceAuthorizationResponse = {
   toJSON(message: CMsgRemoteDeviceAuthorizationResponse): unknown {
     const obj: any = {};
     message.result !== undefined && (obj.result = eRemoteDeviceAuthorizationResultToJSON(message.result));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.authKey !== undefined &&
       (obj.authKey = base64FromBytes(message.authKey !== undefined ? message.authKey : Buffer.alloc(0)));
     message.deviceToken !== undefined &&
@@ -1651,7 +1651,7 @@ export const CMsgRemoteDeviceAuthorizationResponse = {
   ): CMsgRemoteDeviceAuthorizationResponse {
     const message = createBaseCMsgRemoteDeviceAuthorizationResponse();
     message.result = object.result ?? 0;
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.authKey = object.authKey ?? Buffer.alloc(0);
     message.deviceToken = object.deviceToken ?? Buffer.alloc(0);
     return message;
@@ -1727,13 +1727,13 @@ function createBaseCMsgRemoteDeviceStreamingRequest(): CMsgRemoteDeviceStreaming
     enableAudioStreaming: false,
     enableInputStreaming: false,
     networkTest: false,
-    clientId: 0,
+    clientId: "0",
     supportedTransport: [],
     restricted: false,
     formFactor: 0,
     gamepadCount: 0,
     gamepads: [],
-    gameid: 0,
+    gameid: "0",
     streamInterface: 0,
   };
 }
@@ -1776,7 +1776,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
     if (message.networkTest === true) {
       writer.uint32(96).bool(message.networkTest);
     }
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(104).uint64(message.clientId);
     }
     writer.uint32(114).fork();
@@ -1796,7 +1796,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
     for (const v of message.gamepads) {
       CMsgRemoteDeviceStreamingRequest_ReservedGamepad.encode(v!, writer.uint32(146).fork()).ldelim();
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(152).uint64(message.gameid);
     }
     if (message.streamInterface !== 0) {
@@ -1849,7 +1849,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
           message.networkTest = reader.bool();
           break;
         case 13:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 14:
           if ((tag & 7) === 2) {
@@ -1874,7 +1874,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
           message.gamepads.push(CMsgRemoteDeviceStreamingRequest_ReservedGamepad.decode(reader, reader.uint32()));
           break;
         case 19:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 20:
           message.streamInterface = reader.int32() as any;
@@ -1901,7 +1901,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
       enableAudioStreaming: isSet(object.enableAudioStreaming) ? Boolean(object.enableAudioStreaming) : false,
       enableInputStreaming: isSet(object.enableInputStreaming) ? Boolean(object.enableInputStreaming) : false,
       networkTest: isSet(object.networkTest) ? Boolean(object.networkTest) : false,
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
       supportedTransport: Array.isArray(object?.supportedTransport)
         ? object.supportedTransport.map((e: any) => eStreamTransportFromJSON(e))
         : [],
@@ -1911,7 +1911,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
       gamepads: Array.isArray(object?.gamepads)
         ? object.gamepads.map((e: any) => CMsgRemoteDeviceStreamingRequest_ReservedGamepad.fromJSON(e))
         : [],
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       streamInterface: isSet(object.streamInterface) ? eStreamInterfaceFromJSON(object.streamInterface) : 0,
     };
   },
@@ -1931,7 +1931,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
     message.enableAudioStreaming !== undefined && (obj.enableAudioStreaming = message.enableAudioStreaming);
     message.enableInputStreaming !== undefined && (obj.enableInputStreaming = message.enableInputStreaming);
     message.networkTest !== undefined && (obj.networkTest = message.networkTest);
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
     if (message.supportedTransport) {
       obj.supportedTransport = message.supportedTransport.map((e) => eStreamTransportToJSON(e));
     } else {
@@ -1947,7 +1947,7 @@ export const CMsgRemoteDeviceStreamingRequest = {
     } else {
       obj.gamepads = [];
     }
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.streamInterface !== undefined && (obj.streamInterface = eStreamInterfaceToJSON(message.streamInterface));
     return obj;
   },
@@ -1974,14 +1974,14 @@ export const CMsgRemoteDeviceStreamingRequest = {
     message.enableAudioStreaming = object.enableAudioStreaming ?? false;
     message.enableInputStreaming = object.enableInputStreaming ?? false;
     message.networkTest = object.networkTest ?? false;
-    message.clientId = object.clientId ?? 0;
+    message.clientId = object.clientId ?? "0";
     message.supportedTransport = object.supportedTransport?.map((e) => e) || [];
     message.restricted = object.restricted ?? false;
     message.formFactor = object.formFactor ?? 0;
     message.gamepadCount = object.gamepadCount ?? 0;
     message.gamepads = object.gamepads?.map((e) => CMsgRemoteDeviceStreamingRequest_ReservedGamepad.fromPartial(e)) ||
       [];
-    message.gameid = object.gameid ?? 0;
+    message.gameid = object.gameid ?? "0";
     message.streamInterface = object.streamInterface ?? 0;
     return message;
   },
@@ -2570,11 +2570,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

@@ -9,7 +9,7 @@ export interface CMsgClientUFSUploadFileRequest {
   fileSize: number;
   rawFileSize: number;
   shaFile: Buffer;
-  timeStamp: number;
+  timeStamp: string;
   fileName: string;
   platformsToSyncDeprecated: number;
   platformsToSync: number;
@@ -89,7 +89,7 @@ export interface CMsgClientUFSGetFileListForAppResponse_File {
   appId: number;
   fileName: string;
   shaFile: Buffer;
-  timeStamp: number;
+  timeStamp: string;
   rawFileSize: number;
   isExplicitDelete: boolean;
   platformsToSync: number;
@@ -108,7 +108,7 @@ export interface CMsgClientUFSDownloadResponse {
   fileSize: number;
   rawFileSize: number;
   shaFile: Buffer;
-  timeStamp: number;
+  timeStamp: string;
   isExplicitDelete: boolean;
   useHttp: boolean;
   httpHost: string;
@@ -120,7 +120,7 @@ export interface CMsgClientUFSDownloadResponse {
 
 export interface CMsgClientUFSLoginRequest {
   protocolVersion: number;
-  amSessionToken: number;
+  amSessionToken: string;
   apps: number[];
 }
 
@@ -129,7 +129,7 @@ export interface CMsgClientUFSLoginResponse {
 }
 
 export interface CMsgClientUFSGetUGCDetails {
-  hcontent: number;
+  hcontent: string;
 }
 
 export interface CMsgClientUFSGetUGCDetailsResponse {
@@ -137,7 +137,7 @@ export interface CMsgClientUFSGetUGCDetailsResponse {
   url: string;
   appId: number;
   filename: string;
-  steamidCreator: number;
+  steamidCreator: string;
   fileSize: number;
   compressedFileSize: number;
   rangecheckHost: string;
@@ -154,7 +154,7 @@ export interface CMsgClientUFSGetSingleFileInfoResponse {
   appId: number;
   fileName: string;
   shaFile: Buffer;
-  timeStamp: number;
+  timeStamp: string;
   rawFileSize: number;
   isExplicitDelete: boolean;
 }
@@ -166,7 +166,7 @@ export interface CMsgClientUFSShareFile {
 
 export interface CMsgClientUFSShareFileResponse {
   eresult: number;
-  hcontent: number;
+  hcontent: string;
 }
 
 function createBaseCMsgClientUFSUploadFileRequest(): CMsgClientUFSUploadFileRequest {
@@ -175,7 +175,7 @@ function createBaseCMsgClientUFSUploadFileRequest(): CMsgClientUFSUploadFileRequ
     fileSize: 0,
     rawFileSize: 0,
     shaFile: Buffer.alloc(0),
-    timeStamp: 0,
+    timeStamp: "0",
     fileName: "",
     platformsToSyncDeprecated: 0,
     platformsToSync: 0,
@@ -198,7 +198,7 @@ export const CMsgClientUFSUploadFileRequest = {
     if (message.shaFile.length !== 0) {
       writer.uint32(34).bytes(message.shaFile);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(40).uint64(message.timeStamp);
     }
     if (message.fileName !== "") {
@@ -239,7 +239,7 @@ export const CMsgClientUFSUploadFileRequest = {
           message.shaFile = reader.bytes() as Buffer;
           break;
         case 5:
-          message.timeStamp = longToNumber(reader.uint64() as Long);
+          message.timeStamp = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.fileName = reader.string();
@@ -270,7 +270,7 @@ export const CMsgClientUFSUploadFileRequest = {
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       rawFileSize: isSet(object.rawFileSize) ? Number(object.rawFileSize) : 0,
       shaFile: isSet(object.shaFile) ? Buffer.from(bytesFromBase64(object.shaFile)) : Buffer.alloc(0),
-      timeStamp: isSet(object.timeStamp) ? Number(object.timeStamp) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
       fileName: isSet(object.fileName) ? String(object.fileName) : "",
       platformsToSyncDeprecated: isSet(object.platformsToSyncDeprecated) ? Number(object.platformsToSyncDeprecated) : 0,
       platformsToSync: isSet(object.platformsToSync) ? Number(object.platformsToSync) : 0,
@@ -286,7 +286,7 @@ export const CMsgClientUFSUploadFileRequest = {
     message.rawFileSize !== undefined && (obj.rawFileSize = Math.round(message.rawFileSize));
     message.shaFile !== undefined &&
       (obj.shaFile = base64FromBytes(message.shaFile !== undefined ? message.shaFile : Buffer.alloc(0)));
-    message.timeStamp !== undefined && (obj.timeStamp = Math.round(message.timeStamp));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.fileName !== undefined && (obj.fileName = message.fileName);
     message.platformsToSyncDeprecated !== undefined &&
       (obj.platformsToSyncDeprecated = Math.round(message.platformsToSyncDeprecated));
@@ -308,7 +308,7 @@ export const CMsgClientUFSUploadFileRequest = {
     message.fileSize = object.fileSize ?? 0;
     message.rawFileSize = object.rawFileSize ?? 0;
     message.shaFile = object.shaFile ?? Buffer.alloc(0);
-    message.timeStamp = object.timeStamp ?? 0;
+    message.timeStamp = object.timeStamp ?? "0";
     message.fileName = object.fileName ?? "";
     message.platformsToSyncDeprecated = object.platformsToSyncDeprecated ?? 0;
     message.platformsToSync = object.platformsToSync ?? 0;
@@ -1213,7 +1213,7 @@ function createBaseCMsgClientUFSGetFileListForAppResponse_File(): CMsgClientUFSG
     appId: 0,
     fileName: "",
     shaFile: Buffer.alloc(0),
-    timeStamp: 0,
+    timeStamp: "0",
     rawFileSize: 0,
     isExplicitDelete: false,
     platformsToSync: 0,
@@ -1232,7 +1232,7 @@ export const CMsgClientUFSGetFileListForAppResponse_File = {
     if (message.shaFile.length !== 0) {
       writer.uint32(26).bytes(message.shaFile);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(32).uint64(message.timeStamp);
     }
     if (message.rawFileSize !== 0) {
@@ -1267,7 +1267,7 @@ export const CMsgClientUFSGetFileListForAppResponse_File = {
           message.shaFile = reader.bytes() as Buffer;
           break;
         case 4:
-          message.timeStamp = longToNumber(reader.uint64() as Long);
+          message.timeStamp = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.rawFileSize = reader.uint32();
@@ -1294,7 +1294,7 @@ export const CMsgClientUFSGetFileListForAppResponse_File = {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       fileName: isSet(object.fileName) ? String(object.fileName) : "",
       shaFile: isSet(object.shaFile) ? Buffer.from(bytesFromBase64(object.shaFile)) : Buffer.alloc(0),
-      timeStamp: isSet(object.timeStamp) ? Number(object.timeStamp) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
       rawFileSize: isSet(object.rawFileSize) ? Number(object.rawFileSize) : 0,
       isExplicitDelete: isSet(object.isExplicitDelete) ? Boolean(object.isExplicitDelete) : false,
       platformsToSync: isSet(object.platformsToSync) ? Number(object.platformsToSync) : 0,
@@ -1308,7 +1308,7 @@ export const CMsgClientUFSGetFileListForAppResponse_File = {
     message.fileName !== undefined && (obj.fileName = message.fileName);
     message.shaFile !== undefined &&
       (obj.shaFile = base64FromBytes(message.shaFile !== undefined ? message.shaFile : Buffer.alloc(0)));
-    message.timeStamp !== undefined && (obj.timeStamp = Math.round(message.timeStamp));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.rawFileSize !== undefined && (obj.rawFileSize = Math.round(message.rawFileSize));
     message.isExplicitDelete !== undefined && (obj.isExplicitDelete = message.isExplicitDelete);
     message.platformsToSync !== undefined && (obj.platformsToSync = Math.round(message.platformsToSync));
@@ -1329,7 +1329,7 @@ export const CMsgClientUFSGetFileListForAppResponse_File = {
     message.appId = object.appId ?? 0;
     message.fileName = object.fileName ?? "";
     message.shaFile = object.shaFile ?? Buffer.alloc(0);
-    message.timeStamp = object.timeStamp ?? 0;
+    message.timeStamp = object.timeStamp ?? "0";
     message.rawFileSize = object.rawFileSize ?? 0;
     message.isExplicitDelete = object.isExplicitDelete ?? false;
     message.platformsToSync = object.platformsToSync ?? 0;
@@ -1416,7 +1416,7 @@ function createBaseCMsgClientUFSDownloadResponse(): CMsgClientUFSDownloadRespons
     fileSize: 0,
     rawFileSize: 0,
     shaFile: Buffer.alloc(0),
-    timeStamp: 0,
+    timeStamp: "0",
     isExplicitDelete: false,
     useHttp: false,
     httpHost: "",
@@ -1444,7 +1444,7 @@ export const CMsgClientUFSDownloadResponse = {
     if (message.shaFile.length !== 0) {
       writer.uint32(42).bytes(message.shaFile);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(48).uint64(message.timeStamp);
     }
     if (message.isExplicitDelete === true) {
@@ -1494,7 +1494,7 @@ export const CMsgClientUFSDownloadResponse = {
           message.shaFile = reader.bytes() as Buffer;
           break;
         case 6:
-          message.timeStamp = longToNumber(reader.uint64() as Long);
+          message.timeStamp = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.isExplicitDelete = reader.bool();
@@ -1532,7 +1532,7 @@ export const CMsgClientUFSDownloadResponse = {
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       rawFileSize: isSet(object.rawFileSize) ? Number(object.rawFileSize) : 0,
       shaFile: isSet(object.shaFile) ? Buffer.from(bytesFromBase64(object.shaFile)) : Buffer.alloc(0),
-      timeStamp: isSet(object.timeStamp) ? Number(object.timeStamp) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
       isExplicitDelete: isSet(object.isExplicitDelete) ? Boolean(object.isExplicitDelete) : false,
       useHttp: isSet(object.useHttp) ? Boolean(object.useHttp) : false,
       httpHost: isSet(object.httpHost) ? String(object.httpHost) : "",
@@ -1551,7 +1551,7 @@ export const CMsgClientUFSDownloadResponse = {
     message.rawFileSize !== undefined && (obj.rawFileSize = Math.round(message.rawFileSize));
     message.shaFile !== undefined &&
       (obj.shaFile = base64FromBytes(message.shaFile !== undefined ? message.shaFile : Buffer.alloc(0)));
-    message.timeStamp !== undefined && (obj.timeStamp = Math.round(message.timeStamp));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.isExplicitDelete !== undefined && (obj.isExplicitDelete = message.isExplicitDelete);
     message.useHttp !== undefined && (obj.useHttp = message.useHttp);
     message.httpHost !== undefined && (obj.httpHost = message.httpHost);
@@ -1576,7 +1576,7 @@ export const CMsgClientUFSDownloadResponse = {
     message.fileSize = object.fileSize ?? 0;
     message.rawFileSize = object.rawFileSize ?? 0;
     message.shaFile = object.shaFile ?? Buffer.alloc(0);
-    message.timeStamp = object.timeStamp ?? 0;
+    message.timeStamp = object.timeStamp ?? "0";
     message.isExplicitDelete = object.isExplicitDelete ?? false;
     message.useHttp = object.useHttp ?? false;
     message.httpHost = object.httpHost ?? "";
@@ -1589,7 +1589,7 @@ export const CMsgClientUFSDownloadResponse = {
 };
 
 function createBaseCMsgClientUFSLoginRequest(): CMsgClientUFSLoginRequest {
-  return { protocolVersion: 0, amSessionToken: 0, apps: [] };
+  return { protocolVersion: 0, amSessionToken: "0", apps: [] };
 }
 
 export const CMsgClientUFSLoginRequest = {
@@ -1597,7 +1597,7 @@ export const CMsgClientUFSLoginRequest = {
     if (message.protocolVersion !== 0) {
       writer.uint32(8).uint32(message.protocolVersion);
     }
-    if (message.amSessionToken !== 0) {
+    if (message.amSessionToken !== "0") {
       writer.uint32(16).uint64(message.amSessionToken);
     }
     writer.uint32(26).fork();
@@ -1619,7 +1619,7 @@ export const CMsgClientUFSLoginRequest = {
           message.protocolVersion = reader.uint32();
           break;
         case 2:
-          message.amSessionToken = longToNumber(reader.uint64() as Long);
+          message.amSessionToken = longToString(reader.uint64() as Long);
           break;
         case 3:
           if ((tag & 7) === 2) {
@@ -1642,7 +1642,7 @@ export const CMsgClientUFSLoginRequest = {
   fromJSON(object: any): CMsgClientUFSLoginRequest {
     return {
       protocolVersion: isSet(object.protocolVersion) ? Number(object.protocolVersion) : 0,
-      amSessionToken: isSet(object.amSessionToken) ? Number(object.amSessionToken) : 0,
+      amSessionToken: isSet(object.amSessionToken) ? String(object.amSessionToken) : "0",
       apps: Array.isArray(object?.apps) ? object.apps.map((e: any) => Number(e)) : [],
     };
   },
@@ -1650,7 +1650,7 @@ export const CMsgClientUFSLoginRequest = {
   toJSON(message: CMsgClientUFSLoginRequest): unknown {
     const obj: any = {};
     message.protocolVersion !== undefined && (obj.protocolVersion = Math.round(message.protocolVersion));
-    message.amSessionToken !== undefined && (obj.amSessionToken = Math.round(message.amSessionToken));
+    message.amSessionToken !== undefined && (obj.amSessionToken = message.amSessionToken);
     if (message.apps) {
       obj.apps = message.apps.map((e) => Math.round(e));
     } else {
@@ -1666,7 +1666,7 @@ export const CMsgClientUFSLoginRequest = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientUFSLoginRequest>, I>>(object: I): CMsgClientUFSLoginRequest {
     const message = createBaseCMsgClientUFSLoginRequest();
     message.protocolVersion = object.protocolVersion ?? 0;
-    message.amSessionToken = object.amSessionToken ?? 0;
+    message.amSessionToken = object.amSessionToken ?? "0";
     message.apps = object.apps?.map((e) => e) || [];
     return message;
   },
@@ -1724,12 +1724,12 @@ export const CMsgClientUFSLoginResponse = {
 };
 
 function createBaseCMsgClientUFSGetUGCDetails(): CMsgClientUFSGetUGCDetails {
-  return { hcontent: 0 };
+  return { hcontent: "0" };
 }
 
 export const CMsgClientUFSGetUGCDetails = {
   encode(message: CMsgClientUFSGetUGCDetails, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.hcontent !== 0) {
+    if (message.hcontent !== "0") {
       writer.uint32(9).fixed64(message.hcontent);
     }
     return writer;
@@ -1743,7 +1743,7 @@ export const CMsgClientUFSGetUGCDetails = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.hcontent = longToNumber(reader.fixed64() as Long);
+          message.hcontent = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1754,12 +1754,12 @@ export const CMsgClientUFSGetUGCDetails = {
   },
 
   fromJSON(object: any): CMsgClientUFSGetUGCDetails {
-    return { hcontent: isSet(object.hcontent) ? Number(object.hcontent) : 0 };
+    return { hcontent: isSet(object.hcontent) ? String(object.hcontent) : "0" };
   },
 
   toJSON(message: CMsgClientUFSGetUGCDetails): unknown {
     const obj: any = {};
-    message.hcontent !== undefined && (obj.hcontent = Math.round(message.hcontent));
+    message.hcontent !== undefined && (obj.hcontent = message.hcontent);
     return obj;
   },
 
@@ -1769,7 +1769,7 @@ export const CMsgClientUFSGetUGCDetails = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientUFSGetUGCDetails>, I>>(object: I): CMsgClientUFSGetUGCDetails {
     const message = createBaseCMsgClientUFSGetUGCDetails();
-    message.hcontent = object.hcontent ?? 0;
+    message.hcontent = object.hcontent ?? "0";
     return message;
   },
 };
@@ -1780,7 +1780,7 @@ function createBaseCMsgClientUFSGetUGCDetailsResponse(): CMsgClientUFSGetUGCDeta
     url: "",
     appId: 0,
     filename: "",
-    steamidCreator: 0,
+    steamidCreator: "0",
     fileSize: 0,
     compressedFileSize: 0,
     rangecheckHost: "",
@@ -1802,7 +1802,7 @@ export const CMsgClientUFSGetUGCDetailsResponse = {
     if (message.filename !== "") {
       writer.uint32(34).string(message.filename);
     }
-    if (message.steamidCreator !== 0) {
+    if (message.steamidCreator !== "0") {
       writer.uint32(41).fixed64(message.steamidCreator);
     }
     if (message.fileSize !== 0) {
@@ -1840,7 +1840,7 @@ export const CMsgClientUFSGetUGCDetailsResponse = {
           message.filename = reader.string();
           break;
         case 5:
-          message.steamidCreator = longToNumber(reader.fixed64() as Long);
+          message.steamidCreator = longToString(reader.fixed64() as Long);
           break;
         case 6:
           message.fileSize = reader.uint32();
@@ -1868,7 +1868,7 @@ export const CMsgClientUFSGetUGCDetailsResponse = {
       url: isSet(object.url) ? String(object.url) : "",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       filename: isSet(object.filename) ? String(object.filename) : "",
-      steamidCreator: isSet(object.steamidCreator) ? Number(object.steamidCreator) : 0,
+      steamidCreator: isSet(object.steamidCreator) ? String(object.steamidCreator) : "0",
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       compressedFileSize: isSet(object.compressedFileSize) ? Number(object.compressedFileSize) : 0,
       rangecheckHost: isSet(object.rangecheckHost) ? String(object.rangecheckHost) : "",
@@ -1882,7 +1882,7 @@ export const CMsgClientUFSGetUGCDetailsResponse = {
     message.url !== undefined && (obj.url = message.url);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.filename !== undefined && (obj.filename = message.filename);
-    message.steamidCreator !== undefined && (obj.steamidCreator = Math.round(message.steamidCreator));
+    message.steamidCreator !== undefined && (obj.steamidCreator = message.steamidCreator);
     message.fileSize !== undefined && (obj.fileSize = Math.round(message.fileSize));
     message.compressedFileSize !== undefined && (obj.compressedFileSize = Math.round(message.compressedFileSize));
     message.rangecheckHost !== undefined && (obj.rangecheckHost = message.rangecheckHost);
@@ -1904,7 +1904,7 @@ export const CMsgClientUFSGetUGCDetailsResponse = {
     message.url = object.url ?? "";
     message.appId = object.appId ?? 0;
     message.filename = object.filename ?? "";
-    message.steamidCreator = object.steamidCreator ?? 0;
+    message.steamidCreator = object.steamidCreator ?? "0";
     message.fileSize = object.fileSize ?? 0;
     message.compressedFileSize = object.compressedFileSize ?? 0;
     message.rangecheckHost = object.rangecheckHost ?? "";
@@ -1983,7 +1983,7 @@ function createBaseCMsgClientUFSGetSingleFileInfoResponse(): CMsgClientUFSGetSin
     appId: 0,
     fileName: "",
     shaFile: Buffer.alloc(0),
-    timeStamp: 0,
+    timeStamp: "0",
     rawFileSize: 0,
     isExplicitDelete: false,
   };
@@ -2003,7 +2003,7 @@ export const CMsgClientUFSGetSingleFileInfoResponse = {
     if (message.shaFile.length !== 0) {
       writer.uint32(34).bytes(message.shaFile);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(40).uint64(message.timeStamp);
     }
     if (message.rawFileSize !== 0) {
@@ -2035,7 +2035,7 @@ export const CMsgClientUFSGetSingleFileInfoResponse = {
           message.shaFile = reader.bytes() as Buffer;
           break;
         case 5:
-          message.timeStamp = longToNumber(reader.uint64() as Long);
+          message.timeStamp = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.rawFileSize = reader.uint32();
@@ -2057,7 +2057,7 @@ export const CMsgClientUFSGetSingleFileInfoResponse = {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       fileName: isSet(object.fileName) ? String(object.fileName) : "",
       shaFile: isSet(object.shaFile) ? Buffer.from(bytesFromBase64(object.shaFile)) : Buffer.alloc(0),
-      timeStamp: isSet(object.timeStamp) ? Number(object.timeStamp) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
       rawFileSize: isSet(object.rawFileSize) ? Number(object.rawFileSize) : 0,
       isExplicitDelete: isSet(object.isExplicitDelete) ? Boolean(object.isExplicitDelete) : false,
     };
@@ -2070,7 +2070,7 @@ export const CMsgClientUFSGetSingleFileInfoResponse = {
     message.fileName !== undefined && (obj.fileName = message.fileName);
     message.shaFile !== undefined &&
       (obj.shaFile = base64FromBytes(message.shaFile !== undefined ? message.shaFile : Buffer.alloc(0)));
-    message.timeStamp !== undefined && (obj.timeStamp = Math.round(message.timeStamp));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.rawFileSize !== undefined && (obj.rawFileSize = Math.round(message.rawFileSize));
     message.isExplicitDelete !== undefined && (obj.isExplicitDelete = message.isExplicitDelete);
     return obj;
@@ -2090,7 +2090,7 @@ export const CMsgClientUFSGetSingleFileInfoResponse = {
     message.appId = object.appId ?? 0;
     message.fileName = object.fileName ?? "";
     message.shaFile = object.shaFile ?? Buffer.alloc(0);
-    message.timeStamp = object.timeStamp ?? 0;
+    message.timeStamp = object.timeStamp ?? "0";
     message.rawFileSize = object.rawFileSize ?? 0;
     message.isExplicitDelete = object.isExplicitDelete ?? false;
     return message;
@@ -2160,7 +2160,7 @@ export const CMsgClientUFSShareFile = {
 };
 
 function createBaseCMsgClientUFSShareFileResponse(): CMsgClientUFSShareFileResponse {
-  return { eresult: 0, hcontent: 0 };
+  return { eresult: 0, hcontent: "0" };
 }
 
 export const CMsgClientUFSShareFileResponse = {
@@ -2168,7 +2168,7 @@ export const CMsgClientUFSShareFileResponse = {
     if (message.eresult !== 0) {
       writer.uint32(8).int32(message.eresult);
     }
-    if (message.hcontent !== 0) {
+    if (message.hcontent !== "0") {
       writer.uint32(17).fixed64(message.hcontent);
     }
     return writer;
@@ -2185,7 +2185,7 @@ export const CMsgClientUFSShareFileResponse = {
           message.eresult = reader.int32();
           break;
         case 2:
-          message.hcontent = longToNumber(reader.fixed64() as Long);
+          message.hcontent = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2198,14 +2198,14 @@ export const CMsgClientUFSShareFileResponse = {
   fromJSON(object: any): CMsgClientUFSShareFileResponse {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
-      hcontent: isSet(object.hcontent) ? Number(object.hcontent) : 0,
+      hcontent: isSet(object.hcontent) ? String(object.hcontent) : "0",
     };
   },
 
   toJSON(message: CMsgClientUFSShareFileResponse): unknown {
     const obj: any = {};
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
-    message.hcontent !== undefined && (obj.hcontent = Math.round(message.hcontent));
+    message.hcontent !== undefined && (obj.hcontent = message.hcontent);
     return obj;
   },
 
@@ -2218,7 +2218,7 @@ export const CMsgClientUFSShareFileResponse = {
   ): CMsgClientUFSShareFileResponse {
     const message = createBaseCMsgClientUFSShareFileResponse();
     message.eresult = object.eresult ?? 0;
-    message.hcontent = object.hcontent ?? 0;
+    message.hcontent = object.hcontent ?? "0";
     return message;
   },
 };
@@ -2278,11 +2278,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

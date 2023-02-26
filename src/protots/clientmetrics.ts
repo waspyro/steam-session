@@ -13,7 +13,7 @@ export interface CClientMetricsClientBootstrapRequestInfo {
   statusCode: number;
   addressOfRequestUrl: string;
   responseTimeMs: number;
-  bytesReceived: number;
+  bytesReceived: string;
   numRetries: number;
 }
 
@@ -57,7 +57,7 @@ function createBaseCClientMetricsClientBootstrapRequestInfo(): CClientMetricsCli
     statusCode: 0,
     addressOfRequestUrl: "",
     responseTimeMs: 0,
-    bytesReceived: 0,
+    bytesReceived: "0",
     numRetries: 0,
   };
 }
@@ -88,7 +88,7 @@ export const CClientMetricsClientBootstrapRequestInfo = {
     if (message.responseTimeMs !== 0) {
       writer.uint32(64).uint32(message.responseTimeMs);
     }
-    if (message.bytesReceived !== 0) {
+    if (message.bytesReceived !== "0") {
       writer.uint32(72).uint64(message.bytesReceived);
     }
     if (message.numRetries !== 0) {
@@ -129,7 +129,7 @@ export const CClientMetricsClientBootstrapRequestInfo = {
           message.responseTimeMs = reader.uint32();
           break;
         case 9:
-          message.bytesReceived = longToNumber(reader.uint64() as Long);
+          message.bytesReceived = longToString(reader.uint64() as Long);
           break;
         case 10:
           message.numRetries = reader.uint32();
@@ -152,7 +152,7 @@ export const CClientMetricsClientBootstrapRequestInfo = {
       statusCode: isSet(object.statusCode) ? Number(object.statusCode) : 0,
       addressOfRequestUrl: isSet(object.addressOfRequestUrl) ? String(object.addressOfRequestUrl) : "",
       responseTimeMs: isSet(object.responseTimeMs) ? Number(object.responseTimeMs) : 0,
-      bytesReceived: isSet(object.bytesReceived) ? Number(object.bytesReceived) : 0,
+      bytesReceived: isSet(object.bytesReceived) ? String(object.bytesReceived) : "0",
       numRetries: isSet(object.numRetries) ? Number(object.numRetries) : 0,
     };
   },
@@ -167,7 +167,7 @@ export const CClientMetricsClientBootstrapRequestInfo = {
     message.statusCode !== undefined && (obj.statusCode = Math.round(message.statusCode));
     message.addressOfRequestUrl !== undefined && (obj.addressOfRequestUrl = message.addressOfRequestUrl);
     message.responseTimeMs !== undefined && (obj.responseTimeMs = Math.round(message.responseTimeMs));
-    message.bytesReceived !== undefined && (obj.bytesReceived = Math.round(message.bytesReceived));
+    message.bytesReceived !== undefined && (obj.bytesReceived = message.bytesReceived);
     message.numRetries !== undefined && (obj.numRetries = Math.round(message.numRetries));
     return obj;
   },
@@ -190,7 +190,7 @@ export const CClientMetricsClientBootstrapRequestInfo = {
     message.statusCode = object.statusCode ?? 0;
     message.addressOfRequestUrl = object.addressOfRequestUrl ?? "";
     message.responseTimeMs = object.responseTimeMs ?? 0;
-    message.bytesReceived = object.bytesReceived ?? 0;
+    message.bytesReceived = object.bytesReceived ?? "0";
     message.numRetries = object.numRetries ?? 0;
     return message;
   },
@@ -588,25 +588,6 @@ export const CClientMetricsContentDownloadResponseHosts = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -618,11 +599,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

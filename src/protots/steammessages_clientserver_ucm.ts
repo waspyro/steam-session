@@ -16,9 +16,9 @@ export interface CMsgClientUCMAddScreenshot {
   caption: string;
   shortcutName: string;
   tag: CMsgClientUCMAddScreenshot_Tag[];
-  taggedSteamid: number[];
+  taggedSteamid: string[];
   spoilerTag: boolean;
-  taggedPublishedfileid: number[];
+  taggedPublishedfileid: string[];
 }
 
 export interface CMsgClientUCMAddScreenshot_Tag {
@@ -28,11 +28,11 @@ export interface CMsgClientUCMAddScreenshot_Tag {
 
 export interface CMsgClientUCMAddScreenshotResponse {
   eresult: number;
-  screenshotid: number;
+  screenshotid: string;
 }
 
 export interface CMsgClientUCMDeleteScreenshot {
-  screenshotid: number;
+  screenshotid: string;
 }
 
 export interface CMsgClientUCMDeleteScreenshotResponse {
@@ -59,13 +59,13 @@ export interface CMsgClientUCMPublishFile {
 
 export interface CMsgClientUCMPublishFileResponse {
   eresult: number;
-  publishedFileId: number;
+  publishedFileId: string;
   needsWorkshopLegalAgreementAcceptance: boolean;
 }
 
 export interface CMsgClientUCMUpdatePublishedFile {
   appId: number;
-  publishedFileId: number;
+  publishedFileId: string;
   fileName: string;
   previewFileName: string;
   title: string;
@@ -82,7 +82,7 @@ export interface CMsgClientUCMUpdatePublishedFile {
   updateUrl: boolean;
   url: string;
   updateContentManifest: boolean;
-  contentManifest: number;
+  contentManifest: string;
   metadata: string;
   updateMetadata: boolean;
   language: number;
@@ -113,7 +113,7 @@ export interface CMsgClientUCMUpdatePublishedFileResponse {
 }
 
 export interface CMsgClientUCMDeletePublishedFile {
-  publishedFileId: number;
+  publishedFileId: string;
   appId: number;
 }
 
@@ -135,20 +135,20 @@ export interface CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse {
 }
 
 export interface CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId {
-  publishedFileId: number;
+  publishedFileId: string;
   rtime32Subscribed: number;
   appid: number;
-  fileHcontent: number;
+  fileHcontent: string;
   fileSize: number;
   rtime32LastUpdated: number;
   isDepotContent: boolean;
 }
 
 export interface CMsgClientUCMPublishedFileUpdated {
-  publishedFileId: number;
+  publishedFileId: string;
   appId: number;
   timeUpdated: number;
-  hcontent: number;
+  hcontent: string;
   fileSize: number;
   isDepotContent: boolean;
   revision: number;
@@ -167,13 +167,13 @@ export interface CMsgClientWorkshopItemChangesResponse {
 }
 
 export interface CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo {
-  publishedFileId: number;
+  publishedFileId: string;
   timeUpdated: number;
-  manifestId: number;
+  manifestId: string;
 }
 
 export interface CMsgClientUCMSetUserPublishedFileAction {
-  publishedFileId: number;
+  publishedFileId: string;
   appId: number;
   action: number;
 }
@@ -195,7 +195,7 @@ export interface CMsgClientUCMEnumeratePublishedFilesByUserActionResponse {
 }
 
 export interface CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId {
-  publishedFileId: number;
+  publishedFileId: string;
   rtimeTimeStamp: number;
 }
 
@@ -316,10 +316,10 @@ export const CMsgClientUCMAddScreenshot = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.taggedSteamid.push(longToNumber(reader.fixed64() as Long));
+              message.taggedSteamid.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.taggedSteamid.push(longToNumber(reader.fixed64() as Long));
+            message.taggedSteamid.push(longToString(reader.fixed64() as Long));
           }
           break;
         case 12:
@@ -329,10 +329,10 @@ export const CMsgClientUCMAddScreenshot = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.taggedPublishedfileid.push(longToNumber(reader.uint64() as Long));
+              message.taggedPublishedfileid.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.taggedPublishedfileid.push(longToNumber(reader.uint64() as Long));
+            message.taggedPublishedfileid.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -356,10 +356,10 @@ export const CMsgClientUCMAddScreenshot = {
       caption: isSet(object.caption) ? String(object.caption) : "",
       shortcutName: isSet(object.shortcutName) ? String(object.shortcutName) : "",
       tag: Array.isArray(object?.tag) ? object.tag.map((e: any) => CMsgClientUCMAddScreenshot_Tag.fromJSON(e)) : [],
-      taggedSteamid: Array.isArray(object?.taggedSteamid) ? object.taggedSteamid.map((e: any) => Number(e)) : [],
+      taggedSteamid: Array.isArray(object?.taggedSteamid) ? object.taggedSteamid.map((e: any) => String(e)) : [],
       spoilerTag: isSet(object.spoilerTag) ? Boolean(object.spoilerTag) : false,
       taggedPublishedfileid: Array.isArray(object?.taggedPublishedfileid)
-        ? object.taggedPublishedfileid.map((e: any) => Number(e))
+        ? object.taggedPublishedfileid.map((e: any) => String(e))
         : [],
     };
   },
@@ -382,13 +382,13 @@ export const CMsgClientUCMAddScreenshot = {
       obj.tag = [];
     }
     if (message.taggedSteamid) {
-      obj.taggedSteamid = message.taggedSteamid.map((e) => Math.round(e));
+      obj.taggedSteamid = message.taggedSteamid.map((e) => e);
     } else {
       obj.taggedSteamid = [];
     }
     message.spoilerTag !== undefined && (obj.spoilerTag = message.spoilerTag);
     if (message.taggedPublishedfileid) {
-      obj.taggedPublishedfileid = message.taggedPublishedfileid.map((e) => Math.round(e));
+      obj.taggedPublishedfileid = message.taggedPublishedfileid.map((e) => e);
     } else {
       obj.taggedPublishedfileid = [];
     }
@@ -484,7 +484,7 @@ export const CMsgClientUCMAddScreenshot_Tag = {
 };
 
 function createBaseCMsgClientUCMAddScreenshotResponse(): CMsgClientUCMAddScreenshotResponse {
-  return { eresult: 0, screenshotid: 0 };
+  return { eresult: 0, screenshotid: "0" };
 }
 
 export const CMsgClientUCMAddScreenshotResponse = {
@@ -492,7 +492,7 @@ export const CMsgClientUCMAddScreenshotResponse = {
     if (message.eresult !== 0) {
       writer.uint32(8).int32(message.eresult);
     }
-    if (message.screenshotid !== 0) {
+    if (message.screenshotid !== "0") {
       writer.uint32(17).fixed64(message.screenshotid);
     }
     return writer;
@@ -509,7 +509,7 @@ export const CMsgClientUCMAddScreenshotResponse = {
           message.eresult = reader.int32();
           break;
         case 2:
-          message.screenshotid = longToNumber(reader.fixed64() as Long);
+          message.screenshotid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -522,14 +522,14 @@ export const CMsgClientUCMAddScreenshotResponse = {
   fromJSON(object: any): CMsgClientUCMAddScreenshotResponse {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
-      screenshotid: isSet(object.screenshotid) ? Number(object.screenshotid) : 0,
+      screenshotid: isSet(object.screenshotid) ? String(object.screenshotid) : "0",
     };
   },
 
   toJSON(message: CMsgClientUCMAddScreenshotResponse): unknown {
     const obj: any = {};
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
-    message.screenshotid !== undefined && (obj.screenshotid = Math.round(message.screenshotid));
+    message.screenshotid !== undefined && (obj.screenshotid = message.screenshotid);
     return obj;
   },
 
@@ -544,18 +544,18 @@ export const CMsgClientUCMAddScreenshotResponse = {
   ): CMsgClientUCMAddScreenshotResponse {
     const message = createBaseCMsgClientUCMAddScreenshotResponse();
     message.eresult = object.eresult ?? 0;
-    message.screenshotid = object.screenshotid ?? 0;
+    message.screenshotid = object.screenshotid ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientUCMDeleteScreenshot(): CMsgClientUCMDeleteScreenshot {
-  return { screenshotid: 0 };
+  return { screenshotid: "0" };
 }
 
 export const CMsgClientUCMDeleteScreenshot = {
   encode(message: CMsgClientUCMDeleteScreenshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.screenshotid !== 0) {
+    if (message.screenshotid !== "0") {
       writer.uint32(9).fixed64(message.screenshotid);
     }
     return writer;
@@ -569,7 +569,7 @@ export const CMsgClientUCMDeleteScreenshot = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.screenshotid = longToNumber(reader.fixed64() as Long);
+          message.screenshotid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -580,12 +580,12 @@ export const CMsgClientUCMDeleteScreenshot = {
   },
 
   fromJSON(object: any): CMsgClientUCMDeleteScreenshot {
-    return { screenshotid: isSet(object.screenshotid) ? Number(object.screenshotid) : 0 };
+    return { screenshotid: isSet(object.screenshotid) ? String(object.screenshotid) : "0" };
   },
 
   toJSON(message: CMsgClientUCMDeleteScreenshot): unknown {
     const obj: any = {};
-    message.screenshotid !== undefined && (obj.screenshotid = Math.round(message.screenshotid));
+    message.screenshotid !== undefined && (obj.screenshotid = message.screenshotid);
     return obj;
   },
 
@@ -597,7 +597,7 @@ export const CMsgClientUCMDeleteScreenshot = {
     object: I,
   ): CMsgClientUCMDeleteScreenshot {
     const message = createBaseCMsgClientUCMDeleteScreenshot();
-    message.screenshotid = object.screenshotid ?? 0;
+    message.screenshotid = object.screenshotid ?? "0";
     return message;
   },
 };
@@ -857,7 +857,7 @@ export const CMsgClientUCMPublishFile = {
 };
 
 function createBaseCMsgClientUCMPublishFileResponse(): CMsgClientUCMPublishFileResponse {
-  return { eresult: 0, publishedFileId: 0, needsWorkshopLegalAgreementAcceptance: false };
+  return { eresult: 0, publishedFileId: "0", needsWorkshopLegalAgreementAcceptance: false };
 }
 
 export const CMsgClientUCMPublishFileResponse = {
@@ -865,7 +865,7 @@ export const CMsgClientUCMPublishFileResponse = {
     if (message.eresult !== 0) {
       writer.uint32(8).int32(message.eresult);
     }
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(17).fixed64(message.publishedFileId);
     }
     if (message.needsWorkshopLegalAgreementAcceptance === true) {
@@ -885,7 +885,7 @@ export const CMsgClientUCMPublishFileResponse = {
           message.eresult = reader.int32();
           break;
         case 2:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.needsWorkshopLegalAgreementAcceptance = reader.bool();
@@ -901,7 +901,7 @@ export const CMsgClientUCMPublishFileResponse = {
   fromJSON(object: any): CMsgClientUCMPublishFileResponse {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       needsWorkshopLegalAgreementAcceptance: isSet(object.needsWorkshopLegalAgreementAcceptance)
         ? Boolean(object.needsWorkshopLegalAgreementAcceptance)
         : false,
@@ -911,7 +911,7 @@ export const CMsgClientUCMPublishFileResponse = {
   toJSON(message: CMsgClientUCMPublishFileResponse): unknown {
     const obj: any = {};
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.needsWorkshopLegalAgreementAcceptance !== undefined &&
       (obj.needsWorkshopLegalAgreementAcceptance = message.needsWorkshopLegalAgreementAcceptance);
     return obj;
@@ -928,7 +928,7 @@ export const CMsgClientUCMPublishFileResponse = {
   ): CMsgClientUCMPublishFileResponse {
     const message = createBaseCMsgClientUCMPublishFileResponse();
     message.eresult = object.eresult ?? 0;
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.needsWorkshopLegalAgreementAcceptance = object.needsWorkshopLegalAgreementAcceptance ?? false;
     return message;
   },
@@ -937,7 +937,7 @@ export const CMsgClientUCMPublishFileResponse = {
 function createBaseCMsgClientUCMUpdatePublishedFile(): CMsgClientUCMUpdatePublishedFile {
   return {
     appId: 0,
-    publishedFileId: 0,
+    publishedFileId: "0",
     fileName: "",
     previewFileName: "",
     title: "",
@@ -954,7 +954,7 @@ function createBaseCMsgClientUCMUpdatePublishedFile(): CMsgClientUCMUpdatePublis
     updateUrl: false,
     url: "",
     updateContentManifest: false,
-    contentManifest: 0,
+    contentManifest: "0",
     metadata: "",
     updateMetadata: false,
     language: 0,
@@ -972,7 +972,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
     if (message.appId !== 0) {
       writer.uint32(8).uint32(message.appId);
     }
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(17).fixed64(message.publishedFileId);
     }
     if (message.fileName !== "") {
@@ -1023,7 +1023,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
     if (message.updateContentManifest === true) {
       writer.uint32(144).bool(message.updateContentManifest);
     }
-    if (message.contentManifest !== 0) {
+    if (message.contentManifest !== "0") {
       writer.uint32(153).fixed64(message.contentManifest);
     }
     if (message.metadata !== "") {
@@ -1069,7 +1069,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
           message.appId = reader.uint32();
           break;
         case 2:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.fileName = reader.string();
@@ -1120,7 +1120,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
           message.updateContentManifest = reader.bool();
           break;
         case 19:
-          message.contentManifest = longToNumber(reader.fixed64() as Long);
+          message.contentManifest = longToString(reader.fixed64() as Long);
           break;
         case 20:
           message.metadata = reader.string();
@@ -1167,7 +1167,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
   fromJSON(object: any): CMsgClientUCMUpdatePublishedFile {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       fileName: isSet(object.fileName) ? String(object.fileName) : "",
       previewFileName: isSet(object.previewFileName) ? String(object.previewFileName) : "",
       title: isSet(object.title) ? String(object.title) : "",
@@ -1184,7 +1184,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
       updateUrl: isSet(object.updateUrl) ? Boolean(object.updateUrl) : false,
       url: isSet(object.url) ? String(object.url) : "",
       updateContentManifest: isSet(object.updateContentManifest) ? Boolean(object.updateContentManifest) : false,
-      contentManifest: isSet(object.contentManifest) ? Number(object.contentManifest) : 0,
+      contentManifest: isSet(object.contentManifest) ? String(object.contentManifest) : "0",
       metadata: isSet(object.metadata) ? String(object.metadata) : "",
       updateMetadata: isSet(object.updateMetadata) ? Boolean(object.updateMetadata) : false,
       language: isSet(object.language) ? Number(object.language) : 0,
@@ -1206,7 +1206,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
   toJSON(message: CMsgClientUCMUpdatePublishedFile): unknown {
     const obj: any = {};
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.fileName !== undefined && (obj.fileName = message.fileName);
     message.previewFileName !== undefined && (obj.previewFileName = message.previewFileName);
     message.title !== undefined && (obj.title = message.title);
@@ -1227,7 +1227,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
     message.updateUrl !== undefined && (obj.updateUrl = message.updateUrl);
     message.url !== undefined && (obj.url = message.url);
     message.updateContentManifest !== undefined && (obj.updateContentManifest = message.updateContentManifest);
-    message.contentManifest !== undefined && (obj.contentManifest = Math.round(message.contentManifest));
+    message.contentManifest !== undefined && (obj.contentManifest = message.contentManifest);
     message.metadata !== undefined && (obj.metadata = message.metadata);
     message.updateMetadata !== undefined && (obj.updateMetadata = message.updateMetadata);
     message.language !== undefined && (obj.language = Math.round(message.language));
@@ -1269,7 +1269,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
   ): CMsgClientUCMUpdatePublishedFile {
     const message = createBaseCMsgClientUCMUpdatePublishedFile();
     message.appId = object.appId ?? 0;
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.fileName = object.fileName ?? "";
     message.previewFileName = object.previewFileName ?? "";
     message.title = object.title ?? "";
@@ -1286,7 +1286,7 @@ export const CMsgClientUCMUpdatePublishedFile = {
     message.updateUrl = object.updateUrl ?? false;
     message.url = object.url ?? "";
     message.updateContentManifest = object.updateContentManifest ?? false;
-    message.contentManifest = object.contentManifest ?? 0;
+    message.contentManifest = object.contentManifest ?? "0";
     message.metadata = object.metadata ?? "";
     message.updateMetadata = object.updateMetadata ?? false;
     message.language = object.language ?? 0;
@@ -1530,12 +1530,12 @@ export const CMsgClientUCMUpdatePublishedFileResponse = {
 };
 
 function createBaseCMsgClientUCMDeletePublishedFile(): CMsgClientUCMDeletePublishedFile {
-  return { publishedFileId: 0, appId: 0 };
+  return { publishedFileId: "0", appId: 0 };
 }
 
 export const CMsgClientUCMDeletePublishedFile = {
   encode(message: CMsgClientUCMDeletePublishedFile, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.appId !== 0) {
@@ -1552,7 +1552,7 @@ export const CMsgClientUCMDeletePublishedFile = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appId = reader.uint32();
@@ -1567,14 +1567,14 @@ export const CMsgClientUCMDeletePublishedFile = {
 
   fromJSON(object: any): CMsgClientUCMDeletePublishedFile {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
     };
   },
 
   toJSON(message: CMsgClientUCMDeletePublishedFile): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     return obj;
   },
@@ -1589,7 +1589,7 @@ export const CMsgClientUCMDeletePublishedFile = {
     object: I,
   ): CMsgClientUCMDeletePublishedFile {
     const message = createBaseCMsgClientUCMDeletePublishedFile();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.appId = object.appId ?? 0;
     return message;
   },
@@ -1839,10 +1839,10 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse = {
 
 function createBaseCMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId(): CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId {
   return {
-    publishedFileId: 0,
+    publishedFileId: "0",
     rtime32Subscribed: 0,
     appid: 0,
-    fileHcontent: 0,
+    fileHcontent: "0",
     fileSize: 0,
     rtime32LastUpdated: 0,
     isDepotContent: false,
@@ -1854,7 +1854,7 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
     message: CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.rtime32Subscribed !== 0) {
@@ -1863,7 +1863,7 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
     if (message.appid !== 0) {
       writer.uint32(24).uint32(message.appid);
     }
-    if (message.fileHcontent !== 0) {
+    if (message.fileHcontent !== "0") {
       writer.uint32(33).fixed64(message.fileHcontent);
     }
     if (message.fileSize !== 0) {
@@ -1889,7 +1889,7 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.rtime32Subscribed = reader.fixed32();
@@ -1898,7 +1898,7 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
           message.appid = reader.uint32();
           break;
         case 4:
-          message.fileHcontent = longToNumber(reader.fixed64() as Long);
+          message.fileHcontent = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.fileSize = reader.uint32();
@@ -1919,10 +1919,10 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
 
   fromJSON(object: any): CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       rtime32Subscribed: isSet(object.rtime32Subscribed) ? Number(object.rtime32Subscribed) : 0,
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      fileHcontent: isSet(object.fileHcontent) ? Number(object.fileHcontent) : 0,
+      fileHcontent: isSet(object.fileHcontent) ? String(object.fileHcontent) : "0",
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       rtime32LastUpdated: isSet(object.rtime32LastUpdated) ? Number(object.rtime32LastUpdated) : 0,
       isDepotContent: isSet(object.isDepotContent) ? Boolean(object.isDepotContent) : false,
@@ -1931,10 +1931,10 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
 
   toJSON(message: CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.rtime32Subscribed !== undefined && (obj.rtime32Subscribed = Math.round(message.rtime32Subscribed));
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.fileHcontent !== undefined && (obj.fileHcontent = Math.round(message.fileHcontent));
+    message.fileHcontent !== undefined && (obj.fileHcontent = message.fileHcontent);
     message.fileSize !== undefined && (obj.fileSize = Math.round(message.fileSize));
     message.rtime32LastUpdated !== undefined && (obj.rtime32LastUpdated = Math.round(message.rtime32LastUpdated));
     message.isDepotContent !== undefined && (obj.isDepotContent = message.isDepotContent);
@@ -1951,10 +1951,10 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
     I extends Exact<DeepPartial<CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId>, I>,
   >(object: I): CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId {
     const message = createBaseCMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_PublishedFileId();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.rtime32Subscribed = object.rtime32Subscribed ?? 0;
     message.appid = object.appid ?? 0;
-    message.fileHcontent = object.fileHcontent ?? 0;
+    message.fileHcontent = object.fileHcontent ?? "0";
     message.fileSize = object.fileSize ?? 0;
     message.rtime32LastUpdated = object.rtime32LastUpdated ?? 0;
     message.isDepotContent = object.isDepotContent ?? false;
@@ -1963,12 +1963,20 @@ export const CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse_Publis
 };
 
 function createBaseCMsgClientUCMPublishedFileUpdated(): CMsgClientUCMPublishedFileUpdated {
-  return { publishedFileId: 0, appId: 0, timeUpdated: 0, hcontent: 0, fileSize: 0, isDepotContent: false, revision: 0 };
+  return {
+    publishedFileId: "0",
+    appId: 0,
+    timeUpdated: 0,
+    hcontent: "0",
+    fileSize: 0,
+    isDepotContent: false,
+    revision: 0,
+  };
 }
 
 export const CMsgClientUCMPublishedFileUpdated = {
   encode(message: CMsgClientUCMPublishedFileUpdated, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.appId !== 0) {
@@ -1977,7 +1985,7 @@ export const CMsgClientUCMPublishedFileUpdated = {
     if (message.timeUpdated !== 0) {
       writer.uint32(24).uint32(message.timeUpdated);
     }
-    if (message.hcontent !== 0) {
+    if (message.hcontent !== "0") {
       writer.uint32(33).fixed64(message.hcontent);
     }
     if (message.fileSize !== 0) {
@@ -2000,7 +2008,7 @@ export const CMsgClientUCMPublishedFileUpdated = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appId = reader.uint32();
@@ -2009,7 +2017,7 @@ export const CMsgClientUCMPublishedFileUpdated = {
           message.timeUpdated = reader.uint32();
           break;
         case 4:
-          message.hcontent = longToNumber(reader.fixed64() as Long);
+          message.hcontent = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.fileSize = reader.fixed32();
@@ -2030,10 +2038,10 @@ export const CMsgClientUCMPublishedFileUpdated = {
 
   fromJSON(object: any): CMsgClientUCMPublishedFileUpdated {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
-      hcontent: isSet(object.hcontent) ? Number(object.hcontent) : 0,
+      hcontent: isSet(object.hcontent) ? String(object.hcontent) : "0",
       fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
       isDepotContent: isSet(object.isDepotContent) ? Boolean(object.isDepotContent) : false,
       revision: isSet(object.revision) ? Number(object.revision) : 0,
@@ -2042,10 +2050,10 @@ export const CMsgClientUCMPublishedFileUpdated = {
 
   toJSON(message: CMsgClientUCMPublishedFileUpdated): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.timeUpdated !== undefined && (obj.timeUpdated = Math.round(message.timeUpdated));
-    message.hcontent !== undefined && (obj.hcontent = Math.round(message.hcontent));
+    message.hcontent !== undefined && (obj.hcontent = message.hcontent);
     message.fileSize !== undefined && (obj.fileSize = Math.round(message.fileSize));
     message.isDepotContent !== undefined && (obj.isDepotContent = message.isDepotContent);
     message.revision !== undefined && (obj.revision = Math.round(message.revision));
@@ -2062,10 +2070,10 @@ export const CMsgClientUCMPublishedFileUpdated = {
     object: I,
   ): CMsgClientUCMPublishedFileUpdated {
     const message = createBaseCMsgClientUCMPublishedFileUpdated();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.appId = object.appId ?? 0;
     message.timeUpdated = object.timeUpdated ?? 0;
-    message.hcontent = object.hcontent ?? 0;
+    message.hcontent = object.hcontent ?? "0";
     message.fileSize = object.fileSize ?? 0;
     message.isDepotContent = object.isDepotContent ?? false;
     message.revision = object.revision ?? 0;
@@ -2235,7 +2243,7 @@ export const CMsgClientWorkshopItemChangesResponse = {
 };
 
 function createBaseCMsgClientWorkshopItemChangesResponse_WorkshopItemInfo(): CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo {
-  return { publishedFileId: 0, timeUpdated: 0, manifestId: 0 };
+  return { publishedFileId: "0", timeUpdated: 0, manifestId: "0" };
 }
 
 export const CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo = {
@@ -2243,13 +2251,13 @@ export const CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo = {
     message: CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.timeUpdated !== 0) {
       writer.uint32(16).uint32(message.timeUpdated);
     }
-    if (message.manifestId !== 0) {
+    if (message.manifestId !== "0") {
       writer.uint32(25).fixed64(message.manifestId);
     }
     return writer;
@@ -2263,13 +2271,13 @@ export const CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.timeUpdated = reader.uint32();
           break;
         case 3:
-          message.manifestId = longToNumber(reader.fixed64() as Long);
+          message.manifestId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2281,17 +2289,17 @@ export const CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo = {
 
   fromJSON(object: any): CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       timeUpdated: isSet(object.timeUpdated) ? Number(object.timeUpdated) : 0,
-      manifestId: isSet(object.manifestId) ? Number(object.manifestId) : 0,
+      manifestId: isSet(object.manifestId) ? String(object.manifestId) : "0",
     };
   },
 
   toJSON(message: CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.timeUpdated !== undefined && (obj.timeUpdated = Math.round(message.timeUpdated));
-    message.manifestId !== undefined && (obj.manifestId = Math.round(message.manifestId));
+    message.manifestId !== undefined && (obj.manifestId = message.manifestId);
     return obj;
   },
 
@@ -2305,20 +2313,20 @@ export const CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo = {
     object: I,
   ): CMsgClientWorkshopItemChangesResponse_WorkshopItemInfo {
     const message = createBaseCMsgClientWorkshopItemChangesResponse_WorkshopItemInfo();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.timeUpdated = object.timeUpdated ?? 0;
-    message.manifestId = object.manifestId ?? 0;
+    message.manifestId = object.manifestId ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientUCMSetUserPublishedFileAction(): CMsgClientUCMSetUserPublishedFileAction {
-  return { publishedFileId: 0, appId: 0, action: 0 };
+  return { publishedFileId: "0", appId: 0, action: 0 };
 }
 
 export const CMsgClientUCMSetUserPublishedFileAction = {
   encode(message: CMsgClientUCMSetUserPublishedFileAction, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.appId !== 0) {
@@ -2338,7 +2346,7 @@ export const CMsgClientUCMSetUserPublishedFileAction = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appId = reader.uint32();
@@ -2356,7 +2364,7 @@ export const CMsgClientUCMSetUserPublishedFileAction = {
 
   fromJSON(object: any): CMsgClientUCMSetUserPublishedFileAction {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       action: isSet(object.action) ? Number(object.action) : 0,
     };
@@ -2364,7 +2372,7 @@ export const CMsgClientUCMSetUserPublishedFileAction = {
 
   toJSON(message: CMsgClientUCMSetUserPublishedFileAction): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.action !== undefined && (obj.action = Math.round(message.action));
     return obj;
@@ -2380,7 +2388,7 @@ export const CMsgClientUCMSetUserPublishedFileAction = {
     object: I,
   ): CMsgClientUCMSetUserPublishedFileAction {
     const message = createBaseCMsgClientUCMSetUserPublishedFileAction();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.appId = object.appId ?? 0;
     message.action = object.action ?? 0;
     return message;
@@ -2618,7 +2626,7 @@ export const CMsgClientUCMEnumeratePublishedFilesByUserActionResponse = {
 };
 
 function createBaseCMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId(): CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId {
-  return { publishedFileId: 0, rtimeTimeStamp: 0 };
+  return { publishedFileId: "0", rtimeTimeStamp: 0 };
 }
 
 export const CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId = {
@@ -2626,7 +2634,7 @@ export const CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedF
     message: CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.rtimeTimeStamp !== 0) {
@@ -2646,7 +2654,7 @@ export const CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedF
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.rtimeTimeStamp = reader.fixed32();
@@ -2661,14 +2669,14 @@ export const CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedF
 
   fromJSON(object: any): CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       rtimeTimeStamp: isSet(object.rtimeTimeStamp) ? Number(object.rtimeTimeStamp) : 0,
     };
   },
 
   toJSON(message: CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.rtimeTimeStamp !== undefined && (obj.rtimeTimeStamp = Math.round(message.rtimeTimeStamp));
     return obj;
   },
@@ -2683,7 +2691,7 @@ export const CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedF
     I extends Exact<DeepPartial<CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId>, I>,
   >(object: I): CMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId {
     const message = createBaseCMsgClientUCMEnumeratePublishedFilesByUserActionResponse_PublishedFileId();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.rtimeTimeStamp = object.rtimeTimeStamp ?? 0;
     return message;
   },
@@ -2732,25 +2740,6 @@ export const CMsgClientScreenshotsChanged = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -2762,11 +2751,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

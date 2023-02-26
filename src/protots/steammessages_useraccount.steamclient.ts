@@ -129,9 +129,9 @@ export interface CUserAccountGetAvailableValveDiscountPromotionsResponse {
 export interface CUserAccountGetAvailableValveDiscountPromotionsResponse_ValveDiscountPromotionDetails {
   promotionid: number;
   promotionDescription: string;
-  minimumCartAmount: number;
-  minimumCartAmountForDisplay: number;
-  discountAmount: number;
+  minimumCartAmount: string;
+  minimumCartAmountForDisplay: string;
+  discountAmount: string;
   currencyCode: number;
   availableUseCount: number;
   promotionalDiscountType: number;
@@ -151,13 +151,13 @@ export interface CUserAccountGetWalletDetailsResponse {
   userCountryCode: string;
   walletCountryCode: string;
   walletState: string;
-  balance: number;
-  delayedBalance: number;
+  balance: string;
+  delayedBalance: string;
   currencyCode: number;
   timeMostRecentTxn: number;
-  mostRecentTxnid: number;
-  balanceInUsd: number;
-  delayedBalanceInUsd: number;
+  mostRecentTxnid: string;
+  balanceInUsd: string;
+  delayedBalanceInUsd: string;
   hasWalletInOtherRegions: boolean;
   otherRegions: number[];
   formattedBalance: string;
@@ -180,7 +180,7 @@ export interface CUserAccountCancelLicenseForAppResponse {
 }
 
 export interface CUserAccountGetUserCountryRequest {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CUserAccountGetUserCountryResponse {
@@ -195,8 +195,8 @@ export interface CUserAccountCreateFriendInviteTokenRequest {
 
 export interface CUserAccountCreateFriendInviteTokenResponse {
   inviteToken: string;
-  inviteLimit: number;
-  inviteDuration: number;
+  inviteLimit: string;
+  inviteDuration: string;
   timeCreated: number;
   valid: boolean;
 }
@@ -209,18 +209,18 @@ export interface CUserAccountGetFriendInviteTokensResponse {
 }
 
 export interface CUserAccountViewFriendInviteTokenRequest {
-  steamid: number;
+  steamid: string;
   inviteToken: string;
 }
 
 export interface CUserAccountViewFriendInviteTokenResponse {
   valid: boolean;
-  steamid: number;
-  inviteDuration: number;
+  steamid: string;
+  inviteDuration: string;
 }
 
 export interface CUserAccountRedeemFriendInviteTokenRequest {
-  steamid: number;
+  steamid: string;
   inviteToken: string;
 }
 
@@ -243,7 +243,7 @@ export interface CUserAccountRegisterCompatToolResponse {
 
 export interface CAccountLinkingGetLinkedAccountInfoRequest {
   accountType: EInternalAccountType;
-  accountId: number;
+  accountId: string;
   filter: EExternalAccountType;
   returnAccessToken: boolean;
 }
@@ -263,14 +263,14 @@ export interface CAccountLinkingGetLinkedAccountInfoResponse_CExternalAccountTup
 }
 
 export interface CEmbeddedClientAuthorizeCurrentDeviceRequest {
-  steamid: number;
+  steamid: string;
   appid: number;
   deviceInfo: string;
   deviceid: number;
 }
 
 export interface CEmbeddedClientToken {
-  steamid: number;
+  steamid: string;
   clientToken: Buffer;
   expiry: number;
   deviceid: number;
@@ -424,9 +424,9 @@ function createBaseCUserAccountGetAvailableValveDiscountPromotionsResponse_Valve
   return {
     promotionid: 0,
     promotionDescription: "",
-    minimumCartAmount: 0,
-    minimumCartAmountForDisplay: 0,
-    discountAmount: 0,
+    minimumCartAmount: "0",
+    minimumCartAmountForDisplay: "0",
+    discountAmount: "0",
     currencyCode: 0,
     availableUseCount: 0,
     promotionalDiscountType: 0,
@@ -447,13 +447,13 @@ export const CUserAccountGetAvailableValveDiscountPromotionsResponse_ValveDiscou
     if (message.promotionDescription !== "") {
       writer.uint32(18).string(message.promotionDescription);
     }
-    if (message.minimumCartAmount !== 0) {
+    if (message.minimumCartAmount !== "0") {
       writer.uint32(24).int64(message.minimumCartAmount);
     }
-    if (message.minimumCartAmountForDisplay !== 0) {
+    if (message.minimumCartAmountForDisplay !== "0") {
       writer.uint32(32).int64(message.minimumCartAmountForDisplay);
     }
-    if (message.discountAmount !== 0) {
+    if (message.discountAmount !== "0") {
       writer.uint32(40).int64(message.discountAmount);
     }
     if (message.currencyCode !== 0) {
@@ -494,13 +494,13 @@ export const CUserAccountGetAvailableValveDiscountPromotionsResponse_ValveDiscou
           message.promotionDescription = reader.string();
           break;
         case 3:
-          message.minimumCartAmount = longToNumber(reader.int64() as Long);
+          message.minimumCartAmount = longToString(reader.int64() as Long);
           break;
         case 4:
-          message.minimumCartAmountForDisplay = longToNumber(reader.int64() as Long);
+          message.minimumCartAmountForDisplay = longToString(reader.int64() as Long);
           break;
         case 5:
-          message.discountAmount = longToNumber(reader.int64() as Long);
+          message.discountAmount = longToString(reader.int64() as Long);
           break;
         case 6:
           message.currencyCode = reader.int32();
@@ -532,11 +532,11 @@ export const CUserAccountGetAvailableValveDiscountPromotionsResponse_ValveDiscou
     return {
       promotionid: isSet(object.promotionid) ? Number(object.promotionid) : 0,
       promotionDescription: isSet(object.promotionDescription) ? String(object.promotionDescription) : "",
-      minimumCartAmount: isSet(object.minimumCartAmount) ? Number(object.minimumCartAmount) : 0,
+      minimumCartAmount: isSet(object.minimumCartAmount) ? String(object.minimumCartAmount) : "0",
       minimumCartAmountForDisplay: isSet(object.minimumCartAmountForDisplay)
-        ? Number(object.minimumCartAmountForDisplay)
-        : 0,
-      discountAmount: isSet(object.discountAmount) ? Number(object.discountAmount) : 0,
+        ? String(object.minimumCartAmountForDisplay)
+        : "0",
+      discountAmount: isSet(object.discountAmount) ? String(object.discountAmount) : "0",
       currencyCode: isSet(object.currencyCode) ? Number(object.currencyCode) : 0,
       availableUseCount: isSet(object.availableUseCount) ? Number(object.availableUseCount) : 0,
       promotionalDiscountType: isSet(object.promotionalDiscountType) ? Number(object.promotionalDiscountType) : 0,
@@ -550,10 +550,10 @@ export const CUserAccountGetAvailableValveDiscountPromotionsResponse_ValveDiscou
     const obj: any = {};
     message.promotionid !== undefined && (obj.promotionid = Math.round(message.promotionid));
     message.promotionDescription !== undefined && (obj.promotionDescription = message.promotionDescription);
-    message.minimumCartAmount !== undefined && (obj.minimumCartAmount = Math.round(message.minimumCartAmount));
+    message.minimumCartAmount !== undefined && (obj.minimumCartAmount = message.minimumCartAmount);
     message.minimumCartAmountForDisplay !== undefined &&
-      (obj.minimumCartAmountForDisplay = Math.round(message.minimumCartAmountForDisplay));
-    message.discountAmount !== undefined && (obj.discountAmount = Math.round(message.discountAmount));
+      (obj.minimumCartAmountForDisplay = message.minimumCartAmountForDisplay);
+    message.discountAmount !== undefined && (obj.discountAmount = message.discountAmount);
     message.currencyCode !== undefined && (obj.currencyCode = Math.round(message.currencyCode));
     message.availableUseCount !== undefined && (obj.availableUseCount = Math.round(message.availableUseCount));
     message.promotionalDiscountType !== undefined &&
@@ -584,9 +584,9 @@ export const CUserAccountGetAvailableValveDiscountPromotionsResponse_ValveDiscou
     const message = createBaseCUserAccountGetAvailableValveDiscountPromotionsResponse_ValveDiscountPromotionDetails();
     message.promotionid = object.promotionid ?? 0;
     message.promotionDescription = object.promotionDescription ?? "";
-    message.minimumCartAmount = object.minimumCartAmount ?? 0;
-    message.minimumCartAmountForDisplay = object.minimumCartAmountForDisplay ?? 0;
-    message.discountAmount = object.discountAmount ?? 0;
+    message.minimumCartAmount = object.minimumCartAmount ?? "0";
+    message.minimumCartAmountForDisplay = object.minimumCartAmountForDisplay ?? "0";
+    message.discountAmount = object.discountAmount ?? "0";
     message.currencyCode = object.currencyCode ?? 0;
     message.availableUseCount = object.availableUseCount ?? 0;
     message.promotionalDiscountType = object.promotionalDiscountType ?? 0;
@@ -678,13 +678,13 @@ function createBaseCUserAccountGetWalletDetailsResponse(): CUserAccountGetWallet
     userCountryCode: "",
     walletCountryCode: "",
     walletState: "",
-    balance: 0,
-    delayedBalance: 0,
+    balance: "0",
+    delayedBalance: "0",
     currencyCode: 0,
     timeMostRecentTxn: 0,
-    mostRecentTxnid: 0,
-    balanceInUsd: 0,
-    delayedBalanceInUsd: 0,
+    mostRecentTxnid: "0",
+    balanceInUsd: "0",
+    delayedBalanceInUsd: "0",
     hasWalletInOtherRegions: false,
     otherRegions: [],
     formattedBalance: "",
@@ -705,10 +705,10 @@ export const CUserAccountGetWalletDetailsResponse = {
     if (message.walletState !== "") {
       writer.uint32(34).string(message.walletState);
     }
-    if (message.balance !== 0) {
+    if (message.balance !== "0") {
       writer.uint32(40).int64(message.balance);
     }
-    if (message.delayedBalance !== 0) {
+    if (message.delayedBalance !== "0") {
       writer.uint32(48).int64(message.delayedBalance);
     }
     if (message.currencyCode !== 0) {
@@ -717,13 +717,13 @@ export const CUserAccountGetWalletDetailsResponse = {
     if (message.timeMostRecentTxn !== 0) {
       writer.uint32(64).uint32(message.timeMostRecentTxn);
     }
-    if (message.mostRecentTxnid !== 0) {
+    if (message.mostRecentTxnid !== "0") {
       writer.uint32(72).uint64(message.mostRecentTxnid);
     }
-    if (message.balanceInUsd !== 0) {
+    if (message.balanceInUsd !== "0") {
       writer.uint32(80).int64(message.balanceInUsd);
     }
-    if (message.delayedBalanceInUsd !== 0) {
+    if (message.delayedBalanceInUsd !== "0") {
       writer.uint32(88).int64(message.delayedBalanceInUsd);
     }
     if (message.hasWalletInOtherRegions === true) {
@@ -760,10 +760,10 @@ export const CUserAccountGetWalletDetailsResponse = {
           message.walletState = reader.string();
           break;
         case 5:
-          message.balance = longToNumber(reader.int64() as Long);
+          message.balance = longToString(reader.int64() as Long);
           break;
         case 6:
-          message.delayedBalance = longToNumber(reader.int64() as Long);
+          message.delayedBalance = longToString(reader.int64() as Long);
           break;
         case 7:
           message.currencyCode = reader.int32();
@@ -772,13 +772,13 @@ export const CUserAccountGetWalletDetailsResponse = {
           message.timeMostRecentTxn = reader.uint32();
           break;
         case 9:
-          message.mostRecentTxnid = longToNumber(reader.uint64() as Long);
+          message.mostRecentTxnid = longToString(reader.uint64() as Long);
           break;
         case 10:
-          message.balanceInUsd = longToNumber(reader.int64() as Long);
+          message.balanceInUsd = longToString(reader.int64() as Long);
           break;
         case 11:
-          message.delayedBalanceInUsd = longToNumber(reader.int64() as Long);
+          message.delayedBalanceInUsd = longToString(reader.int64() as Long);
           break;
         case 12:
           message.hasWalletInOtherRegions = reader.bool();
@@ -810,13 +810,13 @@ export const CUserAccountGetWalletDetailsResponse = {
       userCountryCode: isSet(object.userCountryCode) ? String(object.userCountryCode) : "",
       walletCountryCode: isSet(object.walletCountryCode) ? String(object.walletCountryCode) : "",
       walletState: isSet(object.walletState) ? String(object.walletState) : "",
-      balance: isSet(object.balance) ? Number(object.balance) : 0,
-      delayedBalance: isSet(object.delayedBalance) ? Number(object.delayedBalance) : 0,
+      balance: isSet(object.balance) ? String(object.balance) : "0",
+      delayedBalance: isSet(object.delayedBalance) ? String(object.delayedBalance) : "0",
       currencyCode: isSet(object.currencyCode) ? Number(object.currencyCode) : 0,
       timeMostRecentTxn: isSet(object.timeMostRecentTxn) ? Number(object.timeMostRecentTxn) : 0,
-      mostRecentTxnid: isSet(object.mostRecentTxnid) ? Number(object.mostRecentTxnid) : 0,
-      balanceInUsd: isSet(object.balanceInUsd) ? Number(object.balanceInUsd) : 0,
-      delayedBalanceInUsd: isSet(object.delayedBalanceInUsd) ? Number(object.delayedBalanceInUsd) : 0,
+      mostRecentTxnid: isSet(object.mostRecentTxnid) ? String(object.mostRecentTxnid) : "0",
+      balanceInUsd: isSet(object.balanceInUsd) ? String(object.balanceInUsd) : "0",
+      delayedBalanceInUsd: isSet(object.delayedBalanceInUsd) ? String(object.delayedBalanceInUsd) : "0",
       hasWalletInOtherRegions: isSet(object.hasWalletInOtherRegions) ? Boolean(object.hasWalletInOtherRegions) : false,
       otherRegions: Array.isArray(object?.otherRegions) ? object.otherRegions.map((e: any) => Number(e)) : [],
       formattedBalance: isSet(object.formattedBalance) ? String(object.formattedBalance) : "",
@@ -829,13 +829,13 @@ export const CUserAccountGetWalletDetailsResponse = {
     message.userCountryCode !== undefined && (obj.userCountryCode = message.userCountryCode);
     message.walletCountryCode !== undefined && (obj.walletCountryCode = message.walletCountryCode);
     message.walletState !== undefined && (obj.walletState = message.walletState);
-    message.balance !== undefined && (obj.balance = Math.round(message.balance));
-    message.delayedBalance !== undefined && (obj.delayedBalance = Math.round(message.delayedBalance));
+    message.balance !== undefined && (obj.balance = message.balance);
+    message.delayedBalance !== undefined && (obj.delayedBalance = message.delayedBalance);
     message.currencyCode !== undefined && (obj.currencyCode = Math.round(message.currencyCode));
     message.timeMostRecentTxn !== undefined && (obj.timeMostRecentTxn = Math.round(message.timeMostRecentTxn));
-    message.mostRecentTxnid !== undefined && (obj.mostRecentTxnid = Math.round(message.mostRecentTxnid));
-    message.balanceInUsd !== undefined && (obj.balanceInUsd = Math.round(message.balanceInUsd));
-    message.delayedBalanceInUsd !== undefined && (obj.delayedBalanceInUsd = Math.round(message.delayedBalanceInUsd));
+    message.mostRecentTxnid !== undefined && (obj.mostRecentTxnid = message.mostRecentTxnid);
+    message.balanceInUsd !== undefined && (obj.balanceInUsd = message.balanceInUsd);
+    message.delayedBalanceInUsd !== undefined && (obj.delayedBalanceInUsd = message.delayedBalanceInUsd);
     message.hasWalletInOtherRegions !== undefined && (obj.hasWalletInOtherRegions = message.hasWalletInOtherRegions);
     if (message.otherRegions) {
       obj.otherRegions = message.otherRegions.map((e) => Math.round(e));
@@ -860,13 +860,13 @@ export const CUserAccountGetWalletDetailsResponse = {
     message.userCountryCode = object.userCountryCode ?? "";
     message.walletCountryCode = object.walletCountryCode ?? "";
     message.walletState = object.walletState ?? "";
-    message.balance = object.balance ?? 0;
-    message.delayedBalance = object.delayedBalance ?? 0;
+    message.balance = object.balance ?? "0";
+    message.delayedBalance = object.delayedBalance ?? "0";
     message.currencyCode = object.currencyCode ?? 0;
     message.timeMostRecentTxn = object.timeMostRecentTxn ?? 0;
-    message.mostRecentTxnid = object.mostRecentTxnid ?? 0;
-    message.balanceInUsd = object.balanceInUsd ?? 0;
-    message.delayedBalanceInUsd = object.delayedBalanceInUsd ?? 0;
+    message.mostRecentTxnid = object.mostRecentTxnid ?? "0";
+    message.balanceInUsd = object.balanceInUsd ?? "0";
+    message.delayedBalanceInUsd = object.delayedBalanceInUsd ?? "0";
     message.hasWalletInOtherRegions = object.hasWalletInOtherRegions ?? false;
     message.otherRegions = object.otherRegions?.map((e) => e) || [];
     message.formattedBalance = object.formattedBalance ?? "";
@@ -1101,12 +1101,12 @@ export const CUserAccountCancelLicenseForAppResponse = {
 };
 
 function createBaseCUserAccountGetUserCountryRequest(): CUserAccountGetUserCountryRequest {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CUserAccountGetUserCountryRequest = {
   encode(message: CUserAccountGetUserCountryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -1120,7 +1120,7 @@ export const CUserAccountGetUserCountryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1131,12 +1131,12 @@ export const CUserAccountGetUserCountryRequest = {
   },
 
   fromJSON(object: any): CUserAccountGetUserCountryRequest {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CUserAccountGetUserCountryRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -1150,7 +1150,7 @@ export const CUserAccountGetUserCountryRequest = {
     object: I,
   ): CUserAccountGetUserCountryRequest {
     const message = createBaseCUserAccountGetUserCountryRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
@@ -1286,7 +1286,7 @@ export const CUserAccountCreateFriendInviteTokenRequest = {
 };
 
 function createBaseCUserAccountCreateFriendInviteTokenResponse(): CUserAccountCreateFriendInviteTokenResponse {
-  return { inviteToken: "", inviteLimit: 0, inviteDuration: 0, timeCreated: 0, valid: false };
+  return { inviteToken: "", inviteLimit: "0", inviteDuration: "0", timeCreated: 0, valid: false };
 }
 
 export const CUserAccountCreateFriendInviteTokenResponse = {
@@ -1294,10 +1294,10 @@ export const CUserAccountCreateFriendInviteTokenResponse = {
     if (message.inviteToken !== "") {
       writer.uint32(10).string(message.inviteToken);
     }
-    if (message.inviteLimit !== 0) {
+    if (message.inviteLimit !== "0") {
       writer.uint32(16).uint64(message.inviteLimit);
     }
-    if (message.inviteDuration !== 0) {
+    if (message.inviteDuration !== "0") {
       writer.uint32(24).uint64(message.inviteDuration);
     }
     if (message.timeCreated !== 0) {
@@ -1320,10 +1320,10 @@ export const CUserAccountCreateFriendInviteTokenResponse = {
           message.inviteToken = reader.string();
           break;
         case 2:
-          message.inviteLimit = longToNumber(reader.uint64() as Long);
+          message.inviteLimit = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.inviteDuration = longToNumber(reader.uint64() as Long);
+          message.inviteDuration = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.timeCreated = reader.fixed32();
@@ -1342,8 +1342,8 @@ export const CUserAccountCreateFriendInviteTokenResponse = {
   fromJSON(object: any): CUserAccountCreateFriendInviteTokenResponse {
     return {
       inviteToken: isSet(object.inviteToken) ? String(object.inviteToken) : "",
-      inviteLimit: isSet(object.inviteLimit) ? Number(object.inviteLimit) : 0,
-      inviteDuration: isSet(object.inviteDuration) ? Number(object.inviteDuration) : 0,
+      inviteLimit: isSet(object.inviteLimit) ? String(object.inviteLimit) : "0",
+      inviteDuration: isSet(object.inviteDuration) ? String(object.inviteDuration) : "0",
       timeCreated: isSet(object.timeCreated) ? Number(object.timeCreated) : 0,
       valid: isSet(object.valid) ? Boolean(object.valid) : false,
     };
@@ -1352,8 +1352,8 @@ export const CUserAccountCreateFriendInviteTokenResponse = {
   toJSON(message: CUserAccountCreateFriendInviteTokenResponse): unknown {
     const obj: any = {};
     message.inviteToken !== undefined && (obj.inviteToken = message.inviteToken);
-    message.inviteLimit !== undefined && (obj.inviteLimit = Math.round(message.inviteLimit));
-    message.inviteDuration !== undefined && (obj.inviteDuration = Math.round(message.inviteDuration));
+    message.inviteLimit !== undefined && (obj.inviteLimit = message.inviteLimit);
+    message.inviteDuration !== undefined && (obj.inviteDuration = message.inviteDuration);
     message.timeCreated !== undefined && (obj.timeCreated = Math.round(message.timeCreated));
     message.valid !== undefined && (obj.valid = message.valid);
     return obj;
@@ -1370,8 +1370,8 @@ export const CUserAccountCreateFriendInviteTokenResponse = {
   ): CUserAccountCreateFriendInviteTokenResponse {
     const message = createBaseCUserAccountCreateFriendInviteTokenResponse();
     message.inviteToken = object.inviteToken ?? "";
-    message.inviteLimit = object.inviteLimit ?? 0;
-    message.inviteDuration = object.inviteDuration ?? 0;
+    message.inviteLimit = object.inviteLimit ?? "0";
+    message.inviteDuration = object.inviteDuration ?? "0";
     message.timeCreated = object.timeCreated ?? 0;
     message.valid = object.valid ?? false;
     return message;
@@ -1489,12 +1489,12 @@ export const CUserAccountGetFriendInviteTokensResponse = {
 };
 
 function createBaseCUserAccountViewFriendInviteTokenRequest(): CUserAccountViewFriendInviteTokenRequest {
-  return { steamid: 0, inviteToken: "" };
+  return { steamid: "0", inviteToken: "" };
 }
 
 export const CUserAccountViewFriendInviteTokenRequest = {
   encode(message: CUserAccountViewFriendInviteTokenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.inviteToken !== "") {
@@ -1511,7 +1511,7 @@ export const CUserAccountViewFriendInviteTokenRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.inviteToken = reader.string();
@@ -1526,14 +1526,14 @@ export const CUserAccountViewFriendInviteTokenRequest = {
 
   fromJSON(object: any): CUserAccountViewFriendInviteTokenRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       inviteToken: isSet(object.inviteToken) ? String(object.inviteToken) : "",
     };
   },
 
   toJSON(message: CUserAccountViewFriendInviteTokenRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.inviteToken !== undefined && (obj.inviteToken = message.inviteToken);
     return obj;
   },
@@ -1548,14 +1548,14 @@ export const CUserAccountViewFriendInviteTokenRequest = {
     object: I,
   ): CUserAccountViewFriendInviteTokenRequest {
     const message = createBaseCUserAccountViewFriendInviteTokenRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.inviteToken = object.inviteToken ?? "";
     return message;
   },
 };
 
 function createBaseCUserAccountViewFriendInviteTokenResponse(): CUserAccountViewFriendInviteTokenResponse {
-  return { valid: false, steamid: 0, inviteDuration: 0 };
+  return { valid: false, steamid: "0", inviteDuration: "0" };
 }
 
 export const CUserAccountViewFriendInviteTokenResponse = {
@@ -1563,10 +1563,10 @@ export const CUserAccountViewFriendInviteTokenResponse = {
     if (message.valid === true) {
       writer.uint32(8).bool(message.valid);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(16).uint64(message.steamid);
     }
-    if (message.inviteDuration !== 0) {
+    if (message.inviteDuration !== "0") {
       writer.uint32(24).uint64(message.inviteDuration);
     }
     return writer;
@@ -1583,10 +1583,10 @@ export const CUserAccountViewFriendInviteTokenResponse = {
           message.valid = reader.bool();
           break;
         case 2:
-          message.steamid = longToNumber(reader.uint64() as Long);
+          message.steamid = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.inviteDuration = longToNumber(reader.uint64() as Long);
+          message.inviteDuration = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -1599,16 +1599,16 @@ export const CUserAccountViewFriendInviteTokenResponse = {
   fromJSON(object: any): CUserAccountViewFriendInviteTokenResponse {
     return {
       valid: isSet(object.valid) ? Boolean(object.valid) : false,
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      inviteDuration: isSet(object.inviteDuration) ? Number(object.inviteDuration) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      inviteDuration: isSet(object.inviteDuration) ? String(object.inviteDuration) : "0",
     };
   },
 
   toJSON(message: CUserAccountViewFriendInviteTokenResponse): unknown {
     const obj: any = {};
     message.valid !== undefined && (obj.valid = message.valid);
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.inviteDuration !== undefined && (obj.inviteDuration = Math.round(message.inviteDuration));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.inviteDuration !== undefined && (obj.inviteDuration = message.inviteDuration);
     return obj;
   },
 
@@ -1623,19 +1623,19 @@ export const CUserAccountViewFriendInviteTokenResponse = {
   ): CUserAccountViewFriendInviteTokenResponse {
     const message = createBaseCUserAccountViewFriendInviteTokenResponse();
     message.valid = object.valid ?? false;
-    message.steamid = object.steamid ?? 0;
-    message.inviteDuration = object.inviteDuration ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.inviteDuration = object.inviteDuration ?? "0";
     return message;
   },
 };
 
 function createBaseCUserAccountRedeemFriendInviteTokenRequest(): CUserAccountRedeemFriendInviteTokenRequest {
-  return { steamid: 0, inviteToken: "" };
+  return { steamid: "0", inviteToken: "" };
 }
 
 export const CUserAccountRedeemFriendInviteTokenRequest = {
   encode(message: CUserAccountRedeemFriendInviteTokenRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.inviteToken !== "") {
@@ -1652,7 +1652,7 @@ export const CUserAccountRedeemFriendInviteTokenRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.inviteToken = reader.string();
@@ -1667,14 +1667,14 @@ export const CUserAccountRedeemFriendInviteTokenRequest = {
 
   fromJSON(object: any): CUserAccountRedeemFriendInviteTokenRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       inviteToken: isSet(object.inviteToken) ? String(object.inviteToken) : "",
     };
   },
 
   toJSON(message: CUserAccountRedeemFriendInviteTokenRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.inviteToken !== undefined && (obj.inviteToken = message.inviteToken);
     return obj;
   },
@@ -1689,7 +1689,7 @@ export const CUserAccountRedeemFriendInviteTokenRequest = {
     object: I,
   ): CUserAccountRedeemFriendInviteTokenRequest {
     const message = createBaseCUserAccountRedeemFriendInviteTokenRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.inviteToken = object.inviteToken ?? "";
     return message;
   },
@@ -1947,7 +1947,7 @@ export const CUserAccountRegisterCompatToolResponse = {
 };
 
 function createBaseCAccountLinkingGetLinkedAccountInfoRequest(): CAccountLinkingGetLinkedAccountInfoRequest {
-  return { accountType: 1, accountId: 0, filter: 0, returnAccessToken: false };
+  return { accountType: 1, accountId: "0", filter: 0, returnAccessToken: false };
 }
 
 export const CAccountLinkingGetLinkedAccountInfoRequest = {
@@ -1955,7 +1955,7 @@ export const CAccountLinkingGetLinkedAccountInfoRequest = {
     if (message.accountType !== 1) {
       writer.uint32(8).int32(message.accountType);
     }
-    if (message.accountId !== 0) {
+    if (message.accountId !== "0") {
       writer.uint32(16).uint64(message.accountId);
     }
     if (message.filter !== 0) {
@@ -1978,7 +1978,7 @@ export const CAccountLinkingGetLinkedAccountInfoRequest = {
           message.accountType = reader.int32() as any;
           break;
         case 2:
-          message.accountId = longToNumber(reader.uint64() as Long);
+          message.accountId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.filter = reader.int32() as any;
@@ -1997,7 +1997,7 @@ export const CAccountLinkingGetLinkedAccountInfoRequest = {
   fromJSON(object: any): CAccountLinkingGetLinkedAccountInfoRequest {
     return {
       accountType: isSet(object.accountType) ? eInternalAccountTypeFromJSON(object.accountType) : 1,
-      accountId: isSet(object.accountId) ? Number(object.accountId) : 0,
+      accountId: isSet(object.accountId) ? String(object.accountId) : "0",
       filter: isSet(object.filter) ? eExternalAccountTypeFromJSON(object.filter) : 0,
       returnAccessToken: isSet(object.returnAccessToken) ? Boolean(object.returnAccessToken) : false,
     };
@@ -2006,7 +2006,7 @@ export const CAccountLinkingGetLinkedAccountInfoRequest = {
   toJSON(message: CAccountLinkingGetLinkedAccountInfoRequest): unknown {
     const obj: any = {};
     message.accountType !== undefined && (obj.accountType = eInternalAccountTypeToJSON(message.accountType));
-    message.accountId !== undefined && (obj.accountId = Math.round(message.accountId));
+    message.accountId !== undefined && (obj.accountId = message.accountId);
     message.filter !== undefined && (obj.filter = eExternalAccountTypeToJSON(message.filter));
     message.returnAccessToken !== undefined && (obj.returnAccessToken = message.returnAccessToken);
     return obj;
@@ -2023,7 +2023,7 @@ export const CAccountLinkingGetLinkedAccountInfoRequest = {
   ): CAccountLinkingGetLinkedAccountInfoRequest {
     const message = createBaseCAccountLinkingGetLinkedAccountInfoRequest();
     message.accountType = object.accountType ?? 1;
-    message.accountId = object.accountId ?? 0;
+    message.accountId = object.accountId ?? "0";
     message.filter = object.filter ?? 0;
     message.returnAccessToken = object.returnAccessToken ?? false;
     return message;
@@ -2229,12 +2229,12 @@ export const CAccountLinkingGetLinkedAccountInfoResponse_CExternalAccountTupleRe
 };
 
 function createBaseCEmbeddedClientAuthorizeCurrentDeviceRequest(): CEmbeddedClientAuthorizeCurrentDeviceRequest {
-  return { steamid: 0, appid: 0, deviceInfo: "", deviceid: 0 };
+  return { steamid: "0", appid: 0, deviceInfo: "", deviceid: 0 };
 }
 
 export const CEmbeddedClientAuthorizeCurrentDeviceRequest = {
   encode(message: CEmbeddedClientAuthorizeCurrentDeviceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.appid !== 0) {
@@ -2257,7 +2257,7 @@ export const CEmbeddedClientAuthorizeCurrentDeviceRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -2278,7 +2278,7 @@ export const CEmbeddedClientAuthorizeCurrentDeviceRequest = {
 
   fromJSON(object: any): CEmbeddedClientAuthorizeCurrentDeviceRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       deviceInfo: isSet(object.deviceInfo) ? String(object.deviceInfo) : "",
       deviceid: isSet(object.deviceid) ? Number(object.deviceid) : 0,
@@ -2287,7 +2287,7 @@ export const CEmbeddedClientAuthorizeCurrentDeviceRequest = {
 
   toJSON(message: CEmbeddedClientAuthorizeCurrentDeviceRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.deviceInfo !== undefined && (obj.deviceInfo = message.deviceInfo);
     message.deviceid !== undefined && (obj.deviceid = Math.round(message.deviceid));
@@ -2304,7 +2304,7 @@ export const CEmbeddedClientAuthorizeCurrentDeviceRequest = {
     object: I,
   ): CEmbeddedClientAuthorizeCurrentDeviceRequest {
     const message = createBaseCEmbeddedClientAuthorizeCurrentDeviceRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.appid = object.appid ?? 0;
     message.deviceInfo = object.deviceInfo ?? "";
     message.deviceid = object.deviceid ?? 0;
@@ -2313,12 +2313,12 @@ export const CEmbeddedClientAuthorizeCurrentDeviceRequest = {
 };
 
 function createBaseCEmbeddedClientToken(): CEmbeddedClientToken {
-  return { steamid: 0, clientToken: Buffer.alloc(0), expiry: 0, deviceid: 0 };
+  return { steamid: "0", clientToken: Buffer.alloc(0), expiry: 0, deviceid: 0 };
 }
 
 export const CEmbeddedClientToken = {
   encode(message: CEmbeddedClientToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.clientToken.length !== 0) {
@@ -2341,7 +2341,7 @@ export const CEmbeddedClientToken = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.clientToken = reader.bytes() as Buffer;
@@ -2362,7 +2362,7 @@ export const CEmbeddedClientToken = {
 
   fromJSON(object: any): CEmbeddedClientToken {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       clientToken: isSet(object.clientToken) ? Buffer.from(bytesFromBase64(object.clientToken)) : Buffer.alloc(0),
       expiry: isSet(object.expiry) ? Number(object.expiry) : 0,
       deviceid: isSet(object.deviceid) ? Number(object.deviceid) : 0,
@@ -2371,7 +2371,7 @@ export const CEmbeddedClientToken = {
 
   toJSON(message: CEmbeddedClientToken): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.clientToken !== undefined &&
       (obj.clientToken = base64FromBytes(message.clientToken !== undefined ? message.clientToken : Buffer.alloc(0)));
     message.expiry !== undefined && (obj.expiry = Math.round(message.expiry));
@@ -2385,7 +2385,7 @@ export const CEmbeddedClientToken = {
 
   fromPartial<I extends Exact<DeepPartial<CEmbeddedClientToken>, I>>(object: I): CEmbeddedClientToken {
     const message = createBaseCEmbeddedClientToken();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.clientToken = object.clientToken ?? Buffer.alloc(0);
     message.expiry = object.expiry ?? 0;
     message.deviceid = object.deviceid ?? 0;
@@ -2701,11 +2701,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

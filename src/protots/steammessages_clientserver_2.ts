@@ -5,8 +5,8 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CMsgClientUpdateUserGameInfo {
-  steamidIdgs: number;
-  gameid: number;
+  steamidIdgs: string;
+  gameid: string;
   gameIp: number;
   gamePort: number;
   token: Buffer;
@@ -14,11 +14,11 @@ export interface CMsgClientUpdateUserGameInfo {
 
 export interface CMsgClientRichPresenceUpload {
   richPresenceKv: Buffer;
-  steamidBroadcast: number[];
+  steamidBroadcast: string[];
 }
 
 export interface CMsgClientRichPresenceRequest {
-  steamidRequest: number[];
+  steamidRequest: string[];
 }
 
 export interface CMsgClientRichPresenceInfo {
@@ -26,7 +26,7 @@ export interface CMsgClientRichPresenceInfo {
 }
 
 export interface CMsgClientRichPresenceInfo_RichPresence {
-  steamidUser: number;
+  steamidUser: string;
   richPresenceKv: Buffer;
 }
 
@@ -141,14 +141,14 @@ export interface CMsgClientPurchaseWithMachineID {
 
 export interface CMsgTradingInitiateTradeRequest {
   tradeRequestId: number;
-  otherSteamid: number;
+  otherSteamid: string;
   otherName: string;
 }
 
 export interface CMsgTradingInitiateTradeResponse {
   response: number;
   tradeRequestId: number;
-  otherSteamid: number;
+  otherSteamid: string;
   steamguardRequiredDays: number;
   newDeviceCooldownDays: number;
   defaultPasswordResetProbationDays: number;
@@ -158,11 +158,11 @@ export interface CMsgTradingInitiateTradeResponse {
 }
 
 export interface CMsgTradingCancelTradeRequest {
-  otherSteamid: number;
+  otherSteamid: string;
 }
 
 export interface CMsgTradingStartSession {
-  otherSteamid: number;
+  otherSteamid: string;
 }
 
 export interface CMsgClientGetCDNAuthToken {
@@ -216,9 +216,9 @@ export interface CMsgDownloadRateStatistics_StatsInfo {
   sourceType: number;
   sourceId: number;
   seconds: number;
-  bytes: number;
+  bytes: string;
   hostName: string;
-  microseconds: number;
+  microseconds: string;
   usedIpv6: boolean;
   proxied: boolean;
 }
@@ -239,7 +239,7 @@ export interface CMsgClientRequestAccountDataResponse {
 }
 
 export interface CMsgClientUGSGetGlobalStats {
-  gameid: number;
+  gameid: string;
   historyDaysRequested: number;
   timeLastRequested: number;
   firstDayCached: number;
@@ -260,11 +260,11 @@ export interface CMsgClientUGSGetGlobalStatsResponse_Day {
 
 export interface CMsgClientUGSGetGlobalStatsResponse_Day_Stat {
   statId: number;
-  data: number;
+  data: string;
 }
 
 export interface CMsgClientRedeemGuestPass {
-  guestPassId: number;
+  guestPassId: string;
 }
 
 export interface CMsgClientRedeemGuestPassResponse {
@@ -274,7 +274,7 @@ export interface CMsgClientRedeemGuestPassResponse {
 }
 
 export interface CMsgClientGetClanActivityCounts {
-  steamidClans: number[];
+  steamidClans: string[];
 }
 
 export interface CMsgClientGetClanActivityCountsResponse {
@@ -283,14 +283,14 @@ export interface CMsgClientGetClanActivityCountsResponse {
 
 export interface CMsgClientOGSReportString {
   accumulated: boolean;
-  sessionid: number;
+  sessionid: string;
   severity: number;
   formatter: string;
   varargs: Buffer;
 }
 
 export interface CMsgClientOGSReportBug {
-  sessionid: number;
+  sessionid: string;
   bugtext: string;
   screenshot: Buffer;
 }
@@ -302,7 +302,7 @@ export interface CMsgGCClient {
   appid: number;
   msgtype: number;
   payload: Buffer;
-  steamid: number;
+  steamid: string;
   gcname: string;
   ip: number;
 }
@@ -390,9 +390,9 @@ export interface CMsgClientItemAnnouncements {
 
 export interface CMsgClientItemAnnouncements_UnseenItem {
   appid: number;
-  contextId: number;
-  assetId: number;
-  amount: number;
+  contextId: string;
+  assetId: string;
+  amount: string;
   rtime32Gained: number;
   sourceAppid: number;
 }
@@ -427,11 +427,11 @@ export interface CMsgClientRequestOfflineMessageCount {
 }
 
 export interface CMsgClientChatGetFriendMessageHistory {
-  steamid: number;
+  steamid: string;
 }
 
 export interface CMsgClientChatGetFriendMessageHistoryResponse {
-  steamid: number;
+  steamid: string;
   success: number;
   messages: CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage[];
 }
@@ -472,7 +472,7 @@ export interface CMsgCREItemVoteSummary {
 }
 
 export interface CMsgCREItemVoteSummary_PublishedFileId {
-  publishedFileId: number;
+  publishedFileId: string;
 }
 
 export interface CMsgCREItemVoteSummaryResponse {
@@ -481,7 +481,7 @@ export interface CMsgCREItemVoteSummaryResponse {
 }
 
 export interface CMsgCREItemVoteSummaryResponse_ItemVoteSummary {
-  publishedFileId: number;
+  publishedFileId: string;
   votesFor: number;
   votesAgainst: number;
   reports: number;
@@ -489,7 +489,7 @@ export interface CMsgCREItemVoteSummaryResponse_ItemVoteSummary {
 }
 
 export interface CMsgCREUpdateUserPublishedItemVote {
-  publishedFileId: number;
+  publishedFileId: string;
   voteUp: boolean;
 }
 
@@ -502,7 +502,7 @@ export interface CMsgCREGetUserPublishedItemVoteDetails {
 }
 
 export interface CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId {
-  publishedFileId: number;
+  publishedFileId: string;
 }
 
 export interface CMsgCREGetUserPublishedItemVoteDetailsResponse {
@@ -511,12 +511,12 @@ export interface CMsgCREGetUserPublishedItemVoteDetailsResponse {
 }
 
 export interface CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail {
-  publishedFileId: number;
+  publishedFileId: string;
   vote: number;
 }
 
 export interface CMsgFSGetFollowerCount {
-  steamId: number;
+  steamId: string;
 }
 
 export interface CMsgFSGetFollowerCountResponse {
@@ -525,7 +525,7 @@ export interface CMsgFSGetFollowerCountResponse {
 }
 
 export interface CMsgFSGetIsFollowing {
-  steamId: number;
+  steamId: string;
 }
 
 export interface CMsgFSGetIsFollowingResponse {
@@ -540,7 +540,7 @@ export interface CMsgFSEnumerateFollowingList {
 export interface CMsgFSEnumerateFollowingListResponse {
   eresult: number;
   totalResults: number;
-  steamIds: number[];
+  steamIds: string[];
 }
 
 export interface CMsgDPGetNumberOfCurrentPlayers {
@@ -553,7 +553,7 @@ export interface CMsgDPGetNumberOfCurrentPlayersResponse {
 }
 
 export interface CMsgClientFriendUserStatusPublished {
-  friendSteamid: number;
+  friendSteamid: string;
   appid: number;
   statusText: string;
 }
@@ -581,24 +581,24 @@ export interface CMsgClientVanityURLChangedNotification {
 export interface CMsgClientAuthorizeLocalDeviceRequest {
   deviceDescription: string;
   ownerAccountId: number;
-  localDeviceToken: number;
+  localDeviceToken: string;
 }
 
 export interface CMsgClientAuthorizeLocalDevice {
   eresult: number;
   ownerAccountId: number;
-  authedDeviceToken: number;
+  authedDeviceToken: string;
 }
 
 export interface CMsgClientAuthorizeLocalDeviceNotification {
   eresult: number;
   ownerAccountId: number;
-  localDeviceToken: number;
+  localDeviceToken: string;
 }
 
 export interface CMsgClientDeauthorizeDeviceRequest {
   deauthorizationAccountId: number;
-  deauthorizationDeviceToken: number;
+  deauthorizationDeviceToken: string;
 }
 
 export interface CMsgClientDeauthorizeDevice {
@@ -613,7 +613,7 @@ export interface CMsgClientUseLocalDeviceAuthorizations {
 
 export interface CMsgClientUseLocalDeviceAuthorizations_DeviceToken {
   ownerAccountId: number;
-  tokenId: number;
+  tokenId: string;
 }
 
 export interface CMsgClientGetAuthorizedDevices {
@@ -625,7 +625,7 @@ export interface CMsgClientGetAuthorizedDevicesResponse {
 }
 
 export interface CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice {
-  authDeviceToken: number;
+  authDeviceToken: string;
   deviceName: string;
   lastAccessTime: number;
   borrowerId: number;
@@ -682,7 +682,7 @@ export interface CMsgClientServiceCallResponse {
   resultContent: Buffer;
   osVersionInfo: Buffer;
   systemInfo: Buffer;
-  loadAddress: number;
+  loadAddress: string;
   exceptionRecord: Buffer;
   portableOsVersionInfo: Buffer;
   portableSystemInfo: Buffer;
@@ -718,15 +718,15 @@ export interface CMsgClientKickPlayingSession {
 }
 
 export interface CMsgClientVoiceCallPreAuthorize {
-  callerSteamid: number;
-  receiverSteamid: number;
+  callerSteamid: string;
+  receiverSteamid: string;
   callerId: number;
   hangup: boolean;
 }
 
 export interface CMsgClientVoiceCallPreAuthorizeResponse {
-  callerSteamid: number;
-  receiverSteamid: number;
+  callerSteamid: string;
+  receiverSteamid: string;
   eresult: number;
   callerId: number;
 }
@@ -737,8 +737,8 @@ export interface CMsgBadgeCraftedNotification {
 }
 
 export interface CMsgClientStartPeerContentServer {
-  steamid: number;
-  clientRemoteId: number;
+  steamid: string;
+  clientRemoteId: string;
   appId: number;
   currentBuildId: number;
 }
@@ -749,8 +749,8 @@ export interface CMsgClientStartPeerContentServerResponse {
 }
 
 export interface CMsgClientGetPeerContentInfo {
-  steamid: number;
-  clientRemoteId: number;
+  steamid: string;
+  clientRemoteId: string;
 }
 
 export interface CMsgClientGetPeerContentInfoResponse {
@@ -759,15 +759,15 @@ export interface CMsgClientGetPeerContentInfoResponse {
 }
 
 function createBaseCMsgClientUpdateUserGameInfo(): CMsgClientUpdateUserGameInfo {
-  return { steamidIdgs: 0, gameid: 0, gameIp: 0, gamePort: 0, token: Buffer.alloc(0) };
+  return { steamidIdgs: "0", gameid: "0", gameIp: 0, gamePort: 0, token: Buffer.alloc(0) };
 }
 
 export const CMsgClientUpdateUserGameInfo = {
   encode(message: CMsgClientUpdateUserGameInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidIdgs !== 0) {
+    if (message.steamidIdgs !== "0") {
       writer.uint32(9).fixed64(message.steamidIdgs);
     }
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(17).fixed64(message.gameid);
     }
     if (message.gameIp !== 0) {
@@ -790,10 +790,10 @@ export const CMsgClientUpdateUserGameInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidIdgs = longToNumber(reader.fixed64() as Long);
+          message.steamidIdgs = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.gameid = longToNumber(reader.fixed64() as Long);
+          message.gameid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.gameIp = reader.uint32();
@@ -814,8 +814,8 @@ export const CMsgClientUpdateUserGameInfo = {
 
   fromJSON(object: any): CMsgClientUpdateUserGameInfo {
     return {
-      steamidIdgs: isSet(object.steamidIdgs) ? Number(object.steamidIdgs) : 0,
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      steamidIdgs: isSet(object.steamidIdgs) ? String(object.steamidIdgs) : "0",
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       gameIp: isSet(object.gameIp) ? Number(object.gameIp) : 0,
       gamePort: isSet(object.gamePort) ? Number(object.gamePort) : 0,
       token: isSet(object.token) ? Buffer.from(bytesFromBase64(object.token)) : Buffer.alloc(0),
@@ -824,8 +824,8 @@ export const CMsgClientUpdateUserGameInfo = {
 
   toJSON(message: CMsgClientUpdateUserGameInfo): unknown {
     const obj: any = {};
-    message.steamidIdgs !== undefined && (obj.steamidIdgs = Math.round(message.steamidIdgs));
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.steamidIdgs !== undefined && (obj.steamidIdgs = message.steamidIdgs);
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.gameIp !== undefined && (obj.gameIp = Math.round(message.gameIp));
     message.gamePort !== undefined && (obj.gamePort = Math.round(message.gamePort));
     message.token !== undefined &&
@@ -839,8 +839,8 @@ export const CMsgClientUpdateUserGameInfo = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientUpdateUserGameInfo>, I>>(object: I): CMsgClientUpdateUserGameInfo {
     const message = createBaseCMsgClientUpdateUserGameInfo();
-    message.steamidIdgs = object.steamidIdgs ?? 0;
-    message.gameid = object.gameid ?? 0;
+    message.steamidIdgs = object.steamidIdgs ?? "0";
+    message.gameid = object.gameid ?? "0";
     message.gameIp = object.gameIp ?? 0;
     message.gamePort = object.gamePort ?? 0;
     message.token = object.token ?? Buffer.alloc(0);
@@ -879,10 +879,10 @@ export const CMsgClientRichPresenceUpload = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidBroadcast.push(longToNumber(reader.fixed64() as Long));
+              message.steamidBroadcast.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidBroadcast.push(longToNumber(reader.fixed64() as Long));
+            message.steamidBroadcast.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -899,7 +899,7 @@ export const CMsgClientRichPresenceUpload = {
         ? Buffer.from(bytesFromBase64(object.richPresenceKv))
         : Buffer.alloc(0),
       steamidBroadcast: Array.isArray(object?.steamidBroadcast)
-        ? object.steamidBroadcast.map((e: any) => Number(e))
+        ? object.steamidBroadcast.map((e: any) => String(e))
         : [],
     };
   },
@@ -911,7 +911,7 @@ export const CMsgClientRichPresenceUpload = {
         message.richPresenceKv !== undefined ? message.richPresenceKv : Buffer.alloc(0),
       ));
     if (message.steamidBroadcast) {
-      obj.steamidBroadcast = message.steamidBroadcast.map((e) => Math.round(e));
+      obj.steamidBroadcast = message.steamidBroadcast.map((e) => e);
     } else {
       obj.steamidBroadcast = [];
     }
@@ -955,10 +955,10 @@ export const CMsgClientRichPresenceRequest = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidRequest.push(longToNumber(reader.fixed64() as Long));
+              message.steamidRequest.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamidRequest.push(longToNumber(reader.fixed64() as Long));
+            message.steamidRequest.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -971,14 +971,14 @@ export const CMsgClientRichPresenceRequest = {
 
   fromJSON(object: any): CMsgClientRichPresenceRequest {
     return {
-      steamidRequest: Array.isArray(object?.steamidRequest) ? object.steamidRequest.map((e: any) => Number(e)) : [],
+      steamidRequest: Array.isArray(object?.steamidRequest) ? object.steamidRequest.map((e: any) => String(e)) : [],
     };
   },
 
   toJSON(message: CMsgClientRichPresenceRequest): unknown {
     const obj: any = {};
     if (message.steamidRequest) {
-      obj.steamidRequest = message.steamidRequest.map((e) => Math.round(e));
+      obj.steamidRequest = message.steamidRequest.map((e) => e);
     } else {
       obj.steamidRequest = [];
     }
@@ -1061,12 +1061,12 @@ export const CMsgClientRichPresenceInfo = {
 };
 
 function createBaseCMsgClientRichPresenceInfo_RichPresence(): CMsgClientRichPresenceInfo_RichPresence {
-  return { steamidUser: 0, richPresenceKv: Buffer.alloc(0) };
+  return { steamidUser: "0", richPresenceKv: Buffer.alloc(0) };
 }
 
 export const CMsgClientRichPresenceInfo_RichPresence = {
   encode(message: CMsgClientRichPresenceInfo_RichPresence, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamidUser !== 0) {
+    if (message.steamidUser !== "0") {
       writer.uint32(9).fixed64(message.steamidUser);
     }
     if (message.richPresenceKv.length !== 0) {
@@ -1083,7 +1083,7 @@ export const CMsgClientRichPresenceInfo_RichPresence = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamidUser = longToNumber(reader.fixed64() as Long);
+          message.steamidUser = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.richPresenceKv = reader.bytes() as Buffer;
@@ -1098,7 +1098,7 @@ export const CMsgClientRichPresenceInfo_RichPresence = {
 
   fromJSON(object: any): CMsgClientRichPresenceInfo_RichPresence {
     return {
-      steamidUser: isSet(object.steamidUser) ? Number(object.steamidUser) : 0,
+      steamidUser: isSet(object.steamidUser) ? String(object.steamidUser) : "0",
       richPresenceKv: isSet(object.richPresenceKv)
         ? Buffer.from(bytesFromBase64(object.richPresenceKv))
         : Buffer.alloc(0),
@@ -1107,7 +1107,7 @@ export const CMsgClientRichPresenceInfo_RichPresence = {
 
   toJSON(message: CMsgClientRichPresenceInfo_RichPresence): unknown {
     const obj: any = {};
-    message.steamidUser !== undefined && (obj.steamidUser = Math.round(message.steamidUser));
+    message.steamidUser !== undefined && (obj.steamidUser = message.steamidUser);
     message.richPresenceKv !== undefined &&
       (obj.richPresenceKv = base64FromBytes(
         message.richPresenceKv !== undefined ? message.richPresenceKv : Buffer.alloc(0),
@@ -1125,7 +1125,7 @@ export const CMsgClientRichPresenceInfo_RichPresence = {
     object: I,
   ): CMsgClientRichPresenceInfo_RichPresence {
     const message = createBaseCMsgClientRichPresenceInfo_RichPresence();
-    message.steamidUser = object.steamidUser ?? 0;
+    message.steamidUser = object.steamidUser ?? "0";
     message.richPresenceKv = object.richPresenceKv ?? Buffer.alloc(0);
     return message;
   },
@@ -2464,7 +2464,7 @@ export const CMsgClientPurchaseWithMachineID = {
 };
 
 function createBaseCMsgTradingInitiateTradeRequest(): CMsgTradingInitiateTradeRequest {
-  return { tradeRequestId: 0, otherSteamid: 0, otherName: "" };
+  return { tradeRequestId: 0, otherSteamid: "0", otherName: "" };
 }
 
 export const CMsgTradingInitiateTradeRequest = {
@@ -2472,7 +2472,7 @@ export const CMsgTradingInitiateTradeRequest = {
     if (message.tradeRequestId !== 0) {
       writer.uint32(8).uint32(message.tradeRequestId);
     }
-    if (message.otherSteamid !== 0) {
+    if (message.otherSteamid !== "0") {
       writer.uint32(16).uint64(message.otherSteamid);
     }
     if (message.otherName !== "") {
@@ -2492,7 +2492,7 @@ export const CMsgTradingInitiateTradeRequest = {
           message.tradeRequestId = reader.uint32();
           break;
         case 2:
-          message.otherSteamid = longToNumber(reader.uint64() as Long);
+          message.otherSteamid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.otherName = reader.string();
@@ -2508,7 +2508,7 @@ export const CMsgTradingInitiateTradeRequest = {
   fromJSON(object: any): CMsgTradingInitiateTradeRequest {
     return {
       tradeRequestId: isSet(object.tradeRequestId) ? Number(object.tradeRequestId) : 0,
-      otherSteamid: isSet(object.otherSteamid) ? Number(object.otherSteamid) : 0,
+      otherSteamid: isSet(object.otherSteamid) ? String(object.otherSteamid) : "0",
       otherName: isSet(object.otherName) ? String(object.otherName) : "",
     };
   },
@@ -2516,7 +2516,7 @@ export const CMsgTradingInitiateTradeRequest = {
   toJSON(message: CMsgTradingInitiateTradeRequest): unknown {
     const obj: any = {};
     message.tradeRequestId !== undefined && (obj.tradeRequestId = Math.round(message.tradeRequestId));
-    message.otherSteamid !== undefined && (obj.otherSteamid = Math.round(message.otherSteamid));
+    message.otherSteamid !== undefined && (obj.otherSteamid = message.otherSteamid);
     message.otherName !== undefined && (obj.otherName = message.otherName);
     return obj;
   },
@@ -2530,7 +2530,7 @@ export const CMsgTradingInitiateTradeRequest = {
   ): CMsgTradingInitiateTradeRequest {
     const message = createBaseCMsgTradingInitiateTradeRequest();
     message.tradeRequestId = object.tradeRequestId ?? 0;
-    message.otherSteamid = object.otherSteamid ?? 0;
+    message.otherSteamid = object.otherSteamid ?? "0";
     message.otherName = object.otherName ?? "";
     return message;
   },
@@ -2540,7 +2540,7 @@ function createBaseCMsgTradingInitiateTradeResponse(): CMsgTradingInitiateTradeR
   return {
     response: 0,
     tradeRequestId: 0,
-    otherSteamid: 0,
+    otherSteamid: "0",
     steamguardRequiredDays: 0,
     newDeviceCooldownDays: 0,
     defaultPasswordResetProbationDays: 0,
@@ -2558,7 +2558,7 @@ export const CMsgTradingInitiateTradeResponse = {
     if (message.tradeRequestId !== 0) {
       writer.uint32(16).uint32(message.tradeRequestId);
     }
-    if (message.otherSteamid !== 0) {
+    if (message.otherSteamid !== "0") {
       writer.uint32(24).uint64(message.otherSteamid);
     }
     if (message.steamguardRequiredDays !== 0) {
@@ -2596,7 +2596,7 @@ export const CMsgTradingInitiateTradeResponse = {
           message.tradeRequestId = reader.uint32();
           break;
         case 3:
-          message.otherSteamid = longToNumber(reader.uint64() as Long);
+          message.otherSteamid = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.steamguardRequiredDays = reader.uint32();
@@ -2628,7 +2628,7 @@ export const CMsgTradingInitiateTradeResponse = {
     return {
       response: isSet(object.response) ? Number(object.response) : 0,
       tradeRequestId: isSet(object.tradeRequestId) ? Number(object.tradeRequestId) : 0,
-      otherSteamid: isSet(object.otherSteamid) ? Number(object.otherSteamid) : 0,
+      otherSteamid: isSet(object.otherSteamid) ? String(object.otherSteamid) : "0",
       steamguardRequiredDays: isSet(object.steamguardRequiredDays) ? Number(object.steamguardRequiredDays) : 0,
       newDeviceCooldownDays: isSet(object.newDeviceCooldownDays) ? Number(object.newDeviceCooldownDays) : 0,
       defaultPasswordResetProbationDays: isSet(object.defaultPasswordResetProbationDays)
@@ -2648,7 +2648,7 @@ export const CMsgTradingInitiateTradeResponse = {
     const obj: any = {};
     message.response !== undefined && (obj.response = Math.round(message.response));
     message.tradeRequestId !== undefined && (obj.tradeRequestId = Math.round(message.tradeRequestId));
-    message.otherSteamid !== undefined && (obj.otherSteamid = Math.round(message.otherSteamid));
+    message.otherSteamid !== undefined && (obj.otherSteamid = message.otherSteamid);
     message.steamguardRequiredDays !== undefined &&
       (obj.steamguardRequiredDays = Math.round(message.steamguardRequiredDays));
     message.newDeviceCooldownDays !== undefined &&
@@ -2676,7 +2676,7 @@ export const CMsgTradingInitiateTradeResponse = {
     const message = createBaseCMsgTradingInitiateTradeResponse();
     message.response = object.response ?? 0;
     message.tradeRequestId = object.tradeRequestId ?? 0;
-    message.otherSteamid = object.otherSteamid ?? 0;
+    message.otherSteamid = object.otherSteamid ?? "0";
     message.steamguardRequiredDays = object.steamguardRequiredDays ?? 0;
     message.newDeviceCooldownDays = object.newDeviceCooldownDays ?? 0;
     message.defaultPasswordResetProbationDays = object.defaultPasswordResetProbationDays ?? 0;
@@ -2688,12 +2688,12 @@ export const CMsgTradingInitiateTradeResponse = {
 };
 
 function createBaseCMsgTradingCancelTradeRequest(): CMsgTradingCancelTradeRequest {
-  return { otherSteamid: 0 };
+  return { otherSteamid: "0" };
 }
 
 export const CMsgTradingCancelTradeRequest = {
   encode(message: CMsgTradingCancelTradeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.otherSteamid !== 0) {
+    if (message.otherSteamid !== "0") {
       writer.uint32(8).uint64(message.otherSteamid);
     }
     return writer;
@@ -2707,7 +2707,7 @@ export const CMsgTradingCancelTradeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.otherSteamid = longToNumber(reader.uint64() as Long);
+          message.otherSteamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2718,12 +2718,12 @@ export const CMsgTradingCancelTradeRequest = {
   },
 
   fromJSON(object: any): CMsgTradingCancelTradeRequest {
-    return { otherSteamid: isSet(object.otherSteamid) ? Number(object.otherSteamid) : 0 };
+    return { otherSteamid: isSet(object.otherSteamid) ? String(object.otherSteamid) : "0" };
   },
 
   toJSON(message: CMsgTradingCancelTradeRequest): unknown {
     const obj: any = {};
-    message.otherSteamid !== undefined && (obj.otherSteamid = Math.round(message.otherSteamid));
+    message.otherSteamid !== undefined && (obj.otherSteamid = message.otherSteamid);
     return obj;
   },
 
@@ -2735,18 +2735,18 @@ export const CMsgTradingCancelTradeRequest = {
     object: I,
   ): CMsgTradingCancelTradeRequest {
     const message = createBaseCMsgTradingCancelTradeRequest();
-    message.otherSteamid = object.otherSteamid ?? 0;
+    message.otherSteamid = object.otherSteamid ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgTradingStartSession(): CMsgTradingStartSession {
-  return { otherSteamid: 0 };
+  return { otherSteamid: "0" };
 }
 
 export const CMsgTradingStartSession = {
   encode(message: CMsgTradingStartSession, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.otherSteamid !== 0) {
+    if (message.otherSteamid !== "0") {
       writer.uint32(8).uint64(message.otherSteamid);
     }
     return writer;
@@ -2760,7 +2760,7 @@ export const CMsgTradingStartSession = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.otherSteamid = longToNumber(reader.uint64() as Long);
+          message.otherSteamid = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -2771,12 +2771,12 @@ export const CMsgTradingStartSession = {
   },
 
   fromJSON(object: any): CMsgTradingStartSession {
-    return { otherSteamid: isSet(object.otherSteamid) ? Number(object.otherSteamid) : 0 };
+    return { otherSteamid: isSet(object.otherSteamid) ? String(object.otherSteamid) : "0" };
   },
 
   toJSON(message: CMsgTradingStartSession): unknown {
     const obj: any = {};
-    message.otherSteamid !== undefined && (obj.otherSteamid = Math.round(message.otherSteamid));
+    message.otherSteamid !== undefined && (obj.otherSteamid = message.otherSteamid);
     return obj;
   },
 
@@ -2786,7 +2786,7 @@ export const CMsgTradingStartSession = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgTradingStartSession>, I>>(object: I): CMsgTradingStartSession {
     const message = createBaseCMsgTradingStartSession();
-    message.otherSteamid = object.otherSteamid ?? 0;
+    message.otherSteamid = object.otherSteamid ?? "0";
     return message;
   },
 };
@@ -3400,9 +3400,9 @@ function createBaseCMsgDownloadRateStatistics_StatsInfo(): CMsgDownloadRateStati
     sourceType: 0,
     sourceId: 0,
     seconds: 0,
-    bytes: 0,
+    bytes: "0",
     hostName: "",
-    microseconds: 0,
+    microseconds: "0",
     usedIpv6: false,
     proxied: false,
   };
@@ -3419,13 +3419,13 @@ export const CMsgDownloadRateStatistics_StatsInfo = {
     if (message.seconds !== 0) {
       writer.uint32(24).uint32(message.seconds);
     }
-    if (message.bytes !== 0) {
+    if (message.bytes !== "0") {
       writer.uint32(32).uint64(message.bytes);
     }
     if (message.hostName !== "") {
       writer.uint32(42).string(message.hostName);
     }
-    if (message.microseconds !== 0) {
+    if (message.microseconds !== "0") {
       writer.uint32(48).uint64(message.microseconds);
     }
     if (message.usedIpv6 === true) {
@@ -3454,13 +3454,13 @@ export const CMsgDownloadRateStatistics_StatsInfo = {
           message.seconds = reader.uint32();
           break;
         case 4:
-          message.bytes = longToNumber(reader.uint64() as Long);
+          message.bytes = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.hostName = reader.string();
           break;
         case 6:
-          message.microseconds = longToNumber(reader.uint64() as Long);
+          message.microseconds = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.usedIpv6 = reader.bool();
@@ -3481,9 +3481,9 @@ export const CMsgDownloadRateStatistics_StatsInfo = {
       sourceType: isSet(object.sourceType) ? Number(object.sourceType) : 0,
       sourceId: isSet(object.sourceId) ? Number(object.sourceId) : 0,
       seconds: isSet(object.seconds) ? Number(object.seconds) : 0,
-      bytes: isSet(object.bytes) ? Number(object.bytes) : 0,
+      bytes: isSet(object.bytes) ? String(object.bytes) : "0",
       hostName: isSet(object.hostName) ? String(object.hostName) : "",
-      microseconds: isSet(object.microseconds) ? Number(object.microseconds) : 0,
+      microseconds: isSet(object.microseconds) ? String(object.microseconds) : "0",
       usedIpv6: isSet(object.usedIpv6) ? Boolean(object.usedIpv6) : false,
       proxied: isSet(object.proxied) ? Boolean(object.proxied) : false,
     };
@@ -3494,9 +3494,9 @@ export const CMsgDownloadRateStatistics_StatsInfo = {
     message.sourceType !== undefined && (obj.sourceType = Math.round(message.sourceType));
     message.sourceId !== undefined && (obj.sourceId = Math.round(message.sourceId));
     message.seconds !== undefined && (obj.seconds = Math.round(message.seconds));
-    message.bytes !== undefined && (obj.bytes = Math.round(message.bytes));
+    message.bytes !== undefined && (obj.bytes = message.bytes);
     message.hostName !== undefined && (obj.hostName = message.hostName);
-    message.microseconds !== undefined && (obj.microseconds = Math.round(message.microseconds));
+    message.microseconds !== undefined && (obj.microseconds = message.microseconds);
     message.usedIpv6 !== undefined && (obj.usedIpv6 = message.usedIpv6);
     message.proxied !== undefined && (obj.proxied = message.proxied);
     return obj;
@@ -3515,9 +3515,9 @@ export const CMsgDownloadRateStatistics_StatsInfo = {
     message.sourceType = object.sourceType ?? 0;
     message.sourceId = object.sourceId ?? 0;
     message.seconds = object.seconds ?? 0;
-    message.bytes = object.bytes ?? 0;
+    message.bytes = object.bytes ?? "0";
     message.hostName = object.hostName ?? "";
-    message.microseconds = object.microseconds ?? 0;
+    message.microseconds = object.microseconds ?? "0";
     message.usedIpv6 = object.usedIpv6 ?? false;
     message.proxied = object.proxied ?? false;
     return message;
@@ -3706,12 +3706,12 @@ export const CMsgClientRequestAccountDataResponse = {
 };
 
 function createBaseCMsgClientUGSGetGlobalStats(): CMsgClientUGSGetGlobalStats {
-  return { gameid: 0, historyDaysRequested: 0, timeLastRequested: 0, firstDayCached: 0, daysCached: 0 };
+  return { gameid: "0", historyDaysRequested: 0, timeLastRequested: 0, firstDayCached: 0, daysCached: 0 };
 }
 
 export const CMsgClientUGSGetGlobalStats = {
   encode(message: CMsgClientUGSGetGlobalStats, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.gameid !== 0) {
+    if (message.gameid !== "0") {
       writer.uint32(8).uint64(message.gameid);
     }
     if (message.historyDaysRequested !== 0) {
@@ -3737,7 +3737,7 @@ export const CMsgClientUGSGetGlobalStats = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.gameid = longToNumber(reader.uint64() as Long);
+          message.gameid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.historyDaysRequested = reader.uint32();
@@ -3761,7 +3761,7 @@ export const CMsgClientUGSGetGlobalStats = {
 
   fromJSON(object: any): CMsgClientUGSGetGlobalStats {
     return {
-      gameid: isSet(object.gameid) ? Number(object.gameid) : 0,
+      gameid: isSet(object.gameid) ? String(object.gameid) : "0",
       historyDaysRequested: isSet(object.historyDaysRequested) ? Number(object.historyDaysRequested) : 0,
       timeLastRequested: isSet(object.timeLastRequested) ? Number(object.timeLastRequested) : 0,
       firstDayCached: isSet(object.firstDayCached) ? Number(object.firstDayCached) : 0,
@@ -3771,7 +3771,7 @@ export const CMsgClientUGSGetGlobalStats = {
 
   toJSON(message: CMsgClientUGSGetGlobalStats): unknown {
     const obj: any = {};
-    message.gameid !== undefined && (obj.gameid = Math.round(message.gameid));
+    message.gameid !== undefined && (obj.gameid = message.gameid);
     message.historyDaysRequested !== undefined && (obj.historyDaysRequested = Math.round(message.historyDaysRequested));
     message.timeLastRequested !== undefined && (obj.timeLastRequested = Math.round(message.timeLastRequested));
     message.firstDayCached !== undefined && (obj.firstDayCached = Math.round(message.firstDayCached));
@@ -3785,7 +3785,7 @@ export const CMsgClientUGSGetGlobalStats = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientUGSGetGlobalStats>, I>>(object: I): CMsgClientUGSGetGlobalStats {
     const message = createBaseCMsgClientUGSGetGlobalStats();
-    message.gameid = object.gameid ?? 0;
+    message.gameid = object.gameid ?? "0";
     message.historyDaysRequested = object.historyDaysRequested ?? 0;
     message.timeLastRequested = object.timeLastRequested ?? 0;
     message.firstDayCached = object.firstDayCached ?? 0;
@@ -3957,7 +3957,7 @@ export const CMsgClientUGSGetGlobalStatsResponse_Day = {
 };
 
 function createBaseCMsgClientUGSGetGlobalStatsResponse_Day_Stat(): CMsgClientUGSGetGlobalStatsResponse_Day_Stat {
-  return { statId: 0, data: 0 };
+  return { statId: 0, data: "0" };
 }
 
 export const CMsgClientUGSGetGlobalStatsResponse_Day_Stat = {
@@ -3965,7 +3965,7 @@ export const CMsgClientUGSGetGlobalStatsResponse_Day_Stat = {
     if (message.statId !== 0) {
       writer.uint32(8).int32(message.statId);
     }
-    if (message.data !== 0) {
+    if (message.data !== "0") {
       writer.uint32(16).int64(message.data);
     }
     return writer;
@@ -3982,7 +3982,7 @@ export const CMsgClientUGSGetGlobalStatsResponse_Day_Stat = {
           message.statId = reader.int32();
           break;
         case 2:
-          message.data = longToNumber(reader.int64() as Long);
+          message.data = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -3995,14 +3995,14 @@ export const CMsgClientUGSGetGlobalStatsResponse_Day_Stat = {
   fromJSON(object: any): CMsgClientUGSGetGlobalStatsResponse_Day_Stat {
     return {
       statId: isSet(object.statId) ? Number(object.statId) : 0,
-      data: isSet(object.data) ? Number(object.data) : 0,
+      data: isSet(object.data) ? String(object.data) : "0",
     };
   },
 
   toJSON(message: CMsgClientUGSGetGlobalStatsResponse_Day_Stat): unknown {
     const obj: any = {};
     message.statId !== undefined && (obj.statId = Math.round(message.statId));
-    message.data !== undefined && (obj.data = Math.round(message.data));
+    message.data !== undefined && (obj.data = message.data);
     return obj;
   },
 
@@ -4017,18 +4017,18 @@ export const CMsgClientUGSGetGlobalStatsResponse_Day_Stat = {
   ): CMsgClientUGSGetGlobalStatsResponse_Day_Stat {
     const message = createBaseCMsgClientUGSGetGlobalStatsResponse_Day_Stat();
     message.statId = object.statId ?? 0;
-    message.data = object.data ?? 0;
+    message.data = object.data ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientRedeemGuestPass(): CMsgClientRedeemGuestPass {
-  return { guestPassId: 0 };
+  return { guestPassId: "0" };
 }
 
 export const CMsgClientRedeemGuestPass = {
   encode(message: CMsgClientRedeemGuestPass, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.guestPassId !== 0) {
+    if (message.guestPassId !== "0") {
       writer.uint32(9).fixed64(message.guestPassId);
     }
     return writer;
@@ -4042,7 +4042,7 @@ export const CMsgClientRedeemGuestPass = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.guestPassId = longToNumber(reader.fixed64() as Long);
+          message.guestPassId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4053,12 +4053,12 @@ export const CMsgClientRedeemGuestPass = {
   },
 
   fromJSON(object: any): CMsgClientRedeemGuestPass {
-    return { guestPassId: isSet(object.guestPassId) ? Number(object.guestPassId) : 0 };
+    return { guestPassId: isSet(object.guestPassId) ? String(object.guestPassId) : "0" };
   },
 
   toJSON(message: CMsgClientRedeemGuestPass): unknown {
     const obj: any = {};
-    message.guestPassId !== undefined && (obj.guestPassId = Math.round(message.guestPassId));
+    message.guestPassId !== undefined && (obj.guestPassId = message.guestPassId);
     return obj;
   },
 
@@ -4068,7 +4068,7 @@ export const CMsgClientRedeemGuestPass = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientRedeemGuestPass>, I>>(object: I): CMsgClientRedeemGuestPass {
     const message = createBaseCMsgClientRedeemGuestPass();
-    message.guestPassId = object.guestPassId ?? 0;
+    message.guestPassId = object.guestPassId ?? "0";
     return message;
   },
 };
@@ -4173,10 +4173,10 @@ export const CMsgClientGetClanActivityCounts = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamidClans.push(longToNumber(reader.uint64() as Long));
+              message.steamidClans.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.steamidClans.push(longToNumber(reader.uint64() as Long));
+            message.steamidClans.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -4188,13 +4188,13 @@ export const CMsgClientGetClanActivityCounts = {
   },
 
   fromJSON(object: any): CMsgClientGetClanActivityCounts {
-    return { steamidClans: Array.isArray(object?.steamidClans) ? object.steamidClans.map((e: any) => Number(e)) : [] };
+    return { steamidClans: Array.isArray(object?.steamidClans) ? object.steamidClans.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: CMsgClientGetClanActivityCounts): unknown {
     const obj: any = {};
     if (message.steamidClans) {
-      obj.steamidClans = message.steamidClans.map((e) => Math.round(e));
+      obj.steamidClans = message.steamidClans.map((e) => e);
     } else {
       obj.steamidClans = [];
     }
@@ -4270,7 +4270,7 @@ export const CMsgClientGetClanActivityCountsResponse = {
 };
 
 function createBaseCMsgClientOGSReportString(): CMsgClientOGSReportString {
-  return { accumulated: false, sessionid: 0, severity: 0, formatter: "", varargs: Buffer.alloc(0) };
+  return { accumulated: false, sessionid: "0", severity: 0, formatter: "", varargs: Buffer.alloc(0) };
 }
 
 export const CMsgClientOGSReportString = {
@@ -4278,7 +4278,7 @@ export const CMsgClientOGSReportString = {
     if (message.accumulated === true) {
       writer.uint32(8).bool(message.accumulated);
     }
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(16).uint64(message.sessionid);
     }
     if (message.severity !== 0) {
@@ -4304,7 +4304,7 @@ export const CMsgClientOGSReportString = {
           message.accumulated = reader.bool();
           break;
         case 2:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.severity = reader.int32();
@@ -4326,7 +4326,7 @@ export const CMsgClientOGSReportString = {
   fromJSON(object: any): CMsgClientOGSReportString {
     return {
       accumulated: isSet(object.accumulated) ? Boolean(object.accumulated) : false,
-      sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0,
+      sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0",
       severity: isSet(object.severity) ? Number(object.severity) : 0,
       formatter: isSet(object.formatter) ? String(object.formatter) : "",
       varargs: isSet(object.varargs) ? Buffer.from(bytesFromBase64(object.varargs)) : Buffer.alloc(0),
@@ -4336,7 +4336,7 @@ export const CMsgClientOGSReportString = {
   toJSON(message: CMsgClientOGSReportString): unknown {
     const obj: any = {};
     message.accumulated !== undefined && (obj.accumulated = message.accumulated);
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     message.severity !== undefined && (obj.severity = Math.round(message.severity));
     message.formatter !== undefined && (obj.formatter = message.formatter);
     message.varargs !== undefined &&
@@ -4351,7 +4351,7 @@ export const CMsgClientOGSReportString = {
   fromPartial<I extends Exact<DeepPartial<CMsgClientOGSReportString>, I>>(object: I): CMsgClientOGSReportString {
     const message = createBaseCMsgClientOGSReportString();
     message.accumulated = object.accumulated ?? false;
-    message.sessionid = object.sessionid ?? 0;
+    message.sessionid = object.sessionid ?? "0";
     message.severity = object.severity ?? 0;
     message.formatter = object.formatter ?? "";
     message.varargs = object.varargs ?? Buffer.alloc(0);
@@ -4360,12 +4360,12 @@ export const CMsgClientOGSReportString = {
 };
 
 function createBaseCMsgClientOGSReportBug(): CMsgClientOGSReportBug {
-  return { sessionid: 0, bugtext: "", screenshot: Buffer.alloc(0) };
+  return { sessionid: "0", bugtext: "", screenshot: Buffer.alloc(0) };
 }
 
 export const CMsgClientOGSReportBug = {
   encode(message: CMsgClientOGSReportBug, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.sessionid !== 0) {
+    if (message.sessionid !== "0") {
       writer.uint32(8).uint64(message.sessionid);
     }
     if (message.bugtext !== "") {
@@ -4385,7 +4385,7 @@ export const CMsgClientOGSReportBug = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sessionid = longToNumber(reader.uint64() as Long);
+          message.sessionid = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.bugtext = reader.string();
@@ -4403,7 +4403,7 @@ export const CMsgClientOGSReportBug = {
 
   fromJSON(object: any): CMsgClientOGSReportBug {
     return {
-      sessionid: isSet(object.sessionid) ? Number(object.sessionid) : 0,
+      sessionid: isSet(object.sessionid) ? String(object.sessionid) : "0",
       bugtext: isSet(object.bugtext) ? String(object.bugtext) : "",
       screenshot: isSet(object.screenshot) ? Buffer.from(bytesFromBase64(object.screenshot)) : Buffer.alloc(0),
     };
@@ -4411,7 +4411,7 @@ export const CMsgClientOGSReportBug = {
 
   toJSON(message: CMsgClientOGSReportBug): unknown {
     const obj: any = {};
-    message.sessionid !== undefined && (obj.sessionid = Math.round(message.sessionid));
+    message.sessionid !== undefined && (obj.sessionid = message.sessionid);
     message.bugtext !== undefined && (obj.bugtext = message.bugtext);
     message.screenshot !== undefined &&
       (obj.screenshot = base64FromBytes(message.screenshot !== undefined ? message.screenshot : Buffer.alloc(0)));
@@ -4424,7 +4424,7 @@ export const CMsgClientOGSReportBug = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientOGSReportBug>, I>>(object: I): CMsgClientOGSReportBug {
     const message = createBaseCMsgClientOGSReportBug();
-    message.sessionid = object.sessionid ?? 0;
+    message.sessionid = object.sessionid ?? "0";
     message.bugtext = object.bugtext ?? "";
     message.screenshot = object.screenshot ?? Buffer.alloc(0);
     return message;
@@ -4475,7 +4475,7 @@ export const CMsgClientSentLogs = {
 };
 
 function createBaseCMsgGCClient(): CMsgGCClient {
-  return { appid: 0, msgtype: 0, payload: Buffer.alloc(0), steamid: 0, gcname: "", ip: 0 };
+  return { appid: 0, msgtype: 0, payload: Buffer.alloc(0), steamid: "0", gcname: "", ip: 0 };
 }
 
 export const CMsgGCClient = {
@@ -4489,7 +4489,7 @@ export const CMsgGCClient = {
     if (message.payload.length !== 0) {
       writer.uint32(26).bytes(message.payload);
     }
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(33).fixed64(message.steamid);
     }
     if (message.gcname !== "") {
@@ -4518,7 +4518,7 @@ export const CMsgGCClient = {
           message.payload = reader.bytes() as Buffer;
           break;
         case 4:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 5:
           message.gcname = reader.string();
@@ -4539,7 +4539,7 @@ export const CMsgGCClient = {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       msgtype: isSet(object.msgtype) ? Number(object.msgtype) : 0,
       payload: isSet(object.payload) ? Buffer.from(bytesFromBase64(object.payload)) : Buffer.alloc(0),
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       gcname: isSet(object.gcname) ? String(object.gcname) : "",
       ip: isSet(object.ip) ? Number(object.ip) : 0,
     };
@@ -4551,7 +4551,7 @@ export const CMsgGCClient = {
     message.msgtype !== undefined && (obj.msgtype = Math.round(message.msgtype));
     message.payload !== undefined &&
       (obj.payload = base64FromBytes(message.payload !== undefined ? message.payload : Buffer.alloc(0)));
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.gcname !== undefined && (obj.gcname = message.gcname);
     message.ip !== undefined && (obj.ip = Math.round(message.ip));
     return obj;
@@ -4566,7 +4566,7 @@ export const CMsgGCClient = {
     message.appid = object.appid ?? 0;
     message.msgtype = object.msgtype ?? 0;
     message.payload = object.payload ?? Buffer.alloc(0);
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.gcname = object.gcname ?? "";
     message.ip = object.ip ?? 0;
     return message;
@@ -5621,7 +5621,7 @@ export const CMsgClientItemAnnouncements = {
 };
 
 function createBaseCMsgClientItemAnnouncements_UnseenItem(): CMsgClientItemAnnouncements_UnseenItem {
-  return { appid: 0, contextId: 0, assetId: 0, amount: 0, rtime32Gained: 0, sourceAppid: 0 };
+  return { appid: 0, contextId: "0", assetId: "0", amount: "0", rtime32Gained: 0, sourceAppid: 0 };
 }
 
 export const CMsgClientItemAnnouncements_UnseenItem = {
@@ -5629,13 +5629,13 @@ export const CMsgClientItemAnnouncements_UnseenItem = {
     if (message.appid !== 0) {
       writer.uint32(8).uint32(message.appid);
     }
-    if (message.contextId !== 0) {
+    if (message.contextId !== "0") {
       writer.uint32(16).uint64(message.contextId);
     }
-    if (message.assetId !== 0) {
+    if (message.assetId !== "0") {
       writer.uint32(24).uint64(message.assetId);
     }
-    if (message.amount !== 0) {
+    if (message.amount !== "0") {
       writer.uint32(32).uint64(message.amount);
     }
     if (message.rtime32Gained !== 0) {
@@ -5658,13 +5658,13 @@ export const CMsgClientItemAnnouncements_UnseenItem = {
           message.appid = reader.uint32();
           break;
         case 2:
-          message.contextId = longToNumber(reader.uint64() as Long);
+          message.contextId = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.assetId = longToNumber(reader.uint64() as Long);
+          message.assetId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.amount = longToNumber(reader.uint64() as Long);
+          message.amount = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.rtime32Gained = reader.fixed32();
@@ -5683,9 +5683,9 @@ export const CMsgClientItemAnnouncements_UnseenItem = {
   fromJSON(object: any): CMsgClientItemAnnouncements_UnseenItem {
     return {
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      contextId: isSet(object.contextId) ? Number(object.contextId) : 0,
-      assetId: isSet(object.assetId) ? Number(object.assetId) : 0,
-      amount: isSet(object.amount) ? Number(object.amount) : 0,
+      contextId: isSet(object.contextId) ? String(object.contextId) : "0",
+      assetId: isSet(object.assetId) ? String(object.assetId) : "0",
+      amount: isSet(object.amount) ? String(object.amount) : "0",
       rtime32Gained: isSet(object.rtime32Gained) ? Number(object.rtime32Gained) : 0,
       sourceAppid: isSet(object.sourceAppid) ? Number(object.sourceAppid) : 0,
     };
@@ -5694,9 +5694,9 @@ export const CMsgClientItemAnnouncements_UnseenItem = {
   toJSON(message: CMsgClientItemAnnouncements_UnseenItem): unknown {
     const obj: any = {};
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.contextId !== undefined && (obj.contextId = Math.round(message.contextId));
-    message.assetId !== undefined && (obj.assetId = Math.round(message.assetId));
-    message.amount !== undefined && (obj.amount = Math.round(message.amount));
+    message.contextId !== undefined && (obj.contextId = message.contextId);
+    message.assetId !== undefined && (obj.assetId = message.assetId);
+    message.amount !== undefined && (obj.amount = message.amount);
     message.rtime32Gained !== undefined && (obj.rtime32Gained = Math.round(message.rtime32Gained));
     message.sourceAppid !== undefined && (obj.sourceAppid = Math.round(message.sourceAppid));
     return obj;
@@ -5713,9 +5713,9 @@ export const CMsgClientItemAnnouncements_UnseenItem = {
   ): CMsgClientItemAnnouncements_UnseenItem {
     const message = createBaseCMsgClientItemAnnouncements_UnseenItem();
     message.appid = object.appid ?? 0;
-    message.contextId = object.contextId ?? 0;
-    message.assetId = object.assetId ?? 0;
-    message.amount = object.amount ?? 0;
+    message.contextId = object.contextId ?? "0";
+    message.assetId = object.assetId ?? "0";
+    message.amount = object.amount ?? "0";
     message.rtime32Gained = object.rtime32Gained ?? 0;
     message.sourceAppid = object.sourceAppid ?? 0;
     return message;
@@ -6150,12 +6150,12 @@ export const CMsgClientRequestOfflineMessageCount = {
 };
 
 function createBaseCMsgClientChatGetFriendMessageHistory(): CMsgClientChatGetFriendMessageHistory {
-  return { steamid: 0 };
+  return { steamid: "0" };
 }
 
 export const CMsgClientChatGetFriendMessageHistory = {
   encode(message: CMsgClientChatGetFriendMessageHistory, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     return writer;
@@ -6169,7 +6169,7 @@ export const CMsgClientChatGetFriendMessageHistory = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6180,12 +6180,12 @@ export const CMsgClientChatGetFriendMessageHistory = {
   },
 
   fromJSON(object: any): CMsgClientChatGetFriendMessageHistory {
-    return { steamid: isSet(object.steamid) ? Number(object.steamid) : 0 };
+    return { steamid: isSet(object.steamid) ? String(object.steamid) : "0" };
   },
 
   toJSON(message: CMsgClientChatGetFriendMessageHistory): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     return obj;
   },
 
@@ -6199,18 +6199,18 @@ export const CMsgClientChatGetFriendMessageHistory = {
     object: I,
   ): CMsgClientChatGetFriendMessageHistory {
     const message = createBaseCMsgClientChatGetFriendMessageHistory();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientChatGetFriendMessageHistoryResponse(): CMsgClientChatGetFriendMessageHistoryResponse {
-  return { steamid: 0, success: 0, messages: [] };
+  return { steamid: "0", success: 0, messages: [] };
 }
 
 export const CMsgClientChatGetFriendMessageHistoryResponse = {
   encode(message: CMsgClientChatGetFriendMessageHistoryResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.success !== 0) {
@@ -6230,7 +6230,7 @@ export const CMsgClientChatGetFriendMessageHistoryResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.success = reader.uint32();
@@ -6250,7 +6250,7 @@ export const CMsgClientChatGetFriendMessageHistoryResponse = {
 
   fromJSON(object: any): CMsgClientChatGetFriendMessageHistoryResponse {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       success: isSet(object.success) ? Number(object.success) : 0,
       messages: Array.isArray(object?.messages)
         ? object.messages.map((e: any) => CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage.fromJSON(e))
@@ -6260,7 +6260,7 @@ export const CMsgClientChatGetFriendMessageHistoryResponse = {
 
   toJSON(message: CMsgClientChatGetFriendMessageHistoryResponse): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.success !== undefined && (obj.success = Math.round(message.success));
     if (message.messages) {
       obj.messages = message.messages.map((e) =>
@@ -6282,7 +6282,7 @@ export const CMsgClientChatGetFriendMessageHistoryResponse = {
     object: I,
   ): CMsgClientChatGetFriendMessageHistoryResponse {
     const message = createBaseCMsgClientChatGetFriendMessageHistoryResponse();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.success = object.success ?? 0;
     message.messages =
       object.messages?.map((e) => CMsgClientChatGetFriendMessageHistoryResponse_FriendMessage.fromPartial(e)) || [];
@@ -6793,12 +6793,12 @@ export const CMsgCREItemVoteSummary = {
 };
 
 function createBaseCMsgCREItemVoteSummary_PublishedFileId(): CMsgCREItemVoteSummary_PublishedFileId {
-  return { publishedFileId: 0 };
+  return { publishedFileId: "0" };
 }
 
 export const CMsgCREItemVoteSummary_PublishedFileId = {
   encode(message: CMsgCREItemVoteSummary_PublishedFileId, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     return writer;
@@ -6812,7 +6812,7 @@ export const CMsgCREItemVoteSummary_PublishedFileId = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6823,12 +6823,12 @@ export const CMsgCREItemVoteSummary_PublishedFileId = {
   },
 
   fromJSON(object: any): CMsgCREItemVoteSummary_PublishedFileId {
-    return { publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0 };
+    return { publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0" };
   },
 
   toJSON(message: CMsgCREItemVoteSummary_PublishedFileId): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     return obj;
   },
 
@@ -6842,7 +6842,7 @@ export const CMsgCREItemVoteSummary_PublishedFileId = {
     object: I,
   ): CMsgCREItemVoteSummary_PublishedFileId {
     const message = createBaseCMsgCREItemVoteSummary_PublishedFileId();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     return message;
   },
 };
@@ -6923,7 +6923,7 @@ export const CMsgCREItemVoteSummaryResponse = {
 };
 
 function createBaseCMsgCREItemVoteSummaryResponse_ItemVoteSummary(): CMsgCREItemVoteSummaryResponse_ItemVoteSummary {
-  return { publishedFileId: 0, votesFor: 0, votesAgainst: 0, reports: 0, score: 0 };
+  return { publishedFileId: "0", votesFor: 0, votesAgainst: 0, reports: 0, score: 0 };
 }
 
 export const CMsgCREItemVoteSummaryResponse_ItemVoteSummary = {
@@ -6931,7 +6931,7 @@ export const CMsgCREItemVoteSummaryResponse_ItemVoteSummary = {
     message: CMsgCREItemVoteSummaryResponse_ItemVoteSummary,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.votesFor !== 0) {
@@ -6957,7 +6957,7 @@ export const CMsgCREItemVoteSummaryResponse_ItemVoteSummary = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.votesFor = reader.int32();
@@ -6981,7 +6981,7 @@ export const CMsgCREItemVoteSummaryResponse_ItemVoteSummary = {
 
   fromJSON(object: any): CMsgCREItemVoteSummaryResponse_ItemVoteSummary {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       votesFor: isSet(object.votesFor) ? Number(object.votesFor) : 0,
       votesAgainst: isSet(object.votesAgainst) ? Number(object.votesAgainst) : 0,
       reports: isSet(object.reports) ? Number(object.reports) : 0,
@@ -6991,7 +6991,7 @@ export const CMsgCREItemVoteSummaryResponse_ItemVoteSummary = {
 
   toJSON(message: CMsgCREItemVoteSummaryResponse_ItemVoteSummary): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.votesFor !== undefined && (obj.votesFor = Math.round(message.votesFor));
     message.votesAgainst !== undefined && (obj.votesAgainst = Math.round(message.votesAgainst));
     message.reports !== undefined && (obj.reports = Math.round(message.reports));
@@ -7009,7 +7009,7 @@ export const CMsgCREItemVoteSummaryResponse_ItemVoteSummary = {
     object: I,
   ): CMsgCREItemVoteSummaryResponse_ItemVoteSummary {
     const message = createBaseCMsgCREItemVoteSummaryResponse_ItemVoteSummary();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.votesFor = object.votesFor ?? 0;
     message.votesAgainst = object.votesAgainst ?? 0;
     message.reports = object.reports ?? 0;
@@ -7019,12 +7019,12 @@ export const CMsgCREItemVoteSummaryResponse_ItemVoteSummary = {
 };
 
 function createBaseCMsgCREUpdateUserPublishedItemVote(): CMsgCREUpdateUserPublishedItemVote {
-  return { publishedFileId: 0, voteUp: false };
+  return { publishedFileId: "0", voteUp: false };
 }
 
 export const CMsgCREUpdateUserPublishedItemVote = {
   encode(message: CMsgCREUpdateUserPublishedItemVote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.voteUp === true) {
@@ -7041,7 +7041,7 @@ export const CMsgCREUpdateUserPublishedItemVote = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.voteUp = reader.bool();
@@ -7056,14 +7056,14 @@ export const CMsgCREUpdateUserPublishedItemVote = {
 
   fromJSON(object: any): CMsgCREUpdateUserPublishedItemVote {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       voteUp: isSet(object.voteUp) ? Boolean(object.voteUp) : false,
     };
   },
 
   toJSON(message: CMsgCREUpdateUserPublishedItemVote): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.voteUp !== undefined && (obj.voteUp = message.voteUp);
     return obj;
   },
@@ -7078,7 +7078,7 @@ export const CMsgCREUpdateUserPublishedItemVote = {
     object: I,
   ): CMsgCREUpdateUserPublishedItemVote {
     const message = createBaseCMsgCREUpdateUserPublishedItemVote();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.voteUp = object.voteUp ?? false;
     return message;
   },
@@ -7208,7 +7208,7 @@ export const CMsgCREGetUserPublishedItemVoteDetails = {
 };
 
 function createBaseCMsgCREGetUserPublishedItemVoteDetails_PublishedFileId(): CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId {
-  return { publishedFileId: 0 };
+  return { publishedFileId: "0" };
 }
 
 export const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId = {
@@ -7216,7 +7216,7 @@ export const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId = {
     message: CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     return writer;
@@ -7230,7 +7230,7 @@ export const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7241,12 +7241,12 @@ export const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId = {
   },
 
   fromJSON(object: any): CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId {
-    return { publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0 };
+    return { publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0" };
   },
 
   toJSON(message: CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     return obj;
   },
 
@@ -7260,7 +7260,7 @@ export const CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId = {
     object: I,
   ): CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId {
     const message = createBaseCMsgCREGetUserPublishedItemVoteDetails_PublishedFileId();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     return message;
   },
 };
@@ -7350,7 +7350,7 @@ export const CMsgCREGetUserPublishedItemVoteDetailsResponse = {
 };
 
 function createBaseCMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail(): CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail {
-  return { publishedFileId: 0, vote: 0 };
+  return { publishedFileId: "0", vote: 0 };
 }
 
 export const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail = {
@@ -7358,7 +7358,7 @@ export const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail =
     message: CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.publishedFileId !== 0) {
+    if (message.publishedFileId !== "0") {
       writer.uint32(9).fixed64(message.publishedFileId);
     }
     if (message.vote !== 0) {
@@ -7378,7 +7378,7 @@ export const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail =
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.publishedFileId = longToNumber(reader.fixed64() as Long);
+          message.publishedFileId = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.vote = reader.int32();
@@ -7393,14 +7393,14 @@ export const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail =
 
   fromJSON(object: any): CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail {
     return {
-      publishedFileId: isSet(object.publishedFileId) ? Number(object.publishedFileId) : 0,
+      publishedFileId: isSet(object.publishedFileId) ? String(object.publishedFileId) : "0",
       vote: isSet(object.vote) ? Number(object.vote) : 0,
     };
   },
 
   toJSON(message: CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail): unknown {
     const obj: any = {};
-    message.publishedFileId !== undefined && (obj.publishedFileId = Math.round(message.publishedFileId));
+    message.publishedFileId !== undefined && (obj.publishedFileId = message.publishedFileId);
     message.vote !== undefined && (obj.vote = Math.round(message.vote));
     return obj;
   },
@@ -7415,19 +7415,19 @@ export const CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail =
     object: I,
   ): CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail {
     const message = createBaseCMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail();
-    message.publishedFileId = object.publishedFileId ?? 0;
+    message.publishedFileId = object.publishedFileId ?? "0";
     message.vote = object.vote ?? 0;
     return message;
   },
 };
 
 function createBaseCMsgFSGetFollowerCount(): CMsgFSGetFollowerCount {
-  return { steamId: 0 };
+  return { steamId: "0" };
 }
 
 export const CMsgFSGetFollowerCount = {
   encode(message: CMsgFSGetFollowerCount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     return writer;
@@ -7441,7 +7441,7 @@ export const CMsgFSGetFollowerCount = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7452,12 +7452,12 @@ export const CMsgFSGetFollowerCount = {
   },
 
   fromJSON(object: any): CMsgFSGetFollowerCount {
-    return { steamId: isSet(object.steamId) ? Number(object.steamId) : 0 };
+    return { steamId: isSet(object.steamId) ? String(object.steamId) : "0" };
   },
 
   toJSON(message: CMsgFSGetFollowerCount): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     return obj;
   },
 
@@ -7467,7 +7467,7 @@ export const CMsgFSGetFollowerCount = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgFSGetFollowerCount>, I>>(object: I): CMsgFSGetFollowerCount {
     const message = createBaseCMsgFSGetFollowerCount();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     return message;
   },
 };
@@ -7537,12 +7537,12 @@ export const CMsgFSGetFollowerCountResponse = {
 };
 
 function createBaseCMsgFSGetIsFollowing(): CMsgFSGetIsFollowing {
-  return { steamId: 0 };
+  return { steamId: "0" };
 }
 
 export const CMsgFSGetIsFollowing = {
   encode(message: CMsgFSGetIsFollowing, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamId !== 0) {
+    if (message.steamId !== "0") {
       writer.uint32(9).fixed64(message.steamId);
     }
     return writer;
@@ -7556,7 +7556,7 @@ export const CMsgFSGetIsFollowing = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamId = longToNumber(reader.fixed64() as Long);
+          message.steamId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7567,12 +7567,12 @@ export const CMsgFSGetIsFollowing = {
   },
 
   fromJSON(object: any): CMsgFSGetIsFollowing {
-    return { steamId: isSet(object.steamId) ? Number(object.steamId) : 0 };
+    return { steamId: isSet(object.steamId) ? String(object.steamId) : "0" };
   },
 
   toJSON(message: CMsgFSGetIsFollowing): unknown {
     const obj: any = {};
-    message.steamId !== undefined && (obj.steamId = Math.round(message.steamId));
+    message.steamId !== undefined && (obj.steamId = message.steamId);
     return obj;
   },
 
@@ -7582,7 +7582,7 @@ export const CMsgFSGetIsFollowing = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgFSGetIsFollowing>, I>>(object: I): CMsgFSGetIsFollowing {
     const message = createBaseCMsgFSGetIsFollowing();
-    message.steamId = object.steamId ?? 0;
+    message.steamId = object.steamId ?? "0";
     return message;
   },
 };
@@ -7737,10 +7737,10 @@ export const CMsgFSEnumerateFollowingListResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.steamIds.push(longToNumber(reader.fixed64() as Long));
+              message.steamIds.push(longToString(reader.fixed64() as Long));
             }
           } else {
-            message.steamIds.push(longToNumber(reader.fixed64() as Long));
+            message.steamIds.push(longToString(reader.fixed64() as Long));
           }
           break;
         default:
@@ -7755,7 +7755,7 @@ export const CMsgFSEnumerateFollowingListResponse = {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
       totalResults: isSet(object.totalResults) ? Number(object.totalResults) : 0,
-      steamIds: Array.isArray(object?.steamIds) ? object.steamIds.map((e: any) => Number(e)) : [],
+      steamIds: Array.isArray(object?.steamIds) ? object.steamIds.map((e: any) => String(e)) : [],
     };
   },
 
@@ -7764,7 +7764,7 @@ export const CMsgFSEnumerateFollowingListResponse = {
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     message.totalResults !== undefined && (obj.totalResults = Math.round(message.totalResults));
     if (message.steamIds) {
-      obj.steamIds = message.steamIds.map((e) => Math.round(e));
+      obj.steamIds = message.steamIds.map((e) => e);
     } else {
       obj.steamIds = [];
     }
@@ -7908,12 +7908,12 @@ export const CMsgDPGetNumberOfCurrentPlayersResponse = {
 };
 
 function createBaseCMsgClientFriendUserStatusPublished(): CMsgClientFriendUserStatusPublished {
-  return { friendSteamid: 0, appid: 0, statusText: "" };
+  return { friendSteamid: "0", appid: 0, statusText: "" };
 }
 
 export const CMsgClientFriendUserStatusPublished = {
   encode(message: CMsgClientFriendUserStatusPublished, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.friendSteamid !== 0) {
+    if (message.friendSteamid !== "0") {
       writer.uint32(9).fixed64(message.friendSteamid);
     }
     if (message.appid !== 0) {
@@ -7933,7 +7933,7 @@ export const CMsgClientFriendUserStatusPublished = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.friendSteamid = longToNumber(reader.fixed64() as Long);
+          message.friendSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
@@ -7951,7 +7951,7 @@ export const CMsgClientFriendUserStatusPublished = {
 
   fromJSON(object: any): CMsgClientFriendUserStatusPublished {
     return {
-      friendSteamid: isSet(object.friendSteamid) ? Number(object.friendSteamid) : 0,
+      friendSteamid: isSet(object.friendSteamid) ? String(object.friendSteamid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
       statusText: isSet(object.statusText) ? String(object.statusText) : "",
     };
@@ -7959,7 +7959,7 @@ export const CMsgClientFriendUserStatusPublished = {
 
   toJSON(message: CMsgClientFriendUserStatusPublished): unknown {
     const obj: any = {};
-    message.friendSteamid !== undefined && (obj.friendSteamid = Math.round(message.friendSteamid));
+    message.friendSteamid !== undefined && (obj.friendSteamid = message.friendSteamid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
     message.statusText !== undefined && (obj.statusText = message.statusText);
     return obj;
@@ -7975,7 +7975,7 @@ export const CMsgClientFriendUserStatusPublished = {
     object: I,
   ): CMsgClientFriendUserStatusPublished {
     const message = createBaseCMsgClientFriendUserStatusPublished();
-    message.friendSteamid = object.friendSteamid ?? 0;
+    message.friendSteamid = object.friendSteamid ?? "0";
     message.appid = object.appid ?? 0;
     message.statusText = object.statusText ?? "";
     return message;
@@ -8249,7 +8249,7 @@ export const CMsgClientVanityURLChangedNotification = {
 };
 
 function createBaseCMsgClientAuthorizeLocalDeviceRequest(): CMsgClientAuthorizeLocalDeviceRequest {
-  return { deviceDescription: "", ownerAccountId: 0, localDeviceToken: 0 };
+  return { deviceDescription: "", ownerAccountId: 0, localDeviceToken: "0" };
 }
 
 export const CMsgClientAuthorizeLocalDeviceRequest = {
@@ -8260,7 +8260,7 @@ export const CMsgClientAuthorizeLocalDeviceRequest = {
     if (message.ownerAccountId !== 0) {
       writer.uint32(16).uint32(message.ownerAccountId);
     }
-    if (message.localDeviceToken !== 0) {
+    if (message.localDeviceToken !== "0") {
       writer.uint32(24).uint64(message.localDeviceToken);
     }
     return writer;
@@ -8280,7 +8280,7 @@ export const CMsgClientAuthorizeLocalDeviceRequest = {
           message.ownerAccountId = reader.uint32();
           break;
         case 3:
-          message.localDeviceToken = longToNumber(reader.uint64() as Long);
+          message.localDeviceToken = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8294,7 +8294,7 @@ export const CMsgClientAuthorizeLocalDeviceRequest = {
     return {
       deviceDescription: isSet(object.deviceDescription) ? String(object.deviceDescription) : "",
       ownerAccountId: isSet(object.ownerAccountId) ? Number(object.ownerAccountId) : 0,
-      localDeviceToken: isSet(object.localDeviceToken) ? Number(object.localDeviceToken) : 0,
+      localDeviceToken: isSet(object.localDeviceToken) ? String(object.localDeviceToken) : "0",
     };
   },
 
@@ -8302,7 +8302,7 @@ export const CMsgClientAuthorizeLocalDeviceRequest = {
     const obj: any = {};
     message.deviceDescription !== undefined && (obj.deviceDescription = message.deviceDescription);
     message.ownerAccountId !== undefined && (obj.ownerAccountId = Math.round(message.ownerAccountId));
-    message.localDeviceToken !== undefined && (obj.localDeviceToken = Math.round(message.localDeviceToken));
+    message.localDeviceToken !== undefined && (obj.localDeviceToken = message.localDeviceToken);
     return obj;
   },
 
@@ -8318,13 +8318,13 @@ export const CMsgClientAuthorizeLocalDeviceRequest = {
     const message = createBaseCMsgClientAuthorizeLocalDeviceRequest();
     message.deviceDescription = object.deviceDescription ?? "";
     message.ownerAccountId = object.ownerAccountId ?? 0;
-    message.localDeviceToken = object.localDeviceToken ?? 0;
+    message.localDeviceToken = object.localDeviceToken ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientAuthorizeLocalDevice(): CMsgClientAuthorizeLocalDevice {
-  return { eresult: 0, ownerAccountId: 0, authedDeviceToken: 0 };
+  return { eresult: 0, ownerAccountId: 0, authedDeviceToken: "0" };
 }
 
 export const CMsgClientAuthorizeLocalDevice = {
@@ -8335,7 +8335,7 @@ export const CMsgClientAuthorizeLocalDevice = {
     if (message.ownerAccountId !== 0) {
       writer.uint32(16).uint32(message.ownerAccountId);
     }
-    if (message.authedDeviceToken !== 0) {
+    if (message.authedDeviceToken !== "0") {
       writer.uint32(24).uint64(message.authedDeviceToken);
     }
     return writer;
@@ -8355,7 +8355,7 @@ export const CMsgClientAuthorizeLocalDevice = {
           message.ownerAccountId = reader.uint32();
           break;
         case 3:
-          message.authedDeviceToken = longToNumber(reader.uint64() as Long);
+          message.authedDeviceToken = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8369,7 +8369,7 @@ export const CMsgClientAuthorizeLocalDevice = {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
       ownerAccountId: isSet(object.ownerAccountId) ? Number(object.ownerAccountId) : 0,
-      authedDeviceToken: isSet(object.authedDeviceToken) ? Number(object.authedDeviceToken) : 0,
+      authedDeviceToken: isSet(object.authedDeviceToken) ? String(object.authedDeviceToken) : "0",
     };
   },
 
@@ -8377,7 +8377,7 @@ export const CMsgClientAuthorizeLocalDevice = {
     const obj: any = {};
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     message.ownerAccountId !== undefined && (obj.ownerAccountId = Math.round(message.ownerAccountId));
-    message.authedDeviceToken !== undefined && (obj.authedDeviceToken = Math.round(message.authedDeviceToken));
+    message.authedDeviceToken !== undefined && (obj.authedDeviceToken = message.authedDeviceToken);
     return obj;
   },
 
@@ -8391,13 +8391,13 @@ export const CMsgClientAuthorizeLocalDevice = {
     const message = createBaseCMsgClientAuthorizeLocalDevice();
     message.eresult = object.eresult ?? 0;
     message.ownerAccountId = object.ownerAccountId ?? 0;
-    message.authedDeviceToken = object.authedDeviceToken ?? 0;
+    message.authedDeviceToken = object.authedDeviceToken ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientAuthorizeLocalDeviceNotification(): CMsgClientAuthorizeLocalDeviceNotification {
-  return { eresult: 0, ownerAccountId: 0, localDeviceToken: 0 };
+  return { eresult: 0, ownerAccountId: 0, localDeviceToken: "0" };
 }
 
 export const CMsgClientAuthorizeLocalDeviceNotification = {
@@ -8408,7 +8408,7 @@ export const CMsgClientAuthorizeLocalDeviceNotification = {
     if (message.ownerAccountId !== 0) {
       writer.uint32(16).uint32(message.ownerAccountId);
     }
-    if (message.localDeviceToken !== 0) {
+    if (message.localDeviceToken !== "0") {
       writer.uint32(24).uint64(message.localDeviceToken);
     }
     return writer;
@@ -8428,7 +8428,7 @@ export const CMsgClientAuthorizeLocalDeviceNotification = {
           message.ownerAccountId = reader.uint32();
           break;
         case 3:
-          message.localDeviceToken = longToNumber(reader.uint64() as Long);
+          message.localDeviceToken = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8442,7 +8442,7 @@ export const CMsgClientAuthorizeLocalDeviceNotification = {
     return {
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
       ownerAccountId: isSet(object.ownerAccountId) ? Number(object.ownerAccountId) : 0,
-      localDeviceToken: isSet(object.localDeviceToken) ? Number(object.localDeviceToken) : 0,
+      localDeviceToken: isSet(object.localDeviceToken) ? String(object.localDeviceToken) : "0",
     };
   },
 
@@ -8450,7 +8450,7 @@ export const CMsgClientAuthorizeLocalDeviceNotification = {
     const obj: any = {};
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     message.ownerAccountId !== undefined && (obj.ownerAccountId = Math.round(message.ownerAccountId));
-    message.localDeviceToken !== undefined && (obj.localDeviceToken = Math.round(message.localDeviceToken));
+    message.localDeviceToken !== undefined && (obj.localDeviceToken = message.localDeviceToken);
     return obj;
   },
 
@@ -8466,13 +8466,13 @@ export const CMsgClientAuthorizeLocalDeviceNotification = {
     const message = createBaseCMsgClientAuthorizeLocalDeviceNotification();
     message.eresult = object.eresult ?? 0;
     message.ownerAccountId = object.ownerAccountId ?? 0;
-    message.localDeviceToken = object.localDeviceToken ?? 0;
+    message.localDeviceToken = object.localDeviceToken ?? "0";
     return message;
   },
 };
 
 function createBaseCMsgClientDeauthorizeDeviceRequest(): CMsgClientDeauthorizeDeviceRequest {
-  return { deauthorizationAccountId: 0, deauthorizationDeviceToken: 0 };
+  return { deauthorizationAccountId: 0, deauthorizationDeviceToken: "0" };
 }
 
 export const CMsgClientDeauthorizeDeviceRequest = {
@@ -8480,7 +8480,7 @@ export const CMsgClientDeauthorizeDeviceRequest = {
     if (message.deauthorizationAccountId !== 0) {
       writer.uint32(8).uint32(message.deauthorizationAccountId);
     }
-    if (message.deauthorizationDeviceToken !== 0) {
+    if (message.deauthorizationDeviceToken !== "0") {
       writer.uint32(16).uint64(message.deauthorizationDeviceToken);
     }
     return writer;
@@ -8497,7 +8497,7 @@ export const CMsgClientDeauthorizeDeviceRequest = {
           message.deauthorizationAccountId = reader.uint32();
           break;
         case 2:
-          message.deauthorizationDeviceToken = longToNumber(reader.uint64() as Long);
+          message.deauthorizationDeviceToken = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8511,8 +8511,8 @@ export const CMsgClientDeauthorizeDeviceRequest = {
     return {
       deauthorizationAccountId: isSet(object.deauthorizationAccountId) ? Number(object.deauthorizationAccountId) : 0,
       deauthorizationDeviceToken: isSet(object.deauthorizationDeviceToken)
-        ? Number(object.deauthorizationDeviceToken)
-        : 0,
+        ? String(object.deauthorizationDeviceToken)
+        : "0",
     };
   },
 
@@ -8521,7 +8521,7 @@ export const CMsgClientDeauthorizeDeviceRequest = {
     message.deauthorizationAccountId !== undefined &&
       (obj.deauthorizationAccountId = Math.round(message.deauthorizationAccountId));
     message.deauthorizationDeviceToken !== undefined &&
-      (obj.deauthorizationDeviceToken = Math.round(message.deauthorizationDeviceToken));
+      (obj.deauthorizationDeviceToken = message.deauthorizationDeviceToken);
     return obj;
   },
 
@@ -8536,7 +8536,7 @@ export const CMsgClientDeauthorizeDeviceRequest = {
   ): CMsgClientDeauthorizeDeviceRequest {
     const message = createBaseCMsgClientDeauthorizeDeviceRequest();
     message.deauthorizationAccountId = object.deauthorizationAccountId ?? 0;
-    message.deauthorizationDeviceToken = object.deauthorizationDeviceToken ?? 0;
+    message.deauthorizationDeviceToken = object.deauthorizationDeviceToken ?? "0";
     return message;
   },
 };
@@ -8695,7 +8695,7 @@ export const CMsgClientUseLocalDeviceAuthorizations = {
 };
 
 function createBaseCMsgClientUseLocalDeviceAuthorizations_DeviceToken(): CMsgClientUseLocalDeviceAuthorizations_DeviceToken {
-  return { ownerAccountId: 0, tokenId: 0 };
+  return { ownerAccountId: 0, tokenId: "0" };
 }
 
 export const CMsgClientUseLocalDeviceAuthorizations_DeviceToken = {
@@ -8706,7 +8706,7 @@ export const CMsgClientUseLocalDeviceAuthorizations_DeviceToken = {
     if (message.ownerAccountId !== 0) {
       writer.uint32(8).uint32(message.ownerAccountId);
     }
-    if (message.tokenId !== 0) {
+    if (message.tokenId !== "0") {
       writer.uint32(16).uint64(message.tokenId);
     }
     return writer;
@@ -8723,7 +8723,7 @@ export const CMsgClientUseLocalDeviceAuthorizations_DeviceToken = {
           message.ownerAccountId = reader.uint32();
           break;
         case 2:
-          message.tokenId = longToNumber(reader.uint64() as Long);
+          message.tokenId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8736,14 +8736,14 @@ export const CMsgClientUseLocalDeviceAuthorizations_DeviceToken = {
   fromJSON(object: any): CMsgClientUseLocalDeviceAuthorizations_DeviceToken {
     return {
       ownerAccountId: isSet(object.ownerAccountId) ? Number(object.ownerAccountId) : 0,
-      tokenId: isSet(object.tokenId) ? Number(object.tokenId) : 0,
+      tokenId: isSet(object.tokenId) ? String(object.tokenId) : "0",
     };
   },
 
   toJSON(message: CMsgClientUseLocalDeviceAuthorizations_DeviceToken): unknown {
     const obj: any = {};
     message.ownerAccountId !== undefined && (obj.ownerAccountId = Math.round(message.ownerAccountId));
-    message.tokenId !== undefined && (obj.tokenId = Math.round(message.tokenId));
+    message.tokenId !== undefined && (obj.tokenId = message.tokenId);
     return obj;
   },
 
@@ -8758,7 +8758,7 @@ export const CMsgClientUseLocalDeviceAuthorizations_DeviceToken = {
   ): CMsgClientUseLocalDeviceAuthorizations_DeviceToken {
     const message = createBaseCMsgClientUseLocalDeviceAuthorizations_DeviceToken();
     message.ownerAccountId = object.ownerAccountId ?? 0;
-    message.tokenId = object.tokenId ?? 0;
+    message.tokenId = object.tokenId ?? "0";
     return message;
   },
 };
@@ -8884,7 +8884,7 @@ export const CMsgClientGetAuthorizedDevicesResponse = {
 };
 
 function createBaseCMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice(): CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice {
-  return { authDeviceToken: 0, deviceName: "", lastAccessTime: 0, borrowerId: 0, isPending: false, appPlayed: 0 };
+  return { authDeviceToken: "0", deviceName: "", lastAccessTime: 0, borrowerId: 0, isPending: false, appPlayed: 0 };
 }
 
 export const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice = {
@@ -8892,7 +8892,7 @@ export const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice = {
     message: CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.authDeviceToken !== 0) {
+    if (message.authDeviceToken !== "0") {
       writer.uint32(8).uint64(message.authDeviceToken);
     }
     if (message.deviceName !== "") {
@@ -8921,7 +8921,7 @@ export const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.authDeviceToken = longToNumber(reader.uint64() as Long);
+          message.authDeviceToken = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.deviceName = reader.string();
@@ -8948,7 +8948,7 @@ export const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice = {
 
   fromJSON(object: any): CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice {
     return {
-      authDeviceToken: isSet(object.authDeviceToken) ? Number(object.authDeviceToken) : 0,
+      authDeviceToken: isSet(object.authDeviceToken) ? String(object.authDeviceToken) : "0",
       deviceName: isSet(object.deviceName) ? String(object.deviceName) : "",
       lastAccessTime: isSet(object.lastAccessTime) ? Number(object.lastAccessTime) : 0,
       borrowerId: isSet(object.borrowerId) ? Number(object.borrowerId) : 0,
@@ -8959,7 +8959,7 @@ export const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice = {
 
   toJSON(message: CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice): unknown {
     const obj: any = {};
-    message.authDeviceToken !== undefined && (obj.authDeviceToken = Math.round(message.authDeviceToken));
+    message.authDeviceToken !== undefined && (obj.authDeviceToken = message.authDeviceToken);
     message.deviceName !== undefined && (obj.deviceName = message.deviceName);
     message.lastAccessTime !== undefined && (obj.lastAccessTime = Math.round(message.lastAccessTime));
     message.borrowerId !== undefined && (obj.borrowerId = Math.round(message.borrowerId));
@@ -8978,7 +8978,7 @@ export const CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice = {
     object: I,
   ): CMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice {
     const message = createBaseCMsgClientGetAuthorizedDevicesResponse_AuthorizedDevice();
-    message.authDeviceToken = object.authDeviceToken ?? 0;
+    message.authDeviceToken = object.authDeviceToken ?? "0";
     message.deviceName = object.deviceName ?? "";
     message.lastAccessTime = object.lastAccessTime ?? 0;
     message.borrowerId = object.borrowerId ?? 0;
@@ -9515,7 +9515,7 @@ function createBaseCMsgClientServiceCallResponse(): CMsgClientServiceCallRespons
     resultContent: Buffer.alloc(0),
     osVersionInfo: Buffer.alloc(0),
     systemInfo: Buffer.alloc(0),
-    loadAddress: 0,
+    loadAddress: "0",
     exceptionRecord: Buffer.alloc(0),
     portableOsVersionInfo: Buffer.alloc(0),
     portableSystemInfo: Buffer.alloc(0),
@@ -9557,7 +9557,7 @@ export const CMsgClientServiceCallResponse = {
     if (message.systemInfo.length !== 0) {
       writer.uint32(66).bytes(message.systemInfo);
     }
-    if (message.loadAddress !== 0) {
+    if (message.loadAddress !== "0") {
       writer.uint32(73).fixed64(message.loadAddress);
     }
     if (message.exceptionRecord.length !== 0) {
@@ -9631,7 +9631,7 @@ export const CMsgClientServiceCallResponse = {
           message.systemInfo = reader.bytes() as Buffer;
           break;
         case 9:
-          message.loadAddress = longToNumber(reader.fixed64() as Long);
+          message.loadAddress = longToString(reader.fixed64() as Long);
           break;
         case 10:
           message.exceptionRecord = reader.bytes() as Buffer;
@@ -9687,7 +9687,7 @@ export const CMsgClientServiceCallResponse = {
       resultContent: isSet(object.resultContent) ? Buffer.from(bytesFromBase64(object.resultContent)) : Buffer.alloc(0),
       osVersionInfo: isSet(object.osVersionInfo) ? Buffer.from(bytesFromBase64(object.osVersionInfo)) : Buffer.alloc(0),
       systemInfo: isSet(object.systemInfo) ? Buffer.from(bytesFromBase64(object.systemInfo)) : Buffer.alloc(0),
-      loadAddress: isSet(object.loadAddress) ? Number(object.loadAddress) : 0,
+      loadAddress: isSet(object.loadAddress) ? String(object.loadAddress) : "0",
       exceptionRecord: isSet(object.exceptionRecord)
         ? Buffer.from(bytesFromBase64(object.exceptionRecord))
         : Buffer.alloc(0),
@@ -9730,7 +9730,7 @@ export const CMsgClientServiceCallResponse = {
       ));
     message.systemInfo !== undefined &&
       (obj.systemInfo = base64FromBytes(message.systemInfo !== undefined ? message.systemInfo : Buffer.alloc(0)));
-    message.loadAddress !== undefined && (obj.loadAddress = Math.round(message.loadAddress));
+    message.loadAddress !== undefined && (obj.loadAddress = message.loadAddress);
     message.exceptionRecord !== undefined &&
       (obj.exceptionRecord = base64FromBytes(
         message.exceptionRecord !== undefined ? message.exceptionRecord : Buffer.alloc(0),
@@ -9775,7 +9775,7 @@ export const CMsgClientServiceCallResponse = {
     message.resultContent = object.resultContent ?? Buffer.alloc(0);
     message.osVersionInfo = object.osVersionInfo ?? Buffer.alloc(0);
     message.systemInfo = object.systemInfo ?? Buffer.alloc(0);
-    message.loadAddress = object.loadAddress ?? 0;
+    message.loadAddress = object.loadAddress ?? "0";
     message.exceptionRecord = object.exceptionRecord ?? Buffer.alloc(0);
     message.portableOsVersionInfo = object.portableOsVersionInfo ?? Buffer.alloc(0);
     message.portableSystemInfo = object.portableSystemInfo ?? Buffer.alloc(0);
@@ -10044,15 +10044,15 @@ export const CMsgClientKickPlayingSession = {
 };
 
 function createBaseCMsgClientVoiceCallPreAuthorize(): CMsgClientVoiceCallPreAuthorize {
-  return { callerSteamid: 0, receiverSteamid: 0, callerId: 0, hangup: false };
+  return { callerSteamid: "0", receiverSteamid: "0", callerId: 0, hangup: false };
 }
 
 export const CMsgClientVoiceCallPreAuthorize = {
   encode(message: CMsgClientVoiceCallPreAuthorize, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.callerSteamid !== 0) {
+    if (message.callerSteamid !== "0") {
       writer.uint32(9).fixed64(message.callerSteamid);
     }
-    if (message.receiverSteamid !== 0) {
+    if (message.receiverSteamid !== "0") {
       writer.uint32(17).fixed64(message.receiverSteamid);
     }
     if (message.callerId !== 0) {
@@ -10072,10 +10072,10 @@ export const CMsgClientVoiceCallPreAuthorize = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.callerSteamid = longToNumber(reader.fixed64() as Long);
+          message.callerSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.receiverSteamid = longToNumber(reader.fixed64() as Long);
+          message.receiverSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.callerId = reader.int32();
@@ -10093,8 +10093,8 @@ export const CMsgClientVoiceCallPreAuthorize = {
 
   fromJSON(object: any): CMsgClientVoiceCallPreAuthorize {
     return {
-      callerSteamid: isSet(object.callerSteamid) ? Number(object.callerSteamid) : 0,
-      receiverSteamid: isSet(object.receiverSteamid) ? Number(object.receiverSteamid) : 0,
+      callerSteamid: isSet(object.callerSteamid) ? String(object.callerSteamid) : "0",
+      receiverSteamid: isSet(object.receiverSteamid) ? String(object.receiverSteamid) : "0",
       callerId: isSet(object.callerId) ? Number(object.callerId) : 0,
       hangup: isSet(object.hangup) ? Boolean(object.hangup) : false,
     };
@@ -10102,8 +10102,8 @@ export const CMsgClientVoiceCallPreAuthorize = {
 
   toJSON(message: CMsgClientVoiceCallPreAuthorize): unknown {
     const obj: any = {};
-    message.callerSteamid !== undefined && (obj.callerSteamid = Math.round(message.callerSteamid));
-    message.receiverSteamid !== undefined && (obj.receiverSteamid = Math.round(message.receiverSteamid));
+    message.callerSteamid !== undefined && (obj.callerSteamid = message.callerSteamid);
+    message.receiverSteamid !== undefined && (obj.receiverSteamid = message.receiverSteamid);
     message.callerId !== undefined && (obj.callerId = Math.round(message.callerId));
     message.hangup !== undefined && (obj.hangup = message.hangup);
     return obj;
@@ -10117,8 +10117,8 @@ export const CMsgClientVoiceCallPreAuthorize = {
     object: I,
   ): CMsgClientVoiceCallPreAuthorize {
     const message = createBaseCMsgClientVoiceCallPreAuthorize();
-    message.callerSteamid = object.callerSteamid ?? 0;
-    message.receiverSteamid = object.receiverSteamid ?? 0;
+    message.callerSteamid = object.callerSteamid ?? "0";
+    message.receiverSteamid = object.receiverSteamid ?? "0";
     message.callerId = object.callerId ?? 0;
     message.hangup = object.hangup ?? false;
     return message;
@@ -10126,15 +10126,15 @@ export const CMsgClientVoiceCallPreAuthorize = {
 };
 
 function createBaseCMsgClientVoiceCallPreAuthorizeResponse(): CMsgClientVoiceCallPreAuthorizeResponse {
-  return { callerSteamid: 0, receiverSteamid: 0, eresult: 0, callerId: 0 };
+  return { callerSteamid: "0", receiverSteamid: "0", eresult: 0, callerId: 0 };
 }
 
 export const CMsgClientVoiceCallPreAuthorizeResponse = {
   encode(message: CMsgClientVoiceCallPreAuthorizeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.callerSteamid !== 0) {
+    if (message.callerSteamid !== "0") {
       writer.uint32(9).fixed64(message.callerSteamid);
     }
-    if (message.receiverSteamid !== 0) {
+    if (message.receiverSteamid !== "0") {
       writer.uint32(17).fixed64(message.receiverSteamid);
     }
     if (message.eresult !== 0) {
@@ -10154,10 +10154,10 @@ export const CMsgClientVoiceCallPreAuthorizeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.callerSteamid = longToNumber(reader.fixed64() as Long);
+          message.callerSteamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.receiverSteamid = longToNumber(reader.fixed64() as Long);
+          message.receiverSteamid = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.eresult = reader.int32();
@@ -10175,8 +10175,8 @@ export const CMsgClientVoiceCallPreAuthorizeResponse = {
 
   fromJSON(object: any): CMsgClientVoiceCallPreAuthorizeResponse {
     return {
-      callerSteamid: isSet(object.callerSteamid) ? Number(object.callerSteamid) : 0,
-      receiverSteamid: isSet(object.receiverSteamid) ? Number(object.receiverSteamid) : 0,
+      callerSteamid: isSet(object.callerSteamid) ? String(object.callerSteamid) : "0",
+      receiverSteamid: isSet(object.receiverSteamid) ? String(object.receiverSteamid) : "0",
       eresult: isSet(object.eresult) ? Number(object.eresult) : 0,
       callerId: isSet(object.callerId) ? Number(object.callerId) : 0,
     };
@@ -10184,8 +10184,8 @@ export const CMsgClientVoiceCallPreAuthorizeResponse = {
 
   toJSON(message: CMsgClientVoiceCallPreAuthorizeResponse): unknown {
     const obj: any = {};
-    message.callerSteamid !== undefined && (obj.callerSteamid = Math.round(message.callerSteamid));
-    message.receiverSteamid !== undefined && (obj.receiverSteamid = Math.round(message.receiverSteamid));
+    message.callerSteamid !== undefined && (obj.callerSteamid = message.callerSteamid);
+    message.receiverSteamid !== undefined && (obj.receiverSteamid = message.receiverSteamid);
     message.eresult !== undefined && (obj.eresult = Math.round(message.eresult));
     message.callerId !== undefined && (obj.callerId = Math.round(message.callerId));
     return obj;
@@ -10201,8 +10201,8 @@ export const CMsgClientVoiceCallPreAuthorizeResponse = {
     object: I,
   ): CMsgClientVoiceCallPreAuthorizeResponse {
     const message = createBaseCMsgClientVoiceCallPreAuthorizeResponse();
-    message.callerSteamid = object.callerSteamid ?? 0;
-    message.receiverSteamid = object.receiverSteamid ?? 0;
+    message.callerSteamid = object.callerSteamid ?? "0";
+    message.receiverSteamid = object.receiverSteamid ?? "0";
     message.eresult = object.eresult ?? 0;
     message.callerId = object.callerId ?? 0;
     return message;
@@ -10272,15 +10272,15 @@ export const CMsgBadgeCraftedNotification = {
 };
 
 function createBaseCMsgClientStartPeerContentServer(): CMsgClientStartPeerContentServer {
-  return { steamid: 0, clientRemoteId: 0, appId: 0, currentBuildId: 0 };
+  return { steamid: "0", clientRemoteId: "0", appId: 0, currentBuildId: 0 };
 }
 
 export const CMsgClientStartPeerContentServer = {
   encode(message: CMsgClientStartPeerContentServer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.clientRemoteId !== 0) {
+    if (message.clientRemoteId !== "0") {
       writer.uint32(17).fixed64(message.clientRemoteId);
     }
     if (message.appId !== 0) {
@@ -10300,10 +10300,10 @@ export const CMsgClientStartPeerContentServer = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.clientRemoteId = longToNumber(reader.fixed64() as Long);
+          message.clientRemoteId = longToString(reader.fixed64() as Long);
           break;
         case 3:
           message.appId = reader.uint32();
@@ -10321,8 +10321,8 @@ export const CMsgClientStartPeerContentServer = {
 
   fromJSON(object: any): CMsgClientStartPeerContentServer {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      clientRemoteId: isSet(object.clientRemoteId) ? Number(object.clientRemoteId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      clientRemoteId: isSet(object.clientRemoteId) ? String(object.clientRemoteId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       currentBuildId: isSet(object.currentBuildId) ? Number(object.currentBuildId) : 0,
     };
@@ -10330,8 +10330,8 @@ export const CMsgClientStartPeerContentServer = {
 
   toJSON(message: CMsgClientStartPeerContentServer): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.clientRemoteId !== undefined && (obj.clientRemoteId = Math.round(message.clientRemoteId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.clientRemoteId !== undefined && (obj.clientRemoteId = message.clientRemoteId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.currentBuildId !== undefined && (obj.currentBuildId = Math.round(message.currentBuildId));
     return obj;
@@ -10347,8 +10347,8 @@ export const CMsgClientStartPeerContentServer = {
     object: I,
   ): CMsgClientStartPeerContentServer {
     const message = createBaseCMsgClientStartPeerContentServer();
-    message.steamid = object.steamid ?? 0;
-    message.clientRemoteId = object.clientRemoteId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.clientRemoteId = object.clientRemoteId ?? "0";
     message.appId = object.appId ?? 0;
     message.currentBuildId = object.currentBuildId ?? 0;
     return message;
@@ -10422,15 +10422,15 @@ export const CMsgClientStartPeerContentServerResponse = {
 };
 
 function createBaseCMsgClientGetPeerContentInfo(): CMsgClientGetPeerContentInfo {
-  return { steamid: 0, clientRemoteId: 0 };
+  return { steamid: "0", clientRemoteId: "0" };
 }
 
 export const CMsgClientGetPeerContentInfo = {
   encode(message: CMsgClientGetPeerContentInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.clientRemoteId !== 0) {
+    if (message.clientRemoteId !== "0") {
       writer.uint32(17).fixed64(message.clientRemoteId);
     }
     return writer;
@@ -10444,10 +10444,10 @@ export const CMsgClientGetPeerContentInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.clientRemoteId = longToNumber(reader.fixed64() as Long);
+          message.clientRemoteId = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -10459,15 +10459,15 @@ export const CMsgClientGetPeerContentInfo = {
 
   fromJSON(object: any): CMsgClientGetPeerContentInfo {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      clientRemoteId: isSet(object.clientRemoteId) ? Number(object.clientRemoteId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      clientRemoteId: isSet(object.clientRemoteId) ? String(object.clientRemoteId) : "0",
     };
   },
 
   toJSON(message: CMsgClientGetPeerContentInfo): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.clientRemoteId !== undefined && (obj.clientRemoteId = Math.round(message.clientRemoteId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.clientRemoteId !== undefined && (obj.clientRemoteId = message.clientRemoteId);
     return obj;
   },
 
@@ -10477,8 +10477,8 @@ export const CMsgClientGetPeerContentInfo = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgClientGetPeerContentInfo>, I>>(object: I): CMsgClientGetPeerContentInfo {
     const message = createBaseCMsgClientGetPeerContentInfo();
-    message.steamid = object.steamid ?? 0;
-    message.clientRemoteId = object.clientRemoteId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.clientRemoteId = object.clientRemoteId ?? "0";
     return message;
   },
 };
@@ -10617,11 +10617,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

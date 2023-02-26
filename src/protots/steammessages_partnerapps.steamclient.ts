@@ -10,14 +10,14 @@ export interface CPartnerAppsRequestUploadTokenRequest {
 }
 
 export interface CPartnerAppsRequestUploadTokenResponse {
-  uploadToken: number;
+  uploadToken: string;
   location: string;
-  routingId: number;
+  routingId: string;
 }
 
 export interface CPartnerAppsFinishUploadRequest {
-  uploadToken: number;
-  routingId: number;
+  uploadToken: string;
+  routingId: string;
   appId: number;
 }
 
@@ -26,8 +26,8 @@ export interface CPartnerAppsFinishUploadKVSignResponse {
 }
 
 export interface CPartnerAppsFinishUploadLegacyDRMRequest {
-  uploadToken: number;
-  routingId: number;
+  uploadToken: string;
+  routingId: string;
   appId: number;
   flags: number;
   toolName: string;
@@ -41,24 +41,24 @@ export interface CPartnerAppsFinishUploadResponse {
 }
 
 export interface CPartnerAppsFinishUploadDepotRequest {
-  uploadToken: number;
-  routingId: number;
+  uploadToken: string;
+  routingId: string;
   appId: number;
   depotId: number;
   buildFlags: number;
 }
 
 export interface CPartnerAppsFinishUploadDepotResponse {
-  buildRoutingId: number;
+  buildRoutingId: string;
 }
 
 export interface CPartnerAppsGetDepotBuildResultRequest {
-  uploadToken: number;
-  routingId: number;
+  uploadToken: string;
+  routingId: string;
 }
 
 export interface CPartnerAppsGetDepotBuildResultResponse {
-  manifestId: number;
+  manifestId: string;
   errorMsg: string;
 }
 
@@ -158,18 +158,18 @@ export const CPartnerAppsRequestUploadTokenRequest = {
 };
 
 function createBaseCPartnerAppsRequestUploadTokenResponse(): CPartnerAppsRequestUploadTokenResponse {
-  return { uploadToken: 0, location: "", routingId: 0 };
+  return { uploadToken: "0", location: "", routingId: "0" };
 }
 
 export const CPartnerAppsRequestUploadTokenResponse = {
   encode(message: CPartnerAppsRequestUploadTokenResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.uploadToken !== 0) {
+    if (message.uploadToken !== "0") {
       writer.uint32(8).uint64(message.uploadToken);
     }
     if (message.location !== "") {
       writer.uint32(18).string(message.location);
     }
-    if (message.routingId !== 0) {
+    if (message.routingId !== "0") {
       writer.uint32(24).uint64(message.routingId);
     }
     return writer;
@@ -183,13 +183,13 @@ export const CPartnerAppsRequestUploadTokenResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.uploadToken = longToNumber(reader.uint64() as Long);
+          message.uploadToken = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.location = reader.string();
           break;
         case 3:
-          message.routingId = longToNumber(reader.uint64() as Long);
+          message.routingId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -201,17 +201,17 @@ export const CPartnerAppsRequestUploadTokenResponse = {
 
   fromJSON(object: any): CPartnerAppsRequestUploadTokenResponse {
     return {
-      uploadToken: isSet(object.uploadToken) ? Number(object.uploadToken) : 0,
+      uploadToken: isSet(object.uploadToken) ? String(object.uploadToken) : "0",
       location: isSet(object.location) ? String(object.location) : "",
-      routingId: isSet(object.routingId) ? Number(object.routingId) : 0,
+      routingId: isSet(object.routingId) ? String(object.routingId) : "0",
     };
   },
 
   toJSON(message: CPartnerAppsRequestUploadTokenResponse): unknown {
     const obj: any = {};
-    message.uploadToken !== undefined && (obj.uploadToken = Math.round(message.uploadToken));
+    message.uploadToken !== undefined && (obj.uploadToken = message.uploadToken);
     message.location !== undefined && (obj.location = message.location);
-    message.routingId !== undefined && (obj.routingId = Math.round(message.routingId));
+    message.routingId !== undefined && (obj.routingId = message.routingId);
     return obj;
   },
 
@@ -225,23 +225,23 @@ export const CPartnerAppsRequestUploadTokenResponse = {
     object: I,
   ): CPartnerAppsRequestUploadTokenResponse {
     const message = createBaseCPartnerAppsRequestUploadTokenResponse();
-    message.uploadToken = object.uploadToken ?? 0;
+    message.uploadToken = object.uploadToken ?? "0";
     message.location = object.location ?? "";
-    message.routingId = object.routingId ?? 0;
+    message.routingId = object.routingId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartnerAppsFinishUploadRequest(): CPartnerAppsFinishUploadRequest {
-  return { uploadToken: 0, routingId: 0, appId: 0 };
+  return { uploadToken: "0", routingId: "0", appId: 0 };
 }
 
 export const CPartnerAppsFinishUploadRequest = {
   encode(message: CPartnerAppsFinishUploadRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.uploadToken !== 0) {
+    if (message.uploadToken !== "0") {
       writer.uint32(8).uint64(message.uploadToken);
     }
-    if (message.routingId !== 0) {
+    if (message.routingId !== "0") {
       writer.uint32(16).uint64(message.routingId);
     }
     if (message.appId !== 0) {
@@ -258,10 +258,10 @@ export const CPartnerAppsFinishUploadRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.uploadToken = longToNumber(reader.uint64() as Long);
+          message.uploadToken = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.routingId = longToNumber(reader.uint64() as Long);
+          message.routingId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.appId = reader.uint32();
@@ -276,16 +276,16 @@ export const CPartnerAppsFinishUploadRequest = {
 
   fromJSON(object: any): CPartnerAppsFinishUploadRequest {
     return {
-      uploadToken: isSet(object.uploadToken) ? Number(object.uploadToken) : 0,
-      routingId: isSet(object.routingId) ? Number(object.routingId) : 0,
+      uploadToken: isSet(object.uploadToken) ? String(object.uploadToken) : "0",
+      routingId: isSet(object.routingId) ? String(object.routingId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
     };
   },
 
   toJSON(message: CPartnerAppsFinishUploadRequest): unknown {
     const obj: any = {};
-    message.uploadToken !== undefined && (obj.uploadToken = Math.round(message.uploadToken));
-    message.routingId !== undefined && (obj.routingId = Math.round(message.routingId));
+    message.uploadToken !== undefined && (obj.uploadToken = message.uploadToken);
+    message.routingId !== undefined && (obj.routingId = message.routingId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     return obj;
   },
@@ -298,8 +298,8 @@ export const CPartnerAppsFinishUploadRequest = {
     object: I,
   ): CPartnerAppsFinishUploadRequest {
     const message = createBaseCPartnerAppsFinishUploadRequest();
-    message.uploadToken = object.uploadToken ?? 0;
-    message.routingId = object.routingId ?? 0;
+    message.uploadToken = object.uploadToken ?? "0";
+    message.routingId = object.routingId ?? "0";
     message.appId = object.appId ?? 0;
     return message;
   },
@@ -361,15 +361,15 @@ export const CPartnerAppsFinishUploadKVSignResponse = {
 };
 
 function createBaseCPartnerAppsFinishUploadLegacyDRMRequest(): CPartnerAppsFinishUploadLegacyDRMRequest {
-  return { uploadToken: 0, routingId: 0, appId: 0, flags: 0, toolName: "" };
+  return { uploadToken: "0", routingId: "0", appId: 0, flags: 0, toolName: "" };
 }
 
 export const CPartnerAppsFinishUploadLegacyDRMRequest = {
   encode(message: CPartnerAppsFinishUploadLegacyDRMRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.uploadToken !== 0) {
+    if (message.uploadToken !== "0") {
       writer.uint32(8).uint64(message.uploadToken);
     }
-    if (message.routingId !== 0) {
+    if (message.routingId !== "0") {
       writer.uint32(16).uint64(message.routingId);
     }
     if (message.appId !== 0) {
@@ -392,10 +392,10 @@ export const CPartnerAppsFinishUploadLegacyDRMRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.uploadToken = longToNumber(reader.uint64() as Long);
+          message.uploadToken = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.routingId = longToNumber(reader.uint64() as Long);
+          message.routingId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.appId = reader.uint32();
@@ -416,8 +416,8 @@ export const CPartnerAppsFinishUploadLegacyDRMRequest = {
 
   fromJSON(object: any): CPartnerAppsFinishUploadLegacyDRMRequest {
     return {
-      uploadToken: isSet(object.uploadToken) ? Number(object.uploadToken) : 0,
-      routingId: isSet(object.routingId) ? Number(object.routingId) : 0,
+      uploadToken: isSet(object.uploadToken) ? String(object.uploadToken) : "0",
+      routingId: isSet(object.routingId) ? String(object.routingId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       flags: isSet(object.flags) ? Number(object.flags) : 0,
       toolName: isSet(object.toolName) ? String(object.toolName) : "",
@@ -426,8 +426,8 @@ export const CPartnerAppsFinishUploadLegacyDRMRequest = {
 
   toJSON(message: CPartnerAppsFinishUploadLegacyDRMRequest): unknown {
     const obj: any = {};
-    message.uploadToken !== undefined && (obj.uploadToken = Math.round(message.uploadToken));
-    message.routingId !== undefined && (obj.routingId = Math.round(message.routingId));
+    message.uploadToken !== undefined && (obj.uploadToken = message.uploadToken);
+    message.routingId !== undefined && (obj.routingId = message.routingId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.flags !== undefined && (obj.flags = Math.round(message.flags));
     message.toolName !== undefined && (obj.toolName = message.toolName);
@@ -444,8 +444,8 @@ export const CPartnerAppsFinishUploadLegacyDRMRequest = {
     object: I,
   ): CPartnerAppsFinishUploadLegacyDRMRequest {
     const message = createBaseCPartnerAppsFinishUploadLegacyDRMRequest();
-    message.uploadToken = object.uploadToken ?? 0;
-    message.routingId = object.routingId ?? 0;
+    message.uploadToken = object.uploadToken ?? "0";
+    message.routingId = object.routingId ?? "0";
     message.appId = object.appId ?? 0;
     message.flags = object.flags ?? 0;
     message.toolName = object.toolName ?? "";
@@ -556,15 +556,15 @@ export const CPartnerAppsFinishUploadResponse = {
 };
 
 function createBaseCPartnerAppsFinishUploadDepotRequest(): CPartnerAppsFinishUploadDepotRequest {
-  return { uploadToken: 0, routingId: 0, appId: 0, depotId: 0, buildFlags: 0 };
+  return { uploadToken: "0", routingId: "0", appId: 0, depotId: 0, buildFlags: 0 };
 }
 
 export const CPartnerAppsFinishUploadDepotRequest = {
   encode(message: CPartnerAppsFinishUploadDepotRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.uploadToken !== 0) {
+    if (message.uploadToken !== "0") {
       writer.uint32(8).uint64(message.uploadToken);
     }
-    if (message.routingId !== 0) {
+    if (message.routingId !== "0") {
       writer.uint32(16).uint64(message.routingId);
     }
     if (message.appId !== 0) {
@@ -587,10 +587,10 @@ export const CPartnerAppsFinishUploadDepotRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.uploadToken = longToNumber(reader.uint64() as Long);
+          message.uploadToken = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.routingId = longToNumber(reader.uint64() as Long);
+          message.routingId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.appId = reader.uint32();
@@ -611,8 +611,8 @@ export const CPartnerAppsFinishUploadDepotRequest = {
 
   fromJSON(object: any): CPartnerAppsFinishUploadDepotRequest {
     return {
-      uploadToken: isSet(object.uploadToken) ? Number(object.uploadToken) : 0,
-      routingId: isSet(object.routingId) ? Number(object.routingId) : 0,
+      uploadToken: isSet(object.uploadToken) ? String(object.uploadToken) : "0",
+      routingId: isSet(object.routingId) ? String(object.routingId) : "0",
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       depotId: isSet(object.depotId) ? Number(object.depotId) : 0,
       buildFlags: isSet(object.buildFlags) ? Number(object.buildFlags) : 0,
@@ -621,8 +621,8 @@ export const CPartnerAppsFinishUploadDepotRequest = {
 
   toJSON(message: CPartnerAppsFinishUploadDepotRequest): unknown {
     const obj: any = {};
-    message.uploadToken !== undefined && (obj.uploadToken = Math.round(message.uploadToken));
-    message.routingId !== undefined && (obj.routingId = Math.round(message.routingId));
+    message.uploadToken !== undefined && (obj.uploadToken = message.uploadToken);
+    message.routingId !== undefined && (obj.routingId = message.routingId);
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.depotId !== undefined && (obj.depotId = Math.round(message.depotId));
     message.buildFlags !== undefined && (obj.buildFlags = Math.round(message.buildFlags));
@@ -639,8 +639,8 @@ export const CPartnerAppsFinishUploadDepotRequest = {
     object: I,
   ): CPartnerAppsFinishUploadDepotRequest {
     const message = createBaseCPartnerAppsFinishUploadDepotRequest();
-    message.uploadToken = object.uploadToken ?? 0;
-    message.routingId = object.routingId ?? 0;
+    message.uploadToken = object.uploadToken ?? "0";
+    message.routingId = object.routingId ?? "0";
     message.appId = object.appId ?? 0;
     message.depotId = object.depotId ?? 0;
     message.buildFlags = object.buildFlags ?? 0;
@@ -649,12 +649,12 @@ export const CPartnerAppsFinishUploadDepotRequest = {
 };
 
 function createBaseCPartnerAppsFinishUploadDepotResponse(): CPartnerAppsFinishUploadDepotResponse {
-  return { buildRoutingId: 0 };
+  return { buildRoutingId: "0" };
 }
 
 export const CPartnerAppsFinishUploadDepotResponse = {
   encode(message: CPartnerAppsFinishUploadDepotResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.buildRoutingId !== 0) {
+    if (message.buildRoutingId !== "0") {
       writer.uint32(8).uint64(message.buildRoutingId);
     }
     return writer;
@@ -668,7 +668,7 @@ export const CPartnerAppsFinishUploadDepotResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.buildRoutingId = longToNumber(reader.uint64() as Long);
+          message.buildRoutingId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -679,12 +679,12 @@ export const CPartnerAppsFinishUploadDepotResponse = {
   },
 
   fromJSON(object: any): CPartnerAppsFinishUploadDepotResponse {
-    return { buildRoutingId: isSet(object.buildRoutingId) ? Number(object.buildRoutingId) : 0 };
+    return { buildRoutingId: isSet(object.buildRoutingId) ? String(object.buildRoutingId) : "0" };
   },
 
   toJSON(message: CPartnerAppsFinishUploadDepotResponse): unknown {
     const obj: any = {};
-    message.buildRoutingId !== undefined && (obj.buildRoutingId = Math.round(message.buildRoutingId));
+    message.buildRoutingId !== undefined && (obj.buildRoutingId = message.buildRoutingId);
     return obj;
   },
 
@@ -698,21 +698,21 @@ export const CPartnerAppsFinishUploadDepotResponse = {
     object: I,
   ): CPartnerAppsFinishUploadDepotResponse {
     const message = createBaseCPartnerAppsFinishUploadDepotResponse();
-    message.buildRoutingId = object.buildRoutingId ?? 0;
+    message.buildRoutingId = object.buildRoutingId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartnerAppsGetDepotBuildResultRequest(): CPartnerAppsGetDepotBuildResultRequest {
-  return { uploadToken: 0, routingId: 0 };
+  return { uploadToken: "0", routingId: "0" };
 }
 
 export const CPartnerAppsGetDepotBuildResultRequest = {
   encode(message: CPartnerAppsGetDepotBuildResultRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.uploadToken !== 0) {
+    if (message.uploadToken !== "0") {
       writer.uint32(8).uint64(message.uploadToken);
     }
-    if (message.routingId !== 0) {
+    if (message.routingId !== "0") {
       writer.uint32(16).uint64(message.routingId);
     }
     return writer;
@@ -726,10 +726,10 @@ export const CPartnerAppsGetDepotBuildResultRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.uploadToken = longToNumber(reader.uint64() as Long);
+          message.uploadToken = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.routingId = longToNumber(reader.uint64() as Long);
+          message.routingId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -741,15 +741,15 @@ export const CPartnerAppsGetDepotBuildResultRequest = {
 
   fromJSON(object: any): CPartnerAppsGetDepotBuildResultRequest {
     return {
-      uploadToken: isSet(object.uploadToken) ? Number(object.uploadToken) : 0,
-      routingId: isSet(object.routingId) ? Number(object.routingId) : 0,
+      uploadToken: isSet(object.uploadToken) ? String(object.uploadToken) : "0",
+      routingId: isSet(object.routingId) ? String(object.routingId) : "0",
     };
   },
 
   toJSON(message: CPartnerAppsGetDepotBuildResultRequest): unknown {
     const obj: any = {};
-    message.uploadToken !== undefined && (obj.uploadToken = Math.round(message.uploadToken));
-    message.routingId !== undefined && (obj.routingId = Math.round(message.routingId));
+    message.uploadToken !== undefined && (obj.uploadToken = message.uploadToken);
+    message.routingId !== undefined && (obj.routingId = message.routingId);
     return obj;
   },
 
@@ -763,19 +763,19 @@ export const CPartnerAppsGetDepotBuildResultRequest = {
     object: I,
   ): CPartnerAppsGetDepotBuildResultRequest {
     const message = createBaseCPartnerAppsGetDepotBuildResultRequest();
-    message.uploadToken = object.uploadToken ?? 0;
-    message.routingId = object.routingId ?? 0;
+    message.uploadToken = object.uploadToken ?? "0";
+    message.routingId = object.routingId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartnerAppsGetDepotBuildResultResponse(): CPartnerAppsGetDepotBuildResultResponse {
-  return { manifestId: 0, errorMsg: "" };
+  return { manifestId: "0", errorMsg: "" };
 }
 
 export const CPartnerAppsGetDepotBuildResultResponse = {
   encode(message: CPartnerAppsGetDepotBuildResultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.manifestId !== 0) {
+    if (message.manifestId !== "0") {
       writer.uint32(8).uint64(message.manifestId);
     }
     if (message.errorMsg !== "") {
@@ -792,7 +792,7 @@ export const CPartnerAppsGetDepotBuildResultResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.manifestId = longToNumber(reader.uint64() as Long);
+          message.manifestId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.errorMsg = reader.string();
@@ -807,14 +807,14 @@ export const CPartnerAppsGetDepotBuildResultResponse = {
 
   fromJSON(object: any): CPartnerAppsGetDepotBuildResultResponse {
     return {
-      manifestId: isSet(object.manifestId) ? Number(object.manifestId) : 0,
+      manifestId: isSet(object.manifestId) ? String(object.manifestId) : "0",
       errorMsg: isSet(object.errorMsg) ? String(object.errorMsg) : "",
     };
   },
 
   toJSON(message: CPartnerAppsGetDepotBuildResultResponse): unknown {
     const obj: any = {};
-    message.manifestId !== undefined && (obj.manifestId = Math.round(message.manifestId));
+    message.manifestId !== undefined && (obj.manifestId = message.manifestId);
     message.errorMsg !== undefined && (obj.errorMsg = message.errorMsg);
     return obj;
   },
@@ -829,7 +829,7 @@ export const CPartnerAppsGetDepotBuildResultResponse = {
     object: I,
   ): CPartnerAppsGetDepotBuildResultResponse {
     const message = createBaseCPartnerAppsGetDepotBuildResultResponse();
-    message.manifestId = object.manifestId ?? 0;
+    message.manifestId = object.manifestId ?? "0";
     message.errorMsg = object.errorMsg ?? "";
     return message;
   },
@@ -1326,25 +1326,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1356,11 +1337,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

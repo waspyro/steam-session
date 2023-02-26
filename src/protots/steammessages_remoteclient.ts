@@ -11,8 +11,8 @@ import {
 export const protobufPackage = "";
 
 export interface CMsgRemoteClientStatus {
-  clientId: number;
-  instanceId: number;
+  clientId: string;
+  instanceId: string;
   status: CMsgRemoteClientBroadcastStatus | undefined;
 }
 
@@ -22,10 +22,10 @@ export interface CMsgRemoteClientAppStatus {
 
 export interface CMsgRemoteClientAppStatus_AppUpdateInfo {
   timeUpdateStart: number;
-  bytesToDownload: number;
-  bytesDownloaded: number;
-  bytesToProcess: number;
-  bytesProcessed: number;
+  bytesToDownload: string;
+  bytesDownloaded: string;
+  bytesToProcess: string;
+  bytesProcessed: string;
   estimatedSecondsRemaining: number;
   updateResult: number;
   updateState: number;
@@ -105,15 +105,15 @@ export interface CMsgRemoteClientStreamingEnabled {
 }
 
 function createBaseCMsgRemoteClientStatus(): CMsgRemoteClientStatus {
-  return { clientId: 0, instanceId: 0, status: undefined };
+  return { clientId: "0", instanceId: "0", status: undefined };
 }
 
 export const CMsgRemoteClientStatus = {
   encode(message: CMsgRemoteClientStatus, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.clientId !== 0) {
+    if (message.clientId !== "0") {
       writer.uint32(8).uint64(message.clientId);
     }
-    if (message.instanceId !== 0) {
+    if (message.instanceId !== "0") {
       writer.uint32(16).uint64(message.instanceId);
     }
     if (message.status !== undefined) {
@@ -130,10 +130,10 @@ export const CMsgRemoteClientStatus = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.clientId = longToNumber(reader.uint64() as Long);
+          message.clientId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.instanceId = longToNumber(reader.uint64() as Long);
+          message.instanceId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.status = CMsgRemoteClientBroadcastStatus.decode(reader, reader.uint32());
@@ -148,16 +148,16 @@ export const CMsgRemoteClientStatus = {
 
   fromJSON(object: any): CMsgRemoteClientStatus {
     return {
-      clientId: isSet(object.clientId) ? Number(object.clientId) : 0,
-      instanceId: isSet(object.instanceId) ? Number(object.instanceId) : 0,
+      clientId: isSet(object.clientId) ? String(object.clientId) : "0",
+      instanceId: isSet(object.instanceId) ? String(object.instanceId) : "0",
       status: isSet(object.status) ? CMsgRemoteClientBroadcastStatus.fromJSON(object.status) : undefined,
     };
   },
 
   toJSON(message: CMsgRemoteClientStatus): unknown {
     const obj: any = {};
-    message.clientId !== undefined && (obj.clientId = Math.round(message.clientId));
-    message.instanceId !== undefined && (obj.instanceId = Math.round(message.instanceId));
+    message.clientId !== undefined && (obj.clientId = message.clientId);
+    message.instanceId !== undefined && (obj.instanceId = message.instanceId);
     message.status !== undefined &&
       (obj.status = message.status ? CMsgRemoteClientBroadcastStatus.toJSON(message.status) : undefined);
     return obj;
@@ -169,8 +169,8 @@ export const CMsgRemoteClientStatus = {
 
   fromPartial<I extends Exact<DeepPartial<CMsgRemoteClientStatus>, I>>(object: I): CMsgRemoteClientStatus {
     const message = createBaseCMsgRemoteClientStatus();
-    message.clientId = object.clientId ?? 0;
-    message.instanceId = object.instanceId ?? 0;
+    message.clientId = object.clientId ?? "0";
+    message.instanceId = object.instanceId ?? "0";
     message.status = (object.status !== undefined && object.status !== null)
       ? CMsgRemoteClientBroadcastStatus.fromPartial(object.status)
       : undefined;
@@ -242,10 +242,10 @@ export const CMsgRemoteClientAppStatus = {
 function createBaseCMsgRemoteClientAppStatus_AppUpdateInfo(): CMsgRemoteClientAppStatus_AppUpdateInfo {
   return {
     timeUpdateStart: 0,
-    bytesToDownload: 0,
-    bytesDownloaded: 0,
-    bytesToProcess: 0,
-    bytesProcessed: 0,
+    bytesToDownload: "0",
+    bytesDownloaded: "0",
+    bytesToProcess: "0",
+    bytesProcessed: "0",
     estimatedSecondsRemaining: 0,
     updateResult: 0,
     updateState: 0,
@@ -257,16 +257,16 @@ export const CMsgRemoteClientAppStatus_AppUpdateInfo = {
     if (message.timeUpdateStart !== 0) {
       writer.uint32(13).fixed32(message.timeUpdateStart);
     }
-    if (message.bytesToDownload !== 0) {
+    if (message.bytesToDownload !== "0") {
       writer.uint32(16).uint64(message.bytesToDownload);
     }
-    if (message.bytesDownloaded !== 0) {
+    if (message.bytesDownloaded !== "0") {
       writer.uint32(24).uint64(message.bytesDownloaded);
     }
-    if (message.bytesToProcess !== 0) {
+    if (message.bytesToProcess !== "0") {
       writer.uint32(32).uint64(message.bytesToProcess);
     }
-    if (message.bytesProcessed !== 0) {
+    if (message.bytesProcessed !== "0") {
       writer.uint32(40).uint64(message.bytesProcessed);
     }
     if (message.estimatedSecondsRemaining !== 0) {
@@ -292,16 +292,16 @@ export const CMsgRemoteClientAppStatus_AppUpdateInfo = {
           message.timeUpdateStart = reader.fixed32();
           break;
         case 2:
-          message.bytesToDownload = longToNumber(reader.uint64() as Long);
+          message.bytesToDownload = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.bytesDownloaded = longToNumber(reader.uint64() as Long);
+          message.bytesDownloaded = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.bytesToProcess = longToNumber(reader.uint64() as Long);
+          message.bytesToProcess = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.bytesProcessed = longToNumber(reader.uint64() as Long);
+          message.bytesProcessed = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.estimatedSecondsRemaining = reader.int32();
@@ -323,10 +323,10 @@ export const CMsgRemoteClientAppStatus_AppUpdateInfo = {
   fromJSON(object: any): CMsgRemoteClientAppStatus_AppUpdateInfo {
     return {
       timeUpdateStart: isSet(object.timeUpdateStart) ? Number(object.timeUpdateStart) : 0,
-      bytesToDownload: isSet(object.bytesToDownload) ? Number(object.bytesToDownload) : 0,
-      bytesDownloaded: isSet(object.bytesDownloaded) ? Number(object.bytesDownloaded) : 0,
-      bytesToProcess: isSet(object.bytesToProcess) ? Number(object.bytesToProcess) : 0,
-      bytesProcessed: isSet(object.bytesProcessed) ? Number(object.bytesProcessed) : 0,
+      bytesToDownload: isSet(object.bytesToDownload) ? String(object.bytesToDownload) : "0",
+      bytesDownloaded: isSet(object.bytesDownloaded) ? String(object.bytesDownloaded) : "0",
+      bytesToProcess: isSet(object.bytesToProcess) ? String(object.bytesToProcess) : "0",
+      bytesProcessed: isSet(object.bytesProcessed) ? String(object.bytesProcessed) : "0",
       estimatedSecondsRemaining: isSet(object.estimatedSecondsRemaining) ? Number(object.estimatedSecondsRemaining) : 0,
       updateResult: isSet(object.updateResult) ? Number(object.updateResult) : 0,
       updateState: isSet(object.updateState) ? Number(object.updateState) : 0,
@@ -336,10 +336,10 @@ export const CMsgRemoteClientAppStatus_AppUpdateInfo = {
   toJSON(message: CMsgRemoteClientAppStatus_AppUpdateInfo): unknown {
     const obj: any = {};
     message.timeUpdateStart !== undefined && (obj.timeUpdateStart = Math.round(message.timeUpdateStart));
-    message.bytesToDownload !== undefined && (obj.bytesToDownload = Math.round(message.bytesToDownload));
-    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = Math.round(message.bytesDownloaded));
-    message.bytesToProcess !== undefined && (obj.bytesToProcess = Math.round(message.bytesToProcess));
-    message.bytesProcessed !== undefined && (obj.bytesProcessed = Math.round(message.bytesProcessed));
+    message.bytesToDownload !== undefined && (obj.bytesToDownload = message.bytesToDownload);
+    message.bytesDownloaded !== undefined && (obj.bytesDownloaded = message.bytesDownloaded);
+    message.bytesToProcess !== undefined && (obj.bytesToProcess = message.bytesToProcess);
+    message.bytesProcessed !== undefined && (obj.bytesProcessed = message.bytesProcessed);
     message.estimatedSecondsRemaining !== undefined &&
       (obj.estimatedSecondsRemaining = Math.round(message.estimatedSecondsRemaining));
     message.updateResult !== undefined && (obj.updateResult = Math.round(message.updateResult));
@@ -358,10 +358,10 @@ export const CMsgRemoteClientAppStatus_AppUpdateInfo = {
   ): CMsgRemoteClientAppStatus_AppUpdateInfo {
     const message = createBaseCMsgRemoteClientAppStatus_AppUpdateInfo();
     message.timeUpdateStart = object.timeUpdateStart ?? 0;
-    message.bytesToDownload = object.bytesToDownload ?? 0;
-    message.bytesDownloaded = object.bytesDownloaded ?? 0;
-    message.bytesToProcess = object.bytesToProcess ?? 0;
-    message.bytesProcessed = object.bytesProcessed ?? 0;
+    message.bytesToDownload = object.bytesToDownload ?? "0";
+    message.bytesDownloaded = object.bytesDownloaded ?? "0";
+    message.bytesToProcess = object.bytesToProcess ?? "0";
+    message.bytesProcessed = object.bytesProcessed ?? "0";
     message.estimatedSecondsRemaining = object.estimatedSecondsRemaining ?? 0;
     message.updateResult = object.updateResult ?? 0;
     message.updateState = object.updateState ?? 0;
@@ -1397,11 +1397,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

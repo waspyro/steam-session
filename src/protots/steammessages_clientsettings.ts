@@ -121,7 +121,7 @@ export interface CMsgClientSettings {
   libraryDisplayIconInGameList: boolean;
   enableShaderPrecache: boolean;
   enableShaderBackgroundProcessing: boolean;
-  shaderPrecachedSize: number;
+  shaderPrecachedSize: string;
   needsSteamServiceRepair: boolean;
   cloudEnabled: boolean;
   showScreenshotManager: boolean;
@@ -303,7 +303,7 @@ function createBaseCMsgClientSettings(): CMsgClientSettings {
     libraryDisplayIconInGameList: false,
     enableShaderPrecache: false,
     enableShaderBackgroundProcessing: false,
-    shaderPrecachedSize: 0,
+    shaderPrecachedSize: "0",
     needsSteamServiceRepair: false,
     cloudEnabled: false,
     showScreenshotManager: false,
@@ -488,7 +488,7 @@ export const CMsgClientSettings = {
     if (message.enableShaderBackgroundProcessing === true) {
       writer.uint32(64008).bool(message.enableShaderBackgroundProcessing);
     }
-    if (message.shaderPrecachedSize !== 0) {
+    if (message.shaderPrecachedSize !== "0") {
       writer.uint32(64016).uint64(message.shaderPrecachedSize);
     }
     if (message.needsSteamServiceRepair === true) {
@@ -739,7 +739,7 @@ export const CMsgClientSettings = {
           message.enableShaderBackgroundProcessing = reader.bool();
           break;
         case 8002:
-          message.shaderPrecachedSize = longToNumber(reader.uint64() as Long);
+          message.shaderPrecachedSize = longToString(reader.uint64() as Long);
           break;
         case 8003:
           message.needsSteamServiceRepair = reader.bool();
@@ -912,7 +912,7 @@ export const CMsgClientSettings = {
       enableShaderBackgroundProcessing: isSet(object.enableShaderBackgroundProcessing)
         ? Boolean(object.enableShaderBackgroundProcessing)
         : false,
-      shaderPrecachedSize: isSet(object.shaderPrecachedSize) ? Number(object.shaderPrecachedSize) : 0,
+      shaderPrecachedSize: isSet(object.shaderPrecachedSize) ? String(object.shaderPrecachedSize) : "0",
       needsSteamServiceRepair: isSet(object.needsSteamServiceRepair) ? Boolean(object.needsSteamServiceRepair) : false,
       cloudEnabled: isSet(object.cloudEnabled) ? Boolean(object.cloudEnabled) : false,
       showScreenshotManager: isSet(object.showScreenshotManager) ? Boolean(object.showScreenshotManager) : false,
@@ -1031,7 +1031,7 @@ export const CMsgClientSettings = {
     message.enableShaderPrecache !== undefined && (obj.enableShaderPrecache = message.enableShaderPrecache);
     message.enableShaderBackgroundProcessing !== undefined &&
       (obj.enableShaderBackgroundProcessing = message.enableShaderBackgroundProcessing);
-    message.shaderPrecachedSize !== undefined && (obj.shaderPrecachedSize = Math.round(message.shaderPrecachedSize));
+    message.shaderPrecachedSize !== undefined && (obj.shaderPrecachedSize = message.shaderPrecachedSize);
     message.needsSteamServiceRepair !== undefined && (obj.needsSteamServiceRepair = message.needsSteamServiceRepair);
     message.cloudEnabled !== undefined && (obj.cloudEnabled = message.cloudEnabled);
     message.showScreenshotManager !== undefined && (obj.showScreenshotManager = message.showScreenshotManager);
@@ -1133,7 +1133,7 @@ export const CMsgClientSettings = {
     message.libraryDisplayIconInGameList = object.libraryDisplayIconInGameList ?? false;
     message.enableShaderPrecache = object.enableShaderPrecache ?? false;
     message.enableShaderBackgroundProcessing = object.enableShaderBackgroundProcessing ?? false;
-    message.shaderPrecachedSize = object.shaderPrecachedSize ?? 0;
+    message.shaderPrecachedSize = object.shaderPrecachedSize ?? "0";
     message.needsSteamServiceRepair = object.needsSteamServiceRepair ?? false;
     message.cloudEnabled = object.cloudEnabled ?? false;
     message.showScreenshotManager = object.showScreenshotManager ?? false;
@@ -1167,25 +1167,6 @@ export const CMsgClientSettings = {
   },
 };
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -1197,11 +1178,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

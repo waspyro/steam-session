@@ -55,7 +55,7 @@ export interface CSTARKeyValueQuery {
 }
 
 export interface CSTARGlyphQueryParams {
-  bundleId: number;
+  bundleId: string;
   queries: CSTARKeyValueQuery[];
 }
 
@@ -71,7 +71,7 @@ export interface CSTARGlyphData {
 }
 
 export interface CSTARWriteGlyphDataRequest {
-  bundleId: number;
+  bundleId: string;
   glyphData: CSTARGlyphData[];
 }
 
@@ -81,7 +81,7 @@ export interface CSTARRequest {
 }
 
 export interface CSTARReadGlyphDataResponse {
-  bundleId: number;
+  bundleId: string;
   glyphData: CSTARGlyphData[];
 }
 
@@ -154,12 +154,12 @@ export const CSTARKeyValueQuery = {
 };
 
 function createBaseCSTARGlyphQueryParams(): CSTARGlyphQueryParams {
-  return { bundleId: 0, queries: [] };
+  return { bundleId: "0", queries: [] };
 }
 
 export const CSTARGlyphQueryParams = {
   encode(message: CSTARGlyphQueryParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.bundleId !== 0) {
+    if (message.bundleId !== "0") {
       writer.uint32(8).uint64(message.bundleId);
     }
     for (const v of message.queries) {
@@ -176,7 +176,7 @@ export const CSTARGlyphQueryParams = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.bundleId = longToNumber(reader.uint64() as Long);
+          message.bundleId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.queries.push(CSTARKeyValueQuery.decode(reader, reader.uint32()));
@@ -191,14 +191,14 @@ export const CSTARGlyphQueryParams = {
 
   fromJSON(object: any): CSTARGlyphQueryParams {
     return {
-      bundleId: isSet(object.bundleId) ? Number(object.bundleId) : 0,
+      bundleId: isSet(object.bundleId) ? String(object.bundleId) : "0",
       queries: Array.isArray(object?.queries) ? object.queries.map((e: any) => CSTARKeyValueQuery.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: CSTARGlyphQueryParams): unknown {
     const obj: any = {};
-    message.bundleId !== undefined && (obj.bundleId = Math.round(message.bundleId));
+    message.bundleId !== undefined && (obj.bundleId = message.bundleId);
     if (message.queries) {
       obj.queries = message.queries.map((e) => e ? CSTARKeyValueQuery.toJSON(e) : undefined);
     } else {
@@ -213,7 +213,7 @@ export const CSTARGlyphQueryParams = {
 
   fromPartial<I extends Exact<DeepPartial<CSTARGlyphQueryParams>, I>>(object: I): CSTARGlyphQueryParams {
     const message = createBaseCSTARGlyphQueryParams();
-    message.bundleId = object.bundleId ?? 0;
+    message.bundleId = object.bundleId ?? "0";
     message.queries = object.queries?.map((e) => CSTARKeyValueQuery.fromPartial(e)) || [];
     return message;
   },
@@ -360,12 +360,12 @@ export const CSTARGlyphData = {
 };
 
 function createBaseCSTARWriteGlyphDataRequest(): CSTARWriteGlyphDataRequest {
-  return { bundleId: 0, glyphData: [] };
+  return { bundleId: "0", glyphData: [] };
 }
 
 export const CSTARWriteGlyphDataRequest = {
   encode(message: CSTARWriteGlyphDataRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.bundleId !== 0) {
+    if (message.bundleId !== "0") {
       writer.uint32(8).uint64(message.bundleId);
     }
     for (const v of message.glyphData) {
@@ -382,7 +382,7 @@ export const CSTARWriteGlyphDataRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.bundleId = longToNumber(reader.uint64() as Long);
+          message.bundleId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.glyphData.push(CSTARGlyphData.decode(reader, reader.uint32()));
@@ -397,14 +397,14 @@ export const CSTARWriteGlyphDataRequest = {
 
   fromJSON(object: any): CSTARWriteGlyphDataRequest {
     return {
-      bundleId: isSet(object.bundleId) ? Number(object.bundleId) : 0,
+      bundleId: isSet(object.bundleId) ? String(object.bundleId) : "0",
       glyphData: Array.isArray(object?.glyphData) ? object.glyphData.map((e: any) => CSTARGlyphData.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: CSTARWriteGlyphDataRequest): unknown {
     const obj: any = {};
-    message.bundleId !== undefined && (obj.bundleId = Math.round(message.bundleId));
+    message.bundleId !== undefined && (obj.bundleId = message.bundleId);
     if (message.glyphData) {
       obj.glyphData = message.glyphData.map((e) => e ? CSTARGlyphData.toJSON(e) : undefined);
     } else {
@@ -419,7 +419,7 @@ export const CSTARWriteGlyphDataRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CSTARWriteGlyphDataRequest>, I>>(object: I): CSTARWriteGlyphDataRequest {
     const message = createBaseCSTARWriteGlyphDataRequest();
-    message.bundleId = object.bundleId ?? 0;
+    message.bundleId = object.bundleId ?? "0";
     message.glyphData = object.glyphData?.map((e) => CSTARGlyphData.fromPartial(e)) || [];
     return message;
   },
@@ -497,12 +497,12 @@ export const CSTARRequest = {
 };
 
 function createBaseCSTARReadGlyphDataResponse(): CSTARReadGlyphDataResponse {
-  return { bundleId: 0, glyphData: [] };
+  return { bundleId: "0", glyphData: [] };
 }
 
 export const CSTARReadGlyphDataResponse = {
   encode(message: CSTARReadGlyphDataResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.bundleId !== 0) {
+    if (message.bundleId !== "0") {
       writer.uint32(8).uint64(message.bundleId);
     }
     for (const v of message.glyphData) {
@@ -519,7 +519,7 @@ export const CSTARReadGlyphDataResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.bundleId = longToNumber(reader.uint64() as Long);
+          message.bundleId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.glyphData.push(CSTARGlyphData.decode(reader, reader.uint32()));
@@ -534,14 +534,14 @@ export const CSTARReadGlyphDataResponse = {
 
   fromJSON(object: any): CSTARReadGlyphDataResponse {
     return {
-      bundleId: isSet(object.bundleId) ? Number(object.bundleId) : 0,
+      bundleId: isSet(object.bundleId) ? String(object.bundleId) : "0",
       glyphData: Array.isArray(object?.glyphData) ? object.glyphData.map((e: any) => CSTARGlyphData.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: CSTARReadGlyphDataResponse): unknown {
     const obj: any = {};
-    message.bundleId !== undefined && (obj.bundleId = Math.round(message.bundleId));
+    message.bundleId !== undefined && (obj.bundleId = message.bundleId);
     if (message.glyphData) {
       obj.glyphData = message.glyphData.map((e) => e ? CSTARGlyphData.toJSON(e) : undefined);
     } else {
@@ -556,7 +556,7 @@ export const CSTARReadGlyphDataResponse = {
 
   fromPartial<I extends Exact<DeepPartial<CSTARReadGlyphDataResponse>, I>>(object: I): CSTARReadGlyphDataResponse {
     const message = createBaseCSTARReadGlyphDataResponse();
-    message.bundleId = object.bundleId ?? 0;
+    message.bundleId = object.bundleId ?? "0";
     message.glyphData = object.glyphData?.map((e) => CSTARGlyphData.fromPartial(e)) || [];
     return message;
   },
@@ -781,11 +781,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

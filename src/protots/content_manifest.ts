@@ -43,7 +43,7 @@ export interface ContentManifestPayload {
 
 export interface ContentManifestPayload_FileMapping {
   filename: string;
-  size: number;
+  size: string;
   flags: number;
   shaFilename: Buffer;
   shaContent: Buffer;
@@ -54,18 +54,18 @@ export interface ContentManifestPayload_FileMapping {
 export interface ContentManifestPayload_FileMapping_ChunkData {
   sha: Buffer;
   crc: number;
-  offset: number;
+  offset: string;
   cbOriginal: number;
   cbCompressed: number;
 }
 
 export interface ContentManifestMetadata {
   depotId: number;
-  gidManifest: number;
+  gidManifest: string;
   creationTime: number;
   filenamesEncrypted: boolean;
-  cbDiskOriginal: number;
-  cbDiskCompressed: number;
+  cbDiskOriginal: string;
+  cbDiskCompressed: string;
   uniqueChunks: number;
   crcEncrypted: number;
   crcClear: number;
@@ -77,8 +77,8 @@ export interface ContentManifestSignature {
 
 export interface ContentDeltaChunks {
   depotId: number;
-  manifestIdSource: number;
-  manifestIdTarget: number;
+  manifestIdSource: string;
+  manifestIdTarget: string;
   deltaChunks: ContentDeltaChunks_DeltaChunk[];
   chunkDataLocation: EContentDeltaChunkDataLocation;
 }
@@ -154,7 +154,7 @@ export const ContentManifestPayload = {
 function createBaseContentManifestPayload_FileMapping(): ContentManifestPayload_FileMapping {
   return {
     filename: "",
-    size: 0,
+    size: "0",
     flags: 0,
     shaFilename: Buffer.alloc(0),
     shaContent: Buffer.alloc(0),
@@ -168,7 +168,7 @@ export const ContentManifestPayload_FileMapping = {
     if (message.filename !== "") {
       writer.uint32(10).string(message.filename);
     }
-    if (message.size !== 0) {
+    if (message.size !== "0") {
       writer.uint32(16).uint64(message.size);
     }
     if (message.flags !== 0) {
@@ -200,7 +200,7 @@ export const ContentManifestPayload_FileMapping = {
           message.filename = reader.string();
           break;
         case 2:
-          message.size = longToNumber(reader.uint64() as Long);
+          message.size = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.flags = reader.uint32();
@@ -228,7 +228,7 @@ export const ContentManifestPayload_FileMapping = {
   fromJSON(object: any): ContentManifestPayload_FileMapping {
     return {
       filename: isSet(object.filename) ? String(object.filename) : "",
-      size: isSet(object.size) ? Number(object.size) : 0,
+      size: isSet(object.size) ? String(object.size) : "0",
       flags: isSet(object.flags) ? Number(object.flags) : 0,
       shaFilename: isSet(object.shaFilename) ? Buffer.from(bytesFromBase64(object.shaFilename)) : Buffer.alloc(0),
       shaContent: isSet(object.shaContent) ? Buffer.from(bytesFromBase64(object.shaContent)) : Buffer.alloc(0),
@@ -242,7 +242,7 @@ export const ContentManifestPayload_FileMapping = {
   toJSON(message: ContentManifestPayload_FileMapping): unknown {
     const obj: any = {};
     message.filename !== undefined && (obj.filename = message.filename);
-    message.size !== undefined && (obj.size = Math.round(message.size));
+    message.size !== undefined && (obj.size = message.size);
     message.flags !== undefined && (obj.flags = Math.round(message.flags));
     message.shaFilename !== undefined &&
       (obj.shaFilename = base64FromBytes(message.shaFilename !== undefined ? message.shaFilename : Buffer.alloc(0)));
@@ -268,7 +268,7 @@ export const ContentManifestPayload_FileMapping = {
   ): ContentManifestPayload_FileMapping {
     const message = createBaseContentManifestPayload_FileMapping();
     message.filename = object.filename ?? "";
-    message.size = object.size ?? 0;
+    message.size = object.size ?? "0";
     message.flags = object.flags ?? 0;
     message.shaFilename = object.shaFilename ?? Buffer.alloc(0);
     message.shaContent = object.shaContent ?? Buffer.alloc(0);
@@ -279,7 +279,7 @@ export const ContentManifestPayload_FileMapping = {
 };
 
 function createBaseContentManifestPayload_FileMapping_ChunkData(): ContentManifestPayload_FileMapping_ChunkData {
-  return { sha: Buffer.alloc(0), crc: 0, offset: 0, cbOriginal: 0, cbCompressed: 0 };
+  return { sha: Buffer.alloc(0), crc: 0, offset: "0", cbOriginal: 0, cbCompressed: 0 };
 }
 
 export const ContentManifestPayload_FileMapping_ChunkData = {
@@ -290,7 +290,7 @@ export const ContentManifestPayload_FileMapping_ChunkData = {
     if (message.crc !== 0) {
       writer.uint32(21).fixed32(message.crc);
     }
-    if (message.offset !== 0) {
+    if (message.offset !== "0") {
       writer.uint32(24).uint64(message.offset);
     }
     if (message.cbOriginal !== 0) {
@@ -316,7 +316,7 @@ export const ContentManifestPayload_FileMapping_ChunkData = {
           message.crc = reader.fixed32();
           break;
         case 3:
-          message.offset = longToNumber(reader.uint64() as Long);
+          message.offset = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.cbOriginal = reader.uint32();
@@ -336,7 +336,7 @@ export const ContentManifestPayload_FileMapping_ChunkData = {
     return {
       sha: isSet(object.sha) ? Buffer.from(bytesFromBase64(object.sha)) : Buffer.alloc(0),
       crc: isSet(object.crc) ? Number(object.crc) : 0,
-      offset: isSet(object.offset) ? Number(object.offset) : 0,
+      offset: isSet(object.offset) ? String(object.offset) : "0",
       cbOriginal: isSet(object.cbOriginal) ? Number(object.cbOriginal) : 0,
       cbCompressed: isSet(object.cbCompressed) ? Number(object.cbCompressed) : 0,
     };
@@ -346,7 +346,7 @@ export const ContentManifestPayload_FileMapping_ChunkData = {
     const obj: any = {};
     message.sha !== undefined && (obj.sha = base64FromBytes(message.sha !== undefined ? message.sha : Buffer.alloc(0)));
     message.crc !== undefined && (obj.crc = Math.round(message.crc));
-    message.offset !== undefined && (obj.offset = Math.round(message.offset));
+    message.offset !== undefined && (obj.offset = message.offset);
     message.cbOriginal !== undefined && (obj.cbOriginal = Math.round(message.cbOriginal));
     message.cbCompressed !== undefined && (obj.cbCompressed = Math.round(message.cbCompressed));
     return obj;
@@ -364,7 +364,7 @@ export const ContentManifestPayload_FileMapping_ChunkData = {
     const message = createBaseContentManifestPayload_FileMapping_ChunkData();
     message.sha = object.sha ?? Buffer.alloc(0);
     message.crc = object.crc ?? 0;
-    message.offset = object.offset ?? 0;
+    message.offset = object.offset ?? "0";
     message.cbOriginal = object.cbOriginal ?? 0;
     message.cbCompressed = object.cbCompressed ?? 0;
     return message;
@@ -374,11 +374,11 @@ export const ContentManifestPayload_FileMapping_ChunkData = {
 function createBaseContentManifestMetadata(): ContentManifestMetadata {
   return {
     depotId: 0,
-    gidManifest: 0,
+    gidManifest: "0",
     creationTime: 0,
     filenamesEncrypted: false,
-    cbDiskOriginal: 0,
-    cbDiskCompressed: 0,
+    cbDiskOriginal: "0",
+    cbDiskCompressed: "0",
     uniqueChunks: 0,
     crcEncrypted: 0,
     crcClear: 0,
@@ -390,7 +390,7 @@ export const ContentManifestMetadata = {
     if (message.depotId !== 0) {
       writer.uint32(8).uint32(message.depotId);
     }
-    if (message.gidManifest !== 0) {
+    if (message.gidManifest !== "0") {
       writer.uint32(16).uint64(message.gidManifest);
     }
     if (message.creationTime !== 0) {
@@ -399,10 +399,10 @@ export const ContentManifestMetadata = {
     if (message.filenamesEncrypted === true) {
       writer.uint32(32).bool(message.filenamesEncrypted);
     }
-    if (message.cbDiskOriginal !== 0) {
+    if (message.cbDiskOriginal !== "0") {
       writer.uint32(40).uint64(message.cbDiskOriginal);
     }
-    if (message.cbDiskCompressed !== 0) {
+    if (message.cbDiskCompressed !== "0") {
       writer.uint32(48).uint64(message.cbDiskCompressed);
     }
     if (message.uniqueChunks !== 0) {
@@ -428,7 +428,7 @@ export const ContentManifestMetadata = {
           message.depotId = reader.uint32();
           break;
         case 2:
-          message.gidManifest = longToNumber(reader.uint64() as Long);
+          message.gidManifest = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.creationTime = reader.uint32();
@@ -437,10 +437,10 @@ export const ContentManifestMetadata = {
           message.filenamesEncrypted = reader.bool();
           break;
         case 5:
-          message.cbDiskOriginal = longToNumber(reader.uint64() as Long);
+          message.cbDiskOriginal = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.cbDiskCompressed = longToNumber(reader.uint64() as Long);
+          message.cbDiskCompressed = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.uniqueChunks = reader.uint32();
@@ -462,11 +462,11 @@ export const ContentManifestMetadata = {
   fromJSON(object: any): ContentManifestMetadata {
     return {
       depotId: isSet(object.depotId) ? Number(object.depotId) : 0,
-      gidManifest: isSet(object.gidManifest) ? Number(object.gidManifest) : 0,
+      gidManifest: isSet(object.gidManifest) ? String(object.gidManifest) : "0",
       creationTime: isSet(object.creationTime) ? Number(object.creationTime) : 0,
       filenamesEncrypted: isSet(object.filenamesEncrypted) ? Boolean(object.filenamesEncrypted) : false,
-      cbDiskOriginal: isSet(object.cbDiskOriginal) ? Number(object.cbDiskOriginal) : 0,
-      cbDiskCompressed: isSet(object.cbDiskCompressed) ? Number(object.cbDiskCompressed) : 0,
+      cbDiskOriginal: isSet(object.cbDiskOriginal) ? String(object.cbDiskOriginal) : "0",
+      cbDiskCompressed: isSet(object.cbDiskCompressed) ? String(object.cbDiskCompressed) : "0",
       uniqueChunks: isSet(object.uniqueChunks) ? Number(object.uniqueChunks) : 0,
       crcEncrypted: isSet(object.crcEncrypted) ? Number(object.crcEncrypted) : 0,
       crcClear: isSet(object.crcClear) ? Number(object.crcClear) : 0,
@@ -476,11 +476,11 @@ export const ContentManifestMetadata = {
   toJSON(message: ContentManifestMetadata): unknown {
     const obj: any = {};
     message.depotId !== undefined && (obj.depotId = Math.round(message.depotId));
-    message.gidManifest !== undefined && (obj.gidManifest = Math.round(message.gidManifest));
+    message.gidManifest !== undefined && (obj.gidManifest = message.gidManifest);
     message.creationTime !== undefined && (obj.creationTime = Math.round(message.creationTime));
     message.filenamesEncrypted !== undefined && (obj.filenamesEncrypted = message.filenamesEncrypted);
-    message.cbDiskOriginal !== undefined && (obj.cbDiskOriginal = Math.round(message.cbDiskOriginal));
-    message.cbDiskCompressed !== undefined && (obj.cbDiskCompressed = Math.round(message.cbDiskCompressed));
+    message.cbDiskOriginal !== undefined && (obj.cbDiskOriginal = message.cbDiskOriginal);
+    message.cbDiskCompressed !== undefined && (obj.cbDiskCompressed = message.cbDiskCompressed);
     message.uniqueChunks !== undefined && (obj.uniqueChunks = Math.round(message.uniqueChunks));
     message.crcEncrypted !== undefined && (obj.crcEncrypted = Math.round(message.crcEncrypted));
     message.crcClear !== undefined && (obj.crcClear = Math.round(message.crcClear));
@@ -494,11 +494,11 @@ export const ContentManifestMetadata = {
   fromPartial<I extends Exact<DeepPartial<ContentManifestMetadata>, I>>(object: I): ContentManifestMetadata {
     const message = createBaseContentManifestMetadata();
     message.depotId = object.depotId ?? 0;
-    message.gidManifest = object.gidManifest ?? 0;
+    message.gidManifest = object.gidManifest ?? "0";
     message.creationTime = object.creationTime ?? 0;
     message.filenamesEncrypted = object.filenamesEncrypted ?? false;
-    message.cbDiskOriginal = object.cbDiskOriginal ?? 0;
-    message.cbDiskCompressed = object.cbDiskCompressed ?? 0;
+    message.cbDiskOriginal = object.cbDiskOriginal ?? "0";
+    message.cbDiskCompressed = object.cbDiskCompressed ?? "0";
     message.uniqueChunks = object.uniqueChunks ?? 0;
     message.crcEncrypted = object.crcEncrypted ?? 0;
     message.crcClear = object.crcClear ?? 0;
@@ -559,7 +559,7 @@ export const ContentManifestSignature = {
 };
 
 function createBaseContentDeltaChunks(): ContentDeltaChunks {
-  return { depotId: 0, manifestIdSource: 0, manifestIdTarget: 0, deltaChunks: [], chunkDataLocation: 0 };
+  return { depotId: 0, manifestIdSource: "0", manifestIdTarget: "0", deltaChunks: [], chunkDataLocation: 0 };
 }
 
 export const ContentDeltaChunks = {
@@ -567,10 +567,10 @@ export const ContentDeltaChunks = {
     if (message.depotId !== 0) {
       writer.uint32(8).uint32(message.depotId);
     }
-    if (message.manifestIdSource !== 0) {
+    if (message.manifestIdSource !== "0") {
       writer.uint32(16).uint64(message.manifestIdSource);
     }
-    if (message.manifestIdTarget !== 0) {
+    if (message.manifestIdTarget !== "0") {
       writer.uint32(24).uint64(message.manifestIdTarget);
     }
     for (const v of message.deltaChunks) {
@@ -593,10 +593,10 @@ export const ContentDeltaChunks = {
           message.depotId = reader.uint32();
           break;
         case 2:
-          message.manifestIdSource = longToNumber(reader.uint64() as Long);
+          message.manifestIdSource = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.manifestIdTarget = longToNumber(reader.uint64() as Long);
+          message.manifestIdTarget = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.deltaChunks.push(ContentDeltaChunks_DeltaChunk.decode(reader, reader.uint32()));
@@ -615,8 +615,8 @@ export const ContentDeltaChunks = {
   fromJSON(object: any): ContentDeltaChunks {
     return {
       depotId: isSet(object.depotId) ? Number(object.depotId) : 0,
-      manifestIdSource: isSet(object.manifestIdSource) ? Number(object.manifestIdSource) : 0,
-      manifestIdTarget: isSet(object.manifestIdTarget) ? Number(object.manifestIdTarget) : 0,
+      manifestIdSource: isSet(object.manifestIdSource) ? String(object.manifestIdSource) : "0",
+      manifestIdTarget: isSet(object.manifestIdTarget) ? String(object.manifestIdTarget) : "0",
       deltaChunks: Array.isArray(object?.deltaChunks)
         ? object.deltaChunks.map((e: any) => ContentDeltaChunks_DeltaChunk.fromJSON(e))
         : [],
@@ -629,8 +629,8 @@ export const ContentDeltaChunks = {
   toJSON(message: ContentDeltaChunks): unknown {
     const obj: any = {};
     message.depotId !== undefined && (obj.depotId = Math.round(message.depotId));
-    message.manifestIdSource !== undefined && (obj.manifestIdSource = Math.round(message.manifestIdSource));
-    message.manifestIdTarget !== undefined && (obj.manifestIdTarget = Math.round(message.manifestIdTarget));
+    message.manifestIdSource !== undefined && (obj.manifestIdSource = message.manifestIdSource);
+    message.manifestIdTarget !== undefined && (obj.manifestIdTarget = message.manifestIdTarget);
     if (message.deltaChunks) {
       obj.deltaChunks = message.deltaChunks.map((e) => e ? ContentDeltaChunks_DeltaChunk.toJSON(e) : undefined);
     } else {
@@ -648,8 +648,8 @@ export const ContentDeltaChunks = {
   fromPartial<I extends Exact<DeepPartial<ContentDeltaChunks>, I>>(object: I): ContentDeltaChunks {
     const message = createBaseContentDeltaChunks();
     message.depotId = object.depotId ?? 0;
-    message.manifestIdSource = object.manifestIdSource ?? 0;
-    message.manifestIdTarget = object.manifestIdTarget ?? 0;
+    message.manifestIdSource = object.manifestIdSource ?? "0";
+    message.manifestIdTarget = object.manifestIdTarget ?? "0";
     message.deltaChunks = object.deltaChunks?.map((e) => ContentDeltaChunks_DeltaChunk.fromPartial(e)) || [];
     message.chunkDataLocation = object.chunkDataLocation ?? 0;
     return message;
@@ -821,11 +821,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

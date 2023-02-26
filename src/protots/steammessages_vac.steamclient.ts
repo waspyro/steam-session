@@ -5,9 +5,9 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CFileVerificationSignatureCheckRequest {
-  steamid: number;
+  steamid: string;
   appid: number;
-  fileSize: number;
+  fileSize: string;
   fileTimestamp: number;
   fileTimestamp2: number;
   signatureResult: number;
@@ -34,9 +34,9 @@ export interface CFileVerificationSteamServiceCheckResponse {
 
 function createBaseCFileVerificationSignatureCheckRequest(): CFileVerificationSignatureCheckRequest {
   return {
-    steamid: 0,
+    steamid: "0",
     appid: 0,
-    fileSize: 0,
+    fileSize: "0",
     fileTimestamp: 0,
     fileTimestamp2: 0,
     signatureResult: 0,
@@ -48,13 +48,13 @@ function createBaseCFileVerificationSignatureCheckRequest(): CFileVerificationSi
 
 export const CFileVerificationSignatureCheckRequest = {
   encode(message: CFileVerificationSignatureCheckRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
     if (message.appid !== 0) {
       writer.uint32(16).uint32(message.appid);
     }
-    if (message.fileSize !== 0) {
+    if (message.fileSize !== "0") {
       writer.uint32(24).uint64(message.fileSize);
     }
     if (message.fileTimestamp !== 0) {
@@ -86,13 +86,13 @@ export const CFileVerificationSignatureCheckRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
           message.appid = reader.uint32();
           break;
         case 3:
-          message.fileSize = longToNumber(reader.uint64() as Long);
+          message.fileSize = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.fileTimestamp = reader.uint32();
@@ -122,9 +122,9 @@ export const CFileVerificationSignatureCheckRequest = {
 
   fromJSON(object: any): CFileVerificationSignatureCheckRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
       appid: isSet(object.appid) ? Number(object.appid) : 0,
-      fileSize: isSet(object.fileSize) ? Number(object.fileSize) : 0,
+      fileSize: isSet(object.fileSize) ? String(object.fileSize) : "0",
       fileTimestamp: isSet(object.fileTimestamp) ? Number(object.fileTimestamp) : 0,
       fileTimestamp2: isSet(object.fileTimestamp2) ? Number(object.fileTimestamp2) : 0,
       signatureResult: isSet(object.signatureResult) ? Number(object.signatureResult) : 0,
@@ -136,9 +136,9 @@ export const CFileVerificationSignatureCheckRequest = {
 
   toJSON(message: CFileVerificationSignatureCheckRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
     message.appid !== undefined && (obj.appid = Math.round(message.appid));
-    message.fileSize !== undefined && (obj.fileSize = Math.round(message.fileSize));
+    message.fileSize !== undefined && (obj.fileSize = message.fileSize);
     message.fileTimestamp !== undefined && (obj.fileTimestamp = Math.round(message.fileTimestamp));
     message.fileTimestamp2 !== undefined && (obj.fileTimestamp2 = Math.round(message.fileTimestamp2));
     message.signatureResult !== undefined && (obj.signatureResult = Math.round(message.signatureResult));
@@ -159,9 +159,9 @@ export const CFileVerificationSignatureCheckRequest = {
     object: I,
   ): CFileVerificationSignatureCheckRequest {
     const message = createBaseCFileVerificationSignatureCheckRequest();
-    message.steamid = object.steamid ?? 0;
+    message.steamid = object.steamid ?? "0";
     message.appid = object.appid ?? 0;
-    message.fileSize = object.fileSize ?? 0;
+    message.fileSize = object.fileSize ?? "0";
     message.fileTimestamp = object.fileTimestamp ?? 0;
     message.fileTimestamp2 = object.fileTimestamp2 ?? 0;
     message.signatureResult = object.signatureResult ?? 0;
@@ -465,11 +465,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

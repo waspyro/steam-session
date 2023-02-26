@@ -6,21 +6,21 @@ import { NoResponse } from "./steammessages_unified_base.steamclient";
 export const protobufPackage = "";
 
 export interface CVideoClientGetVideoURLRequest {
-  videoId: number;
+  videoId: string;
   clientCellid: number;
 }
 
 export interface CVideoClientGetVideoURLResponse {
-  videoId: number;
+  videoId: string;
   videoUrl: string;
 }
 
 export interface VideoBookmark {
   appId: number;
   playbackPositionInSeconds: number;
-  videoTrackId: number;
-  audioTrackId: number;
-  timedtextTrackId: number;
+  videoTrackId: string;
+  audioTrackId: string;
+  timedtextTrackId: string;
   lastModified: number;
   hideFromWatchHistory: boolean;
   hideFromLibrary: boolean;
@@ -54,12 +54,12 @@ export interface CFovasVideoClientGetOPFSettingsResponse {
 }
 
 function createBaseCVideoClientGetVideoURLRequest(): CVideoClientGetVideoURLRequest {
-  return { videoId: 0, clientCellid: 0 };
+  return { videoId: "0", clientCellid: 0 };
 }
 
 export const CVideoClientGetVideoURLRequest = {
   encode(message: CVideoClientGetVideoURLRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.videoId !== 0) {
+    if (message.videoId !== "0") {
       writer.uint32(8).uint64(message.videoId);
     }
     if (message.clientCellid !== 0) {
@@ -76,7 +76,7 @@ export const CVideoClientGetVideoURLRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.videoId = longToNumber(reader.uint64() as Long);
+          message.videoId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.clientCellid = reader.uint32();
@@ -91,14 +91,14 @@ export const CVideoClientGetVideoURLRequest = {
 
   fromJSON(object: any): CVideoClientGetVideoURLRequest {
     return {
-      videoId: isSet(object.videoId) ? Number(object.videoId) : 0,
+      videoId: isSet(object.videoId) ? String(object.videoId) : "0",
       clientCellid: isSet(object.clientCellid) ? Number(object.clientCellid) : 0,
     };
   },
 
   toJSON(message: CVideoClientGetVideoURLRequest): unknown {
     const obj: any = {};
-    message.videoId !== undefined && (obj.videoId = Math.round(message.videoId));
+    message.videoId !== undefined && (obj.videoId = message.videoId);
     message.clientCellid !== undefined && (obj.clientCellid = Math.round(message.clientCellid));
     return obj;
   },
@@ -111,19 +111,19 @@ export const CVideoClientGetVideoURLRequest = {
     object: I,
   ): CVideoClientGetVideoURLRequest {
     const message = createBaseCVideoClientGetVideoURLRequest();
-    message.videoId = object.videoId ?? 0;
+    message.videoId = object.videoId ?? "0";
     message.clientCellid = object.clientCellid ?? 0;
     return message;
   },
 };
 
 function createBaseCVideoClientGetVideoURLResponse(): CVideoClientGetVideoURLResponse {
-  return { videoId: 0, videoUrl: "" };
+  return { videoId: "0", videoUrl: "" };
 }
 
 export const CVideoClientGetVideoURLResponse = {
   encode(message: CVideoClientGetVideoURLResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.videoId !== 0) {
+    if (message.videoId !== "0") {
       writer.uint32(8).uint64(message.videoId);
     }
     if (message.videoUrl !== "") {
@@ -140,7 +140,7 @@ export const CVideoClientGetVideoURLResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.videoId = longToNumber(reader.uint64() as Long);
+          message.videoId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.videoUrl = reader.string();
@@ -155,14 +155,14 @@ export const CVideoClientGetVideoURLResponse = {
 
   fromJSON(object: any): CVideoClientGetVideoURLResponse {
     return {
-      videoId: isSet(object.videoId) ? Number(object.videoId) : 0,
+      videoId: isSet(object.videoId) ? String(object.videoId) : "0",
       videoUrl: isSet(object.videoUrl) ? String(object.videoUrl) : "",
     };
   },
 
   toJSON(message: CVideoClientGetVideoURLResponse): unknown {
     const obj: any = {};
-    message.videoId !== undefined && (obj.videoId = Math.round(message.videoId));
+    message.videoId !== undefined && (obj.videoId = message.videoId);
     message.videoUrl !== undefined && (obj.videoUrl = message.videoUrl);
     return obj;
   },
@@ -175,7 +175,7 @@ export const CVideoClientGetVideoURLResponse = {
     object: I,
   ): CVideoClientGetVideoURLResponse {
     const message = createBaseCVideoClientGetVideoURLResponse();
-    message.videoId = object.videoId ?? 0;
+    message.videoId = object.videoId ?? "0";
     message.videoUrl = object.videoUrl ?? "";
     return message;
   },
@@ -185,9 +185,9 @@ function createBaseVideoBookmark(): VideoBookmark {
   return {
     appId: 0,
     playbackPositionInSeconds: 0,
-    videoTrackId: 0,
-    audioTrackId: 0,
-    timedtextTrackId: 0,
+    videoTrackId: "0",
+    audioTrackId: "0",
+    timedtextTrackId: "0",
     lastModified: 0,
     hideFromWatchHistory: false,
     hideFromLibrary: false,
@@ -202,13 +202,13 @@ export const VideoBookmark = {
     if (message.playbackPositionInSeconds !== 0) {
       writer.uint32(16).uint32(message.playbackPositionInSeconds);
     }
-    if (message.videoTrackId !== 0) {
+    if (message.videoTrackId !== "0") {
       writer.uint32(24).uint64(message.videoTrackId);
     }
-    if (message.audioTrackId !== 0) {
+    if (message.audioTrackId !== "0") {
       writer.uint32(32).uint64(message.audioTrackId);
     }
-    if (message.timedtextTrackId !== 0) {
+    if (message.timedtextTrackId !== "0") {
       writer.uint32(40).uint64(message.timedtextTrackId);
     }
     if (message.lastModified !== 0) {
@@ -237,13 +237,13 @@ export const VideoBookmark = {
           message.playbackPositionInSeconds = reader.uint32();
           break;
         case 3:
-          message.videoTrackId = longToNumber(reader.uint64() as Long);
+          message.videoTrackId = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.audioTrackId = longToNumber(reader.uint64() as Long);
+          message.audioTrackId = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.timedtextTrackId = longToNumber(reader.uint64() as Long);
+          message.timedtextTrackId = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.lastModified = reader.uint32();
@@ -266,9 +266,9 @@ export const VideoBookmark = {
     return {
       appId: isSet(object.appId) ? Number(object.appId) : 0,
       playbackPositionInSeconds: isSet(object.playbackPositionInSeconds) ? Number(object.playbackPositionInSeconds) : 0,
-      videoTrackId: isSet(object.videoTrackId) ? Number(object.videoTrackId) : 0,
-      audioTrackId: isSet(object.audioTrackId) ? Number(object.audioTrackId) : 0,
-      timedtextTrackId: isSet(object.timedtextTrackId) ? Number(object.timedtextTrackId) : 0,
+      videoTrackId: isSet(object.videoTrackId) ? String(object.videoTrackId) : "0",
+      audioTrackId: isSet(object.audioTrackId) ? String(object.audioTrackId) : "0",
+      timedtextTrackId: isSet(object.timedtextTrackId) ? String(object.timedtextTrackId) : "0",
       lastModified: isSet(object.lastModified) ? Number(object.lastModified) : 0,
       hideFromWatchHistory: isSet(object.hideFromWatchHistory) ? Boolean(object.hideFromWatchHistory) : false,
       hideFromLibrary: isSet(object.hideFromLibrary) ? Boolean(object.hideFromLibrary) : false,
@@ -280,9 +280,9 @@ export const VideoBookmark = {
     message.appId !== undefined && (obj.appId = Math.round(message.appId));
     message.playbackPositionInSeconds !== undefined &&
       (obj.playbackPositionInSeconds = Math.round(message.playbackPositionInSeconds));
-    message.videoTrackId !== undefined && (obj.videoTrackId = Math.round(message.videoTrackId));
-    message.audioTrackId !== undefined && (obj.audioTrackId = Math.round(message.audioTrackId));
-    message.timedtextTrackId !== undefined && (obj.timedtextTrackId = Math.round(message.timedtextTrackId));
+    message.videoTrackId !== undefined && (obj.videoTrackId = message.videoTrackId);
+    message.audioTrackId !== undefined && (obj.audioTrackId = message.audioTrackId);
+    message.timedtextTrackId !== undefined && (obj.timedtextTrackId = message.timedtextTrackId);
     message.lastModified !== undefined && (obj.lastModified = Math.round(message.lastModified));
     message.hideFromWatchHistory !== undefined && (obj.hideFromWatchHistory = message.hideFromWatchHistory);
     message.hideFromLibrary !== undefined && (obj.hideFromLibrary = message.hideFromLibrary);
@@ -297,9 +297,9 @@ export const VideoBookmark = {
     const message = createBaseVideoBookmark();
     message.appId = object.appId ?? 0;
     message.playbackPositionInSeconds = object.playbackPositionInSeconds ?? 0;
-    message.videoTrackId = object.videoTrackId ?? 0;
-    message.audioTrackId = object.audioTrackId ?? 0;
-    message.timedtextTrackId = object.timedtextTrackId ?? 0;
+    message.videoTrackId = object.videoTrackId ?? "0";
+    message.audioTrackId = object.audioTrackId ?? "0";
+    message.timedtextTrackId = object.timedtextTrackId ?? "0";
     message.lastModified = object.lastModified ?? 0;
     message.hideFromWatchHistory = object.hideFromWatchHistory ?? false;
     message.hideFromLibrary = object.hideFromLibrary ?? false;
@@ -830,11 +830,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

@@ -5,18 +5,18 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "";
 
 export interface CPartiesJoinPartyRequest {
-  steamid: number;
-  beaconId: number;
+  steamid: string;
+  beaconId: string;
 }
 
 export interface CPartiesJoinPartyResponse {
-  beaconId: number;
+  beaconId: string;
   connectString: string;
 }
 
 export interface CPartiesBeaconLocation {
   locationType: number;
-  locationId: number;
+  locationId: string;
 }
 
 export interface CPartiesCreateBeaconRequest {
@@ -28,54 +28,54 @@ export interface CPartiesCreateBeaconRequest {
 }
 
 export interface CPartiesCreateBeaconResponse {
-  beaconId: number;
+  beaconId: string;
 }
 
 export interface CPartiesOnReservationCompletedRequest {
-  beaconId: number;
-  userSteamid: number;
+  beaconId: string;
+  userSteamid: string;
 }
 
 export interface CPartiesOnReservationCompletedResponse {
-  beaconId: number;
+  beaconId: string;
 }
 
 export interface CPartiesCancelReservationRequest {
-  beaconId: number;
-  userSteamid: number;
+  beaconId: string;
+  userSteamid: string;
 }
 
 export interface CPartiesCancelReservationResponse {
-  beaconId: number;
+  beaconId: string;
 }
 
 export interface CPartiesChangeNumOpenSlotsRequest {
-  beaconId: number;
+  beaconId: string;
   numOpenSlots: number;
 }
 
 export interface CPartiesChangeNumOpenSlotsResponse {
-  beaconId: number;
+  beaconId: string;
 }
 
 export interface CPartiesDestroyBeaconRequest {
-  beaconId: number;
+  beaconId: string;
 }
 
 export interface CPartiesDestroyBeaconResponse {
-  beaconId: number;
+  beaconId: string;
 }
 
 function createBaseCPartiesJoinPartyRequest(): CPartiesJoinPartyRequest {
-  return { steamid: 0, beaconId: 0 };
+  return { steamid: "0", beaconId: "0" };
 }
 
 export const CPartiesJoinPartyRequest = {
   encode(message: CPartiesJoinPartyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.steamid !== 0) {
+    if (message.steamid !== "0") {
       writer.uint32(9).fixed64(message.steamid);
     }
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(16).uint64(message.beaconId);
     }
     return writer;
@@ -89,10 +89,10 @@ export const CPartiesJoinPartyRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.steamid = longToNumber(reader.fixed64() as Long);
+          message.steamid = longToString(reader.fixed64() as Long);
           break;
         case 2:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -104,15 +104,15 @@ export const CPartiesJoinPartyRequest = {
 
   fromJSON(object: any): CPartiesJoinPartyRequest {
     return {
-      steamid: isSet(object.steamid) ? Number(object.steamid) : 0,
-      beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0,
+      steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0",
     };
   },
 
   toJSON(message: CPartiesJoinPartyRequest): unknown {
     const obj: any = {};
-    message.steamid !== undefined && (obj.steamid = Math.round(message.steamid));
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     return obj;
   },
 
@@ -122,19 +122,19 @@ export const CPartiesJoinPartyRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPartiesJoinPartyRequest>, I>>(object: I): CPartiesJoinPartyRequest {
     const message = createBaseCPartiesJoinPartyRequest();
-    message.steamid = object.steamid ?? 0;
-    message.beaconId = object.beaconId ?? 0;
+    message.steamid = object.steamid ?? "0";
+    message.beaconId = object.beaconId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesJoinPartyResponse(): CPartiesJoinPartyResponse {
-  return { beaconId: 0, connectString: "" };
+  return { beaconId: "0", connectString: "" };
 }
 
 export const CPartiesJoinPartyResponse = {
   encode(message: CPartiesJoinPartyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     if (message.connectString !== "") {
@@ -151,7 +151,7 @@ export const CPartiesJoinPartyResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.connectString = reader.string();
@@ -166,14 +166,14 @@ export const CPartiesJoinPartyResponse = {
 
   fromJSON(object: any): CPartiesJoinPartyResponse {
     return {
-      beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0,
+      beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0",
       connectString: isSet(object.connectString) ? String(object.connectString) : "",
     };
   },
 
   toJSON(message: CPartiesJoinPartyResponse): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     message.connectString !== undefined && (obj.connectString = message.connectString);
     return obj;
   },
@@ -184,14 +184,14 @@ export const CPartiesJoinPartyResponse = {
 
   fromPartial<I extends Exact<DeepPartial<CPartiesJoinPartyResponse>, I>>(object: I): CPartiesJoinPartyResponse {
     const message = createBaseCPartiesJoinPartyResponse();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     message.connectString = object.connectString ?? "";
     return message;
   },
 };
 
 function createBaseCPartiesBeaconLocation(): CPartiesBeaconLocation {
-  return { locationType: 0, locationId: 0 };
+  return { locationType: 0, locationId: "0" };
 }
 
 export const CPartiesBeaconLocation = {
@@ -199,7 +199,7 @@ export const CPartiesBeaconLocation = {
     if (message.locationType !== 0) {
       writer.uint32(8).uint32(message.locationType);
     }
-    if (message.locationId !== 0) {
+    if (message.locationId !== "0") {
       writer.uint32(16).uint64(message.locationId);
     }
     return writer;
@@ -216,7 +216,7 @@ export const CPartiesBeaconLocation = {
           message.locationType = reader.uint32();
           break;
         case 2:
-          message.locationId = longToNumber(reader.uint64() as Long);
+          message.locationId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -229,14 +229,14 @@ export const CPartiesBeaconLocation = {
   fromJSON(object: any): CPartiesBeaconLocation {
     return {
       locationType: isSet(object.locationType) ? Number(object.locationType) : 0,
-      locationId: isSet(object.locationId) ? Number(object.locationId) : 0,
+      locationId: isSet(object.locationId) ? String(object.locationId) : "0",
     };
   },
 
   toJSON(message: CPartiesBeaconLocation): unknown {
     const obj: any = {};
     message.locationType !== undefined && (obj.locationType = Math.round(message.locationType));
-    message.locationId !== undefined && (obj.locationId = Math.round(message.locationId));
+    message.locationId !== undefined && (obj.locationId = message.locationId);
     return obj;
   },
 
@@ -247,7 +247,7 @@ export const CPartiesBeaconLocation = {
   fromPartial<I extends Exact<DeepPartial<CPartiesBeaconLocation>, I>>(object: I): CPartiesBeaconLocation {
     const message = createBaseCPartiesBeaconLocation();
     message.locationType = object.locationType ?? 0;
-    message.locationId = object.locationId ?? 0;
+    message.locationId = object.locationId ?? "0";
     return message;
   },
 };
@@ -348,12 +348,12 @@ export const CPartiesCreateBeaconRequest = {
 };
 
 function createBaseCPartiesCreateBeaconResponse(): CPartiesCreateBeaconResponse {
-  return { beaconId: 0 };
+  return { beaconId: "0" };
 }
 
 export const CPartiesCreateBeaconResponse = {
   encode(message: CPartiesCreateBeaconResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     return writer;
@@ -367,7 +367,7 @@ export const CPartiesCreateBeaconResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -378,12 +378,12 @@ export const CPartiesCreateBeaconResponse = {
   },
 
   fromJSON(object: any): CPartiesCreateBeaconResponse {
-    return { beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0 };
+    return { beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0" };
   },
 
   toJSON(message: CPartiesCreateBeaconResponse): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     return obj;
   },
 
@@ -393,21 +393,21 @@ export const CPartiesCreateBeaconResponse = {
 
   fromPartial<I extends Exact<DeepPartial<CPartiesCreateBeaconResponse>, I>>(object: I): CPartiesCreateBeaconResponse {
     const message = createBaseCPartiesCreateBeaconResponse();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesOnReservationCompletedRequest(): CPartiesOnReservationCompletedRequest {
-  return { beaconId: 0, userSteamid: 0 };
+  return { beaconId: "0", userSteamid: "0" };
 }
 
 export const CPartiesOnReservationCompletedRequest = {
   encode(message: CPartiesOnReservationCompletedRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
-    if (message.userSteamid !== 0) {
+    if (message.userSteamid !== "0") {
       writer.uint32(17).fixed64(message.userSteamid);
     }
     return writer;
@@ -421,10 +421,10 @@ export const CPartiesOnReservationCompletedRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.userSteamid = longToNumber(reader.fixed64() as Long);
+          message.userSteamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -436,15 +436,15 @@ export const CPartiesOnReservationCompletedRequest = {
 
   fromJSON(object: any): CPartiesOnReservationCompletedRequest {
     return {
-      beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0,
-      userSteamid: isSet(object.userSteamid) ? Number(object.userSteamid) : 0,
+      beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0",
+      userSteamid: isSet(object.userSteamid) ? String(object.userSteamid) : "0",
     };
   },
 
   toJSON(message: CPartiesOnReservationCompletedRequest): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
-    message.userSteamid !== undefined && (obj.userSteamid = Math.round(message.userSteamid));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
+    message.userSteamid !== undefined && (obj.userSteamid = message.userSteamid);
     return obj;
   },
 
@@ -458,19 +458,19 @@ export const CPartiesOnReservationCompletedRequest = {
     object: I,
   ): CPartiesOnReservationCompletedRequest {
     const message = createBaseCPartiesOnReservationCompletedRequest();
-    message.beaconId = object.beaconId ?? 0;
-    message.userSteamid = object.userSteamid ?? 0;
+    message.beaconId = object.beaconId ?? "0";
+    message.userSteamid = object.userSteamid ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesOnReservationCompletedResponse(): CPartiesOnReservationCompletedResponse {
-  return { beaconId: 0 };
+  return { beaconId: "0" };
 }
 
 export const CPartiesOnReservationCompletedResponse = {
   encode(message: CPartiesOnReservationCompletedResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     return writer;
@@ -484,7 +484,7 @@ export const CPartiesOnReservationCompletedResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -495,12 +495,12 @@ export const CPartiesOnReservationCompletedResponse = {
   },
 
   fromJSON(object: any): CPartiesOnReservationCompletedResponse {
-    return { beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0 };
+    return { beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0" };
   },
 
   toJSON(message: CPartiesOnReservationCompletedResponse): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     return obj;
   },
 
@@ -514,21 +514,21 @@ export const CPartiesOnReservationCompletedResponse = {
     object: I,
   ): CPartiesOnReservationCompletedResponse {
     const message = createBaseCPartiesOnReservationCompletedResponse();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesCancelReservationRequest(): CPartiesCancelReservationRequest {
-  return { beaconId: 0, userSteamid: 0 };
+  return { beaconId: "0", userSteamid: "0" };
 }
 
 export const CPartiesCancelReservationRequest = {
   encode(message: CPartiesCancelReservationRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
-    if (message.userSteamid !== 0) {
+    if (message.userSteamid !== "0") {
       writer.uint32(17).fixed64(message.userSteamid);
     }
     return writer;
@@ -542,10 +542,10 @@ export const CPartiesCancelReservationRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.userSteamid = longToNumber(reader.fixed64() as Long);
+          message.userSteamid = longToString(reader.fixed64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -557,15 +557,15 @@ export const CPartiesCancelReservationRequest = {
 
   fromJSON(object: any): CPartiesCancelReservationRequest {
     return {
-      beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0,
-      userSteamid: isSet(object.userSteamid) ? Number(object.userSteamid) : 0,
+      beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0",
+      userSteamid: isSet(object.userSteamid) ? String(object.userSteamid) : "0",
     };
   },
 
   toJSON(message: CPartiesCancelReservationRequest): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
-    message.userSteamid !== undefined && (obj.userSteamid = Math.round(message.userSteamid));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
+    message.userSteamid !== undefined && (obj.userSteamid = message.userSteamid);
     return obj;
   },
 
@@ -579,19 +579,19 @@ export const CPartiesCancelReservationRequest = {
     object: I,
   ): CPartiesCancelReservationRequest {
     const message = createBaseCPartiesCancelReservationRequest();
-    message.beaconId = object.beaconId ?? 0;
-    message.userSteamid = object.userSteamid ?? 0;
+    message.beaconId = object.beaconId ?? "0";
+    message.userSteamid = object.userSteamid ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesCancelReservationResponse(): CPartiesCancelReservationResponse {
-  return { beaconId: 0 };
+  return { beaconId: "0" };
 }
 
 export const CPartiesCancelReservationResponse = {
   encode(message: CPartiesCancelReservationResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     return writer;
@@ -605,7 +605,7 @@ export const CPartiesCancelReservationResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -616,12 +616,12 @@ export const CPartiesCancelReservationResponse = {
   },
 
   fromJSON(object: any): CPartiesCancelReservationResponse {
-    return { beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0 };
+    return { beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0" };
   },
 
   toJSON(message: CPartiesCancelReservationResponse): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     return obj;
   },
 
@@ -635,18 +635,18 @@ export const CPartiesCancelReservationResponse = {
     object: I,
   ): CPartiesCancelReservationResponse {
     const message = createBaseCPartiesCancelReservationResponse();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesChangeNumOpenSlotsRequest(): CPartiesChangeNumOpenSlotsRequest {
-  return { beaconId: 0, numOpenSlots: 0 };
+  return { beaconId: "0", numOpenSlots: 0 };
 }
 
 export const CPartiesChangeNumOpenSlotsRequest = {
   encode(message: CPartiesChangeNumOpenSlotsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     if (message.numOpenSlots !== 0) {
@@ -663,7 +663,7 @@ export const CPartiesChangeNumOpenSlotsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.numOpenSlots = reader.uint32();
@@ -678,14 +678,14 @@ export const CPartiesChangeNumOpenSlotsRequest = {
 
   fromJSON(object: any): CPartiesChangeNumOpenSlotsRequest {
     return {
-      beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0,
+      beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0",
       numOpenSlots: isSet(object.numOpenSlots) ? Number(object.numOpenSlots) : 0,
     };
   },
 
   toJSON(message: CPartiesChangeNumOpenSlotsRequest): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     message.numOpenSlots !== undefined && (obj.numOpenSlots = Math.round(message.numOpenSlots));
     return obj;
   },
@@ -700,19 +700,19 @@ export const CPartiesChangeNumOpenSlotsRequest = {
     object: I,
   ): CPartiesChangeNumOpenSlotsRequest {
     const message = createBaseCPartiesChangeNumOpenSlotsRequest();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     message.numOpenSlots = object.numOpenSlots ?? 0;
     return message;
   },
 };
 
 function createBaseCPartiesChangeNumOpenSlotsResponse(): CPartiesChangeNumOpenSlotsResponse {
-  return { beaconId: 0 };
+  return { beaconId: "0" };
 }
 
 export const CPartiesChangeNumOpenSlotsResponse = {
   encode(message: CPartiesChangeNumOpenSlotsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     return writer;
@@ -726,7 +726,7 @@ export const CPartiesChangeNumOpenSlotsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -737,12 +737,12 @@ export const CPartiesChangeNumOpenSlotsResponse = {
   },
 
   fromJSON(object: any): CPartiesChangeNumOpenSlotsResponse {
-    return { beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0 };
+    return { beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0" };
   },
 
   toJSON(message: CPartiesChangeNumOpenSlotsResponse): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     return obj;
   },
 
@@ -756,18 +756,18 @@ export const CPartiesChangeNumOpenSlotsResponse = {
     object: I,
   ): CPartiesChangeNumOpenSlotsResponse {
     const message = createBaseCPartiesChangeNumOpenSlotsResponse();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesDestroyBeaconRequest(): CPartiesDestroyBeaconRequest {
-  return { beaconId: 0 };
+  return { beaconId: "0" };
 }
 
 export const CPartiesDestroyBeaconRequest = {
   encode(message: CPartiesDestroyBeaconRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     return writer;
@@ -781,7 +781,7 @@ export const CPartiesDestroyBeaconRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -792,12 +792,12 @@ export const CPartiesDestroyBeaconRequest = {
   },
 
   fromJSON(object: any): CPartiesDestroyBeaconRequest {
-    return { beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0 };
+    return { beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0" };
   },
 
   toJSON(message: CPartiesDestroyBeaconRequest): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     return obj;
   },
 
@@ -807,18 +807,18 @@ export const CPartiesDestroyBeaconRequest = {
 
   fromPartial<I extends Exact<DeepPartial<CPartiesDestroyBeaconRequest>, I>>(object: I): CPartiesDestroyBeaconRequest {
     const message = createBaseCPartiesDestroyBeaconRequest();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     return message;
   },
 };
 
 function createBaseCPartiesDestroyBeaconResponse(): CPartiesDestroyBeaconResponse {
-  return { beaconId: 0 };
+  return { beaconId: "0" };
 }
 
 export const CPartiesDestroyBeaconResponse = {
   encode(message: CPartiesDestroyBeaconResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.beaconId !== 0) {
+    if (message.beaconId !== "0") {
       writer.uint32(8).uint64(message.beaconId);
     }
     return writer;
@@ -832,7 +832,7 @@ export const CPartiesDestroyBeaconResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.beaconId = longToNumber(reader.uint64() as Long);
+          message.beaconId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -843,12 +843,12 @@ export const CPartiesDestroyBeaconResponse = {
   },
 
   fromJSON(object: any): CPartiesDestroyBeaconResponse {
-    return { beaconId: isSet(object.beaconId) ? Number(object.beaconId) : 0 };
+    return { beaconId: isSet(object.beaconId) ? String(object.beaconId) : "0" };
   },
 
   toJSON(message: CPartiesDestroyBeaconResponse): unknown {
     const obj: any = {};
-    message.beaconId !== undefined && (obj.beaconId = Math.round(message.beaconId));
+    message.beaconId !== undefined && (obj.beaconId = message.beaconId);
     return obj;
   },
 
@@ -860,7 +860,7 @@ export const CPartiesDestroyBeaconResponse = {
     object: I,
   ): CPartiesDestroyBeaconResponse {
     const message = createBaseCPartiesDestroyBeaconResponse();
-    message.beaconId = object.beaconId ?? 0;
+    message.beaconId = object.beaconId ?? "0";
     return message;
   },
 };
@@ -932,25 +932,6 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
-var tsProtoGlobalThis: any = (() => {
-  if (typeof globalThis !== "undefined") {
-    return globalThis;
-  }
-  if (typeof self !== "undefined") {
-    return self;
-  }
-  if (typeof window !== "undefined") {
-    return window;
-  }
-  if (typeof global !== "undefined") {
-    return global;
-  }
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
 export type DeepPartial<T> = T extends Builtin ? T
@@ -962,11 +943,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

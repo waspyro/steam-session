@@ -7,7 +7,7 @@ export const protobufPackage = "";
 export interface CCommunityGetLinkFilterHashPrefixesRequest {
   hitType: number;
   count: number;
-  start: number;
+  start: string;
 }
 
 export interface CCommunityGetLinkFilterHashPrefixesResponse {
@@ -17,7 +17,7 @@ export interface CCommunityGetLinkFilterHashPrefixesResponse {
 export interface CCommunityGetLinkFilterHashesRequest {
   hitType: number;
   count: number;
-  start: number;
+  start: string;
 }
 
 export interface CCommunityGetLinkFilterHashesResponse {
@@ -30,11 +30,11 @@ export interface CCommunityGetLinkFilterListVersionRequest {
 
 export interface CCommunityGetLinkFilterListVersionResponse {
   version: string;
-  count: number;
+  count: string;
 }
 
 function createBaseCCommunityGetLinkFilterHashPrefixesRequest(): CCommunityGetLinkFilterHashPrefixesRequest {
-  return { hitType: 0, count: 0, start: 0 };
+  return { hitType: 0, count: 0, start: "0" };
 }
 
 export const CCommunityGetLinkFilterHashPrefixesRequest = {
@@ -45,7 +45,7 @@ export const CCommunityGetLinkFilterHashPrefixesRequest = {
     if (message.count !== 0) {
       writer.uint32(16).uint32(message.count);
     }
-    if (message.start !== 0) {
+    if (message.start !== "0") {
       writer.uint32(24).uint64(message.start);
     }
     return writer;
@@ -65,7 +65,7 @@ export const CCommunityGetLinkFilterHashPrefixesRequest = {
           message.count = reader.uint32();
           break;
         case 3:
-          message.start = longToNumber(reader.uint64() as Long);
+          message.start = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -79,7 +79,7 @@ export const CCommunityGetLinkFilterHashPrefixesRequest = {
     return {
       hitType: isSet(object.hitType) ? Number(object.hitType) : 0,
       count: isSet(object.count) ? Number(object.count) : 0,
-      start: isSet(object.start) ? Number(object.start) : 0,
+      start: isSet(object.start) ? String(object.start) : "0",
     };
   },
 
@@ -87,7 +87,7 @@ export const CCommunityGetLinkFilterHashPrefixesRequest = {
     const obj: any = {};
     message.hitType !== undefined && (obj.hitType = Math.round(message.hitType));
     message.count !== undefined && (obj.count = Math.round(message.count));
-    message.start !== undefined && (obj.start = Math.round(message.start));
+    message.start !== undefined && (obj.start = message.start);
     return obj;
   },
 
@@ -103,7 +103,7 @@ export const CCommunityGetLinkFilterHashPrefixesRequest = {
     const message = createBaseCCommunityGetLinkFilterHashPrefixesRequest();
     message.hitType = object.hitType ?? 0;
     message.count = object.count ?? 0;
-    message.start = object.start ?? 0;
+    message.start = object.start ?? "0";
     return message;
   },
 };
@@ -177,7 +177,7 @@ export const CCommunityGetLinkFilterHashPrefixesResponse = {
 };
 
 function createBaseCCommunityGetLinkFilterHashesRequest(): CCommunityGetLinkFilterHashesRequest {
-  return { hitType: 0, count: 0, start: 0 };
+  return { hitType: 0, count: 0, start: "0" };
 }
 
 export const CCommunityGetLinkFilterHashesRequest = {
@@ -188,7 +188,7 @@ export const CCommunityGetLinkFilterHashesRequest = {
     if (message.count !== 0) {
       writer.uint32(16).uint32(message.count);
     }
-    if (message.start !== 0) {
+    if (message.start !== "0") {
       writer.uint32(24).uint64(message.start);
     }
     return writer;
@@ -208,7 +208,7 @@ export const CCommunityGetLinkFilterHashesRequest = {
           message.count = reader.uint32();
           break;
         case 3:
-          message.start = longToNumber(reader.uint64() as Long);
+          message.start = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -222,7 +222,7 @@ export const CCommunityGetLinkFilterHashesRequest = {
     return {
       hitType: isSet(object.hitType) ? Number(object.hitType) : 0,
       count: isSet(object.count) ? Number(object.count) : 0,
-      start: isSet(object.start) ? Number(object.start) : 0,
+      start: isSet(object.start) ? String(object.start) : "0",
     };
   },
 
@@ -230,7 +230,7 @@ export const CCommunityGetLinkFilterHashesRequest = {
     const obj: any = {};
     message.hitType !== undefined && (obj.hitType = Math.round(message.hitType));
     message.count !== undefined && (obj.count = Math.round(message.count));
-    message.start !== undefined && (obj.start = Math.round(message.start));
+    message.start !== undefined && (obj.start = message.start);
     return obj;
   },
 
@@ -246,7 +246,7 @@ export const CCommunityGetLinkFilterHashesRequest = {
     const message = createBaseCCommunityGetLinkFilterHashesRequest();
     message.hitType = object.hitType ?? 0;
     message.count = object.count ?? 0;
-    message.start = object.start ?? 0;
+    message.start = object.start ?? "0";
     return message;
   },
 };
@@ -368,7 +368,7 @@ export const CCommunityGetLinkFilterListVersionRequest = {
 };
 
 function createBaseCCommunityGetLinkFilterListVersionResponse(): CCommunityGetLinkFilterListVersionResponse {
-  return { version: "", count: 0 };
+  return { version: "", count: "0" };
 }
 
 export const CCommunityGetLinkFilterListVersionResponse = {
@@ -376,7 +376,7 @@ export const CCommunityGetLinkFilterListVersionResponse = {
     if (message.version !== "") {
       writer.uint32(10).string(message.version);
     }
-    if (message.count !== 0) {
+    if (message.count !== "0") {
       writer.uint32(16).uint64(message.count);
     }
     return writer;
@@ -393,7 +393,7 @@ export const CCommunityGetLinkFilterListVersionResponse = {
           message.version = reader.string();
           break;
         case 2:
-          message.count = longToNumber(reader.uint64() as Long);
+          message.count = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -406,14 +406,14 @@ export const CCommunityGetLinkFilterListVersionResponse = {
   fromJSON(object: any): CCommunityGetLinkFilterListVersionResponse {
     return {
       version: isSet(object.version) ? String(object.version) : "",
-      count: isSet(object.count) ? Number(object.count) : 0,
+      count: isSet(object.count) ? String(object.count) : "0",
     };
   },
 
   toJSON(message: CCommunityGetLinkFilterListVersionResponse): unknown {
     const obj: any = {};
     message.version !== undefined && (obj.version = message.version);
-    message.count !== undefined && (obj.count = Math.round(message.count));
+    message.count !== undefined && (obj.count = message.count);
     return obj;
   },
 
@@ -428,7 +428,7 @@ export const CCommunityGetLinkFilterListVersionResponse = {
   ): CCommunityGetLinkFilterListVersionResponse {
     const message = createBaseCCommunityGetLinkFilterListVersionResponse();
     message.version = object.version ?? "";
-    message.count = object.count ?? 0;
+    message.count = object.count ?? "0";
     return message;
   },
 };
@@ -535,11 +535,8 @@ type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin ? P
   : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {
