@@ -1,43 +1,106 @@
 import CookieStore from "cookie-store";
 import SteamProtoAuthentication from "./SteamProtoAuthentication";
 import {EGuardType, IActorActions, obj, RequestOpts, SessionEnv} from "./types";
-import {webBrowser} from "./GenerateRequestEnvironment";
-import {encryptPasswordWithPublicKey, formDataFromObject, getSuccessfulJson} from "./utils";
-import totp from 'steam-totp'
+import {clientWindows, mobileIOS, webBrowser} from "./GenerateRequestEnvironment";
+import {encryptPasswordWithPublicKey, formDataFromObject, getSuccessfulJson, Listenable} from "./utils";
 import {BadProtobufResponse} from "./Errors";
 import {
     CAuthenticationAllowedConfirmation,
     CAuthenticationBeginAuthSessionViaCredentialsResponse,
 } from "./protots/steammessages_auth.steamclient";
 import {randomBytes} from "crypto";
+import {CookieData} from "cookie-store/dist/types";
 
 export default class SteamSession {
-    env: SessionEnv
-    cookies: CookieStore
 
-    constructor(env: SessionEnv) {
-        this.env = env
-        this.cookies = new CookieStore()
-    }
+    constructor(
+        public readonly env: SessionEnv = webBrowser(),
+        public readonly cookies: CookieStore = new CookieStore()
+    ) {}
 
     request = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
         if(typeof url === 'string') url = new URL(url)
         opts.headers = Object.assign({}, opts.headers, this.env.requestHeaders)
-        if(opts.cookiesSet !== 'manual') opts.headers.cookie = this.cookies.get(url).toString()
+        let cookiesUsed = null
+        if(opts.cookiesSet !== 'manual') {
+            cookiesUsed = this.cookies.get(url)
+            opts.headers.cookie = cookiesUsed.toString()
+        }
         if(!opts.redirect) opts.redirect = 'manual'
+        this.requestListener.emit([url, opts, cookiesUsed])
         return fetch(url, opts).then(resp => {
-            if(opts.cookiesSave !== 'manual')
-                this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
+            const newCookies = opts.cookiesSave === 'manual' ? null
+                : this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
+            this.responseListener.emit([url as URL, opts, cookiesUsed, resp, newCookies])
             return resp
         })
     }
 
+    public requestListener = Listenable<[URL, RequestOpts, (CookieData[] | null)]>()
+    public responseListener = Listenable<[URL, RequestOpts, (CookieData[] | null), Response, (CookieData[] | null)]>()
 
-    authentication = new SteamProtoAuthentication(this.request)
+    getJWTViaCredentials = async (accountName, password, actor: (
+        actions: ReturnType<SteamSession['createActions']>,
+        guards: {[key in EGuardType]?: string | true},
+        pollOptions: {delay: number, interval: number, tries: number},
+        steamid: string
+    ) => Promise<false | void>) => {
+        const key = await this.getPasswordRSAPublicKey({accountName})
+        const encryptedPassword = encryptPasswordWithPublicKey(key, password)
+        const context = await this.beginAuthSessionViaCredentials(accountName, encryptedPassword, key.timestamp)
+        const guards = this.transformGuardsToObject(context.allowedConfirmations)
+        const actions = this.createActions(guards, context)
+        const pollOptions = {delay: 0, interval: context.interval * 1000, tries: 100}
+        if(await actor(actions, guards, pollOptions, context.steamid) === false) return null
+        return this.pollUntilResults(context, pollOptions)
+    }
 
-    getPasswordRSAPublicKey = this.authentication.getPasswordRSAPublicKey
+    getSessionidCookieValue(domain = '.', create = true) {
+        const sessionid = this.cookies.get({hostname: domain}).find(c => c.name === 'sessionid')?.value
+        if(!sessionid && create) return this.createSessionidCookie(domain)
+        return sessionid
+    }
 
-    beginAuthSessionViaCredentials = (accountName, encryptedPassword, encryptionTimestamp) =>
+    async refreshCookies(refreshToken) {
+        const sessionid = this.getSessionidCookieValue()
+        const fd = formDataFromObject({
+            nonce: refreshToken, sessionid,
+            redir: 'https://steamcommunity.com/login/home/?goto='
+        })
+
+        const {steamID, transfer_info} = await this.request(
+            'https://login.steampowered.com/jwt/finalizelogin',
+            {method: 'POST', body: fd}
+        ).then(getSuccessfulJson)
+
+        const accessCookie = await Promise.any(transfer_info.map(async el => {
+            el.params.steamID = steamID
+            const response = await this.request(el.url, {
+                body: formDataFromObject(el.params),
+                method: 'POST',
+                cookiesSave: 'manual'
+            })
+            const body = await response.json()
+            const cookies = CookieStore.parseFromFetchResponse(response, {hostname: '.'})
+            const accessCookie = cookies.find(c => c.name === 'steamLoginSecure')
+            if(!accessCookie) throw new Error('no access cookie')
+            return accessCookie
+        }))
+        return this.cookies.add(accessCookie).value
+    }
+
+    me = () => this.request('https://steamcommunity.com/my').then(res => {
+        const location = res.headers.get('location')
+        const profileUrl = location.match(/steamcommunity\.com(\/(id|profiles)\/([^\/]+))/)
+        if(!profileUrl) return null
+        return res.text().then(() => [profileUrl[0], profileUrl[3], profileUrl[2]])
+    })
+
+    private authentication = new SteamProtoAuthentication(this.request)
+
+    private getPasswordRSAPublicKey = this.authentication.getPasswordRSAPublicKey
+
+    private beginAuthSessionViaCredentials = (accountName, encryptedPassword, encryptionTimestamp) =>
         this.authentication.beginAuthSessionViaCredentials({
             accountName, encryptedPassword, encryptionTimestamp,
             websiteId: this.env.websiteId,
@@ -56,11 +119,11 @@ export default class SteamSession {
         ctx: CAuthenticationBeginAuthSessionViaCredentialsResponse,
         codeType: EGuardType.EmailCode | EGuardType.DeviceCode
     ) => (code: string) => this.authentication.updateAuthSessionWithSteamGuardCode({
-            steamid: ctx.steamid,
-            clientId: ctx.clientId,
-            codeType: Number(codeType), //why 😭
-            code
-        })
+        steamid: ctx.steamid,
+        clientId: ctx.clientId,
+        codeType: Number(codeType), //why 😭
+        code
+    })
 
     private CheckDeviceOrSendEmail = (ctx: CAuthenticationBeginAuthSessionViaCredentialsResponse) => () =>
         this.request('https://login.steampowered.com/jwt/checkdevice/'+ctx.steamid, {
@@ -113,66 +176,11 @@ export default class SteamSession {
         return null
     }
 
-    getJWTViaCredentials = async (accountName, password, actor: (
-        actions: ReturnType<SteamSession['createActions']>,
-        guards: {[key in EGuardType]?: string | true},
-        pollOptions: {delay: number, interval: number, tries: number},
-        steamid: string
-    ) => Promise<false | void>) => {
-        const key = await this.getPasswordRSAPublicKey({accountName})
-        const encryptedPassword = encryptPasswordWithPublicKey(key, password)
-        const context = await this.beginAuthSessionViaCredentials(accountName, encryptedPassword, key.timestamp)
-        const guards = this.transformGuardsToObject(context.allowedConfirmations)
-        const actions = this.createActions(guards, context)
-        const pollOptions = {delay: 0, interval: context.interval * 1000, tries: 100}
-        if(await actor(actions, guards, pollOptions, context.steamid) === false) return null
-        return this.pollUntilResults(context, pollOptions)
-    }
-
     private createSessionidCookie = (domain = '.') => this.cookies.add({
         name: 'sessionid', value: randomBytes(12).toString('hex'),
         path: '/', domain, samesite: 'None'
     }).value
 
-    getSessionidCookieValue(domain = '.', create = true) {
-        const sessionid = this.cookies.get({hostname: domain}).find(c => c.name === 'sessionid')?.value
-        if(!sessionid && create) return this.createSessionidCookie(domain)
-        return sessionid
-    }
-
-    async refreshCookies(refreshToken) {
-        const sessionid = this.getSessionidCookieValue()
-        const fd = formDataFromObject({
-            nonce: refreshToken, sessionid,
-            redir: 'https://steamcommunity.com/login/home/?goto='
-        })
-
-        const {steamID, transfer_info} = await this.request(
-            'https://login.steampowered.com/jwt/finalizelogin',
-            {method: 'POST', body: fd}
-        ).then(getSuccessfulJson)
-
-        const accessCookie = await Promise.any(transfer_info.map(async el => {
-            el.params.steamID = steamID
-            const response = await this.request(el.url, {
-                body: formDataFromObject(el.params),
-                method: 'POST',
-                cookiesSave: 'manual'
-            })
-            const body = await response.json()
-            const cookies = CookieStore.parseFromFetchResponse(response, {hostname: '.'})
-            const accessCookie = cookies.find(c => c.name === 'steamLoginSecure')
-            if(!accessCookie) throw new Error('no access cookie')
-            return accessCookie
-        }))
-        return this.cookies.add(accessCookie).value
-    }
-
-    me = () => this.request('https://steamcommunity.com/my').then(res => {
-        const location = res.headers.get('location')
-        const profileUrl = location.match(/steamcommunity\.com(\/(id|profiles)\/([^\/]+))/)
-        if(!profileUrl) return null
-        return res.text().then(() => [profileUrl[0], profileUrl[3], profileUrl[2]])
-    })
-
+    static env = {webBrowser, mobileIOS, clientWindows}
 }
+
