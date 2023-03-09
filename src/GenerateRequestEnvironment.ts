@@ -70,7 +70,7 @@ export const clientWindows = (
 export const mobileIOS = (
     deviceFriendlyName = getRandomIOSDeviceName(),
     userAgent = defaultIOSClientUA,
-    osVersion = EOSType.IOS12
+    osVersion = EOSType.IOS12,
 ): SessionEnv => {
     return {
         websiteId: 'Mobile',

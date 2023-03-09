@@ -1,5 +1,5 @@
 import {getSuccessfulProtoResponseBuffer} from "./utils";
-import {fn} from './types'
+import {CMsg} from './types'
 
 export default class SteamProtoConversation {
 
@@ -10,23 +10,25 @@ export default class SteamProtoConversation {
 
     url = (interfaceMethod: string, version = 1) => new URL(interfaceMethod + '/v' + version, this.baseUrl)
 
-    protected Conversation = <REQ extends {encode: fn}, RES extends {decode: fn}>
+    protected Conversation = <ACCESS extends void | string = void, REQ extends CMsg = CMsg, RES extends CMsg = CMsg>
     (requestMethod: 'GET' | 'POST', version = 1, method: string, request: REQ, response: RES) =>
         requestMethod === 'GET'
             ? (data: Parameters<REQ['encode']>[0]): Promise<ReturnType<RES['decode']>> => {
-                const url = this.url(method)
+                const url = this.url(method, version)
                 const encodedData = request.encode(data).finish().toString('base64')
                 url.searchParams.set('input_protobuf_encoded', encodedData)
                 return this.rpc(url)
                     .then(getSuccessfulProtoResponseBuffer)
                     .then(response.decode)
             }
-            : (data: Parameters<REQ['encode']>[0]): Promise<ReturnType<RES['decode']>> => {
-                const url = this.url(method)
+            : (data: Parameters<REQ['encode']>[0], accessToken: ACCESS): Promise<ReturnType<RES['decode']>> => {
+                const url = this.url(method, version)
+                if(typeof accessToken === 'string') url.searchParams.set('access_token', accessToken)
                 const fd = new FormData()
                 fd.set('input_protobuf_encoded', request.encode(data).finish().toString('base64'))
                 return this.rpc(url, {body: fd, method: 'POST'})
                     .then(getSuccessfulProtoResponseBuffer)
                     .then(response.decode)
             }
+
 }

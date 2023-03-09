@@ -9,7 +9,7 @@ export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Bu
     return response.arrayBuffer().then(ab => Buffer.from(ab))
 }
 
-export const getSuccessfulJson = (response: Response) => {
+export const getSuccessfulResponseJson = (response: Response) => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
     return response.json()
 }

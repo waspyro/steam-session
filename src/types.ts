@@ -40,6 +40,8 @@ export type SessionEnv = {
     }
 }
 
+export type CMsg = {encode: fn, decode: fn}
+
 export type RT_UpdateSessionWithCode = ReturnType<SteamSession['UpdateSessionWithCode']>
 export type RT_CheckDeviceOrSendEmail = ReturnType<SteamSession['CheckDeviceOrSendEmail']>
 export interface IActorActions {
@@ -47,6 +49,12 @@ export interface IActorActions {
     submitEmailCode?: RT_UpdateSessionWithCode
     checkDeviceOrSendEmail?: RT_CheckDeviceOrSendEmail
 }
+
+export type SessionSignatureData = {clientId: string, version?: number, steamid: string}
+export type SteamSessionTokens = {refresh: null | string, access: null | string}
+
+export type PollContext = {clientId: string, requestId: Buffer}
+export type PollingOptions = {delay: number, tries: number, interval: number}
 
 export enum EOSType {
     'Web' = -700,
