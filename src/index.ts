@@ -3,7 +3,9 @@ import SteamProtoAuthentication from "./SteamProtoAuthentication";
 import {
     EGuardType,
     IActorActions,
-    obj, PollContext, PollingOptions,
+    obj,
+    PollContext,
+    PollingOptions,
     RequestOpts,
     SessionEnv,
     SessionSignatureData,
@@ -13,11 +15,7 @@ import Listenable from "listenable";
 import {createHmac, randomBytes} from "crypto";
 
 import {clientWindows, mobileIOS, webBrowser} from "./GenerateRequestEnvironment";
-import {
-    encryptPasswordWithPublicKey,
-    formDataFromObject,
-    getSuccessfulResponseJson,
-} from "./utils";
+import {encryptPasswordWithPublicKey, formDataFromObject, getSuccessfulResponseJson,} from "./utils";
 import {BadProtobufResponse} from "./Errors";
 import {
     CAuthenticationAllowedConfirmation,
@@ -94,7 +92,10 @@ export default class SteamSession {
             deviceDetails: this.env.device,
             deviceFriendlyName: this.env.device.deviceFriendlyName,
             rememberLogin: true,
-            guardData: "", language: 0, persistence: undefined,
+            language: 0,
+            persistence: ESessionPersistence.k_ESessionPersistence_Persistent,
+            guardData: "", //???
+            qosLevel: 0 //???
         }).catch(e => {
             if(e instanceof BadProtobufResponse && e.eresult === 5) //todo steam enums?
                 throw new Error('Password is wrong')

@@ -59,6 +59,7 @@ export enum EAuthSessionGuardType {
   k_EAuthSessionGuardType_DeviceConfirmation = 4,
   k_EAuthSessionGuardType_EmailConfirmation = 5,
   k_EAuthSessionGuardType_MachineToken = 6,
+  k_EAuthSessionGuardType_LegacyMachineAuth = 7,
   UNRECOGNIZED = -1,
 }
 
@@ -85,6 +86,9 @@ export function eAuthSessionGuardTypeFromJSON(object: any): EAuthSessionGuardTyp
     case 6:
     case "k_EAuthSessionGuardType_MachineToken":
       return EAuthSessionGuardType.k_EAuthSessionGuardType_MachineToken;
+    case 7:
+    case "k_EAuthSessionGuardType_LegacyMachineAuth":
+      return EAuthSessionGuardType.k_EAuthSessionGuardType_LegacyMachineAuth;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -108,6 +112,8 @@ export function eAuthSessionGuardTypeToJSON(object: EAuthSessionGuardType): stri
       return "k_EAuthSessionGuardType_EmailConfirmation";
     case EAuthSessionGuardType.k_EAuthSessionGuardType_MachineToken:
       return "k_EAuthSessionGuardType_MachineToken";
+    case EAuthSessionGuardType.k_EAuthSessionGuardType_LegacyMachineAuth:
+      return "k_EAuthSessionGuardType_LegacyMachineAuth";
     case EAuthSessionGuardType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -323,6 +329,7 @@ export interface CAuthenticationBeginAuthSessionViaCredentialsRequest {
   deviceDetails: CAuthenticationDeviceDetails | undefined;
   guardData: string;
   language: number;
+  qosLevel: number;
 }
 
 export interface CAuthenticationBeginAuthSessionViaCredentialsResponse {
@@ -1053,6 +1060,7 @@ function createBaseCAuthenticationBeginAuthSessionViaCredentialsRequest(): CAuth
     deviceDetails: undefined,
     guardData: "",
     language: 0,
+    qosLevel: 0,
   };
 }
 
@@ -1093,6 +1101,9 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
     }
     if (message.language !== 0) {
       writer.uint32(88).uint32(message.language);
+    }
+    if (message.qosLevel !== 0) {
+      writer.uint32(96).int32(message.qosLevel);
     }
     return writer;
   },
@@ -1137,6 +1148,9 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
         case 11:
           message.language = reader.uint32();
           break;
+        case 12:
+          message.qosLevel = reader.int32();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1160,6 +1174,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
         : undefined,
       guardData: isSet(object.guardData) ? String(object.guardData) : "",
       language: isSet(object.language) ? Number(object.language) : 0,
+      qosLevel: isSet(object.qosLevel) ? Number(object.qosLevel) : 0,
     };
   },
 
@@ -1178,6 +1193,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
       : undefined);
     message.guardData !== undefined && (obj.guardData = message.guardData);
     message.language !== undefined && (obj.language = Math.round(message.language));
+    message.qosLevel !== undefined && (obj.qosLevel = Math.round(message.qosLevel));
     return obj;
   },
 
@@ -1204,6 +1220,7 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
       : undefined;
     message.guardData = object.guardData ?? "";
     message.language = object.language ?? 0;
+    message.qosLevel = object.qosLevel ?? 0;
     return message;
   },
 };

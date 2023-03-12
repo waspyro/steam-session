@@ -17,4 +17,4 @@ protoc \
 	--ts_proto_out="$PROTOTS_DIR" \
 	--ts_proto_opt=forceLong=string \
 	-I="." \
-	*.proto
+	steammessages_auth.steamclient.proto
