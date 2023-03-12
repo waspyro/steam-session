@@ -29,11 +29,3 @@ export const formDataFromObject = (o: Record<string, string>) => {
     for(const key in o) fd.set(key, o[key])
     return fd
 }
-
-export const Listenable = <T>() => {
-    const listeners = []
-    const emit = (args: T) => {for (let i = 0; i < listeners.length; ++i) listeners[i](args)}
-    const on = (cb: (args: T) => void) => listeners.push(cb)
-    const off = (cb: (args: T) => void) => listeners.filter(el => el !== cb).length
-    return {on, off, emit}
-}
