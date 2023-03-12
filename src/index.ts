@@ -9,19 +9,20 @@ import {
     SessionSignatureData,
     SteamSessionTokens
 } from "./types";
+import Listenable from "listenable";
+import {createHmac, randomBytes} from "crypto";
+
 import {clientWindows, mobileIOS, webBrowser} from "./GenerateRequestEnvironment";
 import {
     encryptPasswordWithPublicKey,
     formDataFromObject,
     getSuccessfulResponseJson,
-    Listenable
 } from "./utils";
 import {BadProtobufResponse} from "./Errors";
 import {
     CAuthenticationAllowedConfirmation,
     CAuthenticationBeginAuthSessionViaCredentialsResponse,
 } from "./protots/steammessages_auth.steamclient";
-import {createHmac, randomBytes} from "crypto";
 import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "./protots/enums";
 
@@ -42,11 +43,11 @@ export default class SteamSession {
             opts.headers.cookie = cookiesUsed.toString()
         }
         if(!opts.redirect) opts.redirect = 'manual'
-        this.requestListener.emit([url, opts, cookiesUsed])
+        this.events.request.emit([url, opts, cookiesUsed])
         return this.fetcher(url, opts).then(resp => {
             const newCookies = opts.cookiesSave === 'manual' ? null
                 : this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
-            this.responseListener.emit([url as URL, opts, cookiesUsed, resp, newCookies])
+            this.events.response.emit([url as URL, opts, cookiesUsed, resp, newCookies])
             return resp
         })
     }
@@ -162,8 +163,11 @@ export default class SteamSession {
         return null
     }
 
-    public requestListener = Listenable<[URL, RequestOpts, (CookieData[] | null)]>()
-    public responseListener = Listenable<[URL, RequestOpts, (CookieData[] | null), Response, (CookieData[] | null)]>()
+    public events = {
+        request: new Listenable<[URL, RequestOpts, (CookieData[] | null)]>(),
+        response: new Listenable<[URL, RequestOpts, (CookieData[] | null), Response, (CookieData[] | null)]>(),
+        token: new Listenable<SteamSessionTokens>()
+    }
 
     getJWTViaCredentials = async (accountName: string, password: string, actor?: (
         actions: ReturnType<SteamSession['createActions']>,

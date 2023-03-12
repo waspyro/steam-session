@@ -16,7 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "cookie-store": "github:waspyro/node-cookie-store",
+    "listenable": "github:waspyro/ts-listenable",
     "node-bignumber": "^1.2.2",
+    "persistorm": "github:waspyro/persistorm",
     "protobufjs": "^7.1.2"
   },
   "devDependencies": {
