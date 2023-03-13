@@ -1,4 +1,6 @@
 import {
+    CAuthenticationAccessTokenGenerateForAppRequest,
+    CAuthenticationAccessTokenGenerateForAppResponse,
     CAuthenticationBeginAuthSessionViaCredentialsRequest,
     CAuthenticationBeginAuthSessionViaCredentialsResponse,
     CAuthenticationBeginAuthSessionViaQRRequest,
@@ -61,8 +63,13 @@ export default class SteamProtoAuthentication extends SteamProtoConversation {
         CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse
     )
 
+    generateAccessTokenForApp = this.Conversation(
+        'POST', 1, 'GenerateAccessTokenForApp',
+        CAuthenticationAccessTokenGenerateForAppRequest,
+        CAuthenticationAccessTokenGenerateForAppResponse
+    )
+
     // GetAuthSessionInfo
-    // GenerateAccessTokenForApp
     // EnumerateTokens
     // GetAuthSessionsForAccount
     // MigrateMobileSession
