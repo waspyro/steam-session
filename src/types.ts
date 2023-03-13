@@ -50,7 +50,7 @@ export interface IActorActions {
     checkDeviceOrSendEmail?: RT_CheckDeviceOrSendEmail
 }
 
-export type SessionSignatureData = {clientId: string, version?: number, steamid: string}
+export type SessionSignatureData = {clientId: string, version?: number, steamid?: string}
 export type SteamSessionTokens = {refresh: null | string, access: null | string}
 
 export type PollContext = {clientId: string, requestId: Buffer}
@@ -70,6 +70,7 @@ export type SteamJwtData = {
     ip_confirmer: string
 }
 
+export type TokenRefresher = (session: SteamSession) => Promise<any>
 
 export enum EOSType {
     'Web' = -700,

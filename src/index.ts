@@ -9,13 +9,21 @@ import {
     RequestOpts,
     SessionEnv,
     SessionSignatureData,
-    SteamSessionTokens
+    SteamSessionTokens, TokenRefresher
 } from "./types";
 import Listenable from "listenable";
 import {createHmac, randomBytes} from "crypto";
+import {PersistormInstance} from "persistorm";
+import totp from 'steam-totp'
 
 import {clientWindows, mobileIOS, webBrowser} from "./GenerateRequestEnvironment";
-import {encryptPasswordWithPublicKey, formDataFromObject, getSuccessfulResponseJson,} from "./utils";
+import {
+    decodeJWT,
+    drainFetchResponse,
+    encryptPasswordWithPublicKey,
+    formDataFromObject, getJWTExpMcLeft,
+    getSuccessfulResponseJson,
+} from "./utils";
 import {BadProtobufResponse} from "./Errors";
 import {
     CAuthenticationAllowedConfirmation,
@@ -26,7 +34,7 @@ import {ESessionPersistence} from "./protots/enums";
 
 export default class SteamSession {
     constructor(
-        public readonly env: SessionEnv = webBrowser(),
+        public env: SessionEnv = webBrowser(),
         public readonly cookies: CookieStore = new CookieStore(),
         private fetcher = fetch,
         public tokens: SteamSessionTokens = {refresh: null, access: null}
@@ -51,7 +59,8 @@ export default class SteamSession {
     }
 
     async refreshCookies() {
-        if(!this.tokens.refresh) throw new Error('refresh token required to refresh cookies')
+        const refreshTokenExpTimeLeft = getJWTExpMcLeft(this.tokens.refresh)
+        if(refreshTokenExpTimeLeft < 1000 * 60) await this.tokenRefresher(this)
 
         const sessionid = this.getSessionidCookieValue()
         const fd = formDataFromObject({
@@ -78,6 +87,11 @@ export default class SteamSession {
             return accessCookie
         }))
         return this.cookies.add(accessCookie).value
+    }
+
+    updateEnv(env: SessionEnv = this.env) {
+        this.env = env
+        this.events.env.emit(this.env)
     }
 
     private authentication = new SteamProtoAuthentication(this.request)
@@ -143,6 +157,16 @@ export default class SteamSession {
         return {}
     }
 
+    updateTokens = (tokens: {refreshToken: string | undefined, accessToken: string | undefined}) => {
+        //todo fixme
+        //todo: set steamid
+        const updated: {refresh: string | null, access: string | null} = {} as {refresh: string | null, access: string | null}
+        if(tokens.refreshToken !== undefined) updated.refresh = this.tokens.refresh = tokens.refreshToken
+        if(tokens.accessToken !== undefined) updated.access = this.tokens.access = tokens.accessToken
+        this.events.token.emit(updated)
+        return this.tokens
+    }
+
     private pollUntilResults = async (context: PollContext, pollingOptions: PollingOptions) => {
         if(pollingOptions.delay > 0) await new Promise(r => setTimeout(r, pollingOptions.delay))
 
@@ -153,10 +177,7 @@ export default class SteamSession {
                 tokenToRevoke: '0'
             })
             //todo: declined by other party?
-            if(results.refreshToken) return this.tokens = {
-                refresh: results.refreshToken,
-                access: results.accessToken
-            }
+            if(results.refreshToken) return this.updateTokens(results)
             if(results.newClientId) context.clientId = results.newClientId
             await new Promise(resolve => setTimeout(resolve, pollingOptions.interval))
         }
@@ -164,10 +185,11 @@ export default class SteamSession {
         return null
     }
 
-    public events = {
+    readonly events = {
         request: new Listenable<[URL, RequestOpts, (CookieData[] | null)]>(),
         response: new Listenable<[URL, RequestOpts, (CookieData[] | null), Response, (CookieData[] | null)]>(),
-        token: new Listenable<SteamSessionTokens>()
+        token: new Listenable<SteamSessionTokens>(),
+        env: new Listenable<SessionEnv>()
     }
 
     getJWTViaCredentials = async (accountName: string, password: string, actor?: (
@@ -211,11 +233,20 @@ export default class SteamSession {
         confirm: boolean = true,
         persistence: ESessionPersistence = ESessionPersistence.k_ESessionPersistence_Persistent
     ) => {
-        if(!this.tokens.access) throw new Error('access token required to approve session')
+        if(getJWTExpMcLeft(this.tokens.access) < 1000 * 60) await this.updateAccessToken()
+        if(!steamid) steamid = decodeJWT(this.tokens.access).sub
         return this.authentication.updateAuthSessionWithMobileConfirmation({
             signature: SteamSession.createSessionSignature(sharedSecret, version, clientId, steamid),
             clientId, confirm, persistence, steamid, version
         }, this.tokens.access)
+    }
+
+    async updateAccessToken() {
+        if(getJWTExpMcLeft(this.tokens.refresh) < 1000 * 60) await this.tokenRefresher(this)
+        return this.authentication.generateAccessTokenForApp({
+            refreshToken: this.tokens.refresh,
+            steamid: decodeJWT(this.tokens.refresh).sub
+        }).then(this.updateTokens)
     }
 
     private static createSessionSignature = (sharedSecret: string, version, clientId, steamid) => {
@@ -240,12 +271,14 @@ export default class SteamSession {
         return sessionid
     }
 
-    me = () => this.request('https://steamcommunity.com/my').then(res => {
+    me = async (): Promise<[string, string, "profiles" | "id"]> => {
+        const res = await this.request('https://steamcommunity.com/my')
         const location = res.headers.get('location')
         const profileUrl = location.match(/steamcommunity\.com(\/(id|profiles)\/([^\/]+))/)
         if(!profileUrl) return null
-        return res.text().then(() => [profileUrl[0], profileUrl[3], profileUrl[2]])
-    })
+        drainFetchResponse(res)
+        return [profileUrl[0], profileUrl[3], profileUrl[2] as "profiles" | "id"]
+    }
 
     getAccessCookieValue() { //todo: multiple hostnames different cookies
         return this.cookies.get({hostname: '.'})
@@ -253,5 +286,87 @@ export default class SteamSession {
     }
 
     static env = {webBrowser, mobileIOS, clientWindows}
+
+    static restore = async (store: PersistormInstance, newEnv = webBrowser, cookieStore?: CookieStore, fetcher = fetch)
+        : Promise<SteamSession> => {
+        if(!cookieStore) {
+            cookieStore = new CookieStore()
+            const restored = await cookieStore.usePersistentStorage(store.col('cookies'))
+        }
+        let [refresh, access, env] = await store.getm(['refresh', 'access', 'env'])
+        if(!env) {
+           env = newEnv()
+           await store.set('env', env)
+        }
+        const session = new SteamSession(env, cookieStore, fetcher, {refresh, access})
+        session.events.token.on(store.seto)
+        session.events.env.on(env => store.set('env', env))
+        return session
+    }
+
+    static getJWTExpMcLeft = getJWTExpMcLeft
+
+    #refreshCookiesIntervalTimerRef = null
+    startCookiesRefreshInterval = async (timeOffsetMc = 1000 * 60 * 60) => {
+        this.#refreshCookiesIntervalTimerRef = true
+        const checkAndRefresh = async () => {
+            const accessCookieTimeLeft = getJWTExpMcLeft(this.getAccessCookieValue())
+            if(accessCookieTimeLeft < timeOffsetMc) await this.refreshCookies().then(checkAndRefresh)
+            else if(this.#refreshCookiesIntervalTimerRef !== null)
+                this.#refreshCookiesIntervalTimerRef = setTimeout(checkAndRefresh, accessCookieTimeLeft)
+        }
+        return checkAndRefresh()
+    }
+
+    stopCookiesRefreshInterval = () => {
+        if(!this.#refreshCookiesIntervalTimerRef === null) return false
+        if(this.#refreshCookiesIntervalTimerRef) clearTimeout(this.#refreshCookiesIntervalTimerRef)
+        this.#refreshCookiesIntervalTimerRef = null
+        return true
+    }
+
+    private tokenRefresher: TokenRefresher = SteamSession.refresherNotSet
+
+    setTokenRefresher = (refresher: TokenRefresher) => {
+        this.tokenRefresher = refresher
+        return this
+    }
+
+    unsetTokenRefresher = () => {
+        this.tokenRefresher = SteamSession.refresherNotSet
+        return this
+    }
+
+    static generateAndSubmitDeviceCodeActor = (sharedSecret: string) => {
+        let oldCode = null, tries = 3;
+        const submitCodeActor = async (actions: IActorActions) => {
+            if (!actions.submitDeviceCode) throw new Error('Missing submitDeviceCode action')
+            const newCode = totp.generateAuthCode(sharedSecret)
+            if(!tries--) throw new Error('no more tries left')
+            if(newCode === oldCode) return new Promise(resolve => setTimeout(resolve, 30_000))
+                .then(() => submitCodeActor(actions))
+            return actions.submitDeviceCode(oldCode = newCode).then(res => {
+                tries = 3
+                return res
+            }).catch(e => {
+                if(!tries) throw e
+                return submitCodeActor(actions)
+            })
+        }
+        return submitCodeActor
+    }
+
+    static CredentialsRefresher = (login: string, password: string, sharedSecret: string) => (session: SteamSession) =>
+            session.getJWTViaCredentials(login, password, SteamSession.generateAndSubmitDeviceCodeActor(sharedSecret))
+
+    static MobileSessionRefresher = (mobileSession: SteamSession, sharedSecret: string) =>
+        (sessionToRefresh: SteamSession) => sessionToRefresh
+            .getJWTViaQR(resp => mobileSession.approveSession(resp, sharedSecret))
+
+    private static refresherNotSet =  async () => {throw new Error(
+        'Refresh token requires update and tokenRefresher method not set. ' +
+        'Actualize refresh token manually or patch tokenRefresher method with your updater function to automatically ' +
+        'update refresh token when required.'
+    )}
 
 }
