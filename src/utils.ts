@@ -1,5 +1,6 @@
 import {BadHTTPStatusResponseError, BadProtobufResponse} from "./Errors";
 import {Key, hex2b64} from 'node-bignumber'
+import {SteamJwtData} from "./types";
 
 export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Buffer> => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
@@ -16,7 +17,8 @@ export const getSuccessfulResponseJson = (response: Response) => {
 
 export const rand = (min: number, max: number) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
 
-export const decodeJWT = (token: string): string => JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+export const decodeJWT = (token: string): SteamJwtData =>
+    JSON.parse(Buffer.from(token.split('.', 2)[1], 'base64').toString())
 
 export const encryptPasswordWithPublicKey = ({publickeyMod, publickeyExp}, password) => {
     const key = new Key()
@@ -28,4 +30,14 @@ export const formDataFromObject = (o: Record<string, string>) => {
     const fd = new FormData()
     for(const key in o) fd.set(key, o[key])
     return fd
+}
+
+export const drainFetchResponse = (res: Response): void => {
+    res.text().then()
+}
+
+export const getJWTExpMcLeft = (jwt?: string) => {
+    if (!jwt) return -Infinity
+    const decoded = decodeJWT(jwt)
+    return (decoded.exp * 1000) - Date.now()
 }

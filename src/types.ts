@@ -56,6 +56,21 @@ export type SteamSessionTokens = {refresh: null | string, access: null | string}
 export type PollContext = {clientId: string, requestId: Buffer}
 export type PollingOptions = {delay: number, tries: number, interval: number}
 
+export type SteamJwtData = {
+    iss: string,
+    sub: string, //stemaid
+    aud: ('web'|'renew'|'derive')[]
+    exp: number,
+    nbf: number,
+    iat: number,
+    jti: string,
+    oat: number,
+    per: number,
+    ip_subject: string,
+    ip_confirmer: string
+}
+
+
 export enum EOSType {
     'Web' = -700,
     'IOSUnknown' = -600,
