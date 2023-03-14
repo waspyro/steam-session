@@ -9,26 +9,23 @@ import {
     RequestOpts,
     SessionEnv,
     SessionSignatureData,
-    SteamSessionTokens, TokenRefresher
+    SteamSessionTokens, SteamSessionTokensFullName, TokenRefresher
 } from "./types";
 import Listenable from "listenable";
-import {createHmac, randomBytes} from "crypto";
 import {PersistormInstance} from "persistorm";
 import totp from 'steam-totp'
 
 import {clientWindows, mobileIOS, webBrowser} from "./GenerateRequestEnvironment";
 import {
+    createSessionidCookie, createSteamSessionSignature,
     decodeJWT,
     drainFetchResponse,
     encryptPasswordWithPublicKey,
     formDataFromObject, getJWTExpMcLeft,
-    getSuccessfulResponseJson,
+    getSuccessfulResponseJson, transformGuardsArrayToObjectWithContext,
 } from "./utils";
 import {BadProtobufResponse} from "./Errors";
-import {
-    CAuthenticationAllowedConfirmation,
-    CAuthenticationBeginAuthSessionViaCredentialsResponse,
-} from "./protots/steammessages_auth.steamclient";
+import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "./protots/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "./protots/enums";
 
@@ -58,35 +55,34 @@ export default class SteamSession {
         })
     }
 
-    async refreshCookies() {
+    private async getUpdatedRefreshToken() {
         const refreshTokenExpTimeLeft = getJWTExpMcLeft(this.tokens.refresh)
-        if(refreshTokenExpTimeLeft < 1000 * 60) await this.tokenRefresher(this)
+        if(refreshTokenExpTimeLeft < 1000 * 60) return this.tokenRefresher(this)
+            .then(() => this.tokens.refresh)
+        return this.tokens.refresh
+    }
 
+    async refreshCookies() {
+        const nonce = await this.getUpdatedRefreshToken()
         const sessionid = this.getSessionidCookieValue()
-        const fd = formDataFromObject({
-            nonce: this.tokens.refresh, sessionid,
-            redir: 'https://steamcommunity.com/login/home/?goto='
-        })
+        const fd = formDataFromObject({nonce, sessionid, redir: 'https://steamcommunity.com/login/home/?goto='})
 
         const {steamID, transfer_info} = await this.request(
             'https://login.steampowered.com/jwt/finalizelogin',
             {method: 'POST', body: fd}
         ).then(getSuccessfulResponseJson)
 
-        const accessCookie = await Promise.any(transfer_info.map(async el => {
+        return Promise.any(transfer_info.map(async el => {
             el.params.steamID = steamID
             const response = await this.request(el.url, {
                 body: formDataFromObject(el.params),
-                method: 'POST',
-                cookiesSave: 'manual'
-            })
-            response.text().then() //draining a buffer
+                method: 'POST', cookiesSave: 'manual'
+            }).then(drainFetchResponse)
             const cookies = CookieStore.parseFromFetchResponse(response, {hostname: '.'}) //todo: multiple hostnames different cookies
             const accessCookie = cookies.find(c => c.name === 'steamLoginSecure')
-            if(!accessCookie) throw new Error('no access cookie')
+            if(!accessCookie) throw new Error('Access cookie missing')
             return accessCookie
-        }))
-        return this.cookies.add(accessCookie).value
+        })).then(cookie => this.cookies.add(cookie).value)
     }
 
     updateEnv(env: SessionEnv = this.env) {
@@ -98,8 +94,8 @@ export default class SteamSession {
 
     private getPasswordRSAPublicKey = this.authentication.getPasswordRSAPublicKey
 
-    private beginAuthSessionViaCredentials = (accountName, encryptedPassword, encryptionTimestamp) =>
-        this.authentication.beginAuthSessionViaCredentials({
+    private beginAuthSessionViaCredentials = (accountName, encryptedPassword, encryptionTimestamp) => {
+        return this.authentication.beginAuthSessionViaCredentials({
             accountName, encryptedPassword, encryptionTimestamp,
             websiteId: this.env.websiteId,
             platformType: this.env.device.platformType,
@@ -115,8 +111,9 @@ export default class SteamSession {
                 throw new Error('Password is wrong')
             else throw e
         })
+    }
 
-    private UpdateSessionWithCode = (
+    private UpdateSessionWithCodeAction = (
         ctx: CAuthenticationBeginAuthSessionViaCredentialsResponse,
         codeType: EGuardType.EmailCode | EGuardType.DeviceCode
     ) => (code: string) => this.authentication.updateAuthSessionWithSteamGuardCode({
@@ -126,7 +123,7 @@ export default class SteamSession {
         code
     })
 
-    private CheckDeviceOrSendEmail = (ctx: CAuthenticationBeginAuthSessionViaCredentialsResponse) => () =>
+    private CheckDeviceOrSendEmailAction = (ctx: CAuthenticationBeginAuthSessionViaCredentialsResponse) => () =>
         this.request('https://login.steampowered.com/jwt/checkdevice/'+ctx.steamid, {
             method: 'POST',
             body: formDataFromObject({steamid: ctx.steamid, clientid: ctx.clientId})
@@ -134,35 +131,24 @@ export default class SteamSession {
             return res.success && res.result !== 8
         })
 
-    private transformGuardsToObject = (guards: CAuthenticationAllowedConfirmation[]):
-    {[key in EGuardType]?: string | true} => {
-        const guardsObject = {}
-        for(const guard of guards)
-            guardsObject[guard.confirmationType] =
-                guard.associatedMessage || true
-        return guardsObject
-    }
-
     private createActions(
         guards: obj,
         context: CAuthenticationBeginAuthSessionViaCredentialsResponse
     ): IActorActions {
         if(guards[EGuardType.DeviceCode]) return {
-            submitDeviceCode: this.UpdateSessionWithCode(context, EGuardType.DeviceCode),
+            submitDeviceCode: this.UpdateSessionWithCodeAction(context, EGuardType.DeviceCode),
         }
         if(guards[EGuardType.EmailCode] || guards[EGuardType.MachineToken]) return {
-            checkDeviceOrSendEmail: this.CheckDeviceOrSendEmail(context),
-            submitEmailCode: this.UpdateSessionWithCode(context, EGuardType.EmailCode)
+            checkDeviceOrSendEmail: this.CheckDeviceOrSendEmailAction(context),
+            submitEmailCode: this.UpdateSessionWithCodeAction(context, EGuardType.EmailCode)
         }
         return {}
     }
 
-    updateTokens = (tokens: {refreshToken: string | undefined, accessToken: string | undefined}) => {
-        //todo fixme
-        //todo: set steamid
-        const updated: {refresh: string | null, access: string | null} = {} as {refresh: string | null, access: string | null}
-        if(tokens.refreshToken !== undefined) updated.refresh = this.tokens.refresh = tokens.refreshToken
-        if(tokens.accessToken !== undefined) updated.access = this.tokens.access = tokens.accessToken
+    updateTokens = ({refreshToken, accessToken}: SteamSessionTokensFullName) => {
+        const updated: SteamSessionTokens = {}
+        if(refreshToken !== undefined) updated.refresh = this.tokens.refresh = refreshToken
+        if(accessToken !== undefined) updated.access = this.tokens.access = accessToken
         this.events.token.emit(updated)
         return this.tokens
     }
@@ -201,7 +187,7 @@ export default class SteamSession {
         const key = await this.getPasswordRSAPublicKey({accountName})
         const encryptedPassword = encryptPasswordWithPublicKey(key, password)
         const context = await this.beginAuthSessionViaCredentials(accountName, encryptedPassword, key.timestamp)
-        const guards = this.transformGuardsToObject(context.allowedConfirmations)
+        const guards = transformGuardsArrayToObjectWithContext(context.allowedConfirmations)
         const actions = this.createActions(guards, context)
         const pollOptions = {delay: 0, interval: context.interval * 1000, tries: 100}
         if(!actor && Object.keys(actions).length) throw new Error('actions are required but actor not set')
@@ -236,38 +222,21 @@ export default class SteamSession {
         if(getJWTExpMcLeft(this.tokens.access) < 1000 * 60) await this.updateAccessToken()
         if(!steamid) steamid = decodeJWT(this.tokens.access).sub
         return this.authentication.updateAuthSessionWithMobileConfirmation({
-            signature: SteamSession.createSessionSignature(sharedSecret, version, clientId, steamid),
+            signature: createSteamSessionSignature(sharedSecret, version, clientId, steamid),
             clientId, confirm, persistence, steamid, version
         }, this.tokens.access)
     }
 
-    async updateAccessToken() {
-        if(getJWTExpMcLeft(this.tokens.refresh) < 1000 * 60) await this.tokenRefresher(this)
+    updateAccessToken = async () => {
+        const refreshToken = await this.getUpdatedRefreshToken()
         return this.authentication.generateAccessTokenForApp({
-            refreshToken: this.tokens.refresh,
-            steamid: decodeJWT(this.tokens.refresh).sub
+                refreshToken, steamid: decodeJWT(this.tokens.refresh).sub //todo: double decode
         }).then(this.updateTokens)
     }
 
-    private static createSessionSignature = (sharedSecret: string, version, clientId, steamid) => {
-        const signatureData = Buffer.alloc(2 + 8 + 8)
-        signatureData.writeUInt16LE(version, 0)
-        signatureData.writeBigUInt64LE(BigInt(clientId), 2)
-        signatureData.writeBigUInt64LE(BigInt(steamid), 10)
-
-        return createHmac('sha256', Buffer.from(sharedSecret, 'base64'))
-            .update(signatureData)
-            .digest()
-    }
-
-    private createSessionidCookie = (domain = '.') => this.cookies.add({
-        name: 'sessionid', value: randomBytes(12).toString('hex'),
-        path: '/', domain, samesite: 'None'
-    }).value
-
     getSessionidCookieValue(domain = '.', create = true) {
         const sessionid = this.cookies.get({hostname: domain}).find(c => c.name === 'sessionid')?.value
-        if(!sessionid && create) return this.createSessionidCookie(domain)
+        if(create && !sessionid) return this.cookies.add(createSessionidCookie(domain)).value
         return sessionid
     }
 
@@ -285,33 +254,12 @@ export default class SteamSession {
             .find(c => c.name === 'steamLoginSecure')?.value || null
     }
 
-    static env = {webBrowser, mobileIOS, clientWindows}
-
-    static restore = async (store: PersistormInstance, newEnv = webBrowser, cookieStore?: CookieStore, fetcher = fetch)
-        : Promise<SteamSession> => {
-        if(!cookieStore) {
-            cookieStore = new CookieStore()
-            const restored = await cookieStore.usePersistentStorage(store.col('cookies'))
-        }
-        let [refresh, access, env] = await store.getm(['refresh', 'access', 'env'])
-        if(!env) {
-           env = newEnv()
-           await store.set('env', env)
-        }
-        const session = new SteamSession(env, cookieStore, fetcher, {refresh, access})
-        session.events.token.on(store.seto)
-        session.events.env.on(env => store.set('env', env))
-        return session
-    }
-
-    static getJWTExpMcLeft = getJWTExpMcLeft
-
     #refreshCookiesIntervalTimerRef = null
-    startCookiesRefreshInterval = async (timeOffsetMc = 1000 * 60 * 60) => {
+    startCookiesRefreshInterval = (timeOffsetMc = 1000 * 60 * 60): Promise<void> => {
         this.#refreshCookiesIntervalTimerRef = true
         const checkAndRefresh = async () => {
             const accessCookieTimeLeft = getJWTExpMcLeft(this.getAccessCookieValue())
-            if(accessCookieTimeLeft < timeOffsetMc) await this.refreshCookies().then(checkAndRefresh)
+            if(accessCookieTimeLeft < timeOffsetMc) this.refreshCookies().then(checkAndRefresh)
             else if(this.#refreshCookiesIntervalTimerRef !== null)
                 this.#refreshCookiesIntervalTimerRef = setTimeout(checkAndRefresh, accessCookieTimeLeft)
         }
@@ -337,7 +285,7 @@ export default class SteamSession {
         return this
     }
 
-    static generateAndSubmitDeviceCodeActor = (sharedSecret: string) => {
+    static GenerateAndSubmitDeviceCodeActor = (sharedSecret: string) => {
         let oldCode = null, tries = 3;
         const submitCodeActor = async (actions: IActorActions) => {
             if (!actions.submitDeviceCode) throw new Error('Missing submitDeviceCode action')
@@ -357,7 +305,7 @@ export default class SteamSession {
     }
 
     static CredentialsRefresher = (login: string, password: string, sharedSecret: string) => (session: SteamSession) =>
-            session.getJWTViaCredentials(login, password, SteamSession.generateAndSubmitDeviceCodeActor(sharedSecret))
+            session.getJWTViaCredentials(login, password, SteamSession.GenerateAndSubmitDeviceCodeActor(sharedSecret))
 
     static MobileSessionRefresher = (mobileSession: SteamSession, sharedSecret: string) =>
         (sessionToRefresh: SteamSession) => sessionToRefresh
@@ -368,5 +316,26 @@ export default class SteamSession {
         'Actualize refresh token manually or patch tokenRefresher method with your updater function to automatically ' +
         'update refresh token when required.'
     )}
+
+    static createSessionidCookie = createSessionidCookie
+    static getJWTExpMcLeft = getJWTExpMcLeft
+    static env = {webBrowser, mobileIOS, clientWindows}
+
+    static restore = async (store: PersistormInstance, newEnv = webBrowser, cookieStore?: CookieStore, fetcher = fetch)
+        : Promise<SteamSession> => {
+        if(!cookieStore) {
+            cookieStore = new CookieStore()
+            const restored = await cookieStore.usePersistentStorage(store.col('cookies'))
+        }
+        let [refresh, access, env] = await store.getm(['refresh', 'access', 'env'])
+        if(!env) {
+            env = newEnv()
+            await store.set('env', env)
+        }
+        const session = new SteamSession(env, cookieStore, fetcher, {refresh, access})
+        session.events.token.on(store.seto)
+        session.events.env.on(env => store.set('env', env))
+        return session
+    }
 
 }
