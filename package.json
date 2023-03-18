@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@types/steam-totp": "^2.1.0",
-    "cryptowrap": "github:waspyro/cryptowrap",
     "ts-proto": "^1.140.0"
   }
 }

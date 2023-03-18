@@ -219,18 +219,27 @@ export default class SteamSession {
         confirm: boolean = true,
         persistence: ESessionPersistence = ESessionPersistence.k_ESessionPersistence_Persistent
     ) => {
-        if(getJWTExpMcLeft(this.tokens.access) < 1000 * 60) await this.updateAccessToken()
-        if(!steamid) steamid = decodeJWT(this.tokens.access).sub
+        const accessToken = await this.getUpdatedAccessToken()
+        if(!steamid) steamid = decodeJWT(accessToken).sub
         return this.authentication.updateAuthSessionWithMobileConfirmation({
             signature: createSteamSessionSignature(sharedSecret, version, clientId, steamid),
             clientId, confirm, persistence, steamid, version
-        }, this.tokens.access)
+        }, accessToken)
     }
 
     updateAccessToken = async () => {
         const refreshToken = await this.getUpdatedRefreshToken()
         return this.authentication.generateAccessTokenForApp({
                 refreshToken, steamid: decodeJWT(this.tokens.refresh).sub //todo: double decode
+        }).then(this.updateTokens)
+    }
+
+    getUpdatedAccessToken = async () => { //todo: fixme
+        if(getJWTExpMcLeft(this.tokens.access) > 1000 * 60) return this.tokens.access
+        if(getJWTExpMcLeft(this.tokens.refresh) < 1000 * 60) return this.tokenRefresher(this)
+            .then(this.getUpdatedAccessToken)
+        return this.authentication.generateAccessTokenForApp({
+            refreshToken: this.tokens.refresh, steamid: decodeJWT(this.tokens.refresh).sub
         }).then(this.updateTokens)
     }
 
@@ -255,15 +264,16 @@ export default class SteamSession {
     }
 
     #refreshCookiesIntervalTimerRef = null
-    startCookiesRefreshInterval = (timeOffsetMc = 1000 * 60 * 60): Promise<void> => {
+    startCookiesRefreshInterval = (timeOffsetMc = 1000 * 60 * 60): Promise<SteamSession> => {
         this.#refreshCookiesIntervalTimerRef = true
         const checkAndRefresh = async () => {
             const accessCookieTimeLeft = getJWTExpMcLeft(this.getAccessCookieValue())
-            if(accessCookieTimeLeft < timeOffsetMc) this.refreshCookies().then(checkAndRefresh)
-            else if(this.#refreshCookiesIntervalTimerRef !== null)
+            if(accessCookieTimeLeft < timeOffsetMc)
+                return this.refreshCookies().then(checkAndRefresh)
+            if(this.#refreshCookiesIntervalTimerRef !== null)
                 this.#refreshCookiesIntervalTimerRef = setTimeout(checkAndRefresh, accessCookieTimeLeft)
         }
-        return checkAndRefresh()
+        return checkAndRefresh().then(() => this)
     }
 
     stopCookiesRefreshInterval = () => {
