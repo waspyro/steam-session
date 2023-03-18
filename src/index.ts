@@ -314,8 +314,10 @@ export default class SteamSession {
         return submitCodeActor
     }
 
-    static CredentialsRefresher = (login: string, password: string, sharedSecret: string) => (session: SteamSession) =>
-            session.getJWTViaCredentials(login, password, SteamSession.GenerateAndSubmitDeviceCodeActor(sharedSecret))
+    static CredentialsRefresher = (login: string, password: string, sharedSecret?: string) =>
+        (session: SteamSession) => session.getJWTViaCredentials(
+            login, password,
+            sharedSecret && SteamSession.GenerateAndSubmitDeviceCodeActor(sharedSecret))
 
     static MobileSessionRefresher = (mobileSession: SteamSession, sharedSecret: string) =>
         (sessionToRefresh: SteamSession) => sessionToRefresh
