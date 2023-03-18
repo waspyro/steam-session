@@ -19,7 +19,7 @@ async function manualExample() {
     const web = new SteamSession(SteamSession.env.webBrowser())
 
     const mobileTokens = mobile.getJWTViaCredentials(credentials[0], credentials[1], async (actions, guards, pollOptions) => {
-        if(!guards[EGuardType.None]) return //no guards presented so we can start polling right away
+        if(guards[EGuardType.None]) return //no guards are presented so we can start polling right away
 
         if(actions.checkDeviceOrSendEmail) {
             //i am currently have no way to test this but this should work something like so:
