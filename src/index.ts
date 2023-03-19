@@ -92,8 +92,6 @@ export default class SteamSession {
 
     private authentication = new SteamProtoAuthentication(this.request)
 
-    private getPasswordRSAPublicKey = this.authentication.getPasswordRSAPublicKey
-
     private beginAuthSessionViaCredentials = (accountName, encryptedPassword, encryptionTimestamp) => {
         return this.authentication.beginAuthSessionViaCredentials({
             accountName, encryptedPassword, encryptionTimestamp,
@@ -184,7 +182,7 @@ export default class SteamSession {
         pollOptions: {delay: number, interval: number, tries: number},
         steamid: string, context: CAuthenticationBeginAuthSessionViaCredentialsResponse
     ) => Promise<false | any>) => {
-        const key = await this.getPasswordRSAPublicKey({accountName})
+        const key = await this.authentication.getPasswordRSAPublicKey({accountName})
         const encryptedPassword = encryptPasswordWithPublicKey(key, password)
         const context = await this.beginAuthSessionViaCredentials(accountName, encryptedPassword, key.timestamp)
         const guards = transformGuardsArrayToObjectWithContext(context.allowedConfirmations)
