@@ -8,6 +8,7 @@
     "dist"
   ],
   "scripts": {
+    "prepare": "rm -rf dist && tsc --outDir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "description": "",
