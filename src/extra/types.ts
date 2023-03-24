@@ -1,5 +1,5 @@
-import {EAuthTokenPlatformType} from "./protots/steammessages_auth.steamclient";
-import type SteamSession from './index'
+import {EAuthTokenPlatformType} from "../protots/steammessages_auth.steamclient";
+import type SteamSession from '../SteamSession'
 
 export type fn = (...args: any[]) => any
 export type obj = Record<string, any>
@@ -25,12 +25,13 @@ export enum EGuardType {
 export type SessionEnv = {
     websiteId: 'Community' | 'Mobile' | 'Client',
     cookies: obj,
-    requestHeaders: {
+    httpHeaders: {
         'user-agent': string
     },
     authProtoHeaders: {
         'origin'?: string,
-        'referer'?: string
+        'referer'?: string,
+        'user-agent'?: string
     },
     device: {
         deviceFriendlyName: string,
@@ -187,4 +188,14 @@ export enum EOSType {
     'Win2022' = 19,
     'Win11' = 20,
     'WinMAX' = 21
+}
+
+export type CmsList = {
+    endpoint: string,
+    legacy_endpoint: string,
+    type: 'netfilter' | 'websockets',
+    dc: string,
+    realm: 'steamglobal',
+    load: number,
+    wtd_load: number
 }

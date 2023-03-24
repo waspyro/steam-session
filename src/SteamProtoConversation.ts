@@ -1,5 +1,5 @@
 import {getSuccessfulProtoResponseBuffer} from "./utils";
-import {CMsg} from './types'
+import {CMsg} from './extra/types'
 
 export default class SteamProtoConversation {
 
