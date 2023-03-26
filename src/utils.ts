@@ -1,8 +1,9 @@
 import {BadHTTPStatusResponseError, BadProtobufResponse} from "./Errors";
 import {Key, hex2b64} from 'node-bignumber'
-import {EGuardType, SteamJwtData} from "./extra/types";
+import {CMsg, EGuardType, SteamJwtData} from "./extra/types";
 import {CAuthenticationAllowedConfirmation} from "./protots/steammessages_auth.steamclient";
 import {createHmac, randomBytes} from "crypto";
+import {emptySteamSocketHeaders} from "./extra/assets";
 
 export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Buffer> => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
@@ -70,4 +71,16 @@ export const createSteamSessionSignature = (sharedSecret: string, version, clien
     return createHmac('sha256', Buffer.from(sharedSecret, 'base64'))
         .update(signatureData)
         .digest()
+}
+
+export const GetDecodedFetchResponse = (message: CMsg) => resp =>
+    getSuccessfulProtoResponseBuffer(resp).then(message.decode)
+
+export const createSteamProtoHeaders = (props: Partial<typeof emptySteamSocketHeaders>) =>
+    Object.assign({}, emptySteamSocketHeaders, props)
+
+export const createNewJobid = () => {
+    const jobIdBuffer = randomBytes(8)
+    jobIdBuffer[0] &= 0x7f
+    return jobIdBuffer.readBigInt64BE(0).toString(10)
 }

@@ -52,6 +52,7 @@ export const ClientMacOS = (
             gamingDeviceType: 1
         }
     }
+    return env
 }
 
 export const ClientWindows = (

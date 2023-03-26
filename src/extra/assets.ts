@@ -7,3 +7,36 @@ export const defaultWebUA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK
 export const defaultWindowsClientUA = 'Mozilla/5.0 (Windows; U; Windows NT 10.0; en-US; Valve Steam Client/default/1665786434; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
 export const defaultMacOSClientUA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2_1; Valve Steam Client/default/1679359315) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
 export const defaultIOSClientUA = 'Steam%20Mobile/7617469 CFNetwork/1399 Darwin/22.1.0'
+
+export const emptySteamSocketHeaders = {
+    steamid: '0',
+    clientSessionid: 0,
+    routingAppid: 0,
+    jobidSource: '0',
+    jobidTarget: '0',
+    targetJobName: '',
+    seqNum: 0,
+    eresult: 0,
+    errorMessage: '',
+    authAccountFlags: 0,
+    tokenSource: 0,
+    adminSpoofingUser: false,
+    transportError: 0,
+    messageid: '0',
+    publisherGroupId: 0,
+    sysid: 0,
+    traceTag: '0',
+    webapiKeyId: 0,
+    isFromExternalSource: false,
+    forwardToSysid: [],
+    cmSysid: 0,
+    launcherType: 0,
+    realm: 1,
+    timeoutMs: 0,
+    debugSource: '',
+    debugSourceStringIndex: 0,
+    tokenId: '0',
+    routingGc: undefined,
+    ip: undefined,
+    ipV6: undefined
+}

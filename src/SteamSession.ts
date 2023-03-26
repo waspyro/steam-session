@@ -1,5 +1,5 @@
 import CookieStore from "cookie-store";
-import SteamProtoAuthentication from "./SteamProtoAuthentication";
+import HttpAuthConversation from "./HttpAuthConversation";
 import {
     EGuardType,
     IActorActions,
@@ -15,7 +15,7 @@ import Listenable from "listenable";
 import {PersistormInstance} from "persistorm";
 import totp from 'steam-totp'
 
-import {ClientWindows, MobileIOS, WebBrowser} from "./RequestEnvironments";
+import {ClientMacOS, ClientWindows, MobileIOS, WebBrowser} from "./RequestEnvironments";
 import {
     createSessionidCookie, createSteamSessionSignature,
     decodeJWT,
@@ -28,7 +28,8 @@ import {BadProtobufResponse} from "./Errors";
 import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "./protots/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "./protots/enums";
-import SteamProtoNonAuthedWsConversation from "./WebSocketConversation";
+import WebSocketSteamAuthConversation from "./WebSocketAuthConversation";
+import SteamSocket from "./SteamSocket";
 
 export default class SteamSession {
     constructor(
@@ -36,9 +37,16 @@ export default class SteamSession {
         public readonly cookies: CookieStore = new CookieStore(),
         public tokens: SteamSessionTokens = {refresh: null, access: null}
     ) {
-        if(env.websiteId === 'Client') this.authentication = new SteamProtoNonAuthedWsConversation()
-        else this.authentication = new SteamProtoAuthentication(this.request)
+        this.authentication = env.websiteId === 'Client'
+            ? new WebSocketSteamAuthConversation(this)
+            : new HttpAuthConversation(this)
+
+        if(env.websiteId !== 'Mobile') this.approveSession = () => {
+            throw new Error('"approveSession" method should only be used in Mobile environment') //is it?
+        }
     }
+
+    ws = new SteamSocket(this)
 
     request = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
         if(typeof url === 'string') url = new URL(url)
@@ -93,7 +101,7 @@ export default class SteamSession {
         this.events.env.emit(this.env)
     }
 
-    private authentication: SteamProtoAuthentication | SteamProtoNonAuthedWsConversation
+    private readonly authentication: HttpAuthConversation | WebSocketSteamAuthConversation
 
     private beginAuthSessionViaCredentials = (accountName, encryptedPassword, encryptionTimestamp) => {
         return this.authentication.beginAuthSessionViaCredentials({
@@ -176,7 +184,7 @@ export default class SteamSession {
         request: new Listenable<[URL, RequestOpts, (CookieData[] | null)]>(),
         response: new Listenable<[URL, RequestOpts, (CookieData[] | null), Response, (CookieData[] | null)]>(),
         token: new Listenable<SteamSessionTokens>(),
-        env: new Listenable<SessionEnv>()
+        env: new Listenable<SessionEnv>(),
     }
 
     getJWTViaCredentials = async (accountName: string, password: string, actor?: (
@@ -222,12 +230,10 @@ export default class SteamSession {
     ) => {
         const accessToken = await this.getUpdatedAccessToken()
         if(!steamid) steamid = decodeJWT(accessToken).sub
-        if(this.authentication instanceof SteamProtoAuthentication)
-            return this.authentication.updateAuthSessionWithMobileConfirmation({
-                signature: createSteamSessionSignature(sharedSecret, version, clientId, steamid),
-                clientId, confirm, persistence, steamid, version
-            }, accessToken)
-        else throw new Error('no')
+        return (this.authentication as HttpAuthConversation).updateAuthSessionWithMobileConfirmation({
+            signature: createSteamSessionSignature(sharedSecret, version, clientId, steamid),
+            clientId, confirm, persistence, steamid, version
+        }, accessToken)
     }
 
     updateAccessToken = async () => {
@@ -298,14 +304,6 @@ export default class SteamSession {
         return this
     }
 
-    getCmList = () => this.request('https://api.steampowered.com/ISteamDirectory/' +
-        'GetCMListForConnect/v0001/?cellid=0&format=json')
-        .then(getSuccessfulResponseJson)
-        .then(json => {
-            if(!json?.response?.serverlist?.length) throw new Error('failed to get cm list')
-            return json.response.serverlist
-        })
-
     static GenerateAndSubmitDeviceCodeActor = (sharedSecret: string) => {
         let oldCode = null, tries = 3;
         const submitCodeActor = async (actions: IActorActions) => {
@@ -342,7 +340,7 @@ export default class SteamSession {
 
     static createSessionidCookie = createSessionidCookie
     static getJWTExpMcLeft = getJWTExpMcLeft
-    static env = {webBrowser: WebBrowser, mobileIOS: MobileIOS, clientWindows: ClientWindows}
+    static env = {webBrowser: WebBrowser, mobileIOS: MobileIOS, clientWindows: ClientWindows, clientMacOS: ClientMacOS}
 
     static restore = async (store: PersistormInstance, newEnv = WebBrowser, cookieStore?: CookieStore)
         : Promise<SteamSession> => {
