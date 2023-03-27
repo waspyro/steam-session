@@ -32,7 +32,7 @@ export default class SteamSocket {
         if(this.socket && this.socket.readyState === WebSocket.OPEN) return Promise.resolve(this.socket)
         if(this.#initPromise) return this.#initPromise
         this.#initPromise = this.getCmToConnect().then(addr => new Promise((resolve, reject) => {
-            this.socket = new WebSocket('wss://'+addr+'/cmsocket/')
+            this.socket = new WebSocket('wss://'+addr+'/cmsocket/') //todo timeout
             this.socket.once('open', () => {
                 this.socket.on('message', this.handleResponseMessage)
                 this.sendHelloMessage()
@@ -45,7 +45,6 @@ export default class SteamSocket {
 
     expectedResponses = new Map
     getResponse = (id: string, timeout: number = 5000) => {
-        console.log('awaiting response', id)
         return new Promise((resolve, reject) => {
             const timer = setTimeout(() => {
                 this.expectedResponses.delete(id)
@@ -88,8 +87,10 @@ export default class SteamSocket {
     }
 
     routeHandlers = new Map<number | 'every' | 'unhandled', (data: Buffer, header: CMsgProtoBufHeader) => void>([
-        [EMsg.k_EMsgMulti, this.processMulitMessageResponse] //todo: reconnect message
+        [EMsg.k_EMsgMulti, this.processMulitMessageResponse]
+        //todo: reconnect message handler
     ])
+    //todo routeHandler setter – there should be only one handler and many listeners...
 
     sendMessage = async (message: Buffer) => {
         if(!this.socket || this.socket.readyState !== WebSocket.OPEN) await this.socketInit()
@@ -100,8 +101,7 @@ export default class SteamSocket {
         emsg: EMsg, proto: MSG,
         message: Parameters<MSG['encode']>[0],
         headers?: Parameters<typeof createSteamProtoHeaders>[0]
-    ) => {
-        console.log('sent', message)
+    ) => { //todo: emit event
         const headersDataEncodedBuf = CMsgProtoBufHeader.encode(createSteamProtoHeaders(headers)).finish()
         const headersBuf = Buffer.alloc(8)
         headersBuf.writeUInt32LE((Number(emsg) | PROTO_MASK) >>> 0, 0)

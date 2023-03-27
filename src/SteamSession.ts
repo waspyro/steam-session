@@ -28,7 +28,7 @@ import {BadProtobufResponse} from "./Errors";
 import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "./protots/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "./protots/enums";
-import WebSocketSteamAuthConversation from "./WebSocketAuthConversation";
+import WebSocketAuthConversation from "./WebSocketAuthConversation";
 import SteamSocket from "./SteamSocket";
 
 export default class SteamSession {
@@ -38,7 +38,7 @@ export default class SteamSession {
         public tokens: SteamSessionTokens = {refresh: null, access: null}
     ) {
         this.authentication = env.websiteId === 'Client'
-            ? new WebSocketSteamAuthConversation(this)
+            ? new WebSocketAuthConversation(this)
             : new HttpAuthConversation(this)
 
         if(env.websiteId !== 'Mobile') this.approveSession = () => {
@@ -101,7 +101,7 @@ export default class SteamSession {
         this.events.env.emit(this.env)
     }
 
-    private readonly authentication: HttpAuthConversation | WebSocketSteamAuthConversation
+    private readonly authentication: HttpAuthConversation | WebSocketAuthConversation
 
     private beginAuthSessionViaCredentials = (accountName, encryptedPassword, encryptionTimestamp) => {
         return this.authentication.beginAuthSessionViaCredentials({
@@ -259,11 +259,10 @@ export default class SteamSession {
     }
 
     me = async (): Promise<[string, string, "profiles" | "id"]> => {
-        const res = await this.request('https://steamcommunity.com/my')
+        const res = await this.request('https://steamcommunity.com/my').then(drainFetchResponse)
         const location = res.headers.get('location')
         const profileUrl = location.match(/steamcommunity\.com(\/(id|profiles)\/([^\/]+))/)
         if(!profileUrl) return null
-        drainFetchResponse(res)
         return [profileUrl[0], profileUrl[3], profileUrl[2] as "profiles" | "id"]
     }
 
