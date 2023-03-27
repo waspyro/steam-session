@@ -1,12 +1,21 @@
-import {EOSType, SessionEnv} from "./types";
-import {rand} from "./utils";
+import {EOSType, SessionEnv} from "./extra/types";
+import {rand, randel} from "./utils";
 import {EAuthTokenPlatformType} from "./protots/steammessages_auth.steamclient";
+import {
+    defaultIOSClientUA,
+    defaultMacOSClientUA,
+    defaultWebUAMacOS,
+    defaultWindowsClientUA,
+    ENG_APB,
+    macModels,
+    topNames
+} from "./extra/assets";
 
-export const webBrowser = (userAgent = defaultWebUAMacOS): SessionEnv => {
+export const WebBrowser = (userAgent = defaultWebUAMacOS): SessionEnv => {
     return {
         websiteId: 'Community',
         cookies: {},
-        requestHeaders: {
+        httpHeaders: {
             'user-agent': userAgent
         },
         authProtoHeaders: {
@@ -22,11 +31,35 @@ export const webBrowser = (userAgent = defaultWebUAMacOS): SessionEnv => {
     }
 }
 
-export const clientWindows = (
+export const ClientMacOS = (
+    deviceFriendlyName: string = getRandomMACOsDeviceName(),
+    webUA: string = defaultMacOSClientUA,
+    osType: number | EOSType = -75,
+) => { //vractive=0; connectedDevices=0;
+    const env: SessionEnv = {
+        websiteId: 'Client',
+        cookies: {},
+        httpHeaders: {
+            "user-agent": webUA,
+        },
+        authProtoHeaders: {
+            "user-agent": 'Valve/Steam HTTP Client 1.0' //ua used for "upgrade" request
+        },
+        device: {
+            deviceFriendlyName,
+            platformType: EAuthTokenPlatformType.k_EAuthTokenPlatformType_SteamClient,
+            osType: Number(osType),
+            gamingDeviceType: 1
+        }
+    }
+    return env
+}
+
+export const ClientWindows = (
     friendlyDeviceName: string = getRandomWindowsDeviceName(),
     windowsVersion: EOSType = EOSType.Windows10,
     country = 'US',
-    language = 'english',
+    language = '0',
     userAgent = defaultWindowsClientUA
 ): SessionEnv => {
     const qs = {
@@ -50,8 +83,8 @@ export const clientWindows = (
 
     return {
         websiteId: 'Client',
-        cookies: [],
-        requestHeaders: {
+        cookies: {},
+        httpHeaders: {
             'user-agent': userAgent
         },
         authProtoHeaders: {
@@ -67,7 +100,7 @@ export const clientWindows = (
     }
 }
 
-export const mobileIOS = (
+export const MobileIOS = (
     deviceFriendlyName = getRandomIOSDeviceName(),
     userAgent = defaultIOSClientUA,
     osVersion = EOSType.IOS12,
@@ -78,7 +111,7 @@ export const mobileIOS = (
             'mobileClient': 'ios',
             'mobileClientVersion': '777777 3.0.0'
         },
-        requestHeaders: {
+        httpHeaders: {
             'user-agent': userAgent,
         },
         authProtoHeaders: {},
@@ -91,18 +124,17 @@ export const mobileIOS = (
     }
 }
 
-const ENG_APB = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-function getRandomWindowsDeviceName() {
+export function getRandomWindowsDeviceName() {
     let output = 'DESKTOP-';
     for(let i = 0; i < 7; i++) output += ENG_APB[rand(0, ENG_APB.length-1)]
     return output;
 }
 
-function getRandomIOSDeviceName() {
+export function getRandomIOSDeviceName() {
     return 'iPhone ' + rand(5, 14)
 }
 
-const defaultWebUAMacOS = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
-const defaultWebUA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
-const defaultWindowsClientUA = 'Mozilla/5.0 (Windows; U; Windows NT 10.0; en-US; Valve Steam Client/default/1665786434; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
-const defaultIOSClientUA = 'Steam%20Mobile/7617469 CFNetwork/1399 Darwin/22.1.0'
+export function getRandomMACOsDeviceName() {
+    return `${randel(topNames)}'s-`+randel(macModels)
+}
+

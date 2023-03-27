@@ -25,6 +25,8 @@
   },
   "devDependencies": {
     "@types/steam-totp": "^2.1.0",
-    "ts-proto": "^1.140.0"
+    "@types/ws": "^8.5.4",
+    "ts-proto": "^1.140.0",
+    "ws": "^8.13.0"
   }
 }

@@ -14,14 +14,35 @@ import {
     CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest,
     CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse,
 } from "./protots/steammessages_auth.steamclient";
+import {CMsg} from "./extra/types";
+import {GetDecodedFetchResponse} from "./utils";
+import SteamSession from "./SteamSession";
 
-import SteamProtoConversation from "./SteamProtoConversation";
+export default class HttpAuthConversation {
 
-export default class SteamProtoAuthentication extends SteamProtoConversation {
+    constructor(private session: SteamSession) {}
 
-    constructor(request: typeof fetch = fetch) {
-        super(request, 'https://api.steampowered.com/IAuthenticationService/')
-    }
+    public readonly baseUrl = 'https://api.steampowered.com/IAuthenticationService/'
+    Url = (interfaceMethod: string, version = 1) => new URL(interfaceMethod + '/v' + version, this.baseUrl)
+
+    protected Conversation = <ACCESS extends void | string = void, REQ extends CMsg = CMsg, RES extends CMsg = CMsg>
+    (requestMethod: 'GET' | 'POST', version = 1, method: string, request: REQ, response: RES) =>
+        requestMethod === 'GET'
+            ? (data: Parameters<REQ['encode']>[0]): Promise<ReturnType<RES['decode']>> => {
+                const url = this.Url(method, version)
+                const encodedData = request.encode(data).finish().toString('base64')
+                url.searchParams.set('input_protobuf_encoded', encodedData)
+                return this.session.request(url)
+                    .then(GetDecodedFetchResponse(response))
+            }
+            : (data: Parameters<REQ['encode']>[0], accessToken: ACCESS): Promise<ReturnType<RES['decode']>> => {
+                const url = this.Url(method, version)
+                if(typeof accessToken === 'string') url.searchParams.set('access_token', accessToken)
+                const fd = new FormData()
+                fd.set('input_protobuf_encoded', request.encode(data).finish().toString('base64'))
+                return this.session.request(url, {body: fd, method: 'POST'})
+                    .then(GetDecodedFetchResponse(response))
+            }
 
     getPasswordRSAPublicKey = this.Conversation(
         'GET', 1, 'GetPasswordRSAPublicKey',
