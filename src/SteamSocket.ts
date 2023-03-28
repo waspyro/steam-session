@@ -14,8 +14,8 @@ export default class SteamSocket {
 
     constructor(private session: SteamSession) {}
 
-    getCms = () => this.session.request('https://api.steampowered.com/ISteamDirectory/' + //todo headers??
-        'GetCMListForConnect/v0001/?cellid=0&format=json')
+    getCms = () => this.session.request('https://api.steampowered.com/s/' +
+        'GetCMListForConnect/v0001/?cellid=0&format=json', {headers: this.session.env.httpHeaders})
         .then(getSuccessfulResponseJson)
         .then(json => {
             if(!json?.response?.serverlist?.length) throw new Error('failed to get cm list')
@@ -25,14 +25,17 @@ export default class SteamSocket {
     getCmToConnect = () : Promise<string | undefined> => this.getCms()
         .then(cms => cms.find(el => el.realm === 'steamglobal' && el.type === 'websockets')?.endpoint) //todo
 
-    private currentSocketEndpoint: string | null //todo
+    // private currentSocketEndpoint: string | null //todo to not repeat same endpoint if reconnecting
     private socket: WebSocket | null = null
     #initPromise = null
-    socketInit = (): Promise<WebSocket> => { //todo proxy, headers
+    socketInit = (): Promise<WebSocket> => { //todo proxy
         if(this.socket && this.socket.readyState === WebSocket.OPEN) return Promise.resolve(this.socket)
         if(this.#initPromise) return this.#initPromise
         this.#initPromise = this.getCmToConnect().then(addr => new Promise((resolve, reject) => {
-            this.socket = new WebSocket('wss://'+addr+'/cmsocket/') //todo timeout
+            this.socket = new WebSocket('wss://'+addr+'/cmsocket/', {
+                headers: this.session.env.authProtoHeaders,
+                // agent
+            }) //todo timeout
             this.socket.once('open', () => {
                 this.socket.on('message', this.handleResponseMessage)
                 this.sendHelloMessage()
@@ -90,9 +93,10 @@ export default class SteamSocket {
         [EMsg.k_EMsgMulti, this.processMulitMessageResponse]
         //todo: reconnect message handler
     ])
-    //todo routeHandler setter – there should be only one handler and many listeners...
+    //todo: message decoder – only one and emits decoded event and can be set from outside
+    //todo: message handlers – any number of listeners doing what they want with decoded data?
 
-    sendMessage = async (message: Buffer) => {
+    sendMessage = async (message: Buffer) => { //todo: emit event optionally with decoded proto data (next arg)
         if(!this.socket || this.socket.readyState !== WebSocket.OPEN) await this.socketInit()
         this.socket.send(message)
     }
@@ -101,7 +105,7 @@ export default class SteamSocket {
         emsg: EMsg, proto: MSG,
         message: Parameters<MSG['encode']>[0],
         headers?: Parameters<typeof createSteamProtoHeaders>[0]
-    ) => { //todo: emit event
+    ) => {
         const headersDataEncodedBuf = CMsgProtoBufHeader.encode(createSteamProtoHeaders(headers)).finish()
         const headersBuf = Buffer.alloc(8)
         headersBuf.writeUInt32LE((Number(emsg) | PROTO_MASK) >>> 0, 0)

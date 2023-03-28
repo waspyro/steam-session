@@ -32,7 +32,7 @@ export default class HttpAuthConversation {
                 const url = this.Url(method, version)
                 const encodedData = request.encode(data).finish().toString('base64')
                 url.searchParams.set('input_protobuf_encoded', encodedData)
-                return this.session.request(url)
+                return this.session.request(url, {headers: this.session.env.authProtoHeaders})
                     .then(GetDecodedFetchResponse(response))
             }
             : (data: Parameters<REQ['encode']>[0], accessToken: ACCESS): Promise<ReturnType<RES['decode']>> => {
@@ -40,7 +40,7 @@ export default class HttpAuthConversation {
                 if(typeof accessToken === 'string') url.searchParams.set('access_token', accessToken)
                 const fd = new FormData()
                 fd.set('input_protobuf_encoded', request.encode(data).finish().toString('base64'))
-                return this.session.request(url, {body: fd, method: 'POST'})
+                return this.session.request(url, {body: fd, method: 'POST', headers: this.session.env.authProtoHeaders})
                     .then(GetDecodedFetchResponse(response))
             }
 
