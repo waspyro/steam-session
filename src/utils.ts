@@ -1,4 +1,4 @@
-import {BadHTTPStatusResponseError, BadProtobufResponse} from "./Errors";
+import {BadHTTPStatusResponseError, BadJSONResponse, BadProtobufResponse} from "./Errors";
 import {Key, hex2b64} from 'node-bignumber'
 import {CMsg, EGuardType, SteamJwtData} from "./extra/types";
 import {CAuthenticationAllowedConfirmation} from "./protots/steammessages_auth.steamclient";
@@ -17,6 +17,16 @@ export const getSuccessfulResponseJson = (response: Response) => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
     return response.json()
 }
+
+const defaultSuccessValues = {undefined: true, true: true, 1: true}
+export const getSuccessfulJsonFromResponse = (
+    response: Response,
+    checkField: string = 'success',
+    successValues = defaultSuccessValues
+) => getSuccessfulResponseJson(response).then(json => {
+    if(!successValues[json[checkField]]) throw new BadJSONResponse(response, json, checkField, successValues)
+    else return json
+})
 
 export const rand = (min: number, max: number) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
 export const randel = (arr: any[]) => arr[rand(0, arr.length-1)]
@@ -84,3 +94,6 @@ export const createNewJobid = () => {
     jobIdBuffer[0] &= 0x7f
     return jobIdBuffer.readBigInt64BE(0).toString(10)
 }
+
+const FIVE_MIN = 1000 * 60 * 5
+export const isExpired = (exp: number) => Date.now() > exp - FIVE_MIN
