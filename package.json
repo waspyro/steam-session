@@ -21,12 +21,12 @@
     "persistorm": "github:waspyro/persistorm",
     "node-bignumber": "^1.2.2",
     "steam-totp": "^2.1.2",
-    "ws": "^8.13.0"
+    "ws": "^8.13.0",
+    "protobufjs": "^7.1.2"
   },
   "devDependencies": {
     "@types/steam-totp": "^2.1.0",
     "@types/ws": "^8.5.4",
-    "ts-proto": "^1.140.0",
-    "protobufjs": "^7.1.2"
+    "ts-proto": "^1.140.0"
   }
 }
