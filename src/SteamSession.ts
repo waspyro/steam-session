@@ -21,10 +21,10 @@ import {
     decodeJWT,
     drainFetchResponse,
     encryptPasswordWithPublicKey,
-    formDataFromObject, getJWTExpMcLeft,
-    getSuccessfulResponseJson, transformGuardsArrayToObjectWithContext,
+    formDataFromObject, getJWTExpMcLeft, getSuccessfulJsonFromResponse,
+    isExpired, transformGuardsArrayToObjectWithContext,
 } from "./utils";
-import {BadProtobufResponse} from "./Errors";
+import {BadProtobufResponse, MalformedResponse} from "./Errors";
 import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "./protots/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "./protots/enums";
@@ -35,7 +35,7 @@ export default class SteamSession {
     constructor(
         public env: SessionEnv = WebBrowser(),
         public readonly cookies: CookieStore = new CookieStore(),
-        public tokens: SteamSessionTokens = {refresh: null, access: null}
+        tokens?: SteamSessionTokensFullName
     ) {
         this.authentication = env.websiteId === 'Client'
             ? new WebSocketAuthConversation(this)
@@ -44,7 +44,26 @@ export default class SteamSession {
         if(env.websiteId !== 'Mobile') this.approveSession = () => {
             throw new Error('"approveSession" method should only be used in Mobile environment') //is it?
         }
+
+        if(tokens) this.updateTokens(tokens)
+        const cookie = this.getAccessCookieValue()
+        if(cookie) this.expiration.cookie = decodeJWT(cookie).exp * 1000
+        this.sessionid = this.getSessionidCookieValue()
     }
+
+    tokens: SteamSessionTokens = {
+        refresh: null,
+        access: null,
+    }
+
+    expiration = {
+        refresh: 0,
+        access: 0,
+        cookie: 0
+    }
+
+    sessionid: string
+    steamid: string = null
 
     ws = new SteamSocket(this)
 
@@ -66,25 +85,32 @@ export default class SteamSession {
         })
     }
 
-    private async getUpdatedRefreshToken() {
-        const refreshTokenExpTimeLeft = getJWTExpMcLeft(this.tokens.refresh)
-        if(refreshTokenExpTimeLeft < 1000 * 60) return this.tokenRefresher(this)
-            .then(() => this.tokens.refresh)
-        return this.tokens.refresh
+    authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
+        return isExpired(this.expiration.cookie)
+            ? this.refreshCookies().then(() => this.request(url, opts))
+            : this.request(url, opts)
     }
 
+    //we can await this.tokenRefresher(this) from here but i dont want to use async function for it
+    getRefreshTokenIfUpdated = (): null | string => isExpired(this.expiration.refresh) ? null : this.tokens.refresh
+    getAccessTokenIfUpdated  = (): null | string => isExpired(this.expiration.access)  ? null : this.tokens.access
+
     async refreshCookies() {
-        const nonce = await this.getUpdatedRefreshToken()
-        const sessionid = this.getSessionidCookieValue()
-        const fd = formDataFromObject({nonce, sessionid, redir: 'https://steamcommunity.com/login/home/?goto='})
+        const fd = formDataFromObject({
+            nonce: this.getRefreshTokenIfUpdated() || await this.updateRefreshToken(),
+            sessionid: this.sessionid,
+            redir: 'https://steamcommunity.com/login/home/?goto='
+        })
 
-        const {steamID, transfer_info} = await this.request(
+        const json = await this.request(
             'https://login.steampowered.com/jwt/finalizelogin',
-            {method: 'POST', body: fd}
-        ).then(getSuccessfulResponseJson)
+            {method: 'POST', body: fd, headers: this.env.authProtoHeaders}
+        ).then(getSuccessfulJsonFromResponse)
 
-        return Promise.any(transfer_info.map(async el => {
-            el.params.steamID = steamID
+        if(!json.transfer_info) throw new MalformedResponse(json, {transfer_info: Array})
+
+        return Promise.any(json.transfer_info.map(async el => {
+            el.params.steamID = json.steamID || this.steamid
             const response = await this.request(el.url, {
                 body: formDataFromObject(el.params),
                 method: 'POST', cookiesSave: 'manual'
@@ -136,8 +162,8 @@ export default class SteamSession {
         this.request('https://login.steampowered.com/jwt/checkdevice/'+ctx.steamid, {
             method: 'POST',
             body: formDataFromObject({steamid: ctx.steamid, clientid: ctx.clientId})
-        }).then(getSuccessfulResponseJson).then(res => {
-            return res.success && res.result !== 8
+        }).then(getSuccessfulJsonFromResponse).then(res => {
+            return res.result !== 8
         })
 
     private createActions(
@@ -156,8 +182,16 @@ export default class SteamSession {
 
     updateTokens = ({refreshToken, accessToken}: SteamSessionTokensFullName) => {
         const updated: SteamSessionTokens = {}
-        if(refreshToken !== undefined) updated.refresh = this.tokens.refresh = refreshToken
-        if(accessToken !== undefined) updated.access = this.tokens.access = accessToken
+        if(refreshToken !== undefined) {
+            updated.refresh = this.tokens.refresh = refreshToken
+            const decoded = decodeJWT(refreshToken)
+            this.expiration.refresh = decoded.exp * 1000
+            if(!this.steamid) this.steamid = decoded.sub
+        }
+        if(accessToken !== undefined) {
+            updated.access = this.tokens.access = accessToken
+            this.expiration.access = decodeJWT(refreshToken).exp * 1000
+        }
         this.events.token.emit(updated)
         return this.tokens
     }
@@ -228,28 +262,24 @@ export default class SteamSession {
         confirm: boolean = true,
         persistence: ESessionPersistence = ESessionPersistence.k_ESessionPersistence_Persistent
     ) => {
-        const accessToken = await this.getUpdatedAccessToken()
-        if(!steamid) steamid = decodeJWT(accessToken).sub
+        const accessToken = this.getAccessTokenIfUpdated() || await this.updateAccessToken()
+        if(!steamid) steamid = this.steamid
         return (this.authentication as HttpAuthConversation).updateAuthSessionWithMobileConfirmation({
             signature: createSteamSessionSignature(sharedSecret, version, clientId, steamid),
             clientId, confirm, persistence, steamid, version
         }, accessToken)
     }
 
-    updateAccessToken = async () => {
-        const refreshToken = await this.getUpdatedRefreshToken()
+    updateAccessToken = async (force = false): Promise<string> => {
+        const refreshToken = this.getRefreshTokenIfUpdated()
+        if(!refreshToken) {
+            await this.updateRefreshToken() //initial refresher should update both tokens
+            const accessToken = this.getAccessTokenIfUpdated() //but we'll check anyways
+            if(!force && accessToken) return this.tokens.access
+        }
         return this.authentication.generateAccessTokenForApp({
-                refreshToken, steamid: decodeJWT(this.tokens.refresh).sub //todo: double decode
-        }).then(this.updateTokens)
-    }
-
-    getUpdatedAccessToken = async () => { //todo: fixme
-        if(getJWTExpMcLeft(this.tokens.access) > 1000 * 60) return this.tokens.access
-        if(getJWTExpMcLeft(this.tokens.refresh) < 1000 * 60) return this.tokenRefresher(this)
-            .then(this.getUpdatedAccessToken)
-        return this.authentication.generateAccessTokenForApp({
-            refreshToken: this.tokens.refresh, steamid: decodeJWT(this.tokens.refresh).sub
-        }).then(this.updateTokens)
+            refreshToken, steamid: this.steamid
+        }).then(value => this.updateTokens(value).access)
     }
 
     getSessionidCookieValue(domain = '.', create = true) {
@@ -259,7 +289,7 @@ export default class SteamSession {
     }
 
     me = async (): Promise<[string, string, "profiles" | "id"]> => {
-        const res = await this.request('https://steamcommunity.com/my').then(drainFetchResponse)
+        const res = await this.authorizedRequest('https://steamcommunity.com/my').then(drainFetchResponse)
         const location = res.headers.get('location')
         const profileUrl = location.match(/steamcommunity\.com(\/(id|profiles)\/([^\/]+))/)
         if(!profileUrl) return null
@@ -289,6 +319,10 @@ export default class SteamSession {
         if(this.#refreshCookiesIntervalTimerRef) clearTimeout(this.#refreshCookiesIntervalTimerRef)
         this.#refreshCookiesIntervalTimerRef = null
         return true
+    }
+
+    updateRefreshToken() {
+        return this.tokenRefresher(this).then(() => this.tokens.refresh)
     }
 
     private tokenRefresher: TokenRefresher = SteamSession.refresherNotSet
@@ -347,12 +381,12 @@ export default class SteamSession {
             cookieStore = new CookieStore()
             const restored = await cookieStore.usePersistentStorage(store.col('cookies'))
         }
-        let [refresh, access, env] = await store.getm(['refresh', 'access', 'env'])
+        let [refreshToken, accessToken, env] = await store.getm(['refresh', 'access', 'env'])
         if(!env) {
             env = newEnv()
             await store.set('env', env)
         }
-        const session = new SteamSession(env, cookieStore, {refresh, access})
+        const session = new SteamSession(env, cookieStore, {refreshToken, accessToken})
         session.events.token.on(store.seto)
         session.events.env.on(env => store.set('env', env))
         return session
