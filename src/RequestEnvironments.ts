@@ -6,7 +6,7 @@ import {
     defaultMacOSClientUA,
     defaultWebUAMacOS,
     defaultWindowsClientUA,
-    ENG_APB,
+    ENG_APB, ipadOSHttpUA, ipadOSProtoClientUA,
     macModels,
     topNames
 } from "./extra/assets";
@@ -102,19 +102,22 @@ export const ClientWindows = (
 
 export const MobileIOS = (
     deviceFriendlyName = getRandomIOSDeviceName(),
-    userAgent = defaultIOSClientUA,
-    osVersion = EOSType.IOS12,
+    protoAgent = randel([defaultIOSClientUA, ipadOSProtoClientUA]),
+    httpAgent = ipadOSHttpUA,
+    osVersion = randel([-571, -570, -569, -568]), //EOSType.IOS12
 ): SessionEnv => {
     return {
         websiteId: 'Mobile',
         cookies: {
             'mobileClient': 'ios',
-            'mobileClientVersion': '777777 3.0.0'
+            'mobileClientVersion': '777777 ' + randel(['3.0.0', '3.1.0'])
         },
         httpHeaders: {
-            'user-agent': userAgent,
+            'user-agent': httpAgent,
         },
-        authProtoHeaders: {},
+        authProtoHeaders: {
+            'user-agent': protoAgent
+        },
         device: {
             platformType: EAuthTokenPlatformType.k_EAuthTokenPlatformType_MobileApp,
             gamingDeviceType: null,

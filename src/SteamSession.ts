@@ -379,7 +379,7 @@ export default class SteamSession {
         : Promise<SteamSession> => {
         if(!cookieStore) {
             cookieStore = new CookieStore()
-            const restored = await cookieStore.usePersistentStorage(store.col('cookies'))
+            await cookieStore.usePersistentStorage(store.col('cookies'))
         }
         let [refreshToken, accessToken, env] = await store.getm(['refresh', 'access', 'env'])
         if(!env) {
@@ -393,3 +393,4 @@ export default class SteamSession {
     }
 
 }
+

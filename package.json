@@ -13,7 +13,7 @@
   },
   "description": "",
   "keywords": [],
-  "author": "",
+  "author": "waspyru",
   "license": "ISC",
   "dependencies": {
     "cookie-store": "github:waspyro/node-cookie-store",

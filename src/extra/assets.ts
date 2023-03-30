@@ -7,6 +7,8 @@ export const defaultWebUA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK
 export const defaultWindowsClientUA = 'Mozilla/5.0 (Windows; U; Windows NT 10.0; en-US; Valve Steam Client/default/1665786434; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
 export const defaultMacOSClientUA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2_1; Valve Steam Client/default/1679359315) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36'
 export const defaultIOSClientUA = 'Steam%20Mobile/7617469 CFNetwork/1399 Darwin/22.1.0'
+export const ipadOSProtoClientUA = 'Steam%20Mobile/7870332 CFNetwork/1404.0.5 Darwin/22.3.0'
+export const ipadOSHttpUA = 'Mozilla/5.0 (iPad; CPU OS 16_3 like Mac OS X; Valve Steam App Version/3) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
 
 export const emptySteamSocketHeaders = {
     steamid: '0',
