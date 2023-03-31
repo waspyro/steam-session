@@ -184,13 +184,21 @@ export default class SteamSession {
         const updated: SteamSessionTokens = {}
         if(refreshToken !== undefined) {
             updated.refresh = this.tokens.refresh = refreshToken
-            const decoded = decodeJWT(refreshToken)
-            this.expiration.refresh = decoded.exp * 1000
-            if(!this.steamid) this.steamid = decoded.sub
+            if(refreshToken !== null) {
+                const decoded = decodeJWT(refreshToken)
+                this.expiration.refresh = decoded.exp * 1000
+                if(!this.steamid) this.steamid = decoded.sub
+            } else {
+                this.expiration.refresh = 0
+            }
         }
         if(accessToken !== undefined) {
             updated.access = this.tokens.access = accessToken
-            this.expiration.access = decodeJWT(refreshToken).exp * 1000
+            if(accessToken !== null) {
+                this.expiration.access = decodeJWT(refreshToken).exp * 1000
+            } else {
+                this.expiration.access = 0
+            }
         }
         this.events.token.emit(updated)
         return this.tokens
