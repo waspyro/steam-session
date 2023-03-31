@@ -119,7 +119,11 @@ export default class SteamSession {
             const accessCookie = cookies.find(c => c.name === 'steamLoginSecure')
             if(!accessCookie) throw new Error('Access cookie missing')
             return accessCookie
-        })).then(cookie => this.cookies.add(cookie).value)
+        })).then(cookie => {
+            const token = this.cookies.add(cookie).value
+            this.expiration.cookie = decodeJWT(token).exp * 1000
+            return token
+        })
     }
 
     updateEnv(env: SessionEnv = this.env) {
