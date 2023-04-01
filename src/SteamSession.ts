@@ -387,8 +387,11 @@ export default class SteamSession {
     static getJWTExpMcLeft = getJWTExpMcLeft
     static env = {webBrowser: WebBrowser, mobileIOS: MobileIOS, clientWindows: ClientWindows, clientMacOS: ClientMacOS}
 
-    static restore = async (store: PersistormInstance, newEnv = WebBrowser, cookieStore?: CookieStore)
-        : Promise<SteamSession> => {
+    static restore = async (
+        store: PersistormInstance,
+        newEnv: (...args: any[]) => SessionEnv = WebBrowser,
+        cookieStore?: CookieStore
+    ): Promise<SteamSession> => {
         if(!cookieStore) {
             cookieStore = new CookieStore()
             await cookieStore.usePersistentStorage(store.col('cookies'))
