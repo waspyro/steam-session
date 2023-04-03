@@ -76,11 +76,13 @@ export default class SteamSession {
             opts.headers.cookie = cookiesUsed.toString()
         }
         if(!opts.redirect) opts.redirect = 'manual'
+        if(opts.followRedirects === undefined) opts.followRedirects = 2
         this.events.request.emit([url, opts, cookiesUsed])
         return fetch(url, opts).then(resp => {
             const newCookies = opts.cookiesSave === 'manual' ? null
                 : this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
             this.events.response.emit([url as URL, opts, cookiesUsed, resp, newCookies])
+            if(resp.redirected && opts.followRedirects--) return this.request(resp.url, opts)
             return resp
         })
     }

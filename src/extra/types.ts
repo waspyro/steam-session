@@ -8,6 +8,7 @@ export type Patch<T, Props> = Omit<T, keyof Props> & Props;
 export type RequestOpts = Patch<RequestInit, {
     cookiesSet?: 'manual'
     cookiesSave?: 'manual'
+    followRedirects?: number
     headers?: {cookie?: string, [key: string]: string}
 }>
 
