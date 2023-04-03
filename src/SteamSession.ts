@@ -82,7 +82,8 @@ export default class SteamSession {
             const newCookies = opts.cookiesSave === 'manual' ? null
                 : this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
             this.events.response.emit([url as URL, opts, cookiesUsed, resp, newCookies])
-            if(resp.redirected && opts.followRedirects-- < 0) return this.request(resp.url, opts)
+            if(resp.status === 302 && resp.headers.has('location') && opts.followRedirects-- > 0)
+                return this.request(resp.headers.get('location'), opts) //.redirected not working, 302 not needed
             return resp
         })
     }
