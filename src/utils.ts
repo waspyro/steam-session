@@ -28,7 +28,7 @@ export const getSuccessfulJsonFromResponse = (
     else return json
 })
 
-export const rand = (min: number, max: number) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
+export const rand = (min: number, max: number = min) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
 export const randel = (arr: any[]) => arr[rand(0, arr.length-1)]
 
 export const decodeJWT = (token: string): SteamJwtData =>
