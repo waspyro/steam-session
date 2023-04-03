@@ -82,7 +82,7 @@ export default class SteamSession {
             const newCookies = opts.cookiesSave === 'manual' ? null
                 : this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
             this.events.response.emit([url as URL, opts, cookiesUsed, resp, newCookies])
-            if(resp.redirected && opts.followRedirects--) return this.request(resp.url, opts)
+            if(resp.redirected && opts.followRedirects-- < 0) return this.request(resp.url, opts)
             return resp
         })
     }
@@ -303,7 +303,8 @@ export default class SteamSession {
     }
 
     me = async (): Promise<[string, string, "profiles" | "id"]> => {
-        const res = await this.authorizedRequest('https://steamcommunity.com/my').then(drainFetchResponse)
+        const res = await this.authorizedRequest('https://steamcommunity.com/my', {followRedirects: 0})
+            .then(drainFetchResponse)
         const location = res.headers.get('location')
         const profileUrl = location.match(/steamcommunity\.com(\/(id|profiles)\/([^\/]+))/)
         if(!profileUrl) return null
