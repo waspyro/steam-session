@@ -10,7 +10,7 @@ import {
     SessionEnv,
     SessionSignatureData,
     SteamSessionTokens, SteamSessionTokensFullName, TokenRefresher
-} from "./extra/types";
+} from "../common/types";
 import Listenable from "listenable";
 import {PersistormInstance} from "persistorm";
 import totp from 'steam-totp'
@@ -23,11 +23,11 @@ import {
     encryptPasswordWithPublicKey,
     formDataFromObject, getJWTExpMcLeft, getSuccessfulJsonFromResponse,
     isExpired, transformGuardsArrayToObjectWithContext,
-} from "./utils";
+} from "../common/utils";
 import {BadProtobufResponse, MalformedResponse} from "./Errors";
-import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "./protots/steammessages_auth.steamclient";
+import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "../protobuf/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
-import {ESessionPersistence} from "./protots/enums";
+import {ESessionPersistence} from "../protobuf/enums";
 import WebSocketAuthConversation from "./WebSocketAuthConversation";
 import SteamSocket from "./SteamSocket";
 

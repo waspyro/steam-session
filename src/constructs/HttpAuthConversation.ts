@@ -13,9 +13,9 @@ import {
     CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse,
     CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest,
     CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse,
-} from "./protots/steammessages_auth.steamclient";
-import {CMsg} from "./extra/types";
-import {GetDecodedFetchResponse} from "./utils";
+} from "../protobuf/steammessages_auth.steamclient";
+import {CMsg} from "../common/types";
+import {GetDecodedFetchResponse} from "../common/utils";
 import SteamSession from "./SteamSession";
 
 export default class HttpAuthConversation {

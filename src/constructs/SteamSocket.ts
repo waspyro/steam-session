@@ -1,11 +1,11 @@
-import {CMsg, CmsList} from "./extra/types";
+import {CMsg, CmsList} from "../common/types";
 import WebSocket from "ws";
-import {EMsg} from "./protots/enums_clientserver";
-import {CMsgMulti, CMsgProtoBufHeader} from "./protots/steammessages_base";
+import {EMsg} from "../protobuf/enums_clientserver";
+import {CMsgMulti, CMsgProtoBufHeader} from "../protobuf/steammessages_base";
 import {gunzipSync} from "zlib";
 import SteamSession from "./SteamSession";
-import {createSteamProtoHeaders, getSuccessfulResponseJson} from "./utils";
-import {CMsgClientHello} from "./protots/steammessages_clientserver_login";
+import {createSteamProtoHeaders, getSuccessfulResponseJson} from "../common/utils";
+import {CMsgClientHello} from "../protobuf/steammessages_clientserver_login";
 
 const PROTOCOL_VERSION = 65580
 const PROTO_MASK = 0x80000000

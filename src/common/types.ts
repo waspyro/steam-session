@@ -1,5 +1,5 @@
-import {EAuthTokenPlatformType} from "../protots/steammessages_auth.steamclient";
-import type SteamSession from '../SteamSession'
+import {EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
+import type SteamSession from '../constructs/SteamSession'
 
 export type fn = (...args: any[]) => any
 export type obj = Record<string, any>

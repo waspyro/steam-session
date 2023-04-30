@@ -1,6 +1,6 @@
-import {EOSType, SessionEnv} from "./extra/types";
-import {rand, randel} from "./utils";
-import {EAuthTokenPlatformType} from "./protots/steammessages_auth.steamclient";
+import {EOSType, SessionEnv} from "../common/types";
+import {rand, randel} from "../common/utils";
+import {EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
 import {
     defaultIOSClientUA,
     defaultMacOSClientUA,
@@ -9,7 +9,7 @@ import {
     ENG_APB, ipadOSHttpUA, ipadOSProtoClientUA,
     macModels,
     topNames
-} from "./extra/assets";
+} from "../common/assets";
 
 export const WebBrowser = (userAgent = defaultWebUAMacOS): SessionEnv => {
     return {

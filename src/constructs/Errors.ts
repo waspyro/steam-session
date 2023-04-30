@@ -1,4 +1,4 @@
-import {obj} from "./extra/types";
+import {obj} from "../common/types";
 
 export class BadResponse extends Error {
     response

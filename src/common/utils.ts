@@ -1,9 +1,9 @@
-import {BadHTTPStatusResponseError, BadJSONResponse, BadProtobufResponse} from "./Errors";
+import {BadHTTPStatusResponseError, BadJSONResponse, BadProtobufResponse} from "../constructs/Errors";
 import {Key, hex2b64} from 'node-bignumber'
-import {CMsg, EGuardType, SteamJwtData} from "./extra/types";
-import {CAuthenticationAllowedConfirmation} from "./protots/steammessages_auth.steamclient";
+import {CMsg, EGuardType, SteamJwtData} from "./types";
+import {CAuthenticationAllowedConfirmation} from "../protobuf/steammessages_auth.steamclient";
 import {createHmac, randomBytes} from "crypto";
-import {emptySteamSocketHeaders} from "./extra/assets";
+import {emptySteamSocketHeaders} from "./assets";
 
 export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Buffer> => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
