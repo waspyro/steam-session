@@ -18,11 +18,12 @@
   "dependencies": {
     "cookie-store": "github:waspyro/node-cookie-store",
     "listenable": "github:waspyro/ts-listenable",
-    "persistorm": "github:waspyro/persistorm",
     "node-bignumber": "^1.2.2",
+    "persistorm": "github:waspyro/persistorm",
+    "protobufjs": "^7.1.2",
     "steam-totp": "^2.1.2",
-    "ws": "^8.13.0",
-    "protobufjs": "^7.1.2"
+    "undici": "^5.22.0",
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "@types/steam-totp": "^2.1.0",

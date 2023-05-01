@@ -1,4 +1,5 @@
 import {obj} from "../common/types";
+import {Response} from "undici";
 
 export class BadResponse extends Error {
     response

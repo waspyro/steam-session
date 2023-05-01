@@ -30,6 +30,7 @@ import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "../protobuf/enums";
 import WebSocketAuthConversation from "./WebSocketAuthConversation";
 import SteamSocket from "./SteamSocket";
+import {fetch, Response} from "undici";
 
 export default class SteamSession {
     constructor(
@@ -80,13 +81,14 @@ export default class SteamSession {
         this.events.request.emit([url, opts, cookiesUsed])
         return fetch(url, opts).then(resp => {
             const newCookies = opts.cookiesSave === 'manual' ? null
-                : this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
+                : this.cookies.addMany(CookieStore.parseSetCookies(resp.headers.getSetCookie(), url as URL))  //why 😭
             this.events.response.emit([url as URL, opts, cookiesUsed, resp, newCookies])
             if(resp.status === 302 && resp.headers.has('location') && opts.followRedirects-- > 0)
                 return this.request(resp.headers.get('location'), opts) //.redirected not working, 302 not needed
             return resp
         })
     }
+    //: this.cookies.addMany(CookieStore.parseSetCookies(resp.headers.getSetCookie(), url as URL))
 
     authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
         return isExpired(this.expiration.cookie)
@@ -105,12 +107,13 @@ export default class SteamSession {
             redir: 'https://steamcommunity.com/login/home/?goto='
         })
 
-        const json = await this.request(
+        const json: any = await this.request(
             'https://login.steampowered.com/jwt/finalizelogin',
             {method: 'POST', body: fd, headers: this.env.authProtoHeaders}
         ).then(getSuccessfulJsonFromResponse)
 
-        if(!json.transfer_info) throw new MalformedResponse(json, {transfer_info: Array})
+        if(typeof json !== 'object' || !json.transfer_info)
+            throw new MalformedResponse(json, {transfer_info: Array})
 
         return Promise.any(json.transfer_info.map(async el => {
             el.params.steamID = json.steamID || this.steamid
@@ -118,12 +121,13 @@ export default class SteamSession {
                 body: formDataFromObject(el.params),
                 method: 'POST', cookiesSave: 'manual'
             }).then(drainFetchResponse)
-            const cookies = CookieStore.parseFromFetchResponse(response, {hostname: '.'}) //todo: multiple hostnames different cookies
-            const accessCookie = cookies.find(c => c.name === 'steamLoginSecure')
-            if(!accessCookie) throw new Error('Access cookie missing')
+            const cookies = response.headers.getSetCookie() //todo: multiple hostnames different cookies
+            const accessCookie = cookies.find(c => c.startsWith('steamLoginSecure'))
+            if(!accessCookie) throw new Error('Missing access cookie')
             return accessCookie
-        })).then(cookie => {
-            const token = this.cookies.add(cookie).value
+        })).then((accesssCookieString: string) => {
+            const accessCookie = CookieStore.parseSetCookie(accesssCookieString, {hostname: '.'})
+            const token = this.cookies.add(accessCookie).value
             this.expiration.cookie = decodeJWT(token).exp * 1000
             return token
         })

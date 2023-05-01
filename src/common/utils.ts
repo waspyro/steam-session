@@ -1,9 +1,10 @@
 import {BadHTTPStatusResponseError, BadJSONResponse, BadProtobufResponse} from "../constructs/Errors";
 import {Key, hex2b64} from 'node-bignumber'
-import {CMsg, EGuardType, SteamJwtData} from "./types";
+import {CMsg, EGuardType, obj, SteamJwtData} from "./types";
 import {CAuthenticationAllowedConfirmation} from "../protobuf/steammessages_auth.steamclient";
 import {createHmac, randomBytes} from "crypto";
 import {emptySteamSocketHeaders} from "./assets";
+import {FormData, Response} from "undici";
 
 export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Buffer> => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
@@ -15,7 +16,7 @@ export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Bu
 
 export const getSuccessfulResponseJson = (response: Response) => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
-    return response.json()
+    return response.json() as any
 }
 
 const defaultSuccessValues = {undefined: true, true: true, 1: true}
@@ -25,7 +26,7 @@ export const getSuccessfulJsonFromResponse = (
     successValues = defaultSuccessValues
 ) => getSuccessfulResponseJson(response).then(json => {
     if(!successValues[json[checkField]]) throw new BadJSONResponse(response, json, checkField, successValues)
-    else return json
+    else return json as obj
 })
 
 export const rand = (min: number, max: number = min) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
