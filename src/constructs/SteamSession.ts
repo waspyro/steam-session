@@ -88,7 +88,6 @@ export default class SteamSession {
             return resp
         })
     }
-    //: this.cookies.addMany(CookieStore.parseSetCookies(resp.headers.getSetCookie(), url as URL))
 
     authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
         return isExpired(this.expiration.cookie)
@@ -125,8 +124,8 @@ export default class SteamSession {
             const accessCookie = cookies.find(c => c.startsWith('steamLoginSecure'))
             if(!accessCookie) throw new Error('Missing access cookie')
             return accessCookie
-        })).then((accesssCookieString: string) => {
-            const accessCookie = CookieStore.parseSetCookie(accesssCookieString, {hostname: '.'})
+        })).then((accessCookieString: string) => {
+            const accessCookie = CookieStore.parseSetCookie(accessCookieString, {hostname: '.'})
             const token = this.cookies.add(accessCookie).value
             this.expiration.cookie = decodeJWT(token).exp * 1000
             return token
