@@ -17,10 +17,13 @@
   "license": "ISC",
   "dependencies": {
     "cookie-store": "github:waspyro/node-cookie-store",
+    "fetch-socks": "^1.2.0",
+    "https-proxy-agent": "^5.0.1",
     "listenable": "github:waspyro/ts-listenable",
     "node-bignumber": "^1.2.2",
     "persistorm": "github:waspyro/persistorm",
     "protobufjs": "^7.1.2",
+    "socks-proxy-agent": "^7.0.0",
     "steam-totp": "^2.1.2",
     "undici": "^5.22.0",
     "ws": "^8.13.0"

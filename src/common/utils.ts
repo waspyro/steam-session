@@ -5,6 +5,7 @@ import {CAuthenticationAllowedConfirmation} from "../protobuf/steammessages_auth
 import {createHmac, randomBytes} from "crypto";
 import {emptySteamSocketHeaders} from "./assets";
 import {FormData, Response} from "undici";
+import {socksDispatcher} from "fetch-socks";
 
 export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Buffer> => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
@@ -98,3 +99,18 @@ export const createNewJobid = () => {
 
 const FIVE_MIN = 1000 * 60 * 5
 export const isExpired = (exp: number) => Date.now() > exp - FIVE_MIN
+
+
+export const socksDispatcherFromUrl = (url: URL) => {
+    let protocolVersion: 5 | 4
+    if(url.protocol === 'socks5:') protocolVersion = 5
+    else if (url.protocol === 'socks4:') protocolVersion = 4
+    else throw new Error('wrong socks protocol. socks4 or socks5')
+    return socksDispatcher({
+        type: protocolVersion,
+        host: url.hostname,
+        port: parseInt(url.port),
+        userId: url.username,
+        password: url.password
+    })
+}

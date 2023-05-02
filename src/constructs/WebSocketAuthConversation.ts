@@ -27,7 +27,6 @@ export default class WebSocketSteamAuthConversation {
     }
 
     processNonAuthedMessageResponse = (message: Buffer, header: CMsgProtoBufHeader) => {
-        console.log('got response')
         this.ws.expectedResponses.get(header.jobidTarget)?.(message)
     }
 

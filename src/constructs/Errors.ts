@@ -2,10 +2,12 @@ import {obj} from "../common/types";
 import {Response} from "undici";
 
 export class BadResponse extends Error {
-    response
-    constructor(response, message = 'Bad Response') {
+    url: string
+    response: Response
+    constructor(response: Response, message = 'Bad Response') {
         super(message);
         this.response = response
+        this.url = response.url
     }
 }
 

@@ -22,7 +22,7 @@ import {
     drainFetchResponse,
     encryptPasswordWithPublicKey,
     formDataFromObject, getJWTExpMcLeft, getSuccessfulJsonFromResponse,
-    isExpired, transformGuardsArrayToObjectWithContext,
+    isExpired, socksDispatcherFromUrl, transformGuardsArrayToObjectWithContext,
 } from "../common/utils";
 import {BadProtobufResponse, MalformedResponse} from "./Errors";
 import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "../protobuf/steammessages_auth.steamclient";
@@ -30,7 +30,9 @@ import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "../protobuf/enums";
 import WebSocketAuthConversation from "./WebSocketAuthConversation";
 import SteamSocket from "./SteamSocket";
-import {fetch, Response} from "undici";
+import {Dispatcher, fetch, ProxyAgent, Response} from "undici";
+import {HttpsProxyAgent} from "https-proxy-agent";
+import {SocksProxyAgent} from "socks-proxy-agent";
 
 export default class SteamSession {
     constructor(
@@ -68,8 +70,36 @@ export default class SteamSession {
 
     ws = new SteamSocket(this)
 
+    fetchDispatcher: Dispatcher
+    wsAgent: HttpsProxyAgent | SocksProxyAgent
+
+    useProxy(url: string | URL) {
+        if(typeof url === 'string') url = new URL(url)
+        switch (url.protocol) {
+            case 'https:':
+            case 'http:': {
+                this.fetchDispatcher = new ProxyAgent(url.toString())
+                this.wsAgent = new HttpsProxyAgent(url)
+            }
+            break;
+            case 'socks4:':
+            case 'socks5:': {
+                this.fetchDispatcher = socksDispatcherFromUrl(url)
+                this.wsAgent = new SocksProxyAgent(url)
+            }
+            break;
+            default: throw new Error('wrong url protocol, should be one of: https, http, socks4, socks5')
+        }
+    }
+
+    disableHttpProxy() {
+        this.fetchDispatcher = undefined
+        this.wsAgent = undefined
+    }
+
     request = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
         if(typeof url === 'string') url = new URL(url)
+        opts.dispatcher = this.fetchDispatcher
         opts.headers = Object.assign({}, opts.headers, this.env.httpHeaders)
         let cookiesUsed = null
         if(opts.cookiesSet !== 'manual') {
