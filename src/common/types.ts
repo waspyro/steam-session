@@ -1,6 +1,8 @@
 import {EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
 import type SteamSession from '../constructs/SteamSession'
 import {RequestInit} from "undici";
+import {Response} from "undici";
+import CookieStore from "cookie-store";
 
 export type fn = (...args: any[]) => any
 export type obj = Record<string, any>
@@ -201,3 +203,13 @@ export type CmsList = {
     load: number,
     wtd_load: number
 }
+
+export type SteamSessionConstructorParams = {
+    env?: SessionEnv,
+    cookieStore?: CookieStore,
+    tokens?: SteamSessionTokensFullName,
+    proxy?: URL | string,
+    refresher?: TokenRefresher
+}
+
+export type UndiciResponse = Response

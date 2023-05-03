@@ -47,3 +47,20 @@ export class BadProtobufResponse extends BadResponse {
         this.eresult = Number(eresult)
     }
 }
+
+//probably overkill
+export class BadParamError extends Error {
+    paramName: string
+    expectedValues: string[]
+    received: string
+    context?: any
+    constructor(paramName: string, expectedValues: string[], received: string, context?: any) {
+        super(`Unexpected param "${paramName}" value.`+
+        `\nExpected: ${expectedValues.join(' | ')}`+
+        `\nReceived: ${received}`)
+        this.paramName = paramName
+        this.expectedValues = expectedValues
+        this.received = received
+        this.context = context
+    }
+}

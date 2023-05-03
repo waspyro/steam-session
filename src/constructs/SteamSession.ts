@@ -8,13 +8,12 @@ import {
     PollingOptions,
     RequestOpts,
     SessionEnv,
-    SessionSignatureData,
+    SessionSignatureData, SteamSessionConstructorParams,
     SteamSessionTokens, SteamSessionTokensFullName, TokenRefresher
 } from "../common/types";
 import Listenable from "listenable";
 import {PersistormInstance} from "persistorm";
 import totp from 'steam-totp'
-
 import {ClientMacOS, ClientWindows, MobileIOS, WebBrowser} from "./RequestEnvironments";
 import {
     createSessionidCookie, createSteamSessionSignature,
@@ -24,7 +23,7 @@ import {
     formDataFromObject, getJWTExpMcLeft, getSuccessfulJsonFromResponse,
     isExpired, socksDispatcherFromUrl, transformGuardsArrayToObjectWithContext,
 } from "../common/utils";
-import {BadProtobufResponse, MalformedResponse} from "./Errors";
+import {BadParamError, BadProtobufResponse, MalformedResponse} from "./Errors";
 import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "../protobuf/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "../protobuf/enums";
@@ -35,24 +34,24 @@ import {HttpsProxyAgent} from "https-proxy-agent";
 import {SocksProxyAgent} from "socks-proxy-agent";
 
 export default class SteamSession {
-    constructor(
-        public env: SessionEnv = WebBrowser(),
-        public readonly cookies: CookieStore = new CookieStore(),
-        tokens?: SteamSessionTokensFullName
-    ) {
+    constructor({env, cookieStore, refresher, tokens, proxy}: SteamSessionConstructorParams) {
+        this.env = env ?? WebBrowser()
+        this.cookies = cookieStore ?? new CookieStore()
+        this.updateSessionidCookieValue()
+        this.updateAccessCookieExpiration()
+        tokens    && this.updateTokens(tokens)
+        refresher && this.setTokenRefresher(refresher)
+        proxy     && this.useProxy(proxy)
+
+        if(env.websiteId !== 'Mobile') this.approveSession = SteamSession.disabledApproveSession
+
         this.authentication = env.websiteId === 'Client'
             ? new WebSocketAuthConversation(this)
             : new HttpAuthConversation(this)
-
-        if(env.websiteId !== 'Mobile') this.approveSession = () => {
-            throw new Error('"approveSession" method should only be used in Mobile environment') //is it?
-        }
-
-        if(tokens) this.updateTokens(tokens)
-        const cookie = this.getAccessCookieValue()
-        if(cookie) this.expiration.cookie = decodeJWT(cookie).exp * 1000
-        this.sessionid = this.getSessionidCookieValue()
     }
+
+    env: SessionEnv
+    cookies: CookieStore
 
     tokens: SteamSessionTokens = {
         refresh: null,
@@ -88,7 +87,7 @@ export default class SteamSession {
                 this.wsAgent = new SocksProxyAgent(url)
             }
             break;
-            default: throw new Error('wrong url protocol, should be one of: https, http, socks4, socks5')
+            default: throw new BadParamError('url', ['https:', 'http:', 'socks4:', 'socks5:'], url.protocol)
         }
     }
 
@@ -157,7 +156,7 @@ export default class SteamSession {
         })).then((accessCookieString: string) => {
             const accessCookie = CookieStore.parseSetCookie(accessCookieString, {hostname: '.'})
             const token = this.cookies.add(accessCookie).value
-            this.expiration.cookie = decodeJWT(token).exp * 1000
+            this.updateAccessCookieExpiration(token)
             return token
         })
     }
@@ -304,6 +303,10 @@ export default class SteamSession {
         return this.pollUntilResults(resp, pollOptions)
     }
 
+    private static disabledApproveSession = () => {
+        throw new Error('"approveSession" method should only be used in Mobile environment') //is it?
+    }
+
     approveSession = async (
         {clientId, version = 1, steamid}: SessionSignatureData,
         sharedSecret: string,
@@ -330,6 +333,13 @@ export default class SteamSession {
         }).then(value => this.updateTokens(value).access)
     }
 
+    updateSessionidCookieValue(domain = '.', create = true) {
+        let sessionidCookie = this.cookies.get({hostname: domain}).find(c => c.name === 'sessionid')
+        if(create && !sessionidCookie) sessionidCookie = this.cookies.add(createSessionidCookie(domain))
+        if(sessionidCookie) this.sessionid = sessionidCookie.value
+        return this.sessionid
+    }
+
     getSessionidCookieValue(domain = '.', create = true) {
         const sessionid = this.cookies.get({hostname: domain}).find(c => c.name === 'sessionid')?.value
         if(create && !sessionid) return this.cookies.add(createSessionidCookie(domain)).value
@@ -348,6 +358,11 @@ export default class SteamSession {
     getAccessCookieValue() { //todo: multiple hostnames different cookies
         return this.cookies.get({hostname: '.'})
             .find(c => c.name === 'steamLoginSecure')?.value || null
+    }
+
+    updateAccessCookieExpiration(cookieValue?: string) {
+        const accessCookieValue = cookieValue || this.getAccessCookieValue()
+        if(accessCookieValue) return this.expiration.cookie = decodeJWT(accessCookieValue).exp * 1000
     }
 
     #refreshCookiesIntervalTimerRef = null
@@ -415,9 +430,8 @@ export default class SteamSession {
             .getJWTViaQR(resp => mobileSession.approveSession(resp, sharedSecret))
 
     private static refresherNotSet =  async () => {throw new Error(
-        'Refresh token requires update and tokenRefresher method not set. ' +
-        'Actualize refresh token manually or patch tokenRefresher method with your updater function to automatically ' +
-        'update refresh token when required.'
+        'Refresh token needs to be updated, and tokenRefresher method isn’t set. ' +
+        'You can either update it manually, or .setTokenRefresher(), so it\'s automatically updated if missed or expired'
     )}
 
     static createSessionidCookie = createSessionidCookie
@@ -426,19 +440,24 @@ export default class SteamSession {
 
     static restore = async (
         store: PersistormInstance,
-        newEnv: (...args: any[]) => SessionEnv = WebBrowser,
-        cookieStore?: CookieStore
+        params: Omit<SteamSessionConstructorParams, 'env'>,
+        newEnv: () => SessionEnv,
+        forceNewEnv = false
     ): Promise<SteamSession> => {
-        if(!cookieStore) {
-            cookieStore = new CookieStore()
-            await cookieStore.usePersistentStorage(store.col('cookies'))
+        if(!params.cookieStore) {
+            params.cookieStore = new CookieStore()
+            await params.cookieStore.usePersistentStorage(store.col('cookies'))
         }
         let [refreshToken, accessToken, env] = await store.getm(['refresh', 'access', 'env'])
-        if(!env) {
+        params.tokens = {refreshToken, accessToken}
+        if(!forceNewEnv && env) {
+            (params as SteamSessionConstructorParams).env = env
+        } else {
             env = newEnv()
             await store.set('env', env)
         }
-        const session = new SteamSession(env, cookieStore, {refreshToken, accessToken})
+
+        const session = new SteamSession(params)
         session.events.token.on(store.seto)
         session.events.env.on(env => store.set('env', env))
         return session
