@@ -10,7 +10,7 @@ import {
     SessionEnv,
     SessionSignatureData,
     SteamSessionTokens, SteamSessionTokensFullName, TokenRefresher
-} from "./extra/types";
+} from "../common/types";
 import Listenable from "listenable";
 import {PersistormInstance} from "persistorm";
 import totp from 'steam-totp'
@@ -22,14 +22,17 @@ import {
     drainFetchResponse,
     encryptPasswordWithPublicKey,
     formDataFromObject, getJWTExpMcLeft, getSuccessfulJsonFromResponse,
-    isExpired, transformGuardsArrayToObjectWithContext,
-} from "./utils";
+    isExpired, socksDispatcherFromUrl, transformGuardsArrayToObjectWithContext,
+} from "../common/utils";
 import {BadProtobufResponse, MalformedResponse} from "./Errors";
-import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "./protots/steammessages_auth.steamclient";
+import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "../protobuf/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
-import {ESessionPersistence} from "./protots/enums";
+import {ESessionPersistence} from "../protobuf/enums";
 import WebSocketAuthConversation from "./WebSocketAuthConversation";
 import SteamSocket from "./SteamSocket";
+import {Dispatcher, fetch, ProxyAgent, Response} from "undici";
+import {HttpsProxyAgent} from "https-proxy-agent";
+import {SocksProxyAgent} from "socks-proxy-agent";
 
 export default class SteamSession {
     constructor(
@@ -67,8 +70,36 @@ export default class SteamSession {
 
     ws = new SteamSocket(this)
 
+    fetchDispatcher: Dispatcher
+    wsAgent: HttpsProxyAgent | SocksProxyAgent
+
+    useProxy(url: string | URL) {
+        if(typeof url === 'string') url = new URL(url)
+        switch (url.protocol) {
+            case 'https:':
+            case 'http:': {
+                this.fetchDispatcher = new ProxyAgent(url.toString())
+                this.wsAgent = new HttpsProxyAgent(url)
+            }
+            break;
+            case 'socks4:':
+            case 'socks5:': {
+                this.fetchDispatcher = socksDispatcherFromUrl(url)
+                this.wsAgent = new SocksProxyAgent(url)
+            }
+            break;
+            default: throw new Error('wrong url protocol, should be one of: https, http, socks4, socks5')
+        }
+    }
+
+    disableHttpProxy() {
+        this.fetchDispatcher = undefined
+        this.wsAgent = undefined
+    }
+
     request = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
         if(typeof url === 'string') url = new URL(url)
+        opts.dispatcher = this.fetchDispatcher
         opts.headers = Object.assign({}, opts.headers, this.env.httpHeaders)
         let cookiesUsed = null
         if(opts.cookiesSet !== 'manual') {
@@ -80,7 +111,7 @@ export default class SteamSession {
         this.events.request.emit([url, opts, cookiesUsed])
         return fetch(url, opts).then(resp => {
             const newCookies = opts.cookiesSave === 'manual' ? null
-                : this.cookies.addFromFetchResponse(resp, url as URL) //why 😭
+                : this.cookies.addMany(CookieStore.parseSetCookies(resp.headers.getSetCookie(), url as URL))  //why 😭
             this.events.response.emit([url as URL, opts, cookiesUsed, resp, newCookies])
             if(resp.status === 302 && resp.headers.has('location') && opts.followRedirects-- > 0)
                 return this.request(resp.headers.get('location'), opts) //.redirected not working, 302 not needed
@@ -105,12 +136,13 @@ export default class SteamSession {
             redir: 'https://steamcommunity.com/login/home/?goto='
         })
 
-        const json = await this.request(
+        const json: any = await this.request(
             'https://login.steampowered.com/jwt/finalizelogin',
             {method: 'POST', body: fd, headers: this.env.authProtoHeaders}
         ).then(getSuccessfulJsonFromResponse)
 
-        if(!json.transfer_info) throw new MalformedResponse(json, {transfer_info: Array})
+        if(typeof json !== 'object' || !json.transfer_info)
+            throw new MalformedResponse(json, {transfer_info: Array})
 
         return Promise.any(json.transfer_info.map(async el => {
             el.params.steamID = json.steamID || this.steamid
@@ -118,12 +150,13 @@ export default class SteamSession {
                 body: formDataFromObject(el.params),
                 method: 'POST', cookiesSave: 'manual'
             }).then(drainFetchResponse)
-            const cookies = CookieStore.parseFromFetchResponse(response, {hostname: '.'}) //todo: multiple hostnames different cookies
-            const accessCookie = cookies.find(c => c.name === 'steamLoginSecure')
-            if(!accessCookie) throw new Error('Access cookie missing')
+            const cookies = response.headers.getSetCookie() //todo: multiple hostnames different cookies
+            const accessCookie = cookies.find(c => c.startsWith('steamLoginSecure'))
+            if(!accessCookie) throw new Error('Missing access cookie')
             return accessCookie
-        })).then(cookie => {
-            const token = this.cookies.add(cookie).value
+        })).then((accessCookieString: string) => {
+            const accessCookie = CookieStore.parseSetCookie(accessCookieString, {hostname: '.'})
+            const token = this.cookies.add(accessCookie).value
             this.expiration.cookie = decodeJWT(token).exp * 1000
             return token
         })

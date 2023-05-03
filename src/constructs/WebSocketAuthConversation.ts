@@ -1,7 +1,7 @@
-import {EMsg} from "./protots/enums_clientserver";
-import {CMsgProtoBufHeader} from "./protots/steammessages_base";
-import {CMsg} from "./extra/types";
-import {createNewJobid} from "./utils";
+import {EMsg} from "../protobuf/enums_clientserver";
+import {CMsgProtoBufHeader} from "../protobuf/steammessages_base";
+import {CMsg} from "../common/types";
+import {createNewJobid} from "../common/utils";
 import {
     CAuthenticationAccessTokenGenerateForAppRequest,
     CAuthenticationAccessTokenGenerateForAppResponse,
@@ -15,7 +15,7 @@ import {
     CAuthenticationPollAuthSessionStatusResponse,
     CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest,
     CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse
-} from "./protots/steammessages_auth.steamclient";
+} from "../protobuf/steammessages_auth.steamclient";
 import SteamSocket from "./SteamSocket";
 import SteamSession from "./SteamSession";
 
@@ -27,7 +27,6 @@ export default class WebSocketSteamAuthConversation {
     }
 
     processNonAuthedMessageResponse = (message: Buffer, header: CMsgProtoBufHeader) => {
-        console.log('got response')
         this.ws.expectedResponses.get(header.jobidTarget)?.(message)
     }
 

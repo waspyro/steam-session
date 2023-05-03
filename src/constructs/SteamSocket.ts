@@ -1,11 +1,11 @@
-import {CMsg, CmsList} from "./extra/types";
+import {CMsg, CmsList} from "../common/types";
 import WebSocket from "ws";
-import {EMsg} from "./protots/enums_clientserver";
-import {CMsgMulti, CMsgProtoBufHeader} from "./protots/steammessages_base";
+import {EMsg} from "../protobuf/enums_clientserver";
+import {CMsgMulti, CMsgProtoBufHeader} from "../protobuf/steammessages_base";
 import {gunzipSync} from "zlib";
 import SteamSession from "./SteamSession";
-import {createSteamProtoHeaders, getSuccessfulResponseJson} from "./utils";
-import {CMsgClientHello} from "./protots/steammessages_clientserver_login";
+import {createSteamProtoHeaders, getSuccessfulResponseJson} from "../common/utils";
+import {CMsgClientHello} from "../protobuf/steammessages_clientserver_login";
 
 const PROTOCOL_VERSION = 65580
 const PROTO_MASK = 0x80000000
@@ -14,7 +14,7 @@ export default class SteamSocket {
 
     constructor(private session: SteamSession) {}
 
-    getCms = () => this.session.request('https://api.steampowered.com/s/' +
+    getCms = () => this.session.request('https://api.steampowered.com/ISteamDirectory/' +
         'GetCMListForConnect/v0001/?cellid=0&format=json', {headers: this.session.env.httpHeaders})
         .then(getSuccessfulResponseJson)
         .then(json => {
@@ -28,13 +28,13 @@ export default class SteamSocket {
     // private currentSocketEndpoint: string | null //todo to not repeat same endpoint if reconnecting
     private socket: WebSocket | null = null
     #initPromise = null
-    socketInit = (): Promise<WebSocket> => { //todo proxy
+    socketInit = (): Promise<WebSocket> => {
         if(this.socket && this.socket.readyState === WebSocket.OPEN) return Promise.resolve(this.socket)
         if(this.#initPromise) return this.#initPromise
         this.#initPromise = this.getCmToConnect().then(addr => new Promise((resolve, reject) => {
             this.socket = new WebSocket('wss://'+addr+'/cmsocket/', {
                 headers: this.session.env.authProtoHeaders,
-                // agent
+                agent: this.session.wsAgent
             }) //todo timeout
             this.socket.once('open', () => {
                 this.socket.on('message', this.handleResponseMessage)

@@ -2,7 +2,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 PROTO_DIR=$SCRIPT_DIR/../assets/Protobufs
-PROTOTS_DIR=$SCRIPT_DIR/../src/protots
+PROTOTS_DIR=$SCRIPT_DIR/../src/protobuf
 MODULE_DIR="$SCRIPT_DIR"/../node_modules/ts-proto/protoc-gen-ts_proto
 
 if cd "$PROTO_DIR"; then git pull; else git clone https://github.com/SteamDatabase/Protobufs $PROTO_DIR; fi

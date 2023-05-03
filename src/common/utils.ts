@@ -1,9 +1,11 @@
-import {BadHTTPStatusResponseError, BadJSONResponse, BadProtobufResponse} from "./Errors";
+import {BadHTTPStatusResponseError, BadJSONResponse, BadProtobufResponse} from "../constructs/Errors";
 import {Key, hex2b64} from 'node-bignumber'
-import {CMsg, EGuardType, SteamJwtData} from "./extra/types";
-import {CAuthenticationAllowedConfirmation} from "./protots/steammessages_auth.steamclient";
+import {CMsg, EGuardType, obj, SteamJwtData} from "./types";
+import {CAuthenticationAllowedConfirmation} from "../protobuf/steammessages_auth.steamclient";
 import {createHmac, randomBytes} from "crypto";
-import {emptySteamSocketHeaders} from "./extra/assets";
+import {emptySteamSocketHeaders} from "./assets";
+import {FormData, Response} from "undici";
+import {socksDispatcher} from "fetch-socks";
 
 export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Buffer> => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
@@ -15,7 +17,7 @@ export const getSuccessfulProtoResponseBuffer = (response: Response): Promise<Bu
 
 export const getSuccessfulResponseJson = (response: Response) => {
     if(!response.ok) throw new BadHTTPStatusResponseError(response)
-    return response.json()
+    return response.json() as any
 }
 
 const defaultSuccessValues = {undefined: true, true: true, 1: true}
@@ -25,7 +27,7 @@ export const getSuccessfulJsonFromResponse = (
     successValues = defaultSuccessValues
 ) => getSuccessfulResponseJson(response).then(json => {
     if(!successValues[json[checkField]]) throw new BadJSONResponse(response, json, checkField, successValues)
-    else return json
+    else return json as obj
 })
 
 export const rand = (min: number, max: number = min) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
@@ -97,3 +99,18 @@ export const createNewJobid = () => {
 
 const FIVE_MIN = 1000 * 60 * 5
 export const isExpired = (exp: number) => Date.now() > exp - FIVE_MIN
+
+
+export const socksDispatcherFromUrl = (url: URL) => {
+    let protocolVersion: 5 | 4
+    if(url.protocol === 'socks5:') protocolVersion = 5
+    else if (url.protocol === 'socks4:') protocolVersion = 4
+    else throw new Error('wrong socks protocol. socks4 or socks5')
+    return socksDispatcher({
+        type: protocolVersion,
+        host: url.hostname,
+        port: parseInt(url.port),
+        userId: url.username,
+        password: url.password
+    })
+}

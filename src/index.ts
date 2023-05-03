@@ -1,2 +1,2 @@
-import SteamSession from "./SteamSession";
+import SteamSession from "./constructs/SteamSession";
 export default SteamSession
