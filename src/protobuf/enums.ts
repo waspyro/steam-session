@@ -728,51 +728,6 @@ export function eSystemFanControlModeToJSON(object: ESystemFanControlMode): stri
   }
 }
 
-export enum EColorProfile {
-  k_EColorProfile_Invalid = 0,
-  k_EColorProfile_Native = 1,
-  k_EColorProfile_Standard = 2,
-  k_EColorProfile_Vivid = 3,
-  UNRECOGNIZED = -1,
-}
-
-export function eColorProfileFromJSON(object: any): EColorProfile {
-  switch (object) {
-    case 0:
-    case "k_EColorProfile_Invalid":
-      return EColorProfile.k_EColorProfile_Invalid;
-    case 1:
-    case "k_EColorProfile_Native":
-      return EColorProfile.k_EColorProfile_Native;
-    case 2:
-    case "k_EColorProfile_Standard":
-      return EColorProfile.k_EColorProfile_Standard;
-    case 3:
-    case "k_EColorProfile_Vivid":
-      return EColorProfile.k_EColorProfile_Vivid;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return EColorProfile.UNRECOGNIZED;
-  }
-}
-
-export function eColorProfileToJSON(object: EColorProfile): string {
-  switch (object) {
-    case EColorProfile.k_EColorProfile_Invalid:
-      return "k_EColorProfile_Invalid";
-    case EColorProfile.k_EColorProfile_Native:
-      return "k_EColorProfile_Native";
-    case EColorProfile.k_EColorProfile_Standard:
-      return "k_EColorProfile_Standard";
-    case EColorProfile.k_EColorProfile_Vivid:
-      return "k_EColorProfile_Vivid";
-    case EColorProfile.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
-
 export enum EBluetoothDeviceType {
   k_BluetoothDeviceType_Invalid = 0,
   k_BluetoothDeviceType_Unknown = 1,
@@ -2440,6 +2395,282 @@ export function eNewSteamAnnouncementStateToJSON(object: ENewSteamAnnouncementSt
     case ENewSteamAnnouncementState.k_ENewSteamAnnouncementState_FeaturedAnnouncement:
       return "k_ENewSteamAnnouncementState_FeaturedAnnouncement";
     case ENewSteamAnnouncementState.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
+export enum ECommentThreadType {
+  k_ECommentThreadTypeInvalid = 0,
+  k_ECommentThreadTypeScreenshot_Deprecated = 1,
+  k_ECommentThreadTypeWorkshopAccount_Developer = 2,
+  k_ECommentThreadTypeWorkshopAccount_Public = 3,
+  k_ECommentThreadTypePublishedFile_Developer = 4,
+  k_ECommentThreadTypePublishedFile_Public = 5,
+  k_ECommentThreadTypeTest = 6,
+  k_ECommentThreadTypeForumTopic = 7,
+  k_ECommentThreadTypeRecommendation = 8,
+  k_ECommentThreadTypeVideo_Deprecated = 9,
+  k_ECommentThreadTypeProfile = 10,
+  k_ECommentThreadTypeNewsPost = 11,
+  k_ECommentThreadTypeClan = 12,
+  k_ECommentThreadTypeClanAnnouncement = 13,
+  k_ECommentThreadTypeClanEvent = 14,
+  k_ECommentThreadTypeUserStatusPublished = 15,
+  k_ECommentThreadTypeUserReceivedNewGame = 16,
+  k_ECommentThreadTypePublishedFile_Announcement = 17,
+  k_ECommentThreadTypeModeratorMessage = 18,
+  k_ECommentThreadTypeClanCuratedApp = 19,
+  k_ECommentThreadTypeQAndASession = 20,
+  k_ECommentThreadTypeMax = 21,
+  UNRECOGNIZED = -1,
+}
+
+export function eCommentThreadTypeFromJSON(object: any): ECommentThreadType {
+  switch (object) {
+    case 0:
+    case "k_ECommentThreadTypeInvalid":
+      return ECommentThreadType.k_ECommentThreadTypeInvalid;
+    case 1:
+    case "k_ECommentThreadTypeScreenshot_Deprecated":
+      return ECommentThreadType.k_ECommentThreadTypeScreenshot_Deprecated;
+    case 2:
+    case "k_ECommentThreadTypeWorkshopAccount_Developer":
+      return ECommentThreadType.k_ECommentThreadTypeWorkshopAccount_Developer;
+    case 3:
+    case "k_ECommentThreadTypeWorkshopAccount_Public":
+      return ECommentThreadType.k_ECommentThreadTypeWorkshopAccount_Public;
+    case 4:
+    case "k_ECommentThreadTypePublishedFile_Developer":
+      return ECommentThreadType.k_ECommentThreadTypePublishedFile_Developer;
+    case 5:
+    case "k_ECommentThreadTypePublishedFile_Public":
+      return ECommentThreadType.k_ECommentThreadTypePublishedFile_Public;
+    case 6:
+    case "k_ECommentThreadTypeTest":
+      return ECommentThreadType.k_ECommentThreadTypeTest;
+    case 7:
+    case "k_ECommentThreadTypeForumTopic":
+      return ECommentThreadType.k_ECommentThreadTypeForumTopic;
+    case 8:
+    case "k_ECommentThreadTypeRecommendation":
+      return ECommentThreadType.k_ECommentThreadTypeRecommendation;
+    case 9:
+    case "k_ECommentThreadTypeVideo_Deprecated":
+      return ECommentThreadType.k_ECommentThreadTypeVideo_Deprecated;
+    case 10:
+    case "k_ECommentThreadTypeProfile":
+      return ECommentThreadType.k_ECommentThreadTypeProfile;
+    case 11:
+    case "k_ECommentThreadTypeNewsPost":
+      return ECommentThreadType.k_ECommentThreadTypeNewsPost;
+    case 12:
+    case "k_ECommentThreadTypeClan":
+      return ECommentThreadType.k_ECommentThreadTypeClan;
+    case 13:
+    case "k_ECommentThreadTypeClanAnnouncement":
+      return ECommentThreadType.k_ECommentThreadTypeClanAnnouncement;
+    case 14:
+    case "k_ECommentThreadTypeClanEvent":
+      return ECommentThreadType.k_ECommentThreadTypeClanEvent;
+    case 15:
+    case "k_ECommentThreadTypeUserStatusPublished":
+      return ECommentThreadType.k_ECommentThreadTypeUserStatusPublished;
+    case 16:
+    case "k_ECommentThreadTypeUserReceivedNewGame":
+      return ECommentThreadType.k_ECommentThreadTypeUserReceivedNewGame;
+    case 17:
+    case "k_ECommentThreadTypePublishedFile_Announcement":
+      return ECommentThreadType.k_ECommentThreadTypePublishedFile_Announcement;
+    case 18:
+    case "k_ECommentThreadTypeModeratorMessage":
+      return ECommentThreadType.k_ECommentThreadTypeModeratorMessage;
+    case 19:
+    case "k_ECommentThreadTypeClanCuratedApp":
+      return ECommentThreadType.k_ECommentThreadTypeClanCuratedApp;
+    case 20:
+    case "k_ECommentThreadTypeQAndASession":
+      return ECommentThreadType.k_ECommentThreadTypeQAndASession;
+    case 21:
+    case "k_ECommentThreadTypeMax":
+      return ECommentThreadType.k_ECommentThreadTypeMax;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ECommentThreadType.UNRECOGNIZED;
+  }
+}
+
+export function eCommentThreadTypeToJSON(object: ECommentThreadType): string {
+  switch (object) {
+    case ECommentThreadType.k_ECommentThreadTypeInvalid:
+      return "k_ECommentThreadTypeInvalid";
+    case ECommentThreadType.k_ECommentThreadTypeScreenshot_Deprecated:
+      return "k_ECommentThreadTypeScreenshot_Deprecated";
+    case ECommentThreadType.k_ECommentThreadTypeWorkshopAccount_Developer:
+      return "k_ECommentThreadTypeWorkshopAccount_Developer";
+    case ECommentThreadType.k_ECommentThreadTypeWorkshopAccount_Public:
+      return "k_ECommentThreadTypeWorkshopAccount_Public";
+    case ECommentThreadType.k_ECommentThreadTypePublishedFile_Developer:
+      return "k_ECommentThreadTypePublishedFile_Developer";
+    case ECommentThreadType.k_ECommentThreadTypePublishedFile_Public:
+      return "k_ECommentThreadTypePublishedFile_Public";
+    case ECommentThreadType.k_ECommentThreadTypeTest:
+      return "k_ECommentThreadTypeTest";
+    case ECommentThreadType.k_ECommentThreadTypeForumTopic:
+      return "k_ECommentThreadTypeForumTopic";
+    case ECommentThreadType.k_ECommentThreadTypeRecommendation:
+      return "k_ECommentThreadTypeRecommendation";
+    case ECommentThreadType.k_ECommentThreadTypeVideo_Deprecated:
+      return "k_ECommentThreadTypeVideo_Deprecated";
+    case ECommentThreadType.k_ECommentThreadTypeProfile:
+      return "k_ECommentThreadTypeProfile";
+    case ECommentThreadType.k_ECommentThreadTypeNewsPost:
+      return "k_ECommentThreadTypeNewsPost";
+    case ECommentThreadType.k_ECommentThreadTypeClan:
+      return "k_ECommentThreadTypeClan";
+    case ECommentThreadType.k_ECommentThreadTypeClanAnnouncement:
+      return "k_ECommentThreadTypeClanAnnouncement";
+    case ECommentThreadType.k_ECommentThreadTypeClanEvent:
+      return "k_ECommentThreadTypeClanEvent";
+    case ECommentThreadType.k_ECommentThreadTypeUserStatusPublished:
+      return "k_ECommentThreadTypeUserStatusPublished";
+    case ECommentThreadType.k_ECommentThreadTypeUserReceivedNewGame:
+      return "k_ECommentThreadTypeUserReceivedNewGame";
+    case ECommentThreadType.k_ECommentThreadTypePublishedFile_Announcement:
+      return "k_ECommentThreadTypePublishedFile_Announcement";
+    case ECommentThreadType.k_ECommentThreadTypeModeratorMessage:
+      return "k_ECommentThreadTypeModeratorMessage";
+    case ECommentThreadType.k_ECommentThreadTypeClanCuratedApp:
+      return "k_ECommentThreadTypeClanCuratedApp";
+    case ECommentThreadType.k_ECommentThreadTypeQAndASession:
+      return "k_ECommentThreadTypeQAndASession";
+    case ECommentThreadType.k_ECommentThreadTypeMax:
+      return "k_ECommentThreadTypeMax";
+    case ECommentThreadType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
+export enum EBroadcastPermission {
+  k_EBroadcastPermissionDisabled = 0,
+  k_EBroadcastPermissionFriendsApprove = 1,
+  k_EBroadcastPermissionFriendsAllowed = 2,
+  k_EBroadcastPermissionPublic = 3,
+  k_EBroadcastPermissionSubscribers = 4,
+  UNRECOGNIZED = -1,
+}
+
+export function eBroadcastPermissionFromJSON(object: any): EBroadcastPermission {
+  switch (object) {
+    case 0:
+    case "k_EBroadcastPermissionDisabled":
+      return EBroadcastPermission.k_EBroadcastPermissionDisabled;
+    case 1:
+    case "k_EBroadcastPermissionFriendsApprove":
+      return EBroadcastPermission.k_EBroadcastPermissionFriendsApprove;
+    case 2:
+    case "k_EBroadcastPermissionFriendsAllowed":
+      return EBroadcastPermission.k_EBroadcastPermissionFriendsAllowed;
+    case 3:
+    case "k_EBroadcastPermissionPublic":
+      return EBroadcastPermission.k_EBroadcastPermissionPublic;
+    case 4:
+    case "k_EBroadcastPermissionSubscribers":
+      return EBroadcastPermission.k_EBroadcastPermissionSubscribers;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return EBroadcastPermission.UNRECOGNIZED;
+  }
+}
+
+export function eBroadcastPermissionToJSON(object: EBroadcastPermission): string {
+  switch (object) {
+    case EBroadcastPermission.k_EBroadcastPermissionDisabled:
+      return "k_EBroadcastPermissionDisabled";
+    case EBroadcastPermission.k_EBroadcastPermissionFriendsApprove:
+      return "k_EBroadcastPermissionFriendsApprove";
+    case EBroadcastPermission.k_EBroadcastPermissionFriendsAllowed:
+      return "k_EBroadcastPermissionFriendsAllowed";
+    case EBroadcastPermission.k_EBroadcastPermissionPublic:
+      return "k_EBroadcastPermissionPublic";
+    case EBroadcastPermission.k_EBroadcastPermissionSubscribers:
+      return "k_EBroadcastPermissionSubscribers";
+    case EBroadcastPermission.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
+export enum EBroadcastEncoderSetting {
+  k_EBroadcastEncoderBestQuality = 0,
+  k_EBroadcastEncoderBestPerformance = 1,
+  UNRECOGNIZED = -1,
+}
+
+export function eBroadcastEncoderSettingFromJSON(object: any): EBroadcastEncoderSetting {
+  switch (object) {
+    case 0:
+    case "k_EBroadcastEncoderBestQuality":
+      return EBroadcastEncoderSetting.k_EBroadcastEncoderBestQuality;
+    case 1:
+    case "k_EBroadcastEncoderBestPerformance":
+      return EBroadcastEncoderSetting.k_EBroadcastEncoderBestPerformance;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return EBroadcastEncoderSetting.UNRECOGNIZED;
+  }
+}
+
+export function eBroadcastEncoderSettingToJSON(object: EBroadcastEncoderSetting): string {
+  switch (object) {
+    case EBroadcastEncoderSetting.k_EBroadcastEncoderBestQuality:
+      return "k_EBroadcastEncoderBestQuality";
+    case EBroadcastEncoderSetting.k_EBroadcastEncoderBestPerformance:
+      return "k_EBroadcastEncoderBestPerformance";
+    case EBroadcastEncoderSetting.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
+export enum ECloudGamingPlatform {
+  k_ECloudGamingPlatformNone = 0,
+  k_ECloudGamingPlatformValve = 1,
+  k_ECloudGamingPlatformNVIDIA = 2,
+  UNRECOGNIZED = -1,
+}
+
+export function eCloudGamingPlatformFromJSON(object: any): ECloudGamingPlatform {
+  switch (object) {
+    case 0:
+    case "k_ECloudGamingPlatformNone":
+      return ECloudGamingPlatform.k_ECloudGamingPlatformNone;
+    case 1:
+    case "k_ECloudGamingPlatformValve":
+      return ECloudGamingPlatform.k_ECloudGamingPlatformValve;
+    case 2:
+    case "k_ECloudGamingPlatformNVIDIA":
+      return ECloudGamingPlatform.k_ECloudGamingPlatformNVIDIA;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ECloudGamingPlatform.UNRECOGNIZED;
+  }
+}
+
+export function eCloudGamingPlatformToJSON(object: ECloudGamingPlatform): string {
+  switch (object) {
+    case ECloudGamingPlatform.k_ECloudGamingPlatformNone:
+      return "k_ECloudGamingPlatformNone";
+    case ECloudGamingPlatform.k_ECloudGamingPlatformValve:
+      return "k_ECloudGamingPlatformValve";
+    case ECloudGamingPlatform.k_ECloudGamingPlatformNVIDIA:
+      return "k_ECloudGamingPlatformNVIDIA";
+    case ECloudGamingPlatform.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }

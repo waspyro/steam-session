@@ -460,6 +460,14 @@ export interface CAuthenticationMigrateMobileSessionResponse {
   accessToken: string;
 }
 
+export interface CAuthenticationTokenRevokeRequest {
+  token: string;
+  revokeAction: EAuthTokenRevokeAction;
+}
+
+export interface CAuthenticationTokenRevokeResponse {
+}
+
 export interface CAuthenticationRefreshTokenRevokeRequest {
   tokenId: string;
   steamid: string;
@@ -571,19 +579,24 @@ export const CAuthenticationGetPasswordRSAPublicKeyRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationGetPasswordRSAPublicKeyRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationGetPasswordRSAPublicKeyRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.accountName = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -635,25 +648,38 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationGetPasswordRSAPublicKeyResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationGetPasswordRSAPublicKeyResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.publickeyMod = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.publickeyExp = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.timestamp = longToString(reader.uint64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -713,28 +739,45 @@ export const CAuthenticationDeviceDetails = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationDeviceDetails {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationDeviceDetails();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.deviceFriendlyName = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.platformType = reader.int32() as any;
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.osType = reader.int32();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.gamingDeviceType = reader.uint32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -793,28 +836,45 @@ export const CAuthenticationBeginAuthSessionViaQRRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationBeginAuthSessionViaQRRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationBeginAuthSessionViaQRRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.deviceFriendlyName = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.platformType = reader.int32() as any;
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.deviceDetails = CAuthenticationDeviceDetails.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.websiteId = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -877,22 +937,31 @@ export const CAuthenticationAllowedConfirmation = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationAllowedConfirmation {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationAllowedConfirmation();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.confirmationType = reader.int32() as any;
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.associatedMessage = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -963,34 +1032,59 @@ export const CAuthenticationBeginAuthSessionViaQRResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationBeginAuthSessionViaQRResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationBeginAuthSessionViaQRResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.clientId = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.challengeUrl = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.requestId = reader.bytes() as Buffer;
-          break;
+          continue;
         case 4:
+          if (tag != 37) {
+            break;
+          }
+
           message.interval = reader.float();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.allowedConfirmations.push(CAuthenticationAllowedConfirmation.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.version = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1109,52 +1203,101 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationBeginAuthSessionViaCredentialsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationBeginAuthSessionViaCredentialsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.deviceFriendlyName = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.accountName = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.encryptedPassword = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.encryptionTimestamp = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.rememberLogin = reader.bool();
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.platformType = reader.int32() as any;
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.persistence = reader.int32() as any;
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.websiteId = reader.string();
-          break;
+          continue;
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.deviceDetails = CAuthenticationDeviceDetails.decode(reader, reader.uint32());
-          break;
+          continue;
         case 10:
+          if (tag != 82) {
+            break;
+          }
+
           message.guardData = reader.string();
-          break;
+          continue;
         case 11:
+          if (tag != 88) {
+            break;
+          }
+
           message.language = reader.uint32();
-          break;
+          continue;
         case 12:
+          if (tag != 96) {
+            break;
+          }
+
           message.qosLevel = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1271,40 +1414,73 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationBeginAuthSessionViaCredentialsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationBeginAuthSessionViaCredentialsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.clientId = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.requestId = reader.bytes() as Buffer;
-          break;
+          continue;
         case 3:
+          if (tag != 29) {
+            break;
+          }
+
           message.interval = reader.float();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.allowedConfirmations.push(CAuthenticationAllowedConfirmation.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.steamid = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.weakToken = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.agreementSessionUrl = reader.string();
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.extendedErrorMessage = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1386,25 +1562,38 @@ export const CAuthenticationPollAuthSessionStatusRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationPollAuthSessionStatusRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationPollAuthSessionStatusRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.clientId = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.requestId = reader.bytes() as Buffer;
-          break;
+          continue;
         case 3:
+          if (tag != 25) {
+            break;
+          }
+
           message.tokenToRevoke = longToString(reader.fixed64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1486,40 +1675,73 @@ export const CAuthenticationPollAuthSessionStatusResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationPollAuthSessionStatusResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationPollAuthSessionStatusResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.newClientId = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.newChallengeUrl = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.refreshToken = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.accessToken = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.hadRemoteInteraction = reader.bool();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.accountName = reader.string();
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.newGuardData = reader.string();
-          break;
+          continue;
         case 8:
+          if (tag != 66) {
+            break;
+          }
+
           message.agreementSessionUrl = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1585,19 +1807,24 @@ export const CAuthenticationGetAuthSessionInfoRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationGetAuthSessionInfoRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationGetAuthSessionInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.clientId = longToString(reader.uint64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1686,52 +1913,101 @@ export const CAuthenticationGetAuthSessionInfoResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationGetAuthSessionInfoResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationGetAuthSessionInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.ip = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.geoloc = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.city = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.state = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.country = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.platformType = reader.int32() as any;
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.deviceFriendlyName = reader.string();
-          break;
+          continue;
         case 8:
+          if (tag != 64) {
+            break;
+          }
+
           message.version = reader.int32();
-          break;
+          continue;
         case 9:
+          if (tag != 72) {
+            break;
+          }
+
           message.loginHistory = reader.int32() as any;
-          break;
+          continue;
         case 10:
+          if (tag != 80) {
+            break;
+          }
+
           message.requestorLocationMismatch = reader.bool();
-          break;
+          continue;
         case 11:
+          if (tag != 88) {
+            break;
+          }
+
           message.highUsageLogin = reader.bool();
-          break;
+          continue;
         case 12:
+          if (tag != 96) {
+            break;
+          }
+
           message.requestedPersistence = reader.int32() as any;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1836,34 +2112,59 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
     input: _m0.Reader | Uint8Array,
     length?: number,
   ): CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationUpdateAuthSessionWithMobileConfirmationRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.version = reader.int32();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.clientId = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 3:
+          if (tag != 25) {
+            break;
+          }
+
           message.steamid = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.signature = reader.bytes() as Buffer;
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.confirm = reader.bool();
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.persistence = reader.int32() as any;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1927,16 +2228,17 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse = {
     input: _m0.Reader | Uint8Array,
     length?: number,
   ): CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationUpdateAuthSessionWithMobileConfirmationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -1989,28 +2291,45 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.clientId = longToString(reader.uint64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 17) {
+            break;
+          }
+
           message.steamid = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.code = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.codeType = reader.int32() as any;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2067,19 +2386,24 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.agreementSessionUrl = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2128,22 +2452,31 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationAccessTokenGenerateForAppRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationAccessTokenGenerateForAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.refreshToken = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 17) {
+            break;
+          }
+
           message.steamid = longToString(reader.fixed64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2194,19 +2527,24 @@ export const CAuthenticationAccessTokenGenerateForAppResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationAccessTokenGenerateForAppResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationAccessTokenGenerateForAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.accessToken = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2246,16 +2584,17 @@ export const CAuthenticationRefreshTokenEnumerateRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationRefreshTokenEnumerateRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationRefreshTokenEnumerateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2300,24 +2639,33 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationRefreshTokenEnumerateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationRefreshTokenEnumerateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.refreshTokens.push(
             CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription.decode(reader, reader.uint32()),
           );
-          break;
+          continue;
         case 2:
+          if (tag != 17) {
+            break;
+          }
+
           message.requestingToken = longToString(reader.fixed64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2399,34 +2747,59 @@ export const CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent = {
     input: _m0.Reader | Uint8Array,
     length?: number,
   ): CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.time = reader.uint32();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.ip = CMsgIPAddress.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.locale = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.country = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.state = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.city = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2536,55 +2909,100 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
     input: _m0.Reader | Uint8Array,
     length?: number,
   ): CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescription();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.tokenId = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.tokenDescription = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.timeUpdated = reader.uint32();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.platformType = reader.int32() as any;
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.loggedIn = reader.bool();
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.osPlatform = reader.uint32();
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.authType = reader.uint32();
-          break;
+          continue;
         case 8:
+          if (tag != 64) {
+            break;
+          }
+
           message.gamingDeviceType = reader.uint32();
-          break;
+          continue;
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.firstSeen = CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent.decode(
             reader,
             reader.uint32(),
           );
-          break;
+          continue;
         case 10:
+          if (tag != 82) {
+            break;
+          }
+
           message.lastSeen = CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent.decode(
             reader,
             reader.uint32(),
           );
-          break;
+          continue;
         case 11:
+          if (tag != 88) {
+            break;
+          }
+
           message.osType = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2668,16 +3086,17 @@ export const CAuthenticationGetAuthSessionsForAccountRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationGetAuthSessionsForAccountRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationGetAuthSessionsForAccountRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2723,26 +3142,33 @@ export const CAuthenticationGetAuthSessionsForAccountResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationGetAuthSessionsForAccountResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationGetAuthSessionsForAccountResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if ((tag & 7) === 2) {
+          if (tag == 8) {
+            message.clientIds.push(longToString(reader.uint64() as Long));
+            continue;
+          }
+
+          if (tag == 10) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.clientIds.push(longToString(reader.uint64() as Long));
             }
-          } else {
-            message.clientIds.push(longToString(reader.uint64() as Long));
+
+            continue;
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
+
           break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2795,25 +3221,38 @@ export const CAuthenticationMigrateMobileSessionRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationMigrateMobileSessionRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationMigrateMobileSessionRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.steamid = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.token = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.signature = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2867,22 +3306,31 @@ export const CAuthenticationMigrateMobileSessionResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationMigrateMobileSessionResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationMigrateMobileSessionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.refreshToken = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.accessToken = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -2917,6 +3365,129 @@ export const CAuthenticationMigrateMobileSessionResponse = {
   },
 };
 
+function createBaseCAuthenticationTokenRevokeRequest(): CAuthenticationTokenRevokeRequest {
+  return { token: "", revokeAction: 0 };
+}
+
+export const CAuthenticationTokenRevokeRequest = {
+  encode(message: CAuthenticationTokenRevokeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.token !== "") {
+      writer.uint32(10).string(message.token);
+    }
+    if (message.revokeAction !== 0) {
+      writer.uint32(16).int32(message.revokeAction);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationTokenRevokeRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCAuthenticationTokenRevokeRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 10) {
+            break;
+          }
+
+          message.token = reader.string();
+          continue;
+        case 2:
+          if (tag != 16) {
+            break;
+          }
+
+          message.revokeAction = reader.int32() as any;
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CAuthenticationTokenRevokeRequest {
+    return {
+      token: isSet(object.token) ? String(object.token) : "",
+      revokeAction: isSet(object.revokeAction) ? eAuthTokenRevokeActionFromJSON(object.revokeAction) : 0,
+    };
+  },
+
+  toJSON(message: CAuthenticationTokenRevokeRequest): unknown {
+    const obj: any = {};
+    message.token !== undefined && (obj.token = message.token);
+    message.revokeAction !== undefined && (obj.revokeAction = eAuthTokenRevokeActionToJSON(message.revokeAction));
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CAuthenticationTokenRevokeRequest>, I>>(
+    base?: I,
+  ): CAuthenticationTokenRevokeRequest {
+    return CAuthenticationTokenRevokeRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<CAuthenticationTokenRevokeRequest>, I>>(
+    object: I,
+  ): CAuthenticationTokenRevokeRequest {
+    const message = createBaseCAuthenticationTokenRevokeRequest();
+    message.token = object.token ?? "";
+    message.revokeAction = object.revokeAction ?? 0;
+    return message;
+  },
+};
+
+function createBaseCAuthenticationTokenRevokeResponse(): CAuthenticationTokenRevokeResponse {
+  return {};
+}
+
+export const CAuthenticationTokenRevokeResponse = {
+  encode(_: CAuthenticationTokenRevokeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationTokenRevokeResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseCAuthenticationTokenRevokeResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(_: any): CAuthenticationTokenRevokeResponse {
+    return {};
+  },
+
+  toJSON(_: CAuthenticationTokenRevokeResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<CAuthenticationTokenRevokeResponse>, I>>(
+    base?: I,
+  ): CAuthenticationTokenRevokeResponse {
+    return CAuthenticationTokenRevokeResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<CAuthenticationTokenRevokeResponse>, I>>(
+    _: I,
+  ): CAuthenticationTokenRevokeResponse {
+    const message = createBaseCAuthenticationTokenRevokeResponse();
+    return message;
+  },
+};
+
 function createBaseCAuthenticationRefreshTokenRevokeRequest(): CAuthenticationRefreshTokenRevokeRequest {
   return { tokenId: "0", steamid: "0", revokeAction: 0, signature: Buffer.alloc(0) };
 }
@@ -2939,28 +3510,45 @@ export const CAuthenticationRefreshTokenRevokeRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationRefreshTokenRevokeRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationRefreshTokenRevokeRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.tokenId = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 17) {
+            break;
+          }
+
           message.steamid = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.revokeAction = reader.int32() as any;
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.signature = reader.bytes() as Buffer;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3012,16 +3600,17 @@ export const CAuthenticationRefreshTokenRevokeResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationRefreshTokenRevokeResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationRefreshTokenRevokeResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3068,22 +3657,31 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportQueryRefreshTokensByAccountRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportQueryRefreshTokensByAccountRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.steamid = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.includeRevokedTokens = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3177,52 +3775,101 @@ export const CSupportRefreshTokenDescription = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CSupportRefreshTokenDescription {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCSupportRefreshTokenDescription();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.tokenId = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.tokenDescription = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.timeUpdated = reader.uint32();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.platformType = reader.int32() as any;
-          break;
+          continue;
         case 5:
+          if (tag != 40) {
+            break;
+          }
+
           message.tokenState = reader.int32() as any;
-          break;
+          continue;
         case 6:
+          if (tag != 49) {
+            break;
+          }
+
           message.ownerSteamid = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.osPlatform = reader.uint32();
-          break;
+          continue;
         case 8:
+          if (tag != 64) {
+            break;
+          }
+
           message.osType = reader.int32();
-          break;
+          continue;
         case 9:
+          if (tag != 72) {
+            break;
+          }
+
           message.authType = reader.uint32();
-          break;
+          continue;
         case 10:
+          if (tag != 80) {
+            break;
+          }
+
           message.gamingDeviceType = reader.uint32();
-          break;
+          continue;
         case 11:
+          if (tag != 90) {
+            break;
+          }
+
           message.firstSeen = CSupportRefreshTokenDescription_TokenUsageEvent.decode(reader, reader.uint32());
-          break;
+          continue;
         case 12:
+          if (tag != 98) {
+            break;
+          }
+
           message.lastSeen = CSupportRefreshTokenDescription_TokenUsageEvent.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3325,31 +3972,52 @@ export const CSupportRefreshTokenDescription_TokenUsageEvent = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CSupportRefreshTokenDescription_TokenUsageEvent {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCSupportRefreshTokenDescription_TokenUsageEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.time = reader.uint32();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.ip = CMsgIPAddress.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.country = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.state = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.city = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3412,22 +4080,31 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportQueryRefreshTokensByAccountResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportQueryRefreshTokensByAccountResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.refreshTokens.push(CSupportRefreshTokenDescription.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.lastTokenReset = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3484,19 +4161,24 @@ export const CAuthenticationSupportQueryRefreshTokenByIDRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportQueryRefreshTokenByIDRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportQueryRefreshTokenByIDRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.tokenId = longToString(reader.fixed64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3542,19 +4224,24 @@ export const CAuthenticationSupportQueryRefreshTokenByIDResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportQueryRefreshTokenByIDResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportQueryRefreshTokenByIDResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.refreshTokens.push(CSupportRefreshTokenDescription.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3608,22 +4295,31 @@ export const CAuthenticationSupportRevokeTokenRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportRevokeTokenRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportRevokeTokenRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.tokenId = longToString(reader.fixed64() as Long);
-          break;
+          continue;
         case 2:
+          if (tag != 17) {
+            break;
+          }
+
           message.steamid = longToString(reader.fixed64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3668,16 +4364,17 @@ export const CAuthenticationSupportRevokeTokenResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportRevokeTokenResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportRevokeTokenResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3718,19 +4415,24 @@ export const CAuthenticationSupportGetTokenHistoryRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportGetTokenHistoryRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportGetTokenHistoryRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 9) {
+            break;
+          }
+
           message.tokenId = longToString(reader.fixed64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3782,28 +4484,45 @@ export const CSupportRefreshTokenAudit = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CSupportRefreshTokenAudit {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCSupportRefreshTokenAudit();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.action = reader.int32();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.time = reader.uint32();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.ip = CMsgIPAddress.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 33) {
+            break;
+          }
+
           message.actor = longToString(reader.fixed64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3853,19 +4572,24 @@ export const CAuthenticationSupportGetTokenHistoryResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CAuthenticationSupportGetTokenHistoryResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCAuthenticationSupportGetTokenHistoryResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.history.push(CSupportRefreshTokenAudit.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3919,22 +4643,31 @@ export const CCloudGamingCreateNonceRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CCloudGamingCreateNonceRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCCloudGamingCreateNonceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.platform = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.appid = reader.uint32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -3983,22 +4716,31 @@ export const CCloudGamingCreateNonceResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CCloudGamingCreateNonceResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCCloudGamingCreateNonceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.nonce = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.expiry = reader.uint32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -4049,29 +4791,40 @@ export const CCloudGamingGetTimeRemainingRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CCloudGamingGetTimeRemainingRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCCloudGamingGetTimeRemainingRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.platform = reader.string();
-          break;
+          continue;
         case 2:
-          if ((tag & 7) === 2) {
+          if (tag == 16) {
+            message.appidList.push(reader.uint32());
+            continue;
+          }
+
+          if (tag == 18) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.appidList.push(reader.uint32());
             }
-          } else {
-            message.appidList.push(reader.uint32());
+
+            continue;
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
+
           break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -4126,22 +4879,31 @@ export const CCloudGamingTimeRemaining = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CCloudGamingTimeRemaining {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCCloudGamingTimeRemaining();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.appid = reader.uint32();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.minutesRemaining = reader.uint32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -4185,19 +4947,24 @@ export const CCloudGamingGetTimeRemainingResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CCloudGamingGetTimeRemainingResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCCloudGamingGetTimeRemainingResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.entries.push(CCloudGamingTimeRemaining.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -4269,6 +5036,7 @@ export interface Authentication {
   MigrateMobileSession(
     request: CAuthenticationMigrateMobileSessionRequest,
   ): Promise<CAuthenticationMigrateMobileSessionResponse>;
+  RevokeToken(request: CAuthenticationTokenRevokeRequest): Promise<CAuthenticationTokenRevokeResponse>;
   RevokeRefreshToken(
     request: CAuthenticationRefreshTokenRevokeRequest,
   ): Promise<CAuthenticationRefreshTokenRevokeResponse>;
@@ -4291,6 +5059,7 @@ export class AuthenticationClientImpl implements Authentication {
     this.EnumerateTokens = this.EnumerateTokens.bind(this);
     this.GetAuthSessionsForAccount = this.GetAuthSessionsForAccount.bind(this);
     this.MigrateMobileSession = this.MigrateMobileSession.bind(this);
+    this.RevokeToken = this.RevokeToken.bind(this);
     this.RevokeRefreshToken = this.RevokeRefreshToken.bind(this);
   }
   GetPasswordRSAPublicKey(
@@ -4298,7 +5067,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationGetPasswordRSAPublicKeyResponse> {
     const data = CAuthenticationGetPasswordRSAPublicKeyRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetPasswordRSAPublicKey", data);
-    return promise.then((data) => CAuthenticationGetPasswordRSAPublicKeyResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationGetPasswordRSAPublicKeyResponse.decode(_m0.Reader.create(data)));
   }
 
   BeginAuthSessionViaQR(
@@ -4306,7 +5075,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationBeginAuthSessionViaQRResponse> {
     const data = CAuthenticationBeginAuthSessionViaQRRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "BeginAuthSessionViaQR", data);
-    return promise.then((data) => CAuthenticationBeginAuthSessionViaQRResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationBeginAuthSessionViaQRResponse.decode(_m0.Reader.create(data)));
   }
 
   BeginAuthSessionViaCredentials(
@@ -4314,7 +5083,9 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationBeginAuthSessionViaCredentialsResponse> {
     const data = CAuthenticationBeginAuthSessionViaCredentialsRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "BeginAuthSessionViaCredentials", data);
-    return promise.then((data) => CAuthenticationBeginAuthSessionViaCredentialsResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) =>
+      CAuthenticationBeginAuthSessionViaCredentialsResponse.decode(_m0.Reader.create(data))
+    );
   }
 
   PollAuthSessionStatus(
@@ -4322,7 +5093,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationPollAuthSessionStatusResponse> {
     const data = CAuthenticationPollAuthSessionStatusRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "PollAuthSessionStatus", data);
-    return promise.then((data) => CAuthenticationPollAuthSessionStatusResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationPollAuthSessionStatusResponse.decode(_m0.Reader.create(data)));
   }
 
   GetAuthSessionInfo(
@@ -4330,7 +5101,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationGetAuthSessionInfoResponse> {
     const data = CAuthenticationGetAuthSessionInfoRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetAuthSessionInfo", data);
-    return promise.then((data) => CAuthenticationGetAuthSessionInfoResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationGetAuthSessionInfoResponse.decode(_m0.Reader.create(data)));
   }
 
   UpdateAuthSessionWithMobileConfirmation(
@@ -4339,7 +5110,7 @@ export class AuthenticationClientImpl implements Authentication {
     const data = CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateAuthSessionWithMobileConfirmation", data);
     return promise.then((data) =>
-      CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse.decode(new _m0.Reader(data))
+      CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse.decode(_m0.Reader.create(data))
     );
   }
 
@@ -4349,7 +5120,7 @@ export class AuthenticationClientImpl implements Authentication {
     const data = CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateAuthSessionWithSteamGuardCode", data);
     return promise.then((data) =>
-      CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse.decode(new _m0.Reader(data))
+      CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse.decode(_m0.Reader.create(data))
     );
   }
 
@@ -4358,7 +5129,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationAccessTokenGenerateForAppResponse> {
     const data = CAuthenticationAccessTokenGenerateForAppRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GenerateAccessTokenForApp", data);
-    return promise.then((data) => CAuthenticationAccessTokenGenerateForAppResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationAccessTokenGenerateForAppResponse.decode(_m0.Reader.create(data)));
   }
 
   EnumerateTokens(
@@ -4366,7 +5137,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationRefreshTokenEnumerateResponse> {
     const data = CAuthenticationRefreshTokenEnumerateRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "EnumerateTokens", data);
-    return promise.then((data) => CAuthenticationRefreshTokenEnumerateResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationRefreshTokenEnumerateResponse.decode(_m0.Reader.create(data)));
   }
 
   GetAuthSessionsForAccount(
@@ -4374,7 +5145,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationGetAuthSessionsForAccountResponse> {
     const data = CAuthenticationGetAuthSessionsForAccountRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetAuthSessionsForAccount", data);
-    return promise.then((data) => CAuthenticationGetAuthSessionsForAccountResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationGetAuthSessionsForAccountResponse.decode(_m0.Reader.create(data)));
   }
 
   MigrateMobileSession(
@@ -4382,7 +5153,13 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationMigrateMobileSessionResponse> {
     const data = CAuthenticationMigrateMobileSessionRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "MigrateMobileSession", data);
-    return promise.then((data) => CAuthenticationMigrateMobileSessionResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationMigrateMobileSessionResponse.decode(_m0.Reader.create(data)));
+  }
+
+  RevokeToken(request: CAuthenticationTokenRevokeRequest): Promise<CAuthenticationTokenRevokeResponse> {
+    const data = CAuthenticationTokenRevokeRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "RevokeToken", data);
+    return promise.then((data) => CAuthenticationTokenRevokeResponse.decode(_m0.Reader.create(data)));
   }
 
   RevokeRefreshToken(
@@ -4390,7 +5167,7 @@ export class AuthenticationClientImpl implements Authentication {
   ): Promise<CAuthenticationRefreshTokenRevokeResponse> {
     const data = CAuthenticationRefreshTokenRevokeRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "RevokeRefreshToken", data);
-    return promise.then((data) => CAuthenticationRefreshTokenRevokeResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationRefreshTokenRevokeResponse.decode(_m0.Reader.create(data)));
   }
 }
 
@@ -4424,7 +5201,7 @@ export class AuthenticationSupportClientImpl implements AuthenticationSupport {
     const data = CAuthenticationSupportQueryRefreshTokensByAccountRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "QueryRefreshTokensByAccount", data);
     return promise.then((data) =>
-      CAuthenticationSupportQueryRefreshTokensByAccountResponse.decode(new _m0.Reader(data))
+      CAuthenticationSupportQueryRefreshTokensByAccountResponse.decode(_m0.Reader.create(data))
     );
   }
 
@@ -4433,13 +5210,13 @@ export class AuthenticationSupportClientImpl implements AuthenticationSupport {
   ): Promise<CAuthenticationSupportQueryRefreshTokenByIDResponse> {
     const data = CAuthenticationSupportQueryRefreshTokenByIDRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "QueryRefreshTokenByID", data);
-    return promise.then((data) => CAuthenticationSupportQueryRefreshTokenByIDResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationSupportQueryRefreshTokenByIDResponse.decode(_m0.Reader.create(data)));
   }
 
   RevokeToken(request: CAuthenticationSupportRevokeTokenRequest): Promise<CAuthenticationSupportRevokeTokenResponse> {
     const data = CAuthenticationSupportRevokeTokenRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "RevokeToken", data);
-    return promise.then((data) => CAuthenticationSupportRevokeTokenResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationSupportRevokeTokenResponse.decode(_m0.Reader.create(data)));
   }
 
   GetTokenHistory(
@@ -4447,7 +5224,7 @@ export class AuthenticationSupportClientImpl implements AuthenticationSupport {
   ): Promise<CAuthenticationSupportGetTokenHistoryResponse> {
     const data = CAuthenticationSupportGetTokenHistoryRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetTokenHistory", data);
-    return promise.then((data) => CAuthenticationSupportGetTokenHistoryResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CAuthenticationSupportGetTokenHistoryResponse.decode(_m0.Reader.create(data)));
   }
 }
 
@@ -4468,13 +5245,13 @@ export class CloudGamingClientImpl implements CloudGaming {
   CreateNonce(request: CCloudGamingCreateNonceRequest): Promise<CCloudGamingCreateNonceResponse> {
     const data = CCloudGamingCreateNonceRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateNonce", data);
-    return promise.then((data) => CCloudGamingCreateNonceResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CCloudGamingCreateNonceResponse.decode(_m0.Reader.create(data)));
   }
 
   GetTimeRemaining(request: CCloudGamingGetTimeRemainingRequest): Promise<CCloudGamingGetTimeRemainingResponse> {
     const data = CCloudGamingGetTimeRemainingRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "GetTimeRemaining", data);
-    return promise.then((data) => CCloudGamingGetTimeRemainingResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => CCloudGamingGetTimeRemainingResponse.decode(_m0.Reader.create(data)));
   }
 }
 

@@ -973,7 +973,6 @@ export enum EMsg {
   k_EMsgClientP2PConnectionFailInfo = 5435,
   k_EMsgClientGetDepotDecryptionKey = 5438,
   k_EMsgClientGetDepotDecryptionKeyResponse = 5439,
-  k_EMsgGSPerformHardwareSurvey = 5440,
   k_EMsgClientEnableTestLicense = 5443,
   k_EMsgClientEnableTestLicenseResponse = 5444,
   k_EMsgClientDisableTestLicense = 5445,
@@ -1455,7 +1454,6 @@ export enum EMsg {
   k_EMsgClientBroadcastInit = 9700,
   k_EMsgClientBroadcastFrames = 9701,
   k_EMsgClientBroadcastDisconnect = 9702,
-  k_EMsgClientBroadcastScreenshot = 9703,
   k_EMsgClientBroadcastUploadConfig = 9704,
   k_EMsgBaseClient3 = 9800,
   k_EMsgClientVoiceCallPreAuthorize = 9800,
@@ -4402,9 +4400,6 @@ export function eMsgFromJSON(object: any): EMsg {
     case 5439:
     case "k_EMsgClientGetDepotDecryptionKeyResponse":
       return EMsg.k_EMsgClientGetDepotDecryptionKeyResponse;
-    case 5440:
-    case "k_EMsgGSPerformHardwareSurvey":
-      return EMsg.k_EMsgGSPerformHardwareSurvey;
     case 5443:
     case "k_EMsgClientEnableTestLicense":
       return EMsg.k_EMsgClientEnableTestLicense;
@@ -5848,9 +5843,6 @@ export function eMsgFromJSON(object: any): EMsg {
     case 9702:
     case "k_EMsgClientBroadcastDisconnect":
       return EMsg.k_EMsgClientBroadcastDisconnect;
-    case 9703:
-    case "k_EMsgClientBroadcastScreenshot":
-      return EMsg.k_EMsgClientBroadcastScreenshot;
     case 9704:
     case "k_EMsgClientBroadcastUploadConfig":
       return EMsg.k_EMsgClientBroadcastUploadConfig;
@@ -7893,8 +7885,6 @@ export function eMsgToJSON(object: EMsg): string {
       return "k_EMsgClientGetDepotDecryptionKey";
     case EMsg.k_EMsgClientGetDepotDecryptionKeyResponse:
       return "k_EMsgClientGetDepotDecryptionKeyResponse";
-    case EMsg.k_EMsgGSPerformHardwareSurvey:
-      return "k_EMsgGSPerformHardwareSurvey";
     case EMsg.k_EMsgClientEnableTestLicense:
       return "k_EMsgClientEnableTestLicense";
     case EMsg.k_EMsgClientEnableTestLicenseResponse:
@@ -8857,8 +8847,6 @@ export function eMsgToJSON(object: EMsg): string {
       return "k_EMsgClientBroadcastFrames";
     case EMsg.k_EMsgClientBroadcastDisconnect:
       return "k_EMsgClientBroadcastDisconnect";
-    case EMsg.k_EMsgClientBroadcastScreenshot:
-      return "k_EMsgClientBroadcastScreenshot";
     case EMsg.k_EMsgClientBroadcastUploadConfig:
       return "k_EMsgClientBroadcastUploadConfig";
     case EMsg.k_EMsgBaseClient3:

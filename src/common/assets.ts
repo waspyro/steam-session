@@ -1,3 +1,5 @@
+import type {CMsgProtoBufHeader} from "../protobuf/steammessages_base";
+
 export const topNames = ["James","Mary","Robert","Patricia","John","Jennifer","Michael","Linda","David","Elizabeth","William","Barbara","Richard","Susan","Joseph","Jessica","Thomas","Sarah","Charles","Karen","Christopher","Lisa","Daniel","Nancy","Matthew","Betty","Anthony","Margaret","Mark","Sandra","Donald","Ashley","Steven","Kimberly","Paul","Emily","Andrew","Donna","Joshua","Michelle","Kenneth","Carol","Kevin","Amanda","Brian","Dorothy","George","Melissa","Timothy","Deborah","Ronald","Stephanie","Edward","Rebecca","Jacob","Kathleen","Gary","Amy","Nicholas","Angela","Eric","Helen","Jerry","Brenda","Gregory","Pamela","Frank","Nicole","Raymond","Samantha","Alexander","Katherine","Larry","Rachel","Dennis","Judith","Tyler","Megan","Peter","Laura","Zachary","Cynthia","Ethan","Virginia","Walter","Victoria","Noah","Kelly","Henry","Diane","Douglas","Ruth","Gerald","Joyce","Aaron","Catherine","Ryan","Maria","Nathan","Evelyn","Bruce","Alice","Craig","Jacqueline","Terry","Lori","Fred","Sydney","Cody","Haley","Wesley","Madison","Dylan","Kaitlyn","Elijah","Sofia","Owen","Brooklyn","Gabriel","Layla","Carter","Avery","Hunter","Zoe","Jaxon","Lillian","Landon","Audrey","Cameron","Natalie","Ian","Violet","Tonya","Bella","Crystal","Aaliyah","Jasmine","Khloe","Morgan","Serenity","Taylor","Penelope","Faith","Nevaeh","Makayla","Kennedy","Peyton","Sadie","Mariah","Jocelyn","Nora","Paisley","Rylee","Raelynn","Brooke","London","Jordyn","Lydia","Hayden","Eliana","Bailey","Ximena","Sienna","Vivian","Mckenzie","Josie","Cecilia","Daleyza","Giselle","Hazel","Kimora","Everly","Miranda","Cheyanne","Iris","Fernanda","Melody","Winter","Angelina","Gwendolyn","Felicity","Holly","Ophelia","Tatum","Karina","Kensley","Carmen","Lucille","Greta","Rosalie","Noelle","Sloane","Rosalind","Yaretzi","Sariyah","Zariyah","Yamileth","Zoie","Zaniyah","Zuri"]
 export const macModels = ["MacBook", "MacBook-Air", "MacBook-Pro", "Mac-mini", "iMac", "iMac-Pro", "Mac-Pro"]
 
@@ -10,7 +12,7 @@ export const defaultIOSClientUA = 'Steam%20Mobile/7617469 CFNetwork/1399 Darwin/
 export const ipadOSProtoClientUA = 'Steam%20Mobile/7870332 CFNetwork/1404.0.5 Darwin/22.3.0'
 export const ipadOSHttpUA = 'Mozilla/5.0 (iPad; CPU OS 16_3 like Mac OS X; Valve Steam App Version/3) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
 
-export const emptySteamSocketHeaders = {
+export const emptySteamSocketHeaders: CMsgProtoBufHeader = {
     steamid: '0',
     clientSessionid: 0,
     routingAppid: 0,
@@ -40,5 +42,6 @@ export const emptySteamSocketHeaders = {
     tokenId: '0',
     routingGc: undefined,
     ip: undefined,
-    ipV6: undefined
+    ipV6: undefined,
+    sessionDisposition: undefined
 }
