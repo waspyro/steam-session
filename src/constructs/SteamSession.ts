@@ -35,7 +35,7 @@ import {HttpsProxyAgent} from "https-proxy-agent";
 import {SocksProxyAgent} from "socks-proxy-agent";
 
 export default class SteamSession {
-    constructor({env, cookieStore, refresher, tokens, proxy}: SteamSessionConstructorParams) {
+    constructor({env, cookieStore, refresher, tokens, proxy}: SteamSessionConstructorParams = {}) {
         this.env = env ?? WebBrowser()
         this.cookies = cookieStore ?? new CookieStore()
         this.updateSessionidCookieValue()
@@ -441,8 +441,8 @@ export default class SteamSession {
 
     static restore = async (
         store: PersistormInstance,
-        params: Omit<SteamSessionConstructorParams, 'env'>,
         newEnv: () => SessionEnv,
+        params: Omit<SteamSessionConstructorParams, 'env'> & obj = {},
         forceNewEnv = false
     ): Promise<SteamSession> => {
         if(!params.cookieStore) {
@@ -452,10 +452,10 @@ export default class SteamSession {
         let [refreshToken, accessToken, env] = await store.getm(['refresh', 'access', 'env'])
         params.tokens = {refreshToken, accessToken}
         if(!forceNewEnv && env) {
-            (params as SteamSessionConstructorParams).env = env
+            params.env = env
         } else {
-            env = newEnv()
-            await store.set('env', env)
+            params.env = newEnv()
+            await store.set('env', params.env)
         }
 
         const session = new SteamSession(params)
