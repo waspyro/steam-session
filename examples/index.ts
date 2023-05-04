@@ -1,6 +1,3 @@
-examples
-
-```typescript
 import SteamSession from "../src";
 import {EGuardMap, EGuardType, IActorActions, IPollOptions} from "../src/common/types";
 import {WebBrowser} from "../src/constructs/RequestEnvironments";
@@ -81,11 +78,11 @@ async function automaticExampleWithProxy() {
     //all cookies are handled based on the domain which the request is made to,
     //except "sessionid" and "steamLoginSecure" – those are send on every request for convenience
     //so be careful and not send request somewhere outside steam:
-    request('https://steamcommunity.com')
-    request('https://store.steampowered.com')
-    request('https://google.com') 🗿
-    request('https://help.steampowered.com')
-    request('https://steam.tv')
+    // request('https://steamcommunity.com')
+    // request('https://store.steampowered.com')
+    // request('https://google.com') 🗿
+    // request('https://help.steampowered.com')
+    // request('https://steam.tv')
 }
 
 const useEventsLoggersForSession = (session, prefix) => {

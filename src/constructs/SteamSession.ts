@@ -1,8 +1,9 @@
 import CookieStore from "cookie-store";
 import HttpAuthConversation from "./HttpAuthConversation";
 import {
+    EGuardMap,
     EGuardType,
-    IActorActions,
+    IActorActions, IPollOptions,
     obj,
     PollContext,
     PollingOptions,
@@ -269,9 +270,9 @@ export default class SteamSession {
     }
 
     getJWTViaCredentials = async (accountName: string, password: string, actor?: (
-        actions: ReturnType<SteamSession['createActions']>,
-        guards: {[key in EGuardType]?: string | true},
-        pollOptions: {delay: number, interval: number, tries: number},
+        actions: IActorActions,
+        guards: EGuardMap,
+        pollOptions: IPollOptions,
         steamid: string, context: CAuthenticationBeginAuthSessionViaCredentialsResponse
     ) => Promise<false | any>) => {
         const key = await this.authentication.getPasswordRSAPublicKey({accountName})
@@ -346,7 +347,7 @@ export default class SteamSession {
         return sessionid
     }
 
-    me = async (): Promise<[string, string, "profiles" | "id"]> => {
+    me = async (): Promise<[url: string, id: string, type: "profiles" | "id"]> => {
         const res = await this.authorizedRequest('https://steamcommunity.com/my', {followRedirects: 0})
             .then(drainFetchResponse)
         const location = res.headers.get('location')

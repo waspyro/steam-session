@@ -26,6 +26,8 @@ export enum EGuardType {
     UNRECOGNIZED = -1,
 }
 
+export type EGuardMap = {[key in EGuardType]?: string | true}
+
 export type SessionEnv = {
     websiteId: 'Community' | 'Mobile' | 'Client',
     cookies: obj,
@@ -54,6 +56,11 @@ export interface IActorActions {
     submitEmailCode?: RT_UpdateSessionWithCode
     checkDeviceOrSendEmail?: RT_CheckDeviceOrSendEmail
 }
+export interface IPollOptions {
+    delay: number,
+    interval: number,
+    tries: number
+}
 
 export type SessionSignatureData = {clientId: string, version?: number, steamid?: string}
 export type SteamSessionTokensFullName = {refreshToken?: string | null, accessToken?: string | null}
@@ -65,7 +72,7 @@ export type PollingOptions = {delay: number, tries: number, interval: number}
 export type SteamJwtData = {
     iss: string,
     sub: string, //stemaid
-    aud: ('web'|'renew'|'derive')[]
+    aud: ('web'|'renew'|'derive'|'mobile'|'client'|string)[]
     exp: number,
     nbf: number,
     iat: number,

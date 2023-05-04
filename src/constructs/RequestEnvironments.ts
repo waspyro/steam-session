@@ -60,8 +60,10 @@ export const ClientWindows = (
     windowsVersion: EOSType = EOSType.Windows10,
     country = 'US',
     language = '0',
-    userAgent = defaultWindowsClientUA
+    userAgent = defaultWindowsClientUA,
+    ignoreWarn = false
 ): SessionEnv => {
+    if(!ignoreWarn) console.warn('windows client env currently may not work. supply your own (typeof SessionEnv) env value or use ClientMacOS env') //todo
     const qs = {
         IN_CLIENT: 'true',
         WEBSITE_ID: 'Client',
