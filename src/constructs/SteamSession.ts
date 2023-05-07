@@ -282,7 +282,7 @@ export default class SteamSession {
         const actions = this.createActions(guards, context)
         const pollOptions = {delay: 0, interval: context.interval * 1000, tries: 100}
         if(!actor && Object.keys(actions).length) throw new Error('actions are required but actor not set')
-        else if(await actor(actions, guards, pollOptions, context.steamid, context) === false) return null
+        else if(actor && await actor(actions, guards, pollOptions, context.steamid, context) === false) return null
         return this.pollUntilResults(context, pollOptions)
     }
 
@@ -440,29 +440,28 @@ export default class SteamSession {
     static env = {webBrowser: WebBrowser, mobileIOS: MobileIOS, clientWindows: ClientWindows, clientMacOS: ClientMacOS}
 
     static restore = async (
-        store: PersistormInstance,
-        newEnv: () => SessionEnv,
-        params: Omit<SteamSessionConstructorParams, 'env'> & obj = {},
-        forceNewEnv = false
+        {store, env, forceNewEnv = false, ...params}: {
+            store: PersistormInstance,
+            env: (...args: any[]) => SessionEnv,
+            forceNewEnv?: boolean,
+        } & Omit<SteamSessionConstructorParams, 'env'> & obj,
     ): Promise<SteamSession> => {
         if(!params.cookieStore) {
             params.cookieStore = new CookieStore()
             await params.cookieStore.usePersistentStorage(store.col('cookies'))
         }
-        let [refreshToken, accessToken, env] = await store.getm(['refresh', 'access', 'env'])
-        params.tokens = {refreshToken, accessToken}
-        if(!forceNewEnv && env) {
-            params.env = env
+        const saved = await store.getm(['refresh', 'access', 'env'])
+        params.tokens = {refreshToken: saved[0], accessToken: saved[1]}
+        if(!forceNewEnv && saved[2]) {
+            params.env = saved[2]
         } else {
-            params.env = newEnv()
+            params.env = env()
             await store.set('env', params.env)
         }
-
         const session = new SteamSession(params)
         session.events.token.on(store.seto)
-        session.events.env.on(env => store.set('env', env))
+        session.events.env.on(env => store.set('env', env)) //if used decides to change env on the fly
         return session
     }
 
 }
-
