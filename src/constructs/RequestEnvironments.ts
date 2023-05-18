@@ -1,23 +1,22 @@
-import {EOSType, SessionEnv} from "../common/types";
+import {EOSType, obj, SessionEnv} from "../common/types";
 import {rand, randel} from "../common/utils";
 import {EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
 import {
     defaultIOSClientUA,
     defaultMacOSClientUA,
-    defaultWebUAMacOS,
     defaultWindowsClientUA,
     ENG_APB, ipadOSHttpUA, ipadOSProtoClientUA,
     macModels,
     topNames
 } from "../common/assets";
 
-export const WebBrowser = (userAgent = defaultWebUAMacOS): SessionEnv => {
+export const WebBrowser = (userAgent: string | {toString: () => string}, extraHttpHeaders: obj = {}): SessionEnv => {
+    userAgent = userAgent.toString()
+    extraHttpHeaders['user-agent'] = userAgent
     return {
         websiteId: 'Community',
         cookies: {},
-        httpHeaders: {
-            'user-agent': userAgent
-        },
+        httpHeaders: extraHttpHeaders as {'user-agent': string},
         authProtoHeaders: {
             'origin': 'https://steamcommunity.com',
             'referer': 'https://steamcommunity.com/'
@@ -26,7 +25,7 @@ export const WebBrowser = (userAgent = defaultWebUAMacOS): SessionEnv => {
             platformType: EAuthTokenPlatformType.k_EAuthTokenPlatformType_WebBrowser,
             gamingDeviceType: 0, //??
             osType: 0, //??
-            deviceFriendlyName: userAgent,
+            deviceFriendlyName: userAgent as string,
         }
     }
 }
