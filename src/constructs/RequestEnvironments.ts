@@ -3,15 +3,16 @@ import {rand, randel} from "../common/utils";
 import {EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
 import {
     defaultIOSClientUA,
-    defaultMacOSClientUA,
+    defaultMacOSClientUA, defaultWebUA,
     defaultWindowsClientUA,
     ENG_APB, ipadOSHttpUA, ipadOSProtoClientUA,
     macModels,
     topNames
 } from "../common/assets";
 
-export const WebBrowser = (userAgent: string | {toString: () => string}, extraHttpHeaders: obj = {}): SessionEnv => {
-    userAgent = userAgent.toString()
+export const WebBrowser = (userAgent?: string | {toString: () => string}, extraHttpHeaders: obj = {}): SessionEnv => {
+    if(!userAgent) userAgent = defaultWebUA
+    else userAgent = userAgent.toString()
     extraHttpHeaders['user-agent'] = userAgent
     return {
         websiteId: 'Community',
