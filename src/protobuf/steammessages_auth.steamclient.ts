@@ -159,12 +159,48 @@ export function eAuthSessionSecurityHistoryToJSON(object: EAuthSessionSecurityHi
   }
 }
 
+export enum ETokenRenewalType {
+  k_ETokenRenewalType_None = 0,
+  k_ETokenRenewalType_Allow = 1,
+  UNRECOGNIZED = -1,
+}
+
+export function eTokenRenewalTypeFromJSON(object: any): ETokenRenewalType {
+  switch (object) {
+    case 0:
+    case "k_ETokenRenewalType_None":
+      return ETokenRenewalType.k_ETokenRenewalType_None;
+    case 1:
+    case "k_ETokenRenewalType_Allow":
+      return ETokenRenewalType.k_ETokenRenewalType_Allow;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return ETokenRenewalType.UNRECOGNIZED;
+  }
+}
+
+export function eTokenRenewalTypeToJSON(object: ETokenRenewalType): string {
+  switch (object) {
+    case ETokenRenewalType.k_ETokenRenewalType_None:
+      return "k_ETokenRenewalType_None";
+    case ETokenRenewalType.k_ETokenRenewalType_Allow:
+      return "k_ETokenRenewalType_Allow";
+    case ETokenRenewalType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
 export enum EAuthTokenRevokeAction {
   k_EAuthTokenRevokeLogout = 0,
   k_EAuthTokenRevokePermanent = 1,
   k_EAuthTokenRevokeReplaced = 2,
   k_EAuthTokenRevokeSupport = 3,
   k_EAuthTokenRevokeConsume = 4,
+  k_EAuthTokenRevokeNonRememberedLogout = 5,
+  k_EAuthTokenRevokeNonRememberedPermanent = 6,
+  k_EAuthTokenRevokeAutomatic = 7,
   UNRECOGNIZED = -1,
 }
 
@@ -185,6 +221,15 @@ export function eAuthTokenRevokeActionFromJSON(object: any): EAuthTokenRevokeAct
     case 4:
     case "k_EAuthTokenRevokeConsume":
       return EAuthTokenRevokeAction.k_EAuthTokenRevokeConsume;
+    case 5:
+    case "k_EAuthTokenRevokeNonRememberedLogout":
+      return EAuthTokenRevokeAction.k_EAuthTokenRevokeNonRememberedLogout;
+    case 6:
+    case "k_EAuthTokenRevokeNonRememberedPermanent":
+      return EAuthTokenRevokeAction.k_EAuthTokenRevokeNonRememberedPermanent;
+    case 7:
+    case "k_EAuthTokenRevokeAutomatic":
+      return EAuthTokenRevokeAction.k_EAuthTokenRevokeAutomatic;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -204,6 +249,12 @@ export function eAuthTokenRevokeActionToJSON(object: EAuthTokenRevokeAction): st
       return "k_EAuthTokenRevokeSupport";
     case EAuthTokenRevokeAction.k_EAuthTokenRevokeConsume:
       return "k_EAuthTokenRevokeConsume";
+    case EAuthTokenRevokeAction.k_EAuthTokenRevokeNonRememberedLogout:
+      return "k_EAuthTokenRevokeNonRememberedLogout";
+    case EAuthTokenRevokeAction.k_EAuthTokenRevokeNonRememberedPermanent:
+      return "k_EAuthTokenRevokeNonRememberedPermanent";
+    case EAuthTokenRevokeAction.k_EAuthTokenRevokeAutomatic:
+      return "k_EAuthTokenRevokeAutomatic";
     case EAuthTokenRevokeAction.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -294,6 +345,8 @@ export interface CAuthenticationDeviceDetails {
   platformType: EAuthTokenPlatformType;
   osType: number;
   gamingDeviceType: number;
+  clientCount: number;
+  machineId: Buffer;
 }
 
 export interface CAuthenticationBeginAuthSessionViaQRRequest {
@@ -405,10 +458,12 @@ export interface CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse {
 export interface CAuthenticationAccessTokenGenerateForAppRequest {
   refreshToken: string;
   steamid: string;
+  renewalType: ETokenRenewalType;
 }
 
 export interface CAuthenticationAccessTokenGenerateForAppResponse {
   accessToken: string;
+  refreshToken: string;
 }
 
 export interface CAuthenticationRefreshTokenEnumerateRequest {
@@ -586,14 +641,14 @@ export const CAuthenticationGetPasswordRSAPublicKeyRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.accountName = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -655,28 +710,28 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.publickeyMod = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.publickeyExp = reader.string();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.timestamp = longToString(reader.uint64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -718,7 +773,14 @@ export const CAuthenticationGetPasswordRSAPublicKeyResponse = {
 };
 
 function createBaseCAuthenticationDeviceDetails(): CAuthenticationDeviceDetails {
-  return { deviceFriendlyName: "", platformType: 0, osType: 0, gamingDeviceType: 0 };
+  return {
+    deviceFriendlyName: "",
+    platformType: 0,
+    osType: 0,
+    gamingDeviceType: 0,
+    clientCount: 0,
+    machineId: Buffer.alloc(0),
+  };
 }
 
 export const CAuthenticationDeviceDetails = {
@@ -735,6 +797,12 @@ export const CAuthenticationDeviceDetails = {
     if (message.gamingDeviceType !== 0) {
       writer.uint32(32).uint32(message.gamingDeviceType);
     }
+    if (message.clientCount !== 0) {
+      writer.uint32(40).uint32(message.clientCount);
+    }
+    if (message.machineId.length !== 0) {
+      writer.uint32(50).bytes(message.machineId);
+    }
     return writer;
   },
 
@@ -746,35 +814,49 @@ export const CAuthenticationDeviceDetails = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.deviceFriendlyName = reader.string();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.platformType = reader.int32() as any;
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.osType = reader.int32();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.gamingDeviceType = reader.uint32();
           continue;
+        case 5:
+          if (tag !== 40) {
+            break;
+          }
+
+          message.clientCount = reader.uint32();
+          continue;
+        case 6:
+          if (tag !== 50) {
+            break;
+          }
+
+          message.machineId = reader.bytes() as Buffer;
+          continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -788,6 +870,8 @@ export const CAuthenticationDeviceDetails = {
       platformType: isSet(object.platformType) ? eAuthTokenPlatformTypeFromJSON(object.platformType) : 0,
       osType: isSet(object.osType) ? Number(object.osType) : 0,
       gamingDeviceType: isSet(object.gamingDeviceType) ? Number(object.gamingDeviceType) : 0,
+      clientCount: isSet(object.clientCount) ? Number(object.clientCount) : 0,
+      machineId: isSet(object.machineId) ? Buffer.from(bytesFromBase64(object.machineId)) : Buffer.alloc(0),
     };
   },
 
@@ -797,6 +881,9 @@ export const CAuthenticationDeviceDetails = {
     message.platformType !== undefined && (obj.platformType = eAuthTokenPlatformTypeToJSON(message.platformType));
     message.osType !== undefined && (obj.osType = Math.round(message.osType));
     message.gamingDeviceType !== undefined && (obj.gamingDeviceType = Math.round(message.gamingDeviceType));
+    message.clientCount !== undefined && (obj.clientCount = Math.round(message.clientCount));
+    message.machineId !== undefined &&
+      (obj.machineId = base64FromBytes(message.machineId !== undefined ? message.machineId : Buffer.alloc(0)));
     return obj;
   },
 
@@ -810,6 +897,8 @@ export const CAuthenticationDeviceDetails = {
     message.platformType = object.platformType ?? 0;
     message.osType = object.osType ?? 0;
     message.gamingDeviceType = object.gamingDeviceType ?? 0;
+    message.clientCount = object.clientCount ?? 0;
+    message.machineId = object.machineId ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -843,35 +932,35 @@ export const CAuthenticationBeginAuthSessionViaQRRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.deviceFriendlyName = reader.string();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.platformType = reader.int32() as any;
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.deviceDetails = CAuthenticationDeviceDetails.decode(reader, reader.uint32());
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.websiteId = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -944,21 +1033,21 @@ export const CAuthenticationAllowedConfirmation = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.confirmationType = reader.int32() as any;
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.associatedMessage = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1039,49 +1128,49 @@ export const CAuthenticationBeginAuthSessionViaQRResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clientId = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.challengeUrl = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.requestId = reader.bytes() as Buffer;
           continue;
         case 4:
-          if (tag != 37) {
+          if (tag !== 37) {
             break;
           }
 
           message.interval = reader.float();
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.allowedConfirmations.push(CAuthenticationAllowedConfirmation.decode(reader, reader.uint32()));
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.version = reader.int32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1210,91 +1299,91 @@ export const CAuthenticationBeginAuthSessionViaCredentialsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.deviceFriendlyName = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.accountName = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.encryptedPassword = reader.string();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.encryptionTimestamp = longToString(reader.uint64() as Long);
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.rememberLogin = reader.bool();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.platformType = reader.int32() as any;
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.persistence = reader.int32() as any;
           continue;
         case 8:
-          if (tag != 66) {
+          if (tag !== 66) {
             break;
           }
 
           message.websiteId = reader.string();
           continue;
         case 9:
-          if (tag != 74) {
+          if (tag !== 74) {
             break;
           }
 
           message.deviceDetails = CAuthenticationDeviceDetails.decode(reader, reader.uint32());
           continue;
         case 10:
-          if (tag != 82) {
+          if (tag !== 82) {
             break;
           }
 
           message.guardData = reader.string();
           continue;
         case 11:
-          if (tag != 88) {
+          if (tag !== 88) {
             break;
           }
 
           message.language = reader.uint32();
           continue;
         case 12:
-          if (tag != 96) {
+          if (tag !== 96) {
             break;
           }
 
           message.qosLevel = reader.int32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1421,63 +1510,63 @@ export const CAuthenticationBeginAuthSessionViaCredentialsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clientId = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.requestId = reader.bytes() as Buffer;
           continue;
         case 3:
-          if (tag != 29) {
+          if (tag !== 29) {
             break;
           }
 
           message.interval = reader.float();
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.allowedConfirmations.push(CAuthenticationAllowedConfirmation.decode(reader, reader.uint32()));
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.steamid = longToString(reader.uint64() as Long);
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.weakToken = reader.string();
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.agreementSessionUrl = reader.string();
           continue;
         case 8:
-          if (tag != 66) {
+          if (tag !== 66) {
             break;
           }
 
           message.extendedErrorMessage = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1569,28 +1658,28 @@ export const CAuthenticationPollAuthSessionStatusRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clientId = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.requestId = reader.bytes() as Buffer;
           continue;
         case 3:
-          if (tag != 25) {
+          if (tag !== 25) {
             break;
           }
 
           message.tokenToRevoke = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1682,63 +1771,63 @@ export const CAuthenticationPollAuthSessionStatusResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.newClientId = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.newChallengeUrl = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.refreshToken = reader.string();
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.accessToken = reader.string();
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.hadRemoteInteraction = reader.bool();
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.accountName = reader.string();
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.newGuardData = reader.string();
           continue;
         case 8:
-          if (tag != 66) {
+          if (tag !== 66) {
             break;
           }
 
           message.agreementSessionUrl = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1814,14 +1903,14 @@ export const CAuthenticationGetAuthSessionInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clientId = longToString(reader.uint64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1920,91 +2009,91 @@ export const CAuthenticationGetAuthSessionInfoResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.ip = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.geoloc = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.city = reader.string();
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.state = reader.string();
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.country = reader.string();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.platformType = reader.int32() as any;
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.deviceFriendlyName = reader.string();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.version = reader.int32();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.loginHistory = reader.int32() as any;
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.requestorLocationMismatch = reader.bool();
           continue;
         case 11:
-          if (tag != 88) {
+          if (tag !== 88) {
             break;
           }
 
           message.highUsageLogin = reader.bool();
           continue;
         case 12:
-          if (tag != 96) {
+          if (tag !== 96) {
             break;
           }
 
           message.requestedPersistence = reader.int32() as any;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2119,49 +2208,49 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.version = reader.int32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.clientId = longToString(reader.uint64() as Long);
           continue;
         case 3:
-          if (tag != 25) {
+          if (tag !== 25) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.signature = reader.bytes() as Buffer;
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.confirm = reader.bool();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.persistence = reader.int32() as any;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2235,7 +2324,7 @@ export const CAuthenticationUpdateAuthSessionWithMobileConfirmationResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2298,35 +2387,35 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clientId = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.code = reader.string();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.codeType = reader.int32() as any;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2393,14 +2482,14 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.agreementSessionUrl = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2434,7 +2523,7 @@ export const CAuthenticationUpdateAuthSessionWithSteamGuardCodeResponse = {
 };
 
 function createBaseCAuthenticationAccessTokenGenerateForAppRequest(): CAuthenticationAccessTokenGenerateForAppRequest {
-  return { refreshToken: "", steamid: "0" };
+  return { refreshToken: "", steamid: "0", renewalType: 0 };
 }
 
 export const CAuthenticationAccessTokenGenerateForAppRequest = {
@@ -2448,6 +2537,9 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
     if (message.steamid !== "0") {
       writer.uint32(17).fixed64(message.steamid);
     }
+    if (message.renewalType !== 0) {
+      writer.uint32(24).int32(message.renewalType);
+    }
     return writer;
   },
 
@@ -2459,21 +2551,28 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.refreshToken = reader.string();
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.renewalType = reader.int32() as any;
+          continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2485,6 +2584,7 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
     return {
       refreshToken: isSet(object.refreshToken) ? String(object.refreshToken) : "",
       steamid: isSet(object.steamid) ? String(object.steamid) : "0",
+      renewalType: isSet(object.renewalType) ? eTokenRenewalTypeFromJSON(object.renewalType) : 0,
     };
   },
 
@@ -2492,6 +2592,7 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
     const obj: any = {};
     message.refreshToken !== undefined && (obj.refreshToken = message.refreshToken);
     message.steamid !== undefined && (obj.steamid = message.steamid);
+    message.renewalType !== undefined && (obj.renewalType = eTokenRenewalTypeToJSON(message.renewalType));
     return obj;
   },
 
@@ -2507,12 +2608,13 @@ export const CAuthenticationAccessTokenGenerateForAppRequest = {
     const message = createBaseCAuthenticationAccessTokenGenerateForAppRequest();
     message.refreshToken = object.refreshToken ?? "";
     message.steamid = object.steamid ?? "0";
+    message.renewalType = object.renewalType ?? 0;
     return message;
   },
 };
 
 function createBaseCAuthenticationAccessTokenGenerateForAppResponse(): CAuthenticationAccessTokenGenerateForAppResponse {
-  return { accessToken: "" };
+  return { accessToken: "", refreshToken: "" };
 }
 
 export const CAuthenticationAccessTokenGenerateForAppResponse = {
@@ -2522,6 +2624,9 @@ export const CAuthenticationAccessTokenGenerateForAppResponse = {
   ): _m0.Writer {
     if (message.accessToken !== "") {
       writer.uint32(10).string(message.accessToken);
+    }
+    if (message.refreshToken !== "") {
+      writer.uint32(18).string(message.refreshToken);
     }
     return writer;
   },
@@ -2534,14 +2639,21 @@ export const CAuthenticationAccessTokenGenerateForAppResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.accessToken = reader.string();
           continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.refreshToken = reader.string();
+          continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2550,12 +2662,16 @@ export const CAuthenticationAccessTokenGenerateForAppResponse = {
   },
 
   fromJSON(object: any): CAuthenticationAccessTokenGenerateForAppResponse {
-    return { accessToken: isSet(object.accessToken) ? String(object.accessToken) : "" };
+    return {
+      accessToken: isSet(object.accessToken) ? String(object.accessToken) : "",
+      refreshToken: isSet(object.refreshToken) ? String(object.refreshToken) : "",
+    };
   },
 
   toJSON(message: CAuthenticationAccessTokenGenerateForAppResponse): unknown {
     const obj: any = {};
     message.accessToken !== undefined && (obj.accessToken = message.accessToken);
+    message.refreshToken !== undefined && (obj.refreshToken = message.refreshToken);
     return obj;
   },
 
@@ -2570,6 +2686,7 @@ export const CAuthenticationAccessTokenGenerateForAppResponse = {
   ): CAuthenticationAccessTokenGenerateForAppResponse {
     const message = createBaseCAuthenticationAccessTokenGenerateForAppResponse();
     message.accessToken = object.accessToken ?? "";
+    message.refreshToken = object.refreshToken ?? "";
     return message;
   },
 };
@@ -2591,7 +2708,7 @@ export const CAuthenticationRefreshTokenEnumerateRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2646,7 +2763,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
@@ -2655,14 +2772,14 @@ export const CAuthenticationRefreshTokenEnumerateResponse = {
           );
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.requestingToken = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2754,49 +2871,49 @@ export const CAuthenticationRefreshTokenEnumerateResponse_TokenUsageEvent = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.time = reader.uint32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.ip = CMsgIPAddress.decode(reader, reader.uint32());
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.locale = reader.string();
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.country = reader.string();
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.state = reader.string();
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.city = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2916,63 +3033,63 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.tokenId = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.tokenDescription = reader.string();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.timeUpdated = reader.uint32();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.platformType = reader.int32() as any;
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.loggedIn = reader.bool();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.osPlatform = reader.uint32();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.authType = reader.uint32();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.gamingDeviceType = reader.uint32();
           continue;
         case 9:
-          if (tag != 74) {
+          if (tag !== 74) {
             break;
           }
 
@@ -2982,7 +3099,7 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
           );
           continue;
         case 10:
-          if (tag != 82) {
+          if (tag !== 82) {
             break;
           }
 
@@ -2992,14 +3109,14 @@ export const CAuthenticationRefreshTokenEnumerateResponse_RefreshTokenDescriptio
           );
           continue;
         case 11:
-          if (tag != 88) {
+          if (tag !== 88) {
             break;
           }
 
           message.osType = reader.int32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3093,7 +3210,7 @@ export const CAuthenticationGetAuthSessionsForAccountRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3149,12 +3266,13 @@ export const CAuthenticationGetAuthSessionsForAccountResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag == 8) {
+          if (tag === 8) {
             message.clientIds.push(longToString(reader.uint64() as Long));
+
             continue;
           }
 
-          if (tag == 10) {
+          if (tag === 10) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.clientIds.push(longToString(reader.uint64() as Long));
@@ -3165,7 +3283,7 @@ export const CAuthenticationGetAuthSessionsForAccountResponse = {
 
           break;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3228,28 +3346,28 @@ export const CAuthenticationMigrateMobileSessionRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.token = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.signature = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3313,21 +3431,21 @@ export const CAuthenticationMigrateMobileSessionResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.refreshToken = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.accessToken = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3388,21 +3506,21 @@ export const CAuthenticationTokenRevokeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.token = reader.string();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.revokeAction = reader.int32() as any;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3457,7 +3575,7 @@ export const CAuthenticationTokenRevokeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3517,35 +3635,35 @@ export const CAuthenticationRefreshTokenRevokeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.tokenId = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.revokeAction = reader.int32() as any;
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.signature = reader.bytes() as Buffer;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3607,7 +3725,7 @@ export const CAuthenticationRefreshTokenRevokeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3664,21 +3782,21 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.includeRevokedTokens = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3782,91 +3900,91 @@ export const CSupportRefreshTokenDescription = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.tokenId = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.tokenDescription = reader.string();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.timeUpdated = reader.uint32();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.platformType = reader.int32() as any;
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.tokenState = reader.int32() as any;
           continue;
         case 6:
-          if (tag != 49) {
+          if (tag !== 49) {
             break;
           }
 
           message.ownerSteamid = longToString(reader.fixed64() as Long);
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.osPlatform = reader.uint32();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.osType = reader.int32();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.authType = reader.uint32();
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.gamingDeviceType = reader.uint32();
           continue;
         case 11:
-          if (tag != 90) {
+          if (tag !== 90) {
             break;
           }
 
           message.firstSeen = CSupportRefreshTokenDescription_TokenUsageEvent.decode(reader, reader.uint32());
           continue;
         case 12:
-          if (tag != 98) {
+          if (tag !== 98) {
             break;
           }
 
           message.lastSeen = CSupportRefreshTokenDescription_TokenUsageEvent.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3979,42 +4097,42 @@ export const CSupportRefreshTokenDescription_TokenUsageEvent = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.time = reader.uint32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.ip = CMsgIPAddress.decode(reader, reader.uint32());
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.country = reader.string();
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.state = reader.string();
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.city = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4087,21 +4205,21 @@ export const CAuthenticationSupportQueryRefreshTokensByAccountResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.refreshTokens.push(CSupportRefreshTokenDescription.decode(reader, reader.uint32()));
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.lastTokenReset = reader.int32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4168,14 +4286,14 @@ export const CAuthenticationSupportQueryRefreshTokenByIDRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.tokenId = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4231,14 +4349,14 @@ export const CAuthenticationSupportQueryRefreshTokenByIDResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.refreshTokens.push(CSupportRefreshTokenDescription.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4302,21 +4420,21 @@ export const CAuthenticationSupportRevokeTokenRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.tokenId = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4371,7 +4489,7 @@ export const CAuthenticationSupportRevokeTokenResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4422,14 +4540,14 @@ export const CAuthenticationSupportGetTokenHistoryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.tokenId = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4491,35 +4609,35 @@ export const CSupportRefreshTokenAudit = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.action = reader.int32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.time = reader.uint32();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.ip = CMsgIPAddress.decode(reader, reader.uint32());
           continue;
         case 4:
-          if (tag != 33) {
+          if (tag !== 33) {
             break;
           }
 
           message.actor = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4579,14 +4697,14 @@ export const CAuthenticationSupportGetTokenHistoryResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.history.push(CSupportRefreshTokenAudit.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4650,21 +4768,21 @@ export const CCloudGamingCreateNonceRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.platform = reader.string();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.appid = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4723,21 +4841,21 @@ export const CCloudGamingCreateNonceResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.nonce = reader.string();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.expiry = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4798,19 +4916,20 @@ export const CCloudGamingGetTimeRemainingRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.platform = reader.string();
           continue;
         case 2:
-          if (tag == 16) {
+          if (tag === 16) {
             message.appidList.push(reader.uint32());
+
             continue;
           }
 
-          if (tag == 18) {
+          if (tag === 18) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.appidList.push(reader.uint32());
@@ -4821,7 +4940,7 @@ export const CCloudGamingGetTimeRemainingRequest = {
 
           break;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4886,21 +5005,21 @@ export const CCloudGamingTimeRemaining = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.appid = reader.uint32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.minutesRemaining = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4954,14 +5073,14 @@ export const CCloudGamingGetTimeRemainingResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.entries.push(CCloudGamingTimeRemaining.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);

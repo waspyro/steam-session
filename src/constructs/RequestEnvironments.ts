@@ -27,6 +27,8 @@ export const WebBrowser = (userAgent?: string | {toString: () => string}, extraH
             gamingDeviceType: 0, //??
             osType: 0, //??
             deviceFriendlyName: userAgent as string,
+            clientCount: 0,
+            machineId: Buffer.alloc(0),
         }
     }
 }
@@ -49,7 +51,9 @@ export const ClientMacOS = (
             deviceFriendlyName,
             platformType: EAuthTokenPlatformType.k_EAuthTokenPlatformType_SteamClient,
             osType: Number(osType),
-            gamingDeviceType: 1
+            gamingDeviceType: 1,
+            clientCount: 0,
+            machineId: new Buffer(0)
         }
     }
     return env
@@ -98,6 +102,8 @@ export const ClientWindows = (
             gamingDeviceType: 1,
             osType: windowsVersion,
             deviceFriendlyName: userAgent,
+            clientCount: 0,
+            machineId: new Buffer(0)
         }
     }
 }
@@ -124,7 +130,9 @@ export const MobileIOS = (
             platformType: EAuthTokenPlatformType.k_EAuthTokenPlatformType_MobileApp,
             gamingDeviceType: null,
             osType: osVersion,
-            deviceFriendlyName
+            deviceFriendlyName,
+            clientCount: 0,
+            machineId: Buffer.alloc(0)
         }
     }
 }

@@ -106,6 +106,7 @@ export interface CMsgClientLogonResponse {
   deprecatedUsePics: boolean;
   vanityUrl: string;
   publicIp: CMsgIPAddress | undefined;
+  userCountry: string;
   clientSuppliedSteamid: string;
   ipCountryCode: string;
   parentalSettings: Buffer;
@@ -187,14 +188,14 @@ export const CMsgClientHeartBeat = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.sendReply = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -243,14 +244,14 @@ export const CMsgClientServerTimestampRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clientRequestTimestamp = longToString(reader.uint64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -308,21 +309,21 @@ export const CMsgClientServerTimestampResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clientRequestTimestamp = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.serverTimestampMs = longToString(reader.uint64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -392,42 +393,42 @@ export const CMsgClientSecret = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.version = reader.uint32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.appid = reader.uint32();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.deviceid = reader.uint32();
           continue;
         case 4:
-          if (tag != 33) {
+          if (tag !== 33) {
             break;
           }
 
           message.nonce = longToString(reader.fixed64() as Long);
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.hmac = reader.bytes() as Buffer;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -491,14 +492,14 @@ export const CMsgClientHello = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.protocolVersion = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -773,406 +774,406 @@ export const CMsgClientLogon = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.protocolVersion = reader.uint32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.deprecatedObfustucatedPrivateIp = reader.uint32();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.cellId = reader.uint32();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.lastSessionId = reader.uint32();
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.clientPackageVersion = reader.uint32();
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.clientLanguage = reader.string();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.clientOsType = reader.uint32();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.shouldRememberPassword = reader.bool();
           continue;
         case 9:
-          if (tag != 74) {
+          if (tag !== 74) {
             break;
           }
 
           message.wineVersion = reader.string();
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.deprecated10 = reader.uint32();
           continue;
         case 11:
-          if (tag != 90) {
+          if (tag !== 90) {
             break;
           }
 
           message.obfuscatedPrivateIp = CMsgIPAddress.decode(reader, reader.uint32());
           continue;
         case 20:
-          if (tag != 160) {
+          if (tag !== 160) {
             break;
           }
 
           message.deprecatedPublicIp = reader.uint32();
           continue;
         case 21:
-          if (tag != 168) {
+          if (tag !== 168) {
             break;
           }
 
           message.qosLevel = reader.uint32();
           continue;
         case 22:
-          if (tag != 177) {
+          if (tag !== 177) {
             break;
           }
 
           message.clientSuppliedSteamId = longToString(reader.fixed64() as Long);
           continue;
         case 23:
-          if (tag != 186) {
+          if (tag !== 186) {
             break;
           }
 
           message.publicIp = CMsgIPAddress.decode(reader, reader.uint32());
           continue;
         case 30:
-          if (tag != 242) {
+          if (tag !== 242) {
             break;
           }
 
           message.machineId = reader.bytes() as Buffer;
           continue;
         case 31:
-          if (tag != 248) {
+          if (tag !== 248) {
             break;
           }
 
           message.launcherType = reader.uint32();
           continue;
         case 32:
-          if (tag != 256) {
+          if (tag !== 256) {
             break;
           }
 
           message.uiMode = reader.uint32();
           continue;
         case 33:
-          if (tag != 264) {
+          if (tag !== 264) {
             break;
           }
 
           message.chatMode = reader.uint32();
           continue;
         case 41:
-          if (tag != 330) {
+          if (tag !== 330) {
             break;
           }
 
           message.steam2AuthTicket = reader.bytes() as Buffer;
           continue;
         case 42:
-          if (tag != 338) {
+          if (tag !== 338) {
             break;
           }
 
           message.emailAddress = reader.string();
           continue;
         case 43:
-          if (tag != 349) {
+          if (tag !== 349) {
             break;
           }
 
           message.rtime32AccountCreation = reader.fixed32();
           continue;
         case 50:
-          if (tag != 402) {
+          if (tag !== 402) {
             break;
           }
 
           message.accountName = reader.string();
           continue;
         case 51:
-          if (tag != 410) {
+          if (tag !== 410) {
             break;
           }
 
           message.password = reader.string();
           continue;
         case 52:
-          if (tag != 418) {
+          if (tag !== 418) {
             break;
           }
 
           message.gameServerToken = reader.string();
           continue;
         case 60:
-          if (tag != 482) {
+          if (tag !== 482) {
             break;
           }
 
           message.loginKey = reader.string();
           continue;
         case 70:
-          if (tag != 560) {
+          if (tag !== 560) {
             break;
           }
 
           message.wasConvertedDeprecatedMsg = reader.bool();
           continue;
         case 80:
-          if (tag != 642) {
+          if (tag !== 642) {
             break;
           }
 
           message.anonUserTargetAccountName = reader.string();
           continue;
         case 81:
-          if (tag != 649) {
+          if (tag !== 649) {
             break;
           }
 
           message.resolvedUserSteamId = longToString(reader.fixed64() as Long);
           continue;
         case 82:
-          if (tag != 656) {
+          if (tag !== 656) {
             break;
           }
 
           message.eresultSentryfile = reader.int32();
           continue;
         case 83:
-          if (tag != 666) {
+          if (tag !== 666) {
             break;
           }
 
           message.shaSentryfile = reader.bytes() as Buffer;
           continue;
         case 84:
-          if (tag != 674) {
+          if (tag !== 674) {
             break;
           }
 
           message.authCode = reader.string();
           continue;
         case 85:
-          if (tag != 680) {
+          if (tag !== 680) {
             break;
           }
 
           message.otpType = reader.int32();
           continue;
         case 86:
-          if (tag != 688) {
+          if (tag !== 688) {
             break;
           }
 
           message.otpValue = reader.uint32();
           continue;
         case 87:
-          if (tag != 698) {
+          if (tag !== 698) {
             break;
           }
 
           message.otpIdentifier = reader.string();
           continue;
         case 88:
-          if (tag != 704) {
+          if (tag !== 704) {
             break;
           }
 
           message.steam2TicketRequest = reader.bool();
           continue;
         case 90:
-          if (tag != 722) {
+          if (tag !== 722) {
             break;
           }
 
           message.sonyPsnTicket = reader.bytes() as Buffer;
           continue;
         case 91:
-          if (tag != 730) {
+          if (tag !== 730) {
             break;
           }
 
           message.sonyPsnServiceId = reader.string();
           continue;
         case 92:
-          if (tag != 736) {
+          if (tag !== 736) {
             break;
           }
 
           message.createNewPsnLinkedAccountIfNeeded = reader.bool();
           continue;
         case 93:
-          if (tag != 746) {
+          if (tag !== 746) {
             break;
           }
 
           message.sonyPsnName = reader.string();
           continue;
         case 94:
-          if (tag != 752) {
+          if (tag !== 752) {
             break;
           }
 
           message.gameServerAppId = reader.int32();
           continue;
         case 95:
-          if (tag != 760) {
+          if (tag !== 760) {
             break;
           }
 
           message.steamguardDontRememberComputer = reader.bool();
           continue;
         case 96:
-          if (tag != 770) {
+          if (tag !== 770) {
             break;
           }
 
           message.machineName = reader.string();
           continue;
         case 97:
-          if (tag != 778) {
+          if (tag !== 778) {
             break;
           }
 
           message.machineNameUserchosen = reader.string();
           continue;
         case 98:
-          if (tag != 786) {
+          if (tag !== 786) {
             break;
           }
 
           message.countryOverride = reader.string();
           continue;
         case 99:
-          if (tag != 792) {
+          if (tag !== 792) {
             break;
           }
 
           message.isSteamBox = reader.bool();
           continue;
         case 100:
-          if (tag != 800) {
+          if (tag !== 800) {
             break;
           }
 
           message.clientInstanceId = longToString(reader.uint64() as Long);
           continue;
         case 101:
-          if (tag != 810) {
+          if (tag !== 810) {
             break;
           }
 
           message.twoFactorCode = reader.string();
           continue;
         case 102:
-          if (tag != 816) {
+          if (tag !== 816) {
             break;
           }
 
           message.supportsRateLimitResponse = reader.bool();
           continue;
         case 103:
-          if (tag != 826) {
+          if (tag !== 826) {
             break;
           }
 
           message.webLogonNonce = reader.string();
           continue;
         case 104:
-          if (tag != 832) {
+          if (tag !== 832) {
             break;
           }
 
           message.priorityReason = reader.int32();
           continue;
         case 105:
-          if (tag != 842) {
+          if (tag !== 842) {
             break;
           }
 
           message.embeddedClientSecret = CMsgClientSecret.decode(reader, reader.uint32());
           continue;
         case 106:
-          if (tag != 848) {
+          if (tag !== 848) {
             break;
           }
 
           message.disablePartnerAutogrants = reader.bool();
           continue;
         case 107:
-          if (tag != 856) {
+          if (tag !== 856) {
             break;
           }
 
           message.isSteamDeck = reader.bool();
           continue;
         case 108:
-          if (tag != 866) {
+          if (tag !== 866) {
             break;
           }
 
           message.accessToken = reader.string();
           continue;
         case 109:
-          if (tag != 872) {
+          if (tag !== 872) {
             break;
           }
 
           message.isChromeOs = reader.bool();
           continue;
         case 110:
-          if (tag != 880) {
+          if (tag !== 880) {
             break;
           }
 
           message.isTesla = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1436,6 +1437,7 @@ function createBaseCMsgClientLogonResponse(): CMsgClientLogonResponse {
     deprecatedUsePics: false,
     vanityUrl: "",
     publicIp: undefined,
+    userCountry: "",
     clientSuppliedSteamid: "0",
     ipCountryCode: "",
     parentalSettings: Buffer.alloc(0),
@@ -1497,6 +1499,9 @@ export const CMsgClientLogonResponse = {
     if (message.publicIp !== undefined) {
       CMsgIPAddress.encode(message.publicIp, writer.uint32(122).fork()).ldelim();
     }
+    if (message.userCountry !== "") {
+      writer.uint32(130).string(message.userCountry);
+    }
     if (message.clientSuppliedSteamid !== "0") {
       writer.uint32(161).fixed64(message.clientSuppliedSteamid);
     }
@@ -1541,189 +1546,196 @@ export const CMsgClientLogonResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.eresult = reader.int32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.legacyOutOfGameHeartbeatSeconds = reader.int32();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.heartbeatSeconds = reader.int32();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.deprecatedPublicIp = reader.uint32();
           continue;
         case 5:
-          if (tag != 45) {
+          if (tag !== 45) {
             break;
           }
 
           message.rtime32ServerTime = reader.fixed32();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.accountFlags = reader.uint32();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.cellId = reader.uint32();
           continue;
         case 8:
-          if (tag != 66) {
+          if (tag !== 66) {
             break;
           }
 
           message.emailDomain = reader.string();
           continue;
         case 9:
-          if (tag != 74) {
+          if (tag !== 74) {
             break;
           }
 
           message.steam2Ticket = reader.bytes() as Buffer;
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.eresultExtended = reader.int32();
           continue;
         case 11:
-          if (tag != 90) {
+          if (tag !== 90) {
             break;
           }
 
           message.webapiAuthenticateUserNonce = reader.string();
           continue;
         case 12:
-          if (tag != 96) {
+          if (tag !== 96) {
             break;
           }
 
           message.cellIdPingThreshold = reader.uint32();
           continue;
         case 13:
-          if (tag != 104) {
+          if (tag !== 104) {
             break;
           }
 
           message.deprecatedUsePics = reader.bool();
           continue;
         case 14:
-          if (tag != 114) {
+          if (tag !== 114) {
             break;
           }
 
           message.vanityUrl = reader.string();
           continue;
         case 15:
-          if (tag != 122) {
+          if (tag !== 122) {
             break;
           }
 
           message.publicIp = CMsgIPAddress.decode(reader, reader.uint32());
           continue;
+        case 16:
+          if (tag !== 130) {
+            break;
+          }
+
+          message.userCountry = reader.string();
+          continue;
         case 20:
-          if (tag != 161) {
+          if (tag !== 161) {
             break;
           }
 
           message.clientSuppliedSteamid = longToString(reader.fixed64() as Long);
           continue;
         case 21:
-          if (tag != 170) {
+          if (tag !== 170) {
             break;
           }
 
           message.ipCountryCode = reader.string();
           continue;
         case 22:
-          if (tag != 178) {
+          if (tag !== 178) {
             break;
           }
 
           message.parentalSettings = reader.bytes() as Buffer;
           continue;
         case 23:
-          if (tag != 186) {
+          if (tag !== 186) {
             break;
           }
 
           message.parentalSettingSignature = reader.bytes() as Buffer;
           continue;
         case 24:
-          if (tag != 192) {
+          if (tag !== 192) {
             break;
           }
 
           message.countLoginfailuresToMigrate = reader.int32();
           continue;
         case 25:
-          if (tag != 200) {
+          if (tag !== 200) {
             break;
           }
 
           message.countDisconnectsToMigrate = reader.int32();
           continue;
         case 26:
-          if (tag != 208) {
+          if (tag !== 208) {
             break;
           }
 
           message.ogsDataReportTimeWindow = reader.int32();
           continue;
         case 27:
-          if (tag != 216) {
+          if (tag !== 216) {
             break;
           }
 
           message.clientInstanceId = longToString(reader.uint64() as Long);
           continue;
         case 28:
-          if (tag != 224) {
+          if (tag !== 224) {
             break;
           }
 
           message.forceClientUpdateCheck = reader.bool();
           continue;
         case 29:
-          if (tag != 234) {
+          if (tag !== 234) {
             break;
           }
 
           message.agreementSessionUrl = reader.string();
           continue;
         case 30:
-          if (tag != 240) {
+          if (tag !== 240) {
             break;
           }
 
           message.tokenId = longToString(reader.uint64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1752,6 +1764,7 @@ export const CMsgClientLogonResponse = {
       deprecatedUsePics: isSet(object.deprecatedUsePics) ? Boolean(object.deprecatedUsePics) : false,
       vanityUrl: isSet(object.vanityUrl) ? String(object.vanityUrl) : "",
       publicIp: isSet(object.publicIp) ? CMsgIPAddress.fromJSON(object.publicIp) : undefined,
+      userCountry: isSet(object.userCountry) ? String(object.userCountry) : "",
       clientSuppliedSteamid: isSet(object.clientSuppliedSteamid) ? String(object.clientSuppliedSteamid) : "0",
       ipCountryCode: isSet(object.ipCountryCode) ? String(object.ipCountryCode) : "",
       parentalSettings: isSet(object.parentalSettings)
@@ -1793,6 +1806,7 @@ export const CMsgClientLogonResponse = {
     message.vanityUrl !== undefined && (obj.vanityUrl = message.vanityUrl);
     message.publicIp !== undefined &&
       (obj.publicIp = message.publicIp ? CMsgIPAddress.toJSON(message.publicIp) : undefined);
+    message.userCountry !== undefined && (obj.userCountry = message.userCountry);
     message.clientSuppliedSteamid !== undefined && (obj.clientSuppliedSteamid = message.clientSuppliedSteamid);
     message.ipCountryCode !== undefined && (obj.ipCountryCode = message.ipCountryCode);
     message.parentalSettings !== undefined &&
@@ -1839,6 +1853,7 @@ export const CMsgClientLogonResponse = {
     message.publicIp = (object.publicIp !== undefined && object.publicIp !== null)
       ? CMsgIPAddress.fromPartial(object.publicIp)
       : undefined;
+    message.userCountry = object.userCountry ?? "";
     message.clientSuppliedSteamid = object.clientSuppliedSteamid ?? "0";
     message.ipCountryCode = object.ipCountryCode ?? "";
     message.parentalSettings = object.parentalSettings ?? Buffer.alloc(0);
@@ -1874,14 +1889,14 @@ export const CMsgClientRequestWebAPIAuthenticateUserNonce = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.tokenType = reader.int32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1943,28 +1958,28 @@ export const CMsgClientRequestWebAPIAuthenticateUserNonceResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.eresult = reader.int32();
           continue;
         case 11:
-          if (tag != 90) {
+          if (tag !== 90) {
             break;
           }
 
           message.webapiAuthenticateUserNonce = reader.string();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.tokenType = reader.int32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2025,7 +2040,7 @@ export const CMsgClientLogOff = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2072,14 +2087,14 @@ export const CMsgClientLoggedOff = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.eresult = reader.int32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2131,21 +2146,21 @@ export const CMsgClientNewLoginKey = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.uniqueId = reader.uint32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.loginKey = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2199,14 +2214,14 @@ export const CMsgClientNewLoginKeyAccepted = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.uniqueId = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2299,84 +2314,84 @@ export const CMsgClientAccountInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.personaName = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.ipCountry = reader.string();
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.countAuthedComputers = reader.int32();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.accountFlags = reader.uint32();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.facebookId = longToString(reader.uint64() as Long);
           continue;
         case 9:
-          if (tag != 74) {
+          if (tag !== 74) {
             break;
           }
 
           message.facebookName = reader.string();
           continue;
         case 15:
-          if (tag != 122) {
+          if (tag !== 122) {
             break;
           }
 
           message.steamguardMachineNameUserChosen = reader.string();
           continue;
         case 16:
-          if (tag != 128) {
+          if (tag !== 128) {
             break;
           }
 
           message.isPhoneVerified = reader.bool();
           continue;
         case 17:
-          if (tag != 136) {
+          if (tag !== 136) {
             break;
           }
 
           message.twoFactorState = reader.uint32();
           continue;
         case 18:
-          if (tag != 144) {
+          if (tag !== 144) {
             break;
           }
 
           message.isPhoneIdentifying = reader.bool();
           continue;
         case 19:
-          if (tag != 152) {
+          if (tag !== 152) {
             break;
           }
 
           message.isPhoneNeedingReverify = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2460,14 +2475,14 @@ export const CMsgClientChallengeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2516,14 +2531,14 @@ export const CMsgClientChallengeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.challenge = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);

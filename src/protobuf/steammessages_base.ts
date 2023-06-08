@@ -394,6 +394,8 @@ export interface CMsgProtoBufHeader {
   tokenId: string;
   routingGc: CMsgGCRoutingProtoBufHeader | undefined;
   sessionDisposition: CMsgProtoBufHeader_ESessionDisposition;
+  wgToken: string;
+  webuiAuthKey: string;
   ip?: number | undefined;
   ipV6?: Buffer | undefined;
 }
@@ -618,6 +620,15 @@ export interface CMsgKeyValueSet {
   pairs: CMsgKeyValuePair[];
 }
 
+export interface UserContentDescriptorPreferences {
+  contentDescriptorsToExclude: UserContentDescriptorPreferences_ContentDescriptor[];
+}
+
+export interface UserContentDescriptorPreferences_ContentDescriptor {
+  contentDescriptorid: number;
+  timestampAdded: number;
+}
+
 function createBaseCMsgIPAddress(): CMsgIPAddress {
   return { v4: undefined, v6: undefined };
 }
@@ -641,21 +652,21 @@ export const CMsgIPAddress = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 13) {
+          if (tag !== 13) {
             break;
           }
 
           message.v4 = reader.fixed32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.v6 = reader.bytes() as Buffer;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -712,21 +723,21 @@ export const CMsgIPAddressBucket = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.originalIpAddress = CMsgIPAddress.decode(reader, reader.uint32());
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.bucket = longToString(reader.fixed64() as Long);
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -786,21 +797,21 @@ export const CMsgGCRoutingProtoBufHeader = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.dstGcidQueue = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.dstGcDirIndex = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -865,6 +876,8 @@ function createBaseCMsgProtoBufHeader(): CMsgProtoBufHeader {
     tokenId: "0",
     routingGc: undefined,
     sessionDisposition: 0,
+    wgToken: "",
+    webuiAuthKey: "",
     ip: undefined,
     ipV6: undefined,
   };
@@ -961,6 +974,12 @@ export const CMsgProtoBufHeader = {
     if (message.sessionDisposition !== 0) {
       writer.uint32(304).int32(message.sessionDisposition);
     }
+    if (message.wgToken !== "") {
+      writer.uint32(314).string(message.wgToken);
+    }
+    if (message.webuiAuthKey !== "") {
+      writer.uint32(322).string(message.webuiAuthKey);
+    }
     if (message.ip !== undefined) {
       writer.uint32(120).uint32(message.ip);
     }
@@ -978,145 +997,146 @@ export const CMsgProtoBufHeader = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.clientSessionid = reader.int32();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.routingAppid = reader.uint32();
           continue;
         case 10:
-          if (tag != 81) {
+          if (tag !== 81) {
             break;
           }
 
           message.jobidSource = longToString(reader.fixed64() as Long);
           continue;
         case 11:
-          if (tag != 89) {
+          if (tag !== 89) {
             break;
           }
 
           message.jobidTarget = longToString(reader.fixed64() as Long);
           continue;
         case 12:
-          if (tag != 98) {
+          if (tag !== 98) {
             break;
           }
 
           message.targetJobName = reader.string();
           continue;
         case 24:
-          if (tag != 192) {
+          if (tag !== 192) {
             break;
           }
 
           message.seqNum = reader.int32();
           continue;
         case 13:
-          if (tag != 104) {
+          if (tag !== 104) {
             break;
           }
 
           message.eresult = reader.int32();
           continue;
         case 14:
-          if (tag != 114) {
+          if (tag !== 114) {
             break;
           }
 
           message.errorMessage = reader.string();
           continue;
         case 16:
-          if (tag != 128) {
+          if (tag !== 128) {
             break;
           }
 
           message.authAccountFlags = reader.uint32();
           continue;
         case 22:
-          if (tag != 176) {
+          if (tag !== 176) {
             break;
           }
 
           message.tokenSource = reader.uint32();
           continue;
         case 23:
-          if (tag != 184) {
+          if (tag !== 184) {
             break;
           }
 
           message.adminSpoofingUser = reader.bool();
           continue;
         case 17:
-          if (tag != 136) {
+          if (tag !== 136) {
             break;
           }
 
           message.transportError = reader.int32();
           continue;
         case 18:
-          if (tag != 144) {
+          if (tag !== 144) {
             break;
           }
 
           message.messageid = longToString(reader.uint64() as Long);
           continue;
         case 19:
-          if (tag != 152) {
+          if (tag !== 152) {
             break;
           }
 
           message.publisherGroupId = reader.uint32();
           continue;
         case 20:
-          if (tag != 160) {
+          if (tag !== 160) {
             break;
           }
 
           message.sysid = reader.uint32();
           continue;
         case 21:
-          if (tag != 168) {
+          if (tag !== 168) {
             break;
           }
 
           message.traceTag = longToString(reader.uint64() as Long);
           continue;
         case 25:
-          if (tag != 200) {
+          if (tag !== 200) {
             break;
           }
 
           message.webapiKeyId = reader.uint32();
           continue;
         case 26:
-          if (tag != 208) {
+          if (tag !== 208) {
             break;
           }
 
           message.isFromExternalSource = reader.bool();
           continue;
         case 27:
-          if (tag == 216) {
+          if (tag === 216) {
             message.forwardToSysid.push(reader.uint32());
+
             continue;
           }
 
-          if (tag == 218) {
+          if (tag === 218) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.forwardToSysid.push(reader.uint32());
@@ -1127,84 +1147,98 @@ export const CMsgProtoBufHeader = {
 
           break;
         case 28:
-          if (tag != 224) {
+          if (tag !== 224) {
             break;
           }
 
           message.cmSysid = reader.uint32();
           continue;
         case 31:
-          if (tag != 248) {
+          if (tag !== 248) {
             break;
           }
 
           message.launcherType = reader.uint32();
           continue;
         case 32:
-          if (tag != 256) {
+          if (tag !== 256) {
             break;
           }
 
           message.realm = reader.uint32();
           continue;
         case 33:
-          if (tag != 264) {
+          if (tag !== 264) {
             break;
           }
 
           message.timeoutMs = reader.int32();
           continue;
         case 34:
-          if (tag != 274) {
+          if (tag !== 274) {
             break;
           }
 
           message.debugSource = reader.string();
           continue;
         case 35:
-          if (tag != 280) {
+          if (tag !== 280) {
             break;
           }
 
           message.debugSourceStringIndex = reader.uint32();
           continue;
         case 36:
-          if (tag != 288) {
+          if (tag !== 288) {
             break;
           }
 
           message.tokenId = longToString(reader.uint64() as Long);
           continue;
         case 37:
-          if (tag != 298) {
+          if (tag !== 298) {
             break;
           }
 
           message.routingGc = CMsgGCRoutingProtoBufHeader.decode(reader, reader.uint32());
           continue;
         case 38:
-          if (tag != 304) {
+          if (tag !== 304) {
             break;
           }
 
           message.sessionDisposition = reader.int32() as any;
           continue;
+        case 39:
+          if (tag !== 314) {
+            break;
+          }
+
+          message.wgToken = reader.string();
+          continue;
+        case 40:
+          if (tag !== 322) {
+            break;
+          }
+
+          message.webuiAuthKey = reader.string();
+          continue;
         case 15:
-          if (tag != 120) {
+          if (tag !== 120) {
             break;
           }
 
           message.ip = reader.uint32();
           continue;
         case 29:
-          if (tag != 234) {
+          if (tag !== 234) {
             break;
           }
 
           message.ipV6 = reader.bytes() as Buffer;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1245,6 +1279,8 @@ export const CMsgProtoBufHeader = {
       sessionDisposition: isSet(object.sessionDisposition)
         ? cMsgProtoBufHeader_ESessionDispositionFromJSON(object.sessionDisposition)
         : 0,
+      wgToken: isSet(object.wgToken) ? String(object.wgToken) : "",
+      webuiAuthKey: isSet(object.webuiAuthKey) ? String(object.webuiAuthKey) : "",
       ip: isSet(object.ip) ? Number(object.ip) : undefined,
       ipV6: isSet(object.ipV6) ? Buffer.from(bytesFromBase64(object.ipV6)) : undefined,
     };
@@ -1288,6 +1324,8 @@ export const CMsgProtoBufHeader = {
       (obj.routingGc = message.routingGc ? CMsgGCRoutingProtoBufHeader.toJSON(message.routingGc) : undefined);
     message.sessionDisposition !== undefined &&
       (obj.sessionDisposition = cMsgProtoBufHeader_ESessionDispositionToJSON(message.sessionDisposition));
+    message.wgToken !== undefined && (obj.wgToken = message.wgToken);
+    message.webuiAuthKey !== undefined && (obj.webuiAuthKey = message.webuiAuthKey);
     message.ip !== undefined && (obj.ip = Math.round(message.ip));
     message.ipV6 !== undefined && (obj.ipV6 = message.ipV6 !== undefined ? base64FromBytes(message.ipV6) : undefined);
     return obj;
@@ -1330,6 +1368,8 @@ export const CMsgProtoBufHeader = {
       ? CMsgGCRoutingProtoBufHeader.fromPartial(object.routingGc)
       : undefined;
     message.sessionDisposition = object.sessionDisposition ?? 0;
+    message.wgToken = object.wgToken ?? "";
+    message.webuiAuthKey = object.webuiAuthKey ?? "";
     message.ip = object.ip ?? undefined;
     message.ipV6 = object.ipV6 ?? undefined;
     return message;
@@ -1359,21 +1399,21 @@ export const CMsgMulti = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.sizeUnzipped = reader.uint32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.messageBody = reader.bytes() as Buffer;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1428,14 +1468,14 @@ export const CMsgProtobufWrapped = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.messageBody = reader.bytes() as Buffer;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1521,70 +1561,70 @@ export const CMsgAuthTicket = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.estate = reader.uint32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.eresult = reader.uint32();
           continue;
         case 3:
-          if (tag != 25) {
+          if (tag !== 25) {
             break;
           }
 
           message.steamid = longToString(reader.fixed64() as Long);
           continue;
         case 4:
-          if (tag != 33) {
+          if (tag !== 33) {
             break;
           }
 
           message.gameid = longToString(reader.fixed64() as Long);
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.hSteamPipe = reader.uint32();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.ticketCrc = reader.uint32();
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.ticket = reader.bytes() as Buffer;
           continue;
         case 8:
-          if (tag != 66) {
+          if (tag !== 66) {
             break;
           }
 
           message.serverSecret = reader.bytes() as Buffer;
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.ticketType = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1721,110 +1761,111 @@ export const CCDDBAppDetailCommon = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.appid = reader.uint32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.name = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.icon = reader.string();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.tool = reader.bool();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.demo = reader.bool();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.media = reader.bool();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.communityVisibleStats = reader.bool();
           continue;
         case 10:
-          if (tag != 82) {
+          if (tag !== 82) {
             break;
           }
 
           message.friendlyName = reader.string();
           continue;
         case 11:
-          if (tag != 90) {
+          if (tag !== 90) {
             break;
           }
 
           message.propagation = reader.string();
           continue;
         case 12:
-          if (tag != 96) {
+          if (tag !== 96) {
             break;
           }
 
           message.hasAdultContent = reader.bool();
           continue;
         case 13:
-          if (tag != 104) {
+          if (tag !== 104) {
             break;
           }
 
           message.isVisibleInSteamChina = reader.bool();
           continue;
         case 14:
-          if (tag != 112) {
+          if (tag !== 112) {
             break;
           }
 
           message.appType = reader.uint32();
           continue;
         case 15:
-          if (tag != 120) {
+          if (tag !== 120) {
             break;
           }
 
           message.hasAdultContentSex = reader.bool();
           continue;
         case 16:
-          if (tag != 128) {
+          if (tag !== 128) {
             break;
           }
 
           message.hasAdultContentViolence = reader.bool();
           continue;
         case 17:
-          if (tag == 136) {
+          if (tag === 136) {
             message.contentDescriptorids.push(reader.uint32());
+
             continue;
           }
 
-          if (tag == 138) {
+          if (tag === 138) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.contentDescriptorids.push(reader.uint32());
@@ -1835,7 +1876,7 @@ export const CCDDBAppDetailCommon = {
 
           break;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2000,126 +2041,126 @@ export const CMsgAppRights = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.editInfo = reader.bool();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.publish = reader.bool();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.viewErrorData = reader.bool();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.download = reader.bool();
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.uploadCdkeys = reader.bool();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.generateCdkeys = reader.bool();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.viewFinancials = reader.bool();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.manageCeg = reader.bool();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.manageSigning = reader.bool();
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.manageCdkeys = reader.bool();
           continue;
         case 11:
-          if (tag != 88) {
+          if (tag !== 88) {
             break;
           }
 
           message.editMarketing = reader.bool();
           continue;
         case 12:
-          if (tag != 96) {
+          if (tag !== 96) {
             break;
           }
 
           message.economySupport = reader.bool();
           continue;
         case 13:
-          if (tag != 104) {
+          if (tag !== 104) {
             break;
           }
 
           message.economySupportSupervisor = reader.bool();
           continue;
         case 14:
-          if (tag != 112) {
+          if (tag !== 112) {
             break;
           }
 
           message.managePricing = reader.bool();
           continue;
         case 15:
-          if (tag != 120) {
+          if (tag !== 120) {
             break;
           }
 
           message.broadcastLive = reader.bool();
           continue;
         case 16:
-          if (tag != 128) {
+          if (tag !== 128) {
             break;
           }
 
           message.viewMarketingTraffic = reader.bool();
           continue;
         case 17:
-          if (tag != 136) {
+          if (tag !== 136) {
             break;
           }
 
           message.editStoreDisplayContent = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2278,68 +2319,69 @@ export const CCuratorPreferences = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.supportedLanguages = reader.uint32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.platformWindows = reader.bool();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.platformMac = reader.bool();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.platformLinux = reader.bool();
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.vrContent = reader.bool();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.adultContentViolence = reader.bool();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.adultContentSex = reader.bool();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.timestampUpdated = reader.uint32();
           continue;
         case 9:
-          if (tag == 72) {
+          if (tag === 72) {
             message.tagidsCurated.push(reader.uint32());
+
             continue;
           }
 
-          if (tag == 74) {
+          if (tag === 74) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.tagidsCurated.push(reader.uint32());
@@ -2350,12 +2392,13 @@ export const CCuratorPreferences = {
 
           break;
         case 10:
-          if (tag == 80) {
+          if (tag === 80) {
             message.tagidsFiltered.push(reader.uint32());
+
             continue;
           }
 
-          if (tag == 82) {
+          if (tag === 82) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.tagidsFiltered.push(reader.uint32());
@@ -2366,35 +2409,35 @@ export const CCuratorPreferences = {
 
           break;
         case 11:
-          if (tag != 90) {
+          if (tag !== 90) {
             break;
           }
 
           message.websiteTitle = reader.string();
           continue;
         case 12:
-          if (tag != 98) {
+          if (tag !== 98) {
             break;
           }
 
           message.websiteUrl = reader.string();
           continue;
         case 13:
-          if (tag != 106) {
+          if (tag !== 106) {
             break;
           }
 
           message.discussionUrl = reader.string();
           continue;
         case 14:
-          if (tag != 112) {
+          if (tag !== 112) {
             break;
           }
 
           message.showBroadcast = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2495,21 +2538,21 @@ export const CLocalizationToken = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.language = reader.uint32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.localizedString = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2601,77 +2644,77 @@ export const CClanEventUserNewsTuple = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.clanid = reader.uint32();
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.eventGid = longToString(reader.fixed64() as Long);
           continue;
         case 3:
-          if (tag != 25) {
+          if (tag !== 25) {
             break;
           }
 
           message.announcementGid = longToString(reader.fixed64() as Long);
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.rtimeStart = reader.uint32();
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.rtimeEnd = reader.uint32();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.priorityScore = reader.uint32();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.type = reader.uint32();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.clampRangeSlot = reader.uint32();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.appid = reader.uint32();
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.rtime32LastModified = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2758,35 +2801,35 @@ export const CClanMatchEventByRange = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.rtimeBefore = reader.uint32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.rtimeAfter = reader.uint32();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.qualified = reader.uint32();
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.events.push(CClanEventUserNewsTuple.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2916,126 +2959,126 @@ export const CCommunityClanAnnouncementInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.gid = longToString(reader.uint64() as Long);
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.clanid = longToString(reader.uint64() as Long);
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.posterid = longToString(reader.uint64() as Long);
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.headline = reader.string();
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.posttime = reader.uint32();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.updatetime = reader.uint32();
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.body = reader.string();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.commentcount = reader.int32();
           continue;
         case 9:
-          if (tag != 74) {
+          if (tag !== 74) {
             break;
           }
 
           message.tags.push(reader.string());
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.language = reader.int32();
           continue;
         case 11:
-          if (tag != 88) {
+          if (tag !== 88) {
             break;
           }
 
           message.hidden = reader.bool();
           continue;
         case 12:
-          if (tag != 97) {
+          if (tag !== 97) {
             break;
           }
 
           message.forumTopicId = longToString(reader.fixed64() as Long);
           continue;
         case 13:
-          if (tag != 105) {
+          if (tag !== 105) {
             break;
           }
 
           message.eventGid = longToString(reader.fixed64() as Long);
           continue;
         case 14:
-          if (tag != 112) {
+          if (tag !== 112) {
             break;
           }
 
           message.voteupcount = reader.int32();
           continue;
         case 15:
-          if (tag != 120) {
+          if (tag !== 120) {
             break;
           }
 
           message.votedowncount = reader.int32();
           continue;
         case 16:
-          if (tag != 128) {
+          if (tag !== 128) {
             break;
           }
 
           message.banCheckResult = reader.int32() as any;
           continue;
         case 17:
-          if (tag != 136) {
+          if (tag !== 136) {
             break;
           }
 
           message.banned = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3260,201 +3303,202 @@ export const CClanEventData = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 9) {
+          if (tag !== 9) {
             break;
           }
 
           message.gid = longToString(reader.fixed64() as Long);
           continue;
         case 2:
-          if (tag != 17) {
+          if (tag !== 17) {
             break;
           }
 
           message.clanSteamid = longToString(reader.fixed64() as Long);
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.eventName = reader.string();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.eventType = reader.int32() as any;
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.appid = reader.uint32();
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.serverAddress = reader.string();
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.serverPassword = reader.string();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.rtime32StartTime = reader.uint32();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.rtime32EndTime = reader.uint32();
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.commentCount = reader.int32();
           continue;
         case 11:
-          if (tag != 89) {
+          if (tag !== 89) {
             break;
           }
 
           message.creatorSteamid = longToString(reader.fixed64() as Long);
           continue;
         case 12:
-          if (tag != 97) {
+          if (tag !== 97) {
             break;
           }
 
           message.lastUpdateSteamid = longToString(reader.fixed64() as Long);
           continue;
         case 13:
-          if (tag != 106) {
+          if (tag !== 106) {
             break;
           }
 
           message.eventNotes = reader.string();
           continue;
         case 14:
-          if (tag != 114) {
+          if (tag !== 114) {
             break;
           }
 
           message.jsondata = reader.string();
           continue;
         case 15:
-          if (tag != 122) {
+          if (tag !== 122) {
             break;
           }
 
           message.announcementBody = CCommunityClanAnnouncementInfo.decode(reader, reader.uint32());
           continue;
         case 16:
-          if (tag != 128) {
+          if (tag !== 128) {
             break;
           }
 
           message.published = reader.bool();
           continue;
         case 17:
-          if (tag != 136) {
+          if (tag !== 136) {
             break;
           }
 
           message.hidden = reader.bool();
           continue;
         case 18:
-          if (tag != 144) {
+          if (tag !== 144) {
             break;
           }
 
           message.rtime32VisibilityStart = reader.uint32();
           continue;
         case 19:
-          if (tag != 152) {
+          if (tag !== 152) {
             break;
           }
 
           message.rtime32VisibilityEnd = reader.uint32();
           continue;
         case 20:
-          if (tag != 160) {
+          if (tag !== 160) {
             break;
           }
 
           message.broadcasterAccountid = reader.uint32();
           continue;
         case 21:
-          if (tag != 168) {
+          if (tag !== 168) {
             break;
           }
 
           message.followerCount = reader.uint32();
           continue;
         case 22:
-          if (tag != 176) {
+          if (tag !== 176) {
             break;
           }
 
           message.ignoreCount = reader.uint32();
           continue;
         case 23:
-          if (tag != 185) {
+          if (tag !== 185) {
             break;
           }
 
           message.forumTopicId = longToString(reader.fixed64() as Long);
           continue;
         case 24:
-          if (tag != 192) {
+          if (tag !== 192) {
             break;
           }
 
           message.rtime32LastModified = reader.uint32();
           continue;
         case 25:
-          if (tag != 201) {
+          if (tag !== 201) {
             break;
           }
 
           message.newsPostGid = longToString(reader.fixed64() as Long);
           continue;
         case 26:
-          if (tag != 208) {
+          if (tag !== 208) {
             break;
           }
 
           message.rtimeModReviewed = reader.uint32();
           continue;
         case 27:
-          if (tag != 216) {
+          if (tag !== 216) {
             break;
           }
 
           message.featuredAppTagid = reader.uint32();
           continue;
         case 28:
-          if (tag == 224) {
+          if (tag === 224) {
             message.referencedAppids.push(reader.uint32());
+
             continue;
           }
 
-          if (tag == 226) {
+          if (tag === 226) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
               message.referencedAppids.push(reader.uint32());
@@ -3465,21 +3509,21 @@ export const CClanEventData = {
 
           break;
         case 29:
-          if (tag != 232) {
+          if (tag !== 232) {
             break;
           }
 
           message.buildId = reader.uint32();
           continue;
         case 30:
-          if (tag != 242) {
+          if (tag !== 242) {
             break;
           }
 
           message.buildBranch = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3668,77 +3712,77 @@ export const CBillingAddress = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.firstName = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.lastName = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.address1 = reader.string();
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.address2 = reader.string();
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.city = reader.string();
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.usState = reader.string();
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.countryCode = reader.string();
           continue;
         case 8:
-          if (tag != 66) {
+          if (tag !== 66) {
             break;
           }
 
           message.postcode = reader.string();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.zipPlus4 = reader.int32();
           continue;
         case 10:
-          if (tag != 82) {
+          if (tag !== 82) {
             break;
           }
 
           message.phone = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3846,63 +3890,63 @@ export const CPackageReservationStatus = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.packageid = reader.uint32();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.reservationState = reader.int32();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.queuePosition = reader.int32();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.totalQueueSize = reader.int32();
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.reservationCountryCode = reader.string();
           continue;
         case 6:
-          if (tag != 48) {
+          if (tag !== 48) {
             break;
           }
 
           message.expired = reader.bool();
           continue;
         case 7:
-          if (tag != 56) {
+          if (tag !== 56) {
             break;
           }
 
           message.timeExpires = reader.uint32();
           continue;
         case 8:
-          if (tag != 64) {
+          if (tag !== 64) {
             break;
           }
 
           message.timeReserved = reader.uint32();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -3977,21 +4021,21 @@ export const CMsgKeyValuePair = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.name = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.value = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4045,14 +4089,14 @@ export const CMsgKeyValueSet = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.pairs.push(CMsgKeyValuePair.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -4081,6 +4125,161 @@ export const CMsgKeyValueSet = {
   fromPartial<I extends Exact<DeepPartial<CMsgKeyValueSet>, I>>(object: I): CMsgKeyValueSet {
     const message = createBaseCMsgKeyValueSet();
     message.pairs = object.pairs?.map((e) => CMsgKeyValuePair.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUserContentDescriptorPreferences(): UserContentDescriptorPreferences {
+  return { contentDescriptorsToExclude: [] };
+}
+
+export const UserContentDescriptorPreferences = {
+  encode(message: UserContentDescriptorPreferences, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.contentDescriptorsToExclude) {
+      UserContentDescriptorPreferences_ContentDescriptor.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UserContentDescriptorPreferences {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUserContentDescriptorPreferences();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.contentDescriptorsToExclude.push(
+            UserContentDescriptorPreferences_ContentDescriptor.decode(reader, reader.uint32()),
+          );
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UserContentDescriptorPreferences {
+    return {
+      contentDescriptorsToExclude: Array.isArray(object?.contentDescriptorsToExclude)
+        ? object.contentDescriptorsToExclude.map((e: any) =>
+          UserContentDescriptorPreferences_ContentDescriptor.fromJSON(e)
+        )
+        : [],
+    };
+  },
+
+  toJSON(message: UserContentDescriptorPreferences): unknown {
+    const obj: any = {};
+    if (message.contentDescriptorsToExclude) {
+      obj.contentDescriptorsToExclude = message.contentDescriptorsToExclude.map((e) =>
+        e ? UserContentDescriptorPreferences_ContentDescriptor.toJSON(e) : undefined
+      );
+    } else {
+      obj.contentDescriptorsToExclude = [];
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UserContentDescriptorPreferences>, I>>(
+    base?: I,
+  ): UserContentDescriptorPreferences {
+    return UserContentDescriptorPreferences.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UserContentDescriptorPreferences>, I>>(
+    object: I,
+  ): UserContentDescriptorPreferences {
+    const message = createBaseUserContentDescriptorPreferences();
+    message.contentDescriptorsToExclude =
+      object.contentDescriptorsToExclude?.map((e) =>
+        UserContentDescriptorPreferences_ContentDescriptor.fromPartial(e)
+      ) || [];
+    return message;
+  },
+};
+
+function createBaseUserContentDescriptorPreferences_ContentDescriptor(): UserContentDescriptorPreferences_ContentDescriptor {
+  return { contentDescriptorid: 0, timestampAdded: 0 };
+}
+
+export const UserContentDescriptorPreferences_ContentDescriptor = {
+  encode(
+    message: UserContentDescriptorPreferences_ContentDescriptor,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.contentDescriptorid !== 0) {
+      writer.uint32(8).uint32(message.contentDescriptorid);
+    }
+    if (message.timestampAdded !== 0) {
+      writer.uint32(16).uint32(message.timestampAdded);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): UserContentDescriptorPreferences_ContentDescriptor {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUserContentDescriptorPreferences_ContentDescriptor();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 8) {
+            break;
+          }
+
+          message.contentDescriptorid = reader.uint32();
+          continue;
+        case 2:
+          if (tag !== 16) {
+            break;
+          }
+
+          message.timestampAdded = reader.uint32();
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UserContentDescriptorPreferences_ContentDescriptor {
+    return {
+      contentDescriptorid: isSet(object.contentDescriptorid) ? Number(object.contentDescriptorid) : 0,
+      timestampAdded: isSet(object.timestampAdded) ? Number(object.timestampAdded) : 0,
+    };
+  },
+
+  toJSON(message: UserContentDescriptorPreferences_ContentDescriptor): unknown {
+    const obj: any = {};
+    message.contentDescriptorid !== undefined && (obj.contentDescriptorid = Math.round(message.contentDescriptorid));
+    message.timestampAdded !== undefined && (obj.timestampAdded = Math.round(message.timestampAdded));
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UserContentDescriptorPreferences_ContentDescriptor>, I>>(
+    base?: I,
+  ): UserContentDescriptorPreferences_ContentDescriptor {
+    return UserContentDescriptorPreferences_ContentDescriptor.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UserContentDescriptorPreferences_ContentDescriptor>, I>>(
+    object: I,
+  ): UserContentDescriptorPreferences_ContentDescriptor {
+    const message = createBaseUserContentDescriptorPreferences_ContentDescriptor();
+    message.contentDescriptorid = object.contentDescriptorid ?? 0;
+    message.timestampAdded = object.timestampAdded ?? 0;
     return message;
   },
 };

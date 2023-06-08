@@ -33,8 +33,8 @@ export const getSuccessfulJsonFromResponse = (
 export const rand = (min: number, max: number = min) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
 export const randel = (arr: any[]) => arr[rand(0, arr.length-1)]
 
-export const decodeJWT = (token: string): SteamJwtData =>
-    JSON.parse(Buffer.from(token.split('.', 2)[1], 'base64').toString())
+export const decodeSteamJWT = <PAYLOAD=SteamJwtData>(steamJWTToken: string): PAYLOAD =>
+    JSON.parse(Buffer.from(steamJWTToken.split('.', 2)[1], 'base64').toString())
 
 export const encryptPasswordWithPublicKey = ({publickeyMod, publickeyExp}, password) => {
     const key = new Key()
@@ -55,7 +55,7 @@ export const drainFetchResponse = (res: Response): Response => {
 
 export const getJWTExpMcLeft = (jwt?: string) => {
     if (!jwt) return -Infinity
-    const decoded = decodeJWT(jwt)
+    const decoded = decodeSteamJWT(jwt)
     return (decoded.exp * 1000) - Date.now()
 }
 

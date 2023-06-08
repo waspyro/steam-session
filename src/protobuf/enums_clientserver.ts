@@ -1485,6 +1485,12 @@ export enum EMsg {
   k_EMsgChatServerGetPendingNotificationCountResponse = 12001,
   k_EMsgBaseSecretServer = 12100,
   k_EMsgServerSecretChanged = 12100,
+  k_EMsgBaseWG = 12200,
+  k_EMsgWGConnectionProtocolError = 12200,
+  k_EMsgWGConnectionValidateUserToken = 12201,
+  k_EMsgWGConnectionValidateUserTokenResponse = 12202,
+  k_EMsgWGConnectionLegacyWGRequest = 12203,
+  k_EMsgWGConnectionLegacyWGResponse = 12204,
   UNRECOGNIZED = -1,
 }
 
@@ -5936,6 +5942,24 @@ export function eMsgFromJSON(object: any): EMsg {
     case 12100:
     case "k_EMsgServerSecretChanged":
       return EMsg.k_EMsgServerSecretChanged;
+    case 12200:
+    case "k_EMsgBaseWG":
+      return EMsg.k_EMsgBaseWG;
+    case 12200:
+    case "k_EMsgWGConnectionProtocolError":
+      return EMsg.k_EMsgWGConnectionProtocolError;
+    case 12201:
+    case "k_EMsgWGConnectionValidateUserToken":
+      return EMsg.k_EMsgWGConnectionValidateUserToken;
+    case 12202:
+    case "k_EMsgWGConnectionValidateUserTokenResponse":
+      return EMsg.k_EMsgWGConnectionValidateUserTokenResponse;
+    case 12203:
+    case "k_EMsgWGConnectionLegacyWGRequest":
+      return EMsg.k_EMsgWGConnectionLegacyWGRequest;
+    case 12204:
+    case "k_EMsgWGConnectionLegacyWGResponse":
+      return EMsg.k_EMsgWGConnectionLegacyWGResponse;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -8909,6 +8933,18 @@ export function eMsgToJSON(object: EMsg): string {
       return "k_EMsgBaseSecretServer";
     case EMsg.k_EMsgServerSecretChanged:
       return "k_EMsgServerSecretChanged";
+    case EMsg.k_EMsgBaseWG:
+      return "k_EMsgBaseWG";
+    case EMsg.k_EMsgWGConnectionProtocolError:
+      return "k_EMsgWGConnectionProtocolError";
+    case EMsg.k_EMsgWGConnectionValidateUserToken:
+      return "k_EMsgWGConnectionValidateUserToken";
+    case EMsg.k_EMsgWGConnectionValidateUserTokenResponse:
+      return "k_EMsgWGConnectionValidateUserTokenResponse";
+    case EMsg.k_EMsgWGConnectionLegacyWGRequest:
+      return "k_EMsgWGConnectionLegacyWGRequest";
+    case EMsg.k_EMsgWGConnectionLegacyWGResponse:
+      return "k_EMsgWGConnectionLegacyWGResponse";
     case EMsg.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";

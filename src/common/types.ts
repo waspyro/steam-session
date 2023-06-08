@@ -1,4 +1,4 @@
-import {EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
+import {CAuthenticationDeviceDetails, EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
 import type SteamSession from '../constructs/SteamSession'
 import {RequestInit} from "undici";
 import {Response} from "undici";
@@ -42,8 +42,10 @@ export type SessionEnv = {
     device: {
         deviceFriendlyName: string,
         platformType: EAuthTokenPlatformType,
-        osType: null | EOSType,
+        osType: null | EOSType | number,
         gamingDeviceType: null | number,
+        clientCount: number,
+        machineId: Buffer
     }
 }
 

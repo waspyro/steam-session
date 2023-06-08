@@ -1,7 +1,7 @@
 import SteamSession from "../src";
 import {EGuardMap, EGuardType, IActorActions, IPollOptions} from "../src/common/types";
 import {WebBrowser} from "../src/constructs/RequestEnvironments";
-import {decodeJWT, getSuccessfulResponseJson} from "../src/common/utils";
+import {decodeSteamJWT, getSuccessfulResponseJson} from "../src/common/utils";
 
 const {clientWindows, webBrowser, mobileIOS, clientMacOS} = SteamSession.env
 const credentials = ['login', 'password', 'sharedSecret'] as const
@@ -12,7 +12,7 @@ async function minimalExample() {
     const sessionJwtTokens = await session.getJWTViaCredentials(credentials[0], credentials[1], credentials[2]
         ? SteamSession.GenerateAndSubmitDeviceCodeActor(credentials[2]) : undefined)
     const steamLoginSecureCookieValue = await session.refreshCookies()
-    console.log('is client token:', decodeJWT(sessionJwtTokens.access).aud.includes('client'))
+    console.log('is client token:', decodeSteamJWT(sessionJwtTokens.access).aud.includes('client'))
 }
 
 async function manualExample() {
@@ -70,7 +70,7 @@ async function automaticExampleWithProxy() {
     //1. mobile session will be updated via credentials
     //2. webSession will be authorized via mobile session
     //3. steamLoginSecure cookie (access token) will be refreshed via refreshToken
-    const webSessionAccessCookieToken = decodeJWT(webSession.getAccessCookieValue())
+    const webSessionAccessCookieToken = decodeSteamJWT(webSession.getAccessCookieValue())
     console.log('ip address of your "web" proxy', webSessionAccessCookieToken.ip_subject)
     console.log('ip address of your "mobile" proxy', webSessionAccessCookieToken.ip_confirmer)
 

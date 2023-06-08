@@ -3,29 +3,41 @@ import HttpAuthConversation from "./HttpAuthConversation";
 import {
     EGuardMap,
     EGuardType,
-    IActorActions, IPollOptions,
+    IActorActions,
+    IPollOptions,
     obj,
     PollContext,
     PollingOptions,
     RequestOpts,
     SessionEnv,
-    SessionSignatureData, SteamSessionConstructorParams,
-    SteamSessionTokens, SteamSessionTokensFullName, TokenRefresher
+    SessionSignatureData,
+    SteamSessionConstructorParams,
+    SteamSessionTokens,
+    SteamSessionTokensFullName,
+    TokenRefresher
 } from "../common/types";
 import Listenable from "listenable";
 import {PersistormInstance} from "persistorm";
 import totp from 'steam-totp'
 import {ClientMacOS, ClientWindows, MobileIOS, WebBrowser} from "./RequestEnvironments";
 import {
-    createSessionidCookie, createSteamSessionSignature,
-    decodeJWT,
+    createSessionidCookie,
+    createSteamSessionSignature,
+    decodeSteamJWT,
     drainFetchResponse,
     encryptPasswordWithPublicKey,
-    formDataFromObject, getJWTExpMcLeft, getSuccessfulJsonFromResponse,
-    isExpired, socksDispatcherFromUrl, transformGuardsArrayToObjectWithContext,
+    formDataFromObject,
+    getJWTExpMcLeft,
+    getSuccessfulJsonFromResponse,
+    isExpired,
+    socksDispatcherFromUrl,
+    transformGuardsArrayToObjectWithContext,
 } from "../common/utils";
 import {BadParamError, BadProtobufResponse, MalformedResponse} from "./Errors";
-import {CAuthenticationBeginAuthSessionViaCredentialsResponse} from "../protobuf/steammessages_auth.steamclient";
+import {
+    CAuthenticationBeginAuthSessionViaCredentialsResponse,
+    ETokenRenewalType
+} from "../protobuf/steammessages_auth.steamclient";
 import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "../protobuf/enums";
 import WebSocketAuthConversation from "./WebSocketAuthConversation";
@@ -225,7 +237,7 @@ export default class SteamSession {
         if(refreshToken !== undefined) {
             updated.refresh = this.tokens.refresh = refreshToken
             if(refreshToken !== null) {
-                const decoded = decodeJWT(refreshToken)
+                const decoded = decodeSteamJWT(refreshToken)
                 this.expiration.refresh = decoded.exp * 1000
                 if(!this.steamid) this.steamid = decoded.sub
             } else {
@@ -235,7 +247,7 @@ export default class SteamSession {
         if(accessToken !== undefined) {
             updated.access = this.tokens.access = accessToken
             if(accessToken !== null) {
-                this.expiration.access = decodeJWT(refreshToken).exp * 1000
+                this.expiration.access = decodeSteamJWT(refreshToken).exp * 1000
             } else {
                 this.expiration.access = 0
             }
@@ -330,7 +342,7 @@ export default class SteamSession {
             if(!force && accessToken) return this.tokens.access
         }
         return this.authentication.generateAccessTokenForApp({
-            refreshToken, steamid: this.steamid
+            refreshToken, steamid: this.steamid, renewalType: ETokenRenewalType.k_ETokenRenewalType_Allow
         }).then(value => this.updateTokens(value).access)
     }
 
@@ -363,7 +375,7 @@ export default class SteamSession {
 
     updateAccessCookieExpiration(cookieValue?: string) {
         const accessCookieValue = cookieValue || this.getAccessCookieValue()
-        if(accessCookieValue) return this.expiration.cookie = decodeJWT(accessCookieValue).exp * 1000
+        if(accessCookieValue) return this.expiration.cookie = decodeSteamJWT(accessCookieValue).exp * 1000
     }
 
     #refreshCookiesIntervalTimerRef = null
@@ -450,17 +462,17 @@ export default class SteamSession {
             params.cookieStore = new CookieStore()
             await params.cookieStore.usePersistentStorage(store.col('cookies'))
         }
-        const saved = await store.getm(['refresh', 'access', 'env'])
-        params.tokens = {refreshToken: saved[0], accessToken: saved[1]}
-        if(!forceNewEnv && saved[2]) {
-            params.env = saved[2]
+        const [refreshToken, accessToken, oldEnv] = await store.getm(['refresh', 'access', 'env'])
+        params.tokens = {refreshToken, accessToken}
+        if(!forceNewEnv && oldEnv) {
+            params.env = oldEnv
         } else {
             params.env = env()
             await store.set('env', params.env)
         }
         const session = new SteamSession(params)
         session.events.token.on(store.seto)
-        session.events.env.on(env => store.set('env', env)) //if used decides to change env on the fly
+        session.events.env.on(env => store.set('env', env)) //if user decides to change env on the fly
         return session
     }
 

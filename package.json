@@ -1,6 +1,6 @@
 {
   "name": "steam-session",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,11 +9,12 @@
   ],
   "scripts": {
     "prepare": "rm -rf dist && tsc --outDir dist",
+    "protoupdate": "./scripts/protobuf_update",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "description": "",
   "keywords": [],
-  "author": "waspyru",
+  "author": "waspyro",
   "license": "ISC",
   "dependencies": {
     "cookie-store": "github:waspyro/node-cookie-store",
@@ -21,16 +22,16 @@
     "https-proxy-agent": "^5.0.1",
     "listenable": "github:waspyro/ts-listenable",
     "node-bignumber": "^1.2.2",
-    "persistorm": "github:waspyro/persistorm",
-    "protobufjs": "^7.1.2",
+    "protobufjs": "^7.2.3",
     "socks-proxy-agent": "^7.0.0",
     "steam-totp": "^2.1.2",
-    "undici": "^5.22.0",
+    "undici": "^5.22.1",
     "ws": "^8.13.0"
   },
   "devDependencies": {
     "@types/steam-totp": "^2.1.0",
     "@types/ws": "^8.5.4",
-    "ts-proto": "^1.140.0"
+    "persistorm": "github:waspyro/persistorm",
+    "ts-proto": "^1.148.2"
   }
 }
