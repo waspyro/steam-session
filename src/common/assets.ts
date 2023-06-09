@@ -43,5 +43,7 @@ export const emptySteamSocketHeaders: CMsgProtoBufHeader = {
     routingGc: undefined,
     ip: undefined,
     ipV6: undefined,
-    sessionDisposition: undefined
+    sessionDisposition: undefined,
+    wgToken: '',
+    webuiAuthKey: ''
 }
