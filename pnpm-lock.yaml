@@ -7,7 +7,7 @@ settings:
 dependencies:
   cookie-store:
     specifier: github:waspyro/node-cookie-store
-    version: github.com/waspyro/node-cookie-store/7003a00db1270b95a7fc0f5cc5b092981ff51e03
+    version: github.com/waspyro/node-cookie-store/4de32b1db8ae94f28c00dc2ad02592082105f304
   fetch-socks:
     specifier: ^1.2.0
     version: 1.2.0
@@ -323,10 +323,10 @@ packages:
         optional: true
     dev: false
 
-  github.com/waspyro/node-cookie-store/7003a00db1270b95a7fc0f5cc5b092981ff51e03:
-    resolution: {tarball: https://codeload.github.com/waspyro/node-cookie-store/tar.gz/7003a00db1270b95a7fc0f5cc5b092981ff51e03}
+  github.com/waspyro/node-cookie-store/4de32b1db8ae94f28c00dc2ad02592082105f304:
+    resolution: {tarball: https://codeload.github.com/waspyro/node-cookie-store/tar.gz/4de32b1db8ae94f28c00dc2ad02592082105f304}
     name: cookie-store
-    version: 1.0.1
+    version: 1.0.2
     prepare: true
     requiresBuild: true
     dependencies:
