@@ -124,10 +124,10 @@ export default class SteamSession {
         let cookiesUsed: CarryJar | null = null
         if(opts.autoCookies && opts.appendCookies) { //true false []
             cookiesUsed = this.cookies.get(url)
-            if(Array.isArray(opts.appendCookies))
-                for(const [k, v = ''] of opts.appendCookies)
-                    if(v === '') cookiesUsed.delete(k)
-                    else cookiesUsed.set(k, v)
+            if(typeof opts.appendCookies === 'object')
+                for(const k in opts.appendCookies)
+                    if(opts.appendCookies[k]) cookiesUsed.set(k, opts.appendCookies[k])
+                    else cookiesUsed.delete(k)
             opts.headers.cookie = cookiesUsed.toString()
         }
 

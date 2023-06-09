@@ -11,7 +11,7 @@ export type obj = Record<string, any>
 export type Patch<T, Props> = Omit<T, keyof Props> & Props;
 export type RequestOpts = Patch<RequestInit, {
     autoCookies?: Boolean,
-    appendCookies?: Boolean | [string, string?][],
+    appendCookies?: Boolean | Record<string, string | null | undefined | false>,
     rejectSetCookies?: Boolean | string[]
     followRedirects?: number
     headers?: {cookie?: string, [key: string]: string}
