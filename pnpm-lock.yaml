@@ -41,7 +41,7 @@ devDependencies:
     specifier: ^2.1.0
     version: 2.1.0
   '@types/ws':
-    specifier: ^8.5.4
+    specifier: ^8.5.5
     version: 8.5.5
   persistorm:
     specifier: github:waspyro/persistorm

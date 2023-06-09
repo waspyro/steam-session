@@ -1,6 +1,6 @@
 {
   "name": "steam-session",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/steam-totp": "^2.1.0",
-    "@types/ws": "^8.5.4",
+    "@types/ws": "^8.5.5",
     "persistorm": "github:waspyro/persistorm",
     "ts-proto": "^1.148.2"
   }
