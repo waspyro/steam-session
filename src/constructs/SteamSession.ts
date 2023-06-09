@@ -9,6 +9,7 @@ import {
     PollContext,
     PollingOptions,
     RequestOpts,
+    ResponseWithSetCookies,
     SessionEnv,
     SessionSignatureData,
     SteamSessionConstructorParams,
@@ -38,13 +39,13 @@ import {
     CAuthenticationBeginAuthSessionViaCredentialsResponse,
     ETokenRenewalType
 } from "../protobuf/steammessages_auth.steamclient";
-import {CookieData} from "cookie-store/dist/types";
 import {ESessionPersistence} from "../protobuf/enums";
 import WebSocketAuthConversation from "./WebSocketAuthConversation";
 import SteamSocket from "./SteamSocket";
 import {Dispatcher, fetch, ProxyAgent, Response} from "undici";
 import {HttpsProxyAgent} from "https-proxy-agent";
 import {SocksProxyAgent} from "socks-proxy-agent";
+import {CarryJar} from "cookie-store/dist/CarryJar";
 
 export default class SteamSession {
     constructor({env, cookieStore, refresher, tokens, proxy}: SteamSessionConstructorParams = {}) {
@@ -109,26 +110,47 @@ export default class SteamSession {
         this.wsAgent = undefined
     }
 
-    request = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
+    //todo: cleanup, split logic for setting default opts, cookies set | save, request, response
+    request = async (url: URL | string, opts: RequestOpts = {}): Promise<ResponseWithSetCookies> => {
         if(typeof url === 'string') url = new URL(url)
         opts.dispatcher = this.fetchDispatcher
         opts.headers = Object.assign({}, opts.headers, this.env.httpHeaders)
-        let cookiesUsed = null
-        if(opts.cookiesSet !== 'manual') {
-            cookiesUsed = this.cookies.get(url)
-            opts.headers.cookie = cookiesUsed.toString()
-        }
+
         if(!opts.redirect) opts.redirect = 'manual'
         if(opts.followRedirects === undefined) opts.followRedirects = 2
+        if(opts.autoCookies === undefined) opts.autoCookies = true
+        if(opts.appendCookies === undefined) opts.appendCookies = true
+
+        let cookiesUsed: CarryJar | null = null
+        if(opts.autoCookies && opts.appendCookies) { //true false []
+            cookiesUsed = this.cookies.get(url)
+            if(Array.isArray(opts.appendCookies))
+                for(const [k, v = ''] of opts.appendCookies)
+                    if(v === '') cookiesUsed.delete(k)
+                    else cookiesUsed.set(k, v)
+            opts.headers.cookie = cookiesUsed.toString()
+        }
+
         this.events.request.emit([url, opts, cookiesUsed])
-        return fetch(url, opts).then(resp => {
-            const newCookies = opts.cookiesSave === 'manual' ? null
-                : this.cookies.addMany(CookieStore.parseSetCookies(resp.headers.getSetCookie(), url as URL))  //why 😭
-            this.events.response.emit([url as URL, opts, cookiesUsed, resp, newCookies])
-            if(resp.status === 302 && resp.headers.has('location') && opts.followRedirects-- > 0)
-                return this.request(resp.headers.get('location'), opts) //.redirected not working, 302 not needed
-            return resp
-        })
+
+        const resp = await fetch(url, opts) as ResponseWithSetCookies
+        resp.setCookies = CookieStore.parseSetCookies(resp.headers.getSetCookie(), url)
+
+        if(opts.autoCookies && opts.rejectSetCookies !== true) { //undefined false true []
+            const cookiesToReject = Array.isArray(opts.rejectSetCookies)
+              ? opts.rejectSetCookies // []
+              : [] //undefined false
+            for(const cookie of resp.setCookies)
+                if(!cookiesToReject.includes(cookie.name))
+                    this.cookies.add(cookie)
+        }
+
+
+        this.events.response.emit([url as URL, opts, cookiesUsed, resp])
+        if(resp.status === 302 && resp.headers.has('location') && opts.followRedirects-- > 0)
+            return this.request(resp.headers.get('location'), opts) //.redirected not working, 302 not needed
+
+        return resp
     }
 
     authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
@@ -137,7 +159,7 @@ export default class SteamSession {
             : this.request(url, opts)
     }
 
-    //we can await this.tokenRefresher(this) from here but i dont want to use async function for it
+    //we can await this.tokenRefresher(this) from here, but I don't want to use async function for it
     getRefreshTokenIfUpdated = (): null | string => isExpired(this.expiration.refresh) ? null : this.tokens.refresh
     getAccessTokenIfUpdated  = (): null | string => isExpired(this.expiration.access)  ? null : this.tokens.access
 
@@ -160,7 +182,7 @@ export default class SteamSession {
             el.params.steamID = json.steamID || this.steamid
             const response = await this.request(el.url, {
                 body: formDataFromObject(el.params),
-                method: 'POST', cookiesSave: 'manual'
+                method: 'POST',
             }).then(drainFetchResponse)
             const cookies = response.headers.getSetCookie() //todo: multiple hostnames different cookies
             const accessCookie = cookies.find(c => c.startsWith('steamLoginSecure'))
@@ -275,8 +297,8 @@ export default class SteamSession {
     }
 
     readonly events = {
-        request: new Listenable<[URL, RequestOpts, (CookieData[] | null)]>(),
-        response: new Listenable<[URL, RequestOpts, (CookieData[] | null), Response, (CookieData[] | null)]>(),
+        request: new Listenable<[URL, RequestOpts, (CarryJar | null)]>(),
+        response: new Listenable<[URL, RequestOpts, (CarryJar | null), ResponseWithSetCookies]>(),
         token: new Listenable<SteamSessionTokens>(),
         env: new Listenable<SessionEnv>(),
     }
@@ -338,7 +360,7 @@ export default class SteamSession {
         const refreshToken = this.getRefreshTokenIfUpdated()
         if(!refreshToken) {
             await this.updateRefreshToken() //initial refresher should update both tokens
-            const accessToken = this.getAccessTokenIfUpdated() //but we'll check anyways
+            const accessToken = this.getAccessTokenIfUpdated() //but we'll check anyway
             if(!force && accessToken) return this.tokens.access
         }
         return this.authentication.generateAccessTokenForApp({
@@ -347,14 +369,16 @@ export default class SteamSession {
     }
 
     updateSessionidCookieValue(domain = '.', create = true) {
-        let sessionidCookie = this.cookies.get({hostname: domain}).find(c => c.name === 'sessionid')
-        if(create && !sessionidCookie) sessionidCookie = this.cookies.add(createSessionidCookie(domain))
-        if(sessionidCookie) this.sessionid = sessionidCookie.value
+        let sessionidCookieValue = this.cookies.get({hostname: domain}).get('sessionid')
+        if(create && !sessionidCookieValue)
+            sessionidCookieValue = this.cookies.add(createSessionidCookie(domain)).value
+        if(sessionidCookieValue)
+            this.sessionid = sessionidCookieValue
         return this.sessionid
     }
 
     getSessionidCookieValue(domain = '.', create = true) {
-        const sessionid = this.cookies.get({hostname: domain}).find(c => c.name === 'sessionid')?.value
+        const sessionid = this.cookies.get({hostname: domain}).get('sessionid')
         if(create && !sessionid) return this.cookies.add(createSessionidCookie(domain)).value
         return sessionid
     }
@@ -368,9 +392,8 @@ export default class SteamSession {
         return [profileUrl[0], profileUrl[3], profileUrl[2] as "profiles" | "id"]
     }
 
-    getAccessCookieValue() { //todo: multiple hostnames different cookies
-        return this.cookies.get({hostname: '.'})
-            .find(c => c.name === 'steamLoginSecure')?.value || null
+    getAccessCookieValue(): string | null { //todo: multiple hostnames different cookies
+        return this.cookies.get({hostname: '.'}).get('steamLoginSecure') || null
     }
 
     updateAccessCookieExpiration(cookieValue?: string) {

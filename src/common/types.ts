@@ -1,19 +1,23 @@
-import {CAuthenticationDeviceDetails, EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
+import { EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
 import type SteamSession from '../constructs/SteamSession'
 import {RequestInit} from "undici";
 import {Response} from "undici";
 import CookieStore from "cookie-store";
+import {CookieData} from "cookie-store/dist/types";
 
 export type fn = (...args: any[]) => any
 export type obj = Record<string, any>
 
 export type Patch<T, Props> = Omit<T, keyof Props> & Props;
 export type RequestOpts = Patch<RequestInit, {
-    cookiesSet?: 'manual'
-    cookiesSave?: 'manual'
+    autoCookies?: Boolean,
+    appendCookies?: Boolean | [string, string?][],
+    rejectSetCookies?: Boolean | string[]
     followRedirects?: number
     headers?: {cookie?: string, [key: string]: string}
 }>
+
+export type ResponseWithSetCookies = Response & {setCookies: CookieData[]}
 
 export enum EGuardType {
     Unknown = 0,
