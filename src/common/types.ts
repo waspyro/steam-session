@@ -32,7 +32,7 @@ export enum EGuardType {
 
 export type EGuardMap = {[key in EGuardType]?: string | true}
 
-export type SessionEnv = {
+export type SessionEnv<META={}> = {
     websiteId: 'Community' | 'Mobile' | 'Client',
     cookies: obj,
     httpHeaders: {
@@ -51,6 +51,8 @@ export type SessionEnv = {
         clientCount: number,
         machineId: Buffer
     }
+    meta: Partial<META> & obj,
+    updated: number
 }
 
 export type CMsg = {encode: fn, decode: fn}

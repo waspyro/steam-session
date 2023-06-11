@@ -487,7 +487,7 @@ export default class SteamSession {
         }
         const [refreshToken, accessToken, oldEnv] = await store.getm(['refresh', 'access', 'env'])
         params.tokens = {refreshToken, accessToken}
-        if(!forceNewEnv && oldEnv) {
+        if(!forceNewEnv && oldEnv && oldEnv.updated) {
             params.env = oldEnv
         } else {
             params.env = env()

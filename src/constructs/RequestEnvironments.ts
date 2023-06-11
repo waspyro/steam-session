@@ -3,17 +3,32 @@ import {rand, randel} from "../common/utils";
 import {EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
 import {
     defaultIOSClientUA,
-    defaultMacOSClientUA, defaultWebUA,
+    defaultMacOSClientUA,
     defaultWindowsClientUA,
     ENG_APB, ipadOSHttpUA, ipadOSProtoClientUA,
     macModels,
     topNames
 } from "../common/assets";
+import UserAgent from "user-agents";
 
-export const WebBrowser = (userAgent?: string | {toString: () => string}, extraHttpHeaders: obj = {}): SessionEnv => {
-    if(!userAgent) userAgent = defaultWebUA
-    else userAgent = userAgent.toString()
+type WebBrowserMeta = {
+    viewport: {
+        height: number,
+        width: number
+    },
+}
+
+export const WebBrowser = (
+  userAgent?: string,
+  extraHttpHeaders: obj = {},
+  meta: WebBrowserMeta = {} as any
+): SessionEnv<WebBrowserMeta> => {
+    const {userAgent: defaultUA, viewportHeight, viewportWidth} = new UserAgent({deviceCategory: 'desktop'}).data
+    if(!userAgent) userAgent = defaultUA
     extraHttpHeaders['user-agent'] = userAgent
+    if(!meta.viewport) meta.viewport = {} as any
+    if(!meta.viewport.height) meta.viewport.height = viewportHeight
+    if(!meta.viewport.width) meta.viewport.width = viewportWidth
     return {
         websiteId: 'Community',
         cookies: {},
@@ -29,7 +44,9 @@ export const WebBrowser = (userAgent?: string | {toString: () => string}, extraH
             deviceFriendlyName: userAgent as string,
             clientCount: 0,
             machineId: Buffer.alloc(0),
-        }
+        },
+        meta,
+        updated: Date.now()
     }
 }
 
@@ -54,7 +71,9 @@ export const ClientMacOS = (
             gamingDeviceType: 1,
             clientCount: 0,
             machineId: new Buffer(0)
-        }
+        },
+        meta: {},
+        updated: Date.now()
     }
     return env
 }
@@ -104,16 +123,23 @@ export const ClientWindows = (
             deviceFriendlyName: userAgent,
             clientCount: 0,
             machineId: new Buffer(0)
-        }
+        },
+        meta: {},
+        updated: Date.now()
     }
 }
 
+type MobileMeta = {
+    deviceid: string
+}
+
 export const MobileIOS = (
-    deviceFriendlyName = getRandomIOSDeviceName(),
-    protoAgent = randel([defaultIOSClientUA, ipadOSProtoClientUA]),
-    httpAgent = ipadOSHttpUA,
-    osVersion = randel([-571, -570, -569, -568]), //EOSType.IOS12
-): SessionEnv => {
+  meta: MobileMeta = {} as any,
+  deviceFriendlyName = getRandomIOSDeviceName(),
+  protoAgent = randel([defaultIOSClientUA, ipadOSProtoClientUA]),
+  httpAgent = ipadOSHttpUA,
+  osVersion = randel([-571, -570, -569, -568]), //EOSType.IOS12
+): SessionEnv<MobileMeta> => {
     return {
         websiteId: 'Mobile',
         cookies: {
@@ -133,7 +159,9 @@ export const MobileIOS = (
             deviceFriendlyName,
             clientCount: 0,
             machineId: Buffer.alloc(0)
-        }
+        },
+        meta,
+        updated: Date.now()
     }
 }
 
