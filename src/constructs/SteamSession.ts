@@ -12,13 +12,12 @@ import {
     ResponseWithSetCookies,
     SessionEnv,
     SessionSignatureData,
-    SteamSessionConstructorParams,
+    SteamSessionConstructorParams, SteamSessionRestoreConstructorParams,
     SteamSessionTokens,
     SteamSessionTokensFullName,
     TokenRefresher
 } from "../common/types";
 import Listenable from "listenable";
-import {PersistormInstance} from "persistorm";
 import totp from 'steam-totp'
 import {ClientMacOS, ClientWindows, MobileIOS, WebBrowser} from "./RequestEnvironments";
 import {
@@ -475,11 +474,7 @@ export default class SteamSession {
     static env = {webBrowser: WebBrowser, mobileIOS: MobileIOS, clientWindows: ClientWindows, clientMacOS: ClientMacOS}
 
     static restore = async (
-        {store, env, forceNewEnv = false, ...params}: {
-            store: PersistormInstance,
-            env: (...args: any[]) => SessionEnv,
-            forceNewEnv?: boolean,
-        } & Omit<SteamSessionConstructorParams, 'env'> & obj,
+        {store, env, forceNewEnv = false, ...params}: SteamSessionRestoreConstructorParams,
     ): Promise<SteamSession> => {
         if(!params.cookieStore) {
             params.cookieStore = new CookieStore()

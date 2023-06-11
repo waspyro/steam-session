@@ -4,6 +4,7 @@ import {RequestInit} from "undici";
 import {Response} from "undici";
 import CookieStore from "cookie-store";
 import {CookieData} from "cookie-store/dist/types";
+import {PersistormInstance} from "persistorm";
 
 export type fn = (...args: any[]) => any
 export type obj = Record<string, any>
@@ -224,5 +225,12 @@ export type SteamSessionConstructorParams = {
     proxy?: URL | string,
     refresher?: TokenRefresher
 }
+
+export type SteamSessionRestoreConstructorParams = {
+    store: PersistormInstance,
+    env: (...args: any[]) => SessionEnv,
+    forceNewEnv?: boolean,
+    initialize?: boolean
+} & Omit<SteamSessionConstructorParams, 'env'> & obj
 
 export type UndiciResponse = Response
