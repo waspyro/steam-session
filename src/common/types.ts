@@ -230,7 +230,6 @@ export type SteamSessionRestoreConstructorParams = {
     store: PersistormInstance,
     env: (...args: any[]) => SessionEnv,
     forceNewEnv?: boolean,
-    initialize?: boolean
 } & Omit<SteamSessionConstructorParams, 'env'> & obj
 
 export type UndiciResponse = Response
