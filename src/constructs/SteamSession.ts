@@ -474,20 +474,18 @@ export default class SteamSession {
     static env = {webBrowser: WebBrowser, mobileIOS: MobileIOS, clientWindows: ClientWindows, clientMacOS: ClientMacOS}
 
     static restore = async (
-        {store, env, forceNewEnv = false, ...params}: SteamSessionRestoreConstructorParams,
+        {store, env, ...params}: SteamSessionRestoreConstructorParams,
     ): Promise<SteamSession> => {
         if(!params.cookieStore) {
             params.cookieStore = new CookieStore()
             await params.cookieStore.usePersistentStorage(store.col('cookies'))
         }
         const [refreshToken, accessToken, oldEnv] = await store.getm(['refresh', 'access', 'env'])
-        params.tokens = {refreshToken, accessToken}
-        if(!forceNewEnv && oldEnv) {
-            params.env = oldEnv
-        } else {
-            params.env = env()
+        params.tokens = {refreshToken, accessToken};
+
+        if ((params.env = env(oldEnv || {})).updated !== oldEnv?.updated)
             await store.set('env', params.env)
-        }
+
         const session = new SteamSession(params)
         session.events.token.on(store.seto)
         session.events.env.on(env => store.set('env', env)) //if user decides to change env on the fly

@@ -29,7 +29,8 @@ export const WebBrowser = (userAgent?: string | {toString: () => string}, extraH
             deviceFriendlyName: userAgent as string,
             clientCount: 0,
             machineId: Buffer.alloc(0),
-        }
+        },
+        updated: Date.now()
     }
 }
 
@@ -53,8 +54,9 @@ export const ClientMacOS = (
             osType: Number(osType),
             gamingDeviceType: 1,
             clientCount: 0,
-            machineId: new Buffer(0)
-        }
+            machineId: Buffer.alloc(0)
+        },
+        updated: Date.now()
     }
     return env
 }
@@ -103,8 +105,9 @@ export const ClientWindows = (
             osType: windowsVersion,
             deviceFriendlyName: userAgent,
             clientCount: 0,
-            machineId: new Buffer(0)
-        }
+            machineId: Buffer.alloc(0)
+        },
+        updated: Date.now()
     }
 }
 
@@ -133,7 +136,8 @@ export const MobileIOS = (
             deviceFriendlyName,
             clientCount: 0,
             machineId: Buffer.alloc(0)
-        }
+        },
+        updated: Date.now()
     }
 }
 

@@ -33,7 +33,7 @@ export enum EGuardType {
 
 export type EGuardMap = {[key in EGuardType]?: string | true}
 
-export type SessionEnv = {
+export type SessionEnv<BUFFER=Buffer>  = {
     websiteId: 'Community' | 'Mobile' | 'Client',
     cookies: obj,
     httpHeaders: {
@@ -50,8 +50,9 @@ export type SessionEnv = {
         osType: null | EOSType | number,
         gamingDeviceType: null | number,
         clientCount: number,
-        machineId: Buffer
-    }
+        machineId: BUFFER
+    },
+    updated: number
 }
 
 export type CMsg = {encode: fn, decode: fn}
@@ -228,8 +229,7 @@ export type SteamSessionConstructorParams = {
 
 export type SteamSessionRestoreConstructorParams = {
     store: PersistormInstance,
-    env: (...args: any[]) => SessionEnv,
-    forceNewEnv?: boolean,
+    env: (oldEnv?: SessionEnv) => SessionEnv,
 } & Omit<SteamSessionConstructorParams, 'env'> & obj
 
 export type UndiciResponse = Response
