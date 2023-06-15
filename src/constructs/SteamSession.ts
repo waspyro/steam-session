@@ -41,7 +41,7 @@ import {
 import {ESessionPersistence} from "../protobuf/enums";
 import WebSocketAuthConversation from "./WebSocketAuthConversation";
 import SteamSocket from "./SteamSocket";
-import {Dispatcher, fetch, ProxyAgent, Response} from "undici";
+import {Dispatcher, fetch, ProxyAgent} from "undici";
 import {HttpsProxyAgent} from "https-proxy-agent";
 import {SocksProxyAgent} from "socks-proxy-agent";
 import {CarryJar} from "cookie-store/dist/CarryJar";
@@ -49,6 +49,8 @@ import {CarryJar} from "cookie-store/dist/CarryJar";
 export default class SteamSession {
     constructor({env, cookieStore, refresher, tokens, proxy}: SteamSessionConstructorParams = {}) {
         this.env = env ?? WebBrowser()
+        if((this.env as any).device.machineId?.type === 'Buffer') //fix parsed JSON.stringify
+            this.env.device.machineId = Buffer.from((this.env as any).device.machineId.data)
         this.cookies = cookieStore ?? new CookieStore()
         this.updateSessionidCookieValue()
         this.updateAccessCookieExpiration()
@@ -152,7 +154,7 @@ export default class SteamSession {
         return resp
     }
 
-    authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<Response> => {
+    authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<ResponseWithSetCookies> => {
         return isExpired(this.expiration.cookie)
             ? this.refreshCookies().then(() => this.request(url, opts))
             : this.request(url, opts)
