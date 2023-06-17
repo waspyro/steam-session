@@ -32,6 +32,6 @@
     "@types/steam-totp": "^2.1.0",
     "@types/ws": "^8.5.5",
     "persistorm": "github:waspyro/persistorm",
-    "ts-proto": "^1.148.2"
+    "ts-proto": "^1.149.0"
   }
 }

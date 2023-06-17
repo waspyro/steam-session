@@ -4,3 +4,4 @@ assets/*
 dist
 test
 .fleet
+pnpm-lock.yaml

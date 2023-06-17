@@ -1,6 +1,6 @@
 import {BadHTTPStatusResponseError, BadJSONResponse, BadProtobufResponse} from "../constructs/Errors";
 import {Key, hex2b64} from 'node-bignumber'
-import {CMsg, EGuardType, obj, SteamJwtData} from "./types";
+import {CMsg, EGuardType, obj, SessionEnv, SteamJwtData} from "./types";
 import {CAuthenticationAllowedConfirmation} from "../protobuf/steammessages_auth.steamclient";
 import {createHmac, randomBytes} from "crypto";
 import {emptySteamSocketHeaders} from "./assets";
@@ -113,4 +113,12 @@ export const socksDispatcherFromUrl = (url: URL) => {
         userId: url.username,
         password: url.password
     })
+}
+
+//fix for – Buffer.isBuffer(JSON.parse(JSON.stringify(Buffer.alloc(0))).buf)
+export const normalizeEnv = (env: SessionEnv<{type: 'Buffer', data: any[]}> | any): SessionEnv => {
+    if(!env) return env
+    if(env.device.machineId?.type === 'Buffer')
+        env.device.machineId = Buffer.from(env.device.machineId.data)
+    return env as SessionEnv
 }

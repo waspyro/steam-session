@@ -29,7 +29,7 @@ import {
     formDataFromObject,
     getJWTExpMcLeft,
     getSuccessfulJsonFromResponse,
-    isExpired,
+    isExpired, normalizeEnv,
     socksDispatcherFromUrl,
     transformGuardsArrayToObjectWithContext,
 } from "../common/utils";
@@ -48,17 +48,17 @@ import {CarryJar} from "cookie-store/dist/CarryJar";
 
 export default class SteamSession {
     constructor({env, cookieStore, refresher, tokens, proxy}: SteamSessionConstructorParams = {}) {
-        this.env = env ?? WebBrowser()
-        if((this.env as any).device.machineId?.type === 'Buffer') //fix parsed JSON.stringify
-            this.env.device.machineId = Buffer.from((this.env as any).device.machineId.data)
-        this.cookies = cookieStore ?? new CookieStore()
+
+        this.env = normalizeEnv(env)    || WebBrowser()
+        this.cookies = cookieStore      || new CookieStore()
+        this.tokenRefresher = refresher || SteamSession.refresherNotSet
+        tokens                          && this.updateTokens(tokens)
+        proxy                           && this.useProxy(proxy)
         this.updateSessionidCookieValue()
         this.updateAccessCookieExpiration()
-        tokens    && this.updateTokens(tokens)
-        refresher && this.setTokenRefresher(refresher)
-        proxy     && this.useProxy(proxy)
 
-        if(env.websiteId !== 'Mobile') this.approveSession = SteamSession.disabledApproveSession
+        if(env.websiteId !== 'Mobile')
+            this.approveSession = SteamSession.disabledApproveSession
 
         this.authentication = env.websiteId === 'Client'
             ? new WebSocketAuthConversation(this)
@@ -349,6 +349,7 @@ export default class SteamSession {
         confirm: boolean = true,
         persistence: ESessionPersistence = ESessionPersistence.k_ESessionPersistence_Persistent
     ) => {
+        if(!sharedSecret) throw new Error('shared secret is required to approve session')
         const accessToken = this.getAccessTokenIfUpdated() || await this.updateAccessToken()
         if(!steamid) steamid = this.steamid
         return (this.authentication as HttpAuthConversation).updateAuthSessionWithMobileConfirmation({
@@ -426,17 +427,7 @@ export default class SteamSession {
         return this.tokenRefresher(this).then(() => this.tokens.refresh)
     }
 
-    private tokenRefresher: TokenRefresher = SteamSession.refresherNotSet
-
-    setTokenRefresher = (refresher: TokenRefresher) => {
-        this.tokenRefresher = refresher
-        return this
-    }
-
-    unsetTokenRefresher = () => {
-        this.tokenRefresher = SteamSession.refresherNotSet
-        return this
-    }
+    tokenRefresher: TokenRefresher
 
     static GenerateAndSubmitDeviceCodeActor = (sharedSecret: string) => {
         let oldCode = null, tries = 3;
