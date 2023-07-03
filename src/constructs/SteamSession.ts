@@ -160,6 +160,8 @@ export default class SteamSession {
             : this.request(url, opts)
     }
 
+    isExpiredSession = () => isExpired(this.expiration.cookie)
+
     //we can await this.tokenRefresher(this) from here, but I don't want to use async function for it
     getRefreshTokenIfUpdated = (): null | string => isExpired(this.expiration.refresh) ? null : this.tokens.refresh
     getAccessTokenIfUpdated  = (): null | string => isExpired(this.expiration.access)  ? null : this.tokens.access
