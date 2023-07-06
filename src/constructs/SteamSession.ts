@@ -155,9 +155,12 @@ export default class SteamSession {
     }
 
     authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<ResponseWithSetCookies> => {
-        return isExpired(this.expiration.cookie)
-            ? this.refreshCookies().then(() => this.request(url, opts))
-            : this.request(url, opts)
+        if(!this.isExpiredSession())
+            return this.request(url, opts)
+        //todo: for some reason after refreshing cookies next request still unauthorized until some time is passed. is it our fault?
+        return this.refreshCookies()
+          .then(() => new Promise(r => setTimeout(r, 2000)))
+          .then(() => this.request(url, opts))
     }
 
     isExpiredSession = () => isExpired(this.expiration.cookie)
