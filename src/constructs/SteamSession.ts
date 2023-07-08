@@ -275,7 +275,7 @@ export default class SteamSession {
         if(accessToken !== undefined) {
             updated.access = this.tokens.access = accessToken
             if(accessToken !== null) {
-                this.expiration.access = decodeSteamJWT(refreshToken).exp * 1000
+                this.expiration.access = decodeSteamJWT(accessToken).exp * 1000
             } else {
                 this.expiration.access = 0
             }
