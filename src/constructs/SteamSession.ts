@@ -59,6 +59,8 @@ export default class SteamSession {
 
         if(env.websiteId !== 'Mobile')
             this.approveSession = SteamSession.disabledApproveSession
+        if(env.websiteId === 'Community')
+            this.updateAccessToken = SteamSession.disabledUpdateAccessToken
 
         this.authentication = env.websiteId === 'Client'
             ? new WebSocketAuthConversation(this)
@@ -260,26 +262,23 @@ export default class SteamSession {
         return {}
     }
 
-    updateTokens = ({refreshToken, accessToken}: SteamSessionTokensFullName) => {
+    updateTokens = (tokens: SteamSessionTokensFullName) => {
         const updated: SteamSessionTokens = {}
-        if(refreshToken !== undefined) {
-            updated.refresh = this.tokens.refresh = refreshToken
-            if(refreshToken !== null) {
-                const decoded = decodeSteamJWT(refreshToken)
-                this.expiration.refresh = decoded.exp * 1000
-                if(!this.steamid) this.steamid = decoded.sub
-            } else {
-                this.expiration.refresh = 0
+        for(const [full, value] of Object.entries(tokens)) {
+            if( ( full !== 'refreshToken' && full !== 'accessToken')
+            ||  ( value === undefined || value === '' )) continue
+
+            const short = full.replace('Token', '')
+            updated[short] = this.tokens[short] = value
+            if(!value) {
+                this.expiration[short] = 0
+                continue
             }
+            const decoded = decodeSteamJWT(value)
+            this.expiration[short] = decoded.exp * 1000
+            if(!this.steamid) this.steamid = decoded.sub
         }
-        if(accessToken !== undefined) {
-            updated.access = this.tokens.access = accessToken
-            if(accessToken !== null) {
-                this.expiration.access = decodeSteamJWT(accessToken).exp * 1000
-            } else {
-                this.expiration.access = 0
-            }
-        }
+
         this.events.token.emit(updated)
         return this.tokens
     }
@@ -363,15 +362,20 @@ export default class SteamSession {
         }, accessToken)
     }
 
+    private static disabledUpdateAccessToken = () => {
+        throw new Error('"updateAccessToken" method cannot be used in WebBrowser environment')
+    }
+
     updateAccessToken = async (force = false): Promise<string> => {
-        const refreshToken = this.getRefreshTokenIfUpdated()
+        let refreshToken = this.getRefreshTokenIfUpdated()
         if(!refreshToken) {
-            await this.updateRefreshToken() //initial refresher should update both tokens
+            refreshToken = await this.updateRefreshToken() //initial refresher should update both tokens
             const accessToken = this.getAccessTokenIfUpdated() //but we'll check anyway
             if(!force && accessToken) return this.tokens.access
         }
         return this.authentication.generateAccessTokenForApp({
-            refreshToken, steamid: this.steamid, renewalType: ETokenRenewalType.k_ETokenRenewalType_Allow
+            refreshToken, steamid: this.steamid,
+            renewalType: ETokenRenewalType.k_ETokenRenewalType_None
         }).then(value => this.updateTokens(value).access)
     }
 
