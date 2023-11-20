@@ -1,10 +1,9 @@
-import CookieStore from "cookie-store";
+import CookieStore from "cookie-keeper";
 import HttpAuthConversation from "./HttpAuthConversation";
 import {
-    EGuardMap,
     EGuardType,
     IActorActions,
-    IPollOptions,
+    JWTCredentialsActor,
     obj,
     PollContext,
     PollingOptions,
@@ -17,7 +16,7 @@ import {
     SteamSessionTokensFullName,
     TokenRefresher
 } from "../common/types";
-import Listenable from "listenable";
+import Listenable from "echolator";
 import totp from 'steam-totp'
 import {ClientMacOS, ClientWindows, MobileIOS, WebBrowser} from "./RequestEnvironments";
 import {
@@ -31,7 +30,7 @@ import {
     getSuccessfulJsonFromResponse,
     isExpired, normalizeEnv,
     socksDispatcherFromUrl,
-    transformGuardsArrayToObjectWithContext,
+    transformGuardsArrayToObjectWithContext, wait,
 } from "../common/utils";
 import {BadParamError, BadProtobufResponse, MalformedResponse} from "./Errors";
 import {
@@ -44,7 +43,7 @@ import SteamSocket from "./SteamSocket";
 import {Dispatcher, fetch, ProxyAgent} from "undici";
 import {HttpsProxyAgent} from "https-proxy-agent";
 import {SocksProxyAgent} from "socks-proxy-agent";
-import {CarryJar} from "cookie-store/dist/CarryJar";
+import {CarryJar} from "cookie-keeper/dist/CarryJar";
 
 export default class SteamSession {
     constructor({env, cookieStore, refresher, tokens, proxy}: SteamSessionConstructorParams = {}) {
@@ -284,7 +283,7 @@ export default class SteamSession {
     }
 
     private pollUntilResults = async (context: PollContext, pollingOptions: PollingOptions) => {
-        if(pollingOptions.delay > 0) await new Promise(r => setTimeout(r, pollingOptions.delay))
+        if(pollingOptions.delay > 0) await wait(pollingOptions.delay)
 
         while(--pollingOptions.tries > 0) {
             const results = await this.authentication.pollAuthSessionStatus({
@@ -295,7 +294,7 @@ export default class SteamSession {
             //todo: declined by other party?
             if(results.refreshToken) return this.updateTokens(results)
             if(results.newClientId) context.clientId = results.newClientId
-            await new Promise(resolve => setTimeout(resolve, pollingOptions.interval))
+            await wait(pollingOptions.interval)
         }
 
         return null
@@ -308,20 +307,17 @@ export default class SteamSession {
         env: new Listenable<SessionEnv>(),
     }
 
-    getJWTViaCredentials = async (accountName: string, password: string, actor?: (
-        actions: IActorActions,
-        guards: EGuardMap,
-        pollOptions: IPollOptions,
-        steamid: string, context: CAuthenticationBeginAuthSessionViaCredentialsResponse
-    ) => Promise<false | any>) => {
+    getJWTViaCredentials = async (accountName: string, password: string, actor?: JWTCredentialsActor) => {
         const key = await this.authentication.getPasswordRSAPublicKey({accountName})
         const encryptedPassword = encryptPasswordWithPublicKey(key, password)
         const context = await this.beginAuthSessionViaCredentials(accountName, encryptedPassword, key.timestamp)
         const guards = transformGuardsArrayToObjectWithContext(context.allowedConfirmations)
         const actions = this.createActions(guards, context)
         const pollOptions = {delay: 0, interval: context.interval * 1000, tries: 100}
-        if(!actor && Object.keys(actions).length) throw new Error('actions are required but actor not set')
-        else if(actor && await actor(actions, guards, pollOptions, context.steamid, context) === false) return null
+        if(!actor && Object.keys(actions).length)
+            throw new Error('actions are required but actor not set')
+        else if(actor && await actor(actions, guards, pollOptions, context.steamid, context) === false)
+            return null
         return this.pollUntilResults(context, pollOptions)
     }
 

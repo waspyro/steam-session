@@ -1,5 +1,5 @@
 {
-  "name": "steam-session",
+  "name": "steamsession",
   "version": "0.2.11",
   "type": "commonjs",
   "main": "dist/index.js",
@@ -17,10 +17,10 @@
   "author": "waspyro",
   "license": "ISC",
   "dependencies": {
-    "cookie-store": "github:waspyro/node-cookie-store",
+    "cookie-keeper": "^1.0.2",
+    "echolator": "^1.0.0",
     "fetch-socks": "^1.2.0",
     "https-proxy-agent": "^5.0.1",
-    "listenable": "github:waspyro/ts-listenable",
     "node-bignumber": "^1.2.2",
     "protobufjs": "^7.2.3",
     "socks-proxy-agent": "^7.0.0",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/steam-totp": "^2.1.0",
     "@types/ws": "^8.5.5",
-    "persistorm": "github:waspyro/persistorm",
+    "persistorm": "^2.0.2",
     "ts-proto": "^1.149.0"
   }
 }

@@ -1,10 +1,14 @@
-import { EAuthTokenPlatformType} from "../protobuf/steammessages_auth.steamclient";
+import {
+    CAuthenticationBeginAuthSessionViaCredentialsResponse,
+    EAuthTokenPlatformType
+} from "../protobuf/steammessages_auth.steamclient";
 import type SteamSession from '../constructs/SteamSession'
 import {RequestInit} from "undici";
 import {Response} from "undici";
-import CookieStore from "cookie-store";
-import {CookieData} from "cookie-store/dist/types";
-import {PersistormInstance} from "persistorm";
+import CookieStore from "cookie-keeper";
+import {CookieData} from "cookie-keeper/dist/types";
+import {PersistormInstance} from 'persistorm'
+
 
 export type fn = (...args: any[]) => any
 export type obj = Record<string, any>
@@ -233,3 +237,11 @@ export type SteamSessionRestoreConstructorParams = {
 } & Omit<SteamSessionConstructorParams, 'env'> & obj
 
 export type UndiciResponse = Response
+
+export type JWTCredentialsActor = (
+  actions: IActorActions,
+  guards: EGuardMap,
+  pollOptions: IPollOptions,
+  steamid: string,
+  context: CAuthenticationBeginAuthSessionViaCredentialsResponse
+) => Promise<false | any>

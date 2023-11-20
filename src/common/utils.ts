@@ -122,3 +122,5 @@ export const normalizeEnv = (env: SessionEnv<{type: 'Buffer', data: any[]}> | an
         env.device.machineId = Buffer.from(env.device.machineId.data)
     return env as SessionEnv
 }
+
+export const wait = (mc: number) => new Promise(r => setTimeout(r, mc))

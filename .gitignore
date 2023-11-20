@@ -5,3 +5,4 @@ dist
 test
 .fleet
 pnpm-lock.yaml
+bun.lockb
