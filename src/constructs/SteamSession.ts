@@ -155,20 +155,23 @@ export default class SteamSession {
         return resp
     }
 
+    //todo: for some reason after refreshing cookies next request still unauthorized until some time is passed. is it our fault?
+    postAuthorizationRequestTimeout = 5000
     authorizedRequest = (url: URL | string, opts: RequestOpts = {}): Promise<ResponseWithSetCookies> => {
         if(!this.isExpiredSession())
             return this.request(url, opts)
-        //todo: for some reason after refreshing cookies next request still unauthorized until some time is passed. is it our fault?
         return this.refreshCookies()
-          .then(() => new Promise(r => setTimeout(r, 2000)))
+          .then(() => wait(this.postAuthorizationRequestTimeout))
           .then(() => this.request(url, opts))
     }
 
     isExpiredSession = () => isExpired(this.expiration.cookie)
 
-    //we can await this.tokenRefresher(this) from here, but I don't want to use async function for it
+    //i dono just seems wrong to create promises everywhere
     getRefreshTokenIfUpdated = (): null | string => isExpired(this.expiration.refresh) ? null : this.tokens.refresh
     getAccessTokenIfUpdated  = (): null | string => isExpired(this.expiration.access)  ? null : this.tokens.access
+    getUpdatedRefreshToken = async () => this.getRefreshTokenIfUpdated() || this.updateRefreshToken()
+    getUpdatedAccessToken = async () => this.getAccessTokenIfUpdated() || this.updateAccessToken()
 
     async refreshCookies() {
         const fd = formDataFromObject({

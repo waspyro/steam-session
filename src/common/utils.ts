@@ -42,7 +42,7 @@ export const encryptPasswordWithPublicKey = ({publickeyMod, publickeyExp}, passw
     return hex2b64(key.encrypt(password))
 }
 
-export const formDataFromObject = (o: Record<string, string>) => {
+export const formDataFromObject = (o: Record<string, unknown>) => {
     const fd = new FormData()
     for(const key in o) fd.set(key, o[key])
     return fd
