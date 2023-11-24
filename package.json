@@ -20,19 +20,19 @@
     "cookie-keeper": "^1.0.2",
     "echolator": "^1.0.0",
     "fetch-socks": "^1.2.0",
-    "https-proxy-agent": "^5.0.1",
+    "https-proxy-agent": "^7.0.2",
     "node-bignumber": "^1.2.2",
-    "protobufjs": "^7.2.3",
-    "socks-proxy-agent": "^7.0.0",
+    "protobufjs": "^7.2.5",
+    "socks-proxy-agent": "^8.0.2",
     "steam-totp": "^2.1.2",
-    "undici": "^5.22.1",
-    "ws": "^8.13.0"
+    "undici": "^5.28.0",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
-    "@types/steam-totp": "^2.1.0",
-    "@types/ws": "^8.5.5",
+    "@types/steam-totp": "^2.1.2",
+    "@types/ws": "^8.5.10",
     "persistorm": "^2.0.2",
-    "ts-proto": "^1.149.0"
+    "ts-proto": "^1.164.1"
   },
   "repository": {
     "type": "git",
