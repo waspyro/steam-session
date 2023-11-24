@@ -166,7 +166,7 @@ export default class SteamSession {
     }
 
     isExpiredSession = () => isExpired(this.expiration.cookie)
-    refreshExpiredSession = (): Promise<boolean> => isExpired(this.expiration.cookie)
+    refreshExpiredSession: () => Promise<boolean> = () => isExpired(this.expiration.cookie)
       ? this.refreshCookies().then(() => true)
       : Promise.resolve(false)
 
