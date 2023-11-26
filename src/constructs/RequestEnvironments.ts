@@ -30,8 +30,9 @@ export const WebBrowser = (userAgent?: string | {toString: () => string}, extraH
             clientCount: 0,
             machineId: Buffer.alloc(0),
         },
-        updated: Date.now(),
-        meta: {}
+        meta: {
+            updated: Date.now()
+        }
     }
 }
 
@@ -57,8 +58,9 @@ export const ClientMacOS = (
             clientCount: 0,
             machineId: Buffer.alloc(0)
         },
-        updated: Date.now(),
-        meta: {}
+        meta: {
+            updated: Date.now()
+        }
     }
     return env
 }
@@ -109,8 +111,9 @@ export const ClientWindows = (
             clientCount: 0,
             machineId: Buffer.alloc(0)
         },
-        updated: Date.now(),
-        meta: {}
+        meta: {
+            updated: Date.now()
+        }
     }
 }
 
@@ -140,8 +143,9 @@ export const MobileIOS = (
             clientCount: 0,
             machineId: Buffer.alloc(0)
         },
-        updated: Date.now(),
-        meta: {}
+        meta: {
+            updated: Date.now()
+        }
     }
 }
 

@@ -56,8 +56,10 @@ export type SessionEnv<BUFFER=Buffer>  = {
         clientCount: number,
         machineId: BUFFER
     },
-    meta: obj
-    updated: number
+    meta: {
+        updated: number
+    } & obj
+
 }
 
 export type CMsg = {encode: fn, decode: fn}

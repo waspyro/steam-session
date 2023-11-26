@@ -478,17 +478,17 @@ export default class SteamSession {
     static getJWTExpMcLeft = getJWTExpMcLeft
     static env = {webBrowser: WebBrowser, mobileIOS: MobileIOS, clientWindows: ClientWindows, clientMacOS: ClientMacOS}
 
-    static restore = async (
-        {store, env, ...params}: SteamSessionRestoreConstructorParams,
-    ): Promise<SteamSession> => {
+    static restore = async ({store, env, ...params}: SteamSessionRestoreConstructorParams): Promise<SteamSession> => {
         if(!params.cookieStore) {
             params.cookieStore = new CookieStore()
             await params.cookieStore.usePersistentStorage(store.col('cookies'))
         }
+
         const [refreshToken, accessToken, oldEnv] = await store.getm(['refresh', 'access', 'env'])
         params.tokens = {refreshToken, accessToken};
 
-        if ((params.env = env(oldEnv || {})).updated !== oldEnv?.updated)
+        params.env = env(oldEnv || {meta: {updated: 0}})
+        if(params.env.meta.updated !== oldEnv?.meta?.updated)
             await store.set('env', params.env)
 
         const session = new SteamSession(params)
