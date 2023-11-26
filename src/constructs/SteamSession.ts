@@ -88,6 +88,7 @@ export default class SteamSession {
     fetchDispatcher: Dispatcher
     wsAgent: HttpsProxyAgent<string> | SocksProxyAgent
 
+    //todo: ProxyAgent | HttpsProxyAgent | Agent | SocksProxyAgent directly
     useProxy(url: string | URL) {
         if(typeof url === 'string') url = new URL(url)
         switch (url.protocol) {
